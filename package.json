@@ -1,0 +1,16 @@
+{
+  "name": "quickbite",
+  "version": "1.0.0",
+  "description": "QuickBite",
+  "scripts": {
+    "start": "concurrently --names \"Laravel,React\" --prefix-colors \"red,blue\" \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && php artisan serve",
+    "frontend": "cd frontend && npm run dev",
+    "install-all": "cd frontend && npm install && cd ../backend && npm install && composer install"
+  },
+  "author": "Lorenzo Lucchesi",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
