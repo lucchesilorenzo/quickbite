@@ -5,7 +5,6 @@ export default function AppLayout() {
   return (
     <Box component="main">
       <Outlet />
-      Test
     </Box>
   );
 }
