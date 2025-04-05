@@ -76,4 +76,14 @@ class Restaurant extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    /**
+     * Get the restaurant's menu categories.
+     *
+     * @return HasMany
+     */
+    public function menuCategories(): HasMany
+    {
+        return $this->hasMany(MenuCategory::class);
+    }
 }
