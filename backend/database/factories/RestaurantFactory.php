@@ -28,10 +28,9 @@ class RestaurantFactory extends Factory
             'phone_number' => fake()->e164PhoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'vat_id' => fake()->numerify('##########'),
-            'rating' => fake()->numberBetween(1, 5),
             'min_amount' => fake()->randomFloat(2, 0, 50),
             'shipping_cost' => fake()->randomFloat(2, 0, 10),
-            'restaurant_image' => null,
+            'image' => null,
             'discount' => null,
         ];
     }

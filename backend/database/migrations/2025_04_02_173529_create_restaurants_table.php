@@ -24,10 +24,9 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('email')->unique();
             $table->string('vat_id')->nullable()->unique();
-            $table->integer('rating')->nullable();
             $table->float('min_amount')->nullable();
             $table->float('shipping_cost')->nullable();
-            $table->string('restaurant_image')->nullable();
+            $table->string('image')->nullable();
             $table->float('discount')->nullable();
             $table->boolean('is_approved')->default(false);
             $table->timestamps();

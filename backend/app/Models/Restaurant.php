@@ -25,11 +25,10 @@ class Restaurant extends Model
         'phone_number',
         'email',
         'vat_id',
-        'rating',
         'min_amount',
         'shipping_cost',
         'is_approved',
-        'restaurant_image',
+        'image',
         'discount',
     ];
 
@@ -85,5 +84,15 @@ class Restaurant extends Model
     public function menuCategories(): HasMany
     {
         return $this->hasMany(MenuCategory::class);
+    }
+
+    /**
+     * Get the restaurant's reviews.
+     *
+     * @return HasMany
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(RestaurantReview::class);
     }
 }
