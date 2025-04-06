@@ -95,4 +95,14 @@ class Restaurant extends Model
     {
         return $this->hasMany(RestaurantReview::class);
     }
+
+    /**
+     * Get the restaurant's carts.
+     *
+     * @return HasMany
+     */
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

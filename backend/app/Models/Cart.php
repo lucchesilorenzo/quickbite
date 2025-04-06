@@ -8,31 +8,37 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class MenuItem extends Model
+class Cart extends Model
 {
     use HasUuids, HasFactory;
 
     protected $fillable = [
-        'menu_category_id',
-        'name',
-        'description',
-        'price',
-        'image',
-        'is_available',
+        'user_id',
+        'restaurant_id',
     ];
 
     /**
-     * Get the menu category that owns the menu item.
+     * Get the user that owns the cart.
      *
      * @return BelongsTo
      */
-    public function menuCategory(): BelongsTo
+    public function customer(): BelongsTo
     {
-        return $this->belongsTo(MenuCategory::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
-     * Get all of the cart items for the menu item.
+     * Get the restaurant that owns the cart.
+     *
+     * @return BelongsTo
+     */
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
+
+    /**
+     * Get all of the cart items for the cart.
      *
      * @return HasMany
      */

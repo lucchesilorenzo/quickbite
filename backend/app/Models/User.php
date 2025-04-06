@@ -75,6 +75,16 @@ class User extends Authenticatable
         return $this->hasMany(RestaurantReview::class);
     }
 
+    /**
+     * Get the user's carts.
+     *
+     * @return HasMany
+     */
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
     // --- RESTAURATEUR ---
 
     /**
