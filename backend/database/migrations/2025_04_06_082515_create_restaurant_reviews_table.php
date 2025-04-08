@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('restaurant_reviews', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('restaurant_id')->constrained()->onCascadeDelete();
-            $table->foreignUuid('user_id')->constrained()->onCascadeDelete();
+            $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->text('comment');
             $table->integer('rating');
             $table->timestamps();

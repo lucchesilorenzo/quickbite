@@ -23,10 +23,10 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('phone_number')->unique();
             $table->string('street_address')->nullable();
+            $table->string('building_number')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('city')->nullable();
-            $table->string('region')->nullable();
-            $table->string('country')->default('Italy');
+            $table->string('country')->nullable()->default('Italy');
             $table->string('driving_licence')->nullable()->unique();
             $table->boolean('is_approved')->default(false);
             $table->rememberToken();

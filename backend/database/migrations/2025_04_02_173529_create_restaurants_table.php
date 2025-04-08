@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('description');
             $table->string('street_address');
+            $table->string('building_number');
             $table->string('postal_code');
             $table->string('city');
-            $table->string('region')->nullable();
             $table->string('country')->default('Italy');
             $table->string('phone_number')->unique();
             $table->string('email')->unique();

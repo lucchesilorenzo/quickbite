@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('restaurant_user', function (Blueprint $table) {
-            $table->foreignUuid('user_id')->constrained()->onCascadeDelete();
-            $table->foreignUuid('restaurant_id')->constrained()->onCascadeDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->enum('role', ['OWNER', 'CO-OWNER', 'RIDER'])->default('OWNER');
             $table->date('contract_start')->nullable();
             $table->date('contract_end')->nullable();

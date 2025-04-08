@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('menu_categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('restaurant_id')->constrained()->onCascadeDelete();
+            $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->name('name');
             $table->integer('order')->default(0); // Visible order
             $table->timestamps();

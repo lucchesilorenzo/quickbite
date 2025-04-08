@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('restaurant_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->integer('order_code');
             $table->string('street_address');
             $table->string('building_number');

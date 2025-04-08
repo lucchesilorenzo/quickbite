@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('restaurant_delivery_days', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('restaurant_id')->constrained()->onCascadeDelete();
+            $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->enum('day', ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']);
             $table->time('start_time');
             $table->time('end_time');

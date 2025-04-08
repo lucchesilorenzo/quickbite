@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained()->onCascadeDelete();
-            $table->foreignUuid('restaurant_id')->constrained()->onCascadeDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
