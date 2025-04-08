@@ -18,6 +18,7 @@ class Restaurant extends Model
         'slug',
         'description',
         'street_address',
+        'building_number',
         'postal_code',
         'city',
         'region',
@@ -104,5 +105,15 @@ class Restaurant extends Model
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Get the restaurant's orders.
+     *
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

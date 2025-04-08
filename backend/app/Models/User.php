@@ -32,6 +32,7 @@ class User extends Authenticatable
         'date_of_birth',
         'phone_number',
         'street_address',
+        'building_number',
         'postal_code',
         'city',
         'region',
@@ -83,6 +84,16 @@ class User extends Authenticatable
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Get the user's orders.
+     *
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     // --- RESTAURATEUR ---
