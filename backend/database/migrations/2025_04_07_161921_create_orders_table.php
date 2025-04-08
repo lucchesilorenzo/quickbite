@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('city');
             $table->string('country')->default('Italy');
+            $table->time('delivery_time')->nullable();
+            $table->notes('notes')->nullable();
+            $table->string('payment_method')->default('cash');
             $table->timestamps();
         });
     }

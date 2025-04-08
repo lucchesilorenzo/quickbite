@@ -40,4 +40,14 @@ class MenuItem extends Model
     {
         return $this->hasMany(CartItem::class);
     }
+
+    /**
+     * Get all of the order items for the menu item.
+     *
+     * @return HasMany
+     */
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
