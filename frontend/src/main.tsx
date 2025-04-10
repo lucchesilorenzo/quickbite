@@ -10,6 +10,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import AppLayout from "./layouts/AppLayout";
+import BecomeAPartnerPage from "./pages/BecomeAPartnerPage";
+import BecomeARiderPage from "./pages/BecomeARiderPage";
+import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 
@@ -21,6 +24,18 @@ const theme = createTheme({
   typography: {
     fontFamily: "Roboto, sans-serif",
   },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+  },
+  palette: {
+    primary: {
+      main: "#ed6c02",
+    },
+  },
 });
 
 createRoot(document.getElementById("root")!).render(
@@ -31,13 +46,17 @@ createRoot(document.getElementById("root")!).render(
 
         <BrowserRouter>
           <Routes>
-            <Route path="auth">
-              <Route index element={<Navigate to="login" />} />
-              <Route path="register" element={<RegisterPage />} />
-              <Route path="login" element={<LoginPage />} />
-            </Route>
+            <Route path="/" element={<AppLayout />}>
+              <Route path="auth">
+                <Route index element={<Navigate to="login" />} />
+                <Route path="register" element={<RegisterPage />} />
+                <Route path="login" element={<LoginPage />} />
+              </Route>
 
-            <Route path="/" element={<AppLayout />}></Route>
+              <Route index element={<HomePage />} />
+              <Route path="become-a-rider" element={<BecomeARiderPage />} />
+              <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
