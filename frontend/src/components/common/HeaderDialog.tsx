@@ -35,7 +35,7 @@ export default function HeaderDialog() {
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
         <Stack spacing={2} sx={{ p: 2 }}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-            <DialogTitle sx={{ p: 0 }} fontWeight="bold">
+            <DialogTitle sx={{ p: 0, fontWeight: "bold" }}>
               My Account
             </DialogTitle>
 
@@ -74,7 +74,7 @@ export default function HeaderDialog() {
 
           <List>
             {headerDialogOptions.map((option) => (
-              <ListItem disablePadding>
+              <ListItem disablePadding key={option.href}>
                 <ListItemButton
                   component={Link}
                   to={option.href}
