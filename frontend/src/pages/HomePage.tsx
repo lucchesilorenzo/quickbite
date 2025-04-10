@@ -1,5 +1,11 @@
 import { Box } from "@mui/material";
 
+import Hero from "@/components/homepage/Hero";
+
 export default function HomePage() {
-  return <Box component="main">HomePage</Box>;
+  return (
+    <Box component="main">
+      <Hero />
+    </Box>
+  );
 }
