@@ -27,7 +27,7 @@ export default function Header() {
         >
           <RestaurantMenuIcon />
 
-          <Typography variant="h6" component="span" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h6" component="span" sx={{ fontWeight: "700" }}>
             QuickBite
           </Typography>
         </Stack>
