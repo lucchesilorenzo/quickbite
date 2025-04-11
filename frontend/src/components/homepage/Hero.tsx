@@ -12,16 +12,7 @@ export default function Hero() {
         size={{ xs: 12, lg: 6 }}
         sx={{ backgroundColor: grey[200], px: 3, py: 6 }}
       >
-        <Stack
-          spacing={1}
-          sx={{
-            lg: {
-              justifyContent: "center",
-              height: "100%",
-              mx: "auto",
-            },
-          }}
-        >
+        <Stack spacing={1} sx={{ justifyContent: "center", height: "100%" }}>
           <Typography
             variant={isMobile ? "h4" : "h3"}
             component="h1"
