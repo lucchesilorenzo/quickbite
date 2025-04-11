@@ -14,7 +14,9 @@ import BecomeAPartnerPage from "./pages/BecomeAPartnerPage";
 import BecomeARiderPage from "./pages/BecomeARiderPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import RegisterPage from "./pages/RegisterPage";
+import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
 
 import "@/styles/globals.css";
 
@@ -56,6 +58,11 @@ createRoot(document.getElementById("root")!).render(
               <Route index element={<HomePage />} />
               <Route path="become-a-rider" element={<BecomeARiderPage />} />
               <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
+              <Route
+                path="terms-and-conditions"
+                element={<TermsAndConditionsPage />}
+              />
+              <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
