@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Restaurant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class MenuCategoryFactory extends Factory
     public function definition(): array
     {
         return [
+            'restaurant_id' => Restaurant::inRandomOrder()->first()->id,
             'name' => fake()->words(2, true),
             'order' => fake()->numberBetween(0, 5),
         ];
