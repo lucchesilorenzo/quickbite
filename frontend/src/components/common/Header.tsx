@@ -35,6 +35,7 @@ export default function Header() {
         <Stack direction="row" spacing={{ md: 4 }}>
           {routes.map((route) => (
             <Button
+              key={route.href}
               color="inherit"
               startIcon={<route.icon />}
               component={Link}

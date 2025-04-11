@@ -8,7 +8,6 @@ export default function AppLayout() {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
       <Header />
-
       <Box component="main">
         <Outlet />
       </Box>

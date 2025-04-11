@@ -10,7 +10,7 @@ export default function Hero() {
     <Grid container component="section">
       <Grid
         size={{ xs: 12, lg: 6 }}
-        sx={{ backgroundColor: grey[100], px: 3, py: 6 }}
+        sx={{ backgroundColor: grey[200], px: 3, py: 6 }}
       >
         <Stack
           spacing={1}
