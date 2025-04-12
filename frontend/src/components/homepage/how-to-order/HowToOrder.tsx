@@ -1,7 +1,8 @@
 import { Stack } from "@mui/material";
 
-import SectionHeader from "../common/SectionHeader";
 import OrderSteps from "./OrderSteps";
+
+import SectionHeader from "@/components/common/SectionHeader";
 
 export default function HowToOrder() {
   return (
