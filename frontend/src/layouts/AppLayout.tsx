@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
+import NavigateToTopFloatingButton from "@/components/common/NavigateToTopFloatingButton";
 
 export default function AppLayout() {
   return (
@@ -14,6 +15,8 @@ export default function AppLayout() {
       </Box>
 
       <Footer />
+
+      <NavigateToTopFloatingButton />
     </Stack>
   );
 }

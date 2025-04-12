@@ -12,7 +12,7 @@ import { routes } from "@/lib/data";
 
 export default function Header() {
   return (
-    <AppBar position="static">
+    <AppBar position="static" id="back-to-top">
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Stack
           direction="row"
