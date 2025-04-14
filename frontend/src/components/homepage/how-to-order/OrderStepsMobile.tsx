@@ -37,7 +37,7 @@ export default function OrderStepsMobile() {
 
   return (
     <Box sx={{ overflow: "hidden", width: "100%" }} ref={emblaRef}>
-      <Box sx={{ display: { xs: "flex", md: "none" } }}>
+      <Box sx={{ display: { xs: "flex", lg: "none" } }}>
         {orderSteps.map((step) => (
           <Box
             key={step.title}
@@ -75,7 +75,7 @@ export default function OrderStepsMobile() {
         direction="row"
         spacing={1}
         sx={{
-          display: { xs: "flex", md: "none" },
+          display: { xs: "flex", lg: "none" },
           justifyContent: "center",
           mt: 3,
         }}
@@ -88,9 +88,7 @@ export default function OrderStepsMobile() {
             sx={{
               width: 8,
               height: 8,
-              borderRadius: "50%",
               bgcolor: selectedIndex === index ? "#ed6c02" : "grey.300",
-              transition: "background-color 0.3s",
               p: 0,
             }}
           />

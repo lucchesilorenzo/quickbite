@@ -30,6 +30,7 @@ export default function AddressSearchForm() {
     <Box
       component="form"
       onSubmit={handleSubmit(onSubmit)}
+      noValidate
       sx={{ position: "relative" }}
     >
       <Controller
@@ -43,6 +44,7 @@ export default function AddressSearchForm() {
             helperText={errors.address?.message}
             margin="normal"
             disabled={isLoading}
+            autoComplete="off"
             fullWidth
           />
         )}

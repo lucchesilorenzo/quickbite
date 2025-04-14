@@ -8,10 +8,7 @@ export default function Hero() {
 
   return (
     <Grid container component="section">
-      <Grid
-        size={{ xs: 12, lg: 6 }}
-        sx={{ backgroundColor: grey[200], px: 3, py: 6 }}
-      >
+      <Grid size={{ xs: 12, lg: 6 }} sx={{ bgcolor: grey[200], px: 3, py: 6 }}>
         <Stack spacing={1} sx={{ justifyContent: "center", height: "100%" }}>
           <Typography
             variant={isMobile ? "h4" : "h3"}
@@ -33,13 +30,13 @@ export default function Hero() {
         </Stack>
       </Grid>
 
-      <Grid size={{ xs: 12, lg: 6 }} sx={{ backgroundColor: "primary.light" }}>
+      <Grid size={{ xs: 12, lg: 6 }} sx={{ bgcolor: "primary.light" }}>
         <Stack
           direction="row"
           sx={{
             justifyContent: "center",
             alignItems: "center",
-            height: { xs: "300px", lg: "100%" },
+            height: { xs: "300px", md: "100%" },
           }}
         >
           <Box
@@ -47,8 +44,7 @@ export default function Hero() {
             src="/quickbite-hero.png"
             alt="QuickBite Hero"
             sx={{
-              maxWidth: "100%",
-              height: { xs: "300px", lg: "100%" },
+              height: { xs: "300px", md: "100%" },
             }}
           />
         </Stack>

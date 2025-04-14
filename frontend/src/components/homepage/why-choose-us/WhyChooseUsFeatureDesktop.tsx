@@ -16,7 +16,7 @@ export default function WhyChooseUsFeatureDesktop() {
     <Stack
       direction="row"
       spacing={4}
-      sx={{ display: { xs: "none", md: "flex" } }}
+      sx={{ display: { xs: "none", lg: "flex" } }}
     >
       {whyChooseUsFeatures.map((feature) => (
         <Paper

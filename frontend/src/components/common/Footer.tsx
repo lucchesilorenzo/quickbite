@@ -14,7 +14,7 @@ import env from "@/lib/env";
 
 export default function Footer() {
   return (
-    <Stack component="footer" sx={{ mt: "auto", backgroundColor: grey[200] }}>
+    <Stack component="footer" sx={{ mt: "auto", bgcolor: grey[200] }}>
       <Container>
         <List
           sx={{
