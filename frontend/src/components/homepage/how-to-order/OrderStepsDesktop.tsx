@@ -16,7 +16,7 @@ export default function OrderStepsDesktop() {
           sx={{
             alignItems: "center",
             textAlign: "center",
-            width: 300,
+            maxWidth: 300,
           }}
         >
           <step.icon color="primary" fontSize="large" />

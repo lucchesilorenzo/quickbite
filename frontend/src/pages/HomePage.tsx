@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <Box component="main">
       <Hero />
-      <HowToOrder /> {/* TODO: Fix horizontal scroll */}
+      <HowToOrder />
       <DownloadApp />
       <WhyChooseUs />
     </Box>
