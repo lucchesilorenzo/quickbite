@@ -6,17 +6,11 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { NotificationsProvider } from "@toolpad/core/useNotifications";
+import "leaflet-geosearch/dist/geosearch.css";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import AppLayout from "./layouts/AppLayout";
-import BecomeAPartnerPage from "./pages/BecomeAPartnerPage";
-import BecomeARiderPage from "./pages/BecomeARiderPage";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import RegisterPage from "./pages/RegisterPage";
-import TermsAndConditionsPage from "./pages/TermsAndConditionsPage";
+import AppRoutes from "./pages/AppRoutes";
 
 import "@/styles/globals.css";
 
@@ -43,30 +37,20 @@ const theme = createTheme({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <NotificationsProvider
+        slotProps={{
+          snackbar: {
+            anchorOrigin: { vertical: "top", horizontal: "right" },
+            autoHideDuration: 5000,
+          },
+        }}
+      >
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
 
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<AppLayout />}>
-              <Route path="auth">
-                <Route index element={<Navigate to="login" />} />
-                <Route path="register" element={<RegisterPage />} />
-                <Route path="login" element={<LoginPage />} />
-              </Route>
-
-              <Route index element={<HomePage />} />
-              <Route path="become-a-rider" element={<BecomeARiderPage />} />
-              <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
-              <Route
-                path="terms-and-conditions"
-                element={<TermsAndConditionsPage />}
-              />
-              <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
+          <AppRoutes />
+        </ThemeProvider>
+      </NotificationsProvider>
     </QueryClientProvider>
   </StrictMode>,
 );
