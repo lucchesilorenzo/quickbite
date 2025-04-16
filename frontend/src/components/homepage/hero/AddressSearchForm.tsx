@@ -1,72 +1,107 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { Box, Button, IconButton, TextField } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
+import { useCallback, useMemo, useState } from "react";
 
-import {
-  TAddressSearchForm,
-  addressSearchForm,
-} from "@/validations/address-search-validations";
+import { Autocomplete, Box, Button, TextField, debounce } from "@mui/material";
+import { useNotifications } from "@toolpad/core/useNotifications";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import env from "@/lib/env";
+import { Address } from "@/types";
 
 export default function AddressSearchForm() {
-  const {
-    control,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors, isLoading },
-  } = useForm<TAddressSearchForm>({
-    resolver: zodResolver(addressSearchForm),
-    defaultValues: {
-      address: "",
-    },
-  });
+  const [address, setAddress] = useState("");
+  const [addresses, setAddresses] = useState<string[]>([]);
 
-  async function onSubmit(data: TAddressSearchForm) {
-    console.log(data);
+  const notifications = useNotifications();
+  const navigate = useNavigate();
+
+  const fetchAddresses = useCallback(
+    async (value: string) => {
+      if (!value) {
+        setAddresses([]);
+        return;
+      }
+
+      try {
+        const query = value.toLowerCase();
+
+        const { data } = await axios.get(
+          `https://api.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${query}&limit=5&dedupe=1&countrycodes=IT`,
+        );
+
+        const addresses: string[] = data.map((a: Address) => {
+          const [houseNumber, road, ...rest] = a.display_name.split(",");
+
+          return `${road.trim()}, ${houseNumber.trim()}, ${rest.join(",").trim()}`;
+        });
+
+        const filteredAddresses = [...new Set(addresses)];
+
+        setAddresses(filteredAddresses);
+        // setAddressSlug(`${data.address.postcode}-${data.address.city}`);
+      } catch {
+        notifications.show("There was an error fetching addresses.", {
+          key: "address-search-error",
+          severity: "error",
+        });
+      }
+    },
+    [notifications],
+  );
+
+  const debouncedFetch = useMemo(
+    () => debounce(fetchAddresses, 500),
+    [fetchAddresses],
+  );
+
+  function handleGeolocation() {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords;
+
+      try {
+        const { data } = await axios.get(
+          `https://api.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${latitude}&lon=${longitude}&format=json`,
+        );
+
+        setAddress(data.display_name);
+
+        navigate(`/area/${data.address.postcode}-${data.address.city}`);
+      } catch {
+        notifications.show("There was an error fetching your location.", {
+          key: "geolocation-error",
+          severity: "error",
+        });
+      }
+    });
   }
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      sx={{ position: "relative" }}
-    >
-      <Controller
-        name="address"
-        control={control}
-        render={({ field }) => (
+    <Box>
+      <Autocomplete
+        id="address"
+        freeSolo
+        options={addresses}
+        filterOptions={(x) => x}
+        value={address}
+        onChange={(_, value) => {
+          console.log(value);
+        }}
+        onInputChange={(_, value) => {
+          setAddress(value);
+          debouncedFetch(value);
+        }}
+        renderInput={(params) => (
           <TextField
-            {...field}
+            {...params}
             placeholder="Complete address"
-            error={!!errors.address}
-            helperText={errors.address?.message}
             margin="normal"
-            disabled={isLoading}
             autoComplete="off"
-            fullWidth
           />
         )}
       />
 
-      {watch("address") && (
-        <IconButton
-          sx={{ position: "absolute", top: 25, right: 110 }}
-          color="inherit"
-          onClick={() => setValue("address", "")}
-        >
-          <HighlightOffIcon />
-        </IconButton>
-      )}
-
-      <Button
-        type="submit"
-        disabled={isLoading}
-        sx={{ position: "absolute", top: 25, right: 10 }}
-        variant="contained"
-      >
-        Search
+      <Button variant="contained" onClick={handleGeolocation}>
+        Current position
       </Button>
     </Box>
   );
