@@ -8,7 +8,10 @@ export default function Hero() {
 
   return (
     <Grid container component="section">
-      <Grid size={{ xs: 12, lg: 6 }} sx={{ bgcolor: grey[200], px: 3, py: 6 }}>
+      <Grid
+        size={{ xs: 12, lg: 6 }}
+        sx={{ bgcolor: grey[200], px: { xs: 2, md: 10 }, py: 6 }}
+      >
         <Stack spacing={1} sx={{ justifyContent: "center", height: "100%" }}>
           <Typography
             variant={isMobile ? "h4" : "h3"}
