@@ -13,17 +13,24 @@ export type Address = {
   name: string;
   display_name: string;
   address: {
-    house_number: string;
-    road: string;
-    farm: string;
-    village: string;
+    name: string;
+    house_number?: string;
+    road?: string;
+    neighbourhood?: string;
+    suburb?: string;
+    island?: string;
+    city?: string;
     county: string;
-    "ISO3166-2-lvl6": string;
     state: string;
-    "ISO3166-2-lvl4": string;
-    postcode: string;
+    state_code?: string;
+    postcode?: string;
     country: string;
     country_code: string;
   };
   boundingbox: string[];
+};
+
+export type AddressEssentials = {
+  address: Address["address"];
+  addressString: string;
 };

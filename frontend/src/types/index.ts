@@ -1,1 +1,1 @@
-export * from "./address-search-types";
+export * from "./address-types";
