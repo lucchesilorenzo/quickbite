@@ -31,6 +31,6 @@ export type Address = {
 };
 
 export type AddressEssentials = {
-  address: Address["address"];
+  full: Address;
   addressString: string;
 };

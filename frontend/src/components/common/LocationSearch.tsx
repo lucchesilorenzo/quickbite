@@ -13,16 +13,15 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
-import LocationDialog from "./LocationDialog";
-
+import LocationEditDialog from "@/components/common/LocationEditDialog";
 import env from "@/lib/env";
 import { Address, AddressEssentials } from "@/types";
 
-export default function AddressSearchForm() {
-  const [cookie, setCookie] = useCookies(["address"]);
+export default function LocationSearch() {
+  const [, setCookie] = useCookies(["address"]);
   const [address, setAddress] = useState("");
   const [addresses, setAddresses] = useState<AddressEssentials[]>([]);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
 
   const notifications = useNotifications();
   const navigate = useNavigate();
@@ -46,12 +45,11 @@ export default function AddressSearchForm() {
 
           return {
             addressString: `${road.trim()}, ${houseNumber.trim()}, ${rest.join(",").trim()}`,
-            address: a.address,
+            full: a,
           };
         });
 
         setAddresses(addresses);
-        setCookie("address", JSON.stringify(data[0]));
       } catch {
         notifications.show("There was an error fetching addresses.", {
           key: "address-search-error",
@@ -59,7 +57,7 @@ export default function AddressSearchForm() {
         });
       }
     },
-    [notifications, setCookie],
+    [notifications],
   );
 
   const debouncedFetch = useMemo(
@@ -74,21 +72,22 @@ export default function AddressSearchForm() {
     const selectedAddress = addresses.find((a) => a.addressString === value);
 
     if (selectedAddress) {
-      const addr = selectedAddress.address;
+      const fullAddress = selectedAddress.full;
 
-      setCookie("address", JSON.stringify(addr));
+      setCookie("address", fullAddress);
 
-      if (!addr.postcode) {
-        navigate(`/area/${cookie.address.address.name}`);
+      if (!fullAddress.address.postcode || !fullAddress.address.city) {
+        navigate(`/area/${fullAddress.address.name}`);
+        return;
       }
 
-      if (!addr.house_number) {
-        setOpenDialog(true);
+      if (!fullAddress.address.house_number) {
+        setOpenEditDialog(true);
         return;
       }
 
       navigate(
-        `/area/${cookie.address.address.postcode}-${cookie.address.address.city}`,
+        `/area/${fullAddress.address.postcode}-${fullAddress.address.city}`,
       );
     }
   }
@@ -102,14 +101,15 @@ export default function AddressSearchForm() {
           `https://api.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${latitude}&lon=${longitude}&format=json`,
         );
 
-        setCookie("address", JSON.stringify(data));
+        setCookie("address", data);
 
         if (!data.address.postcode) {
           navigate(`/area/${data.address.name}`);
+          return;
         }
 
         if (!data.address.house_number) {
-          setOpenDialog(true);
+          setOpenEditDialog(true);
           return;
         }
 

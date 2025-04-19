@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const locationFormSchema = z.object({
+export const locationEditForm = z.object({
   house_number: z.coerce
     .number({
       invalid_type_error: "House number must be a number.",
@@ -10,4 +10,4 @@ export const locationFormSchema = z.object({
     .positive("House number must be a positive number."),
 });
 
-export type TLocationFormSchema = z.infer<typeof locationFormSchema>;
+export type TLocationEditForm = z.infer<typeof locationEditForm>;
