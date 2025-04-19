@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import AddressSearchForm from "./AddressSearchForm";
+import LocationSearch from "@/components/common/LocationSearch";
 
 export default function Hero() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
@@ -29,7 +29,7 @@ export default function Hero() {
             Restaurants and grocery stores delivering near you
           </Typography>
 
-          <AddressSearchForm />
+          <LocationSearch />
         </Stack>
       </Grid>
 

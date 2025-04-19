@@ -10,7 +10,6 @@ import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 import { footerLinks } from "@/lib/data";
-import env from "@/lib/env";
 
 export default function Footer() {
   return (
@@ -51,7 +50,7 @@ export default function Footer() {
           }}
           gutterBottom
         >
-          &copy; {new Date().getFullYear()} {env.VITE_APP_NAME}
+          &copy; {new Date().getFullYear()} QuickBite
         </Typography>
       </Container>
     </Stack>
