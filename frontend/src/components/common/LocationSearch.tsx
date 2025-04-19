@@ -126,10 +126,10 @@ export default function LocationSearch() {
 
   return (
     <Box>
-      {openDialog && (
-        <LocationDialog
-          open={openDialog}
-          onClose={() => setOpenDialog(false)}
+      {openEditDialog && (
+        <LocationEditDialog
+          openDialog={openEditDialog}
+          onCloseDialog={() => setOpenEditDialog(false)}
         />
       )}
 
