@@ -8,6 +8,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useMediaQuery,
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -20,19 +21,26 @@ import { Link } from "react-router-dom";
 import { headerDialogOptions } from "@/lib/data";
 
 export default function HeaderDialog() {
-  const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   return (
     <>
       <IconButton
         color="inherit"
         aria-label="menu"
-        onClick={() => setOpen(true)}
+        onClick={() => setOpenDialog(true)}
       >
         <MenuIcon />
       </IconButton>
 
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        fullWidth={!isMobile}
+        fullScreen={isMobile}
+      >
         <Stack spacing={2} sx={{ p: 2 }}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
             <DialogTitle sx={{ p: 0, fontWeight: "bold" }}>
@@ -42,7 +50,7 @@ export default function HeaderDialog() {
             <IconButton
               color="inherit"
               aria-label="menu"
-              onClick={() => setOpen(false)}
+              onClick={() => setOpenDialog(false)}
               sx={{ p: 0 }}
             >
               <CloseIcon />
@@ -55,7 +63,7 @@ export default function HeaderDialog() {
               color="inherit"
               component={Link}
               to="/auth/login"
-              onClick={() => setOpen(false)}
+              onClick={() => setOpenDialog(false)}
             >
               Log in
             </Button>
@@ -64,7 +72,7 @@ export default function HeaderDialog() {
               variant="contained"
               component={Link}
               to="/auth/register"
-              onClick={() => setOpen(false)}
+              onClick={() => setOpenDialog(false)}
             >
               Create an account
             </Button>
@@ -78,7 +86,7 @@ export default function HeaderDialog() {
                 <ListItemButton
                   component={Link}
                   to={option.href}
-                  onClick={() => setOpen(false)}
+                  onClick={() => setOpenDialog(false)}
                 >
                   <ListItemIcon>
                     <option.icon />
