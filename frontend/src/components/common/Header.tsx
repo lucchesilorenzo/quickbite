@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import { CircularProgress, IconButton } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
@@ -12,9 +11,11 @@ import Typography from "@mui/material/Typography";
 import { useCookies } from "react-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import LocationSearchButton from "../area/location-search/LocationSearchButton";
 import HeaderDialog from "./HeaderDialog";
-import LocationSearchDialog from "./LocationSearchDialog";
 
+import CategoriesFilter from "@/components/area/category-carousel/CategoriesFilter";
+import LocationSearchDialog from "@/components/area/location-search/LocationSearchDialog";
 import { routes } from "@/lib/data";
 
 export default function Header() {
@@ -33,7 +34,7 @@ export default function Header() {
 
   const fullAddress = hasFullAddressFields
     ? `${cookie.address.address.name || cookie.address.address.road}, ${cookie.address.address.house_number}, ${cookie.address.address.postcode} ${cookie.address.address.city}`
-    : cookie.address.display_name;
+    : cookie.address?.display_name;
 
   if (pathname !== "/") {
     return (
@@ -49,10 +50,7 @@ export default function Header() {
             spacing={1}
             component={Link}
             to="/"
-            sx={{
-              alignItems: "center",
-              textDecoration: "none",
-            }}
+            sx={{ alignItems: "center", textDecoration: "none" }}
           >
             <IconButton onClick={() => navigate(-1)}>
               <KeyboardArrowLeftIcon color="primary" />
@@ -81,35 +79,10 @@ export default function Header() {
               <CircularProgress size={20} />
             ) : (
               <>
-                <Button
-                  variant="contained"
-                  sx={{ textTransform: "none" }}
-                  color="inherit"
-                  onClick={() => setOpenDialog(true)}
-                >
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{
-                      maxWidth: {
-                        xs: 150,
-                        md: "100%",
-                      },
-                    }}
-                  >
-                    <LocationOnIcon color="primary" fontSize="small" />
-
-                    <Typography
-                      variant="body2"
-                      component="span"
-                      color="textPrimary"
-                      sx={{ fontWeight: "700" }}
-                      noWrap
-                    >
-                      {fullAddress}
-                    </Typography>
-                  </Stack>
-                </Button>
+                <LocationSearchButton
+                  fullAddress={fullAddress}
+                  setOpenDialog={setOpenDialog}
+                />
 
                 {openDialog && (
                   <LocationSearchDialog
@@ -122,6 +95,8 @@ export default function Header() {
 
           <HeaderDialog />
         </Toolbar>
+
+        {pathname.startsWith("/area") && <CategoriesFilter />}
       </AppBar>
     );
   }

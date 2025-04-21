@@ -44,7 +44,7 @@ export default function LocationEditDialog({
 
           <IconButton
             color="inherit"
-            aria-label="menu"
+            aria-label="close"
             onClick={onCloseDialog}
             sx={{ p: 0 }}
           >

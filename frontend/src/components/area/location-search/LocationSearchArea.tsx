@@ -13,8 +13,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
-import LocationEditDialog from "./LocationEditDialog";
-
+import LocationEditDialog from "@/components/common/LocationEditDialog";
 import env from "@/lib/env";
 import { Address, AddressEssentials } from "@/types";
 

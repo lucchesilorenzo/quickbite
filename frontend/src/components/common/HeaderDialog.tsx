@@ -49,7 +49,7 @@ export default function HeaderDialog() {
 
             <IconButton
               color="inherit"
-              aria-label="menu"
+              aria-label="close"
               onClick={() => setOpenDialog(false)}
               sx={{ p: 0 }}
             >
