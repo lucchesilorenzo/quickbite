@@ -80,7 +80,7 @@ class CategoryFactory extends Factory
                 'name' => 'Mexican',
                 'slug' => 'mexican',
                 'image' => Storage::url('category-filters/mexican.jpg'),
-                'is_default' => true,
+                'is_default' => false,
             ]
         ));
     }
