@@ -14,31 +14,35 @@ import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import RegisterPage from "./RegisterPage";
 import TermsAndConditionsPage from "./TermsAndConditionsPage";
 
+import CategoriesFilterProvider from "@/contexts/CategoriesFilterProvider";
+
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route path="auth">
-            <Route index element={<Navigate to="login" />} />
-            <Route path="register" element={<RegisterPage />} />
-            <Route path="login" element={<LoginPage />} />
-          </Route>
+      <CategoriesFilterProvider>
+        <Routes>
+          <Route path="/" element={<AppLayout />}>
+            <Route path="auth">
+              <Route index element={<Navigate to="login" />} />
+              <Route path="register" element={<RegisterPage />} />
+              <Route path="login" element={<LoginPage />} />
+            </Route>
 
-          <Route index element={<HomePage />} />
-          <Route path="become-a-rider" element={<BecomeARiderPage />} />
-          <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
-          <Route
-            path="terms-and-conditions"
-            element={<TermsAndConditionsPage />}
-          />
-          <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route index element={<HomePage />} />
+            <Route path="become-a-rider" element={<BecomeARiderPage />} />
+            <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
+            <Route
+              path="terms-and-conditions"
+              element={<TermsAndConditionsPage />}
+            />
+            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
 
-          <Route path="area">
-            <Route path=":areaSlug" element={<AreaPage />} />
+            <Route path="area">
+              <Route path=":areaSlug" element={<AreaPage />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </CategoriesFilterProvider>
     </BrowserRouter>
   );
 }

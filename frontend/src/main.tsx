@@ -11,7 +11,6 @@ import "leaflet-geosearch/dist/geosearch.css";
 import { CookiesProvider } from "react-cookie";
 import { createRoot } from "react-dom/client";
 
-import CategoriesFilterProvider from "./contexts/CategoriesFilterProvider";
 import AppRoutes from "./pages/AppRoutes";
 
 import "@/styles/globals.css";
@@ -51,9 +50,7 @@ createRoot(document.getElementById("root")!).render(
           <ThemeProvider theme={theme}>
             <CssBaseline />
 
-            <CategoriesFilterProvider>
-              <AppRoutes />
-            </CategoriesFilterProvider>
+            <AppRoutes />
           </ThemeProvider>
         </NotificationsProvider>
       </CookiesProvider>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
@@ -19,6 +19,7 @@ import {
 
 import CategoriesDialogItem from "./CategoriesDialogItem";
 
+import { useCategoriesFilter } from "@/hooks/contexts/useCategoriesFilter";
 import { Category } from "@/types";
 
 type CategoriesDialogProps = {
@@ -28,9 +29,19 @@ type CategoriesDialogProps = {
 export default function CategoriesDialog({
   categories,
 }: CategoriesDialogProps) {
-  const [openDialog, setOpenDialog] = useState(false);
+  const { openCategoriesDialog, setOpenCategoriesDialog } =
+    useCategoriesFilter();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
+  const filteredCategories = useMemo(
+    () =>
+      categories.filter((c) =>
+        c.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
+    [categories, searchTerm],
+  );
 
   return (
     <Box sx={{ scrollSnapAlign: "center", pl: 2 }}>
@@ -44,14 +55,14 @@ export default function CategoriesDialog({
           textWrap: "nowrap",
         }}
         fullWidth
-        onClick={() => setOpenDialog(true)}
+        onClick={() => setOpenCategoriesDialog(true)}
       >
         Show more
       </Button>
 
       <Dialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
+        open={openCategoriesDialog}
+        onClose={() => setOpenCategoriesDialog(false)}
         fullWidth={!isMobile}
         fullScreen={isMobile}
       >
@@ -64,7 +75,7 @@ export default function CategoriesDialog({
             <IconButton
               color="inherit"
               aria-label="close"
-              onClick={() => setOpenDialog(false)}
+              onClick={() => setOpenCategoriesDialog(false)}
               sx={{ p: 0 }}
             >
               <CloseIcon />
@@ -86,11 +97,13 @@ export default function CategoriesDialog({
                   ),
                 },
               }}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-            <List sx={{ display: "flex", alignItems: "center" }}>
+            <List>
               <Grid container>
-                {categories.map((category, index) => (
+                {filteredCategories.map((category, index) => (
                   <CategoriesDialogItem key={index} category={category} />
                 ))}
               </Grid>
