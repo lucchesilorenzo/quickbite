@@ -1,9 +1,9 @@
 import { useContext } from "react";
 
-import { CategoriesFilterContext } from "@/contexts/CategoriesFilterProvider";
+import { CategoryFiltersContext } from "@/contexts/CategoryFiltersProvider";
 
-export function useCategoriesFilter() {
-  const context = useContext(CategoriesFilterContext);
+export function useCategoryFilters() {
+  const context = useContext(CategoryFiltersContext);
 
   if (!context) {
     throw new Error(

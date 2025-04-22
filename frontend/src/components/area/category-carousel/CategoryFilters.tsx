@@ -2,16 +2,23 @@ import { useCallback, useEffect, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Box, Container, Fade, IconButton } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Fade,
+  IconButton,
+} from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
 
-import CategoriesDialog from "./CategoriesDialog";
+import CategoryDialog from "./CategoryDialog";
 import CuisineFilterSlide from "./CategoryFilterSlide";
 
-import { useCategoriesFilter } from "@/hooks/contexts/useCategoriesFilter";
+import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 
-export default function CategoriesFilter() {
-  const { visibleCategories, allCategories } = useCategoriesFilter();
+export default function CategoryFilters() {
+  const { visibleCategories, allCategories, isLoadingCategories } =
+    useCategoryFilters();
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
@@ -54,12 +61,24 @@ export default function CategoriesFilter() {
       </Fade>
 
       <Box sx={{ overflow: "hidden", flex: 1 }} ref={emblaRef}>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          {visibleCategories.map((category, index) => (
-            <CuisineFilterSlide key={index} category={category} />
-          ))}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {isLoadingCategories ? (
+            <CircularProgress size={24} />
+          ) : (
+            <>
+              {visibleCategories.map((category) => (
+                <CuisineFilterSlide key={category.id} category={category} />
+              ))}
 
-          <CategoriesDialog categories={allCategories} />
+              <CategoryDialog categories={allCategories} />
+            </>
+          )}
         </Box>
       </Box>
 

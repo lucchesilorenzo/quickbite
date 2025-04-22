@@ -2,46 +2,53 @@ import { createContext, useEffect, useState } from "react";
 
 import { useSearchParams } from "react-router-dom";
 
-import { categories } from "@/lib/data";
-import { Category } from "@/types";
+import { useGetCategories } from "@/hooks/react-query/categories/useGetCategories";
+import { Category, CategoryWithSelected } from "@/types";
 
-type CategoriesFilterProviderProps = {
+type CategoryFiltersProviderProps = {
   children: React.ReactNode;
 };
 
-type CategoriesFilterContext = {
-  visibleCategories: Category[];
-  allCategories: Category[];
+type CategoryFiltersContext = {
+  visibleCategories: CategoryWithSelected[];
+  allCategories: CategoryWithSelected[];
   openCategoriesDialog: boolean;
+  isLoadingCategories: boolean;
   setOpenCategoriesDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  handleStatusChange: (category: Category) => void;
+  handleStatusChange: (category: CategoryWithSelected) => void;
 };
 
-export const CategoriesFilterContext =
-  createContext<CategoriesFilterContext | null>(null);
+export const CategoryFiltersContext =
+  createContext<CategoryFiltersContext | null>(null);
 
-export default function CategoriesFilterProvider({
+export default function CategoryFiltersProvider({
   children,
-}: CategoriesFilterProviderProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [openCategoriesDialog, setOpenCategoriesDialog] = useState(false);
-  const [allCategories, setAllCategories] = useState(categories);
-  const [visibleCategories, setVisibleCategories] = useState(
-    categories.filter((c) => c.default),
+}: CategoryFiltersProviderProps) {
+  const { data: categories = [], isLoading: isLoadingCategories } =
+    useGetCategories();
+
+  const [allCategories, setAllCategories] = useState<CategoryWithSelected[]>(
+    [],
   );
+  const [visibleCategories, setVisibleCategories] = useState<
+    CategoryWithSelected[]
+  >([]);
+
+  const [openCategoriesDialog, setOpenCategoriesDialog] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const filters = searchParams.getAll("filter");
 
     const updatedCategories = categories.map((c) =>
       filters.includes(c.slug) ? { ...c, selected: true } : c,
-    );
+    ) as CategoryWithSelected[];
 
     setAllCategories(updatedCategories);
     setVisibleCategories(
-      updatedCategories.filter((c) => c.default || c.selected),
+      updatedCategories.filter((c) => c.is_default || c.selected),
     );
-  }, [searchParams]);
+  }, [searchParams, categories]);
 
   function handleStatusChange(category: Category) {
     // Toggle selected status
@@ -52,7 +59,7 @@ export default function CategoriesFilterProvider({
 
     // Keep all categories that are default or selected
     const newVisibleCategories = updatedCategories.filter(
-      (c) => c.default || c.selected,
+      (c) => c.is_default || c.selected,
     );
     setVisibleCategories(newVisibleCategories);
 
@@ -66,16 +73,17 @@ export default function CategoriesFilterProvider({
   }
 
   return (
-    <CategoriesFilterContext.Provider
+    <CategoryFiltersContext.Provider
       value={{
         visibleCategories,
         allCategories,
         openCategoriesDialog,
+        isLoadingCategories,
         setOpenCategoriesDialog,
         handleStatusChange,
       }}
     >
       {children}
-    </CategoriesFilterContext.Provider>
+    </CategoryFiltersContext.Provider>
   );
 }

@@ -40,6 +40,7 @@ export default function HeaderDialog() {
         onClose={() => setOpenDialog(false)}
         fullWidth={!isMobile}
         fullScreen={isMobile}
+        disableRestoreFocus
       >
         <Stack spacing={2} sx={{ p: 2 }}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>

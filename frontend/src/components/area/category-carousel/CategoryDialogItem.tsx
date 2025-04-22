@@ -6,17 +6,17 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useCategoriesFilter } from "@/hooks/contexts/useCategoriesFilter";
-import { Category } from "@/types";
+import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
+import { CategoryWithSelected } from "@/types";
 
-type CategoriesDialogItem = {
-  category: Category;
+type CategoryDialogItemProps = {
+  category: CategoryWithSelected;
 };
 
-export default function CategoriesDialogItem({
+export default function CategoryDialogItem({
   category,
-}: CategoriesDialogItem) {
-  const { handleStatusChange } = useCategoriesFilter();
+}: CategoryDialogItemProps) {
+  const { handleStatusChange } = useCategoryFilters();
 
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }}>

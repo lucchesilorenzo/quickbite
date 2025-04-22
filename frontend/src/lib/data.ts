@@ -80,11 +80,3 @@ export const whyChooseUsFeatures = [
     ],
   },
 ];
-
-export const categories = Array.from({ length: 12 }, (_, i) => ({
-  image: "/pizza.webp",
-  name: `Cuisine ${i + 1}`,
-  default: i < 7 ? true : false,
-  slug: `cuisine-${i + 1}`,
-  selected: false,
-}));

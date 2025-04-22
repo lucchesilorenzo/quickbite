@@ -35,6 +35,7 @@ export default function LocationEditDialog({
       onClose={onCloseDialog}
       fullWidth={!isMobile}
       fullScreen={isMobile}
+      disableRestoreFocus
     >
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>

@@ -17,20 +17,18 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import CategoriesDialogItem from "./CategoriesDialogItem";
+import CategoryDialogItem from "./CategoryDialogItem";
 
-import { useCategoriesFilter } from "@/hooks/contexts/useCategoriesFilter";
-import { Category } from "@/types";
+import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
+import { CategoryWithSelected } from "@/types";
 
-type CategoriesDialogProps = {
-  categories: Category[];
+type CategoryDialogProps = {
+  categories: CategoryWithSelected[];
 };
 
-export default function CategoriesDialog({
-  categories,
-}: CategoriesDialogProps) {
+export default function CategoryDialog({ categories }: CategoryDialogProps) {
   const { openCategoriesDialog, setOpenCategoriesDialog } =
-    useCategoriesFilter();
+    useCategoryFilters();
   const [searchTerm, setSearchTerm] = useState("");
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -46,16 +44,16 @@ export default function CategoriesDialog({
   return (
     <Box sx={{ scrollSnapAlign: "center", pl: 2 }}>
       <Button
+        onClick={() => setOpenCategoriesDialog(true)}
         variant="outlined"
         color="inherit"
+        fullWidth
         sx={{
           borderRadius: 2,
           borderColor: "grey.300",
           textTransform: "none",
           textWrap: "nowrap",
         }}
-        fullWidth
-        onClick={() => setOpenCategoriesDialog(true)}
       >
         Show more
       </Button>
@@ -65,6 +63,7 @@ export default function CategoriesDialog({
         onClose={() => setOpenCategoriesDialog(false)}
         fullWidth={!isMobile}
         fullScreen={isMobile}
+        disableRestoreFocus
       >
         <Stack spacing={2} sx={{ p: 2 }}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
@@ -84,6 +83,8 @@ export default function CategoriesDialog({
 
           <DialogContent sx={{ p: 0 }}>
             <TextField
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               id="category-search"
               label="Search for a category"
               variant="standard"
@@ -97,14 +98,12 @@ export default function CategoriesDialog({
                   ),
                 },
               }}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
             />
 
             <List>
               <Grid container>
-                {filteredCategories.map((category, index) => (
-                  <CategoriesDialogItem key={index} category={category} />
+                {filteredCategories.map((category) => (
+                  <CategoryDialogItem key={category.id} category={category} />
                 ))}
               </Grid>
             </List>

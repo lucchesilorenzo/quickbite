@@ -14,12 +14,12 @@ import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import RegisterPage from "./RegisterPage";
 import TermsAndConditionsPage from "./TermsAndConditionsPage";
 
-import CategoriesFilterProvider from "@/contexts/CategoriesFilterProvider";
+import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <CategoriesFilterProvider>
+      <CategoryFiltersProvider>
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route path="auth">
@@ -42,7 +42,7 @@ export default function AppRoutes() {
             </Route>
           </Route>
         </Routes>
-      </CategoriesFilterProvider>
+      </CategoryFiltersProvider>
     </BrowserRouter>
   );
 }

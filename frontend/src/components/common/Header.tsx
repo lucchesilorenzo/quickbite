@@ -14,7 +14,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LocationSearchButton from "../area/location-search/LocationSearchButton";
 import HeaderDialog from "./HeaderDialog";
 
-import CategoriesFilter from "@/components/area/category-carousel/CategoriesFilter";
+import CategoriesFilter from "@/components/area/category-carousel/CategoryFilters";
 import LocationSearchDialog from "@/components/area/location-search/LocationSearchDialog";
 import { routes } from "@/lib/data";
 

@@ -3,17 +3,18 @@ import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Button, Fade, Stack, Typography } from "@mui/material";
 
-import { useCategoriesFilter } from "@/hooks/contexts/useCategoriesFilter";
-import { Category } from "@/types";
+import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
+import env from "@/lib/env";
+import { CategoryWithSelected } from "@/types";
 
 type CategoryFilterSlideProps = {
-  category: Category;
+  category: CategoryWithSelected;
 };
 
 export default function CategoryFilterSlide({
   category,
 }: CategoryFilterSlideProps) {
-  const { handleStatusChange } = useCategoriesFilter();
+  const { handleStatusChange } = useCategoryFilters();
   const [isTickVisible, setIsTickVisible] = useState(false);
 
   return (
@@ -32,11 +33,10 @@ export default function CategoryFilterSlide({
       >
         <Box
           component="img"
-          src={category.image}
+          src={`${env.VITE_BASE_URL}${category.image}`}
           alt={category.name}
           sx={{
-            bgcolor: "#ed6c02",
-            maxWidth: 110,
+            maxWidth: 120,
             borderRadius: 2,
             objectFit: "contain",
           }}
