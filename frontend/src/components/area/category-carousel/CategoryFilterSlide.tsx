@@ -3,23 +3,23 @@ import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Button, Fade, Stack, Typography } from "@mui/material";
 
+import { useCategoriesFilter } from "@/hooks/contexts/useCategoriesFilter";
 import { Category } from "@/types";
 
 type CategoryFilterSlideProps = {
   category: Category;
-  onStatusChange: (category: Category) => void;
 };
 
 export default function CategoryFilterSlide({
   category,
-  onStatusChange,
 }: CategoryFilterSlideProps) {
+  const { handleStatusChange } = useCategoriesFilter();
   const [isTickVisible, setIsTickVisible] = useState(false);
 
   return (
     <Box sx={{ scrollSnapAlign: "center", pl: 2 }}>
       <Button
-        onClick={() => onStatusChange(category)}
+        onClick={() => handleStatusChange(category)}
         onMouseEnter={() => setIsTickVisible(true)}
         onMouseLeave={() => setIsTickVisible(false)}
         sx={{

@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useCategoriesFilter } from "@/hooks/contexts/useCategoriesFilter";
 import { Category } from "@/types";
 
 type CategoriesDialogItem = {
@@ -15,10 +16,13 @@ type CategoriesDialogItem = {
 export default function CategoriesDialogItem({
   category,
 }: CategoriesDialogItem) {
+  const { handleStatusChange } = useCategoriesFilter();
+
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
       <ListItem>
         <ListItemButton
+          onClick={() => handleStatusChange(category)}
           selected={category.selected}
           sx={{
             "&:hover": {

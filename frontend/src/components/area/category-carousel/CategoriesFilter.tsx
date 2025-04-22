@@ -8,17 +8,17 @@ import useEmblaCarousel from "embla-carousel-react";
 import CategoriesDialog from "./CategoriesDialog";
 import CuisineFilterSlide from "./CategoryFilterSlide";
 
-import { categories } from "@/lib/data";
-import { Category } from "@/types";
+import { useCategoriesFilter } from "@/hooks/contexts/useCategoriesFilter";
 
 export default function CategoriesFilter() {
+  const { visibleCategories, allCategories } = useCategoriesFilter();
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     containScroll: "trimSnaps",
   });
   const [canScrollPrev, setCanScrollPrev] = useState(true);
   const [canScrollNext, setCanScrollNext] = useState(true);
-  const [newCategories, setNewCategories] = useState(categories); // Mock data
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -42,22 +42,6 @@ export default function CategoriesFilter() {
     onSelect();
   }, [emblaApi, onSelect]);
 
-  function handleStatusChange(category: Category) {
-    const categoryToUpdate = newCategories.find(
-      (item) => item.name === category.name,
-    );
-
-    if (categoryToUpdate) {
-      setNewCategories(
-        newCategories.map((item) =>
-          item.name === categoryToUpdate.name
-            ? { ...item, selected: !item.selected }
-            : item,
-        ),
-      );
-    }
-  }
-
   return (
     <Container
       maxWidth="lg"
@@ -71,15 +55,11 @@ export default function CategoriesFilter() {
 
       <Box sx={{ overflow: "hidden", flex: 1 }} ref={emblaRef}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {categories.map((category, index) => (
-            <CuisineFilterSlide
-              key={index}
-              category={category}
-              onStatusChange={handleStatusChange}
-            />
+          {visibleCategories.map((category, index) => (
+            <CuisineFilterSlide key={index} category={category} />
           ))}
 
-          <CategoriesDialog categories={newCategories} />
+          <CategoriesDialog categories={allCategories} />
         </Box>
       </Box>
 
