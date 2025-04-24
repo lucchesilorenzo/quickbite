@@ -40,9 +40,10 @@ export default function CategoryFiltersProvider({
   useEffect(() => {
     const filters = searchParams.getAll("filter");
 
-    const updatedCategories = categories.map((c) =>
-      filters.includes(c.slug) ? { ...c, selected: true } : c,
-    ) as CategoryWithSelected[];
+    const updatedCategories = categories.map((c) => ({
+      ...c,
+      selected: filters.includes(c.slug),
+    }));
 
     setAllCategories(updatedCategories);
     setVisibleCategories(
@@ -51,23 +52,25 @@ export default function CategoryFiltersProvider({
   }, [searchParams, categories]);
 
   function handleStatusChange(category: Category) {
-    // Toggle selected status
     const updatedCategories = allCategories.map((c) =>
-      c.name === category.name ? { ...c, selected: !c.selected } : c,
+      c.slug === category.slug ? { ...c, selected: !c.selected } : c,
     );
     setAllCategories(updatedCategories);
 
-    // Keep all categories that are default or selected
-    const newVisibleCategories = updatedCategories.filter(
-      (c) => c.is_default || c.selected,
-    );
-    setVisibleCategories(newVisibleCategories);
+    // Update query params
+    const currentFilters = searchParams.getAll("filter");
 
-    // Update URL
-    const filters = updatedCategories
+    // Take all the filters that are category filters
+    const selectedFilters = updatedCategories
       .filter((c) => c.selected)
       .map((c) => c.slug);
-    setSearchParams({ filter: filters });
+
+    // Take all the filters that are not category filters
+    const nonCategoryFilters = currentFilters.filter(
+      (f) => !allCategories.some((c) => c.slug === f),
+    );
+
+    setSearchParams({ filter: [...selectedFilters, ...nonCategoryFilters] });
 
     setOpenCategoriesDialog(false);
   }
