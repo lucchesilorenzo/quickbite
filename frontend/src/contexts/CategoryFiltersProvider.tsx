@@ -59,6 +59,7 @@ export default function CategoryFiltersProvider({
 
     // Update query params
     const currentFilters = searchParams.getAll("filter");
+    const currentMOV = searchParams.get("mov");
 
     // Take all the filters that are category filters
     const selectedFilters = updatedCategories
@@ -70,7 +71,10 @@ export default function CategoryFiltersProvider({
       (f) => !allCategories.some((c) => c.slug === f),
     );
 
-    setSearchParams({ filter: [...selectedFilters, ...nonCategoryFilters] });
+    setSearchParams({
+      filter: [...selectedFilters, ...nonCategoryFilters],
+      mov: currentMOV ?? "",
+    });
 
     setOpenCategoriesDialog(false);
   }

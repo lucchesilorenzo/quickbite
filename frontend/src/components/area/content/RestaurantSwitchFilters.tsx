@@ -22,12 +22,13 @@ export default function RestaurantSwitchFilters() {
 
     // Update query params
     const currentFilters = searchParams.getAll("filter");
+    const currentMOV = searchParams.get("mov");
 
     const updatedFilters = e.target.checked
       ? [...currentFilters, e.target.name]
       : currentFilters.filter((f) => f !== e.target.name);
 
-    setSearchParams({ filter: updatedFilters });
+    setSearchParams({ filter: updatedFilters, mov: currentMOV ?? "" });
   }
 
   useEffect(() => {
