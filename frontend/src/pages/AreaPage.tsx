@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { Container, Grid } from "@mui/material";
 import { useCookies } from "react-cookie";
 
-import RestaurantFiltersSidebar from "@/components/area/content/RestaurantFiltersSidebar";
 import RestaurantList from "@/components/area/content/RestaurantList";
+import RestaurantFiltersSidebar from "@/components/area/content/sidebar/RestaurantFiltersSidebar";
 
 export default function AreaPage() {
   const [cookie] = useCookies(["address"]);
