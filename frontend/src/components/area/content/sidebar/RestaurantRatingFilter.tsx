@@ -16,6 +16,7 @@ const ratings: Record<number, string> = {
 export default function RestaurantRatingFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [rating, setRating] = useState<number | null>(null);
+  console.log(rating);
 
   function handleRatingChange(_e: React.SyntheticEvent, value: number | null) {
     // Update query params
@@ -60,14 +61,17 @@ export default function RestaurantRatingFilter() {
       Object.values(ratings).includes(f),
     );
 
-    if (ratingFilter) {
-      // Get the key of the rating filter
-      const ratingKey = Object.entries(ratings).find(
-        ([, value]) => value === ratingFilter,
-      )?.[0];
-
-      if (ratingKey) setRating(Number(ratingKey));
+    if (!ratingFilter) {
+      setRating(null);
+      return;
     }
+
+    // Get the key of the rating filter
+    const ratingKey = Object.entries(ratings).find(
+      ([, value]) => value === ratingFilter,
+    )?.[0];
+
+    if (ratingKey) setRating(Number(ratingKey));
   }, [searchParams]);
 
   return (

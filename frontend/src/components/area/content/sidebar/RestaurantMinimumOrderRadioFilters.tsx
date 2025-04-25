@@ -40,7 +40,7 @@ export default function RestaurantMinimumOrderRadioFilters() {
   useEffect(() => {
     const mov = searchParams.get("mov");
 
-    if (mov) setValue(mov);
+    setValue(mov || "all");
   }, [searchParams]);
 
   return (
