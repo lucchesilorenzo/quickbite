@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 
 import {
+  Box,
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
+
+import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
 
 const minOrderOptions = [
   { label: "Show all", value: "all" },
@@ -41,22 +44,29 @@ export default function RestaurantMinimumOrderRadioFilters() {
   }, [searchParams]);
 
   return (
-    <FormControl>
-      <RadioGroup
-        aria-labelledby="min-order-label"
-        name="min-order-value"
-        value={value}
-        onChange={handleRadioChange}
-      >
-        {minOrderOptions.map((option) => (
-          <FormControlLabel
-            key={option.value}
-            value={option.value}
-            control={<Radio />}
-            label={option.label}
-          />
-        ))}
-      </RadioGroup>
-    </FormControl>
+    <Box>
+      <HeadingWithTooltip
+        headingText="Minimum order amount"
+        tooltipMessage="This is the least amount you need to spend to place an order. Fees are not included."
+      />
+
+      <FormControl>
+        <RadioGroup
+          aria-labelledby="min-order-label"
+          name="min-order-value"
+          value={value}
+          onChange={handleRadioChange}
+        >
+          {minOrderOptions.map((option) => (
+            <FormControlLabel
+              control={<Radio />}
+              key={option.value}
+              value={option.value}
+              label={option.label}
+            />
+          ))}
+        </RadioGroup>
+      </FormControl>
+    </Box>
   );
 }
