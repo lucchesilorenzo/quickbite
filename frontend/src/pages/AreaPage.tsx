@@ -4,7 +4,7 @@ import { Container, Grid } from "@mui/material";
 import { useCookies } from "react-cookie";
 
 import RestaurantList from "@/components/area/content/RestaurantList";
-import RestaurantFiltersSidebar from "@/components/area/content/sidebar/RestaurantFiltersSidebar";
+import RestaurantFiltersSidebar from "@/components/area/sidebar/RestaurantFiltersSidebar";
 
 export default function AreaPage() {
   const [cookie] = useCookies(["address"]);
@@ -22,8 +22,8 @@ export default function AreaPage() {
   }, [displayName]);
 
   return (
-    <Container maxWidth="lg" component="main" sx={{ p: 2 }}>
-      <Grid container>
+    <Container maxWidth="lg" component="main" sx={{ p: 3 }}>
+      <Grid container spacing={4}>
         <Grid size={{ xs: 12, md: 3 }}>
           <RestaurantFiltersSidebar />
         </Grid>
