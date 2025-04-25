@@ -71,10 +71,14 @@ export default function CategoryFiltersProvider({
       (f) => !allCategories.some((c) => c.slug === f),
     );
 
-    setSearchParams({
-      filter: [...selectedFilters, ...nonCategoryFilters],
-      mov: currentMOV ?? "",
-    });
+    if (!currentMOV) {
+      setSearchParams({ filter: [...selectedFilters, ...nonCategoryFilters] });
+    } else {
+      setSearchParams({
+        filter: [...selectedFilters, ...nonCategoryFilters],
+        mov: currentMOV,
+      });
+    }
 
     setOpenCategoriesDialog(false);
   }

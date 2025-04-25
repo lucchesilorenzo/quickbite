@@ -28,7 +28,11 @@ export default function RestaurantSwitchFilters() {
       ? [...currentFilters, e.target.name]
       : currentFilters.filter((f) => f !== e.target.name);
 
-    setSearchParams({ filter: updatedFilters, mov: currentMOV ?? "" });
+    if (!currentMOV) {
+      setSearchParams({ filter: updatedFilters });
+    } else {
+      setSearchParams({ filter: updatedFilters, mov: currentMOV });
+    }
   }
 
   useEffect(() => {

@@ -18,7 +18,7 @@ export default function RestaurantMinimumOrderRadioFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState("all");
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleRadioChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
 
     // Update query params
@@ -27,7 +27,11 @@ export default function RestaurantMinimumOrderRadioFilters() {
     const updatedMOV =
       e.target.value && e.target.value !== "all" ? e.target.value : "";
 
-    setSearchParams({ filter: currentFilters, mov: updatedMOV });
+    if (!updatedMOV) {
+      setSearchParams({ filter: currentFilters });
+    } else {
+      setSearchParams({ filter: currentFilters, mov: updatedMOV });
+    }
   }
 
   useEffect(() => {
@@ -42,7 +46,7 @@ export default function RestaurantMinimumOrderRadioFilters() {
         aria-labelledby="min-order-label"
         name="min-order-value"
         value={value}
-        onChange={handleChange}
+        onChange={handleRadioChange}
       >
         {minOrderOptions.map((option) => (
           <FormControlLabel

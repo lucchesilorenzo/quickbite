@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 
 import RestaurantMinimumOrderRadioFiltersContainer from "./RestaurantMinimumOrderRadioFiltersContainer";
+import RestaurantRatingFilter from "./RestaurantRatingFilter";
 import RestaurantSwitchFilters from "./RestaurantSwitchFilters";
 
 export default function RestaurantFiltersSidebar() {
@@ -11,8 +12,8 @@ export default function RestaurantFiltersSidebar() {
       </Typography>
 
       <RestaurantSwitchFilters />
-
       <RestaurantMinimumOrderRadioFiltersContainer />
+      <RestaurantRatingFilter />
     </Stack>
   );
 }
