@@ -59,7 +59,8 @@ export default function CategoryFiltersProvider({
 
     // Update query params
     const currentFilters = searchParams.getAll("filter");
-    const currentMOV = searchParams.get("mov");
+    const currentMOV = searchParams.getAll("mov");
+    const currentSort = searchParams.getAll("sort_by");
 
     // Take all the filters that are category filters
     const selectedFilters = updatedCategories
@@ -71,14 +72,11 @@ export default function CategoryFiltersProvider({
       (f) => !allCategories.some((c) => c.slug === f),
     );
 
-    if (!currentMOV) {
-      setSearchParams({ filter: [...selectedFilters, ...nonCategoryFilters] });
-    } else {
-      setSearchParams({
-        filter: [...selectedFilters, ...nonCategoryFilters],
-        mov: currentMOV,
-      });
-    }
+    setSearchParams({
+      filter: [...selectedFilters, ...nonCategoryFilters],
+      mov: currentMOV,
+      sort_by: currentSort,
+    });
 
     setOpenCategoriesDialog(false);
   }

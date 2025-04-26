@@ -16,12 +16,12 @@ const ratings: Record<number, string> = {
 export default function RestaurantRatingFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [rating, setRating] = useState<number | null>(null);
-  console.log(rating);
 
   function handleRatingChange(_e: React.SyntheticEvent, value: number | null) {
     // Update query params
     const currentFilters = searchParams.getAll("filter");
-    const currentMOV = searchParams.get("mov");
+    const currentMOV = searchParams.getAll("mov");
+    const currentSort = searchParams.getAll("sort_by");
 
     // Take all the filters that are not rating filters
     const updatedFilters = currentFilters.filter(
@@ -30,27 +30,24 @@ export default function RestaurantRatingFilter() {
 
     // If rating is null, remove it from the query params
     if (!value) {
-      if (!currentMOV) {
-        setSearchParams({ filter: updatedFilters });
-      } else {
-        setSearchParams({ filter: updatedFilters, mov: currentMOV });
-      }
+      setSearchParams({
+        filter: updatedFilters,
+        mov: currentMOV,
+        sort_by: currentSort,
+      });
 
       setRating(null);
       return;
     }
 
     // If rating is not null, add it to the query params
-    if (!currentMOV) {
-      setSearchParams({ filter: [...updatedFilters, ratings[value]] });
-    } else {
-      setSearchParams({
-        filter: [...updatedFilters, ratings[value]],
-        mov: currentMOV,
-      });
+    setSearchParams({
+      filter: [...updatedFilters, ratings[value]],
+      mov: currentMOV,
+      sort_by: currentSort,
+    });
 
-      setRating(value);
-    }
+    setRating(value);
   }
 
   useEffect(() => {

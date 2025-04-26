@@ -18,17 +18,18 @@ export default function RestaurantOfferFilters() {
 
     // Update query params
     const currentFilters = searchParams.getAll("filter");
-    const currentMOV = searchParams.get("mov");
+    const currentMOV = searchParams.getAll("mov");
+    const currentSort = searchParams.getAll("sort_by");
 
     const updatedFilters = e.target.checked
       ? [...currentFilters, e.target.name]
       : currentFilters.filter((f) => f !== e.target.name);
 
-    if (!currentMOV) {
-      setSearchParams({ filter: updatedFilters });
-    } else {
-      setSearchParams({ filter: updatedFilters, mov: currentMOV });
-    }
+    setSearchParams({
+      filter: updatedFilters,
+      mov: currentMOV,
+      sort_by: currentSort,
+    });
   }
 
   useEffect(() => {

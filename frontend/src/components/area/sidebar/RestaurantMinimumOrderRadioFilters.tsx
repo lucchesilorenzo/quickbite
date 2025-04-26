@@ -26,15 +26,15 @@ export default function RestaurantMinimumOrderRadioFilters() {
 
     // Update query params
     const currentFilters = searchParams.getAll("filter");
+    const currentSort = searchParams.getAll("sort_by");
 
-    const updatedMOV =
-      e.target.value && e.target.value !== "all" ? e.target.value : "";
+    const updatedMOV = e.target.value !== "all" ? e.target.value : [];
 
-    if (!updatedMOV) {
-      setSearchParams({ filter: currentFilters });
-    } else {
-      setSearchParams({ filter: currentFilters, mov: updatedMOV });
-    }
+    setSearchParams({
+      filter: currentFilters,
+      mov: updatedMOV,
+      sort_by: currentSort,
+    });
   }
 
   useEffect(() => {
