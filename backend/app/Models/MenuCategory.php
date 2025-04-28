@@ -13,8 +13,8 @@ class MenuCategory extends Model
     use HasUuids, HasFactory;
 
     protected $fillable = [
-        'name',
         'restaurant_id',
+        'name',
         'order',
     ];
 
