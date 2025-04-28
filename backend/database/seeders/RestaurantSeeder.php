@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Restaurant;
+use App\Models\RestaurantDeliveryDay;
 use Illuminate\Database\Seeder;
 
 class RestaurantSeeder extends Seeder
@@ -12,6 +13,10 @@ class RestaurantSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Restaurant::factory(10)
+            ->has(RestaurantDeliveryDay::factory()->fullWeek()->count(10), 'deliveryDays')
+            ->hasReviews(5)
+            ->hasMenuCategories(5)
+            ->create();
     }
 }
