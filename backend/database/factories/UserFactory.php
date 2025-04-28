@@ -45,12 +45,38 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Indicate that the model's role is customer.
+     *
+     * @return static
      */
-    public function unverified(): static
+    public function customer(): static
     {
         return $this->state(fn(array $attributes) => [
-            'email_verified_at' => null,
+            'role' => 'CUSTOMER',
+        ]);
+    }
+
+    /**
+     * Indicate that the model's role is restaurateur.
+     *
+     * @return static
+     */
+    public function restaurateur(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'RESTAURATEUR',
+        ]);
+    }
+
+    /**
+     * Indicate that the model's role is rider.
+     *
+     * @return static
+     */
+    public function rider(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'RIDER',
         ]);
     }
 }
