@@ -28,9 +28,10 @@ class Restaurant extends Model
         'vat_id',
         'min_amount',
         'shipping_cost',
-        'is_approved',
-        'image',
+        'logo',
+        'cover',
         'discount',
+        'is_approved',
     ];
 
     /**
@@ -58,16 +59,6 @@ class Restaurant extends Model
     }
 
     /**
-     * Get the restaurant's delivery days.
-     *
-     * @return HasMany
-     */
-    public function deliveryDays(): HasMany
-    {
-        return $this->hasMany(RestaurantDeliveryDay::class);
-    }
-
-    /**
      * Get the restaurant's categories.
      *
      * @return BelongsToMany
@@ -75,6 +66,16 @@ class Restaurant extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * Get the restaurant's delivery days.
+     *
+     * @return HasMany
+     */
+    public function deliveryDays(): HasMany
+    {
+        return $this->hasMany(RestaurantDeliveryDay::class);
     }
 
     /**

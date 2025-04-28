@@ -26,7 +26,8 @@ return new class extends Migration
             $table->string('vat_id')->nullable()->unique();
             $table->float('min_amount')->nullable();
             $table->float('shipping_cost')->nullable();
-            $table->string('image')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('cover')->nullable();
             $table->float('discount')->nullable();
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
