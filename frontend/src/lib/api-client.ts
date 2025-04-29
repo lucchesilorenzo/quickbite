@@ -6,6 +6,8 @@ const api = axios.create({
   baseURL: `${env.VITE_BASE_URL}/api`,
 });
 
+export const externalApi = axios.create();
+
 function applyInterceptors(axiosInstance: AxiosInstance) {
   axiosInstance.interceptors.request.use((config) => {
     const token = localStorage.getItem("token");

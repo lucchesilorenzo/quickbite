@@ -34,3 +34,23 @@ export type AddressEssentials = {
   full: Address;
   addressString: string;
 };
+
+export type StructuredAddress = {
+  place_id: number;
+  licence: string;
+  boundingbox: string[];
+  lat: string;
+  lon: string;
+  display_name: string;
+  class: string;
+  type: string;
+  importance: number;
+  address: {
+    city: string;
+    county: string;
+    state: string;
+    postcode: string;
+    country: string;
+    country_code: string;
+  };
+};
