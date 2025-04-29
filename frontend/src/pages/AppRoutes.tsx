@@ -37,8 +37,8 @@ export default function AppRoutes() {
             />
             <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
 
-            <Route path="area">
-              <Route path=":areaSlug" element={<AreaPage />} />
+            <Route path="area/:areaSlug">
+              <Route index element={<AreaPage />} />
             </Route>
           </Route>
         </Routes>
