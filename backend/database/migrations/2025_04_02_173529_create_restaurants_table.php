@@ -15,12 +15,24 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('description');
-            $table->string('street_address');
-            $table->string('building_number');
-            $table->string('postal_code');
-            $table->string('city');
+            $table->text('description');
+
+            $table->string('street_address')->nullable();
+            $table->string('building_number')->nullable();
+            $table->string('road')->nullable();
+            $table->string('neighbourhood')->nullable();
+            $table->string('suburb')->nullable();
+            $table->string('island')->nullable();
+            $table->string('city')->nullable();
+            $table->string('county')->nullable();
+            $table->string('state')->nullable();
+            $table->string('postcode')->nullable();
             $table->string('country')->default('Italy');
+
+            $table->string('full_address')->nullable();
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
+
             $table->string('phone_number')->unique();
             $table->string('email')->unique();
             $table->string('vat_id')->nullable()->unique();
