@@ -41,6 +41,7 @@ export default function LocationEditForm({
         ...currentAddress.address,
         house_number: data.house_number,
       },
+      display_name: `${cookies.address.address.name || cookies.address.address.road}, ${data.house_number}, ${cookies.address.address.postcode} ${cookies.address.address.city}`,
     };
 
     setCookie("address", updatedAddress);
