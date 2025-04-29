@@ -36,7 +36,7 @@ export default function LocationSearchButton({
           sx={{ fontWeight: "700" }}
           noWrap
         >
-          {fullAddress}
+          {fullAddress || "Search location"}
         </Typography>
       </Stack>
     </Button>

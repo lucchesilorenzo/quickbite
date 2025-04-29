@@ -37,7 +37,7 @@ export default function LocationSearch() {
         const query = value.toLowerCase();
 
         const { data } = await axios.get<Address[]>(
-          `https://api.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${query}&limit=5&dedupe=1&countrycodes=IT`,
+          `https://api.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${query}&limit=5&dedupe=1&countrycodes=IT&normalizecity=1`,
         );
 
         const addresses = data.map((a: Address) => {
@@ -98,7 +98,7 @@ export default function LocationSearch() {
 
       try {
         const { data } = await axios.get<Address>(
-          `https://api.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${latitude}&lon=${longitude}&format=json`,
+          `https://api.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${latitude}&lon=${longitude}&format=json&normalizecity=1`,
         );
 
         setCookie("address", data);

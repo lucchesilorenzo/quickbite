@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import { CircularProgress, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -19,7 +19,7 @@ import LocationSearchDialog from "@/components/area/location-search/LocationSear
 import { routes } from "@/lib/data";
 
 export default function Header() {
-  const [cookie] = useCookies(["address"]);
+  const [cookies] = useCookies(["address"]);
   const [openDialog, setOpenDialog] = useState(false);
 
   const { pathname } = useLocation();
@@ -27,14 +27,14 @@ export default function Header() {
 
   // Check if the address cookie has all the required fields
   const hasFullAddressFields =
-    (cookie.address?.address?.name || cookie.address?.address?.road) &&
-    cookie.address?.address?.house_number &&
-    cookie.address?.address?.postcode &&
-    cookie.address?.address?.city;
+    (cookies.address?.address?.name || cookies.address?.address?.road) &&
+    cookies.address?.address?.house_number &&
+    cookies.address?.address?.postcode &&
+    cookies.address?.address?.city;
 
   const fullAddress = hasFullAddressFields
-    ? `${cookie.address.address.name || cookie.address.address.road}, ${cookie.address.address.house_number}, ${cookie.address.address.postcode} ${cookie.address.address.city}`
-    : cookie.address?.display_name;
+    ? `${cookies.address.address.name || cookies.address.address.road}, ${cookies.address.address.house_number}, ${cookies.address.address.postcode} ${cookies.address.address.city}`
+    : cookies.address?.display_name;
 
   if (pathname !== "/") {
     return (
@@ -74,24 +74,21 @@ export default function Header() {
             </Typography>
           </Stack>
 
-          {pathname.startsWith("/area") &&
-            (!fullAddress ? (
-              <CircularProgress size={20} />
-            ) : (
-              <>
-                <LocationSearchButton
-                  fullAddress={fullAddress}
-                  setOpenDialog={setOpenDialog}
-                />
+          {pathname.startsWith("/area") && (
+            <>
+              <LocationSearchButton
+                fullAddress={fullAddress}
+                setOpenDialog={setOpenDialog}
+              />
 
-                {openDialog && (
-                  <LocationSearchDialog
-                    openDialog={openDialog}
-                    onCloseDialog={() => setOpenDialog(false)}
-                  />
-                )}
-              </>
-            ))}
+              {openDialog && (
+                <LocationSearchDialog
+                  openDialog={openDialog}
+                  onCloseDialog={() => setOpenDialog(false)}
+                />
+              )}
+            </>
+          )}
 
           <HeaderDialog />
         </Toolbar>

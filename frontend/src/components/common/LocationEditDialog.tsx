@@ -1,7 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  CircularProgress,
   IconButton,
   Stack,
   Typography,
@@ -24,10 +23,10 @@ export default function LocationEditDialog({
   openDialog,
   onCloseDialog,
 }: LocationEditDialogProps) {
-  const [cookie] = useCookies(["address"]);
+  const [cookies] = useCookies(["address"]);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const address = cookie.address.display_name;
+  const address = cookies.address?.display_name;
 
   return (
     <Dialog
@@ -59,16 +58,10 @@ export default function LocationEditDialog({
               To get more accurate search results and delivery times and costs,
               add more details to your address:
               <Box component="span" sx={{ ml: 1 }}>
-                {!address ? (
-                  <CircularProgress size={20} />
-                ) : (
-                  <>
-                    <Typography component="span" sx={{ fontWeight: "bold" }}>
-                      {`"${address}"`}
-                    </Typography>
-                    .
-                  </>
-                )}
+                <Typography component="span" sx={{ fontWeight: "bold" }}>
+                  {`"${address}"`}
+                </Typography>
+                .
               </Box>
             </DialogContentText>
 
