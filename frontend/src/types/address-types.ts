@@ -46,10 +46,17 @@ export type StructuredAddress = {
   type: string;
   importance: number;
   address: {
-    city: string;
+    name: string;
+    house_number?: string;
+    road?: string;
+    neighbourhood?: string;
+    suburb?: string;
+    island?: string;
+    city?: string;
     county: string;
     state: string;
-    postcode: string;
+    state_code?: string;
+    postcode?: string;
     country: string;
     country_code: string;
   };

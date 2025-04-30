@@ -106,10 +106,7 @@ export default function Header() {
           spacing={1}
           component={Link}
           to="/"
-          sx={{
-            alignItems: "center",
-            textDecoration: "none",
-          }}
+          sx={{ alignItems: "center", textDecoration: "none" }}
         >
           <RestaurantMenuIcon color="primary" />
 
