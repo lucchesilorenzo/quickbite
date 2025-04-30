@@ -17,21 +17,21 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description');
 
-            $table->string('street_address')->nullable();
-            $table->string('building_number')->nullable();
+            $table->string('street_address');
+            $table->string('building_number');
             $table->string('road')->nullable();
             $table->string('neighbourhood')->nullable();
             $table->string('suburb')->nullable();
             $table->string('island')->nullable();
             $table->string('city')->nullable();
             $table->string('county')->nullable();
-            $table->string('state')->nullable();
-            $table->string('postcode')->nullable();
+            $table->string('state');
+            $table->string('postcode');
             $table->string('country')->default('Italy');
 
             $table->string('full_address')->nullable();
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
+            $table->float('latitude');
+            $table->float('longitude');
 
             $table->string('phone_number')->unique();
             $table->string('email')->unique();
