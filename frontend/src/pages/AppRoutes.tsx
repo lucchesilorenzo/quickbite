@@ -10,39 +10,42 @@ import BecomeAPartnerPage from "./BecomeAPartnerPage";
 import BecomeARiderPage from "./BecomeARiderPage";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
+import NotFoundPage from "./NotFoundPage";
 import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import RegisterPage from "./RegisterPage";
 import TermsAndConditionsPage from "./TermsAndConditionsPage";
 
-import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
+import ErrorLayout from "@/layouts/ErrorLayout";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <CategoryFiltersProvider>
-        <Routes>
-          <Route path="/" element={<AppLayout />}>
-            <Route path="auth">
-              <Route index element={<Navigate to="login" />} />
-              <Route path="register" element={<RegisterPage />} />
-              <Route path="login" element={<LoginPage />} />
-            </Route>
-
-            <Route index element={<HomePage />} />
-            <Route path="become-a-rider" element={<BecomeARiderPage />} />
-            <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
-            <Route
-              path="terms-and-conditions"
-              element={<TermsAndConditionsPage />}
-            />
-            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-
-            <Route path="area/:areaSlug">
-              <Route index element={<AreaPage />} />
-            </Route>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route path="auth">
+            <Route index element={<Navigate to="login" />} />
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="login" element={<LoginPage />} />
           </Route>
-        </Routes>
-      </CategoryFiltersProvider>
+
+          <Route index element={<HomePage />} />
+          <Route path="become-a-rider" element={<BecomeARiderPage />} />
+          <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
+          <Route
+            path="terms-and-conditions"
+            element={<TermsAndConditionsPage />}
+          />
+          <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+
+          <Route path="area/:areaSlug">
+            <Route index element={<AreaPage />} />
+          </Route>
+        </Route>
+
+        <Route path="/" element={<ErrorLayout />}>
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
