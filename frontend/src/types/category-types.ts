@@ -18,3 +18,10 @@ export type CategoryWithSelected = {
   created_at: string;
   updated_at: string;
 };
+
+export type CategoryWithPivot = Category & {
+  pivot: {
+    restaurant_id: string;
+    category_id: string;
+  };
+};

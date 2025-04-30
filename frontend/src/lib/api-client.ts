@@ -4,6 +4,7 @@ import env from "./env";
 
 const api = axios.create({
   baseURL: `${env.VITE_BASE_URL}/api`,
+  withCredentials: true,
 });
 
 export const externalApi = axios.create();
