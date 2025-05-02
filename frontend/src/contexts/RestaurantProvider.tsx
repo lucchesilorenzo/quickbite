@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 import { useCookies } from "react-cookie";
 
@@ -13,6 +13,8 @@ type RestaurantContext = {
   restaurants: RestaurantListItem[];
   isRestaurantsLoading: boolean;
   restaurantsError: Error | null;
+  viewMap: boolean;
+  setViewMap: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const RestaurantContext = createContext<RestaurantContext | null>(null);
@@ -21,6 +23,7 @@ export default function RestaurantProvider({
   children,
 }: RestaurantProviderProps) {
   const [cookies] = useCookies(["address"]);
+  const [viewMap, setViewMap] = useState(false);
 
   const postcode = cookies.address?.address?.postcode;
 
@@ -32,7 +35,13 @@ export default function RestaurantProvider({
 
   return (
     <RestaurantContext.Provider
-      value={{ restaurants, isRestaurantsLoading, restaurantsError }}
+      value={{
+        restaurants,
+        isRestaurantsLoading,
+        restaurantsError,
+        viewMap,
+        setViewMap,
+      }}
     >
       {children}
     </RestaurantContext.Provider>
