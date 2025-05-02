@@ -9,6 +9,7 @@ export default function RestaurantHeadingContainer() {
 
   const currentFilters = searchParams.getAll("filter");
   const currentSort = searchParams.getAll("sort_by");
+  const currentViewType = searchParams.getAll("view_type");
 
   const nonCategoryFilters = currentFilters.filter(
     (f) => !allCategories.some((c) => c.slug === f),
@@ -20,7 +21,11 @@ export default function RestaurantHeadingContainer() {
       allCategories.some((c) => c.slug === f),
     );
 
-    setSearchParams({ filter: categoryFilters, sort_by: currentSort });
+    setSearchParams({
+      filter: categoryFilters,
+      sort_by: currentSort,
+      view_type: currentViewType,
+    });
   }
 
   return (

@@ -22,6 +22,7 @@ export default function RestaurantRatingFilter() {
     const currentFilters = searchParams.getAll("filter");
     const currentMOV = searchParams.getAll("mov");
     const currentSort = searchParams.getAll("sort_by");
+    const currentViewType = searchParams.getAll("view_type");
 
     // Take all the filters that are not rating filters
     const updatedFilters = currentFilters.filter(
@@ -34,6 +35,7 @@ export default function RestaurantRatingFilter() {
         filter: updatedFilters,
         mov: currentMOV,
         sort_by: currentSort,
+        view_type: currentViewType,
       });
 
       setRating(null);
@@ -45,6 +47,7 @@ export default function RestaurantRatingFilter() {
       filter: [...updatedFilters, ratings[value]],
       mov: currentMOV,
       sort_by: currentSort,
+      view_type: currentViewType,
     });
 
     setRating(value);

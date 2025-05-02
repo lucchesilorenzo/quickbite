@@ -24,13 +24,14 @@ export default function RestaurantSort() {
     // Update query params
     const currentFilters = searchParams.getAll("filter");
     const currentMOV = searchParams.getAll("mov");
-
     const updatedSort = e.target.value !== "best-match" ? e.target.value : [];
+    const currentViewType = searchParams.getAll("view_type");
 
     setSearchParams({
       filter: currentFilters,
       mov: currentMOV,
       sort_by: updatedSort,
+      view_type: currentViewType,
     });
   }
 

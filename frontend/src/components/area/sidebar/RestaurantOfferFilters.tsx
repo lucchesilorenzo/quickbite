@@ -20,6 +20,7 @@ export default function RestaurantOfferFilters() {
     const currentFilters = searchParams.getAll("filter");
     const currentMOV = searchParams.getAll("mov");
     const currentSort = searchParams.getAll("sort_by");
+    const currentViewType = searchParams.getAll("view_type");
 
     const updatedFilters = e.target.checked
       ? [...currentFilters, e.target.name]
@@ -29,6 +30,7 @@ export default function RestaurantOfferFilters() {
       filter: updatedFilters,
       mov: currentMOV,
       sort_by: currentSort,
+      view_type: currentViewType,
     });
   }
 
