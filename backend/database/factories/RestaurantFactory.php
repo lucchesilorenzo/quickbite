@@ -22,7 +22,8 @@ class RestaurantFactory extends Factory
     {
         return [
             'name' => fake()->company(),
-            'slug' => fn(array $attributes) => str($attributes['name'])->slug(),
+            'slug' => fn(array $attributes) => str($attributes['name'])
+                ->slug() . '-' . $attributes['id'],
             'description' => fake()->sentence(),
             'street_address' => 'Via Roma',
             'building_number' => '4',
@@ -42,7 +43,7 @@ class RestaurantFactory extends Factory
             'shipping_cost' => fake()->randomFloat(2, 0, 10),
             'logo' => Storage::url('restaurants/logos/logo.jpg'),
             'cover' => Storage::url('restaurants/covers/hamburger.jpg'),
-            'discount' => null,
+            'discount' => fake()->optional()->randomElement([null, 0.05, 0.1, 0.15]),
         ];
     }
 

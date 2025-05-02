@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('cart_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('menu_item_id')->constrained()->cascadeOnDelete();
             $table->integer('quantity')->default(1);
-            $table->float('price');
+            $table->decimal('price', 8, 2);
             $table->timestamps();
         });
     }
