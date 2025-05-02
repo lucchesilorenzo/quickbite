@@ -4,9 +4,8 @@ import { Container, Grid } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 
-import NoRestaurantsOrLoading from "@/components/area/content/NoRestaurantsOrLoading";
-import RestaurantList from "@/components/area/content/RestaurantList";
-import RestaurantFiltersSidebar from "@/components/area/sidebar/RestaurantFiltersSidebar";
+import RestaurantMain from "@/components/area/content/RestaurantMain";
+import RestaurantSidebar from "@/components/area/sidebar/RestaurantSidebar";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 import { useGetLocation } from "@/hooks/react-query/locationiq/useGetLocation";
 
@@ -41,24 +40,17 @@ export default function AreaPage() {
   }, [location, setCookie]);
 
   const isLoading = isLocationLoading || isRestaurantsLoading;
-
   const hasNoResults = locationError || !restaurants.length || restaurantsError;
 
   return (
     <Container maxWidth="lg" component="main" sx={{ p: 3 }}>
       <Grid container spacing={4}>
-        <Grid size={{ xs: 12, md: 3 }}>
-          <RestaurantFiltersSidebar />
+        <Grid size={3}>
+          <RestaurantSidebar />
         </Grid>
 
-        <Grid size={{ xs: 12, md: 9 }}>
-          {isLoading ? (
-            <NoRestaurantsOrLoading type="isLoading" />
-          ) : hasNoResults ? (
-            <NoRestaurantsOrLoading type="noRestaurants" />
-          ) : (
-            <RestaurantList />
-          )}
+        <Grid size={9}>
+          <RestaurantMain isLoading={isLoading} hasNoResults={hasNoResults} />
         </Grid>
       </Grid>
     </Container>

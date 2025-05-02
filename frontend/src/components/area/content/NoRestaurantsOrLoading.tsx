@@ -11,11 +11,10 @@ export default function NoRestaurantsOrLoading({
   if (type === "isLoading") {
     return (
       <Stack
-        direction="row"
         sx={{
           alignItems: "center",
           justifyContent: "center",
-          minHeight: "100vh",
+          minHeight: "60vh",
         }}
       >
         <CircularProgress />
@@ -28,7 +27,7 @@ export default function NoRestaurantsOrLoading({
       sx={{
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "100vh",
+        minHeight: "60vh",
       }}
     >
       <Stack spacing={2} sx={{ alignItems: "center" }}>

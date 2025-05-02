@@ -6,7 +6,7 @@ import RestaurantOfferFilters from "./RestaurantOfferFilters";
 import RestaurantRatingFilter from "./RestaurantRatingFilter";
 import RestaurantSwitchFilters from "./RestaurantSwitchFilters";
 
-export default function RestaurantFiltersSidebar() {
+export default function RestaurantSidebar() {
   return (
     <Stack spacing={4}>
       <RestaurantHeadingContainer />
