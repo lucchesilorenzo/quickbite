@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
 
 import NoRestaurantsOrLoading from "./NoRestaurantsOrLoading";
-import RestaurantList from "./RestaurantList";
-import RestaurantSearchContainer from "./RestaurantSearchContainer";
-import RestaurantMap from "./restaurant-map/RestaurantMap";
+import RestaurantList from "./list/RestaurantList";
+import RestaurantSearchContainer from "./search-and-map/RestaurantSearchContainer";
+import RestaurantMap from "./search-and-map/restaurant-map/RestaurantMap";
 
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
