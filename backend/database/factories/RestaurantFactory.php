@@ -43,7 +43,7 @@ class RestaurantFactory extends Factory
             'shipping_cost' => fake()->randomFloat(2, 0, 10),
             'logo' => Storage::url('restaurants/logos/logo.jpg'),
             'cover' => Storage::url('restaurants/covers/hamburger.jpg'),
-            'discount' => fake()->optional()->randomElement([null, 0.05, 0.1, 0.15]),
+            'discount' => fake()->optional()->randomElement([0, 0.05, 0.1, 0.15]),
         ];
     }
 

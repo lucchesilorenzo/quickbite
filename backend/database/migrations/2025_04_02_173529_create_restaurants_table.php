@@ -36,11 +36,11 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('email')->unique();
             $table->string('vat_id')->nullable()->unique();
-            $table->decimal('min_amount', 8, 2)->nullable();
-            $table->decimal('shipping_cost', 8, 2)->nullable();
+            $table->decimal('min_amount', 8, 2)->default(0);
+            $table->decimal('shipping_cost', 8, 2)->default(0);
             $table->string('logo')->nullable();
             $table->string('cover')->nullable();
-            $table->decimal('discount', 5, 2)->nullable();
+            $table->decimal('discount', 5, 2)->default(0);
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });
