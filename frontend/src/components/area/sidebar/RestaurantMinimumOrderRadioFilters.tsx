@@ -10,16 +10,30 @@ import {
 import { useSearchParams } from "react-router-dom";
 
 import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
-
-const minOrderOptions = [
-  { label: "Show all", value: "all" },
-  { label: "10,00€ or less", value: "1000" },
-  { label: "15,00€ or less", value: "1500" },
-];
+import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantMinimumOrderRadioFilters() {
+  const { originalRestaurants } = useRestaurant();
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState("all");
+
+  const minOrderOptions = [
+    {
+      label: "Show all",
+      value: "all",
+      count: originalRestaurants.length,
+    },
+    {
+      label: "10,00€ or less",
+      value: "1000",
+      count: originalRestaurants.filter((r) => r.min_amount >= 10).length,
+    },
+    {
+      label: "15,00€ or less",
+      value: "1500",
+      count: originalRestaurants.filter((r) => r.min_amount >= 15).length,
+    },
+  ];
 
   function handleRadioChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
@@ -63,7 +77,8 @@ export default function RestaurantMinimumOrderRadioFilters() {
               control={<Radio />}
               key={option.value}
               value={option.value}
-              label={option.label}
+              label={`${option.label} (${option.count})`}
+              disabled={option.value !== "all" && !option.count}
             />
           ))}
         </RadioGroup>

@@ -1,17 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Box, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
-
-const offerFilters = [{ label: "Deals", key: "with_discounts" }];
+import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantOfferFilters() {
+  const { originalRestaurants } = useRestaurant();
   const [searchParams, setSearchParams] = useSearchParams();
   const [checked, setChecked] = useState<Record<string, boolean>>({
     with_discounts: false,
   });
+
+  const offerFilters = useMemo(
+    () => [
+      {
+        label: "Deals",
+        key: "with_discounts",
+        count: originalRestaurants.filter((r) => r.discount).length,
+      },
+    ],
+    [originalRestaurants],
+  );
 
   function handleCheckboxChange(e: React.ChangeEvent<HTMLInputElement>) {
     setChecked((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
@@ -46,7 +57,7 @@ export default function RestaurantOfferFilters() {
     );
 
     setChecked(initialState);
-  }, [searchParams]);
+  }, [searchParams, offerFilters]);
 
   return (
     <Box>
@@ -59,12 +70,13 @@ export default function RestaurantOfferFilters() {
         {offerFilters.map((filter) => (
           <FormControlLabel
             key={filter.key}
-            label={filter.label}
+            label={`${filter.label} (${filter.count})`}
             control={
               <Checkbox
                 name={filter.key}
                 checked={checked[filter.key]}
                 onChange={handleCheckboxChange}
+                disabled={!filter.count}
               />
             }
           />
