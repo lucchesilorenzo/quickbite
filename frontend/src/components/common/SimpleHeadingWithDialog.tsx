@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -12,7 +13,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+
+import ClearFiltersButton from "../area/content/ClearFiltersButton";
 
 type SimpleHeadingWithDialogProps = {
   headingText: string;
@@ -27,17 +30,42 @@ export default function SimpleHeadingWithDialog({
   content,
   actionText,
 }: SimpleHeadingWithDialogProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [openDialog, setOpenDialog] = useState(false);
+  const [isThereAnyFilter, setIsThereAnyFilter] = useState(false);
+
+  function handleClearFilters() {
+    setSearchParams({ filter: [], mov: [], sort_by: [], view_type: [] });
+    setIsThereAnyFilter(false);
+  }
+
+  useEffect(() => {
+    const hasFilters =
+      searchParams.getAll("filter").length > 0 ||
+      searchParams.getAll("mov").length > 0 ||
+      searchParams.getAll("sort_by").length > 0 ||
+      searchParams.getAll("view_type").length > 0;
+
+    setIsThereAnyFilter(hasFilters);
+  }, [searchParams]);
 
   return (
-    <Stack direction="row" sx={{ alignItems: "center" }}>
-      <Typography component="h1" variant="h6" sx={{ fontWeight: "700" }}>
-        {headingText}
-      </Typography>
+    <Box>
+      <Stack direction="row" sx={{ alignItems: "center" }}>
+        <Typography component="h1" variant="h6" sx={{ fontWeight: "700" }}>
+          {headingText}
+        </Typography>
 
-      <IconButton color="inherit" onClick={() => setOpenDialog(true)}>
-        <InfoOutlineIcon />
-      </IconButton>
+        <IconButton color="inherit" onClick={() => setOpenDialog(true)}>
+          <InfoOutlineIcon />
+        </IconButton>
+      </Stack>
+
+      {isThereAnyFilter && (
+        <ClearFiltersButton type="content" onHandleClick={handleClearFilters}>
+          Clear all filters
+        </ClearFiltersButton>
+      )}
 
       <Dialog
         open={openDialog}
@@ -67,6 +95,6 @@ export default function SimpleHeadingWithDialog({
           </DialogActions>
         </Stack>
       </Dialog>
-    </Stack>
+    </Box>
   );
 }
