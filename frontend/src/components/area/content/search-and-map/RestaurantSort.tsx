@@ -7,7 +7,6 @@ const sortOptions = [
   { value: "best-match", label: "Best match" },
   { value: "review_rating", label: "Reviews" },
   { value: "distance", label: "Distance" },
-  { value: "delivery_time", label: "Estimated delivery time" },
   { value: "minimum_order_value", label: "Minimum order amount" },
   { value: "delivery_fee", label: "Delivery costs" },
 ];
