@@ -26,14 +26,14 @@ export type RestaurantBase = {
   shipping_cost: number;
   logo: string;
   cover: string;
-  discount: number | null;
+  discount: number;
   is_approved: boolean;
   created_at: string;
   updated_at: string;
 };
 
 export type RestaurantListItem = RestaurantBase & {
-  reviews_avg_rating: string;
+  reviews_avg_rating: number;
   reviews_count: number;
   categories: CategoryWithPivot[];
   delivery_days: DeliveryDay[];
