@@ -18,8 +18,8 @@ export default function RestaurantList() {
       />
 
       <Stack spacing={2} component="ul" sx={{ listStyle: "none", pl: 0 }}>
-        {restaurants.map((r) => (
-          <RestaurantCard key={r.id} restaurant={r} />
+        {restaurants.map((restaurant) => (
+          <RestaurantCard key={restaurant.id} restaurant={restaurant} />
         ))}
       </Stack>
     </Stack>

@@ -24,12 +24,12 @@ export default function RestaurantMinimumOrderRadioFilters() {
       count: originalRestaurants.length,
     },
     {
-      label: "10,00€ or less",
+      label: "10,00 € or less",
       value: "1000",
       count: originalRestaurants.filter((r) => r.min_amount >= 10).length,
     },
     {
-      label: "15,00€ or less",
+      label: "15,00 € or less",
       value: "1500",
       count: originalRestaurants.filter((r) => r.min_amount >= 15).length,
     },

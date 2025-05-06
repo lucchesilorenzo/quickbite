@@ -19,7 +19,12 @@ export default function RestaurantCardImage({
         component="img"
         src={`${env.VITE_BASE_URL}${restaurant.cover}`}
         alt={restaurant.name}
-        sx={{ objectFit: "cover", width: 1, height: 140, display: "block" }}
+        sx={{
+          objectFit: "cover",
+          width: 1,
+          height: 140,
+          display: "block",
+        }}
       />
 
       <Box
@@ -38,7 +43,7 @@ export default function RestaurantCardImage({
         }}
       />
 
-      {restaurant.discount && (
+      {restaurant.discount > 0 && (
         <Stack
           direction="row"
           spacing={1}
@@ -61,7 +66,7 @@ export default function RestaurantCardImage({
             sx={{ fontWeight: "600" }}
           >
             {restaurant.discount * 100}% off - Minimum order{" "}
-            {formatCurrency(restaurant.min_amount)}
+            {formatCurrency(restaurant.min_discount_amount)}
           </Typography>
         </Stack>
       )}
