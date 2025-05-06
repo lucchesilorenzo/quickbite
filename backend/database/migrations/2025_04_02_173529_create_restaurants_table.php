@@ -37,10 +37,16 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('vat_id')->nullable()->unique();
             $table->decimal('min_amount', 8, 2)->default(0);
+
             $table->decimal('shipping_cost', 8, 2)->default(0);
+            $table->unsignedSmallInteger('delivery_time_min');
+            $table->unsignedSmallInteger('delivery_time_max');
+
+            $table->decimal('discount', 5, 2)->default(0);
+            $table->decimal('min_discount_amount', 8, 2)->default(0);
+
             $table->string('logo')->nullable();
             $table->string('cover')->nullable();
-            $table->decimal('discount', 5, 2)->default(0);
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });

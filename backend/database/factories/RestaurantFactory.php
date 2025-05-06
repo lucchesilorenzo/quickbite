@@ -7,6 +7,7 @@ use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Restaurant>
@@ -20,10 +21,11 @@ class RestaurantFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
+            'id' => Str::orderedUuid(),
             'name' => fake()->company(),
-            'slug' => fn(array $attributes) => str($attributes['name'])
-                ->slug() . '-' . $attributes['id'],
+            'slug' => fn(array $attributes) => Str::slug($attributes['name'] . '-' . $attributes['id']),
             'description' => fake()->sentence(),
             'street_address' => 'Via Roma',
             'building_number' => '4',
@@ -41,9 +43,12 @@ class RestaurantFactory extends Factory
             'vat_id' => fake()->numerify('##########'),
             'min_amount' => fake()->randomFloat(2, 0, 50),
             'shipping_cost' => fake()->randomFloat(2, 0, 10),
+            'delivery_time_min' => fake()->randomElement([10, 15]),
+            'delivery_time_max' => fake()->randomElement([15, 20, 25, 30]),
+            'discount' => fake()->randomElement([0, 0.05, 0.1, 0.15]),
+            'min_discount_amount' => fn(array $attributes) => $attributes['discount'] === 0 ? 0 : fake()->randomElement([30, 50, 70]),
             'logo' => Storage::url('restaurants/logos/logo.jpg'),
             'cover' => Storage::url('restaurants/covers/hamburger.jpg'),
-            'discount' => fake()->optional()->randomElement([0, 0.05, 0.1, 0.15]),
         ];
     }
 

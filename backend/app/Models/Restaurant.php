@@ -36,9 +36,12 @@ class Restaurant extends Model
         'vat_id',
         'min_amount',
         'shipping_cost',
+        'delivery_time_min',
+        'delivery_time_max',
+        'discount',
+        'min_discount_amount',
         'logo',
         'cover',
-        'discount',
         'is_approved',
     ];
 
