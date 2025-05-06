@@ -73,7 +73,7 @@ export default function RestaurantProvider({
     }
 
     if (filters.includes("free_delivery")) {
-      result = result.filter((r) => !r.shipping_cost);
+      result = result.filter((r) => r.shipping_cost === 0);
     }
 
     if (Object.entries(ratings).some(([, v]) => filters.includes(v))) {
@@ -127,6 +127,10 @@ export default function RestaurantProvider({
 
     if (sort === "minimum_order_value") {
       result = result.sort((a, b) => a.min_amount - b.min_amount);
+    }
+
+    if (sort === "delivery_time") {
+      result = result.sort((a, b) => a.delivery_time_min - b.delivery_time_min);
     }
 
     if (sort === "delivery_fee") {
