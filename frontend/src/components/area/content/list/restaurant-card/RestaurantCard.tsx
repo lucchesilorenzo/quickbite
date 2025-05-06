@@ -2,6 +2,7 @@ import { Box, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import RestaurantCardImage from "./RestaurantCardImage";
+import RestaurantCardText from "./RestaurantCardText";
 
 import { RestaurantListItem } from "@/types";
 
@@ -22,7 +23,9 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
             <RestaurantCardImage restaurant={restaurant} />
           </Grid>
 
-          <Grid size={8}>Content</Grid>
+          <Grid size={8}>
+            <RestaurantCardText restaurant={restaurant} />
+          </Grid>
         </Grid>
       </Box>
     </Paper>

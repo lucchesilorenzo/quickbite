@@ -1,0 +1,69 @@
+import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import { Stack, Typography } from "@mui/material";
+import { yellow } from "@mui/material/colors";
+
+import { formatCurrency } from "@/lib/utils";
+import { RestaurantListItem } from "@/types";
+
+type RestaurantDeliveryInfoProps = {
+  restaurant: RestaurantListItem;
+};
+
+export default function RestaurantDeliveryInfo({
+  restaurant,
+}: RestaurantDeliveryInfoProps) {
+  const hasFreeDelivery = restaurant.shipping_cost === 0;
+  const hasSameDeliveryTime =
+    restaurant.delivery_time_min === restaurant.delivery_time_max;
+  const deliveryTime = hasSameDeliveryTime
+    ? `${restaurant.delivery_time_min} min`
+    : `${restaurant.delivery_time_min}-${restaurant.delivery_time_max} min`;
+
+  return (
+    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+      <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+        <ScheduleIcon fontSize="small" />
+
+        <Typography variant="body2" component="span">
+          {deliveryTime}
+        </Typography>
+      </Stack>
+
+      <Typography variant="body2" component="span" color="textSecondary">
+        &bull;
+      </Typography>
+
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{
+          bgcolor: hasFreeDelivery ? yellow[700] : "",
+          p: 0.5,
+          borderRadius: 1,
+        }}
+      >
+        <DeliveryDiningIcon fontSize="small" />
+
+        <Typography variant="body2" component="span">
+          {restaurant.shipping_cost > 0
+            ? `${formatCurrency(restaurant.shipping_cost)} Delivery`
+            : "Free delivery"}
+        </Typography>
+      </Stack>
+
+      <Typography variant="body2" component="span" color="textSecondary">
+        &bull;
+      </Typography>
+
+      <ShoppingBagIcon fontSize="small" />
+
+      <Typography variant="body2" component="span">
+        {restaurant.min_amount > 0
+          ? `Min. ${formatCurrency(restaurant.min_amount)}`
+          : "No min. order"}
+      </Typography>
+    </Stack>
+  );
+}
