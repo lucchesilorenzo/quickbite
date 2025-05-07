@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 
 import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
+import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 import { CategoryWithSelected } from "@/types";
 
 type CategoryDialogItemProps = {
@@ -17,6 +18,11 @@ export default function CategoryDialogItem({
   category,
 }: CategoryDialogItemProps) {
   const { handleStatusChange } = useCategoryFilters();
+  const { restaurants } = useRestaurant();
+
+  const restaurantsPerCategory = restaurants.reduce((acc, r) => {
+    return acc + r.categories.filter((c) => c.name === category.name).length;
+  }, 0);
 
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
@@ -41,7 +47,7 @@ export default function CategoryDialogItem({
           <ListItemText
             primary={
               <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                {category.name} (1)
+                {category.name} ({restaurantsPerCategory})
               </Typography>
             }
           />
