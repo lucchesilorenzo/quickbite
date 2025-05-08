@@ -10,8 +10,8 @@ import RestaurantProvider from "@/contexts/RestaurantProvider";
 export default function AppLayout() {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
-      <RestaurantProvider>
-        <CategoryFiltersProvider>
+      <CategoryFiltersProvider>
+        <RestaurantProvider>
           <Header />
 
           <Box component="main">
@@ -21,8 +21,8 @@ export default function AppLayout() {
           <Footer />
 
           <NavigateToTopFloatingButton />
-        </CategoryFiltersProvider>
-      </RestaurantProvider>
+        </RestaurantProvider>
+      </CategoryFiltersProvider>
     </Stack>
   );
 }

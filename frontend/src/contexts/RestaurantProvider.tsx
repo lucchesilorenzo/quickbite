@@ -5,6 +5,7 @@ import { getDistance } from "geolib";
 import { useCookies } from "react-cookie";
 import { useSearchParams } from "react-router-dom";
 
+import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 import { useGetRestaurants } from "@/hooks/react-query/restaurants/useGetRestaurants";
 import { ratings } from "@/lib/data";
 import { RestaurantListItem } from "@/types";
@@ -30,6 +31,7 @@ export default function RestaurantProvider({
   const [searchParams] = useSearchParams();
   const [cookies] = useCookies(["address"]);
   const [viewMap, setViewMap] = useState(false);
+  const { allCategories } = useCategoryFilters();
 
   const postcode = cookies.address?.address?.postcode;
   const latitude = Number(cookies.address?.lat);
@@ -49,6 +51,16 @@ export default function RestaurantProvider({
     const sort = searchParams.get("sort_by");
 
     // --- Filter params ---
+    const filteredCategories = allCategories.some((c) =>
+      filters.includes(c.slug),
+    );
+
+    if (filteredCategories) {
+      result = result.filter((r) =>
+        r.categories.some((c) => filters.includes(c.slug)),
+      );
+    }
+
     if (filters.includes("open_now")) {
       const dayName = format(new Date(), "EEEE").toUpperCase();
       const currentTime = format(new Date(), "HH:mm");
@@ -138,7 +150,7 @@ export default function RestaurantProvider({
     }
 
     return result;
-  }, [restaurants, searchParams, latitude, longitude]);
+  }, [restaurants, searchParams, latitude, longitude, allCategories]);
 
   return (
     <RestaurantContext.Provider
