@@ -18,6 +18,10 @@ class OrderItem extends Model
         'price',
     ];
 
+    protected $casts = [
+        'price' => 'float',
+    ];
+
     /**
      * Get the order that owns the OrderItem.
      *

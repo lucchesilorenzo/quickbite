@@ -18,6 +18,10 @@ class CartItem extends Model
         'price',
     ];
 
+    protected $casts = [
+        'price' => 'float',
+    ];
+
     /**
      * Get the cart that owns the cart item.
      *

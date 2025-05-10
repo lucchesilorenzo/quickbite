@@ -45,6 +45,13 @@ class Restaurant extends Model
         'is_approved',
     ];
 
+    protected $casts = [
+        'min_amount' => 'float',
+        'shipping_cost' => 'float',
+        'discount' => 'float',
+        'min_discount_amount' => 'float',
+    ];
+
     /**
      * Get the restaurant's restaurateurs (owners and co-owners).
      *

@@ -21,6 +21,10 @@ class MenuItem extends Model
         'is_available',
     ];
 
+    protected $casts = [
+        'price' => 'float',
+    ];
+
     /**
      * Get the menu category that owns the menu item.
      *
