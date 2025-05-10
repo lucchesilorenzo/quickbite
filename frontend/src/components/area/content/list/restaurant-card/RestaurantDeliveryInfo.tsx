@@ -24,9 +24,9 @@ export default function RestaurantDeliveryInfo({
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
       <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-        <ScheduleIcon fontSize="small" />
+        <ScheduleIcon fontSize="small" color="primary" />
 
-        <Typography variant="body2" component="span">
+        <Typography variant="body2" component="span" color="textPrimary">
           {deliveryTime}
         </Typography>
       </Stack>
@@ -44,9 +44,9 @@ export default function RestaurantDeliveryInfo({
           borderRadius: 1,
         }}
       >
-        <DeliveryDiningIcon fontSize="small" />
+        <DeliveryDiningIcon fontSize="small" color="primary" />
 
-        <Typography variant="body2" component="span">
+        <Typography variant="body2" component="span" color="textPrimary">
           {restaurant.shipping_cost > 0
             ? `${formatCurrency(restaurant.shipping_cost)} Delivery`
             : "Free delivery"}
@@ -57,9 +57,9 @@ export default function RestaurantDeliveryInfo({
         &bull;
       </Typography>
 
-      <ShoppingBagIcon fontSize="small" />
+      <ShoppingBagIcon fontSize="small" color="primary" />
 
-      <Typography variant="body2" component="span">
+      <Typography variant="body2" component="span" color="textPrimary">
         {restaurant.min_amount > 0
           ? `Min. ${formatCurrency(restaurant.min_amount)}`
           : "No min. order"}

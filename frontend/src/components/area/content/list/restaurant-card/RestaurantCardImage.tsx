@@ -58,12 +58,13 @@ export default function RestaurantCardImage({
             bgcolor: yellow[200],
           }}
         >
-          <SellIcon fontSize="small" />
+          <SellIcon fontSize="small" color="primary" />
 
           <Typography
             variant="caption"
             component="span"
             sx={{ fontWeight: "600" }}
+            color="textPrimary"
           >
             {restaurant.discount * 100}% off - Minimum order{" "}
             {formatCurrency(restaurant.min_discount_amount)}

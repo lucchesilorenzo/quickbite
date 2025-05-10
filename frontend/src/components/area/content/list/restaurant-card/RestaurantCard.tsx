@@ -8,15 +8,49 @@ import { RestaurantListItem } from "@/types";
 
 type RestaurantCardProps = {
   restaurant: RestaurantListItem;
+  type: "list" | "map";
 };
 
-export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
+export default function RestaurantCard({
+  restaurant,
+  type,
+}: RestaurantCardProps) {
+  if (type === "map") {
+    return (
+      <Paper
+        sx={{
+          position: "absolute",
+          bottom: 30,
+          left: 80,
+          right: 80,
+          zIndex: 1000,
+        }}
+      >
+        <Box
+          component={Link}
+          to={`/restaurants/${restaurant.slug}`}
+          sx={{ textDecoration: "none" }}
+        >
+          <Grid container>
+            <Grid size={4}>
+              <RestaurantCardImage restaurant={restaurant} />
+            </Grid>
+
+            <Grid size={8}>
+              <RestaurantCardText restaurant={restaurant} />
+            </Grid>
+          </Grid>
+        </Box>
+      </Paper>
+    );
+  }
+
   return (
     <Paper component="li">
       <Box
         component={Link}
         to={`/restaurants/${restaurant.slug}`}
-        sx={{ textDecoration: "none", color: "inherit" }}
+        sx={{ textDecoration: "none" }}
       >
         <Grid container>
           <Grid size={4}>

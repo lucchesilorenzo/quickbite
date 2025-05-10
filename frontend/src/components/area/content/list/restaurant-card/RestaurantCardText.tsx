@@ -14,7 +14,11 @@ export default function RestaurantCardText({
 }: RestaurantCardTextProps) {
   return (
     <Stack spacing={1} sx={{ p: 2 }}>
-      <Typography variant="body1" sx={{ fontWeight: "700" }}>
+      <Typography
+        variant="body1"
+        sx={{ fontWeight: "700" }}
+        color="textPrimary"
+      >
         {restaurant.name}
       </Typography>
 

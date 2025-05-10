@@ -24,6 +24,7 @@ export default function RestaurantMetaInfo({
             variant="body2"
             component="span"
             sx={{ bgcolor: blueGrey[50], p: 0.5, borderRadius: 1 }}
+            color="textPrimary"
           >
             New
           </Typography>
@@ -42,11 +43,12 @@ export default function RestaurantMetaInfo({
             variant="body2"
             component="span"
             sx={{ fontWeight: "700" }}
+            color="textPrimary"
           >
             {rating}
           </Typography>
 
-          <Typography variant="body2" component="span">
+          <Typography variant="body2" component="span" color="textPrimary">
             ({restaurant.reviews_count})
           </Typography>
 
@@ -56,7 +58,7 @@ export default function RestaurantMetaInfo({
         </Stack>
       )}
 
-      <Typography variant="body2" component="span">
+      <Typography variant="body2" component="span" color="textPrimary">
         {categories}
       </Typography>
     </Stack>

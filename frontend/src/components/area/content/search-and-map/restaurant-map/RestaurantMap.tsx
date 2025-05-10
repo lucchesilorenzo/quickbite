@@ -14,6 +14,7 @@ import {
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { useSearchParams } from "react-router-dom";
 
+import RestaurantCard from "../../list/restaurant-card/RestaurantCard";
 import ClickResetHandler from "./ClickResetHandler";
 import ZoomGestureHandling from "./ZoomGestureHandling";
 
@@ -30,6 +31,11 @@ export default function RestaurantMap() {
 
   const latitude = Number(cookies?.address?.lat);
   const longitude = Number(cookies?.address?.lon);
+  const selectedRestaurant = restaurants.find(
+    (r) =>
+      selectedPosition?.includes(r.latitude) &&
+      selectedPosition?.includes(r.longitude),
+  );
 
   const restaurantMarkers = restaurants.map((r) => ({
     geocode: [r.latitude, r.longitude] as LatLngTuple,
@@ -48,9 +54,8 @@ export default function RestaurantMap() {
 
   function handleMarkerClick(geocode: LatLngTuple) {
     const isSameMarker =
-      selectedPosition &&
-      selectedPosition[0] === geocode[0] &&
-      selectedPosition[1] === geocode[1];
+      selectedPosition?.[0] === geocode[0] &&
+      selectedPosition?.[1] === geocode[1];
 
     if (isSameMarker) {
       setSelectedPosition(null);
@@ -99,6 +104,10 @@ export default function RestaurantMap() {
         Return to list
       </Button>
 
+      {selectedRestaurant && (
+        <RestaurantCard restaurant={selectedRestaurant} type="map" />
+      )}
+
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -139,9 +148,8 @@ export default function RestaurantMap() {
             key={marker.tooltip}
             position={marker.geocode}
             icon={
-              selectedPosition &&
-              selectedPosition[0] === marker.geocode[0] &&
-              selectedPosition[1] === marker.geocode[1]
+              selectedPosition?.[0] === marker.geocode[0] &&
+              selectedPosition?.[1] === marker.geocode[1]
                 ? customSelectedMarkerIcon
                 : customMarkerIcon
             }
