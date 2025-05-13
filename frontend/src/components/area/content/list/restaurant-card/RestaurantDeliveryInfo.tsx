@@ -2,7 +2,7 @@ import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Stack, Typography } from "@mui/material";
-import { yellow } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 
 import { formatCurrency } from "@/lib/utils";
 import { RestaurantListItem } from "@/types";
@@ -22,48 +22,70 @@ export default function RestaurantDeliveryInfo({
     : `${restaurant.delivery_time_min}-${restaurant.delivery_time_max} min`;
 
   return (
-    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+    <>
       <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-        <ScheduleIcon fontSize="small" color="primary" />
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <ScheduleIcon fontSize="small" color="primary" />
 
-        <Typography variant="body2" component="span" color="textPrimary">
-          {deliveryTime}
+          <Typography variant="body2" component="span" color="textPrimary">
+            {deliveryTime}
+          </Typography>
+        </Stack>
+
+        <Typography variant="body2" component="span" color="textSecondary">
+          &bull;
         </Typography>
-      </Stack>
 
-      <Typography variant="body2" component="span" color="textSecondary">
-        &bull;
-      </Typography>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            bgcolor: hasFreeDelivery ? grey[100] : "",
+            p: 0.5,
+            borderRadius: 1,
+          }}
+        >
+          <DeliveryDiningIcon fontSize="small" color="primary" />
+
+          <Typography variant="body2" component="span" color="textPrimary">
+            {restaurant.shipping_cost > 0
+              ? `${formatCurrency(restaurant.shipping_cost)} Delivery`
+              : "Free delivery"}
+          </Typography>
+        </Stack>
+
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{ display: { xs: "none", sm: "flex" } }}
+        >
+          <Typography variant="body2" component="span" color="textSecondary">
+            &bull;
+          </Typography>
+
+          <ShoppingBagIcon fontSize="small" color="primary" />
+
+          <Typography variant="body2" component="span" color="textPrimary">
+            {restaurant.min_amount > 0
+              ? `Min. ${formatCurrency(restaurant.min_amount)}`
+              : "No min. order"}
+          </Typography>
+        </Stack>
+      </Stack>
 
       <Stack
         direction="row"
         spacing={1}
-        sx={{
-          bgcolor: hasFreeDelivery ? yellow[700] : "",
-          p: 0.5,
-          borderRadius: 1,
-        }}
+        sx={{ alignItems: "center", display: { xs: "flex", sm: "none" } }}
       >
-        <DeliveryDiningIcon fontSize="small" color="primary" />
+        <ShoppingBagIcon fontSize="small" color="primary" />
 
         <Typography variant="body2" component="span" color="textPrimary">
-          {restaurant.shipping_cost > 0
-            ? `${formatCurrency(restaurant.shipping_cost)} Delivery`
-            : "Free delivery"}
+          {restaurant.min_amount > 0
+            ? `Min. ${formatCurrency(restaurant.min_amount)}`
+            : "No min. order"}
         </Typography>
       </Stack>
-
-      <Typography variant="body2" component="span" color="textSecondary">
-        &bull;
-      </Typography>
-
-      <ShoppingBagIcon fontSize="small" color="primary" />
-
-      <Typography variant="body2" component="span" color="textPrimary">
-        {restaurant.min_amount > 0
-          ? `Min. ${formatCurrency(restaurant.min_amount)}`
-          : "No min. order"}
-      </Typography>
-    </Stack>
+    </>
   );
 }

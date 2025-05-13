@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-import { Container, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 
-import RestaurantMain from "@/components/area/content/RestaurantMain";
-import RestaurantSidebar from "@/components/area/sidebar/RestaurantSidebar";
+import DesktopAreaLayout from "@/components/area/layouts/DesktopAreaLayout";
+import MobileAreaLayout from "@/components/area/layouts/MobileAreaLayout";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 import { useGetLocation } from "@/hooks/react-query/locationiq/useGetLocation";
 
@@ -44,15 +44,8 @@ export default function AreaPage() {
 
   return (
     <Container maxWidth="lg" component="main" sx={{ p: 3 }}>
-      <Grid container spacing={4}>
-        <Grid size={3}>
-          <RestaurantSidebar />
-        </Grid>
-
-        <Grid size={9}>
-          <RestaurantMain isLoading={isLoading} hasNoResults={hasNoResults} />
-        </Grid>
-      </Grid>
+      <DesktopAreaLayout isLoading={isLoading} hasNoResults={hasNoResults} />
+      <MobileAreaLayout isLoading={isLoading} hasNoResults={hasNoResults} />
     </Container>
   );
 }

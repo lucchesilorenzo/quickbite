@@ -50,6 +50,7 @@ export default function RestaurantSort() {
       <Box>
         <TextField
           id="sort-select"
+          name="sort-select"
           select
           value={value}
           onChange={handleSortChange}
