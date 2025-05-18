@@ -11,17 +11,15 @@ import Typography from "@mui/material/Typography";
 import { useCookies } from "react-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import RestaurantSearchContainerMobile from "../area/content/search-and-map/mobile/RestaurantSearchContainerMobile";
 import LocationSearchButton from "../area/location-search/LocationSearchButton";
 import HeaderDialog from "./HeaderDialog";
 
 import CategoriesFilter from "@/components/area/category-carousel/CategoryFilters";
 import LocationSearchDialog from "@/components/area/location-search/LocationSearchDialog";
-import { useRestaurant } from "@/hooks/contexts/useRestaurant";
+import RestaurantSearchContainerMobile from "@/components/area/mobile/RestaurantSearchContainerMobile";
 import { routes } from "@/lib/data";
 
 export default function Header() {
-  const { isMapViewMobile } = useRestaurant();
   const [cookies] = useCookies(["address"]);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -96,9 +94,7 @@ export default function Header() {
           <HeaderDialog />
         </Toolbar>
 
-        {pathname.startsWith("/area") && !isMapViewMobile && (
-          <RestaurantSearchContainerMobile />
-        )}
+        {pathname.startsWith("/area") && <RestaurantSearchContainerMobile />}
 
         {pathname.startsWith("/area") && <CategoriesFilter />}
       </AppBar>

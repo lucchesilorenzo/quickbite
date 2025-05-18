@@ -62,7 +62,7 @@ export default function RestaurantRatingFilter() {
 
     // Get the key of the rating filter
     const ratingKey = Object.entries(ratings).find(
-      ([, value]) => value === ratingFilter,
+      ([, v]) => v === ratingFilter,
     )?.[0];
 
     if (ratingKey) setRating(Number(ratingKey));
@@ -75,7 +75,6 @@ export default function RestaurantRatingFilter() {
       </Typography>
 
       <Rating
-        name="rating"
         value={rating}
         onChange={handleRatingChange}
         icon={<StarIcon color="primary" fontSize="large" />}

@@ -56,6 +56,7 @@ export default function RestaurantViewSwitcher() {
         sx={{
           "&:hover": { backgroundColor: "transparent" },
           display: { xs: "flex", lg: "none" },
+          p: 0,
         }}
         onClick={handleViewMapClick}
       >

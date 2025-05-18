@@ -1,7 +1,9 @@
 import { Stack } from "@mui/material";
 
-import RestaurantSearch from "../RestaurantSearch";
-import RestaurantViewSwitcher from "../RestaurantViewSwitcher";
+import RestaurantFiltersMobile from "./RestaurantFiltersDialogMobile";
+
+import RestaurantSearch from "@/components/area/content/search-and-map/RestaurantSearch";
+import RestaurantViewSwitcher from "@/components/area/content/search-and-map/RestaurantViewSwitcher";
 
 export default function RestaurantSearchContainerMobile() {
   return (
@@ -16,6 +18,7 @@ export default function RestaurantSearchContainerMobile() {
       }}
     >
       <RestaurantSearch />
+      <RestaurantFiltersMobile />
       <RestaurantViewSwitcher />
     </Stack>
   );

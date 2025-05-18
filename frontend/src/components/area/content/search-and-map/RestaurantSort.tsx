@@ -42,20 +42,56 @@ export default function RestaurantSort() {
   }, [searchParams]);
 
   return (
-    <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
-      <Typography variant="subtitle2" component="h3" noWrap sx={{ pl: 1 }}>
-        Sort by
-      </Typography>
+    <>
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{ alignItems: "center", display: { xs: "none", lg: "flex" } }}
+      >
+        <Typography variant="subtitle2" component="h3" noWrap sx={{ pl: 1 }}>
+          Sort by
+        </Typography>
 
-      <Box>
+        <Box>
+          <TextField
+            id="sort-select"
+            name="sort-select"
+            select
+            value={value}
+            onChange={handleSortChange}
+            sx={{
+              minWidth: 250,
+              "& .MuiSelect-select": {
+                color: currentSort ? "text.primary" : "text.secondary",
+              },
+            }}
+          >
+            {sortOptions.map((option) => (
+              <MenuItem
+                key={option.value}
+                value={option.value}
+                sx={{ color: currentSort ? "text.primary" : "text.secondary" }}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Box>
+      </Stack>
+
+      <Box sx={{ display: { xs: "block", lg: "none" } }}>
+        <Typography variant="subtitle2" component="h3" gutterBottom>
+          Sort by
+        </Typography>
+
         <TextField
           id="sort-select"
           name="sort-select"
           select
           value={value}
+          fullWidth
           onChange={handleSortChange}
           sx={{
-            minWidth: 250,
             "& .MuiSelect-select": {
               color: currentSort ? "text.primary" : "text.secondary",
             },
@@ -72,6 +108,6 @@ export default function RestaurantSort() {
           ))}
         </TextField>
       </Box>
-    </Stack>
+    </>
   );
 }
