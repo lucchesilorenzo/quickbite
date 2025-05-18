@@ -33,25 +33,33 @@ export default function RestaurantViewSwitcher() {
   useEffect(() => {
     const viewType = searchParams.get("view_type");
 
-    if (viewType === "map") {
-      setViewMap(true);
-    }
+    setViewMap(viewType === "map");
   }, [searchParams, setViewMap]);
 
   return (
     <Box>
       <IconButton
+        size="large"
         color="inherit"
         sx={{
           bgcolor: "grey.100",
-          "&:hover": {
-            bgcolor: "grey.200",
-          },
+          "&:hover": { bgcolor: "grey.200" },
+          display: { xs: "none", lg: "flex" },
         }}
-        size="large"
         onClick={handleViewMapClick}
       >
         {viewMap ? <FormatListBulletedIcon /> : <MapIcon />}
+      </IconButton>
+
+      <IconButton
+        size="small"
+        sx={{
+          "&:hover": { backgroundColor: "transparent" },
+          display: { xs: "flex", lg: "none" },
+        }}
+        onClick={handleViewMapClick}
+      >
+        <MapIcon fontSize="small" color="primary" />
       </IconButton>
     </Box>
   );

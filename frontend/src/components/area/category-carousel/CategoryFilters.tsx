@@ -52,7 +52,7 @@ export default function CategoryFilters() {
   return (
     <Container
       maxWidth="lg"
-      sx={{ display: "flex", alignItems: "center", my: 2 }}
+      sx={{ display: "flex", alignItems: "center", py: 2 }}
     >
       <Fade in={canScrollPrev}>
         <IconButton onClick={scrollPrev} disabled={!canScrollPrev}>

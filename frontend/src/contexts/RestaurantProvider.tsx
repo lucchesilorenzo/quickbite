@@ -1,5 +1,6 @@
 import { createContext, useMemo, useState } from "react";
 
+import { useMediaQuery } from "@mui/material";
 import { differenceInDays, format } from "date-fns";
 import { getDistance } from "geolib";
 import { useCookies } from "react-cookie";
@@ -20,6 +21,7 @@ type RestaurantContext = {
   isRestaurantsLoading: boolean;
   restaurantsError: Error | null;
   viewMap: boolean;
+  isMapViewMobile: boolean;
   setViewMap: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -37,6 +39,9 @@ export default function RestaurantProvider({
   const latitude = Number(cookies.address?.lat);
   const longitude = Number(cookies.address?.lon);
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMapViewMobile = isMobile && viewMap;
+
   const {
     data: restaurants = [],
     isLoading: isRestaurantsLoading,
@@ -51,6 +56,7 @@ export default function RestaurantProvider({
     const sort = searchParams.get("sort_by");
 
     // --- Filter params ---
+
     const filteredCategories = allCategories.some((c) =>
       filters.includes(c.slug),
     );
@@ -110,11 +116,13 @@ export default function RestaurantProvider({
     }
 
     // --- MOV params ---
+
     if (mov) {
       result = result.filter((r) => r.min_amount <= mov / 100);
     }
 
     // --- Sort params ---
+
     if (sort === "review_rating") {
       result = result.sort(
         (a, b) => b.reviews_avg_rating - a.reviews_avg_rating,
@@ -160,6 +168,7 @@ export default function RestaurantProvider({
         isRestaurantsLoading,
         restaurantsError,
         viewMap,
+        isMapViewMobile,
         setViewMap,
       }}
     >

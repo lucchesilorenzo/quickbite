@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-import { Autocomplete, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import {
+  Autocomplete,
+  InputAdornment,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 const restaurants = [
   "Ristorante Bella Cucina",
@@ -19,9 +26,10 @@ const restaurants = [
 export default function RestaurantSearch() {
   const [restaurant, setRestaurant] = useState("");
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
     <Autocomplete
-      id="restaurant-search"
       freeSolo
       fullWidth
       options={restaurants}
@@ -33,8 +41,22 @@ export default function RestaurantSearch() {
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="Looking for places, items or categories?"
+          id="restaurant-search"
+          size={isMobile ? "small" : "medium"}
           autoComplete="off"
+          placeholder="Looking for places, items or categories?"
+          sx={{
+            bgcolor: isMobile ? grey[100] : "",
+          }}
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color={isMobile ? "primary" : "inherit"} />
+                </InputAdornment>
+              ),
+            },
+          }}
         />
       )}
     />
