@@ -10,8 +10,12 @@ import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 import { useGetLocation } from "@/hooks/react-query/locationiq/useGetLocation";
 
 export default function AreaPage() {
-  const { restaurants, isRestaurantsLoading, restaurantsError } =
-    useRestaurant();
+  const {
+    restaurants,
+    isRestaurantsLoading,
+    restaurantsError,
+    isMapViewMobile,
+  } = useRestaurant();
   const { areaSlug } = useParams();
   const [cookies, setCookie] = useCookies(["address"]);
 
@@ -43,7 +47,11 @@ export default function AreaPage() {
   const hasNoResults = locationError || !restaurants.length || restaurantsError;
 
   return (
-    <Container maxWidth="lg" component="main" sx={{ p: 3 }}>
+    <Container
+      maxWidth="lg"
+      component="main"
+      sx={{ p: isMapViewMobile ? 0 : 3 }}
+    >
       <DesktopAreaLayout isLoading={isLoading} hasNoResults={hasNoResults} />
       <MobileAreaLayout isLoading={isLoading} hasNoResults={hasNoResults} />
     </Container>

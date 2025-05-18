@@ -19,7 +19,11 @@ export default function RestaurantListMobile() {
 
       <Stack spacing={2} component="ul" sx={{ listStyle: "none", pl: 0 }}>
         {restaurants.map((restaurant) => (
-          <RestaurantCardMobile key={restaurant.id} restaurant={restaurant} />
+          <RestaurantCardMobile
+            key={restaurant.id}
+            restaurant={restaurant}
+            type="list"
+          />
         ))}
       </Stack>
     </Stack>

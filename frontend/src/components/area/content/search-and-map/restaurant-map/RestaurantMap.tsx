@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Button } from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 import { Icon, LatLngTuple } from "leaflet";
 import { useCookies } from "react-cookie";
 import {
@@ -18,10 +18,11 @@ import RestaurantCard from "../../list/restaurant-card/RestaurantCard";
 import ClickResetHandler from "./ClickResetHandler";
 import ZoomGestureHandling from "./ZoomGestureHandling";
 
+import RestaurantCardMobile from "@/components/area/mobile/RestaurantCardMobile";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantMap() {
-  const { restaurants, setViewMap } = useRestaurant();
+  const { restaurants } = useRestaurant();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [cookies] = useCookies(["address"]);
@@ -29,8 +30,11 @@ export default function RestaurantMap() {
     null,
   );
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   const latitude = Number(cookies?.address?.lat);
   const longitude = Number(cookies?.address?.lon);
+
   const selectedRestaurant = restaurants.find(
     (r) =>
       selectedPosition?.includes(r.latitude) &&
@@ -75,22 +79,24 @@ export default function RestaurantMap() {
       sort_by: currentSort,
       view_type: [],
     });
-
-    setViewMap(false);
   }
 
   return (
     <MapContainer
       center={[latitude, longitude]}
       zoom={13}
-      style={{ height: "50vh", position: "relative" }}
-      scrollWheelZoom={false}
+      style={{
+        minHeight: isMobile ? "100vh" : "50vh",
+        position: "relative",
+      }}
+      scrollWheelZoom={isMobile}
+      zoomControl={!isMobile}
     >
       <Button
         sx={{
           position: "absolute",
           top: 10,
-          right: 380,
+          right: { xs: 120, lg: 380 },
           zIndex: 1000,
           bgcolor: "grey.900",
           "&:hover": {
@@ -104,15 +110,18 @@ export default function RestaurantMap() {
         Return to list
       </Button>
 
-      {selectedRestaurant && (
-        <RestaurantCard restaurant={selectedRestaurant} type="map" />
+      {selectedRestaurant && isMobile ? (
+        <RestaurantCardMobile restaurant={selectedRestaurant} type="map" />
+      ) : (
+        selectedRestaurant && (
+          <RestaurantCard restaurant={selectedRestaurant} type="map" />
+        )
       )}
 
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
       <ClickResetHandler onMapClick={() => setSelectedPosition(null)} />
 
       <ZoomGestureHandling />

@@ -15,37 +15,43 @@ import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import RegisterPage from "./RegisterPage";
 import TermsAndConditionsPage from "./TermsAndConditionsPage";
 
+import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
+import RestaurantProvider from "@/contexts/RestaurantProvider";
 import ErrorLayout from "@/layouts/ErrorLayout";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route path="auth">
-            <Route index element={<Navigate to="login" />} />
-            <Route path="register" element={<RegisterPage />} />
-            <Route path="login" element={<LoginPage />} />
-          </Route>
+      <CategoryFiltersProvider>
+        <RestaurantProvider>
+          <Routes>
+            <Route path="/" element={<AppLayout />}>
+              <Route path="auth">
+                <Route index element={<Navigate to="login" />} />
+                <Route path="register" element={<RegisterPage />} />
+                <Route path="login" element={<LoginPage />} />
+              </Route>
 
-          <Route index element={<HomePage />} />
-          <Route path="become-a-rider" element={<BecomeARiderPage />} />
-          <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
-          <Route
-            path="terms-and-conditions"
-            element={<TermsAndConditionsPage />}
-          />
-          <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route index element={<HomePage />} />
+              <Route path="become-a-rider" element={<BecomeARiderPage />} />
+              <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
+              <Route
+                path="terms-and-conditions"
+                element={<TermsAndConditionsPage />}
+              />
+              <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
 
-          <Route path="area/:areaSlug">
-            <Route index element={<AreaPage />} />
-          </Route>
-        </Route>
+              <Route path="area/:areaSlug">
+                <Route index element={<AreaPage />} />
+              </Route>
+            </Route>
 
-        <Route path="/" element={<ErrorLayout />}>
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+            <Route path="/" element={<ErrorLayout />}>
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </RestaurantProvider>
+      </CategoryFiltersProvider>
     </BrowserRouter>
   );
 }
