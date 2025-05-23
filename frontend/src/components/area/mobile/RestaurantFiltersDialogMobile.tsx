@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { Dialog, DialogTitle, IconButton, Stack } from "@mui/material";
+import { Badge, Dialog, DialogTitle, IconButton, Stack } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 import RestaurantSort from "../content/search-and-map/RestaurantSort";
 import RestaurantHeadingContainer from "../sidebar/RestaurantHeadingContainer";
@@ -12,7 +13,19 @@ import RestaurantRatingFilter from "../sidebar/RestaurantRatingFilter";
 import RestaurantSwitchFilters from "../sidebar/RestaurantSwitchFilters";
 
 export default function RestaurantFiltersDialogMobile() {
+  const [searchParams] = useSearchParams();
   const [openDialog, setOpenDialog] = useState(false);
+  const [isThereAnyFilter, setIsThereAnyFilter] = useState(false);
+
+  useEffect(() => {
+    const hasFilters =
+      searchParams.getAll("filter").length > 0 ||
+      searchParams.getAll("mov").length > 0 ||
+      searchParams.getAll("sort_by").length > 0 ||
+      searchParams.getAll("view_type").length > 0;
+
+    setIsThereAnyFilter(hasFilters);
+  }, [searchParams]);
 
   return (
     <>
@@ -23,7 +36,17 @@ export default function RestaurantFiltersDialogMobile() {
         onClick={() => setOpenDialog(true)}
         sx={{ p: 0 }}
       >
-        <FormatListBulletedIcon fontSize="small" />
+        <Badge
+          variant={isThereAnyFilter ? "dot" : "standard"}
+          sx={{
+            "& .MuiBadge-badge": {
+              backgroundColor: "#000",
+              color: "#fff",
+            },
+          }}
+        >
+          <FormatListBulletedIcon fontSize="small" />
+        </Badge>
       </IconButton>
 
       <Dialog
@@ -53,7 +76,9 @@ export default function RestaurantFiltersDialogMobile() {
             <RestaurantRatingFilter />
             <RestaurantOfferFilters />
             <RestaurantHeadingContainer
+              isThereAnyFilter={isThereAnyFilter}
               onCloseDialog={() => setOpenDialog(false)}
+              setIsThereAnyFilter={setIsThereAnyFilter}
             />
           </Stack>
         </Stack>

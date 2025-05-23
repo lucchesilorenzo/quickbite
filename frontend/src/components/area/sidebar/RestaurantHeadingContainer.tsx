@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
@@ -9,17 +7,20 @@ import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 type RestaurantHeadingContainerProps = {
+  isThereAnyFilter: boolean;
   onCloseDialog?: () => void;
+  setIsThereAnyFilter: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function RestaurantHeadingContainer({
+  isThereAnyFilter,
   onCloseDialog,
+  setIsThereAnyFilter,
 }: RestaurantHeadingContainerProps) {
   const { allCategories } = useCategoryFilters();
   const { restaurants } = useRestaurant();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isThereAnyFilter, setIsThereAnyFilter] = useState(false);
 
   const currentFilters = searchParams.getAll("filter");
   const currentSort = searchParams.getAll("sort_by");
@@ -47,16 +48,6 @@ export default function RestaurantHeadingContainer({
 
     setIsThereAnyFilter(false);
   }
-
-  useEffect(() => {
-    const hasFilters =
-      searchParams.getAll("filter").length > 0 ||
-      searchParams.getAll("mov").length > 0 ||
-      searchParams.getAll("sort_by").length > 0 ||
-      searchParams.getAll("view_type").length > 0;
-
-    setIsThereAnyFilter(hasFilters);
-  }, [searchParams]);
 
   return (
     <>
