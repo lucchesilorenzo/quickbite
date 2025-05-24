@@ -35,7 +35,13 @@ export default function SimpleHeadingWithDialog({
   const [isThereAnyFilter, setIsThereAnyFilter] = useState(false);
 
   function handleClearFilters() {
-    setSearchParams({ filter: [], mov: [], sort_by: [], view_type: [] });
+    setSearchParams({
+      filter: [],
+      mov: [],
+      sort_by: [],
+      view_type: searchParams.getAll("view_type"),
+    });
+
     setIsThereAnyFilter(false);
   }
 
@@ -43,8 +49,7 @@ export default function SimpleHeadingWithDialog({
     const hasFilters =
       searchParams.getAll("filter").length > 0 ||
       searchParams.getAll("mov").length > 0 ||
-      searchParams.getAll("sort_by").length > 0 ||
-      searchParams.getAll("view_type").length > 0;
+      searchParams.getAll("sort_by").length > 0;
 
     setIsThereAnyFilter(hasFilters);
   }, [searchParams]);

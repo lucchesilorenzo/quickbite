@@ -44,7 +44,12 @@ export default function RestaurantHeadingContainer({
   }
 
   function handleClearAllFilters() {
-    setSearchParams({ filter: [], mov: [], sort_by: [], view_type: [] });
+    setSearchParams({
+      filter: [],
+      mov: [],
+      sort_by: [],
+      view_type: currentViewType,
+    });
 
     setIsThereAnyFilter(false);
   }

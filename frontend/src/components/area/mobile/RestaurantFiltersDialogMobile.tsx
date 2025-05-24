@@ -21,8 +21,7 @@ export default function RestaurantFiltersDialogMobile() {
     const hasFilters =
       searchParams.getAll("filter").length > 0 ||
       searchParams.getAll("mov").length > 0 ||
-      searchParams.getAll("sort_by").length > 0 ||
-      searchParams.getAll("view_type").length > 0;
+      searchParams.getAll("sort_by").length > 0;
 
     setIsThereAnyFilter(hasFilters);
   }, [searchParams]);
