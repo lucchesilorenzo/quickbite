@@ -31,11 +31,45 @@ class RestaurantController extends Controller
                 ->withCount('reviews')
                 ->get();
 
-
             return response()->json($restaurants);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Get a restaurant.
+     *
+     * @param string $restaurantSlug
+     * @return JsonResponse
+     */
+    public function getRestaurant(string $restaurantSlug): JsonResponse
+    {
+        try {
+            $restaurant = Restaurant::with([
+                'categories',
+                'deliveryDays',
+                'reviews',
+                'menuCategories.menuItems',
+            ])
+                ->where('slug', $restaurantSlug)
+                ->withAvg('reviews', 'rating')
+                ->withCount('reviews')
+                ->first();
+
+            if (empty($restaurant)) {
+                return response()->json([
+                    'message' => 'Restaurant not found.',
+                ], 404);
+            }
+
+            return response()->json($restaurant);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Could not get restaurant.',
                 'error' => $e->getMessage(),
             ], 500);
         }
