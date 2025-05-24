@@ -23,7 +23,8 @@ export default function Header() {
   const [cookies] = useCookies(["address"]);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+
   const navigate = useNavigate();
 
   // Check if the address cookie has all the required fields
@@ -45,54 +46,56 @@ export default function Header() {
         color="inherit"
         elevation={3}
       >
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Stack
-            direction="row"
-            spacing={1}
-            component={Link}
-            to="/"
-            sx={{ alignItems: "center", textDecoration: "none" }}
-          >
-            <IconButton onClick={() => navigate(-1)}>
-              <KeyboardArrowLeftIcon color="primary" />
-            </IconButton>
-
-            <RestaurantMenuIcon color="primary" />
-
-            <Typography
-              variant="h6"
-              component="span"
-              color="primary"
-              sx={{
-                fontWeight: "700",
-                display: {
-                  xs: "none",
-                  md: "block",
-                },
-              }}
+        {!search.includes("view_type=map") && (
+          <Toolbar sx={{ justifyContent: "space-between" }}>
+            <Stack
+              direction="row"
+              spacing={1}
+              component={Link}
+              to="/"
+              sx={{ alignItems: "center", textDecoration: "none" }}
             >
-              QuickBite
-            </Typography>
-          </Stack>
+              <IconButton onClick={() => navigate(-1)}>
+                <KeyboardArrowLeftIcon color="primary" />
+              </IconButton>
 
-          {pathname.startsWith("/area") && (
-            <>
-              <LocationSearchButton
-                fullAddress={fullAddress}
-                setOpenDialog={setOpenDialog}
-              />
+              <RestaurantMenuIcon color="primary" />
 
-              {openDialog && (
-                <LocationSearchDialog
-                  openDialog={openDialog}
-                  onCloseDialog={() => setOpenDialog(false)}
+              <Typography
+                variant="h6"
+                component="span"
+                color="primary"
+                sx={{
+                  fontWeight: "700",
+                  display: {
+                    xs: "none",
+                    md: "block",
+                  },
+                }}
+              >
+                QuickBite
+              </Typography>
+            </Stack>
+
+            {pathname.startsWith("/area") && (
+              <>
+                <LocationSearchButton
+                  fullAddress={fullAddress}
+                  setOpenDialog={setOpenDialog}
                 />
-              )}
-            </>
-          )}
 
-          <HeaderDialog />
-        </Toolbar>
+                {openDialog && (
+                  <LocationSearchDialog
+                    openDialog={openDialog}
+                    onCloseDialog={() => setOpenDialog(false)}
+                  />
+                )}
+              </>
+            )}
+
+            <HeaderDialog />
+          </Toolbar>
+        )}
 
         {pathname.startsWith("/area") && <RestaurantSearchContainerMobile />}
 
