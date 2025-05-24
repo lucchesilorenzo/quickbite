@@ -38,6 +38,8 @@ export default function CategoryFiltersProvider({
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
+    if (!categories.length) return;
+
     const filters = searchParams.getAll("filter");
 
     const updatedCategories = categories.map((c) => ({
