@@ -43,7 +43,28 @@ export type RestaurantListItem = RestaurantBase & {
   reviews: Review[];
 };
 
-// export type RestaurantDetail = {};
+export type RestaurantDetail = RestaurantListItem & {
+  menu_categories: {
+    id: string;
+    name: string;
+    order: number;
+    restaurant_id: string;
+    created_at: string;
+    updated_at: string;
+    menu_items: {
+      id: string;
+      name: string;
+      description: string | null;
+      price: number;
+      order: number;
+      menu_category_id: string;
+      image: string | null;
+      is_available: boolean;
+      created_at: string;
+      updated_at: string;
+    }[];
+  };
+};
 
 export type DeliveryDay = {
   id: string;
