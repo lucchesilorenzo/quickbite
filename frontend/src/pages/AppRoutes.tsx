@@ -13,6 +13,7 @@ import LoginPage from "./LoginPage";
 import NotFoundPage from "./NotFoundPage";
 import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import RegisterPage from "./RegisterPage";
+import RestaurantPage from "./RestaurantPage";
 import TermsAndConditionsPage from "./TermsAndConditionsPage";
 
 import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
@@ -43,6 +44,10 @@ export default function AppRoutes() {
 
               <Route path="area/:areaSlug">
                 <Route index element={<AreaPage />} />
+              </Route>
+
+              <Route path="restaurants/:restaurantSlug">
+                <Route index element={<RestaurantPage />} />
               </Route>
             </Route>
 
