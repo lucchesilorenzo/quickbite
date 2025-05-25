@@ -13,7 +13,6 @@ export default function RestaurantMetaInfo({
   restaurant,
 }: RestaurantMetaInfoProps) {
   const categories = restaurant.categories.map((c) => c.name).join(", ");
-  const rating = Number(restaurant.reviews_avg_rating).toFixed(1);
   const isNew = differenceInDays(new Date(), restaurant.created_at) <= 30;
 
   return (
@@ -46,7 +45,7 @@ export default function RestaurantMetaInfo({
               sx={{ fontWeight: "700" }}
               color="textPrimary"
             >
-              {rating}
+              {restaurant.reviews_avg_rating}
             </Typography>
 
             <Typography variant="body2" component="span" color="textPrimary">

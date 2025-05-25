@@ -50,6 +50,7 @@ class Restaurant extends Model
         'shipping_cost' => 'float',
         'discount' => 'float',
         'min_discount_amount' => 'float',
+        'reviews_avg_rating' => 'float',
     ];
 
     /**
