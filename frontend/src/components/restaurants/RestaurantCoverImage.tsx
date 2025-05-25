@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 import env from "@/lib/env";
 import { RestaurantDetail } from "@/types";
@@ -11,7 +11,7 @@ export default function RestaurantCoverImage({
   restaurant,
 }: RestaurantCoverImageProps) {
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box sx={{ position: "relative", mb: 2 }}>
       <Box
         component="img"
         src={`${env.VITE_BASE_URL}${restaurant.cover}`}
@@ -23,21 +23,28 @@ export default function RestaurantCoverImage({
         }}
       />
 
-      <Box
-        component="img"
-        src={`${env.VITE_BASE_URL}${restaurant.logo}`}
-        alt={restaurant.name}
+      <Container
+        maxWidth="md"
         sx={{
-          objectFit: "cover",
-          width: 80,
-          height: 80,
           position: "absolute",
           bottom: 20,
-          left: 300,
-          border: "2px solid #fff",
-          borderRadius: 2,
+          left: 0,
+          right: 0,
         }}
-      />
+      >
+        <Box
+          component="img"
+          src={`${env.VITE_BASE_URL}${restaurant.logo}`}
+          alt={restaurant.name}
+          sx={{
+            objectFit: "cover",
+            width: 80,
+            height: 80,
+            border: "2px solid #fff",
+            borderRadius: 2,
+          }}
+        />
+      </Container>
     </Box>
   );
 }

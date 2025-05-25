@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 
 import Spinner from "@/components/common/Spinner";
-import RestaurantCoverImage from "@/components/restaurants/RestaurantCoverImage";
+import RestaurantDetails from "@/components/restaurants/RestaurantDetails";
 import { useGetRestaurant } from "@/hooks/react-query/restaurants/useGetRestaurant";
 
 export default function RestaurantPage() {
@@ -33,7 +33,7 @@ export default function RestaurantPage() {
     <Box component="main">
       <Grid container>
         <Grid size={10}>
-          <RestaurantCoverImage restaurant={restaurant} />
+          <RestaurantDetails restaurant={restaurant} />
         </Grid>
 
         <Grid size={2}></Grid>
