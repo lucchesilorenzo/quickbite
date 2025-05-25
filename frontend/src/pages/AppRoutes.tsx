@@ -8,9 +8,9 @@ import AppLayout from "../layouts/AppLayout";
 import AreaPage from "./AreaPage";
 import BecomeAPartnerPage from "./BecomeAPartnerPage";
 import BecomeARiderPage from "./BecomeARiderPage";
+import ErrorPage from "./ErrorPage";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
-import NotFoundPage from "./NotFoundPage";
 import PrivacyPolicyPage from "./PrivacyPolicyPage";
 import RegisterPage from "./RegisterPage";
 import RestaurantPage from "./RestaurantPage";
@@ -52,7 +52,7 @@ export default function AppRoutes() {
             </Route>
 
             <Route path="/" element={<ErrorLayout />}>
-              <Route path="*" element={<NotFoundPage />} />
+              <Route path="*" element={<ErrorPage />} />
             </Route>
           </Routes>
         </RestaurantProvider>

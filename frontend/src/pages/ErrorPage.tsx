@@ -1,8 +1,18 @@
+import { useEffect } from "react";
+
 import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
 
-export default function NotFoundPage() {
+type ErrorPageProps = {
+  error?: Error | null;
+};
+
+export default function ErrorPage({ error }: ErrorPageProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    document.title = `${error?.message || "Page not found"} | QuickBite`;
+  }, [error?.message]);
 
   return (
     <Stack
@@ -19,7 +29,7 @@ export default function NotFoundPage() {
           component="h2"
           sx={{ fontWeight: 700 }}
         >
-          We can't find that page.
+          {error?.message || "We can't find that page."}
         </Typography>
 
         <Typography variant={isMobile ? "h6" : "h5"} component="p">
