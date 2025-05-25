@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import ClearFiltersButton from "../content/ClearFiltersButton";
@@ -6,17 +6,7 @@ import ClearFiltersButton from "../content/ClearFiltersButton";
 import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
-type RestaurantHeadingContainerProps = {
-  isThereAnyFilter: boolean;
-  onCloseDialog?: () => void;
-  setIsThereAnyFilter: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export default function RestaurantHeadingContainer({
-  isThereAnyFilter,
-  onCloseDialog,
-  setIsThereAnyFilter,
-}: RestaurantHeadingContainerProps) {
+export default function RestaurantHeadingContainer() {
   const { allCategories } = useCategoryFilters();
   const { restaurants } = useRestaurant();
 
@@ -43,88 +33,20 @@ export default function RestaurantHeadingContainer({
     });
   }
 
-  function handleClearAllFilters() {
-    setSearchParams({
-      filter: [],
-      mov: [],
-      sort_by: [],
-      view_type: currentViewType,
-    });
-
-    setIsThereAnyFilter(false);
-  }
-
   return (
-    <>
-      <Stack
-        direction="row"
-        sx={{
-          justifyContent: "space-between",
-          display: { xs: "none", lg: "flex" },
-        }}
-      >
-        <Typography component="span" variant="h6" sx={{ fontWeight: 700 }}>
-          {restaurants.length} places
-        </Typography>
+    <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+      <Typography component="span" variant="h6" sx={{ fontWeight: 700 }}>
+        {restaurants.length} places
+      </Typography>
 
-        {nonCategoryFilters.length > 0 && (
-          <ClearFiltersButton
-            type="sidebar"
-            onHandleClick={handleClearSidebarFilters}
-          >
-            Clear
-          </ClearFiltersButton>
-        )}
-      </Stack>
-
-      <Stack
-        spacing={2}
-        sx={{
-          display: { xs: "flex", lg: "none" },
-          alignItems: "center",
-          pb: 12,
-        }}
-      >
-        <Box>
-          {isThereAnyFilter && (
-            <ClearFiltersButton
-              type="sidebar"
-              onHandleClick={handleClearAllFilters}
-            >
-              Clear
-            </ClearFiltersButton>
-          )}
-        </Box>
-
-        <Paper
-          sx={{
-            width: 1,
-            position: "fixed",
-            bottom: 0,
-            borderRadius: 0,
-            p: 2,
-          }}
-          elevation={4}
+      {nonCategoryFilters.length > 0 && (
+        <ClearFiltersButton
+          type="sidebar"
+          onHandleClick={handleClearSidebarFilters}
         >
-          <Button
-            onClick={onCloseDialog}
-            variant="outlined"
-            color="inherit"
-            fullWidth
-            sx={{
-              borderRadius: 2,
-              borderColor: "grey.300",
-              textTransform: "none",
-              textWrap: "nowrap",
-              fontWeight: 700,
-              p: 2,
-              fontSize: 16,
-            }}
-          >
-            {restaurants.length} places
-          </Button>
-        </Paper>
-      </Stack>
-    </>
+          Clear
+        </ClearFiltersButton>
+      )}
+    </Stack>
   );
 }

@@ -6,11 +6,11 @@ import { Badge, Dialog, DialogTitle, IconButton, Stack } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import RestaurantSort from "../content/search-and-map/RestaurantSort";
-import RestaurantHeadingContainer from "../sidebar/RestaurantHeadingContainer";
 import RestaurantMinimumOrderRadioFilters from "../sidebar/RestaurantMinimumOrderRadioFilters";
 import RestaurantOfferFilters from "../sidebar/RestaurantOfferFilters";
 import RestaurantRatingFilter from "../sidebar/RestaurantRatingFilter";
 import RestaurantSwitchFilters from "../sidebar/RestaurantSwitchFilters";
+import RestaurantHeadingContainerMobile from "./RestaurantHeadingContainerMobile";
 
 export default function RestaurantFiltersDialogMobile() {
   const [searchParams] = useSearchParams();
@@ -74,7 +74,7 @@ export default function RestaurantFiltersDialogMobile() {
             <RestaurantMinimumOrderRadioFilters />
             <RestaurantRatingFilter />
             <RestaurantOfferFilters />
-            <RestaurantHeadingContainer
+            <RestaurantHeadingContainerMobile
               isThereAnyFilter={isThereAnyFilter}
               onCloseDialog={() => setOpenDialog(false)}
               setIsThereAnyFilter={setIsThereAnyFilter}
