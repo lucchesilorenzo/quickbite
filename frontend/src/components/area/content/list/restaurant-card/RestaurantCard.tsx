@@ -25,6 +25,7 @@ export default function RestaurantCard({
           right: 80,
           zIndex: 1000,
         }}
+        variant="outlined"
       >
         <Box
           component={Link}
@@ -46,7 +47,7 @@ export default function RestaurantCard({
   }
 
   return (
-    <Paper component="li">
+    <Paper component="li" variant="outlined">
       <Box
         component={Link}
         to={`/restaurants/${restaurant.slug}`}
