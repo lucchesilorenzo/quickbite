@@ -12,8 +12,6 @@ type RestaurantOverviewProps = {
 export default function RestaurantOverview({
   restaurant,
 }: RestaurantOverviewProps) {
-  console.log(restaurant);
-
   return (
     <Container component="section" maxWidth="md">
       <RestaurantHeader restaurant={restaurant} />
