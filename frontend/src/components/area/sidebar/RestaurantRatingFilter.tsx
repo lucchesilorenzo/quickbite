@@ -70,7 +70,7 @@ export default function RestaurantRatingFilter() {
 
   return (
     <Stack spacing={1}>
-      <Typography variant="h6" component="span" sx={{ fontWeight: "700" }}>
+      <Typography variant="h6" component="span" sx={{ fontWeight: 700 }}>
         Rating
       </Typography>
 

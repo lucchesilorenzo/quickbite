@@ -16,7 +16,7 @@ export default function RestaurantHeader({
       direction="row"
       sx={{ justifyContent: "space-between", alignItems: "center", mb: 1 }}
     >
-      <Typography component="h1" variant="h4" sx={{ fontWeight: "700" }}>
+      <Typography component="h1" variant="h4" sx={{ fontWeight: 700 }}>
         {restaurant.name}
       </Typography>
 
