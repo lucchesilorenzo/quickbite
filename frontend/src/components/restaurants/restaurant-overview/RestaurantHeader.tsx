@@ -6,15 +6,10 @@ import { grey } from "@mui/material/colors";
 
 import RestaurantAboutDialog from "./RestaurantAboutDialog";
 
-import { RestaurantDetail } from "@/types";
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
-type RestaurantHeaderProps = {
-  restaurant: RestaurantDetail;
-};
-
-export default function RestaurantHeader({
-  restaurant,
-}: RestaurantHeaderProps) {
+export default function RestaurantHeader() {
+  const { restaurant } = useSingleRestaurant();
   const [openDialog, setOpenDialog] = useState(false);
 
   return (

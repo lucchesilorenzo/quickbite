@@ -3,16 +3,12 @@ import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import StarIcon from "@mui/icons-material/Star";
 import { IconButton, Link, Stack, Typography } from "@mui/material";
 
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
-import { RestaurantDetail } from "@/types";
 
-type RestaurantHeaderRowProps = {
-  restaurant: RestaurantDetail;
-};
+export default function RestaurantHeaderRow() {
+  const { restaurant } = useSingleRestaurant();
 
-export default function RestaurantHeaderRow({
-  restaurant,
-}: RestaurantHeaderRowProps) {
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
       <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>

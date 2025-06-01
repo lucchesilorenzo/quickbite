@@ -1,43 +1,20 @@
-import { useEffect } from "react";
-
 import { Box, Grid } from "@mui/material";
-import { useParams } from "react-router-dom";
 
-import ErrorPage from "./ErrorPage";
-
-import Spinner from "@/components/common/Spinner";
 import RestaurantDetails from "@/components/restaurants/RestaurantDetails";
-import { useGetRestaurant } from "@/hooks/react-query/restaurants/useGetRestaurant";
+import SingleRestaurantProvider from "@/contexts/SingleRestaurantProvider";
 
 export default function RestaurantPage() {
-  const { restaurantSlug } = useParams();
-  const {
-    data: restaurant,
-    isLoading: isRestaurantLoading,
-    error: restaurantError,
-  } = useGetRestaurant(restaurantSlug);
-
-  useEffect(() => {
-    if (restaurant?.name && restaurant?.city) {
-      document.title = `${restaurant.name} restaurant menu in ${restaurant.city} - Order from QuickBite`;
-    }
-  }, [restaurant?.name, restaurant?.city]);
-
-  if (isRestaurantLoading) return <Spinner />;
-
-  if (!restaurant || restaurantError) {
-    return <ErrorPage error={restaurantError} />;
-  }
-
   return (
-    <Box component="main">
-      <Grid container>
-        <Grid size={10}>
-          <RestaurantDetails restaurant={restaurant} />
-        </Grid>
+    <SingleRestaurantProvider>
+      <Box component="main">
+        <Grid container>
+          <Grid size={10}>
+            <RestaurantDetails />
+          </Grid>
 
-        <Grid size={2}></Grid>
-      </Grid>
-    </Box>
+          <Grid size={2}></Grid>
+        </Grid>
+      </Box>
+    </SingleRestaurantProvider>
   );
 }

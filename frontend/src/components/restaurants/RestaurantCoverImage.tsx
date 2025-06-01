@@ -1,15 +1,11 @@
 import { Box, Container } from "@mui/material";
 
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import env from "@/lib/env";
-import { RestaurantDetail } from "@/types";
 
-type RestaurantCoverImageProps = {
-  restaurant: RestaurantDetail;
-};
+export default function RestaurantCoverImage() {
+  const { restaurant } = useSingleRestaurant();
 
-export default function RestaurantCoverImage({
-  restaurant,
-}: RestaurantCoverImageProps) {
   return (
     <Box sx={{ position: "relative", mb: 2 }}>
       <Box
