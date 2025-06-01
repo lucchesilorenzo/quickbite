@@ -8,7 +8,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import RestaurantAboutTabs from "./tabs/RestaurantAboutTabs";
+import RestaurantAboutDialogTabs from "./tabs/RestaurantAboutDialogTabs";
 
 type RestaurantAboutDialogProps = {
   open: boolean;
@@ -44,7 +44,7 @@ export default function RestaurantAboutDialog({
         </Stack>
 
         <DialogContent sx={{ p: 0 }}>
-          <RestaurantAboutTabs />
+          <RestaurantAboutDialogTabs />
         </DialogContent>
       </Stack>
     </Dialog>
