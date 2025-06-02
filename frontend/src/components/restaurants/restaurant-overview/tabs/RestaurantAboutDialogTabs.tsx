@@ -5,7 +5,8 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Tab from "@mui/material/Tab";
 
-import RestaurantAboutDialogReviewsTab from "./reviews/ReviewsTab";
+import InfoTab from "./info/InfoTab";
+import ReviewsTab from "./reviews/ReviewsTab";
 
 export default function RestaurantAboutDialogTabs() {
   const [value, setValue] = useState("info");
@@ -31,11 +32,11 @@ export default function RestaurantAboutDialogTabs() {
       </TabList>
 
       <TabPanel value="reviews" sx={{ p: 0 }}>
-        <RestaurantAboutDialogReviewsTab />
+        <ReviewsTab />
       </TabPanel>
 
       <TabPanel value="info" sx={{ p: 0 }}>
-        Info
+        <InfoTab />
       </TabPanel>
     </TabContext>
   );
