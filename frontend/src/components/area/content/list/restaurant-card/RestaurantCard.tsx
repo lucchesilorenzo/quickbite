@@ -20,9 +20,9 @@ export default function RestaurantCard({
       <Paper
         sx={{
           position: "absolute",
-          bottom: 30,
           left: 80,
           right: 80,
+          bottom: 20,
           zIndex: 1000,
         }}
         variant="outlined"

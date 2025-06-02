@@ -20,8 +20,8 @@ export default function RestaurantCardMobile({
       <Paper
         sx={{
           position: "absolute",
-          bottom: 30,
           left: 10,
+          bottom: 20,
           zIndex: 1000,
           width: 350,
         }}
