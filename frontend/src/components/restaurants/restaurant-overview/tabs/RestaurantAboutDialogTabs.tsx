@@ -5,7 +5,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Tab from "@mui/material/Tab";
 
-import RestaurantAboutDialogReviewsTab from "./RestaurantAboutDialogReviewsTab";
+import RestaurantAboutDialogReviewsTab from "./reviews/ReviewsTab";
 
 export default function RestaurantAboutDialogTabs() {
   const [value, setValue] = useState("info");

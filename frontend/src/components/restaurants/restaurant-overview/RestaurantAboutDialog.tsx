@@ -19,7 +19,7 @@ export default function RestaurantAboutDialog({
   open,
   onClose,
 }: RestaurantAboutDialogProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Dialog
