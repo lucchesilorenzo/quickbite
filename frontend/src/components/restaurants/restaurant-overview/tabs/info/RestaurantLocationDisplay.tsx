@@ -17,7 +17,7 @@ export default function RestaurantLocationDisplay() {
     <MapContainer
       center={[restaurant.latitude, restaurant.longitude]}
       zoom={13}
-      style={{ minHeight: "50vh", position: "relative" }}
+      style={{ minHeight: "45vh", position: "relative" }}
       dragging={false}
       scrollWheelZoom={false}
       zoomControl={false}
