@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->integer('rating');
             $table->timestamps();
         });

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('order_code');
             $table->string('street_address');
             $table->string('building_number');
-            $table->string('postal_code');
+            $table->string('postcode');
             $table->string('city');
             $table->string('country')->default('Italy');
             $table->time('delivery_time')->nullable();

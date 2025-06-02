@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('street_address')->nullable();
             $table->string('building_number')->nullable();
-            $table->string('postal_code')->nullable();
+            $table->string('postcode')->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable()->default('Italy');
             $table->string('driving_licence')->nullable()->unique();

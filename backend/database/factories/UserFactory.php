@@ -35,7 +35,7 @@ class UserFactory extends Factory
             'phone_number' => fake()->e164PhoneNumber(),
             'street_address' => fake()->streetAddress(),
             'building_number' => fake()->buildingNumber(),
-            'postal_code' => fake()->postcode(),
+            'postcode' => fake()->postcode(),
             'city' => fake()->city(),
             'country' => 'Italy',
             'driving_licence' => fn(array $attributes) => $attributes['role'] === 'RIDER' ? fake()->numerify('##########') : null,

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class RestaurantController extends Controller
 {
@@ -25,7 +27,7 @@ class RestaurantController extends Controller
 
             $postcode = $fullAddress['address']['postcode'];
 
-            $restaurants = Restaurant::with(['categories', 'deliveryDays', 'reviews'])
+            $restaurants = Restaurant::with(['categories', 'deliveryDays', 'reviews.customer'])
                 ->where('postcode', $postcode)
                 ->withAvg('reviews', 'rating')
                 ->withCount('reviews')
@@ -52,7 +54,7 @@ class RestaurantController extends Controller
             $restaurant = Restaurant::with([
                 'categories',
                 'deliveryDays',
-                'reviews',
+                'reviews.customer',
                 'menuCategories.menuItems',
             ])
                 ->where('slug', $restaurantSlug)

@@ -18,7 +18,7 @@ class Order extends Model
         'order_code',
         'street_address',
         'building_number',
-        'postal_code',
+        'postcode',
         'city',
         'country',
         'delivery_time',
