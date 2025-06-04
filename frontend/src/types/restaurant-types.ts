@@ -47,24 +47,16 @@ export type RestaurantListItem = RestaurantBase & {
 export type RestaurantDetail = RestaurantListItem & {
   menu_categories: {
     id: string;
+    restaurant_id: string;
     name: string;
     order: number;
-    restaurant_id: string;
     created_at: string;
     updated_at: string;
-    menu_items: {
-      id: string;
-      name: string;
-      description: string | null;
-      price: number;
-      order: number;
-      menu_category_id: string;
-      image: string | null;
-      is_available: boolean;
-      created_at: string;
-      updated_at: string;
-    }[];
-  };
+    menu_items: MenuItem[];
+  }[];
+
+  created_at: string;
+  updated_at: string;
 };
 
 export type DeliveryDay = {
@@ -93,4 +85,16 @@ export type Review = {
   created_at: string;
   updated_at: string;
   customer: User;
+};
+
+export type MenuItem = {
+  id: string;
+  menu_category_id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  image: string | null;
+  is_available: boolean;
+  created_at: string;
+  updated_at: string;
 };
