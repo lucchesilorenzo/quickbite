@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\MenuCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MenuCategory>
@@ -82,12 +83,14 @@ class MenuCategoryFactory extends Factory
                         'name' => 'Lasagna',
                         'description' => 'Classic Italian lasagna with beef and ricotta',
                         'price' => 12.99,
+                        'image' => Storage::url('restaurants/menu-items/lasagna.jpg'),
                         'is_available' => true,
                     ],
                     [
                         'name' => 'Grilled Chicken',
                         'description' => 'Tender grilled chicken with seasonal vegetables',
                         'price' => 15.50,
+                        'image' => Storage::url('restaurants/menu-items/grilled-chicken.jpg'),
                         'is_available' => true,
                     ],
                 ];
