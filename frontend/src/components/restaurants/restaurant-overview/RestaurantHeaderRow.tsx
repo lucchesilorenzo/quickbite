@@ -7,7 +7,19 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantHeaderRow() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant, setOpenDialog } = useSingleRestaurant();
+
+  function handleOpenDialogAndScroll() {
+    setTimeout(() => {
+      const anchor = document.querySelector("#delivery-fee");
+
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 300);
+
+    setOpenDialog(true);
+  }
 
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 2 }}>
@@ -47,7 +59,7 @@ export default function RestaurantHeaderRow() {
           color="inherit"
           size="small"
           sx={{ "&:hover": { bgcolor: "transparent" }, p: 0 }}
-          onClick={() => {}}
+          onClick={handleOpenDialogAndScroll}
         >
           <InfoOutlineIcon fontSize="small" />
         </IconButton>

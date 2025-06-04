@@ -9,7 +9,7 @@ export default function RestaurantDeliveryFee() {
   const { restaurant } = useSingleRestaurant();
 
   return (
-    <Box sx={{ mb: 2 }}>
+    <Box id="delivery-fee" sx={{ mb: 2 }}>
       <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 1 }}>
         <ReceiptIcon />
 

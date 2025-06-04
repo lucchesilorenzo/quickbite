@@ -1,4 +1,4 @@
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -13,6 +13,8 @@ type SingleRestaurantProviderProps = {
 
 type SingleRestaurantContext = {
   restaurant: RestaurantDetail;
+  openDialog: boolean;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const SingleRestaurantContext =
@@ -22,6 +24,7 @@ export default function SingleRestaurantProvider({
   children,
 }: SingleRestaurantProviderProps) {
   const { restaurantSlug } = useParams();
+  const [openDialog, setOpenDialog] = useState(false);
   const {
     data: restaurant,
     isLoading: isRestaurantLoading,
@@ -41,7 +44,9 @@ export default function SingleRestaurantProvider({
   }
 
   return (
-    <SingleRestaurantContext.Provider value={{ restaurant }}>
+    <SingleRestaurantContext.Provider
+      value={{ restaurant, openDialog, setOpenDialog }}
+    >
       {children}
     </SingleRestaurantContext.Provider>
   );
