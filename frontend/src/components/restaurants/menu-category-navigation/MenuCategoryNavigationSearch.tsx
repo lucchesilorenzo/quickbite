@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputAdornment, Stack, TextField } from "@mui/material";
+import { IconButton, InputAdornment, Stack, TextField } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import MenuItemsList from "./MenuItemsList";
@@ -41,6 +42,15 @@ export default function MenuCategoryNavigationSearch() {
             startAdornment: (
               <InputAdornment position="start">
                 <SearchIcon color="primary" />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="end">
+                {searchTerm && (
+                  <IconButton onClick={() => setSearchTerm("")}>
+                    <HighlightOffIcon sx={{ color: "#212121" }} />
+                  </IconButton>
+                )}
               </InputAdornment>
             ),
           },
