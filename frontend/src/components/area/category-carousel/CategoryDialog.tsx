@@ -68,7 +68,7 @@ export default function CategoryDialog({ categories }: CategoryDialogProps) {
       >
         <Stack spacing={2} sx={{ p: 2 }}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-            <DialogTitle sx={{ p: 0, fontWeight: "bold" }}>
+            <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
               All categories
             </DialogTitle>
 

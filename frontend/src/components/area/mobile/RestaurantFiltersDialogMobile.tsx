@@ -56,7 +56,7 @@ export default function RestaurantFiltersDialogMobile() {
       >
         <Stack spacing={2} sx={{ p: 2 }}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-            <DialogTitle sx={{ p: 0, fontWeight: "bold" }}>Filters</DialogTitle>
+            <DialogTitle sx={{ p: 0, fontWeight: 700 }}>Filters</DialogTitle>
 
             <IconButton
               color="inherit"

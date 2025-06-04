@@ -38,7 +38,7 @@ export default function LocationEditDialog({
     >
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-          <DialogTitle sx={{ p: 0, fontWeight: "bold" }}>
+          <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
             Help us find you
           </DialogTitle>
 
@@ -58,7 +58,7 @@ export default function LocationEditDialog({
               To get more accurate search results and delivery times and costs,
               add more details to your address:
               <Box component="span" sx={{ ml: 1 }}>
-                <Typography component="span" sx={{ fontWeight: "bold" }}>
+                <Typography component="span" sx={{ fontWeight: 700 }}>
                   {`"${address}"`}
                 </Typography>
                 .

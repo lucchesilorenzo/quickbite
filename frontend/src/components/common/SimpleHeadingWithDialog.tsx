@@ -79,7 +79,7 @@ export default function SimpleHeadingWithDialog({
       >
         <Stack spacing={2} sx={{ p: 2 }}>
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-            <DialogTitle sx={{ p: 0, fontWeight: "bold" }}>{title}</DialogTitle>
+            <DialogTitle sx={{ p: 0, fontWeight: 700 }}>{title}</DialogTitle>
 
             <IconButton
               color="inherit"
