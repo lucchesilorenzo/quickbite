@@ -10,7 +10,7 @@ type MenuItemsListProps = {
 
 export default function MenuItemsList({ menuItems }: MenuItemsListProps) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ pb: 4 }}>
       {menuItems.map((item) => (
         <Grid size={3}>
           <MenuItemCard key={item.id} menuItem={item} />

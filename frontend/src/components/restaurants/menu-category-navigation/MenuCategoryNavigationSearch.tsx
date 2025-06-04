@@ -5,6 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { IconButton, InputAdornment, Stack, TextField } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import MenuItemsEmpty from "./MenuItemsEmpty";
 import MenuItemsList from "./MenuItemsList";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
@@ -57,7 +58,11 @@ export default function MenuCategoryNavigationSearch() {
         }}
       />
 
-      {searchTerm && <MenuItemsList menuItems={filteredMenuItems} />}
+      {searchTerm && filteredMenuItems.length ? (
+        <MenuItemsList menuItems={filteredMenuItems} />
+      ) : (
+        searchTerm && <MenuItemsEmpty setSearchTerm={setSearchTerm} />
+      )}
     </Stack>
   );
 }

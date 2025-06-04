@@ -10,7 +10,7 @@ export default function RestaurantHeaderRow() {
   const { restaurant } = useSingleRestaurant();
 
   return (
-    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+    <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 2 }}>
       <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
         <StarIcon fontSize="small" color="primary" />
 
