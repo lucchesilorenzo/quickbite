@@ -1,5 +1,6 @@
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import StarIcon from "@mui/icons-material/Star";
 import { IconButton, Link, Stack, Typography } from "@mui/material";
 
@@ -45,6 +46,20 @@ export default function RestaurantHeaderRow() {
           </Typography>
         </Link>
       </Stack>
+
+      {restaurant.min_amount && (
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <Typography component="span">&bull;</Typography>
+
+          <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+            <ShoppingBagIcon fontSize="small" />
+
+            <Typography component="span" variant="body2" color="textPrimary">
+              Min. {formatCurrency(restaurant.min_amount)}
+            </Typography>
+          </Stack>
+        </Stack>
+      )}
 
       <Typography component="span">&bull;</Typography>
 
