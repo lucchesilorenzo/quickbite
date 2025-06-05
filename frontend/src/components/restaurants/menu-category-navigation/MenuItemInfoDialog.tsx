@@ -16,24 +16,28 @@ import { MenuItem } from "@/types";
 
 type MenuItemInfoDialogProps = {
   menuItem: MenuItem;
+  openMenuItemInfoDialog: boolean;
+  setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenMenuItemInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function MenuItemInfoDialog({
   menuItem,
+  openMenuItemInfoDialog,
+  setOpenMenuItemDialog,
+  setOpenMenuItemInfoDialog,
 }: MenuItemInfoDialogProps) {
-  const {
-    restaurant,
-    openMenuItemInfoDialog,
-    setOpenMenuItemDialog,
-    setOpenMenuItemInfoDialog,
-  } = useSingleRestaurant();
+  const { restaurant } = useSingleRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Dialog
       open={openMenuItemInfoDialog}
-      onClose={() => setOpenMenuItemInfoDialog(false)}
+      onClose={() => {
+        setOpenMenuItemInfoDialog(false);
+        setOpenMenuItemDialog(false);
+      }}
       fullScreen={isMobile}
       disableRestoreFocus
     >

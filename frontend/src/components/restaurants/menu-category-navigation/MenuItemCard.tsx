@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import PlusIcon from "@mui/icons-material/Add";
 import {
   Box,
@@ -12,7 +14,6 @@ import { grey } from "@mui/material/colors";
 
 import MenuItemDialog from "./MenuItemDialog";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
 import { MenuItem } from "@/types";
@@ -22,7 +23,7 @@ type MenuItemCardProps = {
 };
 
 export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
-  const { setOpenMenuItemDialog } = useSingleRestaurant();
+  const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
 
   return (
     <>
@@ -48,7 +49,9 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
             ) : (
               <Box sx={{ height: 100 }}></Box>
             )}
+          </Box>
 
+          <CardContent sx={{ p: 0 }}>
             {menuItem.is_available && (
               <IconButton
                 sx={{
@@ -67,9 +70,7 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
                 <PlusIcon color="primary" />
               </IconButton>
             )}
-          </Box>
 
-          <CardContent sx={{ p: 0 }}>
             <Typography
               component="h3"
               variant="h6"
@@ -100,7 +101,11 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
         </CardActionArea>
       </Card>
 
-      <MenuItemDialog menuItem={menuItem} />
+      <MenuItemDialog
+        menuItem={menuItem}
+        openMenuItemDialog={openMenuItemDialog}
+        setOpenMenuItemDialog={setOpenMenuItemDialog}
+      />
     </>
   );
 }

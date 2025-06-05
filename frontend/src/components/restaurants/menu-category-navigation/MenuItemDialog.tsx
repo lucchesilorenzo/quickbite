@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 import ClearIcon from "@mui/icons-material/Clear";
+import CloseIcon from "@mui/icons-material/Close";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
   Box,
@@ -13,27 +16,31 @@ import { grey } from "@mui/material/colors";
 
 import MenuItemInfoDialog from "./MenuItemInfoDialog";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
 import { MenuItem } from "@/types";
 
 type MenuItemDialogProps = {
   menuItem: MenuItem;
+openMenuItemDialog: boolean;
+  setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function MenuItemDialog({ menuItem }: MenuItemDialogProps) {
-  const {
+export default function MenuItemDialog({
+menuItem,
     openMenuItemDialog,
     setOpenMenuItemDialog,
-    setOpenMenuItemInfoDialog,
-  } = useSingleRestaurant();
+}: MenuItemDialogProps) {
+  const [openMenuItemInfoDialog, setOpenMenuItemInfoDialog] = useState(false);
 
   return (
     <>
       <Dialog
         open={openMenuItemDialog}
-        onClose={() => setOpenMenuItemDialog(false)}
+        onClose={() => {
+setOpenMenuItemDialog(false);
+          setOpenMenuItemInfoDialog(false);
+        }}
         fullWidth
         disableRestoreFocus
       >
@@ -101,7 +108,12 @@ export default function MenuItemDialog({ menuItem }: MenuItemDialogProps) {
         </Stack>
       </Dialog>
 
-      <MenuItemInfoDialog menuItem={menuItem} />
+      <MenuItemInfoDialog
+menuItem={menuItem}
+        openMenuItemInfoDialog={openMenuItemInfoDialog}
+        setOpenMenuItemDialog={setOpenMenuItemDialog}
+        setOpenMenuItemInfoDialog={setOpenMenuItemInfoDialog}
+      />
     </>
   );
 }
