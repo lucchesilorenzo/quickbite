@@ -7,7 +7,7 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantHeaderRow() {
-  const { restaurant, setOpenDialog } = useSingleRestaurant();
+  const { restaurant, setOpenRestaurantAboutDialog } = useSingleRestaurant();
 
   function handleOpenDialogAndScroll() {
     setTimeout(() => {
@@ -18,7 +18,7 @@ export default function RestaurantHeaderRow() {
       }
     }, 300);
 
-    setOpenDialog(true);
+    setOpenRestaurantAboutDialog(true);
   }
 
   return (

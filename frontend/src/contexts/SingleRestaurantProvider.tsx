@@ -13,8 +13,12 @@ type SingleRestaurantProviderProps = {
 
 type SingleRestaurantContext = {
   restaurant: RestaurantDetail;
-  openDialog: boolean;
-  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  openRestaurantAboutDialog: boolean;
+  openMenuItemDialog: boolean;
+  openMenuItemInfoDialog: boolean;
+  setOpenRestaurantAboutDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenMenuItemInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const SingleRestaurantContext =
@@ -24,12 +28,17 @@ export default function SingleRestaurantProvider({
   children,
 }: SingleRestaurantProviderProps) {
   const { restaurantSlug } = useParams();
-  const [openDialog, setOpenDialog] = useState(false);
+
   const {
     data: restaurant,
     isLoading: isRestaurantLoading,
     error: restaurantError,
   } = useGetRestaurant(restaurantSlug);
+
+  const [openRestaurantAboutDialog, setOpenRestaurantAboutDialog] =
+    useState(false);
+  const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
+  const [openMenuItemInfoDialog, setOpenMenuItemInfoDialog] = useState(false);
 
   useEffect(() => {
     if (restaurant?.name && restaurant?.city) {
@@ -45,7 +54,15 @@ export default function SingleRestaurantProvider({
 
   return (
     <SingleRestaurantContext.Provider
-      value={{ restaurant, openDialog, setOpenDialog }}
+      value={{
+        restaurant,
+        openRestaurantAboutDialog,
+        openMenuItemDialog,
+        openMenuItemInfoDialog,
+        setOpenRestaurantAboutDialog,
+        setOpenMenuItemDialog,
+        setOpenMenuItemInfoDialog,
+      }}
     >
       {children}
     </SingleRestaurantContext.Provider>

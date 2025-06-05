@@ -11,20 +11,20 @@ import {
 import RestaurantAboutDialogTabs from "./tabs/RestaurantAboutDialogTabs";
 
 type RestaurantAboutDialogProps = {
-  open: boolean;
-  onClose: () => void;
+  openRestaurantAboutDialog: boolean;
+  setOpenRestaurantAboutDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function RestaurantAboutDialog({
-  open,
-  onClose,
+  openRestaurantAboutDialog,
+  setOpenRestaurantAboutDialog,
 }: RestaurantAboutDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Dialog
-      open={open}
-      onClose={onClose}
+      open={openRestaurantAboutDialog}
+      onClose={() => setOpenRestaurantAboutDialog(false)}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -36,7 +36,7 @@ export default function RestaurantAboutDialog({
           <IconButton
             color="inherit"
             aria-label="close"
-            onClick={onClose}
+            onClick={() => setOpenRestaurantAboutDialog(false)}
             sx={{ p: 0 }}
           >
             <CloseIcon />

@@ -7,7 +7,11 @@ import RestaurantAboutDialog from "./RestaurantAboutDialog";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function RestaurantHeader() {
-  const { restaurant, openDialog, setOpenDialog } = useSingleRestaurant();
+  const {
+    restaurant,
+    openRestaurantAboutDialog,
+    setOpenRestaurantAboutDialog,
+  } = useSingleRestaurant();
 
   return (
     <Stack
@@ -21,14 +25,14 @@ export default function RestaurantHeader() {
       <IconButton
         color="inherit"
         sx={{ bgcolor: grey[100], "&:hover": { bgcolor: grey[200] } }}
-        onClick={() => setOpenDialog(true)}
+        onClick={() => setOpenRestaurantAboutDialog(true)}
       >
         <InfoOutlineIcon />
       </IconButton>
 
       <RestaurantAboutDialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
+        openRestaurantAboutDialog={openRestaurantAboutDialog}
+        setOpenRestaurantAboutDialog={setOpenRestaurantAboutDialog}
       />
     </Stack>
   );
