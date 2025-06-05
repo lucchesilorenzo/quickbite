@@ -19,6 +19,21 @@ export default function RestaurantDeliveryFee() {
       </Stack>
 
       <Card variant="outlined" sx={{ bgcolor: grey[100], p: 2 }}>
+        {restaurant.min_amount && (
+          <Stack
+            direction="row"
+            sx={{ alignItems: "center", justifyContent: "space-between" }}
+          >
+            <Typography variant="body1" component="div">
+              Minimum order amount
+            </Typography>
+
+            <Typography variant="body1">
+              {formatCurrency(restaurant.min_amount)}
+            </Typography>
+          </Stack>
+        )}
+
         <Stack
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
