@@ -129,6 +129,7 @@ export default function MenuItemDialog({
       </Dialog>
 
       <MenuItemInfoDialog
+        type="from-search"
         menuItem={menuItem}
         openMenuItemInfoDialog={openMenuItemInfoDialog}
         setOpenMenuItemDialog={setOpenMenuItemDialog}

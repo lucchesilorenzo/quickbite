@@ -5,7 +5,6 @@ import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
   Box,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
   DialogTitle,
@@ -16,6 +15,7 @@ import {
 import { grey } from "@mui/material/colors";
 
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
+import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils";
@@ -27,18 +27,22 @@ type MenuItemRowProps = {
 
 export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
+  const [openMenuItemInfoDialog, setOpenMenuItemInfoDialog] = useState(false);
 
   return (
     <>
       <Card elevation={3}>
-        <CardActionArea
-          disabled={!menuItem.is_available}
+        <Box
+          role="button"
           sx={{
             p: 2,
             bgcolor: !menuItem.is_available ? grey[100] : "",
-            "&:hover": { bgcolor: grey[100] },
+            "&:hover": { bgcolor: grey[100], cursor: "pointer" },
           }}
-          onClick={() => setOpenMenuItemDialog(true)}
+          onClick={() => {
+            setOpenMenuItemDialog(true);
+            setOpenMenuItemInfoDialog(false);
+          }}
         >
           <Stack direction="row" sx={{ alignItems: "center" }}>
             <Box sx={{ flex: 1, pr: 1 }}>
@@ -55,13 +59,19 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
                   {menuItem.name}
                 </DialogTitle>
 
-                <IconButton
-                  color="inherit"
-                  sx={{ "&:hover": { bgcolor: "transparent" } }}
-                  onClick={() => {}}
-                >
-                  <InfoOutlineIcon />
-                </IconButton>
+                <Box>
+                  <IconButton
+                    color="inherit"
+                    sx={{ "&:hover": { bgcolor: "transparent" } }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenMenuItemInfoDialog(true);
+                      setOpenMenuItemDialog(false);
+                    }}
+                  >
+                    <InfoOutlineIcon />
+                  </IconButton>
+                </Box>
               </Stack>
 
               <CardContent sx={{ p: 0 }}>
@@ -125,13 +135,21 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
               )}
             </Box>
           </Stack>
-        </CardActionArea>
+        </Box>
       </Card>
 
       <MenuItemDialog
         menuItem={menuItem}
         openMenuItemDialog={openMenuItemDialog}
         setOpenMenuItemDialog={setOpenMenuItemDialog}
+      />
+
+      <MenuItemInfoDialog
+        type="from-list"
+        menuItem={menuItem}
+        openMenuItemInfoDialog={openMenuItemInfoDialog}
+        setOpenMenuItemDialog={setOpenMenuItemDialog}
+        setOpenMenuItemInfoDialog={setOpenMenuItemInfoDialog}
       />
     </>
   );
