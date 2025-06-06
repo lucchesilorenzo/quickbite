@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import SearchIcon from "@mui/icons-material/Search";
@@ -11,8 +11,7 @@ import MenuItemsList from "./MenuItemsList";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function MenuCategoryNavigationSearch() {
-  const { restaurant } = useSingleRestaurant();
-  const [searchTerm, setSearchTerm] = useState("");
+  const { restaurant, searchTerm, setSearchTerm } = useSingleRestaurant();
 
   const menuItems = restaurant.menu_categories.flatMap((c) => c.menu_items);
 

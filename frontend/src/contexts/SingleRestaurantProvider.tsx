@@ -14,7 +14,9 @@ type SingleRestaurantProviderProps = {
 type SingleRestaurantContext = {
   restaurant: RestaurantDetail;
   openRestaurantAboutDialog: boolean;
+  searchTerm: string;
   setOpenRestaurantAboutDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const SingleRestaurantContext =
@@ -33,6 +35,7 @@ export default function SingleRestaurantProvider({
 
   const [openRestaurantAboutDialog, setOpenRestaurantAboutDialog] =
     useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (restaurant?.name && restaurant?.city) {
@@ -51,7 +54,9 @@ export default function SingleRestaurantProvider({
       value={{
         restaurant,
         openRestaurantAboutDialog,
+        searchTerm,
         setOpenRestaurantAboutDialog,
+        setSearchTerm,
       }}
     >
       {children}
