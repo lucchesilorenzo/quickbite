@@ -31,15 +31,20 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
 
   return (
     <>
-      <Card elevation={3}>
+      <Card elevation={!menuItem.is_available ? 0 : 3}>
         <Box
           role="button"
           sx={{
             p: 2,
             bgcolor: !menuItem.is_available ? grey[100] : "",
-            "&:hover": { bgcolor: grey[100], cursor: "pointer" },
+            "&:hover": {
+              bgcolor: grey[100],
+              cursor: menuItem.is_available ? "pointer" : "default",
+            },
           }}
           onClick={() => {
+            if (!menuItem.is_available) return;
+
             setOpenMenuItemDialog(true);
             setOpenMenuItemInfoDialog(false);
           }}
@@ -61,6 +66,7 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
 
                 <Box>
                   <IconButton
+                    disabled={!menuItem.is_available}
                     color="inherit"
                     sx={{ "&:hover": { bgcolor: "transparent" } }}
                     onClick={(e) => {
@@ -79,7 +85,7 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
                   component="h4"
                   variant="body2"
                   sx={{
-                    fontWeight: 700,
+                    fontWeight: menuItem.is_available ? 700 : "",
                     color: !menuItem.is_available ? grey[500] : "",
                   }}
                   gutterBottom
@@ -90,21 +96,24 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
                 </Typography>
 
                 {menuItem.description && (
-                  <Typography component="div" variant="body1">
+                  <Typography
+                    component="div"
+                    variant="body1"
+                    color={!menuItem.is_available ? "textDisabled" : ""}
+                  >
                     {truncateWords(menuItem.description, 20)}
                   </Typography>
                 )}
               </CardContent>
             </Box>
 
-            <Box sx={{ flexShrink: 0 }}>
-              {menuItem.image && (
+            <Box sx={{ flexShrink: 0, position: "relative" }}>
+              {menuItem.image ? (
                 <CardMedia
                   component="img"
                   sx={{
                     height: 100,
                     width: 150,
-                    position: "relative",
                     border: "1px solid #EDEDEC",
                     borderRadius: 2,
                   }}
@@ -112,6 +121,8 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
                   alt={menuItem.name}
                   title={menuItem.name}
                 />
+              ) : (
+                <Box sx={{ height: 100, width: 150 }}></Box>
               )}
 
               {menuItem.is_available && (
@@ -124,8 +135,8 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
                     border: "1px solid #EDEDEC",
                     borderRadius: 5,
                     position: "absolute",
-                    top: 18,
-                    right: 8,
+                    top: -10,
+                    right: -10,
                   }}
                   aria-label="add"
                   size="small"
