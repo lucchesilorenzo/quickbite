@@ -7,6 +7,7 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  DialogTitle,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -71,17 +72,18 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
               </IconButton>
             )}
 
-            <Typography
+            <DialogTitle
               component="h3"
               variant="h6"
               sx={{
                 fontWeight: 700,
                 mt: 4,
+                p: 0,
                 color: !menuItem.is_available ? grey[500] : "",
               }}
             >
               {menuItem.name}
-            </Typography>
+            </DialogTitle>
 
             <Box sx={{ my: 4 }}></Box>
 
