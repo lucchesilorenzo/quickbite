@@ -31,7 +31,7 @@ export default function WhyChooseUsFeatureDesktop() {
           <Stack spacing={2} sx={{ alignItems: "center" }}>
             <feature.icon color="primary" fontSize="large" />
 
-            <Typography variant="h6" component="h5" sx={{ fontWeight: "700" }}>
+            <Typography variant="h6" component="h5" sx={{ fontWeight: 700 }}>
               {feature.title}
             </Typography>
           </Stack>
