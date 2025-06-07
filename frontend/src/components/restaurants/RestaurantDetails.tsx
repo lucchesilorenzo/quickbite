@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 
 import RestaurantCoverImage from "./RestaurantCoverImage";
 import MenuCategoriesList from "./menu-categories/MenuCategoriesList";
-import MenuCategoryNavigation from "./menu-category-navigation/MenuCategoryNavigation";
+import MenuCategoryNavigationSection from "./menu-category-navigation/MenuCategoryNavigationSection";
 import RestaurantOverview from "./restaurant-overview/RestaurantOverview";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
@@ -14,7 +14,7 @@ export default function RestaurantDetails() {
     <Box component="section">
       <RestaurantCoverImage />
       <RestaurantOverview />
-      <MenuCategoryNavigation />
+      <MenuCategoryNavigationSection />
       {!searchTerm && <MenuCategoriesList />}
     </Box>
   );
