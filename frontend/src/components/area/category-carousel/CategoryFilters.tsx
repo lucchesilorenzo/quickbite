@@ -8,6 +8,7 @@ import {
   Container,
   Fade,
   IconButton,
+  Stack,
 } from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -61,13 +62,7 @@ export default function CategoryFilters() {
       </Fade>
 
       <Box sx={{ overflow: "hidden", flex: 1 }} ref={emblaRef}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <Stack direction="row" sx={{ alignItems: "center" }}>
           {isLoadingCategories ? (
             <CircularProgress size={24} />
           ) : (
@@ -79,7 +74,7 @@ export default function CategoryFilters() {
               <CategoryDialog categories={allCategories} />
             </>
           )}
-        </Box>
+        </Stack>
       </Box>
 
       <Fade in={canScrollNext}>
