@@ -2,9 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Box, Button, Fade, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import useEmblaCarousel from "embla-carousel-react";
+
+import MenuCategoryNavigationDialog from "./MenuCategoryNavigationDialog";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
@@ -13,6 +16,10 @@ export default function MenuCategoryNavigation() {
   const [selectedMenuCategory, setSelectedMenuCategory] = useState<
     string | null
   >(null);
+  const [
+    openMenuCategoryNavigationDialog,
+    setOpenMenuCategoryNavigationDialog,
+  ] = useState(false);
 
   const menuCategories = [...restaurant.menu_categories]
     .sort((a, b) => a.order - b.order)
@@ -58,7 +65,7 @@ export default function MenuCategoryNavigation() {
   }, [emblaApi, onSelect]);
 
   return (
-    <Stack direction="row" sx={{ alignItems: "center", mt: 1 }}>
+    <Stack direction="row" sx={{ alignItems: "center", mt: 2 }}>
       {canScrollPrev && (
         <Fade in={canScrollPrev}>
           <IconButton
@@ -128,6 +135,29 @@ export default function MenuCategoryNavigation() {
           </IconButton>
         </Fade>
       )}
+
+      <IconButton
+        onClick={() => setOpenMenuCategoryNavigationDialog(true)}
+        color="inherit"
+        sx={{
+          bgcolor: grey[200],
+          "&:hover": {
+            bgcolor: grey[300],
+          },
+        }}
+        size="small"
+      >
+        <FormatListBulletedIcon fontSize="small" />
+      </IconButton>
+
+      <MenuCategoryNavigationDialog
+        menuCategories={menuCategories}
+        openMenuCategoryNavigationDialog={openMenuCategoryNavigationDialog}
+        setOpenMenuCategoryNavigationDialog={
+          setOpenMenuCategoryNavigationDialog
+        }
+        onHandleClick={handleClick}
+      />
     </Stack>
   );
 }
