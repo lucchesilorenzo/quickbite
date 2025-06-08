@@ -65,7 +65,7 @@ export default function MenuCategoryNavigation() {
   }, [emblaApi, onSelect]);
 
   return (
-    <Stack direction="row" sx={{ alignItems: "center", mt: 2 }}>
+    <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 2 }}>
       {canScrollPrev && (
         <Fade in={canScrollPrev}>
           <IconButton

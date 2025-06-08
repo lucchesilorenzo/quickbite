@@ -52,7 +52,9 @@ export default function MenuCategoryNavigationDialog({
           </IconButton>
         </Stack>
 
-        <DialogContent sx={{ p: 0 }}>
+        <DialogContent
+          sx={{ p: 0, maxHeight: isMobile ? 800 : 600, overflowY: "auto" }}
+        >
           <List disablePadding>
             {menuCategories.map((menuCategory, index) => (
               <MenuCategoryNavigationItem
