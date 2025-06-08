@@ -1,6 +1,7 @@
 import { Box, Grid } from "@mui/material";
 
 import RestaurantDetails from "@/components/restaurants/RestaurantDetails";
+import RestaurantCart from "@/components/restaurants/restaurant-cart/RestaurantCart";
 import SingleRestaurantProvider from "@/contexts/SingleRestaurantProvider";
 
 export default function RestaurantPage() {
@@ -12,7 +13,9 @@ export default function RestaurantPage() {
             <RestaurantDetails />
           </Grid>
 
-          <Grid size={2}></Grid>
+          <Grid size={2} sx={{ position: "relative", zIndex: -1000 }}>
+            <RestaurantCart />
+          </Grid>
         </Grid>
       </Box>
     </SingleRestaurantProvider>
