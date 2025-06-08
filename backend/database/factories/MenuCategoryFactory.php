@@ -31,6 +31,7 @@ class MenuCategoryFactory extends Factory
 
         return [
             'name' => $menuCategories[$i % count($menuCategories)],
+            'description' => fake()->sentence(),
             'order' => $i++,
         ];
     }
