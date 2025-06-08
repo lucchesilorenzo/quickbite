@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import MenuItemDialogActions from "./MenuItemDialogActions";
 import MenuItemInfoDialog from "./MenuItemInfoDialog";
 
 import env from "@/lib/env";
@@ -126,6 +127,8 @@ export default function MenuItemDialog({
             )}
           </DialogContent>
         </Stack>
+
+        <MenuItemDialogActions menuItem={menuItem} />
       </Dialog>
 
       <MenuItemInfoDialog
