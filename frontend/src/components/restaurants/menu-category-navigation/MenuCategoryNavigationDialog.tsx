@@ -1,18 +1,17 @@
+import React from "react";
+
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
-  Divider,
   IconButton,
   List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Stack,
-  Typography,
   useMediaQuery,
 } from "@mui/material";
+
+import MenuCategoryNavigationItem from "./MenuCategoryNavigationItem";
 
 type MenuCategoryNavigationDialogProps = {
   menuCategories: string[];
@@ -55,27 +54,17 @@ export default function MenuCategoryNavigationDialog({
 
         <DialogContent sx={{ p: 0 }}>
           <List disablePadding>
-            {menuCategories.map((category, index) => (
-              <>
-                <ListItem key={category} disableGutters disablePadding>
-                  <ListItemButton
-                    onClick={() => {
-                      onHandleClick(category);
-                      setOpenMenuCategoryNavigationDialog(false);
-                    }}
-                  >
-                    <ListItemText
-                      primary={
-                        <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                          {category}
-                        </Typography>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-
-                {index !== menuCategories.length - 1 && <Divider />}
-              </>
+            {menuCategories.map((menuCategory, index) => (
+              <MenuCategoryNavigationItem
+                key={index}
+                menuCategory={menuCategory}
+                index={index}
+                menuCategories={menuCategories}
+                setOpenMenuCategoryNavigationDialog={
+                  setOpenMenuCategoryNavigationDialog
+                }
+                onHandleClick={onHandleClick}
+              />
             ))}
           </List>
         </DialogContent>
