@@ -15,6 +15,12 @@ export default function MenuCategory({ menuCategory }: MenuCategoryProps) {
         {menuCategory.name}
       </Typography>
 
+      {menuCategory.description && (
+        <Typography component="div" variant="body2" color="textSecondary">
+          {menuCategory.description}
+        </Typography>
+      )}
+
       <Stack spacing={2}>
         {menuCategory.menu_items.map((menuItem) => (
           <MenuItemRow key={menuItem.id} menuItem={menuItem} />

@@ -49,6 +49,7 @@ export type RestaurantDetail = RestaurantListItem & {
     id: string;
     restaurant_id: string;
     name: string;
+    description: string | null;
     order: number;
     created_at: string;
     updated_at: string;
