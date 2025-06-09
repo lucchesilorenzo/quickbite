@@ -1,14 +1,14 @@
 import { Box, Grid } from "@mui/material";
-import { CartProvider } from "react-use-cart";
 
 import RestaurantDetails from "@/components/restaurants/RestaurantDetails";
 import RestaurantCart from "@/components/restaurants/restaurant-cart/RestaurantCart";
+import MultiCartProvider from "@/contexts/MultiCartProvider";
 import SingleRestaurantProvider from "@/contexts/SingleRestaurantProvider";
 
 export default function RestaurantPage() {
   return (
     <SingleRestaurantProvider>
-      <CartProvider>
+      <MultiCartProvider>
         <Box component="main">
           <Grid container>
             <Grid size={10}>
@@ -20,7 +20,7 @@ export default function RestaurantPage() {
             </Grid>
           </Grid>
         </Box>
-      </CartProvider>
+      </MultiCartProvider>
     </SingleRestaurantProvider>
   );
 }
