@@ -14,6 +14,7 @@ type MultiCartContext = {
   getItem: (restaurantId: string, cartItemId: string) => CartItem | undefined;
   inCart: (restaurantId: string, cartItemId: string) => boolean;
   emptyCart: (restaurantId: string) => void;
+  totalUniqueItems: (restaurantId: string) => number;
 };
 
 const initialState: RestaurantCart = {
@@ -115,9 +116,21 @@ export default function MultiCartProvider({
     });
   }
 
+  function totalUniqueItems(restaurantId: string) {
+    return getItems(restaurantId).length;
+  }
+
   return (
     <MultiCartContext.Provider
-      value={{ getItems, isEmpty, addItem, getItem, inCart, emptyCart }}
+      value={{
+        getItems,
+        isEmpty,
+        addItem,
+        getItem,
+        inCart,
+        emptyCart,
+        totalUniqueItems,
+      }}
     >
       {children}
     </MultiCartContext.Provider>
