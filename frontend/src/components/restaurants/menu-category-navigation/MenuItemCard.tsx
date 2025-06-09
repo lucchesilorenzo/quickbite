@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import PlusIcon from "@mui/icons-material/Add";
 import {
   Box,
   Card,
@@ -8,13 +7,16 @@ import {
   CardContent,
   CardMedia,
   DialogTitle,
-  IconButton,
   Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import MenuItemAddButton from "../common/MenuItemAddButton";
+import MenuItemQuantityInCartBadge from "../common/MenuItemQuantityInCartBadge";
 import MenuItemDialog from "./MenuItemDialog";
 
+import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
 import { MenuItem } from "@/types";
@@ -24,6 +26,9 @@ type MenuItemCardProps = {
 };
 
 export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
+  const { restaurant } = useSingleRestaurant();
+  const { inCart } = useMultiCart();
+
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
 
   return (
@@ -53,23 +58,13 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
           </Box>
 
           <CardContent sx={{ p: 0 }}>
-            {menuItem.is_available && (
-              <IconButton
-                sx={{
-                  bgcolor: "white",
-                  "&:hover": {
-                    bgcolor: grey[100],
-                  },
-                  border: "1px solid #EDEDEC",
-                  borderRadius: 5,
-                  position: "absolute",
-                  top: 8,
-                  right: 8,
-                }}
-                aria-label="add"
-              >
-                <PlusIcon color="primary" />
-              </IconButton>
+            {menuItem.is_available && inCart(restaurant.id, menuItem.id) ? (
+              <MenuItemQuantityInCartBadge
+                type="from-search"
+                menuItem={menuItem}
+              />
+            ) : (
+              menuItem.is_available && <MenuItemAddButton type="from-search" />
             )}
 
             <DialogTitle

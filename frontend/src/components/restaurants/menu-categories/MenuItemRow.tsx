@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import PlusIcon from "@mui/icons-material/Add";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
   Box,
@@ -14,9 +13,13 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import MenuItemAddButton from "../common/MenuItemAddButton";
+import MenuItemQuantityInCartBadge from "../common/MenuItemQuantityInCartBadge";
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 
+import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils";
 import type { MenuItem } from "@/types";
@@ -26,6 +29,9 @@ type MenuItemRowProps = {
 };
 
 export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
+  const { restaurant } = useSingleRestaurant();
+  const { inCart } = useMultiCart();
+
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
   const [openMenuItemInfoDialog, setOpenMenuItemInfoDialog] = useState(false);
 
@@ -125,24 +131,13 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
                 <Box sx={{ height: 100, width: 150 }}></Box>
               )}
 
-              {menuItem.is_available && (
-                <IconButton
-                  sx={{
-                    bgcolor: "white",
-                    "&:hover": {
-                      bgcolor: grey[100],
-                    },
-                    border: "1px solid #EDEDEC",
-                    borderRadius: 5,
-                    position: "absolute",
-                    top: -10,
-                    right: -10,
-                  }}
-                  aria-label="add"
-                  size="small"
-                >
-                  <PlusIcon color="primary" fontSize="small" />
-                </IconButton>
+              {menuItem.is_available && inCart(restaurant.id, menuItem.id) ? (
+                <MenuItemQuantityInCartBadge
+                  type="from-list"
+                  menuItem={menuItem}
+                />
+              ) : (
+                menuItem.is_available && <MenuItemAddButton type="from-list" />
               )}
             </Box>
           </Stack>
