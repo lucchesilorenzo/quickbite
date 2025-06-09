@@ -12,21 +12,33 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 import { MenuItem } from "@/types";
 
 type MenuItemDialogActionsProps = {
   menuItem: MenuItem;
+  setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function MenuItemDialogActions({
   menuItem,
+  setOpenMenuItemDialog,
 }: MenuItemDialogActionsProps) {
+  const { restaurant } = useSingleRestaurant();
+  const { addItem } = useMultiCart();
+
   const [menuItemQuantity, setMenuItemQuantity] = useState(1);
 
   const totalPrice = menuItem.price * menuItemQuantity;
 
-  function handleAddToCart() {}
+  function handleAddToCart() {
+    addItem(restaurant.id, menuItem, menuItemQuantity);
+
+    setMenuItemQuantity(1);
+    setOpenMenuItemDialog(false);
+  }
 
   return (
     <DialogActions sx={{ p: 0 }}>

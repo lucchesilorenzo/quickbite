@@ -128,7 +128,10 @@ export default function MenuItemDialog({
           </DialogContent>
         </Stack>
 
-        <MenuItemDialogActions menuItem={menuItem} />
+        <MenuItemDialogActions
+          menuItem={menuItem}
+          setOpenMenuItemDialog={setOpenMenuItemDialog}
+        />
       </Dialog>
 
       <MenuItemInfoDialog
