@@ -14,6 +14,7 @@ type MultiCartContext = {
   getItem: (restaurantId: string, cartItemId: string) => CartItem | undefined;
   inCart: (restaurantId: string, cartItemId: string) => boolean;
   emptyCart: (restaurantId: string) => void;
+  totalItems: (restaurantId: string) => number;
   totalUniqueItems: (restaurantId: string) => number;
 };
 
@@ -116,6 +117,10 @@ export default function MultiCartProvider({
     });
   }
 
+  function totalItems(restaurantId: string) {
+    return getItems(restaurantId).reduce((acc, curr) => acc + curr.quantity, 0);
+  }
+
   function totalUniqueItems(restaurantId: string) {
     return getItems(restaurantId).length;
   }
@@ -129,6 +134,7 @@ export default function MultiCartProvider({
         getItem,
         inCart,
         emptyCart,
+        totalItems,
         totalUniqueItems,
       }}
     >
