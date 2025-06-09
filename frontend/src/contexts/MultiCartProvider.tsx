@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
 import { MenuItem } from "@/types";
-import { Cart, RestaurantCart } from "@/types/cart-types";
+import { Cart, CartItem, RestaurantCart } from "@/types/cart-types";
 
 type MultiCartProviderProps = {
   children: React.ReactNode;
@@ -10,6 +10,8 @@ type MultiCartProviderProps = {
 type MultiCartContext = {
   isEmpty: (restaurantId: string) => boolean;
   addItem: (restaurantId: string, menuItem: MenuItem, quantity: number) => void;
+  getItem: (restaurantId: string, cartItemId: string) => CartItem | undefined;
+  inCart: (restaurantId: string, cartItemId: string) => boolean;
 };
 
 const initialState: RestaurantCart = {
@@ -90,8 +92,16 @@ export default function MultiCartProvider({
     });
   }
 
+  function getItem(restaurantId: string, cartItemId: string) {
+    return carts[restaurantId]?.items.find((item) => item.id === cartItemId);
+  }
+
+  function inCart(restaurantId: string, cartItemId: string) {
+    return !!getItem(restaurantId, cartItemId);
+  }
+
   return (
-    <MultiCartContext.Provider value={{ isEmpty, addItem }}>
+    <MultiCartContext.Provider value={{ isEmpty, addItem, getItem, inCart }}>
       {children}
     </MultiCartContext.Provider>
   );
