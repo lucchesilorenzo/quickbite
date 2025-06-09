@@ -8,6 +8,7 @@ type MultiCartProviderProps = {
 };
 
 type MultiCartContext = {
+  getItems: (restaurantId: string) => CartItem[];
   isEmpty: (restaurantId: string) => boolean;
   addItem: (restaurantId: string, menuItem: MenuItem, quantity: number) => void;
   getItem: (restaurantId: string, cartItemId: string) => CartItem | undefined;
@@ -35,6 +36,10 @@ export default function MultiCartProvider({
   useEffect(() => {
     localStorage.setItem("carts", JSON.stringify(carts));
   }, [carts]);
+
+  function getItems(restaurantId: string) {
+    return carts[restaurantId]?.items ?? [];
+  }
 
   function isEmpty(restaurantId: string) {
     return !carts[restaurantId] || carts[restaurantId].items.length === 0;
@@ -112,7 +117,7 @@ export default function MultiCartProvider({
 
   return (
     <MultiCartContext.Provider
-      value={{ isEmpty, addItem, getItem, inCart, emptyCart }}
+      value={{ getItems, isEmpty, addItem, getItem, inCart, emptyCart }}
     >
       {children}
     </MultiCartContext.Provider>
