@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
   Box,
@@ -8,6 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
+
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
@@ -15,6 +19,8 @@ import { formatCurrency } from "@/lib/utils";
 export default function RestaurantCartFooter() {
   const { restaurant } = useSingleRestaurant();
   const { cartTotal } = useMultiCart();
+
+  const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
 
   const subtotal = cartTotal(restaurant.id);
   const total = subtotal + restaurant.shipping_cost;
@@ -45,7 +51,7 @@ export default function RestaurantCartFooter() {
 
           <IconButton
             color="inherit"
-            onClick={() => {}}
+            onClick={() => setOpenDeliveryFeeDialog(true)}
             size="small"
             sx={{ "&:hover": { bgcolor: "transparent" } }}
           >
@@ -83,6 +89,11 @@ export default function RestaurantCartFooter() {
           Checkout {formatCurrency(total)}
         </Button>
       </Box>
+
+      <RestaurantCartDeliveryFeeDialog
+        openDeliveryFeeDialog={openDeliveryFeeDialog}
+        setOpenDeliveryFeeDialog={setOpenDeliveryFeeDialog}
+      />
     </Box>
   );
 }
