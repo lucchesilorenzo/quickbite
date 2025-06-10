@@ -34,12 +34,13 @@ export default function RestaurantCartItem({
     totalUniqueItems,
     incrementItemQuantity,
     decrementItemQuantity,
-    cartTotal,
+    getItem,
   } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
 
   const totalUniqueCartItems = totalUniqueItems(restaurant.id);
+  const itemTotal = getItem(restaurant.id, item.id)?.item_total ?? 0;
 
   return (
     <Box>
@@ -63,7 +64,7 @@ export default function RestaurantCartItem({
         </Button>
 
         <Typography variant="body1" component="div">
-          {formatCurrency(cartTotal(restaurant.id))}
+          {formatCurrency(itemTotal)}
         </Typography>
       </Stack>
 
