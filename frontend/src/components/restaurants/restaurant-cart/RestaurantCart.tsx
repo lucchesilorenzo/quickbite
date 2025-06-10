@@ -1,6 +1,7 @@
 import { Box, Paper, Typography } from "@mui/material";
 
 import EmptyRestaurantCart from "./EmptyRestaurantCart";
+import RestaurantCartFooter from "./RestaurantCartFooter";
 import RestaurantCartList from "./RestaurantCartList";
 
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
@@ -22,7 +23,10 @@ export default function RestaurantCart() {
         </Typography>
 
         {!isEmpty(restaurant.id) ? (
-          <RestaurantCartList />
+          <>
+            <RestaurantCartList />
+            <RestaurantCartFooter />
+          </>
         ) : (
           <EmptyRestaurantCart />
         )}
