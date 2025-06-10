@@ -60,7 +60,7 @@ export default function MenuItemDialogActions({
             sx={{
               alignItems: "center",
               bgcolor: grey[100],
-              borderRadius: 4,
+              borderRadius: 5,
             }}
           >
             <IconButton
@@ -91,7 +91,7 @@ export default function MenuItemDialogActions({
 
           <Button
             variant="contained"
-            sx={{ flex: 1, fontSize: 16, borderRadius: 4 }}
+            sx={{ flex: 1, fontSize: 16, borderRadius: 5 }}
             onClick={handleAddToCart}
           >
             {formatCurrency(totalPrice)}
