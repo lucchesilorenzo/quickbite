@@ -51,6 +51,7 @@ export default function MultiCartProvider({
     localStorage.setItem("carts", JSON.stringify(carts));
   }, [carts]);
 
+  // Helper function to calculate cart totals
   function calculateCartTotals(items: CartItem[]) {
     const totalItems = items.reduce((acc, curr) => acc + curr.quantity, 0);
 
@@ -67,8 +68,8 @@ export default function MultiCartProvider({
     return carts[restaurantId]?.items ?? [];
   }
 
-  function isEmpty(restaurantId: string) {
-    return !carts[restaurantId] || carts[restaurantId].items.length === 0;
+  function getItem(restaurantId: string, cartItemId: string) {
+    return carts[restaurantId]?.items.find((item) => item.id === cartItemId);
   }
 
   function addItem(restaurantId: string, menuItem: MenuItem, quantity: number) {
@@ -113,31 +114,6 @@ export default function MultiCartProvider({
         },
       };
     });
-  }
-
-  function getItem(restaurantId: string, cartItemId: string) {
-    return carts[restaurantId]?.items.find((item) => item.id === cartItemId);
-  }
-
-  function inCart(restaurantId: string, cartItemId: string) {
-    return !!getItem(restaurantId, cartItemId);
-  }
-
-  function emptyCart(restaurantId: string) {
-    setCarts((prev) => {
-      const updatedCarts = { ...prev };
-
-      delete updatedCarts[restaurantId];
-      return updatedCarts;
-    });
-  }
-
-  function totalItems(restaurantId: string) {
-    return getItems(restaurantId).reduce((acc, curr) => acc + curr.quantity, 0);
-  }
-
-  function totalUniqueItems(restaurantId: string) {
-    return getItems(restaurantId).length;
   }
 
   function removeItem(restaurantId: string, cartItemId: string) {
@@ -236,8 +212,33 @@ export default function MultiCartProvider({
     });
   }
 
+  function inCart(restaurantId: string, cartItemId: string) {
+    return !!getItem(restaurantId, cartItemId);
+  }
+
+  function emptyCart(restaurantId: string) {
+    setCarts((prev) => {
+      const updatedCarts = { ...prev };
+
+      delete updatedCarts[restaurantId];
+      return updatedCarts;
+    });
+  }
+
+  function totalItems(restaurantId: string) {
+    return getItems(restaurantId).reduce((acc, curr) => acc + curr.quantity, 0);
+  }
+
+  function totalUniqueItems(restaurantId: string) {
+    return getItems(restaurantId).length;
+  }
+
   function cartTotal(restaurantId: string) {
     return carts[restaurantId]?.cartTotal;
+  }
+
+  function isEmpty(restaurantId: string) {
+    return !carts[restaurantId] || carts[restaurantId].items.length === 0;
   }
 
   return (
