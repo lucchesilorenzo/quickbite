@@ -56,14 +56,14 @@ export default function RestaurantCartItem({
             fontWeight: 700,
             textDecoration: "underline",
             textTransform: "none",
-            fontSize: 16,
+            p: 0,
             "&:hover": { textDecoration: "none", bgcolor: "transparent" },
           }}
         >
           {item.name}
         </Button>
 
-        <Typography variant="body1" component="div">
+        <Typography variant="body2" component="div">
           {formatCurrency(itemTotal)}
         </Typography>
       </Stack>

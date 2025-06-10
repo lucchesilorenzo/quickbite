@@ -20,7 +20,7 @@ export default function RestaurantCartFooter() {
   const total = subtotal + restaurant.shipping_cost;
 
   return (
-    <Box component="section">
+    <Box component="section" sx={{ mt: 2, p: 2 }}>
       <Stack
         direction="row"
         sx={{ alignItems: "center", justifyContent: "space-between" }}

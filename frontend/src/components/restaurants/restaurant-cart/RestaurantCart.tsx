@@ -12,12 +12,12 @@ export default function RestaurantCart() {
   const { isEmpty } = useMultiCart();
 
   return (
-    <Paper sx={{ minHeight: "100%" }} elevation={3}>
-      <Box component="section" sx={{ p: 2 }}>
+    <Paper sx={{ height: "100%" }} elevation={3}>
+      <Box component="section">
         <Typography
           component="h2"
           variant="h5"
-          sx={{ textAlign: "center", fontWeight: 700, mb: 2 }}
+          sx={{ textAlign: "center", fontWeight: 700, p: 2 }}
         >
           Cart
         </Typography>
