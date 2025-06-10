@@ -16,6 +16,18 @@ type MultiCartContext = {
   emptyCart: (restaurantId: string) => void;
   totalItems: (restaurantId: string) => number;
   totalUniqueItems: (restaurantId: string) => number;
+  removeItem: (restaurantId: string, cartItemId: string) => void;
+  incrementItemQuantity: (
+    restaurantId: string,
+    cartItemId: string,
+    quantity?: number,
+  ) => void;
+  decrementItemQuantity: (
+    restaurantId: string,
+    cartItemId: string,
+    quantity?: number,
+  ) => void;
+  cartTotal: (restaurantId: string) => number;
 };
 
 const initialState: RestaurantCart = {
@@ -38,6 +50,18 @@ export default function MultiCartProvider({
   useEffect(() => {
     localStorage.setItem("carts", JSON.stringify(carts));
   }, [carts]);
+
+  function calculateCartTotals(items: CartItem[]) {
+    const totalItems = items.reduce((acc, curr) => acc + curr.quantity, 0);
+
+    const cartTotal = Number(
+      items.reduce((acc, curr) => acc + curr.item_total, 0).toFixed(2),
+    );
+
+    const totalUniqueItems = items.length;
+
+    return { totalItems, totalUniqueItems, cartTotal };
+  }
 
   function getItems(restaurantId: string) {
     return carts[restaurantId]?.items ?? [];
@@ -76,17 +100,8 @@ export default function MultiCartProvider({
             },
           ];
 
-      const totalItems = updatedItems.reduce(
-        (acc, curr) => acc + curr.quantity,
-        0,
-      );
-
-      const cartTotal = updatedItems.reduce(
-        (acc, curr) => acc + curr.item_total,
-        0,
-      );
-
-      const totalUniqueItems = updatedItems.length;
+      const { totalItems, totalUniqueItems, cartTotal } =
+        calculateCartTotals(updatedItems);
 
       return {
         ...prev,
@@ -125,6 +140,106 @@ export default function MultiCartProvider({
     return getItems(restaurantId).length;
   }
 
+  function removeItem(restaurantId: string, cartItemId: string) {
+    setCarts((prev) => {
+      const cart = prev[restaurantId];
+
+      const updatedItems = cart.items.filter((item) => item.id !== cartItemId);
+
+      const { totalItems, totalUniqueItems, cartTotal } =
+        calculateCartTotals(updatedItems);
+
+      return {
+        ...prev,
+        [restaurantId]: {
+          ...cart,
+          items: updatedItems,
+          totalItems,
+          totalUniqueItems,
+          cartTotal: Number(cartTotal.toFixed(2)),
+        },
+      };
+    });
+  }
+
+  function incrementItemQuantity(
+    restaurantId: string,
+    cartItemId: string,
+    quantity: number = 1,
+  ) {
+    setCarts((prev) => {
+      const cart = prev[restaurantId];
+
+      const updatedItems = cart.items.map((item) =>
+        item.id === cartItemId
+          ? {
+              ...item,
+              quantity: item.quantity + quantity,
+              item_total: Number(
+                ((item.quantity + quantity) * item.price).toFixed(2),
+              ),
+            }
+          : item,
+      );
+
+      const { totalItems, totalUniqueItems, cartTotal } =
+        calculateCartTotals(updatedItems);
+
+      return {
+        ...prev,
+        [restaurantId]: {
+          ...cart,
+          items: updatedItems,
+          totalItems,
+          totalUniqueItems,
+          cartTotal: Number(cartTotal.toFixed(2)),
+        },
+      };
+    });
+  }
+
+  function decrementItemQuantity(
+    restaurantId: string,
+    cartItemId: string,
+    quantity: number = 1,
+  ) {
+    setCarts((prev) => {
+      const cart = prev[restaurantId];
+
+      const updatedItems = cart.items
+        .map((item) =>
+          item.id === cartItemId
+            ? {
+                ...item,
+                quantity: item.quantity - quantity,
+                item_total: Number(
+                  ((item.quantity - quantity) * item.price).toFixed(2),
+                ),
+              }
+            : item,
+        )
+        .filter((item) => item.quantity > 0);
+
+      const { totalItems, totalUniqueItems, cartTotal } =
+        calculateCartTotals(updatedItems);
+
+      return {
+        ...prev,
+        [restaurantId]: {
+          ...cart,
+          items: updatedItems,
+          totalItems,
+          totalUniqueItems,
+          cartTotal: Number(cartTotal.toFixed(2)),
+        },
+      };
+    });
+  }
+
+  function cartTotal(restaurantId: string) {
+    return carts[restaurantId]?.cartTotal;
+  }
+
   return (
     <MultiCartContext.Provider
       value={{
@@ -136,6 +251,10 @@ export default function MultiCartProvider({
         emptyCart,
         totalItems,
         totalUniqueItems,
+        removeItem,
+        incrementItemQuantity,
+        decrementItemQuantity,
+        cartTotal,
       }}
     >
       {children}
