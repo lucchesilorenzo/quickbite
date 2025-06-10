@@ -1,6 +1,7 @@
-import { Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 
 import EmptyRestaurantCart from "./EmptyRestaurantCart";
+import RestaurantCartList from "./RestaurantCartList";
 
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
@@ -10,14 +11,22 @@ export default function RestaurantCart() {
   const { isEmpty } = useMultiCart();
 
   return (
-    <Paper sx={{ position: "absolute", inset: 0 }} elevation={3}>
-      <Stack component="section" sx={{ alignItems: "center", px: 1, py: 2 }}>
-        <Typography component="h2" variant="h5" sx={{ fontWeight: 700 }}>
+    <Paper sx={{ minHeight: "100%" }} elevation={3}>
+      <Box component="section" sx={{ p: 2 }}>
+        <Typography
+          component="h2"
+          variant="h5"
+          sx={{ textAlign: "center", fontWeight: 700, mb: 2 }}
+        >
           Cart
         </Typography>
 
-        {isEmpty(restaurant.id) && <EmptyRestaurantCart />}
-      </Stack>
+        {!isEmpty(restaurant.id) ? (
+          <RestaurantCartList />
+        ) : (
+          <EmptyRestaurantCart />
+        )}
+      </Box>
     </Paper>
   );
 }

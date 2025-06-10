@@ -15,7 +15,7 @@ export default function RestaurantPage() {
               <RestaurantDetails />
             </Grid>
 
-            <Grid size={2} sx={{ position: "relative", zIndex: -1000 }}>
+            <Grid size={2}>
               <RestaurantCart />
             </Grid>
           </Grid>
