@@ -7,7 +7,14 @@ export default function RestaurantCoverImage() {
   const { restaurant } = useSingleRestaurant();
 
   return (
-    <Box sx={{ position: "relative", mb: 2, p: { xs: 2, lg: 0 } }}>
+    <Box
+      sx={{
+        position: "relative",
+        mb: { xs: 0, lg: 2 },
+        pt: { xs: 2, lg: 0 },
+        px: { xs: 2, lg: 0 },
+      }}
+    >
       <Box
         component="img"
         src={`${env.VITE_BASE_URL}${restaurant.cover}`}
