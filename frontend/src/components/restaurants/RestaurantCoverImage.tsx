@@ -7,7 +7,7 @@ export default function RestaurantCoverImage() {
   const { restaurant } = useSingleRestaurant();
 
   return (
-    <Box sx={{ position: "relative", mb: 2 }}>
+    <Box sx={{ position: "relative", mb: 2, p: { xs: 2, lg: 0 } }}>
       <Box
         component="img"
         src={`${env.VITE_BASE_URL}${restaurant.cover}`}
@@ -15,7 +15,8 @@ export default function RestaurantCoverImage() {
         sx={{
           objectFit: "cover",
           width: 1,
-          height: 450,
+          height: { xs: 300, lg: 450 },
+          borderRadius: { xs: 4, lg: 0 },
         }}
       />
 
@@ -23,8 +24,8 @@ export default function RestaurantCoverImage() {
         maxWidth="md"
         sx={{
           position: "absolute",
-          bottom: 20,
-          left: 0,
+          bottom: { xs: 30, lg: 20 },
+          left: { xs: 10, lg: 20 },
           right: 0,
         }}
       >
@@ -34,8 +35,8 @@ export default function RestaurantCoverImage() {
           alt={restaurant.name}
           sx={{
             objectFit: "cover",
-            width: 80,
-            height: 80,
+            width: { xs: 60, lg: 80 },
+            height: { xs: 60, lg: 80 },
             border: "2px solid #fff",
             borderRadius: 2,
           }}
