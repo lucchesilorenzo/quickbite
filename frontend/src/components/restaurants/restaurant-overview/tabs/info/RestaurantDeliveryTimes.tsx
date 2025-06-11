@@ -1,11 +1,13 @@
 import ScheduleIcon from "@mui/icons-material/Schedule";
-import { Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { capitalize } from "@/lib/utils";
 
 export default function RestaurantDeliveryTimes() {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   const { restaurant } = useSingleRestaurant();
 
   return (
@@ -13,7 +15,11 @@ export default function RestaurantDeliveryTimes() {
       <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 1 }}>
         <ScheduleIcon />
 
-        <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
+        <Typography
+          variant={isMobile ? "body1" : "h6"}
+          component="div"
+          sx={{ fontWeight: 700 }}
+        >
           Delivery times
         </Typography>
       </Stack>
@@ -33,11 +39,18 @@ export default function RestaurantDeliveryTimes() {
               direction="row"
               sx={{ alignItems: "center", justifyContent: "space-between" }}
             >
-              <Typography variant="body1" component="div">
+              <Typography
+                variant={isMobile ? "body2" : "body1"}
+                component="div"
+              >
                 {capitalize(d.day)}
               </Typography>
 
-              <Typography variant="body1" component="div">
+              <Typography
+                variant={isMobile ? "body2" : "body1"}
+                color="text"
+                component="div"
+              >
                 {formattedStart && formattedEnd
                   ? `${formattedStart} - ${formattedEnd}`
                   : "Closed"}

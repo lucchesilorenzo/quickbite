@@ -1,11 +1,13 @@
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import { Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantDeliveryFee() {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   const { restaurant } = useSingleRestaurant();
 
   return (
@@ -13,7 +15,11 @@ export default function RestaurantDeliveryFee() {
       <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 1 }}>
         <ReceiptIcon />
 
-        <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
+        <Typography
+          variant={isMobile ? "body1" : "h6"}
+          component="div"
+          sx={{ fontWeight: 700 }}
+        >
           Delivery fee
         </Typography>
       </Stack>
@@ -24,11 +30,11 @@ export default function RestaurantDeliveryFee() {
             direction="row"
             sx={{ alignItems: "center", justifyContent: "space-between" }}
           >
-            <Typography variant="body1" component="div">
+            <Typography variant={isMobile ? "body2" : "body1"} component="div">
               Minimum order amount
             </Typography>
 
-            <Typography variant="body1">
+            <Typography variant={isMobile ? "body2" : "body1"}>
               {formatCurrency(restaurant.min_amount)}
             </Typography>
           </Stack>
@@ -38,11 +44,11 @@ export default function RestaurantDeliveryFee() {
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
-          <Typography variant="body1" component="div">
+          <Typography variant={isMobile ? "body2" : "body1"} component="div">
             Delivery fee
           </Typography>
 
-          <Typography variant="body1">
+          <Typography variant={isMobile ? "body2" : "body1"}>
             {restaurant.shipping_cost === 0
               ? "Free"
               : formatCurrency(restaurant.shipping_cost)}
