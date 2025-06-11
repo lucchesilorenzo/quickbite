@@ -2,7 +2,13 @@ import { useMemo } from "react";
 
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import SearchIcon from "@mui/icons-material/Search";
-import { IconButton, InputAdornment, Stack, TextField } from "@mui/material";
+import {
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import MenuItemsEmpty from "./MenuItemsEmpty";
@@ -11,6 +17,8 @@ import MenuItemsList from "./MenuItemsList";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function MenuCategoryNavigationSearch() {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   const { restaurant, searchTerm, setSearchTerm } = useSingleRestaurant();
 
   const menuItems = restaurant.menu_categories.flatMap((c) => c.menu_items);
@@ -28,6 +36,7 @@ export default function MenuCategoryNavigationSearch() {
       <TextField
         id="menu-search"
         autoComplete="off"
+        size={isMobile ? "small" : "medium"}
         placeholder={`Search in ${restaurant.name}`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

@@ -7,7 +7,7 @@ export default function RestaurantOverviewMobile() {
   return (
     <Box
       component="section"
-      sx={{ display: { xs: "block", lg: "none" }, p: 2 }}
+      sx={{ display: { xs: "block", lg: "none" }, mt: 1, px: 2 }}
     >
       <RestaurantHeader />
       <RestaurantHeaderRow />
