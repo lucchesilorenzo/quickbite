@@ -1,13 +1,11 @@
-import { Container } from "@mui/material";
-
-import RestaurantHeader from "./RestaurantHeader";
-import RestaurantHeaderRow from "./RestaurantHeaderRow";
+import RestaurantOverviewMobile from "../mobile/RestaurantOverviewMobile";
+import RestaurantOverviewDesktop from "./RestaurantOverviewDesktop";
 
 export default function RestaurantOverview() {
   return (
-    <Container component="section" maxWidth="md">
-      <RestaurantHeader />
-      <RestaurantHeaderRow />
-    </Container>
+    <>
+      <RestaurantOverviewDesktop />
+      <RestaurantOverviewMobile />
+    </>
   );
 }
