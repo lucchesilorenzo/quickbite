@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 
 export default function NavigateToTopFloatingButton() {
   const { pathname } = useLocation();
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 100,
@@ -43,16 +43,12 @@ export default function NavigateToTopFloatingButton() {
         sx={{
           position: "fixed",
           bottom: 16,
-          right: pathname.startsWith("/restaurants") ? 340 : 16,
+          right: pathname.startsWith("/restaurants") && !isMobile ? 340 : 16,
           zIndex: 1200,
         }}
       >
-        <Fab
-          color="warning"
-          aria-label="scroll back to top"
-          size={isMobile ? "medium" : "large"}
-        >
-          <KeyboardArrowUpIcon fontSize={isMobile ? "medium" : "large"} />
+        <Fab color="warning" aria-label="scroll back to top" size="large">
+          <KeyboardArrowUpIcon fontSize="large" />
         </Fab>
       </Box>
     </Fade>
