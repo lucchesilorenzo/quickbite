@@ -1,19 +1,28 @@
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { Box, Divider, Rating, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Rating,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function RatingDisplay() {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   const { restaurant } = useSingleRestaurant();
 
   return (
     <Box sx={{ p: 2, bgcolor: blueGrey[800] }}>
       <Typography
         component="h2"
-        variant="h5"
+        variant={isMobile ? "h6" : "h5"}
         gutterBottom
         sx={{ color: "white", fontWeight: 700 }}
       >
@@ -23,7 +32,7 @@ export default function RatingDisplay() {
       <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
         <Typography
           component="div"
-          variant="h3"
+          variant={isMobile ? "h4" : "h3"}
           sx={{ color: "white", fontWeight: 700 }}
         >
           {restaurant.reviews_avg_rating}

@@ -17,7 +17,11 @@ export default function Review({ review }: ReviewProps) {
           {review.customer.first_name}
         </Typography>
 
-        <Typography variant="body2" sx={{ fontWeight: 500, mb: 2 }}>
+        <Typography
+          variant="caption"
+          component="div"
+          sx={{ fontWeight: 500, mb: 2 }}
+        >
           {format(review.created_at, "EEEE dd MMM yyyy")}
         </Typography>
 
