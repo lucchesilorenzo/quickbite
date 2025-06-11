@@ -28,7 +28,6 @@ export default function MenuItemQuantityInCartBadge({
         position: "absolute",
         top: type === "from-list" ? 6 : 26,
         right: type === "from-list" ? 6 : 26,
-        zIndex: 1000,
         "& .MuiBadge-badge": {
           backgroundColor: type === "from-list" ? "#212121" : grey[100],
           color: type === "from-list" ? "#fff" : "#212121",
