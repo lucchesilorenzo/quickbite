@@ -23,9 +23,10 @@ export default function RestaurantCoverImage() {
       <Container
         maxWidth="md"
         sx={{
+          display: { xs: "none", lg: "block" },
           position: "absolute",
-          bottom: { xs: 30, lg: 20 },
-          left: { xs: 10, lg: 20 },
+          bottom: 20,
+          left: 20,
           right: 0,
         }}
       >
@@ -35,13 +36,36 @@ export default function RestaurantCoverImage() {
           alt={restaurant.name}
           sx={{
             objectFit: "cover",
-            width: { xs: 60, lg: 80 },
-            height: { xs: 60, lg: 80 },
+            width: 80,
+            height: 80,
             border: "2px solid #fff",
             borderRadius: 2,
           }}
         />
       </Container>
+
+      <Box
+        sx={{
+          display: { xs: "block", lg: "none" },
+          position: "absolute",
+          bottom: 30,
+          left: 30,
+          right: 0,
+        }}
+      >
+        <Box
+          component="img"
+          src={`${env.VITE_BASE_URL}${restaurant.logo}`}
+          alt={restaurant.name}
+          sx={{
+            objectFit: "cover",
+            width: 60,
+            height: 60,
+            border: "2px solid #fff",
+            borderRadius: 2,
+          }}
+        />
+      </Box>
     </Box>
   );
 }
