@@ -26,7 +26,7 @@ export default function RestaurantCartFooter() {
   const total = subtotal + restaurant.shipping_cost;
 
   return (
-    <Box component="section" sx={{ mt: 2, p: 2 }}>
+    <Box component="section" sx={{ p: 2, mt: "auto" }}>
       <Stack
         direction="row"
         sx={{ alignItems: "center", justifyContent: "space-between" }}
@@ -85,6 +85,7 @@ export default function RestaurantCartFooter() {
           size="large"
           fullWidth
           sx={{ fontWeight: 700 }}
+          disabled={total < restaurant.min_amount}
         >
           Checkout {formatCurrency(total)}
         </Button>

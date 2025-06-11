@@ -1,4 +1,6 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import { Paper, Typography } from "@mui/material";
 
 import EmptyRestaurantCart from "./EmptyRestaurantCart";
 import RestaurantCartFooter from "./RestaurantCartFooter";
@@ -11,26 +13,69 @@ export default function RestaurantCart() {
   const { restaurant } = useSingleRestaurant();
   const { isEmpty } = useMultiCart();
 
-  return (
-    <Paper sx={{ height: "100%" }} elevation={3}>
-      <Box component="section">
-        <Typography
-          component="h2"
-          variant="h5"
-          sx={{ textAlign: "center", fontWeight: 700, p: 2 }}
-        >
-          Cart
-        </Typography>
+  const [topOffset, setTopOffset] = useState(0);
+  const [bottomOffset, setBottomOffset] = useState(0);
 
-        {!isEmpty(restaurant.id) ? (
-          <>
-            <RestaurantCartList />
-            <RestaurantCartFooter />
-          </>
-        ) : (
-          <EmptyRestaurantCart />
-        )}
-      </Box>
+  useEffect(() => {
+    const header = document.querySelector("#back-to-top");
+    const footer = document.querySelector("#footer");
+
+    if (!header || !footer) return;
+
+    const observerHeader = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setTopOffset(entry.intersectionRect.height);
+      } else {
+        setTopOffset(0);
+      }
+    });
+
+    const observerFooter = new IntersectionObserver(([entry]) => {
+      // When footer is visible, set the bottom offset to the height of the footer (dynamic)
+      if (entry.isIntersecting) {
+        setBottomOffset(entry.intersectionRect.height);
+      } else {
+        setBottomOffset(0);
+      }
+    });
+
+    observerHeader.observe(header);
+    observerFooter.observe(footer);
+
+    return () => {
+      observerHeader.disconnect();
+      observerFooter.disconnect();
+    };
+  }, []);
+
+  return (
+    <Paper
+      sx={{
+        position: "sticky",
+        top: 0,
+        height: `calc(100vh - ${topOffset + bottomOffset}px)`,
+        display: "flex",
+        flexDirection: "column",
+        transition: "height 0.3s ease",
+      }}
+      elevation={3}
+    >
+      <Typography
+        component="h2"
+        variant="h5"
+        sx={{ textAlign: "center", fontWeight: 700, p: 2 }}
+      >
+        Cart
+      </Typography>
+
+      {!isEmpty(restaurant.id) ? (
+        <>
+          <RestaurantCartList />
+          <RestaurantCartFooter />
+        </>
+      ) : (
+        <EmptyRestaurantCart />
+      )}
     </Paper>
   );
 }

@@ -12,7 +12,7 @@ export default function RestaurantCartList() {
   const items = getItems(restaurant.id);
 
   return (
-    <Box sx={{ maxHeight: 600, overflowY: "auto", p: 2 }}>
+    <Box sx={{ maxHeight: 650, overflowY: "auto", p: 2 }}>
       {items.map((item, index) => (
         <RestaurantCartItem key={item.id} item={item} index={index} />
       ))}
