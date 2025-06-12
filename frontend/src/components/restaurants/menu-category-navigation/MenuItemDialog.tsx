@@ -11,6 +11,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
@@ -32,6 +33,8 @@ export default function MenuItemDialog({
   openMenuItemDialog,
   setOpenMenuItemDialog,
 }: MenuItemDialogProps) {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   const [openMenuItemInfoDialog, setOpenMenuItemInfoDialog] = useState(false);
 
   return (
@@ -68,7 +71,7 @@ export default function MenuItemDialog({
                   "&:hover": {
                     bgcolor: grey[300],
                   },
-                  borderRadius: "50%",
+                  borderRadius: 5,
                   position: "absolute",
                   top: 25,
                   right: 25,
@@ -87,7 +90,10 @@ export default function MenuItemDialog({
             sx={{ alignItems: "center", justifyContent: "space-between" }}
           >
             <Stack direction="row" sx={{ alignItems: "center" }}>
-              <DialogTitle variant="h5" sx={{ p: 0, fontWeight: 700 }}>
+              <DialogTitle
+                variant={isMobile ? "h6" : "h5"}
+                sx={{ p: 0, fontWeight: 700 }}
+              >
                 {menuItem.name}
               </DialogTitle>
 
@@ -115,7 +121,11 @@ export default function MenuItemDialog({
             )}
           </Stack>
 
-          <Typography component="span" variant="h6" sx={{ fontWeight: 700 }}>
+          <Typography
+            component="span"
+            variant={isMobile ? "body1" : "h6"}
+            sx={{ fontWeight: 700 }}
+          >
             {formatCurrency(menuItem.price)}
           </Typography>
 

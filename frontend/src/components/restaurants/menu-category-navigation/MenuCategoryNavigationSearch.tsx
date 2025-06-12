@@ -34,7 +34,6 @@ export default function MenuCategoryNavigationSearch() {
   return (
     <Stack spacing={4}>
       <TextField
-        id="menu-search"
         autoComplete="off"
         size={isMobile ? "small" : "medium"}
         placeholder={`Search in ${restaurant.name}`}
@@ -56,7 +55,10 @@ export default function MenuCategoryNavigationSearch() {
             endAdornment: (
               <InputAdornment position="end">
                 {searchTerm && (
-                  <IconButton onClick={() => setSearchTerm("")}>
+                  <IconButton
+                    onClick={() => setSearchTerm("")}
+                    size={isMobile ? "small" : "medium"}
+                  >
                     <HighlightOffIcon sx={{ color: "#212121" }} />
                   </IconButton>
                 )}

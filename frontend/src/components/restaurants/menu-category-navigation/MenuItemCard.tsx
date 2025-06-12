@@ -3,11 +3,10 @@ import { useState } from "react";
 import {
   Box,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
-  DialogTitle,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
@@ -26,6 +25,8 @@ type MenuItemCardProps = {
 };
 
 export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   const { restaurant } = useSingleRestaurant();
   const { inCart } = useMultiCart();
 
@@ -34,14 +35,22 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
   return (
     <>
       <Card elevation={3}>
-        <CardActionArea
-          disabled={!menuItem.is_available}
+        <Box
+          role="button"
           sx={{
+            position: "relative",
             p: 2,
             bgcolor: !menuItem.is_available ? grey[100] : "",
-            "&:hover": { bgcolor: grey[100] },
+            "&:hover": {
+              bgcolor: grey[100],
+              cursor: menuItem.is_available ? "pointer" : "default",
+            },
           }}
-          onClick={() => setOpenMenuItemDialog(true)}
+          onClick={() => {
+            if (!menuItem.is_available) return;
+
+            setOpenMenuItemDialog(true);
+          }}
         >
           <Box sx={{ py: 2 }}>
             {menuItem.image ? (
@@ -57,7 +66,7 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
             )}
           </Box>
 
-          <CardContent sx={{ p: 0 }}>
+          <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
             {menuItem.is_available && inCart(restaurant.id, menuItem.id) ? (
               <MenuItemQuantityInCartBadge
                 type="from-search"
@@ -67,24 +76,21 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
               menuItem.is_available && <MenuItemAddButton type="from-search" />
             )}
 
-            <DialogTitle
+            <Typography
               component="h3"
-              variant="h6"
+              variant={isMobile ? "body1" : "h6"}
               sx={{
                 fontWeight: 700,
-                mt: 4,
-                p: 0,
                 color: !menuItem.is_available ? grey[500] : "",
+                mt: 4,
               }}
             >
               {menuItem.name}
-            </DialogTitle>
-
-            <Box sx={{ my: 4 }}></Box>
+            </Typography>
 
             <Typography
               component="h4"
-              variant="body1"
+              variant={isMobile ? "body2" : "body1"}
               sx={{
                 fontWeight: 500,
                 color: !menuItem.is_available ? grey[500] : "",
@@ -95,7 +101,7 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
                 : "Unavailable"}
             </Typography>
           </CardContent>
-        </CardActionArea>
+        </Box>
       </Card>
 
       <MenuItemDialog

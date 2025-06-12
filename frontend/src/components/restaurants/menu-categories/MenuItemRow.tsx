@@ -6,10 +6,10 @@ import {
   Card,
   CardContent,
   CardMedia,
-  DialogTitle,
   IconButton,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
@@ -26,9 +26,12 @@ import type { MenuItem } from "@/types";
 
 type MenuItemRowProps = {
   menuItem: MenuItem;
+  isLast: boolean;
 };
 
-export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
+export default function MenuItemRow({ menuItem, isLast }: MenuItemRowProps) {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   const { restaurant } = useSingleRestaurant();
   const { inCart } = useMultiCart();
 
@@ -37,7 +40,11 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
 
   return (
     <>
-      <Card elevation={!menuItem.is_available ? 0 : 3}>
+      <Card
+        variant={isMobile ? "outlined" : "elevation"}
+        elevation={!menuItem.is_available ? 0 : 3}
+        sx={{ borderBottom: isMobile && isLast ? "none" : "" }}
+      >
         <Box
           role="button"
           sx={{
@@ -58,17 +65,16 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
           <Stack direction="row" sx={{ alignItems: "center" }}>
             <Box sx={{ flex: 1, pr: 1 }}>
               <Stack direction="row" sx={{ alignItems: "center" }}>
-                <DialogTitle
+                <Typography
                   component="h3"
-                  variant="h6"
+                  variant={isMobile ? "body1" : "h6"}
                   sx={{
                     fontWeight: 700,
-                    p: 0,
                     color: !menuItem.is_available ? grey[500] : "",
                   }}
                 >
                   {menuItem.name}
-                </DialogTitle>
+                </Typography>
 
                 <Box>
                   <IconButton
@@ -80,8 +86,9 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
                       setOpenMenuItemInfoDialog(true);
                       setOpenMenuItemDialog(false);
                     }}
+                    size={isMobile ? "small" : "medium"}
                   >
-                    <InfoOutlineIcon />
+                    <InfoOutlineIcon fontSize={isMobile ? "small" : "medium"} />
                   </IconButton>
                 </Box>
               </Stack>
@@ -89,7 +96,7 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
               <CardContent sx={{ p: 0 }}>
                 <Typography
                   component="h4"
-                  variant="body2"
+                  variant={isMobile ? "body2" : "body1"}
                   sx={{
                     fontWeight: menuItem.is_available ? 700 : "",
                     color: !menuItem.is_available ? grey[500] : "",
@@ -104,7 +111,7 @@ export default function MenuItemRow({ menuItem }: MenuItemRowProps) {
                 {menuItem.description && (
                   <Typography
                     component="div"
-                    variant="body1"
+                    variant="body2"
                     color={!menuItem.is_available ? "textDisabled" : ""}
                   >
                     {truncateWords(menuItem.description, 20)}

@@ -31,9 +31,9 @@ export default function MenuItemInfoDialog({
   setOpenMenuItemDialog,
   setOpenMenuItemInfoDialog,
 }: MenuItemInfoDialogProps) {
-  const { restaurant } = useSingleRestaurant();
-
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  const { restaurant } = useSingleRestaurant();
 
   if (type === "from-search") {
     return (
@@ -63,7 +63,7 @@ export default function MenuItemInfoDialog({
 
               <DialogTitle
                 component="h3"
-                variant="h5"
+                variant={isMobile ? "h6" : "h5"}
                 sx={{ p: 0, fontWeight: 700 }}
               >
                 Item Info
@@ -73,7 +73,7 @@ export default function MenuItemInfoDialog({
 
           <DialogContent sx={{ p: 0 }}>
             <Typography
-              variant="h5"
+              variant={isMobile ? "h6" : "h5"}
               sx={{ p: 0, fontWeight: 700 }}
               gutterBottom
             >
@@ -130,7 +130,7 @@ export default function MenuItemInfoDialog({
             >
               <DialogTitle
                 component="h3"
-                variant="h5"
+                variant={isMobile ? "h6" : "h5"}
                 sx={{ p: 0, fontWeight: 700 }}
               >
                 Do you have a food allergy?
