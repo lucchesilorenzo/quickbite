@@ -1,4 +1,7 @@
+import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import { Box } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 import MenuCategory from "../menu-categories/MenuCategory";
 
@@ -17,6 +20,14 @@ export default function MenuCategoriesListMobile() {
         .map((menuCategory) => (
           <MenuCategory key={menuCategory.id} menuCategory={menuCategory} />
         ))}
+
+      <Stack direction="row" spacing={0.5} sx={{ p: 2 }}>
+        <InfoOutlineIcon fontSize="inherit" />
+
+        <Typography component="div" variant="caption">
+          Adults need around 2000 kcal (8400 kJ) a day.
+        </Typography>
+      </Stack>
     </Box>
   );
 }

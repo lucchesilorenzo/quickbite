@@ -12,7 +12,7 @@ export default function MenuCategory({ menuCategory }: MenuCategoryProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
-    <Stack id={`category_${menuCategory.name}`} spacing={2}>
+    <Stack id={`category_${menuCategory.id}`} spacing={2} sx={{ mb: 4 }}>
       <Box sx={{ px: { xs: 2, lg: 0 } }}>
         <Typography
           component="h2"
