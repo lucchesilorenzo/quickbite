@@ -5,7 +5,10 @@ import RestaurantDetailsMobile from "../mobile/RestaurantDetailsMobile";
 
 export default function MobileRestaurantLayout() {
   return (
-    <Box component="main" sx={{ display: { xs: "block", lg: "none" } }}>
+    <Box
+      component="main"
+      sx={{ display: { xs: "block", lg: "none" }, bgcolor: "#FCFCFC" }}
+    >
       <RestaurantDetailsMobile />
       <RestaurantCartMobile />
     </Box>

@@ -5,7 +5,10 @@ import RestaurantCart from "../restaurant-cart/RestaurantCart";
 
 export default function DesktopRestaurantLayout() {
   return (
-    <Box component="main" sx={{ display: { xs: "none", lg: "block" } }}>
+    <Box
+      component="main"
+      sx={{ display: { xs: "none", lg: "block" }, bgcolor: "#FCFCFC" }}
+    >
       <Grid container>
         <Grid size={10}>
           <RestaurantDetails />
