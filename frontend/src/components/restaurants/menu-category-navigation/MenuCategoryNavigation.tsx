@@ -13,22 +13,21 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function MenuCategoryNavigation() {
   const { restaurant } = useSingleRestaurant();
-  const [selectedMenuCategory, setSelectedMenuCategory] = useState<
-    string | null
-  >(null);
+
+  const [selectedMenuCategoryId, setSelectedMenuCategoryId] = useState("");
   const [
     openMenuCategoryNavigationDialog,
     setOpenMenuCategoryNavigationDialog,
   ] = useState(false);
 
-  const menuCategories = [...restaurant.menu_categories]
-    .sort((a, b) => a.order - b.order)
-    .map((menuCategory) => menuCategory.name);
+  const menuCategories = [...restaurant.menu_categories].sort(
+    (a, b) => a.order - b.order,
+  );
 
-  function handleClick(menuCategory: string) {
-    setSelectedMenuCategory(menuCategory);
+  function handleClick(menuCategoryId: string) {
+    setSelectedMenuCategoryId(menuCategoryId);
 
-    const category = document.querySelector(`#category_${menuCategory}`);
+    const category = document.querySelector(`#category_${menuCategoryId}`);
 
     if (category) {
       category.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -94,8 +93,8 @@ export default function MenuCategoryNavigation() {
         >
           {menuCategories.map((menuCategory) => (
             <Button
-              key={menuCategory}
-              onClick={() => handleClick(menuCategory)}
+              key={menuCategory.id}
+              onClick={() => handleClick(menuCategory.id)}
               sx={{
                 minWidth: 100,
                 textTransform: "none",
@@ -104,14 +103,14 @@ export default function MenuCategoryNavigation() {
                 color: "inherit",
                 transition: "0.2s ease-in-out",
                 "&:hover": { bgcolor: grey[200] },
-                ...(selectedMenuCategory === menuCategory && {
+                ...(selectedMenuCategoryId === menuCategory.id && {
                   bgcolor: "#262626",
                   color: "white",
                   "&:hover": { bgcolor: "#333333" },
                 }),
               }}
             >
-              {menuCategory}
+              {menuCategory.name}
             </Button>
           ))}
         </Stack>

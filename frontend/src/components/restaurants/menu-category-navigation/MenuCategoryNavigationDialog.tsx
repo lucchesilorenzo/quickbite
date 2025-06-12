@@ -13,13 +13,15 @@ import {
 
 import MenuCategoryNavigationItem from "./MenuCategoryNavigationItem";
 
+import { MenuCategory } from "@/types";
+
 type MenuCategoryNavigationDialogProps = {
-  menuCategories: string[];
+  menuCategories: MenuCategory[];
   openMenuCategoryNavigationDialog: boolean;
   setOpenMenuCategoryNavigationDialog: React.Dispatch<
     React.SetStateAction<boolean>
   >;
-  onHandleClick: (menuCategory: string) => void;
+  onHandleClick: (menuCategoryId: string) => void;
 };
 
 export default function MenuCategoryNavigationDialog({
@@ -58,10 +60,9 @@ export default function MenuCategoryNavigationDialog({
           <List disablePadding>
             {menuCategories.map((menuCategory, index) => (
               <MenuCategoryNavigationItem
-                key={index}
+                key={menuCategory.id}
                 menuCategory={menuCategory}
-                index={index}
-                menuCategories={menuCategories}
+                isLast={index === menuCategories.length - 1}
                 setOpenMenuCategoryNavigationDialog={
                   setOpenMenuCategoryNavigationDialog
                 }

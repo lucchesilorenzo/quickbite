@@ -8,43 +8,58 @@ import {
   Typography,
 } from "@mui/material";
 
+import MenuItemQuantityInCartBadge from "../common/MenuItemQuantityInCartBadge";
+
+import { MenuCategory } from "@/types";
+
 type MenuCategoryNavigationItemProps = {
-  menuCategory: string;
-  index: number;
-  menuCategories: string[];
+  menuCategory: MenuCategory;
+  isLast: boolean;
   setOpenMenuCategoryNavigationDialog: React.Dispatch<
     React.SetStateAction<boolean>
   >;
-  onHandleClick: (menuCategory: string) => void;
+  onHandleClick: (menuCategoryId: string) => void;
 };
 
 export default function MenuCategoryNavigationItem({
   menuCategory,
-  index,
-  menuCategories,
+  isLast,
   setOpenMenuCategoryNavigationDialog,
   onHandleClick,
 }: MenuCategoryNavigationItemProps) {
   return (
     <>
-      <ListItem disableGutters disablePadding>
+      <ListItem
+        disableGutters
+        disablePadding
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <ListItemButton
           onClick={() => {
-            onHandleClick(menuCategory);
+            onHandleClick(menuCategory.id);
             setOpenMenuCategoryNavigationDialog(false);
           }}
         >
           <ListItemText
             primary={
               <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                {menuCategory}
+                {menuCategory.name}
               </Typography>
             }
           />
         </ListItemButton>
+
+        <MenuItemQuantityInCartBadge
+          type="from-search"
+          menuCategory={menuCategory}
+        />
       </ListItem>
 
-      {index !== menuCategories.length - 1 && <Divider />}
+      {!isLast && <Divider />}
     </>
   );
 }
