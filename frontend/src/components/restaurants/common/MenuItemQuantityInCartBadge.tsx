@@ -3,25 +3,37 @@ import { grey } from "@mui/material/colors";
 
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-import { MenuItem } from "@/types";
+import { MenuCategory, MenuItem } from "@/types";
 
 type MenuItemQuantityInCartBadgeProps = {
   type: "from-list" | "from-search";
-  menuItem: MenuItem;
+  menuItem?: MenuItem;
+  menuCategory?: MenuCategory;
 };
 
 export default function MenuItemQuantityInCartBadge({
   type,
   menuItem,
+  menuCategory,
 }: MenuItemQuantityInCartBadgeProps) {
   const { restaurant } = useSingleRestaurant();
   const { getItem } = useMultiCart();
 
-  const quantity = getItem(restaurant.id, menuItem.id)?.quantity;
+  const menuItemQuantity =
+    menuItem && getItem(restaurant.id, menuItem.id)?.quantity;
+
+  const menuCategoryQuantity =
+    menuCategory &&
+    menuCategory.menu_items.reduce((acc, item) => {
+      const quantity = getItem(restaurant.id, item.id)?.quantity ?? 0;
+      return acc + quantity;
+    }, 0);
+
+  const badgeContent = menuItemQuantity || menuCategoryQuantity;
 
   return (
     <Badge
-      badgeContent={quantity}
+      badgeContent={badgeContent}
       max={99}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       sx={{
