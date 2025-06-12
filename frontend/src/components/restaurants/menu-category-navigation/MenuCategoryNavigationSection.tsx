@@ -1,5 +1,5 @@
-import MenuCategoryNavigationSectionDesktop from "../mobile/MenuCategoryNavigationSectionDesktop";
 import MenuCategoryNavigationSectionMobile from "../mobile/MenuCategoryNavigationSectionMobile";
+import MenuCategoryNavigationSectionDesktop from "./MenuCategoryNavigationSectionDesktop";
 
 export default function MenuCategoryNavigationSection() {
   return (

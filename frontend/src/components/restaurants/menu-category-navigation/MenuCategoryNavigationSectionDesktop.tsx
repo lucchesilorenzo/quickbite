@@ -1,7 +1,7 @@
 import { Box, Container, useScrollTrigger } from "@mui/material";
 
-import MenuCategoryNavigation from "../menu-category-navigation/MenuCategoryNavigation";
-import MenuCategoryNavigationSearch from "../menu-category-navigation/MenuCategoryNavigationSearch";
+import MenuCategoryNavigation from "./MenuCategoryNavigation";
+import MenuCategoryNavigationSearch from "./MenuCategoryNavigationSearch";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
