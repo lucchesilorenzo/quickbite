@@ -41,18 +41,8 @@ export default function MenuItemDialogActions({
   }
 
   return (
-    <DialogActions sx={{ p: 0 }}>
-      <Paper
-        sx={{
-          width: 1,
-          position: "sticky",
-          bottom: 0,
-          borderRadius: 0,
-          p: 2,
-          zIndex: 1,
-        }}
-        elevation={4}
-      >
+    <DialogActions sx={{ p: 0, mt: "auto" }}>
+      <Paper sx={{ p: 2, width: 1 }} elevation={4}>
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <Stack
             direction="row"

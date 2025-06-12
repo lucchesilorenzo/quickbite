@@ -45,7 +45,8 @@ export default function MenuItemDialog({
           setOpenMenuItemDialog(false);
           setOpenMenuItemInfoDialog(false);
         }}
-        fullWidth
+        fullWidth={!isMobile}
+        fullScreen={isMobile}
         disableRestoreFocus
       >
         <Stack sx={{ p: 2 }}>
