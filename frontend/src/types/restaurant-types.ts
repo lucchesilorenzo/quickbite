@@ -45,17 +45,7 @@ export type RestaurantListItem = RestaurantBase & {
 };
 
 export type RestaurantDetail = RestaurantListItem & {
-  menu_categories: {
-    id: string;
-    restaurant_id: string;
-    name: string;
-    description: string | null;
-    order: number;
-    created_at: string;
-    updated_at: string;
-    menu_items: MenuItem[];
-  }[];
-
+  menu_categories: MenuCategory[];
   created_at: string;
   updated_at: string;
 };
@@ -98,4 +88,15 @@ export type MenuItem = {
   is_available: boolean;
   created_at: string;
   updated_at: string;
+};
+
+export type MenuCategory = {
+  id: string;
+  restaurant_id: string;
+  name: string;
+  description: string | null;
+  order: number;
+  created_at: string;
+  updated_at: string;
+  menu_items: MenuItem[];
 };
