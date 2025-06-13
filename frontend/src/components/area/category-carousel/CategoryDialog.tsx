@@ -53,7 +53,7 @@ export default function CategoryDialog({ categories }: CategoryDialogProps) {
           borderColor: "grey.300",
           textTransform: "none",
           textWrap: "nowrap",
-          fontWeight: "700",
+          fontWeight: 700,
         }}
       >
         Show more

@@ -8,9 +8,7 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function MobileRestaurantLayout() {
   const { restaurant } = useSingleRestaurant();
-  const { totalItems } = useMultiCart();
-
-  const cartHasItems = totalItems(restaurant.id) > 0;
+  const { isEmpty } = useMultiCart();
 
   return (
     <Box
@@ -18,7 +16,7 @@ export default function MobileRestaurantLayout() {
       sx={{ display: { xs: "block", lg: "none" }, bgcolor: "#FCFCFC" }}
     >
       <RestaurantDetailsMobile />
-      {cartHasItems && <RestaurantCartMobile />}
+      {!isEmpty(restaurant.id) && <RestaurantCartMobile />}
     </Box>
   );
 }
