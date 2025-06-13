@@ -1,16 +1,17 @@
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+import { IconButton } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import HeaderDialog from "./HeaderDialog";
 
-import { routes } from "@/lib/data";
-
 export default function Header() {
+  const navigate = useNavigate();
+
   return (
     <AppBar position="relative" id="back-to-top" color="inherit" elevation={3}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -21,38 +22,23 @@ export default function Header() {
           to="/"
           sx={{ alignItems: "center", textDecoration: "none" }}
         >
+          <IconButton onClick={() => navigate(-1)}>
+            <KeyboardArrowLeftIcon color="primary" />
+          </IconButton>
+
           <RestaurantMenuIcon color="primary" />
 
           <Typography
             variant="h6"
             component="span"
             color="primary"
-            sx={{ fontWeight: 700 }}
+            sx={{ fontWeight: 700, display: { xs: "none", md: "block" } }}
           >
             QuickBite
           </Typography>
         </Stack>
 
-        <Stack direction="row" spacing={{ md: 4 }}>
-          {routes.map((route) => (
-            <Button
-              key={route.href}
-              color="inherit"
-              startIcon={<route.icon />}
-              component={Link}
-              to={route.href}
-              sx={{
-                ...(route.href !== "/auth/login" && {
-                  display: { xs: "none", md: "flex" },
-                }),
-              }}
-            >
-              {route.label}
-            </Button>
-          ))}
-
-          <HeaderDialog />
-        </Stack>
+        <HeaderDialog />
       </Toolbar>
     </AppBar>
   );
