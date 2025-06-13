@@ -3,14 +3,22 @@ import { Box } from "@mui/material";
 import RestaurantCartMobile from "../mobile/RestaurantCartMobile";
 import RestaurantDetailsMobile from "../mobile/RestaurantDetailsMobile";
 
+import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+
 export default function MobileRestaurantLayout() {
+  const { restaurant } = useSingleRestaurant();
+  const { totalItems } = useMultiCart();
+
+  const cartHasItems = totalItems(restaurant.id) > 0;
+
   return (
     <Box
       component="main"
       sx={{ display: { xs: "block", lg: "none" }, bgcolor: "#FCFCFC" }}
     >
       <RestaurantDetailsMobile />
-      <RestaurantCartMobile />
+      {cartHasItems && <RestaurantCartMobile />}
     </Box>
   );
 }
