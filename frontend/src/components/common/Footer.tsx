@@ -5,27 +5,18 @@ import {
   ListItemText,
   Stack,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { footerLinks } from "@/lib/data";
 
 export default function Footer() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-
-  const { pathname } = useLocation();
-
   return (
     <Stack
       id="footer"
       component="footer"
-      sx={{
-        mt: "auto",
-        bgcolor: grey[200],
-        pb: pathname.startsWith("/restaurants") && isMobile ? 10 : "",
-      }}
+      sx={{ mt: "auto", bgcolor: grey[200] }}
     >
       <Container>
         <List

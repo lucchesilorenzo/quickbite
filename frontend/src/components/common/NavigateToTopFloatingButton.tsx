@@ -1,33 +1,11 @@
-import { useEffect, useState } from "react";
-
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Box, Fab, Fade, useMediaQuery, useScrollTrigger } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { Box, Fab, Fade, useScrollTrigger } from "@mui/material";
 
 export default function NavigateToTopFloatingButton() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
-  const { pathname } = useLocation();
-
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 100,
   });
-
-  const [isFooterVisible, setIsFooterVisible] = useState(false);
-
-  useEffect(() => {
-    const footer = document.querySelector("#footer");
-    if (!footer) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsFooterVisible(entry.isIntersecting);
-    });
-
-    observer.observe(footer);
-
-    return () => observer.disconnect();
-  }, []);
 
   function handleClick() {
     const anchor = document.querySelector("#back-to-top");
@@ -38,16 +16,11 @@ export default function NavigateToTopFloatingButton() {
   }
 
   return (
-    <Fade in={trigger && !isFooterVisible}>
+    <Fade in={trigger}>
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{
-          position: "fixed",
-          bottom: pathname.startsWith("/restaurants") && isMobile ? 100 : 16,
-          right: pathname.startsWith("/restaurants") && !isMobile ? 340 : 16,
-          zIndex: 2000,
-        }}
+        sx={{ position: "fixed", bottom: 16, right: 16, zIndex: 2000 }}
       >
         <Fab color="warning" aria-label="scroll back to top" size="large">
           <KeyboardArrowUpIcon fontSize="large" />
