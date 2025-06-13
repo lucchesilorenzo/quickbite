@@ -20,6 +20,7 @@ import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 import RestaurantProvider from "@/contexts/RestaurantProvider";
 import AreaLayout from "@/layouts/AreaLayout";
 import ErrorLayout from "@/layouts/ErrorLayout";
+import HomeLayout from "@/layouts/HomeLayout";
 import RestaurantLayout from "@/layouts/RestaurantLayout";
 
 export default function AppRoutes() {
@@ -28,6 +29,10 @@ export default function AppRoutes() {
       <CategoryFiltersProvider>
         <RestaurantProvider>
           <Routes>
+            <Route path="/" element={<HomeLayout />}>
+              <Route index element={<HomePage />} />
+            </Route>
+
             <Route path="/" element={<AppLayout />}>
               <Route path="auth">
                 <Route index element={<Navigate to="login" />} />
@@ -45,15 +50,15 @@ export default function AppRoutes() {
               <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
             </Route>
 
-            <Route path="/" element={<RestaurantLayout />}>
-              <Route path="restaurants/:restaurantSlug">
-                <Route index element={<RestaurantPage />} />
-              </Route>
-            </Route>
-
             <Route path="/" element={<AreaLayout />}>
               <Route path="area/:areaSlug">
                 <Route index element={<AreaPage />} />
+              </Route>
+            </Route>
+
+            <Route path="/" element={<RestaurantLayout />}>
+              <Route path="restaurants/:restaurantSlug">
+                <Route index element={<RestaurantPage />} />
               </Route>
             </Route>
 
