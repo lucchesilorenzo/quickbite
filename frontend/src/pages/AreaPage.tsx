@@ -50,6 +50,7 @@ export default function AreaPage() {
     <Container
       maxWidth="lg"
       component="main"
+      disableGutters
       sx={{ p: isMapViewMobile ? 0 : 3 }}
     >
       <DesktopAreaLayout isLoading={isLoading} hasNoResults={hasNoResults} />

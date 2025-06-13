@@ -2,7 +2,14 @@ import { useState } from "react";
 
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import { AppBar, IconButton, Stack, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  IconButton,
+  Stack,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { useCookies } from "react-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -13,6 +20,8 @@ import LocationSearchDialog from "./location-search/LocationSearchDialog";
 import RestaurantSearchContainerMobile from "./mobile/RestaurantSearchContainerMobile";
 
 export default function AreaHeader() {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
   const [cookies] = useCookies(["address"]);
   const [openDialog, setOpenDialog] = useState(false);
   const { search } = useLocation();
@@ -32,7 +41,7 @@ export default function AreaHeader() {
 
   return (
     <AppBar position="relative" id="back-to-top" color="inherit" elevation={3}>
-      {!search.includes("view_type=map") && (
+      {!isMobile && search.includes("view_type=map") && (
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Stack
             direction="row"
