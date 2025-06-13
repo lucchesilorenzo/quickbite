@@ -87,7 +87,7 @@ export default function RestaurantCartFooter() {
           sx={{ fontWeight: 700 }}
           disabled={total < restaurant.min_amount}
         >
-          Checkout {formatCurrency(total)}
+          Checkout ({formatCurrency(total)})
         </Button>
       </Box>
 

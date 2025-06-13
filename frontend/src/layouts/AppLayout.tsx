@@ -18,6 +18,7 @@ export default function AppLayout() {
       </Box>
 
       {!isMapViewMobile && <Footer />}
+
       {!isMapViewMobile && <NavigateToTopFloatingButton />}
     </Stack>
   );

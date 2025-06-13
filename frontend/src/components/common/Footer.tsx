@@ -5,18 +5,27 @@ import {
   ListItemText,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { footerLinks } from "@/lib/data";
 
 export default function Footer() {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
+  const { pathname } = useLocation();
+
   return (
     <Stack
       id="footer"
       component="footer"
-      sx={{ mt: "auto", bgcolor: grey[200] }}
+      sx={{
+        mt: "auto",
+        bgcolor: grey[200],
+        pb: pathname.startsWith("/restaurants") && isMobile ? 10 : "",
+      }}
     >
       <Container>
         <List
@@ -36,6 +45,7 @@ export default function Footer() {
                 width: "fit-content",
                 textDecoration: "none",
                 color: "inherit",
+                "&:hover": { textDecoration: "underline" },
               }}
             >
               <ListItemText
@@ -47,11 +57,7 @@ export default function Footer() {
 
         <Typography
           variant="body2"
-          sx={{
-            textAlign: {
-              md: "center",
-            },
-          }}
+          sx={{ textAlign: { md: "center" } }}
           gutterBottom
         >
           &copy; {new Date().getFullYear()} QuickBite
