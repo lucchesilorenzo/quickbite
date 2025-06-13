@@ -30,7 +30,7 @@ export default function SimpleHeader() {
             variant="h6"
             component="span"
             color="primary"
-            sx={{ fontWeight: "700" }}
+            sx={{ fontWeight: 700 }}
           >
             QuickBite
           </Typography>

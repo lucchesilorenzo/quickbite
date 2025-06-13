@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import Footer from "@/components/common/Footer";
@@ -9,9 +9,7 @@ export default function ErrorLayout() {
     <Stack sx={{ minHeight: "100vh" }}>
       <SimpleHeader />
 
-      <Box component="main">
-        <Outlet />
-      </Box>
+      <Outlet />
 
       <Footer />
     </Stack>
