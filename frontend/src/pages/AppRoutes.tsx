@@ -20,6 +20,7 @@ import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 import RestaurantProvider from "@/contexts/RestaurantProvider";
 import AreaLayout from "@/layouts/AreaLayout";
 import ErrorLayout from "@/layouts/ErrorLayout";
+import RestaurantLayout from "@/layouts/RestaurantLayout";
 
 export default function AppRoutes() {
   return (
@@ -42,7 +43,9 @@ export default function AppRoutes() {
                 element={<TermsAndConditionsPage />}
               />
               <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+            </Route>
 
+            <Route path="/" element={<RestaurantLayout />}>
               <Route path="restaurants/:restaurantSlug">
                 <Route index element={<RestaurantPage />} />
               </Route>
