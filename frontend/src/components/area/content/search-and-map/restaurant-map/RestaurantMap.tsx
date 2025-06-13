@@ -85,10 +85,7 @@ export default function RestaurantMap() {
     <MapContainer
       center={[latitude, longitude]}
       zoom={13}
-      style={{
-        minHeight: isMobile ? "100vh" : "50vh",
-        position: "relative",
-      }}
+      style={{ minHeight: isMobile ? "100vh" : "50vh", position: "relative" }}
       scrollWheelZoom={isMobile}
       zoomControl={!isMobile}
     >
@@ -96,12 +93,10 @@ export default function RestaurantMap() {
         sx={{
           position: "absolute",
           top: 10,
-          right: { xs: 120, lg: 380 },
+          right: { xs: 120, sm: 250, md: 360 },
           zIndex: 1000,
           bgcolor: "grey.900",
-          "&:hover": {
-            bgcolor: "grey.800",
-          },
+          "&:hover": { bgcolor: "grey.800" },
         }}
         variant="contained"
         size="small"

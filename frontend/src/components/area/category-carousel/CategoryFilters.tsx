@@ -55,11 +55,13 @@ export default function CategoryFilters() {
       maxWidth="lg"
       sx={{ display: "flex", alignItems: "center", py: 2 }}
     >
-      <Fade in={canScrollPrev}>
-        <IconButton onClick={scrollPrev} disabled={!canScrollPrev}>
-          <ArrowBackIosNewIcon fontSize="small" />
-        </IconButton>
-      </Fade>
+      {canScrollPrev && (
+        <Fade in={canScrollPrev}>
+          <IconButton onClick={scrollPrev} disabled={!canScrollPrev}>
+            <ArrowBackIosNewIcon fontSize="small" />
+          </IconButton>
+        </Fade>
+      )}
 
       <Box sx={{ overflow: "hidden", flex: 1 }} ref={emblaRef}>
         <Stack direction="row" sx={{ alignItems: "center" }}>
@@ -77,11 +79,13 @@ export default function CategoryFilters() {
         </Stack>
       </Box>
 
-      <Fade in={canScrollNext}>
-        <IconButton onClick={scrollNext} disabled={!canScrollNext}>
-          <ArrowForwardIosIcon fontSize="small" />
-        </IconButton>
-      </Fade>
+      {canScrollNext && (
+        <Fade in={canScrollNext}>
+          <IconButton onClick={scrollNext} disabled={!canScrollNext}>
+            <ArrowForwardIosIcon fontSize="small" />
+          </IconButton>
+        </Fade>
+      )}
     </Container>
   );
 }
