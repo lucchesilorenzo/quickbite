@@ -101,3 +101,9 @@ export type MenuCategory = {
   updated_at: string;
   menu_items: MenuItem[];
 };
+
+export type RestaurantSearchOption = {
+  id: string;
+  label: string;
+  type: string;
+};
