@@ -41,6 +41,7 @@ export type RestaurantListItem = RestaurantBase & {
   reviews_count: number;
   categories: CategoryWithPivot[];
   delivery_days: DeliveryDay[];
+  menu_categories: MenuCategory[];
   reviews: Review[];
 };
 
