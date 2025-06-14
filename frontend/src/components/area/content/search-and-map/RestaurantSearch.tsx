@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Autocomplete, TextField, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -22,9 +22,7 @@ export default function RestaurantSearch() {
     RestaurantSearchOption | string | null
   >(null);
 
-  console.log(inputValue, selectedOption);
-
-  const options = [
+  const baseOptions = [
     ...originalRestaurants.map((r) => ({
       id: `restaurant-${r.id}`,
       label: r.name,
@@ -43,6 +41,18 @@ export default function RestaurantSearch() {
         type: "Item",
       })),
   ];
+
+  const options =
+    inputValue.trim() === ""
+      ? baseOptions
+      : [
+          ...baseOptions,
+          {
+            id: "search",
+            label: inputValue,
+            type: "Search",
+          },
+        ];
 
   const uniqueMap = new Map();
 
@@ -70,6 +80,14 @@ export default function RestaurantSearch() {
     }
   }
 
+  useEffect(() => {
+    const currentSearchTerm = searchParams.get("q");
+
+    if (currentSearchTerm) {
+      setInputValue(currentSearchTerm);
+    }
+  }, [searchParams]);
+
   return (
     <Autocomplete
       freeSolo
@@ -80,7 +98,9 @@ export default function RestaurantSearch() {
       inputValue={inputValue}
       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
       renderOption={(props, option, { inputValue }) => {
-        const matches = match(option.label, inputValue, { insideWords: true });
+        const matches = match(option.label, inputValue, {
+          insideWords: true,
+        });
         const parts = parse(option.label, matches);
 
         return (
@@ -93,13 +113,17 @@ export default function RestaurantSearch() {
                     fontWeight: part.highlight ? 700 : 400,
                   }}
                 >
-                  {part.text}
+                  {option.type !== "Search"
+                    ? part.text
+                    : `See all options for '${inputValue}'`}
                 </span>
               ))}
 
-              <div style={{ color: grey[600], fontSize: "0.8rem" }}>
-                {option.type}
-              </div>
+              {option.type !== "Search" && (
+                <div style={{ color: grey[600], fontSize: "0.8rem" }}>
+                  {option.type}
+                </div>
+              )}
             </div>
           </li>
         );
