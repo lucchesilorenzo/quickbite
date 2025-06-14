@@ -1,62 +1,137 @@
 import { useState } from "react";
 
-import SearchIcon from "@mui/icons-material/Search";
-import {
-  Autocomplete,
-  InputAdornment,
-  TextField,
-  useMediaQuery,
-} from "@mui/material";
+import { Autocomplete, TextField, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import match from "autosuggest-highlight/match";
+import parse from "autosuggest-highlight/parse";
+import { useSearchParams } from "react-router-dom";
 
-const restaurants = [
-  "Ristorante Bella Cucina",
-  "Trattoria La Dolce Vita",
-  "Osteria del Gusto",
-  "Pizzeria Da Mario",
-  "Ristorante Il Sapore",
-  "Locanda Al Mare",
-  "Ristorante La Pergola",
-  "Ristorante Al Vecchio Mulino",
-  "Ristorante L'Arte del Cibo",
-  "Trattoria Alla Fontana",
-  "Ristorante La Terrazza",
-];
+import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
+import { useRestaurant } from "@/hooks/contexts/useRestaurant";
+import { RestaurantSearchOption } from "@/types";
 
 export default function RestaurantSearch() {
-  const [restaurant, setRestaurant] = useState("");
-
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  const { originalRestaurants } = useRestaurant();
+  const { allCategories } = useCategoryFilters();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [inputValue, setInputValue] = useState("");
+  const [selectedOption, setSelectedOption] = useState<
+    RestaurantSearchOption | string | null
+  >(null);
+
+  console.log(inputValue, selectedOption);
+
+  const options = [
+    ...originalRestaurants.map((r) => ({
+      id: `restaurant-${r.id}`,
+      label: r.name,
+      type: "Restaurant",
+    })),
+    ...allCategories.map((c) => ({
+      id: `category-${c.slug}`,
+      label: c.name,
+      type: "Category",
+    })),
+    ...originalRestaurants
+      .flatMap((r) => r.menu_categories.flatMap((c) => c.menu_items))
+      .map((i) => ({
+        id: `item-${i.id}`,
+        label: i.name,
+        type: "Item",
+      })),
+  ];
+
+  const uniqueMap = new Map();
+
+  options.forEach((item) => {
+    if (!uniqueMap.has(item.label)) {
+      uniqueMap.set(item.label, item);
+    }
+  });
+
+  const uniqueOptions: RestaurantSearchOption[] = Array.from(
+    uniqueMap.values(),
+  );
+
+  function handleOptionSelect(option: RestaurantSearchOption | string | null) {
+    if (option && typeof option === "object") {
+      setSelectedOption(option);
+
+      setSearchParams({
+        filter: [],
+        mov: [],
+        sort_by: [],
+        view_type: [],
+        q: option.label,
+      });
+    }
+  }
 
   return (
     <Autocomplete
       freeSolo
       fullWidth
-      options={restaurants}
-      value={restaurant}
-      onChange={(_, value) => setRestaurant(value || "")}
-      onInputChange={(_, value) => {
-        setRestaurant(value);
+      options={uniqueOptions}
+      value={selectedOption}
+      onChange={(_, newValue) => handleOptionSelect(newValue)}
+      inputValue={inputValue}
+      onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
+      renderOption={(props, option, { inputValue }) => {
+        const matches = match(option.label, inputValue, { insideWords: true });
+        const parts = parse(option.label, matches);
+
+        return (
+          <li {...props} key={option.id}>
+            <div>
+              {parts.map((part, index) => (
+                <span
+                  key={index}
+                  style={{
+                    fontWeight: part.highlight ? 700 : 400,
+                  }}
+                >
+                  {part.text}
+                </span>
+              ))}
+
+              <div style={{ color: grey[600], fontSize: "0.8rem" }}>
+                {option.type}
+              </div>
+            </div>
+          </li>
+        );
       }}
       renderInput={(params) => (
         <TextField
           {...params}
-          id="restaurant-search"
           size={isMobile ? "small" : "medium"}
           autoComplete="off"
           placeholder="Looking for places, items or categories?"
-          sx={{
-            bgcolor: isMobile ? grey[100] : "",
-          }}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon color={isMobile ? "primary" : "inherit"} />
-                </InputAdornment>
-              ),
-            },
-          }}
+          sx={{ bgcolor: isMobile ? grey[100] : "" }}
+          // slotProps={{
+          //   input: {
+          //     startAdornment: (
+          //       <InputAdornment position="start">
+          //         <SearchIcon color={isMobile ? "primary" : "inherit"} />
+          //       </InputAdornment>
+          //     ),
+          //     endAdornment: (
+          //       <InputAdornment position="end">
+          //         {query && (
+          //           <IconButton
+          //             onClick={() => setQuery("")}
+          //             size={isMobile ? "small" : "medium"}
+          //           >
+          //             <HighlightOffIcon sx={{ color: "#212121" }} />
+          //           </IconButton>
+          //         )}
+          //       </InputAdornment>
+          //     ),
+          //   },
+          // }}
         />
       )}
     />

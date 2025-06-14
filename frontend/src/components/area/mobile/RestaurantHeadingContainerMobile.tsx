@@ -28,6 +28,7 @@ export default function RestaurantHeadingContainerMobile({
       mov: [],
       sort_by: [],
       view_type: currentViewType,
+      q: [],
     });
 
     setIsThereAnyFilter(false);

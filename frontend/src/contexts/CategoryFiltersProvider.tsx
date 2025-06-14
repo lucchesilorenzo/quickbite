@@ -64,6 +64,7 @@ export default function CategoryFiltersProvider({
     const currentMOV = searchParams.getAll("mov");
     const currentSort = searchParams.getAll("sort_by");
     const currentViewType = searchParams.getAll("view_type");
+    const currentSearchTerm = searchParams.getAll("q");
 
     // Take all the filters that are category filters
     const selectedFilters = updatedCategories
@@ -80,6 +81,7 @@ export default function CategoryFiltersProvider({
       mov: currentMOV,
       sort_by: currentSort,
       view_type: currentViewType,
+      q: currentSearchTerm,
     });
 
     setOpenCategoriesDialog(false);

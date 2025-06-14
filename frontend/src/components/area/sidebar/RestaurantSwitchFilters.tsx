@@ -25,6 +25,7 @@ export default function RestaurantSwitchFilters() {
     const currentMOV = searchParams.getAll("mov");
     const currentSort = searchParams.getAll("sort_by");
     const currentViewType = searchParams.getAll("view_type");
+    const currentSearchTerm = searchParams.getAll("q");
 
     const updatedFilters = e.target.checked
       ? [...currentFilters, e.target.name]
@@ -35,6 +36,7 @@ export default function RestaurantSwitchFilters() {
       mov: currentMOV,
       sort_by: currentSort,
       view_type: currentViewType,
+      q: currentSearchTerm,
     });
   }
 

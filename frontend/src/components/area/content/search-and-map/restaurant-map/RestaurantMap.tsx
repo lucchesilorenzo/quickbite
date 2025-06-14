@@ -72,12 +72,14 @@ export default function RestaurantMap() {
     const currentFilters = searchParams.getAll("filter");
     const currentMOV = searchParams.getAll("mov");
     const currentSort = searchParams.getAll("sort_by");
+    const currentSearchTerm = searchParams.getAll("q");
 
     setSearchParams({
       filter: currentFilters,
       mov: currentMOV,
       sort_by: currentSort,
       view_type: [],
+      q: currentSearchTerm,
     });
   }
 

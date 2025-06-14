@@ -43,12 +43,14 @@ export default function RestaurantMinimumOrderRadioFilters() {
     const updatedMOV = e.target.value !== "all" ? e.target.value : [];
     const currentSort = searchParams.getAll("sort_by");
     const currentViewType = searchParams.getAll("view_type");
+    const currentSearchTerm = searchParams.getAll("q");
 
     setSearchParams({
       filter: currentFilters,
       mov: updatedMOV,
       sort_by: currentSort,
       view_type: currentViewType,
+      q: currentSearchTerm,
     });
   }
 

@@ -40,6 +40,7 @@ export default function SimpleHeadingWithDialog({
       mov: [],
       sort_by: [],
       view_type: searchParams.getAll("view_type"),
+      q: [],
     });
 
     setIsThereAnyFilter(false);
@@ -49,7 +50,8 @@ export default function SimpleHeadingWithDialog({
     const hasFilters =
       searchParams.getAll("filter").length > 0 ||
       searchParams.getAll("mov").length > 0 ||
-      searchParams.getAll("sort_by").length > 0;
+      searchParams.getAll("sort_by").length > 0 ||
+      searchParams.getAll("q").length > 0;
 
     setIsThereAnyFilter(hasFilters);
   }, [searchParams]);
