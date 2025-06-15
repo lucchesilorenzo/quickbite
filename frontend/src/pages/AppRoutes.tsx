@@ -19,6 +19,7 @@ import TermsAndConditionsPage from "./TermsAndConditionsPage";
 import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 import RestaurantProvider from "@/contexts/RestaurantProvider";
 import AreaLayout from "@/layouts/AreaLayout";
+import AuthLayout from "@/layouts/AuthLayout";
 import ErrorLayout from "@/layouts/ErrorLayout";
 import HomeLayout from "@/layouts/HomeLayout";
 import RestaurantLayout from "@/layouts/RestaurantLayout";
@@ -33,13 +34,15 @@ export default function AppRoutes() {
               <Route index element={<HomePage />} />
             </Route>
 
-            <Route path="/" element={<AppLayout />}>
+            <Route path="/" element={<AuthLayout />}>
               <Route path="auth">
                 <Route index element={<Navigate to="login" />} />
                 <Route path="register" element={<RegisterPage />} />
                 <Route path="login" element={<LoginPage />} />
               </Route>
+            </Route>
 
+            <Route path="/" element={<AppLayout />}>
               <Route path="become-a-rider" element={<BecomeARiderPage />} />
               <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
               <Route
