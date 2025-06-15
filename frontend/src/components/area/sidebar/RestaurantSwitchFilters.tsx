@@ -16,8 +16,10 @@ export default function RestaurantSwitchFilters() {
     new: false,
     free_delivery: false,
   });
+  const [isUpdating, setIsUpdating] = useState(false);
 
   function handleSwitchToggle(e: React.ChangeEvent<HTMLInputElement>) {
+    setIsUpdating(true);
     setChecked((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
 
     // Update query params
@@ -41,6 +43,8 @@ export default function RestaurantSwitchFilters() {
   }
 
   useEffect(() => {
+    setIsUpdating(false);
+
     const filters = searchParams.getAll("filter");
 
     const initialState = switchFilters.reduce(
@@ -62,7 +66,7 @@ export default function RestaurantSwitchFilters() {
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
-          <Typography component="span" variant="h6" sx={{ fontWeight: "700" }}>
+          <Typography component="span" variant="h6" sx={{ fontWeight: 700 }}>
             {filter.label}
           </Typography>
 
@@ -70,6 +74,7 @@ export default function RestaurantSwitchFilters() {
             name={filter.key}
             checked={checked[filter.key]}
             onChange={handleSwitchToggle}
+            disabled={isUpdating}
           />
         </Stack>
       ))}
