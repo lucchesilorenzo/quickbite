@@ -18,6 +18,7 @@ type RestaurantProviderProps = {
 type RestaurantContext = {
   originalRestaurants: RestaurantListItem[];
   restaurants: RestaurantListItem[];
+  filteredRestaurantsWithoutMov: RestaurantListItem[];
   isRestaurantsLoading: boolean;
   restaurantsError: Error | null;
   viewMap: boolean;
@@ -56,11 +57,10 @@ export default function RestaurantProvider({
     error: restaurantsError,
   } = useGetRestaurants(postcode);
 
-  const filteredRestaurants = useMemo(() => {
+  const filteredRestaurantsWithoutMov = useMemo(() => {
     let result = [...restaurants];
 
     const filters = searchParams.getAll("filter");
-    const mov = Number(searchParams.get("mov"));
     const sort = searchParams.get("sort_by");
     const searchTerm = searchParams.get("q");
 
@@ -124,46 +124,46 @@ export default function RestaurantProvider({
       result = result.filter((r) => r.discount);
     }
 
-    // --- MOV params ---
-
-    if (mov) {
-      result = result.filter((r) => r.min_amount <= mov / 100);
-    }
-
     // --- Sort params ---
 
-    if (sort === "review_rating") {
-      result = result.sort(
-        (a, b) => b.reviews_avg_rating - a.reviews_avg_rating,
-      );
-    }
-
-    if (sort === "distance" && latitude && longitude) {
-      result = result.sort((a, b) => {
-        const distA = getDistance(
-          { latitude, longitude },
-          { latitude: a.latitude, longitude: a.longitude },
+    switch (sort) {
+      case "review_rating":
+        result = result.sort(
+          (a, b) => b.reviews_avg_rating - a.reviews_avg_rating,
         );
+        break;
 
-        const distB = getDistance(
-          { latitude, longitude },
-          { latitude: b.latitude, longitude: b.longitude },
+      case "distance":
+        if (latitude && longitude) {
+          result = result.sort((a, b) => {
+            const distA = getDistance(
+              { latitude, longitude },
+              { latitude: a.latitude, longitude: a.longitude },
+            );
+
+            const distB = getDistance(
+              { latitude, longitude },
+              { latitude: b.latitude, longitude: b.longitude },
+            );
+
+            return distA - distB;
+          });
+        }
+        break;
+
+      case "minimum_order_value":
+        result = result.sort((a, b) => a.min_amount - b.min_amount);
+        break;
+
+      case "delivery_time":
+        result = result.sort(
+          (a, b) => a.delivery_time_min - b.delivery_time_min,
         );
+        break;
 
-        return distA - distB;
-      });
-    }
-
-    if (sort === "minimum_order_value") {
-      result = result.sort((a, b) => a.min_amount - b.min_amount);
-    }
-
-    if (sort === "delivery_time") {
-      result = result.sort((a, b) => a.delivery_time_min - b.delivery_time_min);
-    }
-
-    if (sort === "delivery_fee") {
-      result = result.sort((a, b) => a.shipping_cost - b.shipping_cost);
+      case "delivery_fee":
+        result = result.sort((a, b) => a.shipping_cost - b.shipping_cost);
+        break;
     }
 
     // --- Search params ---
@@ -174,14 +174,12 @@ export default function RestaurantProvider({
           result = result.filter((r) =>
             r.name.toLowerCase().includes(selectedOption.label.toLowerCase()),
           );
-
           break;
 
         case "Category":
           result = result.filter((r) =>
             r.categories.some((c) => c.id === selectedOption.id),
           );
-
           break;
 
         case "Item":
@@ -194,7 +192,6 @@ export default function RestaurantProvider({
               ),
             ),
           );
-
           break;
 
         case "Search":
@@ -216,7 +213,6 @@ export default function RestaurantProvider({
                 ),
               ),
           );
-
           break;
       }
     }
@@ -231,11 +227,26 @@ export default function RestaurantProvider({
     selectedOption,
   ]);
 
+  const filteredRestaurants = useMemo(() => {
+    let result = [...filteredRestaurantsWithoutMov];
+
+    const mov = Number(searchParams.get("mov"));
+
+    // --- MOV params ---
+
+    if (mov) {
+      result = result.filter((r) => r.min_amount <= mov / 100);
+    }
+
+    return result;
+  }, [filteredRestaurantsWithoutMov, searchParams]);
+
   return (
     <RestaurantContext.Provider
       value={{
         originalRestaurants: restaurants,
         restaurants: filteredRestaurants,
+        filteredRestaurantsWithoutMov,
         isRestaurantsLoading,
         restaurantsError,
         viewMap,
