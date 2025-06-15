@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Paper, Typography } from "@mui/material";
 
+import RestaurantCartShippingInfo from "../common/RestaurantCartShippingInfo";
 import EmptyRestaurantCart from "./EmptyRestaurantCart";
 import RestaurantCartFooter from "./RestaurantCartFooter";
 import RestaurantCartList from "./RestaurantCartList";
@@ -67,6 +68,8 @@ export default function RestaurantCart() {
       >
         Cart
       </Typography>
+
+      <RestaurantCartShippingInfo />
 
       {!isEmpty(restaurant.id) ? (
         <>

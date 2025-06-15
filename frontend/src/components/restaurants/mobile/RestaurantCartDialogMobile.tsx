@@ -7,6 +7,7 @@ import {
   Stack,
 } from "@mui/material";
 
+import RestaurantCartShippingInfo from "../common/RestaurantCartShippingInfo";
 import RestaurantCartFooter from "../restaurant-cart/RestaurantCartFooter";
 import RestaurantCartList from "../restaurant-cart/RestaurantCartList";
 
@@ -43,6 +44,7 @@ export default function RestaurantCartDialogMobile({
         </Stack>
 
         <DialogContent sx={{ p: 0 }}>
+          <RestaurantCartShippingInfo />
           <RestaurantCartList />
           <RestaurantCartFooter />
         </DialogContent>
