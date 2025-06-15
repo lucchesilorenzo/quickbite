@@ -5,12 +5,12 @@ import { Outlet } from "react-router-dom";
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
 
-export default function AuthLayout() {
+export default function CustomerAuthLayout() {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
       <Header />
 
-      <Box sx={{ bgcolor: grey[200] }}>
+      <Box sx={{ bgcolor: grey[100], py: 6 }}>
         <Outlet />
       </Box>
 

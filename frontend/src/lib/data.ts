@@ -20,7 +20,7 @@ export const routes = [
     icon: RestaurantIcon,
   },
   {
-    href: "/auth/login",
+    href: "/auth/customer/login",
     label: "Log in",
     icon: PersonIcon,
   },

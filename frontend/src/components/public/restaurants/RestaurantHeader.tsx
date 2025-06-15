@@ -3,7 +3,7 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import { AppBar, IconButton, Stack, Toolbar } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-import HeaderDialog from "../common/HeaderDialog";
+import HeaderDialog from "@/components/common/HeaderDialog";
 
 export default function RestaurantHeader() {
   const navigate = useNavigate();

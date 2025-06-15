@@ -5,21 +5,21 @@ import "@fontsource/roboto/700.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import AppLayout from "../layouts/AppLayout";
-import AreaPage from "./AreaPage";
-import BecomeAPartnerPage from "./BecomeAPartnerPage";
-import BecomeARiderPage from "./BecomeARiderPage";
-import ErrorPage from "./ErrorPage";
-import HomePage from "./HomePage";
-import LoginPage from "./LoginPage";
-import PrivacyPolicyPage from "./PrivacyPolicyPage";
-import RegisterPage from "./RegisterPage";
-import RestaurantPage from "./RestaurantPage";
-import TermsAndConditionsPage from "./TermsAndConditionsPage";
+import AreaPage from "./public/AreaPage";
+import BecomeAPartnerPage from "./public/BecomeAPartnerPage";
+import BecomeARiderPage from "./public/BecomeARiderPage";
+import CustomerLoginPage from "./public/CustomerLoginPage";
+import CustomerRegisterPage from "./public/CustomerRegisterPage";
+import ErrorPage from "./public/ErrorPage";
+import HomePage from "./public/HomePage";
+import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
+import RestaurantPage from "./public/RestaurantPage";
+import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
 
 import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 import RestaurantProvider from "@/contexts/RestaurantProvider";
 import AreaLayout from "@/layouts/AreaLayout";
-import AuthLayout from "@/layouts/AuthLayout";
+import CustomerAuthLayout from "@/layouts/CustomerAuthLayout";
 import ErrorLayout from "@/layouts/ErrorLayout";
 import HomeLayout from "@/layouts/HomeLayout";
 import RestaurantLayout from "@/layouts/RestaurantLayout";
@@ -34,11 +34,11 @@ export default function AppRoutes() {
               <Route index element={<HomePage />} />
             </Route>
 
-            <Route path="/" element={<AuthLayout />}>
-              <Route path="auth">
+            <Route path="/" element={<CustomerAuthLayout />}>
+              <Route path="auth/customer">
                 <Route index element={<Navigate to="login" />} />
-                <Route path="register" element={<RegisterPage />} />
-                <Route path="login" element={<LoginPage />} />
+                <Route path="register" element={<CustomerRegisterPage />} />
+                <Route path="login" element={<CustomerLoginPage />} />
               </Route>
             </Route>
 

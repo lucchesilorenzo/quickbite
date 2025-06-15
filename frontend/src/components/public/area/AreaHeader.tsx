@@ -13,11 +13,12 @@ import {
 import { useCookies } from "react-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import HeaderDialog from "../common/HeaderDialog";
 import CategoryFilters from "./category-carousel/CategoryFilters";
 import LocationSearchButton from "./location-search/LocationSearchButton";
 import LocationSearchDialog from "./location-search/LocationSearchDialog";
 import RestaurantSearchContainerMobile from "./mobile/RestaurantSearchContainerMobile";
+
+import HeaderDialog from "@/components/common/HeaderDialog";
 
 export default function AreaHeader() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));

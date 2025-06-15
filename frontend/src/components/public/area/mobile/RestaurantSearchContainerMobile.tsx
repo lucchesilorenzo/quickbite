@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 
 import RestaurantFiltersMobile from "./RestaurantFiltersDialogMobile";
 
-import RestaurantSearch from "@/components/area/content/search-and-map/RestaurantSearch";
-import RestaurantViewSwitcher from "@/components/area/content/search-and-map/RestaurantViewSwitcher";
+import RestaurantSearch from "@/components/public/area/content/search-and-map/RestaurantSearch";
+import RestaurantViewSwitcher from "@/components/public/area/content/search-and-map/RestaurantViewSwitcher";
 
 export default function RestaurantSearchContainerMobile() {
   const { search } = useLocation();

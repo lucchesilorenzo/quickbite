@@ -58,7 +58,7 @@ export default function HomeHeader() {
             color="inherit"
             startIcon={<PersonIcon />}
             component={Link}
-            to="/auth/login"
+            to="/auth/customer/login"
           >
             Log in
           </Button>

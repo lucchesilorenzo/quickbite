@@ -18,7 +18,7 @@ import RestaurantCard from "../../list/restaurant-card/RestaurantCard";
 import ClickResetHandler from "./ClickResetHandler";
 import ZoomGestureHandling from "./ZoomGestureHandling";
 
-import RestaurantCardMobile from "@/components/area/mobile/RestaurantCardMobile";
+import RestaurantCardMobile from "@/components/public/area/mobile/RestaurantCardMobile";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantMap() {
