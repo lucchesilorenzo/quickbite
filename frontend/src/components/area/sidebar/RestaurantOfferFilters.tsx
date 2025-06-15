@@ -8,6 +8,7 @@ import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantOfferFilters() {
   const { originalRestaurants } = useRestaurant();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [checked, setChecked] = useState<Record<string, boolean>>({
     with_discounts: false,

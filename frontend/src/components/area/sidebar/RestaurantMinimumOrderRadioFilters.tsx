@@ -13,7 +13,8 @@ import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantMinimumOrderRadioFilters() {
-  const { originalRestaurants } = useRestaurant();
+  const { filteredRestaurantsWithoutMov, restaurants } = useRestaurant();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState("all");
 
@@ -21,17 +22,17 @@ export default function RestaurantMinimumOrderRadioFilters() {
     {
       label: "Show all",
       value: "all",
-      count: originalRestaurants.length,
+      count: filteredRestaurantsWithoutMov.length,
     },
     {
       label: "10,00 € or less",
       value: "1000",
-      count: originalRestaurants.filter((r) => r.min_amount >= 10).length,
+      count: restaurants.filter((r) => r.min_amount <= 10).length,
     },
     {
       label: "15,00 € or less",
       value: "1500",
-      count: originalRestaurants.filter((r) => r.min_amount >= 15).length,
+      count: restaurants.filter((r) => r.min_amount <= 15).length,
     },
   ];
 
