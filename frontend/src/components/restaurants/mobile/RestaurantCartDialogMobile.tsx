@@ -7,9 +7,13 @@ import {
   Stack,
 } from "@mui/material";
 
+import RestaurantCartMOVNotReachedAlert from "../common/RestaurantCartMOVNotReachedAlert";
 import RestaurantCartShippingInfo from "../common/RestaurantCartShippingInfo";
 import RestaurantCartFooter from "../restaurant-cart/RestaurantCartFooter";
 import RestaurantCartList from "../restaurant-cart/RestaurantCartList";
+
+import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 type RestaurantCartDialogMobileProps = {
   openRestaurantCartDialogMobile: boolean;
@@ -22,6 +26,14 @@ export default function RestaurantCartDialogMobile({
   openRestaurantCartDialogMobile,
   setOpenRestaurantCartDialogMobile,
 }: RestaurantCartDialogMobileProps) {
+  const { restaurant } = useSingleRestaurant();
+  const { cartTotal } = useMultiCart();
+
+  const subtotal = cartTotal(restaurant.id);
+  const amountToReachMOV = restaurant.min_amount - subtotal;
+  const showMOVNotReachedAlert =
+    restaurant.min_amount > 0 && amountToReachMOV > 0;
+
   return (
     <Dialog
       open={openRestaurantCartDialogMobile}
@@ -45,6 +57,11 @@ export default function RestaurantCartDialogMobile({
 
         <DialogContent sx={{ p: 0 }}>
           <RestaurantCartShippingInfo />
+          {showMOVNotReachedAlert && (
+            <RestaurantCartMOVNotReachedAlert
+              amountToReachMOV={amountToReachMOV}
+            />
+          )}
           <RestaurantCartList />
           <RestaurantCartFooter />
         </DialogContent>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Paper, Typography } from "@mui/material";
 
+import RestaurantCartMOVNotReachedAlert from "../common/RestaurantCartMOVNotReachedAlert";
 import RestaurantCartShippingInfo from "../common/RestaurantCartShippingInfo";
 import EmptyRestaurantCart from "./EmptyRestaurantCart";
 import RestaurantCartFooter from "./RestaurantCartFooter";
@@ -12,10 +13,15 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function RestaurantCart() {
   const { restaurant } = useSingleRestaurant();
-  const { isEmpty } = useMultiCart();
+  const { isEmpty, cartTotal } = useMultiCart();
 
   const [topOffset, setTopOffset] = useState(0);
   const [bottomOffset, setBottomOffset] = useState(0);
+
+  const subtotal = cartTotal(restaurant.id);
+  const amountToReachMOV = restaurant.min_amount - subtotal;
+  const showMOVNotReachedAlert =
+    restaurant.min_amount > 0 && amountToReachMOV > 0;
 
   useEffect(() => {
     const header = document.querySelector("#back-to-top");
@@ -70,6 +76,9 @@ export default function RestaurantCart() {
       </Typography>
 
       <RestaurantCartShippingInfo />
+      {showMOVNotReachedAlert && (
+        <RestaurantCartMOVNotReachedAlert amountToReachMOV={amountToReachMOV} />
+      )}
 
       {!isEmpty(restaurant.id) ? (
         <>
