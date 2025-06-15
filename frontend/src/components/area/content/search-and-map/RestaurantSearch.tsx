@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { Autocomplete, TextField, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import match from "autosuggest-highlight/match";
@@ -13,46 +14,39 @@ import { RestaurantSearchOption } from "@/types";
 export default function RestaurantSearch() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  const { originalRestaurants } = useRestaurant();
+  const { originalRestaurants, selectedOption, setSelectedOption } =
+    useRestaurant();
   const { allCategories } = useCategoryFilters();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState("");
-  const [selectedOption, setSelectedOption] = useState<
-    RestaurantSearchOption | string | null
-  >(null);
 
-  const baseOptions = [
+  const restaurantSearchOptions = [
     ...originalRestaurants.map((r) => ({
-      id: `restaurant-${r.id}`,
+      id: r.id,
       label: r.name,
       type: "Restaurant",
     })),
     ...allCategories.map((c) => ({
-      id: `category-${c.slug}`,
+      id: c.id,
       label: c.name,
       type: "Category",
     })),
     ...originalRestaurants
       .flatMap((r) => r.menu_categories.flatMap((c) => c.menu_items))
       .map((i) => ({
-        id: `item-${i.id}`,
+        id: i.id,
         label: i.name,
         type: "Item",
       })),
+    {
+      id: "search",
+      label: inputValue,
+      type: "Search",
+    },
   ];
 
-  const options =
-    inputValue.trim() === ""
-      ? baseOptions
-      : [
-          ...baseOptions,
-          {
-            id: "search",
-            label: inputValue,
-            type: "Search",
-          },
-        ];
+  const options = inputValue.trim() !== "" ? restaurantSearchOptions : [];
 
   const uniqueMap = new Map();
 
@@ -69,7 +63,6 @@ export default function RestaurantSearch() {
   function handleOptionSelect(option: RestaurantSearchOption | string | null) {
     if (option && typeof option === "object") {
       setSelectedOption(option);
-
       setSearchParams({
         filter: [],
         mov: [],
@@ -94,7 +87,21 @@ export default function RestaurantSearch() {
       fullWidth
       options={uniqueOptions}
       value={selectedOption}
-      onChange={(_, newValue) => handleOptionSelect(newValue)}
+      onChange={(_, newValue) => {
+        if (newValue === null) {
+          setInputValue("");
+          setSelectedOption(null);
+          setSearchParams({
+            filter: searchParams.getAll("filter"),
+            mov: searchParams.getAll("mov"),
+            sort_by: searchParams.getAll("sort_by"),
+            view_type: searchParams.getAll("view_type"),
+            q: [],
+          });
+        } else {
+          handleOptionSelect(newValue);
+        }
+      }}
       inputValue={inputValue}
       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
       renderOption={(props, option, { inputValue }) => {
@@ -128,6 +135,8 @@ export default function RestaurantSearch() {
           </li>
         );
       }}
+      noOptionsText="No results found"
+      clearIcon={<HighlightOffIcon sx={{ color: "#212121" }} />}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -135,27 +144,6 @@ export default function RestaurantSearch() {
           autoComplete="off"
           placeholder="Looking for places, items or categories?"
           sx={{ bgcolor: isMobile ? grey[100] : "" }}
-          // slotProps={{
-          //   input: {
-          //     startAdornment: (
-          //       <InputAdornment position="start">
-          //         <SearchIcon color={isMobile ? "primary" : "inherit"} />
-          //       </InputAdornment>
-          //     ),
-          //     endAdornment: (
-          //       <InputAdornment position="end">
-          //         {query && (
-          //           <IconButton
-          //             onClick={() => setQuery("")}
-          //             size={isMobile ? "small" : "medium"}
-          //           >
-          //             <HighlightOffIcon sx={{ color: "#212121" }} />
-          //           </IconButton>
-          //         )}
-          //       </InputAdornment>
-          //     ),
-          //   },
-          // }}
         />
       )}
     />
