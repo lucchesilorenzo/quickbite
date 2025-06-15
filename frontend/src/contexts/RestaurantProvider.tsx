@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 import { useGetRestaurants } from "@/hooks/react-query/restaurants/useGetRestaurants";
 import { ratings } from "@/lib/data";
-import { RestaurantListItem } from "@/types";
+import { RestaurantListItem, RestaurantSearchOption } from "@/types";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;
@@ -22,7 +22,11 @@ type RestaurantContext = {
   restaurantsError: Error | null;
   viewMap: boolean;
   isMapViewMobile: boolean;
+  selectedOption: RestaurantSearchOption | string | null;
   setViewMap: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedOption: React.Dispatch<
+    React.SetStateAction<RestaurantSearchOption | string | null>
+  >;
 };
 
 export const RestaurantContext = createContext<RestaurantContext | null>(null);
@@ -30,10 +34,14 @@ export const RestaurantContext = createContext<RestaurantContext | null>(null);
 export default function RestaurantProvider({
   children,
 }: RestaurantProviderProps) {
+  const { allCategories } = useCategoryFilters();
+
   const [searchParams] = useSearchParams();
   const [cookies] = useCookies(["address"]);
   const [viewMap, setViewMap] = useState(false);
-  const { allCategories } = useCategoryFilters();
+  const [selectedOption, setSelectedOption] = useState<
+    RestaurantSearchOption | string | null
+  >(null);
 
   const postcode = cookies.address?.address?.postcode;
   const latitude = Number(cookies.address?.lat);
@@ -54,6 +62,7 @@ export default function RestaurantProvider({
     const filters = searchParams.getAll("filter");
     const mov = Number(searchParams.get("mov"));
     const sort = searchParams.get("sort_by");
+    const searchTerm = searchParams.get("q");
 
     // --- Filter params ---
 
@@ -157,8 +166,70 @@ export default function RestaurantProvider({
       result = result.sort((a, b) => a.shipping_cost - b.shipping_cost);
     }
 
+    // --- Search params ---
+
+    if (searchTerm && selectedOption && typeof selectedOption === "object") {
+      switch (selectedOption.type) {
+        case "Restaurant":
+          result = result.filter((r) =>
+            r.name.toLowerCase().includes(selectedOption.label.toLowerCase()),
+          );
+
+          break;
+
+        case "Category":
+          result = result.filter((r) =>
+            r.categories.some((c) => c.id === selectedOption.id),
+          );
+
+          break;
+
+        case "Item":
+          result = result.filter((r) =>
+            r.menu_categories.some((c) =>
+              c.menu_items.some((i) =>
+                i.name
+                  .toLowerCase()
+                  .includes(selectedOption.label.toLowerCase()),
+              ),
+            ),
+          );
+
+          break;
+
+        case "Search":
+          result = result.filter(
+            (r) =>
+              r.name
+                .toLowerCase()
+                .includes(selectedOption.label.toLowerCase()) ||
+              r.categories.some((c) =>
+                c.name
+                  .toLowerCase()
+                  .includes(selectedOption.label.toLowerCase()),
+              ) ||
+              r.menu_categories.some((c) =>
+                c.menu_items.some((i) =>
+                  i.name
+                    .toLowerCase()
+                    .includes(selectedOption.label.toLowerCase()),
+                ),
+              ),
+          );
+
+          break;
+      }
+    }
+
     return result;
-  }, [restaurants, searchParams, latitude, longitude, allCategories]);
+  }, [
+    restaurants,
+    searchParams,
+    latitude,
+    longitude,
+    allCategories,
+    selectedOption,
+  ]);
 
   return (
     <RestaurantContext.Provider
@@ -169,7 +240,9 @@ export default function RestaurantProvider({
         restaurantsError,
         viewMap,
         isMapViewMobile,
+        selectedOption,
         setViewMap,
+        setSelectedOption,
       }}
     >
       {children}
