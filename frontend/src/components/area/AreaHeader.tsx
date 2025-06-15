@@ -22,9 +22,9 @@ import RestaurantSearchContainerMobile from "./mobile/RestaurantSearchContainerM
 export default function AreaHeader() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
+  const { search } = useLocation();
   const [cookies] = useCookies(["address"]);
   const [openDialog, setOpenDialog] = useState(false);
-  const { search } = useLocation();
 
   const navigate = useNavigate();
 
@@ -39,9 +39,12 @@ export default function AreaHeader() {
     ? `${cookies.address.address.name || cookies.address.address.road}, ${cookies.address.address.house_number}, ${cookies.address.address.postcode} ${cookies.address.address.city}`
     : cookies.address?.display_name;
 
+  const showHeader =
+    !isMobile || (isMobile && !search.includes("view_type=map"));
+
   return (
     <AppBar position="relative" id="back-to-top" color="inherit" elevation={3}>
-      {!isMobile && search.includes("view_type=map") && (
+      {showHeader && (
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Stack
             direction="row"

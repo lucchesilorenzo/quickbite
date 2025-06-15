@@ -40,7 +40,6 @@ export default function AppRoutes() {
                 <Route path="login" element={<LoginPage />} />
               </Route>
 
-              <Route index element={<HomePage />} />
               <Route path="become-a-rider" element={<BecomeARiderPage />} />
               <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
               <Route

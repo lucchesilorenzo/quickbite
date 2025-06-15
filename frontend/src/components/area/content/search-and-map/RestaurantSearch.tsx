@@ -88,6 +88,7 @@ export default function RestaurantSearch() {
       options={uniqueOptions}
       value={selectedOption}
       onChange={(_, newValue) => {
+        // After interacting with the clear icon
         if (newValue === null) {
           setInputValue("");
           setSelectedOption(null);
