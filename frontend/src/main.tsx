@@ -34,6 +34,16 @@ const theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          marginTop: 4,
+          marginLeft: 0,
+          marginRight: 0,
+          marginBottom: 0,
+        },
+      },
+    },
   },
   palette: {
     primary: {
