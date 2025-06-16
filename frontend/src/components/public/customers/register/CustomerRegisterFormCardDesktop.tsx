@@ -5,7 +5,7 @@ import CustomerRegisterForm from "./CustomerRegisterForm";
 
 export default function CustomerRegisterFormCardDesktop() {
   return (
-    <Paper sx={{ display: { xs: "none", lg: "block" }, p: 3 }}>
+    <Paper elevation={3} sx={{ display: { xs: "none", lg: "block" }, p: 3 }}>
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 4 }}>
         Create account
       </Typography>

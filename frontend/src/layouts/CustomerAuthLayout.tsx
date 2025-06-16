@@ -10,7 +10,16 @@ export default function CustomerAuthLayout() {
     <Stack sx={{ minHeight: "100vh" }}>
       <Header />
 
-      <Box sx={{ bgcolor: grey[100], py: 6 }}>
+      <Box
+        sx={{
+          bgcolor: grey[100],
+          py: 6,
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Outlet />
       </Box>
 

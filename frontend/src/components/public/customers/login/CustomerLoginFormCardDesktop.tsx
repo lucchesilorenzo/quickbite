@@ -5,17 +5,19 @@ import CustomerLoginForm from "./CustomerLoginForm";
 
 export default function CustomerLoginFormCardDesktop() {
   return (
-    <Paper sx={{ display: { xs: "none", lg: "block" }, p: 3 }}>
+    <Paper elevation={3} sx={{ display: { xs: "none", lg: "block" }, p: 3 }}>
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 4 }}>
         Log in
       </Typography>
 
       <CustomerLoginForm />
 
-      <Divider>Not registered yet?</Divider>
+      <Divider sx={{ my: 4 }}>Not registered yet?</Divider>
 
       <Box sx={{ mt: 4 }}>
         <Button
+          component={Link}
+          to="/auth/customer/register"
           variant="outlined"
           color="inherit"
           fullWidth

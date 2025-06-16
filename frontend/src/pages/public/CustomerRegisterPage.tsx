@@ -10,12 +10,7 @@ export default function CustomerRegisterPage() {
   }, []);
 
   return (
-    <Container
-      component="main"
-      maxWidth="sm"
-      sx={{ minHeight: "100%" }}
-      disableGutters
-    >
+    <Container component="main" maxWidth="sm" disableGutters>
       <CustomerRegisterFormCard />
     </Container>
   );
