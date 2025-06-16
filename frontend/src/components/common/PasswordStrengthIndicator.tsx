@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Stack, Typography } from "@mui/material";
+import { LinearProgress, Stack, Typography } from "@mui/material";
 
 type PasswordStrengthIndicatorProps = {
   strength: number;
@@ -8,7 +8,7 @@ export default function PasswordStrengthIndicator({
   strength,
 }: PasswordStrengthIndicatorProps) {
   return (
-    <Box>
+    <Stack spacing={1}>
       <LinearProgress
         variant="determinate"
         value={strength}
@@ -30,6 +30,6 @@ export default function PasswordStrengthIndicator({
           {strength < 50 ? "Too weak" : strength < 80 ? "Medium" : "Strong"}
         </Typography>
       </Stack>
-    </Box>
+    </Stack>
   );
 }
