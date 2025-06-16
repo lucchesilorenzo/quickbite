@@ -1,3 +1,4 @@
+import { matchIsValidTel } from "mui-tel-input";
 import { z } from "zod/v4";
 
 import { isAdult } from "@/lib/utils";
@@ -21,8 +22,20 @@ export const customerRegisterFormSchema = z
       .string()
       .trim()
       .min(1, "Phone number is required.")
-      .max(50, "Phone number is too long."),
-    date_of_birth: z.string().trim().min(1, "Date of birth is required."),
+      .refine(
+        (phone_number) =>
+          matchIsValidTel(phone_number, { onlyCountries: ["IT"] }),
+        {
+          error: "Please enter a valid phone number.",
+        },
+      ),
+    date_of_birth: z
+      .string()
+      .trim()
+      .min(1, "Date of birth is required.")
+      .refine((data_of_birth) => isAdult(data_of_birth), {
+        error: "You must be at least 18 years old.",
+      }),
     password: z
       .string()
       .trim()
@@ -43,10 +56,6 @@ export const customerRegisterFormSchema = z
   .refine((data) => data.password === data.password_confirmation, {
     error: "Passwords do not match.",
     path: ["password_confirmation"],
-  })
-  .refine((data) => isAdult(data.date_of_birth), {
-    error: "You must be at least 18 years old.",
-    path: ["date_of_birth"],
   });
 
 export type TCustomerRegisterFormSchema = z.infer<
