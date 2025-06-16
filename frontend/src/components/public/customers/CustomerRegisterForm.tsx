@@ -1,6 +1,17 @@
+import { useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
@@ -28,6 +39,10 @@ export default function CustomerRegisterForm() {
       password_confirmation: "",
     },
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] =
+    useState(false);
 
   async function onSubmit(data: TCustomerRegisterFormSchema) {
     console.log(data);
@@ -154,13 +169,34 @@ export default function CustomerRegisterForm() {
         render={({ field }) => (
           <TextField
             {...field}
-            type="password"
+            type={showPassword ? "text" : "password"}
             required
             label="Password"
             error={!!errors.password}
             helperText={errors.password?.message}
             fullWidth
             sx={{ minWidth: 150 }}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onMouseDown={() => setShowPassword(true)}
+                      onMouseUp={() => setShowPassword(false)}
+                      onMouseLeave={() => setShowPassword(false)}
+                      onTouchStart={() => setShowPassword(true)}
+                      onTouchEnd={() => setShowPassword(false)}
+                    >
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
         )}
       />
@@ -171,13 +207,34 @@ export default function CustomerRegisterForm() {
         render={({ field }) => (
           <TextField
             {...field}
-            type="password"
+            type={showPasswordConfirmation ? "text" : "password"}
             required
             label="Confirm password"
             error={!!errors.password_confirmation}
             helperText={errors.password_confirmation?.message}
             fullWidth
             sx={{ minWidth: 150 }}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onMouseDown={() => setShowPasswordConfirmation(true)}
+                      onMouseUp={() => setShowPasswordConfirmation(false)}
+                      onMouseLeave={() => setShowPasswordConfirmation(false)}
+                      onTouchStart={() => setShowPasswordConfirmation(true)}
+                      onTouchEnd={() => setShowPasswordConfirmation(false)}
+                    >
+                      {showPasswordConfirmation ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
         )}
       />

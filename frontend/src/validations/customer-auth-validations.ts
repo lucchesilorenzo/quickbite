@@ -21,7 +21,7 @@ export const customerRegisterFormSchema = z
     phone_number: z
       .string()
       .trim()
-      .min(1, "Phone number is required.")
+      .min(1, "Please fill out your phone number.")
       .refine(
         (phone_number) =>
           matchIsValidTel(phone_number, { onlyCountries: ["IT"] }),
@@ -32,7 +32,7 @@ export const customerRegisterFormSchema = z
     date_of_birth: z
       .string()
       .trim()
-      .min(1, "Date of birth is required.")
+      .min(1, "Please fill out your date of birth.")
       .refine((data_of_birth) => isAdult(data_of_birth), {
         error: "You must be at least 18 years old.",
       }),
