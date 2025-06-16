@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
@@ -18,6 +17,7 @@ import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
+import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
   TCustomerRegisterFormSchema,
@@ -43,12 +43,12 @@ export default function CustomerRegisterForm() {
     },
   });
 
-  const password = watch("password");
-  const strength = calculatePasswordStrength(password);
-
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] =
     useState(false);
+
+  const password = watch("password");
+  const strength = calculatePasswordStrength(password);
 
   async function onSubmit(data: TCustomerRegisterFormSchema) {
     console.log(data);
@@ -75,12 +75,7 @@ export default function CustomerRegisterForm() {
               error={!!errors.first_name}
               helperText={
                 errors.first_name?.message && (
-                  <Stack direction="row" alignItems="center" spacing={1}>
-                    <ErrorOutlineIcon fontSize="small" color="error" />
-                    <Typography variant="caption" color="error">
-                      {errors.first_name.message}
-                    </Typography>
-                  </Stack>
+                  <FormHelperTextError message={errors.first_name.message} />
                 )
               }
               fullWidth
@@ -98,7 +93,11 @@ export default function CustomerRegisterForm() {
               required
               label="Last name"
               error={!!errors.last_name}
-              helperText={errors.last_name?.message}
+              helperText={
+                errors.last_name?.message && (
+                  <FormHelperTextError message={errors.last_name.message} />
+                )
+              }
               fullWidth
               sx={{ minWidth: 150 }}
             />
@@ -117,7 +116,11 @@ export default function CustomerRegisterForm() {
             required
             label="Email address"
             error={!!errors.email}
-            helperText={errors.email?.message}
+            helperText={
+              errors.email?.message && (
+                <FormHelperTextError message={errors.email.message} />
+              )
+            }
             fullWidth
             sx={{ minWidth: 150 }}
           />
@@ -137,7 +140,11 @@ export default function CustomerRegisterForm() {
             forceCallingCode
             disableDropdown
             error={!!errors.phone_number}
-            helperText={errors.phone_number?.message}
+            helperText={
+              errors.phone_number?.message && (
+                <FormHelperTextError message={errors.phone_number.message} />
+              )
+            }
           />
         )}
       />
@@ -159,7 +166,9 @@ export default function CustomerRegisterForm() {
               textField: {
                 required: true,
                 error: !!errors.date_of_birth,
-                helperText: errors.date_of_birth?.message,
+                helperText: errors.date_of_birth?.message && (
+                  <FormHelperTextError message={errors.date_of_birth.message} />
+                ),
                 fullWidth: true,
                 sx: { minWidth: 150 },
               },
@@ -180,7 +189,11 @@ export default function CustomerRegisterForm() {
               required
               label="Password"
               error={!!errors.password}
-              helperText={errors.password?.message}
+              helperText={
+                errors.password?.message && (
+                  <FormHelperTextError message={errors.password.message} />
+                )
+              }
               fullWidth
               sx={{ minWidth: 150 }}
               slotProps={{
@@ -254,7 +267,13 @@ export default function CustomerRegisterForm() {
             required
             label="Confirm password"
             error={!!errors.password_confirmation}
-            helperText={errors.password_confirmation?.message}
+            helperText={
+              errors.password_confirmation?.message && (
+                <FormHelperTextError
+                  message={errors.password_confirmation.message}
+                />
+              )
+            }
             fullWidth
             sx={{ minWidth: 150 }}
             slotProps={{

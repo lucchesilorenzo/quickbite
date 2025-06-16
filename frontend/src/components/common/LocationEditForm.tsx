@@ -4,6 +4,8 @@ import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { FormHelperTextError } from "./FormHelperTextError";
+
 import {
   TLocationEditForm,
   locationEditForm,
@@ -65,7 +67,11 @@ export default function LocationEditForm({
         label="Insert house number"
         variant="standard"
         error={!!errors.house_number}
-        helperText={errors.house_number?.message}
+        helperText={
+          errors.house_number?.message && (
+            <FormHelperTextError message={errors.house_number.message} />
+          )
+        }
       />
 
       <Button
