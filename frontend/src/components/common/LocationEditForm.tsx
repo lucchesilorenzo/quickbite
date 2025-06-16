@@ -78,7 +78,9 @@ export default function LocationEditForm({
         type="submit"
         variant="contained"
         fullWidth
+        disabled={isSubmitting}
         loading={isSubmitting}
+        loadingIndicator="Confirming address..."
       >
         Confirm address
       </Button>

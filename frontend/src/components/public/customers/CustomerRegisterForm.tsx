@@ -7,10 +7,8 @@ import {
   Button,
   IconButton,
   InputAdornment,
-  LinearProgress,
   Stack,
   TextField,
-  Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { format, parseISO } from "date-fns";
@@ -18,6 +16,7 @@ import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
+import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
   TCustomerRegisterFormSchema,
@@ -221,40 +220,7 @@ export default function CustomerRegisterForm() {
           )}
         />
 
-        {password && (
-          <>
-            <LinearProgress
-              variant="determinate"
-              value={strength}
-              sx={{
-                borderRadius: 5,
-                bgcolor: "#eee",
-                "& .MuiLinearProgress-bar": {
-                  bgcolor:
-                    strength < 50 ? "red" : strength < 80 ? "orange" : "green",
-                },
-              }}
-            />
-
-            <Stack direction="row" spacing={0.5}>
-              <Typography variant="body2" component="div">
-                Password strength:
-              </Typography>
-
-              <Typography
-                variant="body2"
-                component="span"
-                sx={{ fontWeight: 700 }}
-              >
-                {strength < 50
-                  ? "Too weak"
-                  : strength < 80
-                    ? "Medium"
-                    : "Strong"}
-              </Typography>
-            </Stack>
-          </>
-        )}
+        {password && <PasswordStrengthIndicator strength={strength} />}
       </Stack>
 
       <Controller
@@ -301,8 +267,14 @@ export default function CustomerRegisterForm() {
         )}
       />
 
-      <Button type="submit" disabled={isSubmitting} variant="contained">
-        {isSubmitting ? "Creating account..." : "Create account"}
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        loading={isSubmitting}
+        loadingIndicator="Creating account..."
+        variant="contained"
+      >
+        Create account
       </Button>
     </Stack>
   );
