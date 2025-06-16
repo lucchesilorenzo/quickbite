@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import CustomerRegisterForm from "../CustomerRegisterForm";
+import CustomerRegisterForm from "../register/CustomerRegisterForm";
 
 export default function CustomerRegisterFormCardMobile() {
   return (

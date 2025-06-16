@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import CustomerRegisterFormCard from "@/components/public/customers/CustomerRegisterFormCard";
+import CustomerRegisterFormCard from "@/components/public/customers/register/CustomerRegisterFormCard";
 
 export default function CustomerRegisterPage() {
   useEffect(() => {
