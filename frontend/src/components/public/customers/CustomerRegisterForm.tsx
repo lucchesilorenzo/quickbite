@@ -8,6 +8,7 @@ import {
   Button,
   IconButton,
   InputAdornment,
+  LinearProgress,
   Stack,
   TextField,
   Typography,
@@ -17,6 +18,7 @@ import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
+import { calculatePasswordStrength } from "@/lib/utils";
 import {
   TCustomerRegisterFormSchema,
   customerRegisterFormSchema,
@@ -27,6 +29,7 @@ export default function CustomerRegisterForm() {
     handleSubmit,
     control,
     formState: { isSubmitting, errors },
+    watch,
   } = useForm({
     resolver: zodResolver(customerRegisterFormSchema),
     defaultValues: {
@@ -39,6 +42,9 @@ export default function CustomerRegisterForm() {
       password_confirmation: "",
     },
   });
+
+  const password = watch("password");
+  const strength = calculatePasswordStrength(password);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] =
@@ -163,43 +169,80 @@ export default function CustomerRegisterForm() {
         )}
       />
 
-      <Controller
-        name="password"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            type={showPassword ? "text" : "password"}
-            required
-            label="Password"
-            error={!!errors.password}
-            helperText={errors.password?.message}
-            fullWidth
-            sx={{ minWidth: 150 }}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onMouseDown={() => setShowPassword(true)}
-                      onMouseUp={() => setShowPassword(false)}
-                      onMouseLeave={() => setShowPassword(false)}
-                      onTouchStart={() => setShowPassword(true)}
-                      onTouchEnd={() => setShowPassword(false)}
-                    >
-                      {showPassword ? (
-                        <VisibilityOffIcon />
-                      ) : (
-                        <VisibilityIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
+      <Stack spacing={2}>
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type={showPassword ? "text" : "password"}
+              required
+              label="Password"
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              fullWidth
+              sx={{ minWidth: 150 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onMouseDown={() => setShowPassword(true)}
+                        onMouseUp={() => setShowPassword(false)}
+                        onMouseLeave={() => setShowPassword(false)}
+                        onTouchStart={() => setShowPassword(true)}
+                        onTouchEnd={() => setShowPassword(false)}
+                      >
+                        {showPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <VisibilityIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
+          )}
+        />
+
+        {password && (
+          <>
+            <LinearProgress
+              variant="determinate"
+              value={strength}
+              sx={{
+                borderRadius: 5,
+                bgcolor: "#eee",
+                "& .MuiLinearProgress-bar": {
+                  bgcolor:
+                    strength < 50 ? "red" : strength < 80 ? "orange" : "green",
+                },
+              }}
+            />
+
+            <Stack direction="row" spacing={0.5}>
+              <Typography variant="body2" component="div">
+                Password strength:
+              </Typography>
+
+              <Typography
+                variant="body2"
+                component="span"
+                sx={{ fontWeight: 700 }}
+              >
+                {strength < 50
+                  ? "Too weak"
+                  : strength < 80
+                    ? "Medium"
+                    : "Strong"}
+              </Typography>
+            </Stack>
+          </>
         )}
-      />
+      </Stack>
 
       <Controller
         name="password_confirmation"
