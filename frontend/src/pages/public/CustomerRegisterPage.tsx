@@ -13,7 +13,7 @@ export default function CustomerRegisterPage() {
     <Container
       component="main"
       maxWidth="sm"
-      sx={{ minHeight: "100vh" }}
+      sx={{ minHeight: "100%" }}
       disableGutters
     >
       <CustomerRegisterFormCard />
