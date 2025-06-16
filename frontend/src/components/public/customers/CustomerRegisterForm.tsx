@@ -3,6 +3,7 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { format, parseISO } from "date-fns";
+import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
 import {
@@ -106,15 +107,16 @@ export default function CustomerRegisterForm() {
         name="phone_number"
         control={control}
         render={({ field }) => (
-          <TextField
+          <MuiTelInput
             {...field}
-            type="phone"
             required
             label="Phone number"
+            defaultCountry="IT"
+            onlyCountries={["IT"]}
+            forceCallingCode
+            disableDropdown
             error={!!errors.phone_number}
             helperText={errors.phone_number?.message}
-            fullWidth
-            sx={{ minWidth: 150 }}
           />
         )}
       />
