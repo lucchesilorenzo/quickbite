@@ -10,7 +10,7 @@ export default function CustomerLoginPage() {
   }, []);
 
   return (
-    <Container component="main" maxWidth="sm" sx={{}} disableGutters>
+    <Container component="main" maxWidth="sm" disableGutters>
       <CustomerLoginFormCard />
     </Container>
   );
