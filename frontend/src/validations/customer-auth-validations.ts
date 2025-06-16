@@ -118,6 +118,13 @@ export const customerRegisterFormSchema = z
     path: ["password_confirmation"],
   });
 
+export const customerLoginFormSchema = z.object({
+  email: z.email({ error: "Please enter a valid email address." }),
+  password: z.string().min(1, "Please fill out your password."),
+});
+
 export type TCustomerRegisterFormSchema = z.infer<
   typeof customerRegisterFormSchema
 >;
+
+export type TCustomerLoginFormSchema = z.infer<typeof customerLoginFormSchema>;
