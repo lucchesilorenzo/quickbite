@@ -1,10 +1,12 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 
 export const locationEditForm = z.object({
   house_number: z.coerce
     .number({
-      invalid_type_error: "House number must be a number.",
-      required_error: "House number is required.",
+      error: (issue) =>
+        issue.input === undefined
+          ? "House number is required."
+          : "House number must be a number.",
     })
     .int("House number must be an integer.")
     .positive("House number must be a positive number."),
