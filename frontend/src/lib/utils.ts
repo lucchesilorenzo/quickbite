@@ -1,3 +1,5 @@
+import { differenceInYears, isValid, parseISO } from "date-fns";
+
 export function formatCurrency(price: number) {
   return new Intl.NumberFormat("it-IT", {
     style: "currency",
@@ -15,4 +17,12 @@ export function truncateWords(text: string, wordCount: number) {
   return words.length > wordCount
     ? words.slice(0, wordCount).join(" ") + "..."
     : text;
+}
+
+export function isAdult(dateOfBirth: string) {
+  const dob = parseISO(dateOfBirth);
+  if (!isValid(dob)) return false;
+
+  const age = differenceInYears(new Date(), dob);
+  return age >= 18;
 }
