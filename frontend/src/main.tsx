@@ -5,9 +5,12 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NotificationsProvider } from "@toolpad/core/useNotifications";
+import { enUS } from "date-fns/locale";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 import "leaflet/dist/leaflet.css";
 import { CookiesProvider } from "react-cookie";
@@ -52,11 +55,16 @@ createRoot(document.getElementById("root")!).render(
             },
           }}
         >
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
+          <LocalizationProvider
+            dateAdapter={AdapterDateFns}
+            adapterLocale={enUS}
+          >
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
 
-            <AppRoutes />
-          </ThemeProvider>
+              <AppRoutes />
+            </ThemeProvider>
+          </LocalizationProvider>
         </NotificationsProvider>
       </CookiesProvider>
     </QueryClientProvider>
