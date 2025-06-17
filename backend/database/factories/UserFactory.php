@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\RolesEnum;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -29,7 +31,6 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('test'),
-            'role' => fake()->randomElement(['CUSTOMER', 'RESTAURATEUR', 'RIDER']),
             'profile_picture' => null,
             'date_of_birth' => fake()->date(),
             'phone_number' => fake()->e164PhoneNumber(),
@@ -38,45 +39,46 @@ class UserFactory extends Factory
             'postcode' => fake()->postcode(),
             'city' => fake()->city(),
             'country' => 'Italy',
-            'driving_licence' => fn(array $attributes) => $attributes['role'] === 'RIDER' ? fake()->numerify('##########') : null,
+            'driving_licence' => null,
             'is_approved' => fake()->boolean(),
             'remember_token' => Str::random(10),
         ];
     }
 
     /**
-     * Indicate that the model's role is customer.
+     * Create a new user with CUSTOMER role.
      *
      * @return static
      */
     public function customer(): static
     {
-        return $this->state(fn(array $attributes) => [
-            'role' => 'CUSTOMER',
-        ]);
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole(RolesEnum::CUSTOMER);
+        });
     }
 
     /**
-     * Indicate that the model's role is restaurateur.
+     * Create a new user with RESTAURATEUR role.
      *
      * @return static
      */
     public function restaurateur(): static
     {
-        return $this->state(fn(array $attributes) => [
-            'role' => 'RESTAURATEUR',
-        ]);
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole(RolesEnum::RESTAURATEUR);
+        });
     }
 
     /**
-     * Indicate that the model's role is rider.
+     * Create a new user with RIDER role.
      *
      * @return static
      */
     public function rider(): static
     {
-        return $this->state(fn(array $attributes) => [
-            'role' => 'RIDER',
-        ]);
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole(RolesEnum::RIDER);
+            $user->update(['driving_licence' => fake()->boolean() ? fake()->numerify('##########') : null]);
+        });
     }
 }
