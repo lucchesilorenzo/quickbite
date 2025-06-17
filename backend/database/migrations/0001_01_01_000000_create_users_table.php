@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['CUSTOMER', 'RESTAURATEUR', 'RIDER'])->default('CUSTOMER');
             $table->string('profile_picture')->nullable();
             $table->date('date_of_birth');
             $table->string('phone_number')->unique();

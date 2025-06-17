@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RestaurantRolesEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('restaurant_user', function (Blueprint $table) {
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
-            $table->enum('role', ['OWNER', 'CO-OWNER', 'RIDER'])->default('OWNER');
+            $table->enum('role', RestaurantRolesEnum::values())->default(RestaurantRolesEnum::OWNER);
             $table->date('contract_start')->nullable();
             $table->date('contract_end')->nullable();
             $table->boolean('is_active')->default(true);
