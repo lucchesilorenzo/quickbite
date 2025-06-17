@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\RestaurantRolesEnum;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -105,7 +106,7 @@ class User extends Authenticatable
     public function ownedRestaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
-            ->wherePivot('role', 'OWNER');
+            ->wherePivot('role', RestaurantRolesEnum::OWNER);
     }
 
     /**
@@ -116,7 +117,7 @@ class User extends Authenticatable
     public function coOwnedRestaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
-            ->wherePivot('role', 'CO-OWNER');
+            ->wherePivot('role', RestaurantRolesEnum::CO_OWNER);
     }
 
     // --- RIDER --- 
@@ -129,7 +130,7 @@ class User extends Authenticatable
     public function riderRestaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
-            ->wherePivot('role', 'RIDER')
+            ->wherePivot('role', RestaurantRolesEnum::RIDER)
             ->withPivot('contract_start', 'contract_end', 'is_active');
     }
 }
