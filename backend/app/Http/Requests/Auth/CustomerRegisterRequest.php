@@ -28,7 +28,7 @@ class CustomerRegisterRequest extends FormRequest
             'last_name' => ['required', 'string', 'min:1', 'max:50'],
             'email' => ['required', 'email'],
             'phone_number' => ['required', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
-            'date_of_birth' => ['required', 'string', 'min:1', 'max:50', new IsAdult()],
+            'date_of_birth' => ['required', 'string', 'min:1', new IsAdult()],
             'password' => [
                 'required',
                 'string',
