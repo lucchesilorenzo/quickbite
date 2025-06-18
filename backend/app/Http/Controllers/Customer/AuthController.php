@@ -106,4 +106,24 @@ class AuthController extends Controller
       ], 500);
     }
   }
+
+  /**
+   * Logout a customer.
+   *
+   * @return JsonResponse
+   */
+  public function logout(): JsonResponse
+  {
+    try {
+      auth()->user()->currentAccessToken()->delete();
+
+      return response()->json([
+        'message' => 'Customer logged out successfully.',
+      ], 200);
+    } catch (\Throwable $e) {
+      return response()->json([
+        'message' => 'Could not logout customer.',
+      ], 500);
+    }
+  }
 }
