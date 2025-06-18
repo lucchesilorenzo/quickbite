@@ -5,6 +5,7 @@ namespace App\Http\Requests\Auth;
 use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class CustomerRegisterRequest extends FormRequest
 {
@@ -32,12 +33,10 @@ class CustomerRegisterRequest extends FormRequest
             'password' => [
                 'required',
                 'string',
-                'min:8',
-                'max:50',
-                'regex:/[A-Z]/',
-                'regex:/[a-z]/',
-                'regex:/[0-9]/',
-                'regex:/[^A-Za-z0-9]/',
+                Password::min(8)
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols(),
                 'confirmed',
             ],
         ];
