@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import DesktopAreaLayout from "@/components/public/area/layouts/DesktopAreaLayout";
 import MobileAreaLayout from "@/components/public/area/layouts/MobileAreaLayout";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
-import { useGetLocation } from "@/hooks/react-query/locationiq/useGetLocation";
+import { useGetLocation } from "@/hooks/react-query/public/locationiq/useGetLocation";
 
 export default function AreaPage() {
   const {

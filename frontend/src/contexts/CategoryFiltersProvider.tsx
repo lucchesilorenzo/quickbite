@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 
 import { useSearchParams } from "react-router-dom";
 
-import { useGetCategories } from "@/hooks/react-query/categories/useGetCategories";
+import { useGetCategories } from "@/hooks/react-query/public/categories/useGetCategories";
 import { Category, CategoryWithSelected } from "@/types";
 
 type CategoryFiltersProviderProps = {

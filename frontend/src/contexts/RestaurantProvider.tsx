@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 import { useSearchParams } from "react-router-dom";
 
 import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
-import { useGetRestaurants } from "@/hooks/react-query/restaurants/useGetRestaurants";
+import { useGetRestaurants } from "@/hooks/react-query/public/restaurants/useGetRestaurants";
 import { ratings } from "@/lib/data";
 import { RestaurantListItem, RestaurantSearchOption } from "@/types";
 

@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Spinner from "@/components/common/Spinner";
-import { useGetRestaurant } from "@/hooks/react-query/restaurants/useGetRestaurant";
+import { useGetRestaurant } from "@/hooks/react-query/public/restaurants/useGetRestaurant";
 import ErrorPage from "@/pages/public/ErrorPage";
 import { RestaurantDetail } from "@/types";
 
