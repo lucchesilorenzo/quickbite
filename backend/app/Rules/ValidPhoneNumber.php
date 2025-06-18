@@ -21,8 +21,8 @@ class ValidPhoneNumber implements ValidationRule
     {
         try {
             $phoneNumberUtil = PhoneNumberUtil::getInstance();
-            $phoneNumber = $phoneNumberUtil->parse($value, $this->countryCode);
 
+            $phoneNumber = $phoneNumberUtil->parse($value, $this->countryCode);
             $phoneNumberCountryCode = $phoneNumberUtil->getRegionCodeForNumber($phoneNumber);
 
             if ($phoneNumberCountryCode !== $this->countryCode) {

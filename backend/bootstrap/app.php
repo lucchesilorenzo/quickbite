@@ -18,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
     })
+    ->withBroadcasting(
+        __DIR__ . '/../routes/channels.php',
+        ['prefix' => 'api', 'middleware' => ['api', 'auth:sanctum']],
+    )
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
