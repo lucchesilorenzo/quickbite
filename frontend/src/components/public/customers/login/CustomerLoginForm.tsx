@@ -13,12 +13,16 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
+import { useLoginCustomer } from "@/hooks/react-query/private/customers/auth/useLoginCustomer";
 import {
   TCustomerLoginFormSchema,
   customerLoginFormSchema,
 } from "@/validations/customer-auth-validations";
 
 export default function CustomerLoginForm() {
+  const { mutateAsync: loginCustomer, isPending: isLogging } =
+    useLoginCustomer();
+
   const {
     handleSubmit,
     control,
@@ -34,7 +38,7 @@ export default function CustomerLoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   async function onSubmit(data: TCustomerLoginFormSchema) {
-    console.log(data);
+    await loginCustomer(data);
   }
 
   return (
@@ -111,8 +115,8 @@ export default function CustomerLoginForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting}
-        loading={isSubmitting}
+        disabled={isSubmitting || isLogging}
+        loading={isSubmitting || isLogging}
         loadingIndicator="Logging in..."
         variant="contained"
       >
