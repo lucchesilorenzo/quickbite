@@ -17,6 +17,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
+import { useRegisterCustomer } from "@/hooks/react-query/private/customers/auth/useRegisterCustomer";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
   TCustomerRegisterFormSchema,
@@ -24,6 +25,9 @@ import {
 } from "@/validations/customer-auth-validations";
 
 export default function CustomerRegisterForm() {
+  const { mutateAsync: registerCustomer, isPending: isRegistering } =
+    useRegisterCustomer();
+
   const {
     handleSubmit,
     control,
@@ -50,7 +54,7 @@ export default function CustomerRegisterForm() {
   const strength = calculatePasswordStrength(password);
 
   async function onSubmit(data: TCustomerRegisterFormSchema) {
-    console.log(data);
+    await registerCustomer(data);
   }
 
   return (
@@ -269,8 +273,8 @@ export default function CustomerRegisterForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting}
-        loading={isSubmitting}
+        disabled={isSubmitting || isRegistering}
+        loading={isSubmitting || isRegistering}
         loadingIndicator="Creating account..."
         variant="contained"
       >
