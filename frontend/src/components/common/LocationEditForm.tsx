@@ -7,24 +7,24 @@ import { useNavigate } from "react-router-dom";
 import { FormHelperTextError } from "./FormHelperTextError";
 
 import {
-  TEditLocationForm,
-  editLocationForm,
+  TLocationEditForm,
+  locationEditForm,
 } from "@/validations/location-validations";
 
-type EditLocationFormProps = {
+type LocationEditFormProps = {
   onCloseDialog: () => void;
 };
 
-export default function EditLocationForm({
+export default function LocationEditForm({
   onCloseDialog,
-}: EditLocationFormProps) {
+}: LocationEditFormProps) {
   const [cookies, setCookie] = useCookies(["address"]);
   const {
     handleSubmit,
     register,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(editLocationForm),
+    resolver: zodResolver(locationEditForm),
     defaultValues: {
       house_number: undefined,
     },
@@ -32,7 +32,7 @@ export default function EditLocationForm({
 
   const navigate = useNavigate();
 
-  async function onSubmit(data: TEditLocationForm) {
+  async function onSubmit(data: TLocationEditForm) {
     onCloseDialog();
 
     const currentAddress = cookies.address;
