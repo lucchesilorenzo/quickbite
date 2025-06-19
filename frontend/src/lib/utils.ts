@@ -1,5 +1,7 @@
 import { differenceInYears, isValid, parseISO } from "date-fns";
 
+import { Role, User } from "@/types";
+
 export function formatCurrency(price: number) {
   return new Intl.NumberFormat("it-IT", {
     style: "currency",
@@ -37,4 +39,8 @@ export function calculatePasswordStrength(password: string) {
   if (/[^A-Za-z0-9]/.test(password)) strength += 1;
 
   return (strength / 5) * 100;
+}
+
+export function hasRole(user: User | null, role: Role) {
+  return user?.roles.some((r) => r.name === role);
 }
