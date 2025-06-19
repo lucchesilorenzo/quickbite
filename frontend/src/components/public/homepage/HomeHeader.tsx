@@ -3,16 +3,15 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import HeaderDialogCustomer from "../customers/header/HeaderDialogCustomer";
+
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { routes } from "@/lib/data";
-import { hasRole } from "@/lib/utils";
-import { Role } from "@/types";
+import { isCustomer } from "@/lib/utils";
 
 export default function HomeHeader() {
   const { user } = useAuth();
-
-  const isCustomer = hasRole(user, Role.CUSTOMER);
 
   return (
     <AppBar position="relative" id="back-to-top" color="inherit" elevation={3}>
@@ -53,7 +52,7 @@ export default function HomeHeader() {
             </Button>
           ))}
 
-          {!isCustomer && (
+          {!isCustomer(user) && (
             <Button
               color="inherit"
               startIcon={<PersonIcon />}
@@ -64,7 +63,11 @@ export default function HomeHeader() {
             </Button>
           )}
 
-          <HeaderDialog />
+          {!isCustomer(user) ? (
+            <HeaderDialog />
+          ) : (
+            <HeaderDialogCustomer customer={user} />
+          )}
         </Stack>
 
         <Stack
@@ -72,7 +75,7 @@ export default function HomeHeader() {
           spacing={1}
           sx={{ display: { xs: "flex", md: "none" } }}
         >
-          {!isCustomer && (
+          {!isCustomer(user) && (
             <Button
               color="inherit"
               startIcon={<PersonIcon />}
@@ -83,7 +86,11 @@ export default function HomeHeader() {
             </Button>
           )}
 
-          <HeaderDialog />
+          {!isCustomer(user) ? (
+            <HeaderDialog />
+          ) : (
+            <HeaderDialogCustomer customer={user} />
+          )}
         </Stack>
       </Toolbar>
     </AppBar>
