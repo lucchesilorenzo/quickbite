@@ -39,8 +39,6 @@ class AuthController extends Controller
       return response()->json([
         'message' => 'Customer registered successfully.',
         'token' => $token,
-        'role' => RolesEnum::CUSTOMER,
-        'customer' => $customer,
       ], 201);
     } catch (\Throwable $e) {
       if ($e->getCode() === 23000) {
@@ -97,8 +95,6 @@ class AuthController extends Controller
       return response()->json([
         'message' => 'Customer logged in successfully.',
         'token' => $token,
-        'role' => RolesEnum::CUSTOMER,
-        'customer' => $customer,
       ], 200);
     } catch (\Throwable $e) {
       return response()->json([
