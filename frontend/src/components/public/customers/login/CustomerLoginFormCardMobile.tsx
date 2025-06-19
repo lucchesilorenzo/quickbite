@@ -21,7 +21,7 @@ export default function CustomerLoginFormCardMobile() {
           variant="outlined"
           color="inherit"
           fullWidth
-          sx={{ border: "1px solid #dbd9d7" }}
+          sx={{ border: "1px solid #dbd9d7", fontWeight: 700 }}
         >
           Create an account
         </Button>
