@@ -127,7 +127,11 @@ export default function HeaderDialogCustomer({
             {headerDialogCustomerOptions.map((option) => (
               <React.Fragment key={option.href}>
                 <ListItem disablePadding>
-                  <ListItemButton component={Link} to={option.href}>
+                  <ListItemButton
+                    component={Link}
+                    to={option.href}
+                    onClick={() => setOpenHeaderCustomerDialog(false)}
+                  >
                     <ListItemIcon sx={{ color: grey[900] }}>
                       <option.icon />
                     </ListItemIcon>

@@ -8,6 +8,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import EmptyOrders from "./EmptyOrders";
+
 type OrdersDialogProps = {
   openOrdersDialog: boolean;
   setOpenOrdersDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -55,7 +57,12 @@ export default function OrdersDialog({
           </DialogTitle>
         </Stack>
 
-        <DialogContent sx={{ p: 1 }}></DialogContent>
+        <DialogContent sx={{ p: 1 }}>
+          <EmptyOrders
+            setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
+            setOpenOrdersDialog={setOpenOrdersDialog}
+          />
+        </DialogContent>
       </Stack>
     </Dialog>
   );
