@@ -21,6 +21,8 @@ import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
+import PersonalInfoDialog from "./PersonalInfoDialog";
+
 import { useLogoutCustomer } from "@/hooks/react-query/private/customers/auth/useLogoutCustomer";
 import { headerDialogCustomerOptions } from "@/lib/data";
 import { User } from "@/types";
@@ -34,12 +36,14 @@ export default function HeaderDialogCustomer({
 }: HeaderDialogCustomerProps) {
   const { mutateAsync: logoutCustomer } = useLogoutCustomer();
 
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openHeaderCustomerDialog, setOpenHeaderCustomerDialog] =
+    useState(false);
+  const [openPersonalInfoDialog, setOpenPersonalInfoDialog] = useState(false);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   async function handleLogout() {
-    setOpenDialog(false);
+    setOpenHeaderCustomerDialog(false);
     await logoutCustomer();
   }
 
@@ -48,14 +52,14 @@ export default function HeaderDialogCustomer({
       <IconButton
         color="inherit"
         aria-label="menu"
-        onClick={() => setOpenDialog(true)}
+        onClick={() => setOpenHeaderCustomerDialog(true)}
       >
         <MenuIcon />
       </IconButton>
 
       <Dialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
+        open={openHeaderCustomerDialog}
+        onClose={() => setOpenHeaderCustomerDialog(false)}
         fullWidth={!isMobile}
         fullScreen={isMobile}
         disableRestoreFocus
@@ -69,9 +73,21 @@ export default function HeaderDialogCustomer({
 
               <Typography
                 variant="body1"
+                component="button"
+                onClick={() => {
+                  setOpenHeaderCustomerDialog(false);
+                  setOpenPersonalInfoDialog(true);
+                }}
                 sx={{
                   textDecoration: "underline",
-                  "&:hover": { cursor: "pointer", textDecoration: "none" },
+                  cursor: "pointer",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  fontFamily: "inherit",
+                  "&:hover": {
+                    textDecoration: "none",
+                  },
                 }}
               >
                 View personal details
@@ -81,7 +97,7 @@ export default function HeaderDialogCustomer({
             <IconButton
               color="inherit"
               aria-label="close"
-              onClick={() => setOpenDialog(false)}
+              onClick={() => setOpenHeaderCustomerDialog(false)}
               sx={{ p: 0, alignSelf: "flex-start" }}
             >
               <CloseIcon />
@@ -95,7 +111,7 @@ export default function HeaderDialogCustomer({
                   <ListItemButton
                     component={Link}
                     to={option.href}
-                    onClick={() => setOpenDialog(false)}
+                    onClick={() => setOpenHeaderCustomerDialog(false)}
                   >
                     <ListItemIcon sx={{ color: grey[900] }}>
                       <option.icon />
@@ -119,6 +135,12 @@ export default function HeaderDialogCustomer({
           </List>
         </Stack>
       </Dialog>
+
+      <PersonalInfoDialog
+        openPersonalInfoDialog={openPersonalInfoDialog}
+        setOpenPersonalInfoDialog={setOpenPersonalInfoDialog}
+        setHeaderCustomerDialog={setOpenHeaderCustomerDialog}
+      />
     </>
   );
 }
