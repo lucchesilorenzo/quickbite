@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuthMe } from "@/hooks/react-query/private/auth/useAuthMe";
@@ -15,7 +15,17 @@ type AuthContext = {
 export const AuthContext = createContext<AuthContext | null>(null);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const { data: user = null, isLoading } = useAuthMe();
+  const [user, setUser] = useState<User | null>(null);
+
+  const { data = null, isLoading, isError } = useAuthMe();
+
+  useEffect(() => {
+    if (!isError) {
+      setUser(data);
+    } else {
+      setUser(null);
+    }
+  }, [isError, data]);
 
   if (isLoading) return <FullPageSpinner />;
 
