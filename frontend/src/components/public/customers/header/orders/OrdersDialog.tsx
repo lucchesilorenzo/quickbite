@@ -8,27 +8,25 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import PersonalInfoEditContainer from "./personal-info/PersonalInfoEditContainer";
-
-type PersonalInfoDialogProps = {
-  openPersonalInfoDialog: boolean;
-  setOpenPersonalInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;
+type OrdersDialogProps = {
+  openOrdersDialog: boolean;
+  setOpenOrdersDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenHeaderCustomerDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function PersonalInfoDialog({
-  openPersonalInfoDialog,
-  setOpenPersonalInfoDialog,
+export default function OrdersDialog({
+  openOrdersDialog,
+  setOpenOrdersDialog,
   setOpenHeaderCustomerDialog,
-}: PersonalInfoDialogProps) {
+}: OrdersDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Dialog
-      open={openPersonalInfoDialog}
+      open={openOrdersDialog}
       onClose={() => {
         setOpenHeaderCustomerDialog(false);
-        setOpenPersonalInfoDialog(false);
+        setOpenOrdersDialog(false);
       }}
       fullWidth={!isMobile}
       fullScreen={isMobile}
@@ -41,7 +39,7 @@ export default function PersonalInfoDialog({
             aria-label="close"
             onClick={() => {
               setOpenHeaderCustomerDialog(true);
-              setOpenPersonalInfoDialog(false);
+              setOpenOrdersDialog(false);
             }}
             sx={{ p: 0 }}
           >
@@ -53,13 +51,11 @@ export default function PersonalInfoDialog({
             variant={isMobile ? "h6" : "h5"}
             sx={{ p: 0, fontWeight: 700 }}
           >
-            Personal info
+            Orders
           </DialogTitle>
         </Stack>
 
-        <DialogContent sx={{ p: 1 }}>
-          <PersonalInfoEditContainer />
-        </DialogContent>
+        <DialogContent sx={{ p: 1 }}></DialogContent>
       </Stack>
     </Dialog>
   );

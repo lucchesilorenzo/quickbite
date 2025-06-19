@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import {
   Box,
   List,
@@ -22,6 +23,7 @@ import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 import PersonalInfoDialog from "./PersonalInfoDialog";
+import OrdersDialog from "./orders/OrdersDialog";
 
 import { useLogoutCustomer } from "@/hooks/react-query/private/customers/auth/useLogoutCustomer";
 import { headerDialogCustomerOptions } from "@/lib/data";
@@ -38,6 +40,7 @@ export default function HeaderDialogCustomer({
 
   const [openHeaderCustomerDialog, setOpenHeaderCustomerDialog] =
     useState(false);
+  const [openOrdersDialog, setOpenOrdersDialog] = useState(false);
   const [openPersonalInfoDialog, setOpenPersonalInfoDialog] = useState(false);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -105,14 +108,26 @@ export default function HeaderDialogCustomer({
           </Stack>
 
           <List disablePadding>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  setOpenHeaderCustomerDialog(false);
+                  setOpenOrdersDialog(true);
+                }}
+              >
+                <ListItemIcon sx={{ color: grey[900] }}>
+                  <ShoppingBagOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Orders" />
+              </ListItemButton>
+            </ListItem>
+
+            <Divider />
+
             {headerDialogCustomerOptions.map((option) => (
               <React.Fragment key={option.href}>
                 <ListItem disablePadding>
-                  <ListItemButton
-                    component={Link}
-                    to={option.href}
-                    onClick={() => setOpenHeaderCustomerDialog(false)}
-                  >
+                  <ListItemButton component={Link} to={option.href}>
                     <ListItemIcon sx={{ color: grey[900] }}>
                       <option.icon />
                     </ListItemIcon>
@@ -136,10 +151,16 @@ export default function HeaderDialogCustomer({
         </Stack>
       </Dialog>
 
+      <OrdersDialog
+        openOrdersDialog={openOrdersDialog}
+        setOpenOrdersDialog={setOpenOrdersDialog}
+        setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
+      />
+
       <PersonalInfoDialog
         openPersonalInfoDialog={openPersonalInfoDialog}
         setOpenPersonalInfoDialog={setOpenPersonalInfoDialog}
-        setHeaderCustomerDialog={setOpenHeaderCustomerDialog}
+        setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
       />
     </>
   );
