@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Badge, Dialog, DialogTitle, IconButton, Stack } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { useSearchParams } from "react-router-dom";
 
 import RestaurantSort from "../content/search-and-map/RestaurantSort";
@@ -39,7 +40,7 @@ export default function RestaurantFiltersDialogMobile() {
           variant={isThereAnyFilter ? "dot" : "standard"}
           sx={{
             "& .MuiBadge-badge": {
-              backgroundColor: "#212121",
+              backgroundColor: grey[900],
               color: "#fff",
             },
           }}

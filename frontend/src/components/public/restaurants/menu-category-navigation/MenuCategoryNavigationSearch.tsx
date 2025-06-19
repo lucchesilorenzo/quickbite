@@ -59,7 +59,7 @@ export default function MenuCategoryNavigationSearch() {
                     onClick={() => setSearchTerm("")}
                     size={isMobile ? "small" : "medium"}
                   >
-                    <HighlightOffIcon sx={{ color: "#212121" }} />
+                    <HighlightOffIcon sx={{ color: grey[900] }} />
                   </IconButton>
                 )}
               </InputAdornment>

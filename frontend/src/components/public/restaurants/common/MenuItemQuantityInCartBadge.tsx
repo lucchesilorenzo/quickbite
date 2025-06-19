@@ -40,8 +40,8 @@ export default function MenuItemQuantityInCartBadge({
         top: type === "from-list" ? 6 : 26,
         right: type === "from-list" ? 6 : 26,
         "& .MuiBadge-badge": {
-          backgroundColor: type === "from-list" ? "#212121" : grey[100],
-          color: type === "from-list" ? "#fff" : "#212121",
+          backgroundColor: type === "from-list" ? grey[900] : grey[100],
+          color: type === "from-list" ? "#fff" : grey[900],
           px: 1.5,
           py: 2,
           borderRadius: 5,

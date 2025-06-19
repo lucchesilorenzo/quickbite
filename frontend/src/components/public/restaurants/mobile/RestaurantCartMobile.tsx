@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import { Badge, Button, Paper } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 import RestaurantCartDialogMobile from "./RestaurantCartDialogMobile";
 
@@ -43,7 +44,7 @@ export default function RestaurantCartMobile() {
             anchorOrigin={{ vertical: "top", horizontal: "left" }}
             sx={{
               "& .MuiBadge-badge": {
-                backgroundColor: "#212121",
+                backgroundColor: grey[900],
                 color: "#fff",
               },
             }}

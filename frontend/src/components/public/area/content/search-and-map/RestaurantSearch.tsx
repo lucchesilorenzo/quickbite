@@ -137,7 +137,7 @@ export default function RestaurantSearch() {
         );
       }}
       noOptionsText="No results found"
-      clearIcon={<HighlightOffIcon sx={{ color: "#212121" }} />}
+      clearIcon={<HighlightOffIcon sx={{ color: grey[900] }} />}
       renderInput={(params) => (
         <TextField
           {...params}
