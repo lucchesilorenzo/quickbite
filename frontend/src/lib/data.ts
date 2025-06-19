@@ -5,7 +5,6 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
 import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
 export const routes = [
@@ -35,12 +34,6 @@ export const headerDialogOptions = [
 ];
 
 export const headerDialogCustomerOptions = [
-  {
-    href: "/customer/orders",
-    label: "Orders",
-    icon: ShoppingBagOutlinedIcon,
-    divider: true,
-  },
   {
     href: "/become-a-rider",
     label: "Become a rider",
