@@ -16,6 +16,7 @@ import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
 import RestaurantPage from "./public/RestaurantPage";
 import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
 
+import AuthProvider from "@/contexts/AuthProvider";
 import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 import RestaurantProvider from "@/contexts/RestaurantProvider";
 import AreaLayout from "@/layouts/AreaLayout";
@@ -27,49 +28,54 @@ import RestaurantLayout from "@/layouts/RestaurantLayout";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <CategoryFiltersProvider>
-        <RestaurantProvider>
-          <Routes>
-            <Route path="/" element={<HomeLayout />}>
-              <Route index element={<HomePage />} />
-            </Route>
-
-            <Route path="/" element={<CustomerAuthLayout />}>
-              <Route path="auth/customer">
-                <Route index element={<Navigate to="login" />} />
-                <Route path="register" element={<CustomerRegisterPage />} />
-                <Route path="login" element={<CustomerLoginPage />} />
+      <AuthProvider>
+        <CategoryFiltersProvider>
+          <RestaurantProvider>
+            <Routes>
+              <Route path="/" element={<HomeLayout />}>
+                <Route index element={<HomePage />} />
               </Route>
-            </Route>
 
-            <Route path="/" element={<AppLayout />}>
-              <Route path="become-a-rider" element={<BecomeARiderPage />} />
-              <Route path="become-a-partner" element={<BecomeAPartnerPage />} />
-              <Route
-                path="terms-and-conditions"
-                element={<TermsAndConditionsPage />}
-              />
-              <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-            </Route>
-
-            <Route path="/" element={<AreaLayout />}>
-              <Route path="area/:areaSlug">
-                <Route index element={<AreaPage />} />
+              <Route path="/" element={<CustomerAuthLayout />}>
+                <Route path="customer/auth">
+                  <Route index element={<Navigate to="login" />} />
+                  <Route path="register" element={<CustomerRegisterPage />} />
+                  <Route path="login" element={<CustomerLoginPage />} />
+                </Route>
               </Route>
-            </Route>
 
-            <Route path="/" element={<RestaurantLayout />}>
-              <Route path="restaurants/:restaurantSlug">
-                <Route index element={<RestaurantPage />} />
+              <Route path="/" element={<AppLayout />}>
+                <Route path="become-a-rider" element={<BecomeARiderPage />} />
+                <Route
+                  path="become-a-partner"
+                  element={<BecomeAPartnerPage />}
+                />
+                <Route
+                  path="terms-and-conditions"
+                  element={<TermsAndConditionsPage />}
+                />
+                <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
               </Route>
-            </Route>
 
-            <Route path="/" element={<ErrorLayout />}>
-              <Route path="*" element={<ErrorPage />} />
-            </Route>
-          </Routes>
-        </RestaurantProvider>
-      </CategoryFiltersProvider>
+              <Route path="/" element={<AreaLayout />}>
+                <Route path="area/:areaSlug">
+                  <Route index element={<AreaPage />} />
+                </Route>
+              </Route>
+
+              <Route path="/" element={<RestaurantLayout />}>
+                <Route path="restaurants/:restaurantSlug">
+                  <Route index element={<RestaurantPage />} />
+                </Route>
+              </Route>
+
+              <Route path="/" element={<ErrorLayout />}>
+                <Route path="*" element={<ErrorPage />} />
+              </Route>
+            </Routes>
+          </RestaurantProvider>
+        </CategoryFiltersProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

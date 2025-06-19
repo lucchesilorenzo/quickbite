@@ -20,7 +20,7 @@ import {
 } from "@/validations/customer-auth-validations";
 
 export default function CustomerLoginForm() {
-  const { mutateAsync: loginCustomer, isPending: isLogging } =
+  const { mutateAsync: loginCustomer, isPending: isLoggingIn } =
     useLoginCustomer();
 
   const {
@@ -115,8 +115,8 @@ export default function CustomerLoginForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting || isLogging}
-        loading={isSubmitting || isLogging}
+        disabled={isSubmitting || isLoggingIn}
+        loading={isSubmitting || isLoggingIn}
         loadingIndicator="Logging in..."
         variant="contained"
       >

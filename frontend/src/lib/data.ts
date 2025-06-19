@@ -3,7 +3,6 @@ import HotelClassIcon from "@mui/icons-material/HotelClass";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
-import PersonIcon from "@mui/icons-material/Person";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StarRateIcon from "@mui/icons-material/StarRate";
@@ -18,11 +17,6 @@ export const routes = [
     href: "/become-a-partner",
     label: "Become a partner",
     icon: RestaurantIcon,
-  },
-  {
-    href: "/auth/customer/login",
-    label: "Log in",
-    icon: PersonIcon,
   },
 ];
 

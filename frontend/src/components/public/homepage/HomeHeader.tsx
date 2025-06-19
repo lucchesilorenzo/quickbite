@@ -4,9 +4,16 @@ import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
+import { useAuth } from "@/hooks/contexts/useAuth";
 import { routes } from "@/lib/data";
+import { hasRole } from "@/lib/utils";
+import { Role } from "@/types";
 
 export default function HomeHeader() {
+  const { user } = useAuth();
+
+  const isCustomer = hasRole(user, Role.CUSTOMER);
+
   return (
     <AppBar position="relative" id="back-to-top" color="inherit" elevation={3}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -46,6 +53,17 @@ export default function HomeHeader() {
             </Button>
           ))}
 
+          {!isCustomer && (
+            <Button
+              color="inherit"
+              startIcon={<PersonIcon />}
+              component={Link}
+              to="/customer/auth/login"
+            >
+              Log in
+            </Button>
+          )}
+
           <HeaderDialog />
         </Stack>
 
@@ -54,14 +72,16 @@ export default function HomeHeader() {
           spacing={1}
           sx={{ display: { xs: "flex", md: "none" } }}
         >
-          <Button
-            color="inherit"
-            startIcon={<PersonIcon />}
-            component={Link}
-            to="/auth/customer/login"
-          >
-            Log in
-          </Button>
+          {!isCustomer && (
+            <Button
+              color="inherit"
+              startIcon={<PersonIcon />}
+              component={Link}
+              to="/customer/auth/login"
+            >
+              Log in
+            </Button>
+          )}
 
           <HeaderDialog />
         </Stack>

@@ -61,7 +61,7 @@ export default function HeaderDialog() {
               variant="contained"
               color="inherit"
               component={Link}
-              to="/auth/customer/login"
+              to="/customer/auth/login"
               onClick={() => setOpenDialog(false)}
             >
               Log in
@@ -70,7 +70,7 @@ export default function HeaderDialog() {
             <Button
               variant="contained"
               component={Link}
-              to="/auth/customer/register"
+              to="/customer/auth/register"
               onClick={() => setOpenDialog(false)}
             >
               Create an account
