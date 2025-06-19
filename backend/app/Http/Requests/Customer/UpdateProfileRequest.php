@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Customer;
 
+use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerLoginRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +23,10 @@ class CustomerLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
+            'first_name' => ['sometimes', 'string', 'min:1', 'max:50'],
+            'last_name' => ['sometimes', 'string', 'min:1', 'max:50'],
+            'email' => ['sometimes', 'email'],
+            'phone_number' => ['sometimes', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
         ];
     }
 }
