@@ -4,7 +4,6 @@ export type User = {
   last_name: string;
   email: string;
   email_verified_at: string;
-  role: "CUSTOMER" | "RESTAURATEUR" | "RIDER";
   profile_picture: string | null;
   date_of_birth: string;
   phone_number: string;
@@ -14,6 +13,24 @@ export type User = {
   city: string | null;
   country: string | null;
   driving_licence: string | null;
+  roles: {
+    uuid: string;
+    name: Role;
+    guard_name: string;
+    created_at: string;
+    updated_at: string;
+    pivot: {
+      model_type: string;
+      model_uuid: string;
+      role_id: string;
+    };
+  }[];
   created_at: string;
   updated_at: string;
 };
+
+export enum Role {
+  CUSTOMER = "customer",
+  RESTAURATEUR = "restaurateur",
+  RIDER = "rider",
+}
