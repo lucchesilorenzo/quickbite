@@ -1,22 +1,23 @@
-import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
+import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import HotelClassIcon from "@mui/icons-material/HotelClass";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
-import RestaurantIcon from "@mui/icons-material/Restaurant";
+import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
 export const routes = [
   {
     href: "/become-a-rider",
     label: "Become a rider",
-    icon: DeliveryDiningIcon,
+    icon: DeliveryDiningOutlinedIcon,
   },
   {
     href: "/become-a-partner",
     label: "Become a partner",
-    icon: RestaurantIcon,
+    icon: RestaurantOutlinedIcon,
   },
 ];
 
@@ -24,12 +25,33 @@ export const headerDialogOptions = [
   {
     href: "/become-a-rider",
     label: "Become a rider",
-    icon: DeliveryDiningIcon,
+    icon: DeliveryDiningOutlinedIcon,
   },
   {
     href: "/become-a-partner",
     label: "Become a partner",
-    icon: RestaurantIcon,
+    icon: RestaurantOutlinedIcon,
+  },
+];
+
+export const headerDialogCustomerOptions = [
+  {
+    href: "/customer/orders",
+    label: "Orders",
+    icon: ShoppingBagOutlinedIcon,
+    divider: true,
+  },
+  {
+    href: "/become-a-rider",
+    label: "Become a rider",
+    icon: DeliveryDiningOutlinedIcon,
+    divider: false,
+  },
+  {
+    href: "/become-a-partner",
+    label: "Become a partner",
+    icon: RestaurantOutlinedIcon,
+    divider: true,
   },
 ];
 
