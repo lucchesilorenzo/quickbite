@@ -8,6 +8,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import PersonalInfoEditContainer from "./personal-info/PersonalInfoEditContainer";
+
 type PersonalInfoDialogProps = {
   openPersonalInfoDialog: boolean;
   setOpenPersonalInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -55,8 +57,8 @@ export default function PersonalInfoDialog({
           </DialogTitle>
         </Stack>
 
-        <DialogContent sx={{ p: 0 }}>
-          <div>Personal info</div>
+        <DialogContent sx={{ p: 1 }}>
+          <PersonalInfoEditContainer />
         </DialogContent>
       </Stack>
     </Dialog>
