@@ -13,7 +13,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
-import LocationEditDialog from "@/components/common/LocationEditDialog";
+import EditLocationDialog from "@/components/common/EditLocationDialog";
 import env from "@/lib/env";
 import { Address, AddressEssentials } from "@/types";
 
@@ -127,7 +127,7 @@ export default function LocationSearch() {
   return (
     <Box>
       {openEditDialog && (
-        <LocationEditDialog
+        <EditLocationDialog
           openDialog={openEditDialog}
           onCloseDialog={() => setOpenEditDialog(false)}
         />

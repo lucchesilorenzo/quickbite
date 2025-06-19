@@ -12,17 +12,17 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useCookies } from "react-cookie";
 
-import LocationEditForm from "./LocationEditForm";
+import EditLocationForm from "./EditLocationForm";
 
-type LocationEditDialogProps = {
+type EditLocationDialogProps = {
   openDialog: boolean;
   onCloseDialog: () => void;
 };
 
-export default function LocationEditDialog({
+export default function EditLocationDialog({
   openDialog,
   onCloseDialog,
-}: LocationEditDialogProps) {
+}: EditLocationDialogProps) {
   const [cookies] = useCookies(["address"]);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -65,7 +65,7 @@ export default function LocationEditDialog({
               </Box>
             </DialogContentText>
 
-            <LocationEditForm onCloseDialog={onCloseDialog} />
+            <EditLocationForm onCloseDialog={onCloseDialog} />
           </Stack>
         </DialogContent>
       </Stack>
