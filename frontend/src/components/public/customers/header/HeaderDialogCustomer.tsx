@@ -21,6 +21,7 @@ import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
+import { useLogoutCustomer } from "@/hooks/react-query/private/customers/auth/useLogoutCustomer";
 import { headerDialogCustomerOptions } from "@/lib/data";
 import { User } from "@/types";
 
@@ -31,9 +32,16 @@ type HeaderDialogCustomerProps = {
 export default function HeaderDialogCustomer({
   customer,
 }: HeaderDialogCustomerProps) {
+  const { mutateAsync: logoutCustomer } = useLogoutCustomer();
+
   const [openDialog, setOpenDialog] = useState(false);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
+  async function handleLogout() {
+    setOpenDialog(false);
+    await logoutCustomer();
+  }
 
   return (
     <>
@@ -101,7 +109,7 @@ export default function HeaderDialogCustomer({
             ))}
 
             <ListItem disablePadding>
-              <ListItemButton onClick={() => setOpenDialog(false)}>
+              <ListItemButton onClick={handleLogout}>
                 <ListItemIcon sx={{ color: grey[900] }}>
                   <PowerSettingsNewIcon />
                 </ListItemIcon>
