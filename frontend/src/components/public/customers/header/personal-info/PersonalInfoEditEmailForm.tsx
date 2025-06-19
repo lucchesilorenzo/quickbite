@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/useAuth";
+import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {
   TPersonalInfoEditEmailForm,
@@ -12,6 +13,7 @@ import {
 
 export default function PersonalInfoEditEmailForm() {
   const { user } = useAuth();
+  const { mutateAsync: updateCustomerProfile } = useUpdateCustomerProfile();
 
   const {
     handleSubmit,
@@ -25,7 +27,7 @@ export default function PersonalInfoEditEmailForm() {
   });
 
   async function onSubmit(data: TPersonalInfoEditEmailForm) {
-    console.log(data);
+    await updateCustomerProfile(data);
   }
 
   return (
