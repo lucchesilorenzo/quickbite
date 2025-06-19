@@ -42,5 +42,9 @@ export function calculatePasswordStrength(password: string) {
 }
 
 export function hasRole(user: User | null, role: Role) {
-  return user?.roles.some((r) => r.name === role);
+  return !!user?.roles.some((r) => r.name === role);
+}
+
+export function isCustomer(user: User | null): user is User {
+  return hasRole(user, Role.CUSTOMER);
 }
