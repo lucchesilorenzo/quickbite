@@ -3,9 +3,15 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import { AppBar, IconButton, Stack, Toolbar } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
+import HeaderDialogCustomer from "../customers/header/HeaderDialogCustomer";
+
 import HeaderDialog from "@/components/common/HeaderDialog";
+import { useAuth } from "@/hooks/contexts/useAuth";
+import { isCustomer } from "@/lib/utils";
 
 export default function RestaurantHeader() {
+  const { user } = useAuth();
+
   const navigate = useNavigate();
 
   return (
@@ -25,7 +31,11 @@ export default function RestaurantHeader() {
           <RestaurantMenuIcon color="primary" />
         </Stack>
 
-        <HeaderDialog />
+        {!isCustomer(user) ? (
+          <HeaderDialog />
+        ) : (
+          <HeaderDialogCustomer customer={user} />
+        )}
       </Toolbar>
     </AppBar>
   );

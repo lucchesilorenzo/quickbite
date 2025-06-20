@@ -7,9 +7,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 
+import HeaderDialogCustomer from "../public/customers/header/HeaderDialogCustomer";
 import HeaderDialog from "./HeaderDialog";
 
+import { useAuth } from "@/hooks/contexts/useAuth";
+import { isCustomer } from "@/lib/utils";
+
 export default function Header() {
+  const { user } = useAuth();
+
   const navigate = useNavigate();
 
   return (
@@ -38,7 +44,11 @@ export default function Header() {
           </Typography>
         </Stack>
 
-        <HeaderDialog />
+        {!isCustomer(user) ? (
+          <HeaderDialog />
+        ) : (
+          <HeaderDialogCustomer customer={user} />
+        )}
       </Toolbar>
     </AppBar>
   );

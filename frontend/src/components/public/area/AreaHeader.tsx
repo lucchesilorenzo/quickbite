@@ -13,21 +13,26 @@ import {
 import { useCookies } from "react-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import HeaderDialogCustomer from "../customers/header/HeaderDialogCustomer";
 import CategoryFilters from "./category-carousel/CategoryFilters";
 import LocationSearchButton from "./location-search/LocationSearchButton";
 import LocationSearchDialog from "./location-search/LocationSearchDialog";
 import RestaurantSearchContainerMobile from "./mobile/RestaurantSearchContainerMobile";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
+import { useAuth } from "@/hooks/contexts/useAuth";
+import { isCustomer } from "@/lib/utils";
 
 export default function AreaHeader() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-
+  const { user } = useAuth();
   const { search } = useLocation();
+
   const [cookies] = useCookies(["address"]);
   const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   // Check if the address cookie has all the required fields
   const hasFullAddressFields =
@@ -82,7 +87,11 @@ export default function AreaHeader() {
             />
           )}
 
-          <HeaderDialog />
+          {!isCustomer(user) ? (
+            <HeaderDialog />
+          ) : (
+            <HeaderDialogCustomer customer={user} />
+          )}
         </Toolbar>
       )}
 
