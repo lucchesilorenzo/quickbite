@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Customer;
 
 use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\CustomerLoginRequest;
-use App\Http\Requests\Auth\CustomerRegisterRequest;
+use App\Http\Requests\Customer\Auth\CustomerLoginRequest;
+use App\Http\Requests\Customer\Auth\CustomerRegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;

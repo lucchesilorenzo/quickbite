@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth\Customer;
+namespace App\Http\Requests\Customer\Auth;
 
 use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
