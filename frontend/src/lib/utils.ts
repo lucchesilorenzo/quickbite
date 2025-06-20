@@ -1,6 +1,6 @@
-import { differenceInYears, isValid, parseISO } from "date-fns";
+import { differenceInYears, format, isValid, parse, parseISO } from "date-fns";
 
-import { Role, User } from "@/types";
+import { RestaurantDetail, Role, User } from "@/types";
 
 export function formatCurrency(price: number) {
   return new Intl.NumberFormat("it-IT", {
@@ -40,6 +40,35 @@ export function calculatePasswordStrength(password: string) {
 
   return (strength / 5) * 100;
 }
+
+export function isRestaurantOpen(restaurant: RestaurantDetail): boolean {
+  const dayName = format(new Date(), "EEEE").toUpperCase();
+  const currentTime = format(new Date(), "HH:mm");
+
+  return restaurant.delivery_days.some((d) => {
+    if (!d.start_time || !d.end_time) return false;
+
+    return (
+      d.day === dayName &&
+      currentTime >= d.start_time &&
+      currentTime <= d.end_time
+    );
+  });
+}
+
+export function getRestaurantOpeningTime(restaurant: RestaurantDetail) {
+  const dayName = format(new Date(), "EEEE").toUpperCase();
+
+  const day = restaurant.delivery_days.find((d) => d.day === dayName);
+  if (!day?.start_time) return null;
+
+  const start = parse(day.start_time, "HH:mm:ss", new Date());
+  const formattedStart = format(start, "HH:mm");
+
+  return formattedStart;
+}
+
+// --- Auth ---
 
 export function hasRole(user: User | null, role: Role) {
   return !!user?.roles.some((r) => r.name === role);
