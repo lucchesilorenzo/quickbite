@@ -1,6 +1,6 @@
 import { Card, CardContent, Chip, Typography } from "@mui/material";
-import { format } from "date-fns";
 
+import { getRestaurantOpeningTime, isRestaurantOpen } from "@/lib/utils";
 import { RestaurantDetail } from "@/types";
 
 type RestaurantLocationInfoProps = {
@@ -10,19 +10,6 @@ type RestaurantLocationInfoProps = {
 export default function RestaurantLocationInfo({
   restaurant,
 }: RestaurantLocationInfoProps) {
-  const dayName = format(new Date(), "EEEE").toUpperCase();
-  const currentTime = format(new Date(), "HH:mm");
-
-  const isRestaurantOpen = restaurant.delivery_days.some((d) => {
-    if (!d.start_time || !d.end_time) return false;
-
-    return (
-      d.day === dayName &&
-      currentTime >= d.start_time &&
-      currentTime <= d.end_time
-    );
-  });
-
   return (
     <Card
       variant="outlined"
@@ -47,10 +34,14 @@ export default function RestaurantLocationInfo({
           {restaurant.postcode} {restaurant.city}
         </Typography>
 
-        {isRestaurantOpen ? (
+        {isRestaurantOpen(restaurant) ? (
           <Chip label="Open" color="success" sx={{ mt: 1 }} />
         ) : (
-          <Chip variant="outlined" label="From 11:00" sx={{ mt: 1 }} />
+          <Chip
+            variant="outlined"
+            label={`From ${getRestaurantOpeningTime(restaurant) || "Closed"}`}
+            sx={{ mt: 1 }}
+          />
         )}
       </CardContent>
     </Card>
