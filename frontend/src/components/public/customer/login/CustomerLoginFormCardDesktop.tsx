@@ -17,7 +17,7 @@ export default function CustomerLoginFormCardDesktop() {
       <Box sx={{ mt: 4 }}>
         <Button
           component={Link}
-          to="/auth/customer/register"
+          to="/customer/auth/register"
           variant="outlined"
           color="inherit"
           fullWidth
