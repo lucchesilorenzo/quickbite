@@ -1,3 +1,3 @@
 export default function CheckoutPage() {
-  return <div>CustomerPage</div>;
+  return <div>CheckoutPage</div>;
 }

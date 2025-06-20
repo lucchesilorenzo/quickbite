@@ -7,9 +7,9 @@ export type CartItem = MenuItem & {
 
 export type RestaurantCart = {
   items: CartItem[];
-  totalItems: number;
-  totalUniqueItems: number;
-  cartTotal: number;
+  total_items: number;
+  total_unique_items: number;
+  cart_total: number;
 };
 
 export type Cart = {

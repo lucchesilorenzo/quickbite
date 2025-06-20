@@ -28,13 +28,14 @@ type MultiCartContext = {
     quantity?: number,
   ) => void;
   cartTotal: (restaurantId: string) => number;
+  emptyAllCarts: () => void;
 };
 
 const initialState: RestaurantCart = {
   items: [],
-  totalItems: 0,
-  totalUniqueItems: 0,
-  cartTotal: 0,
+  total_items: 0,
+  total_unique_items: 0,
+  cart_total: 0,
 };
 
 export const MultiCartContext = createContext<MultiCartContext | null>(null);
@@ -53,15 +54,15 @@ export default function MultiCartProvider({
 
   // Helper function to calculate cart totals
   function calculateCartTotals(items: CartItem[]) {
-    const totalItems = items.reduce((acc, curr) => acc + curr.quantity, 0);
+    const total_items = items.reduce((acc, curr) => acc + curr.quantity, 0);
 
-    const cartTotal = Number(
+    const cart_total = Number(
       items.reduce((acc, curr) => acc + curr.item_total, 0).toFixed(2),
     );
 
-    const totalUniqueItems = items.length;
+    const total_unique_items = items.length;
 
-    return { totalItems, totalUniqueItems, cartTotal };
+    return { total_items, total_unique_items, cart_total };
   }
 
   function getItems(restaurantId: string) {
@@ -101,16 +102,16 @@ export default function MultiCartProvider({
             },
           ];
 
-      const { totalItems, totalUniqueItems, cartTotal } =
+      const { total_items, total_unique_items, cart_total } =
         calculateCartTotals(updatedItems);
 
       return {
         ...prev,
         [restaurantId]: {
           items: updatedItems,
-          totalItems,
-          totalUniqueItems,
-          cartTotal: Number(cartTotal.toFixed(2)),
+          total_items,
+          total_unique_items,
+          cart_total: Number(cart_total.toFixed(2)),
         },
       };
     });
@@ -122,7 +123,7 @@ export default function MultiCartProvider({
 
       const updatedItems = cart.items.filter((item) => item.id !== cartItemId);
 
-      const { totalItems, totalUniqueItems, cartTotal } =
+      const { total_items, total_unique_items, cart_total } =
         calculateCartTotals(updatedItems);
 
       return {
@@ -130,9 +131,9 @@ export default function MultiCartProvider({
         [restaurantId]: {
           ...cart,
           items: updatedItems,
-          totalItems,
-          totalUniqueItems,
-          cartTotal: Number(cartTotal.toFixed(2)),
+          total_items,
+          total_unique_items,
+          cart_total: Number(cart_total.toFixed(2)),
         },
       };
     });
@@ -158,7 +159,7 @@ export default function MultiCartProvider({
           : item,
       );
 
-      const { totalItems, totalUniqueItems, cartTotal } =
+      const { total_items, total_unique_items, cart_total } =
         calculateCartTotals(updatedItems);
 
       return {
@@ -166,9 +167,9 @@ export default function MultiCartProvider({
         [restaurantId]: {
           ...cart,
           items: updatedItems,
-          totalItems,
-          totalUniqueItems,
-          cartTotal: Number(cartTotal.toFixed(2)),
+          total_items,
+          total_unique_items,
+          cart_total: Number(cart_total.toFixed(2)),
         },
       };
     });
@@ -196,7 +197,7 @@ export default function MultiCartProvider({
         )
         .filter((item) => item.quantity > 0);
 
-      const { totalItems, totalUniqueItems, cartTotal } =
+      const { total_items, total_unique_items, cart_total } =
         calculateCartTotals(updatedItems);
 
       return {
@@ -204,9 +205,9 @@ export default function MultiCartProvider({
         [restaurantId]: {
           ...cart,
           items: updatedItems,
-          totalItems,
-          totalUniqueItems,
-          cartTotal: Number(cartTotal.toFixed(2)),
+          total_items,
+          total_unique_items,
+          cart_total: Number(cart_total.toFixed(2)),
         },
       };
     });
@@ -234,11 +235,15 @@ export default function MultiCartProvider({
   }
 
   function cartTotal(restaurantId: string) {
-    return carts[restaurantId]?.cartTotal;
+    return carts[restaurantId]?.cart_total;
   }
 
   function isEmpty(restaurantId: string) {
     return !carts[restaurantId] || carts[restaurantId].items.length === 0;
+  }
+
+  function emptyAllCarts() {
+    setCarts({});
   }
 
   return (
@@ -256,6 +261,7 @@ export default function MultiCartProvider({
         incrementItemQuantity,
         decrementItemQuantity,
         cartTotal,
+        emptyAllCarts,
       }}
     >
       {children}
