@@ -5,7 +5,9 @@ import "@fontsource/roboto/700.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import AppLayout from "../layouts/AppLayout";
+import ProtectedRoute from "./ProtectedRoute";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
+import CheckoutPage from "./private/customer/CheckoutPage";
 import AreaPage from "./public/AreaPage";
 import BecomeAPartnerPage from "./public/BecomeAPartnerPage";
 import BecomeARiderPage from "./public/BecomeARiderPage";
@@ -21,10 +23,12 @@ import AuthProvider from "@/contexts/AuthProvider";
 import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 import RestaurantProvider from "@/contexts/RestaurantProvider";
 import AreaLayout from "@/layouts/AreaLayout";
+import CheckoutLayout from "@/layouts/CheckoutLayout";
 import CustomerAuthLayout from "@/layouts/CustomerAuthLayout";
 import ErrorLayout from "@/layouts/ErrorLayout";
 import HomeLayout from "@/layouts/HomeLayout";
 import RestaurantLayout from "@/layouts/RestaurantLayout";
+import { Role } from "@/types";
 
 export default function AppRoutes() {
   return (
@@ -70,6 +74,15 @@ export default function AppRoutes() {
               <Route path="/" element={<RestaurantLayout />}>
                 <Route path="restaurants/:restaurantSlug">
                   <Route index element={<RestaurantPage />} />
+                </Route>
+              </Route>
+
+              <Route path="/" element={<CheckoutLayout />}>
+                <Route
+                  path="checkout/:cartId"
+                  element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
+                >
+                  <Route index element={<CheckoutPage />} />
                 </Route>
               </Route>
 
