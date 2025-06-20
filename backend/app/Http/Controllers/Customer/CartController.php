@@ -9,6 +9,59 @@ use Illuminate\Http\JsonResponse;
 
 class CartController extends Controller
 {
+    /**
+     * Get all carts for the authenticated user.
+     *
+     * @return JsonResponse
+     */
+    public function getCarts(): JsonResponse
+    {
+        try {
+            $user = auth()->user();
+
+            $carts = $user->carts()->with(['cartItems.menuItem'])->get();
+
+            $formattedCarts = $carts->mapWithKeys(function ($cart) {
+                return [
+                    $cart->restaurant_id =>
+                    [
+                        'restaurant_id' => $cart->restaurant_id,
+                        'total_items' => $cart->total_items,
+                        'total_unique_items' => $cart->total_unique_items,
+                        'cart_total' => $cart->cart_total,
+                        'items' => $cart->cartItems->map(
+                            fn($item) => [
+                                'id' => $item->menuItem->id,
+                                'menu_category_id' => $item->menuItem->menu_category_id,
+                                'name' => $item->menuItem->name,
+                                'description' => $item->menuItem->description,
+                                'price' => $item->menuItem->price,
+                                'image' => $item->menuItem->image,
+                                'is_available' => $item->menuItem->is_available,
+                                'quantity' => $item->quantity,
+                                'item_total' => $item->item_total,
+                                'created_at' => $item->menuItem->created_at,
+                                'updated_at' => $item->menuItem->updated_at,
+                            ]
+                        )
+                    ],
+                ];
+            });
+
+            return response()->json($formattedCarts, 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Could not get carts.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Create or update a cart for the authenticated user.
+     *
+     * @param CreateOrUpdateCartRequest $request
+     * @return JsonResponse
+     */
     public function createOrUpdateCart(CreateOrUpdateCartRequest $request): JsonResponse
     {
         // Get validated data
