@@ -15,6 +15,13 @@ class Cart extends Model
     protected $fillable = [
         'user_id',
         'restaurant_id',
+        'cart_total',
+        'total_items',
+        'total_unique_items',
+    ];
+
+    protected $casts = [
+        'cart_total' => 'float',
     ];
 
     /**

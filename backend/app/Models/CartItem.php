@@ -15,11 +15,11 @@ class CartItem extends Model
         'cart_id',
         'menu_item_id',
         'quantity',
-        'price',
+        'item_total',
     ];
 
     protected $casts = [
-        'price' => 'float',
+        'item_total' => 'float',
     ];
 
     /**
