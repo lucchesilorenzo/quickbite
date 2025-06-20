@@ -13,7 +13,7 @@ import {
 import { useCookies } from "react-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import HeaderDialogCustomer from "../customers/header/HeaderDialogCustomer";
+import HeaderDialogCustomer from "../customer/header/HeaderDialogCustomer";
 import CategoryFilters from "./category-carousel/CategoryFilters";
 import LocationSearchButton from "./location-search/LocationSearchButton";
 import LocationSearchDialog from "./location-search/LocationSearchDialog";
