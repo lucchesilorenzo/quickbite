@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import AppLayout from "../layouts/AppLayout";
+import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 import AreaPage from "./public/AreaPage";
 import BecomeAPartnerPage from "./public/BecomeAPartnerPage";
 import BecomeARiderPage from "./public/BecomeARiderPage";
@@ -37,7 +38,10 @@ export default function AppRoutes() {
               </Route>
 
               <Route path="/" element={<CustomerAuthLayout />}>
-                <Route path="customer/auth">
+                <Route
+                  path="customer/auth"
+                  element={<RedirectIfAuthenticated />}
+                >
                   <Route index element={<Navigate to="login" />} />
                   <Route path="register" element={<CustomerRegisterPage />} />
                   <Route path="login" element={<CustomerLoginPage />} />
