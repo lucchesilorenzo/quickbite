@@ -4,21 +4,18 @@ import { Outlet } from "react-router-dom";
 import RestaurantFooter from "@/components/public/restaurants/RestaurantFooter";
 import RestaurantHeader from "@/components/public/restaurants/RestaurantHeader";
 import RestaurantNavigateToTopFloatingButton from "@/components/public/restaurants/RestaurantNavigateToTopFloatingButton";
-import MultiCartProvider from "@/contexts/MultiCartProvider";
 import SingleRestaurantProvider from "@/contexts/SingleRestaurantProvider";
 
 export default function RestaurantLayout() {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
       <SingleRestaurantProvider>
-        <MultiCartProvider>
-          <RestaurantHeader />
+        <RestaurantHeader />
 
-          <Outlet />
+        <Outlet />
 
-          <RestaurantFooter />
-          <RestaurantNavigateToTopFloatingButton />
-        </MultiCartProvider>
+        <RestaurantFooter />
+        <RestaurantNavigateToTopFloatingButton />
       </SingleRestaurantProvider>
     </Stack>
   );
