@@ -10,6 +10,7 @@ type AuthProviderProps = {
 
 type AuthContext = {
   user: User | null;
+  isLoading: boolean;
 };
 
 export const AuthContext = createContext<AuthContext | null>(null);
@@ -30,6 +31,8 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   if (isLoading) return <FullPageSpinner />;
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, isLoading }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
