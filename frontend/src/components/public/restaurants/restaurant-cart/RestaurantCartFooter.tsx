@@ -9,17 +9,18 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 
+import { useAuth } from "@/hooks/contexts/useAuth";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { useCreateOrUpdateCart } from "@/hooks/react-query/private/cart/useCreateOrUpdateCart";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, isCustomer } from "@/lib/utils";
 
 export default function RestaurantCartFooter() {
+  const { user } = useAuth();
   const { restaurant } = useSingleRestaurant();
   const { getCart, cartTotal } = useMultiCart();
 
@@ -31,22 +32,17 @@ export default function RestaurantCartFooter() {
   const total = subtotal + restaurant.shipping_cost;
 
   const navigate = useNavigate();
-  const notifications = useNotifications();
 
   async function handleCheckout() {
-    const cart = getCart(restaurant.id);
-
-    if (!cart) {
-      notifications.show("Failed to retrieve cart.", {
-        key: "retrieve-cart-error",
-        severity: "error",
-      });
-
+    if (!isCustomer(user)) {
+      navigate("/customer/auth/login");
       return;
     }
 
+    const cart = getCart(restaurant.id);
+
     const { cart: updatedCart } = await createOrUpdateCart(cart);
-    navigate(`/checkout/${updatedCart.id}`);
+    navigate(`/checkout/${updatedCart[restaurant.id].cart_id}`);
   }
 
   return (
