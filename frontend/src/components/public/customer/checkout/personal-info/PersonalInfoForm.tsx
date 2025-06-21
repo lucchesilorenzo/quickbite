@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/useAuth";
+import { useCheckout } from "@/hooks/contexts/useCheckout";
 import { isCustomer } from "@/lib/utils";
 import {
   TCheckoutPersonalInfoForm,
@@ -13,6 +14,7 @@ import {
 
 export default function PersonalInfoForm() {
   const { user } = useAuth();
+  const { setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,
@@ -28,7 +30,12 @@ export default function PersonalInfoForm() {
   });
 
   async function onSubmit(data: TCheckoutPersonalInfoForm) {
-    console.log(data);
+    setCheckoutData((prev) => ({
+      ...prev,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      phone_number: data.phone_number,
+    }));
   }
 
   return (
