@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/lib/api-client";
 import { Cart } from "@/types";
 
-export function useGetCarts() {
+export function useGetCart(cartId?: string) {
   return useQuery({
-    queryKey: ["carts"],
-    queryFn: (): Promise<Cart> => fetchData("/carts"),
+    queryKey: ["cart", cartId],
+    queryFn: (): Promise<Cart> => fetchData(`/carts/${cartId}`),
   });
 }
