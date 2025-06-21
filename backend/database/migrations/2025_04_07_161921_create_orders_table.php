@@ -16,13 +16,16 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->integer('order_code');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone_number');
             $table->string('street_address');
             $table->string('building_number');
             $table->string('postcode');
             $table->string('city');
             $table->string('country')->default('Italy');
             $table->time('delivery_time')->nullable();
-            $table->string('notes')->nullable();
+            $table->text('notes')->nullable();
             $table->string('payment_method')->default('cash');
             $table->timestamps();
         });
