@@ -1,10 +1,16 @@
+import { useState } from "react";
+
 import { Box, Stack, Typography } from "@mui/material";
+
+import OrderItemsDialog from "./OrderItemsDialog";
 
 import { useCheckout } from "@/hooks/contexts/useCheckout";
 import env from "@/lib/env";
 
 export default function CheckoutOrderOverview() {
   const { cart } = useCheckout();
+
+  const [openOrderItemsDialog, setOpenOrderItemsDialog] = useState(false);
 
   const restaurantCart = Object.values(cart)[0];
 
@@ -26,6 +32,7 @@ export default function CheckoutOrderOverview() {
             textDecoration: "underline",
             "&:hover": { textDecoration: "none" },
           }}
+          onClick={() => setOpenOrderItemsDialog(true)}
         >
           Show {restaurantCart.total_items} articles
         </Typography>
@@ -42,6 +49,11 @@ export default function CheckoutOrderOverview() {
           border: "2px solid #fff",
           borderRadius: 2,
         }}
+      />
+
+      <OrderItemsDialog
+        openOrderItemsDialog={openOrderItemsDialog}
+        setOpenOrderItemsDialog={setOpenOrderItemsDialog}
       />
     </Stack>
   );
