@@ -1,5 +1,6 @@
 import { Stack, Typography, useMediaQuery } from "@mui/material";
 
+import PersonalInfoEditDateOfBirthForm from "./PersonalInfoEditDateOfBirthForm";
 import PersonalInfoEditEmailForm from "./PersonalInfoEditEmailForm";
 import PersonalInfoEditFullNameForm from "./PersonalInfoEditFullNameForm";
 import PersonalInfoEditPhoneNumberForm from "./PersonalInfoPhoneNumberForm";
@@ -16,6 +17,7 @@ export default function PersonalInfoEditContainer() {
       <PersonalInfoEditFullNameForm />
       <PersonalInfoEditEmailForm />
       <PersonalInfoEditPhoneNumberForm />
+      <PersonalInfoEditDateOfBirthForm />
 
       <Typography variant={isMobile ? "body1" : "h6"}>Address info</Typography>
 
