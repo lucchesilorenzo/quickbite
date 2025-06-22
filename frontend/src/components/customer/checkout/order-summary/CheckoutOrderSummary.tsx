@@ -1,5 +1,6 @@
-import { Paper, Typography } from "@mui/material";
+import { Divider, Paper, Typography } from "@mui/material";
 
+import CheckoutOrderFooter from "./CheckoutOrderFooter";
 import CheckoutOrderOverview from "./CheckoutOrderOverview";
 
 export default function CheckoutOrderSummary() {
@@ -10,6 +11,8 @@ export default function CheckoutOrderSummary() {
       </Typography>
 
       <CheckoutOrderOverview />
+      <Divider sx={{ my: 2 }} />
+      <CheckoutOrderFooter />
     </Paper>
   );
 }
