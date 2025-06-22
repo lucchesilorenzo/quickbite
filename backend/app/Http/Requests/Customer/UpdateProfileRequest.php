@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Customer;
 
+use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,6 +28,7 @@ class UpdateProfileRequest extends FormRequest
             'last_name' => ['sometimes', 'string', 'min:1', 'max:50'],
             'email' => ['sometimes', 'email'],
             'phone_number' => ['sometimes', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
+            'date_of_birth' => ['sometimes', 'string', 'min:1', new IsAdult()],
             'street_address' => ['sometimes', 'string', 'min:1', 'max:50'],
             'building_number' => ['sometimes', 'string', 'min:1', 'max:50'],
             'postcode' => ['sometimes', 'string', 'min:1', 'max:50'],

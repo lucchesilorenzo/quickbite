@@ -1,6 +1,8 @@
 import { matchIsValidTel } from "mui-tel-input";
 import { z } from "zod/v4";
 
+import { isAdult } from "@/lib/utils";
+
 export const personalInfoEditFullNameForm = z.object({
   first_name: z
     .string()
@@ -32,6 +34,16 @@ export const personalInfoEditPhoneNumberForm = z.object({
         error: "Please enter a valid phone number.",
       },
     ),
+});
+
+export const personalInfoEditDateOfBirthForm = z.object({
+  date_of_birth: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your date of birth.")
+    .refine((data_of_birth) => isAdult(data_of_birth), {
+      error: "You must be at least 18 years old.",
+    }),
 });
 
 export const addressInfoEditStreetAddressForm = z.object({
@@ -78,6 +90,10 @@ export type TPersonalInfoEditPhoneNumberForm = z.infer<
   typeof personalInfoEditPhoneNumberForm
 >;
 
+export type TPersonalInfoEditDateOfBirthForm = z.infer<
+  typeof personalInfoEditDateOfBirthForm
+>;
+
 export type TAddressInfoEditStreetAddressForm = z.infer<
   typeof addressInfoEditStreetAddressForm
 >;
@@ -96,6 +112,7 @@ export type PersonalInfoField =
   | TPersonalInfoEditFullNameForm
   | TPersonalInfoEditEmailForm
   | TPersonalInfoEditPhoneNumberForm
+  | TPersonalInfoEditDateOfBirthForm
   | TAddressInfoEditStreetAddressForm
   | TAddressInfoEditBuildingNumberForm
   | TAddressInfoEditPostcodeForm
