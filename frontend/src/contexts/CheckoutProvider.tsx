@@ -9,6 +9,7 @@ import {
   AddressInfo,
   DeliveryTime,
   OrderNotes,
+  PaymentMethod,
   PersonalInfo,
 } from "@/types/order-types";
 
@@ -22,10 +23,12 @@ type CheckoutContext = {
   addressInfo: AddressInfo | null;
   deliveryTime: DeliveryTime | null;
   orderNotes: OrderNotes | null;
+  paymentMethod: PaymentMethod | null;
   setPersonalInfo: React.Dispatch<React.SetStateAction<PersonalInfo | null>>;
   setAddressInfo: React.Dispatch<React.SetStateAction<AddressInfo | null>>;
   setDeliveryTime: React.Dispatch<React.SetStateAction<DeliveryTime | null>>;
   setOrderNotes: React.Dispatch<React.SetStateAction<OrderNotes | null>>;
+  setPaymentMethod: React.Dispatch<React.SetStateAction<PaymentMethod | null>>;
 };
 
 export const CheckoutContext = createContext<CheckoutContext | null>(null);
@@ -35,6 +38,9 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const [addressInfo, setAddressInfo] = useState<AddressInfo | null>(null);
   const [deliveryTime, setDeliveryTime] = useState<DeliveryTime | null>(null);
   const [orderNotes, setOrderNotes] = useState<OrderNotes | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
+    null,
+  );
 
   const { cartId } = useParams();
   const { data: cart = {}, isLoading: isCartLoading } = useGetCart(cartId);
@@ -49,10 +55,12 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
         addressInfo,
         deliveryTime,
         orderNotes,
+        paymentMethod,
         setPersonalInfo,
         setAddressInfo,
         setDeliveryTime,
         setOrderNotes,
+        setPaymentMethod,
       }}
     >
       {children}
