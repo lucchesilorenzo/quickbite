@@ -9,53 +9,6 @@ use Illuminate\Http\JsonResponse;
 class CartController extends Controller
 {
     /**
-     * Get all carts for the authenticated user.
-     *
-     * @return JsonResponse
-     */
-    public function getCarts(): JsonResponse
-    {
-        try {
-            $user = auth()->user();
-
-            $carts = $user->carts()->with(['cartItems.menuItem'])->get();
-
-            $formattedCarts = $carts->mapWithKeys(function ($cart) {
-                return [
-                    $cart->restaurant_id =>
-                    [
-                        'restaurant_id' => $cart->restaurant_id,
-                        'total_items' => $cart->total_items,
-                        'total_unique_items' => $cart->total_unique_items,
-                        'cart_total' => $cart->cart_total,
-                        'items' => $cart->cartItems->map(
-                            fn($item) => [
-                                'id' => $item->menuItem->id,
-                                'menu_category_id' => $item->menuItem->menu_category_id,
-                                'name' => $item->menuItem->name,
-                                'description' => $item->menuItem->description,
-                                'price' => $item->menuItem->price,
-                                'image' => $item->menuItem->image,
-                                'is_available' => $item->menuItem->is_available,
-                                'quantity' => $item->quantity,
-                                'item_total' => $item->item_total,
-                                'created_at' => $item->menuItem->created_at,
-                                'updated_at' => $item->menuItem->updated_at,
-                            ]
-                        )
-                    ],
-                ];
-            });
-
-            return response()->json($formattedCarts, 200);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'message' => 'Could not get carts.',
-            ], 500);
-        }
-    }
-
-    /**
      * Get a cart for the authenticated user.
      *
      * @return JsonResponse
@@ -63,21 +16,37 @@ class CartController extends Controller
     public function getCart(string $cartId): JsonResponse
     {
         try {
+            // Get user
             $user = auth()->user();
 
+            // Get cart
             $cart = $user->carts()->with(['cartItems.menuItem'])->find($cartId);
 
+            // Check if cart exists
             if (!$cart) {
                 return response()->json([
                     'message' => 'Cart not found.',
                 ], 404);
             }
 
-            $formattedCart =  [
+            // Get restaurant
+            $restaurant = $cart->restaurant()->with([
+                'categories',
+                'deliveryDays',
+                'reviews.customer',
+                'menuCategories.menuItems',
+            ])
+                ->withAvg('reviews', 'rating')
+                ->withCount('reviews')
+                ->first();
+
+            // Format cart
+            $formattedCart = [
                 $cart->restaurant_id =>
                 [
                     'cart_id' => $cart->id,
                     'restaurant_id' => $cart->restaurant_id,
+                    'restaurant' => $restaurant,
                     'total_items' => $cart->total_items,
                     'total_unique_items' => $cart->total_unique_items,
                     'cart_total' => $cart->cart_total,
@@ -98,7 +67,6 @@ class CartController extends Controller
                     )
                 ],
             ];
-
 
             return response()->json($formattedCart, 200);
         } catch (\Throwable $e) {
@@ -151,35 +119,54 @@ class CartController extends Controller
                 );
             }
 
-            $cart = $user->carts()->with(['cartItems.menuItem'])->where('restaurant_id', $data['restaurant_id'])->get();
+            // Get updated cart
+            $cart = $user->carts()->with(['cartItems.menuItem'])->where('restaurant_id', $data['restaurant_id'])->first();
 
-            $formattedCart = $cart->mapWithKeys(function ($cart) {
-                return [
-                    $cart->restaurant_id =>
-                    [
-                        'cart_id' => $cart->id,
-                        'restaurant_id' => $cart->restaurant_id,
-                        'total_items' => $cart->total_items,
-                        'total_unique_items' => $cart->total_unique_items,
-                        'cart_total' => $cart->cart_total,
-                        'items' => $cart->cartItems->map(
-                            fn($item) => [
-                                'id' => $item->menuItem->id,
-                                'menu_category_id' => $item->menuItem->menu_category_id,
-                                'name' => $item->menuItem->name,
-                                'description' => $item->menuItem->description,
-                                'price' => $item->menuItem->price,
-                                'image' => $item->menuItem->image,
-                                'is_available' => $item->menuItem->is_available,
-                                'quantity' => $item->quantity,
-                                'item_total' => $item->item_total,
-                                'created_at' => $item->menuItem->created_at,
-                                'updated_at' => $item->menuItem->updated_at,
-                            ]
-                        )
-                    ],
-                ];
-            });
+            // Check if cart exists
+            if (!$cart) {
+                return response()->json([
+                    'message' => 'Cart not found.',
+                ], 404);
+            }
+
+            // Get restaurant
+            $restaurant = $cart->restaurant()->with([
+                'categories',
+                'deliveryDays',
+                'reviews.customer',
+                'menuCategories.menuItems',
+            ])
+                ->withAvg('reviews', 'rating')
+                ->withCount('reviews')
+                ->first();
+
+            // Format cart
+            $formattedCart = [
+                $cart->restaurant_id =>
+                [
+                    'cart_id' => $cart->id,
+                    'restaurant_id' => $cart->restaurant_id,
+                    'restaurant' => $restaurant,
+                    'total_items' => $cart->total_items,
+                    'total_unique_items' => $cart->total_unique_items,
+                    'cart_total' => $cart->cart_total,
+                    'items' => $cart->cartItems->map(
+                        fn($item) => [
+                            'id' => $item->menuItem->id,
+                            'menu_category_id' => $item->menuItem->menu_category_id,
+                            'name' => $item->menuItem->name,
+                            'description' => $item->menuItem->description,
+                            'price' => $item->menuItem->price,
+                            'image' => $item->menuItem->image,
+                            'is_available' => $item->menuItem->is_available,
+                            'quantity' => $item->quantity,
+                            'item_total' => $item->item_total,
+                            'created_at' => $item->menuItem->created_at,
+                            'updated_at' => $item->menuItem->updated_at,
+                        ]
+                    )
+                ],
+            ];
 
             return response()->json([
                 'message' => 'Cart created or updated successfully.',
