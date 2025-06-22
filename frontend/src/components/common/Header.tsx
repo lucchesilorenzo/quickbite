@@ -7,7 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 
-import HeaderDialogCustomer from "../public/customer/header/HeaderDialogCustomer";
+import HeaderDialogCustomer from "../customer/header/HeaderDialogCustomer";
 import HeaderDialog from "./HeaderDialog";
 
 import { useAuth } from "@/hooks/contexts/useAuth";

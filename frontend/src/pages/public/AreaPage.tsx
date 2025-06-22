@@ -4,8 +4,8 @@ import { Container } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 
-import DesktopAreaLayout from "@/components/public/area/layouts/DesktopAreaLayout";
-import MobileAreaLayout from "@/components/public/area/layouts/MobileAreaLayout";
+import DesktopAreaLayout from "@/components/area/layouts/DesktopAreaLayout";
+import MobileAreaLayout from "@/components/area/layouts/MobileAreaLayout";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 import { useGetLocation } from "@/hooks/react-query/public/locationiq/useGetLocation";
 

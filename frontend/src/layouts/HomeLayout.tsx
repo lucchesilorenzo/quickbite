@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import Footer from "@/components/common/Footer";
 import NavigateToTopFloatingButton from "@/components/common/NavigateToTopFloatingButton";
-import HomeHeader from "@/components/public/homepage/HomeHeader";
+import HomeHeader from "@/components/homepage/HomeHeader";
 
 export default function HomeLayout() {
   return (

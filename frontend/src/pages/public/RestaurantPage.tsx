@@ -1,5 +1,5 @@
-import DesktopRestaurantLayout from "@/components/public/restaurants/layouts/DesktopRestaurantLayout";
-import MobileRestaurantLayout from "@/components/public/restaurants/layouts/MobileRestaurantLayout";
+import DesktopRestaurantLayout from "@/components/restaurants/layouts/DesktopRestaurantLayout";
+import MobileRestaurantLayout from "@/components/restaurants/layouts/MobileRestaurantLayout";
 
 export default function RestaurantPage() {
   return (
