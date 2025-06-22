@@ -25,8 +25,8 @@ export default function DeliveryTimeDialog({
       fullWidth
       disableRestoreFocus
     >
-      <Stack spacing={2} sx={{ p: 2 }}>
-        <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+      <Stack spacing={2}>
+        <Stack direction="row" sx={{ justifyContent: "space-between", p: 2 }}>
           <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
             Delivery time
           </DialogTitle>
@@ -41,7 +41,7 @@ export default function DeliveryTimeDialog({
           </IconButton>
         </Stack>
 
-        <DialogContent sx={{ p: 1 }}>
+        <DialogContent sx={{ p: 0 }}>
           <DeliveryTimeForm
             setOpenDeliveryTimeDialog={setOpenDeliveryTimeDialog}
           />

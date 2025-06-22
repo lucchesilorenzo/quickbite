@@ -97,7 +97,7 @@ export default function DeliveryTimeForm({
         }}
       />
 
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
         <Button
           type="submit"
           disabled={isSubmitting}
