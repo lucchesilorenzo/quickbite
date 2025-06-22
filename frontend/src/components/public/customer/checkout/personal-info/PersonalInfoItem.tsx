@@ -12,13 +12,16 @@ import {
 import PersonalInfoDialog from "./PersonalInfoDialog";
 
 import { useAuth } from "@/hooks/contexts/useAuth";
+import { useCheckout } from "@/hooks/contexts/useCheckout";
 
 export default function PersonalInfoItem() {
   const { user } = useAuth();
+  const { personalInfo } = useCheckout();
 
   const [openPersonalInfoDialog, setOpenPersonalInfoDialog] = useState(false);
 
-  if (!user) return null;
+  const text = `${personalInfo?.first_name ?? user?.first_name} ${personalInfo?.last_name ?? user?.last_name}`;
+  const phoneNumber = personalInfo?.phone_number ?? user?.phone_number ?? "";
 
   return (
     <>
@@ -30,10 +33,7 @@ export default function PersonalInfoItem() {
           <ListItemIcon>
             <PersonOutlineOutlinedIcon color="primary" />
           </ListItemIcon>
-          <ListItemText
-            primary={`${user.first_name} ${user.last_name}`}
-            secondary={user.phone_number}
-          />
+          <ListItemText primary={text} secondary={phoneNumber} />
           <ListItemIcon sx={{ justifyContent: "flex-end" }}>
             <ArrowForwardIosIcon color="inherit" />
           </ListItemIcon>

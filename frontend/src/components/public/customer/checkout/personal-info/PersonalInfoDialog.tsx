@@ -40,7 +40,9 @@ export default function PersonalInfoDialog({
         </Stack>
 
         <DialogContent sx={{ p: 1 }}>
-          <PersonalInfoForm />
+          <PersonalInfoForm
+            setOpenPersonalInfoDialog={setOpenPersonalInfoDialog}
+          />
         </DialogContent>
       </Stack>
     </Dialog>

@@ -6,15 +6,20 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
-import { isCustomer } from "@/lib/utils";
 import {
   TCheckoutPersonalInfoForm,
   checkoutPersonalInfoForm,
 } from "@/validations/checkout-validations";
 
-export default function PersonalInfoForm() {
+type PersonalInfoFormProps = {
+  setOpenPersonalInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function PersonalInfoForm({
+  setOpenPersonalInfoDialog,
+}: PersonalInfoFormProps) {
   const { user } = useAuth();
-  const { setCheckoutData } = useCheckout();
+  const { personalInfo, setPersonalInfo } = useCheckout();
 
   const {
     handleSubmit,
@@ -23,19 +28,15 @@ export default function PersonalInfoForm() {
   } = useForm({
     resolver: zodResolver(checkoutPersonalInfoForm),
     defaultValues: {
-      first_name: isCustomer(user) ? user.first_name : "",
-      last_name: isCustomer(user) ? user.last_name : "",
-      phone_number: isCustomer(user) ? user.phone_number : "",
+      first_name: personalInfo?.first_name ?? user?.first_name ?? "",
+      last_name: personalInfo?.last_name ?? user?.last_name ?? "",
+      phone_number: personalInfo?.phone_number ?? user?.phone_number ?? "",
     },
   });
 
-  async function onSubmit(data: TCheckoutPersonalInfoForm) {
-    setCheckoutData((prev) => ({
-      ...prev,
-      first_name: data.first_name,
-      last_name: data.last_name,
-      phone_number: data.phone_number,
-    }));
+  function onSubmit(data: TCheckoutPersonalInfoForm) {
+    setPersonalInfo(data);
+    setOpenPersonalInfoDialog(false);
   }
 
   return (
