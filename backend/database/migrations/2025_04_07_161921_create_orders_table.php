@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('country')->default('Italy');
             $table->time('delivery_time')->nullable();
-            $table->text('notes')->nullable();
+            $table->string('notes', 160)->nullable();
             $table->string('payment_method')->default('cash');
             $table->timestamps();
         });
