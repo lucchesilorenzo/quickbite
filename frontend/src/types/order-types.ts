@@ -41,3 +41,5 @@ export type AddressInfo = Pick<
 export type DeliveryTime = Pick<Order, "delivery_time">;
 
 export type OrderNotes = Pick<Order, "notes">;
+
+export type PaymentMethod = Pick<Order, "payment_method">;

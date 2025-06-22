@@ -60,6 +60,14 @@ export const checkoutOrderNotesForm = z.object({
   notes: z.string().trim().max(160, "Order notes is too long."),
 });
 
+export const checkoutPaymentMethodForm = z.object({
+  payment_method: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your payment method.")
+    .max(50, "Payment method is too long."),
+});
+
 export type TCheckoutPersonalInfoForm = z.infer<
   typeof checkoutPersonalInfoForm
 >;
@@ -71,3 +79,7 @@ export type TCheckoutDeliveryTimeForm = z.infer<
 >;
 
 export type TCheckoutOrderNotesForm = z.infer<typeof checkoutOrderNotesForm>;
+
+export type TCheckoutPaymentMethodForm = z.infer<
+  typeof checkoutPaymentMethodForm
+>;
