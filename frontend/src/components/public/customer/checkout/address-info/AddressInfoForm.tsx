@@ -3,6 +3,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
+import { useAuth } from "@/hooks/contexts/useAuth";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
 import {
   TCheckoutAddressInfoForm,
@@ -16,6 +17,7 @@ type AddressInfoFormProps = {
 export default function AddressInfoForm({
   setOpenAddressInfoDialog,
 }: AddressInfoFormProps) {
+  const { user } = useAuth();
   const { addressInfo, setAddressInfo } = useCheckout();
 
   const {
@@ -25,10 +27,11 @@ export default function AddressInfoForm({
   } = useForm({
     resolver: zodResolver(checkoutAddressInfoForm),
     defaultValues: {
-      street_address: addressInfo?.street_address ?? "",
-      building_number: addressInfo?.building_number ?? "",
-      postcode: addressInfo?.postcode ?? "",
-      city: addressInfo?.city ?? "",
+      street_address: addressInfo?.street_address ?? user?.street_address ?? "",
+      building_number:
+        addressInfo?.building_number ?? user?.building_number ?? "",
+      postcode: addressInfo?.postcode ?? user?.postcode ?? "",
+      city: addressInfo?.city ?? user?.city ?? "",
     },
   });
 
