@@ -28,3 +28,8 @@ export type OrderItem = {
   created_at: string;
   updated_at: string;
 };
+
+export type PersonalInfo = Pick<
+  Order,
+  "first_name" | "last_name" | "phone_number"
+>;
