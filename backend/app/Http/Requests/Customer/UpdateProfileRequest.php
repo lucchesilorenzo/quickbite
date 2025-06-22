@@ -28,6 +28,9 @@ class UpdateProfileRequest extends FormRequest
             'email' => ['sometimes', 'email'],
             'phone_number' => ['sometimes', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
             'street_address' => ['sometimes', 'string', 'min:1', 'max:50'],
+            'building_number' => ['sometimes', 'string', 'min:1', 'max:50'],
+            'postcode' => ['sometimes', 'string', 'min:1', 'max:50'],
+            'city' => ['sometimes', 'string', 'min:1', 'max:50'],
         ];
     }
 }
