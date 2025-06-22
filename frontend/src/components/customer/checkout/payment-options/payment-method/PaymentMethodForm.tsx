@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import EuroOutlinedIcon from "@mui/icons-material/EuroOutlined";
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Controller, useForm } from "react-hook-form";
 
@@ -17,6 +17,7 @@ const paymentMethodOptions = [
     startIcon: EuroOutlinedIcon,
     label: "Cash",
     value: "cash",
+    text: "You will pay the exact amount in cash to the delivery person. If you want to pay with large denomination banknotes, please indicate it clearly in the order notes so that the rider can bring the necessary change.",
     endIcon: DoneOutlinedIcon,
   },
 ];
@@ -60,35 +61,42 @@ export default function PaymentMethodForm({
         render={({ field }) => (
           <Stack spacing={2}>
             {paymentMethodOptions.map((option) => (
-              <Paper
-                {...field}
-                component={Button}
-                key={option.value}
-                variant="outlined"
-                onClick={() => field.onChange(option.value)}
-                sx={{
-                  width: 1,
-                  textTransform: "none",
-                  p: 2,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  "&:hover": { bgcolor: grey[100] },
-                  ...(field.value === option.value && {
-                    border: `2px solid ${grey[500]}`,
-                  }),
-                  minHeight: 64,
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <option.startIcon />
-                  <Typography variant="h6">{option.label}</Typography>
-                </Stack>
+              <Box>
+                <Paper
+                  {...field}
+                  component={Button}
+                  key={option.value}
+                  variant="outlined"
+                  onClick={() => field.onChange(option.value)}
+                  sx={{
+                    width: 1,
+                    textTransform: "none",
+                    p: 2,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    "&:hover": { bgcolor: grey[100] },
+                    border:
+                      field.value === option.value
+                        ? `2px solid ${grey[500]}`
+                        : "",
+                    minHeight: 64,
+                  }}
+                >
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    <option.startIcon />
+                    <Typography variant="h6">{option.label}</Typography>
+                  </Stack>
+
+                  {field.value === option.value && (
+                    <option.endIcon color="primary" />
+                  )}
+                </Paper>
 
                 {field.value === option.value && (
-                  <option.endIcon color="primary" />
+                  <Typography sx={{ mt: 1 }}>{option.text}</Typography>
                 )}
-              </Paper>
+              </Box>
             ))}
 
             {errors.payment_method?.message && (
@@ -97,6 +105,8 @@ export default function PaymentMethodForm({
           </Stack>
         )}
       />
+
+      <Divider />
 
       <Button
         type="submit"
