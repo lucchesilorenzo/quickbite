@@ -6,7 +6,6 @@ import {
   IconButton,
   Stack,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 
 type DeliveryFeeDialogProps = {
@@ -18,14 +17,11 @@ export default function DeliveryFeeDialog({
   openDeliveryFeeDialog,
   setOpenDeliveryFeeDialog,
 }: DeliveryFeeDialogProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   return (
     <Dialog
       open={openDeliveryFeeDialog}
       onClose={() => setOpenDeliveryFeeDialog(false)}
-      fullWidth={!isMobile}
-      fullScreen={isMobile}
+      fullWidth
       disableRestoreFocus
     >
       <Stack spacing={2} sx={{ p: 2 }}>
