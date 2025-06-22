@@ -72,7 +72,7 @@ export default function DeliveryTimeForm({
                         sx={{
                           "& .MuiListItemText-primary": {
                             fontWeight:
-                              field.value === option.value ? 600 : 400,
+                              field.value === option.value ? 500 : 400,
                           },
                         }}
                       />
