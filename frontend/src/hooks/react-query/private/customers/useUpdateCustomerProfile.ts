@@ -2,18 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import {
-  TAddressInfoEditStreetAddressForm,
-  TPersonalInfoEditEmailForm,
-  TPersonalInfoEditFullNameForm,
-  TPersonalInfoEditPhoneNumberForm,
-} from "@/validations/personal-info-validations";
-
-type PersonalInfoField =
-  | TPersonalInfoEditFullNameForm
-  | TPersonalInfoEditEmailForm
-  | TPersonalInfoEditPhoneNumberForm
-  | TAddressInfoEditStreetAddressForm;
+import { PersonalInfoField } from "@/validations/personal-info-validations";
 
 export function useUpdateCustomerProfile() {
   const queryClient = useQueryClient();

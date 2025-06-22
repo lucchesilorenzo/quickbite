@@ -42,6 +42,30 @@ export const addressInfoEditStreetAddressForm = z.object({
     .max(50, "Street address is too long."),
 });
 
+export const addressInfoEditBuildingNumberForm = z.object({
+  building_number: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your building number.")
+    .max(50, "Building number is too long."),
+});
+
+export const addressInfoEditPostcodeForm = z.object({
+  postcode: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your postcode.")
+    .max(50, "Postcode is too long."),
+});
+
+export const addressInfoEditCityForm = z.object({
+  city: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your city.")
+    .max(50, "City is too long."),
+});
+
 export type TPersonalInfoEditFullNameForm = z.infer<
   typeof personalInfoEditFullNameForm
 >;
@@ -57,3 +81,22 @@ export type TPersonalInfoEditPhoneNumberForm = z.infer<
 export type TAddressInfoEditStreetAddressForm = z.infer<
   typeof addressInfoEditStreetAddressForm
 >;
+
+export type TAddressInfoEditBuildingNumberForm = z.infer<
+  typeof addressInfoEditBuildingNumberForm
+>;
+
+export type TAddressInfoEditPostcodeForm = z.infer<
+  typeof addressInfoEditPostcodeForm
+>;
+
+export type TAddressInfoEditCityForm = z.infer<typeof addressInfoEditCityForm>;
+
+export type PersonalInfoField =
+  | TPersonalInfoEditFullNameForm
+  | TPersonalInfoEditEmailForm
+  | TPersonalInfoEditPhoneNumberForm
+  | TAddressInfoEditStreetAddressForm
+  | TAddressInfoEditBuildingNumberForm
+  | TAddressInfoEditPostcodeForm
+  | TAddressInfoEditCityForm;
