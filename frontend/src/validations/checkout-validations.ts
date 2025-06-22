@@ -56,6 +56,10 @@ export const checkoutDeliveryTimeForm = z.object({
     .max(5, "Delivery time is too long."),
 });
 
+export const checkoutOrderNotesForm = z.object({
+  notes: z.string().trim().max(160, "Order notes is too long."),
+});
+
 export type TCheckoutPersonalInfoForm = z.infer<
   typeof checkoutPersonalInfoForm
 >;
@@ -65,3 +69,5 @@ export type TCheckoutAddressInfoForm = z.infer<typeof checkoutAddressInfoForm>;
 export type TCheckoutDeliveryTimeForm = z.infer<
   typeof checkoutDeliveryTimeForm
 >;
+
+export type TCheckoutOrderNotesForm = z.infer<typeof checkoutOrderNotesForm>;
