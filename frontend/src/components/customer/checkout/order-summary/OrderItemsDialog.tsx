@@ -1,6 +1,9 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
+  Box,
+  Button,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
@@ -10,6 +13,7 @@ import {
 } from "@mui/material";
 
 import OrderItemsHeader from "./OrderItemsHeader";
+import OrderItemsList from "./OrderItemsList";
 
 type OrderItemsDialogProps = {
   openOrderItemsDialog: boolean;
@@ -49,7 +53,20 @@ export default function OrderItemsDialog({
         <DialogContent sx={{ p: 0 }}>
           <OrderItemsHeader />
           <Divider sx={{ my: 2 }} />
+          <OrderItemsList />
         </DialogContent>
+
+        <DialogActions sx={{ p: 0 }}>
+          <Box sx={{ width: 1, mt: 4 }}>
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={() => setOpenOrderItemsDialog(false)}
+            >
+              Done
+            </Button>
+          </Box>
+        </DialogActions>
       </Stack>
     </Dialog>
   );
