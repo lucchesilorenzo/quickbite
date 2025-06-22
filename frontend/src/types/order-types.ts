@@ -10,7 +10,6 @@ export type Order = {
   building_number: string;
   postcode: string;
   city: string;
-  country: string;
   delivery_time: string;
   notes: string;
   payment_method: string;
@@ -32,4 +31,9 @@ export type OrderItem = {
 export type PersonalInfo = Pick<
   Order,
   "first_name" | "last_name" | "phone_number"
+>;
+
+export type AddressInfo = Pick<
+  Order,
+  "street_address" | "building_number" | "postcode" | "city"
 >;
