@@ -1,4 +1,4 @@
-import { MenuItem } from "./restaurant-types";
+import { MenuItem, RestaurantDetail } from "./restaurant-types";
 
 export type CartItem = MenuItem & {
   quantity: number;
@@ -6,6 +6,7 @@ export type CartItem = MenuItem & {
 };
 
 export type RestaurantCart = {
+  restaurant: RestaurantDetail;
   restaurant_id: string;
   cart_id?: string;
   items: CartItem[];

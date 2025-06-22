@@ -7,6 +7,49 @@ import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
+import { RestaurantDetail } from "@/types";
+
+export const emptyRestaurant: RestaurantDetail = {
+  id: "",
+  name: "",
+  slug: "",
+  description: null,
+  street_address: "",
+  building_number: "",
+  road: null,
+  neighbourhood: null,
+  suburb: null,
+  island: null,
+  city: null,
+  county: null,
+  state: null,
+  postcode: "",
+  country: "",
+  full_address: "",
+  latitude: 0,
+  longitude: 0,
+  phone_number: "",
+  email: "",
+  vat_id: null,
+  min_amount: 0,
+  shipping_cost: 0,
+  delivery_time_min: 0,
+  delivery_time_max: 0,
+  discount: 0,
+  min_discount_amount: 0,
+  logo: "",
+  cover: "",
+  is_approved: false,
+  created_at: "",
+  updated_at: "",
+  reviews_avg_rating: 0,
+  reviews_count: 0,
+  categories: [],
+  delivery_days: [],
+  menu_categories: [],
+  reviews: [],
+};
+
 export const routes = [
   {
     href: "/become-a-rider",
