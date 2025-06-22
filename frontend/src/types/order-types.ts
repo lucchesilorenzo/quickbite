@@ -37,3 +37,5 @@ export type AddressInfo = Pick<
   Order,
   "street_address" | "building_number" | "postcode" | "city"
 >;
+
+export type DeliveryTime = Pick<Order, "delivery_time">;

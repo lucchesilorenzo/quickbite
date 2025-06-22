@@ -48,8 +48,20 @@ export const checkoutAddressInfoForm = z.object({
     .max(50, "City is too long."),
 });
 
+export const checkoutDeliveryTimeForm = z.object({
+  delivery_time: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your delivery time.")
+    .max(5, "Delivery time is too long."),
+});
+
 export type TCheckoutPersonalInfoForm = z.infer<
   typeof checkoutPersonalInfoForm
 >;
 
 export type TCheckoutAddressInfoForm = z.infer<typeof checkoutAddressInfoForm>;
+
+export type TCheckoutDeliveryTimeForm = z.infer<
+  typeof checkoutDeliveryTimeForm
+>;
