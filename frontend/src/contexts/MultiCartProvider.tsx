@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
-import { MenuItem } from "@/types";
+import { emptyRestaurant } from "@/lib/data";
+import { MenuItem, RestaurantDetail } from "@/types";
 import { Cart, CartItem, RestaurantCart } from "@/types/cart-types";
 
 type MultiCartProviderProps = {
@@ -11,7 +12,11 @@ type MultiCartContext = {
   getCart: (restaurantId: string) => RestaurantCart;
   getItems: (restaurantId: string) => CartItem[];
   isEmpty: (restaurantId: string) => boolean;
-  addItem: (restaurantId: string, menuItem: MenuItem, quantity: number) => void;
+  addItem: (
+    restaurant: RestaurantDetail,
+    menuItem: MenuItem,
+    quantity: number,
+  ) => void;
   getItem: (restaurantId: string, cartItemId: string) => CartItem | undefined;
   inCart: (restaurantId: string, cartItemId: string) => boolean;
   emptyCart: (restaurantId: string) => void;
@@ -34,6 +39,7 @@ type MultiCartContext = {
 
 const initialState: RestaurantCart = {
   items: [],
+  restaurant: emptyRestaurant,
   restaurant_id: "",
   total_items: 0,
   total_unique_items: 0,
@@ -79,8 +85,14 @@ export default function MultiCartProvider({
     return carts[restaurantId]?.items.find((item) => item.id === cartItemId);
   }
 
-  function addItem(restaurantId: string, menuItem: MenuItem, quantity: number) {
+  function addItem(
+    restaurant: RestaurantDetail,
+    menuItem: MenuItem,
+    quantity: number,
+  ) {
     setCarts((prev) => {
+      const { id: restaurantId } = restaurant;
+
       const existingCart = prev[restaurantId] ?? initialState;
 
       const existingItem = existingCart.items.some(
@@ -115,6 +127,7 @@ export default function MultiCartProvider({
         ...prev,
         [restaurantId]: {
           restaurant_id: restaurantId,
+          restaurant,
           items: updatedItems,
           total_items,
           total_unique_items,
@@ -137,7 +150,6 @@ export default function MultiCartProvider({
         ...prev,
         [restaurantId]: {
           ...cart,
-          restaurant_id: restaurantId,
           items: updatedItems,
           total_items,
           total_unique_items,

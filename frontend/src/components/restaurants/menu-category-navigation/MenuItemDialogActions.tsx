@@ -34,7 +34,7 @@ export default function MenuItemDialogActions({
   const totalPrice = menuItem.price * menuItemQuantity;
 
   function handleAddToCart() {
-    addItem(restaurant.id, menuItem, menuItemQuantity);
+    addItem(restaurant, menuItem, menuItemQuantity);
 
     setMenuItemQuantity(1);
     setOpenMenuItemDialog(false);
