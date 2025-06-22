@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useGetCart } from "@/hooks/react-query/private/cart/useGetCart";
 import { Cart } from "@/types";
-import { Order } from "@/types/order-types";
+import { PersonalInfo } from "@/types/order-types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
@@ -13,14 +13,14 @@ type CheckoutProviderProps = {
 
 type CheckoutContext = {
   cart: Cart;
-  checkoutData: Partial<Order> | null;
-  setCheckoutData: React.Dispatch<React.SetStateAction<Partial<Order> | null>>;
+  personalInfo: PersonalInfo | null;
+  setPersonalInfo: React.Dispatch<React.SetStateAction<PersonalInfo | null>>;
 };
 
 export const CheckoutContext = createContext<CheckoutContext | null>(null);
 
 export default function CheckoutProvider({ children }: CheckoutProviderProps) {
-  const [checkoutData, setCheckoutData] = useState<Partial<Order> | null>(null);
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
 
   const { cartId } = useParams();
   const { data: cart = {}, isLoading: isCartLoading } = useGetCart(cartId);
@@ -28,7 +28,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   if (isCartLoading) return <FullPageSpinner />;
 
   return (
-    <CheckoutContext.Provider value={{ cart, checkoutData, setCheckoutData }}>
+    <CheckoutContext.Provider value={{ cart, personalInfo, setPersonalInfo }}>
       {children}
     </CheckoutContext.Provider>
   );
