@@ -3,6 +3,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
 import {
+  TAddressInfoEditStreetAddressForm,
   TPersonalInfoEditEmailForm,
   TPersonalInfoEditFullNameForm,
   TPersonalInfoEditPhoneNumberForm,
@@ -11,7 +12,8 @@ import {
 type PersonalInfoField =
   | TPersonalInfoEditFullNameForm
   | TPersonalInfoEditEmailForm
-  | TPersonalInfoEditPhoneNumberForm;
+  | TPersonalInfoEditPhoneNumberForm
+  | TAddressInfoEditStreetAddressForm;
 
 export function useUpdateCustomerProfile() {
   const queryClient = useQueryClient();
