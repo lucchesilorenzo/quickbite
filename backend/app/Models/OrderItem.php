@@ -15,11 +15,11 @@ class OrderItem extends Model
         'order_id',
         'menu_item_id',
         'quantity',
-        'price',
+        'item_total',
     ];
 
     protected $casts = [
-        'price' => 'float',
+        'item_total' => 'float',
     ];
 
     /**
