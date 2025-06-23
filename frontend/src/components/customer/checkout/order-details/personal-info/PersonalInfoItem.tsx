@@ -16,13 +16,15 @@ import { useCheckout } from "@/hooks/contexts/useCheckout";
 
 export default function PersonalInfoItem() {
   const { user } = useAuth();
-  const { checkoutData } = useCheckout();
+  const { checkoutData, restaurantId } = useCheckout();
 
   const [openPersonalInfoDialog, setOpenPersonalInfoDialog] = useState(false);
 
-  const text = `${checkoutData.personal_info?.first_name || user?.first_name} ${checkoutData.personal_info?.last_name || user?.last_name}`;
+  const text = `${checkoutData[restaurantId].personal_info?.first_name || user?.first_name} ${checkoutData[restaurantId].personal_info?.last_name || user?.last_name}`;
   const phoneNumber =
-    checkoutData.personal_info?.phone_number || user?.phone_number || "";
+    checkoutData[restaurantId].personal_info?.phone_number ||
+    user?.phone_number ||
+    "";
 
   return (
     <>

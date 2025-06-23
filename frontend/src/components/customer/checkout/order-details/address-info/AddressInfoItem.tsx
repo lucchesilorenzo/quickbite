@@ -16,7 +16,7 @@ import { useCheckout } from "@/hooks/contexts/useCheckout";
 
 export default function AddressInfoItem() {
   const { user } = useAuth();
-  const { checkoutData } = useCheckout();
+  const { checkoutData, restaurantId } = useCheckout();
 
   const [openAddressInfoDialog, setOpenAddressInfoDialog] = useState(false);
 
@@ -27,13 +27,13 @@ export default function AddressInfoItem() {
     user?.city;
 
   const hasAddressInfo =
-    checkoutData.address_info?.street_address &&
-    checkoutData.address_info?.building_number &&
-    checkoutData.address_info?.postcode &&
-    checkoutData.address_info?.city;
+    checkoutData[restaurantId].address_info?.street_address &&
+    checkoutData[restaurantId].address_info?.building_number &&
+    checkoutData[restaurantId].address_info?.postcode &&
+    checkoutData[restaurantId].address_info?.city;
 
   const text = hasAddressInfo
-    ? `${checkoutData.address_info!.street_address} ${checkoutData.address_info!.building_number}, ${checkoutData.address_info!.postcode} ${checkoutData.address_info!.city}`
+    ? `${checkoutData[restaurantId].address_info!.street_address} ${checkoutData[restaurantId].address_info!.building_number}, ${checkoutData[restaurantId].address_info!.postcode} ${checkoutData[restaurantId].address_info!.city}`
     : hasUserAddress
       ? `${user!.street_address} ${user!.building_number}, ${user!.postcode} ${user!.city}`
       : "Complete address is required";

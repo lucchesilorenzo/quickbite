@@ -18,7 +18,7 @@ export default function AddressInfoForm({
   setOpenAddressInfoDialog,
 }: AddressInfoFormProps) {
   const { user } = useAuth();
-  const { checkoutData, setCheckoutData } = useCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,
@@ -28,20 +28,28 @@ export default function AddressInfoForm({
     resolver: zodResolver(checkoutAddressInfoForm),
     defaultValues: {
       street_address:
-        checkoutData.address_info.street_address || user?.street_address || "",
+        checkoutData[restaurantId].address_info.street_address ||
+        user?.street_address ||
+        "",
       building_number:
-        checkoutData.address_info.building_number ||
+        checkoutData[restaurantId].address_info.building_number ||
         user?.building_number ||
         "",
-      postcode: checkoutData.address_info.postcode || user?.postcode || "",
-      city: checkoutData.address_info.city || user?.city || "",
+      postcode:
+        checkoutData[restaurantId].address_info.postcode ||
+        user?.postcode ||
+        "",
+      city: checkoutData[restaurantId].address_info.city || user?.city || "",
     },
   });
 
   function onSubmit(data: TCheckoutAddressInfoForm) {
     setCheckoutData((prev) => ({
       ...prev,
-      address_info: data,
+      [restaurantId]: {
+        ...prev[restaurantId],
+        address_info: data,
+      },
     }));
     setOpenAddressInfoDialog(false);
   }

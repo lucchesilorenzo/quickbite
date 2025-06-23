@@ -1,14 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 
-import { useNotifications } from "@toolpad/core/useNotifications";
 import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { useGetCart } from "@/hooks/react-query/private/cart/useGetCart";
-import { useCreateOrder } from "@/hooks/react-query/private/orders/useCreateOrder";
 import { Cart } from "@/types";
-import { CheckoutData, CreateOrder } from "@/types/order-types";
+import { CheckoutData } from "@/types/order-types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
@@ -17,8 +15,9 @@ type CheckoutProviderProps = {
 type CheckoutContext = {
   cart: Cart;
   checkoutData: CheckoutData;
+  restaurantId: string;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
-  handleCheckout: () => Promise<void>;
+  emptyCheckoutData: (restaurantId: string) => void;
 };
 
 export const CheckoutContext = createContext<CheckoutContext | null>(null);
@@ -26,20 +25,28 @@ export const CheckoutContext = createContext<CheckoutContext | null>(null);
 export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const { cartId } = useParams();
   const { data: cart = {}, isLoading: isCartLoading } = useGetCart(cartId);
+
   const restaurantCart = Object.values(cart)[0];
+  const restaurantId = restaurantCart?.restaurant_id;
 
   const { user } = useAuth();
-  const { mutateAsync: createOrder } = useCreateOrder(
-    restaurantCart?.restaurant_id,
-  );
-
-  const notifications = useNotifications();
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
-    const stored = localStorage.getItem("checkout_data");
-    return stored
-      ? JSON.parse(stored)
-      : {
+    const stored = localStorage.getItem("checkout_data_by_restaurant");
+    return stored ? JSON.parse(stored) : {};
+  });
+
+  const isCheckoutReady = !!(restaurantId && checkoutData[restaurantId]);
+
+  useEffect(() => {
+    if (!restaurantId) return;
+
+    setCheckoutData((prev) => {
+      if (prev[restaurantId]) return prev;
+
+      return {
+        ...prev,
+        [restaurantId]: {
           personal_info: {
             first_name: user?.first_name || "",
             last_name: user?.last_name || "",
@@ -54,67 +61,37 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
           delivery_time: null,
           order_notes: null,
           payment_method: null,
-        };
-  });
+        },
+      };
+    });
+  }, [restaurantId, user]);
 
   useEffect(() => {
-    localStorage.setItem("checkout_data", JSON.stringify(checkoutData));
+    localStorage.setItem(
+      "checkout_data_by_restaurant",
+      JSON.stringify(checkoutData),
+    );
   }, [checkoutData]);
 
-  async function handleCheckout() {
-    const isPersonalInfoValid =
-      checkoutData.personal_info &&
-      checkoutData.personal_info.first_name.trim() &&
-      checkoutData.personal_info.last_name.trim() &&
-      checkoutData.personal_info.phone_number.trim();
+  function emptyCheckoutData(restaurantId: string) {
+    setCheckoutData((prev) => {
+      const copy = { ...prev };
 
-    const isAddressValid =
-      checkoutData.address_info &&
-      checkoutData.address_info.street_address.trim() &&
-      checkoutData.address_info.building_number.trim() &&
-      checkoutData.address_info.postcode.trim() &&
-      checkoutData.address_info.city.trim();
-
-    if (
-      !isPersonalInfoValid ||
-      !isAddressValid ||
-      !checkoutData.delivery_time ||
-      !checkoutData.payment_method
-    ) {
-      notifications.show("Please fill in all the required fields.", {
-        key: "checkout-error",
-        severity: "error",
-      });
-
-      return;
-    }
-
-    const order: CreateOrder = {
-      ...checkoutData.personal_info,
-      ...checkoutData.address_info,
-      ...checkoutData.delivery_time,
-      ...checkoutData.order_notes,
-      ...checkoutData.payment_method,
-      restaurant_id: restaurantCart.restaurant_id,
-      order_items: restaurantCart.items.map((i) => ({
-        menu_item_id: i.id,
-        quantity: i.quantity,
-        item_total: i.item_total,
-      })),
-    };
-
-    await createOrder(order);
+      delete copy[restaurantId];
+      return copy;
+    });
   }
 
-  if (isCartLoading) return <FullPageSpinner />;
+  if (isCartLoading || !isCheckoutReady) return <FullPageSpinner />;
 
   return (
     <CheckoutContext.Provider
       value={{
         cart,
         checkoutData,
+        restaurantId,
         setCheckoutData,
-        handleCheckout,
+        emptyCheckoutData,
       }}
     >
       {children}

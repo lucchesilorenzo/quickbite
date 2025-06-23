@@ -29,7 +29,7 @@ type PaymentMethodFormProps = {
 export default function PaymentMethodForm({
   setOpenPaymentMethodDialog,
 }: PaymentMethodFormProps) {
-  const { checkoutData, setCheckoutData } = useCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,
@@ -38,14 +38,18 @@ export default function PaymentMethodForm({
   } = useForm({
     resolver: zodResolver(checkoutPaymentMethodForm),
     defaultValues: {
-      payment_method: checkoutData.payment_method?.payment_method || "",
+      payment_method:
+        checkoutData[restaurantId].payment_method?.payment_method || "",
     },
   });
 
   function onSubmit(data: TCheckoutPaymentMethodForm) {
     setCheckoutData((prev) => ({
       ...prev,
-      payment_method: data,
+      [restaurantId]: {
+        ...prev[restaurantId],
+        payment_method: data,
+      },
     }));
     setOpenPaymentMethodDialog(false);
   }

@@ -9,22 +9,72 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useNotifications } from "@toolpad/core/useNotifications";
 import { Link } from "react-router-dom";
 
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCreateOrder } from "@/hooks/react-query/private/orders/useCreateOrder";
 import { formatCurrency } from "@/lib/utils";
+import { CreateOrder } from "@/types/order-types";
 
 export default function CheckoutOrderFooter() {
-  const { cart, handleCheckout } = useCheckout();
+  const { cart, checkoutData, restaurantId } = useCheckout();
+  const { mutateAsync: createOrder } = useCreateOrder(restaurantId);
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
+  const notifications = useNotifications();
 
   const restaurantCart = Object.values(cart)[0];
 
   const total =
     restaurantCart.cart_total + restaurantCart.restaurant.shipping_cost;
+
+  async function handleCheckout() {
+    const isPersonalInfoValid =
+      checkoutData[restaurantId].personal_info &&
+      checkoutData[restaurantId].personal_info.first_name.trim() &&
+      checkoutData[restaurantId].personal_info.last_name.trim() &&
+      checkoutData[restaurantId].personal_info.phone_number.trim();
+
+    const isAddressValid =
+      checkoutData[restaurantId].address_info &&
+      checkoutData[restaurantId].address_info.street_address.trim() &&
+      checkoutData[restaurantId].address_info.building_number.trim() &&
+      checkoutData[restaurantId].address_info.postcode.trim() &&
+      checkoutData[restaurantId].address_info.city.trim();
+
+    if (
+      !isPersonalInfoValid ||
+      !isAddressValid ||
+      !checkoutData[restaurantId].delivery_time ||
+      !checkoutData[restaurantId].payment_method
+    ) {
+      notifications.show("Please fill in all the required fields.", {
+        key: "checkout-error",
+        severity: "error",
+      });
+
+      return;
+    }
+
+    const order: CreateOrder = {
+      ...checkoutData[restaurantId].personal_info,
+      ...checkoutData[restaurantId].address_info,
+      ...checkoutData[restaurantId].delivery_time,
+      ...checkoutData[restaurantId].order_notes,
+      ...checkoutData[restaurantId].payment_method,
+      restaurant_id: restaurantCart.restaurant_id,
+      order_items: restaurantCart.items.map((i) => ({
+        menu_item_id: i.id,
+        quantity: i.quantity,
+        item_total: i.item_total,
+      })),
+    };
+
+    await createOrder(order);
+  }
 
   return (
     <Box>

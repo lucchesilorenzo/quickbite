@@ -19,7 +19,7 @@ export default function PersonalInfoForm({
   setOpenPersonalInfoDialog,
 }: PersonalInfoFormProps) {
   const { user } = useAuth();
-  const { checkoutData, setCheckoutData } = useCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,
@@ -29,17 +29,27 @@ export default function PersonalInfoForm({
     resolver: zodResolver(checkoutPersonalInfoForm),
     defaultValues: {
       first_name:
-        checkoutData.personal_info?.first_name || user?.first_name || "",
-      last_name: checkoutData.personal_info?.last_name || user?.last_name || "",
+        checkoutData[restaurantId].personal_info?.first_name ||
+        user?.first_name ||
+        "",
+      last_name:
+        checkoutData[restaurantId].personal_info?.last_name ||
+        user?.last_name ||
+        "",
       phone_number:
-        checkoutData.personal_info?.phone_number || user?.phone_number || "",
+        checkoutData[restaurantId].personal_info?.phone_number ||
+        user?.phone_number ||
+        "",
     },
   });
 
   function onSubmit(data: TCheckoutPersonalInfoForm) {
     setCheckoutData((prev) => ({
       ...prev,
-      personal_info: data,
+      [restaurantId]: {
+        ...prev[restaurantId],
+        personal_info: data,
+      },
     }));
     setOpenPersonalInfoDialog(false);
   }
