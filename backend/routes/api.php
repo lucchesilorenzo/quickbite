@@ -8,3 +8,4 @@ require __DIR__ . '/api/public/restaurants.php';
 require __DIR__ . '/api/private/auth.php';
 require __DIR__ . '/api/private/customers.php';
 require __DIR__ . '/api/private/carts.php';
+require __DIR__ . '/api/private/orders.php';
