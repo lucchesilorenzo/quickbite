@@ -24,7 +24,16 @@ type CheckoutContext = {
 export const CheckoutContext = createContext<CheckoutContext | null>(null);
 
 export default function CheckoutProvider({ children }: CheckoutProviderProps) {
+  const { cartId } = useParams();
+  const { data: cart = {}, isLoading: isCartLoading } = useGetCart(cartId);
+  const restaurantCart = Object.values(cart)[0];
+
   const { user } = useAuth();
+  const { mutateAsync: createOrder } = useCreateOrder(
+    restaurantCart?.restaurant_id,
+  );
+
+  const notifications = useNotifications();
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
     const stored = localStorage.getItem("checkout_data");
@@ -32,15 +41,15 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
       ? JSON.parse(stored)
       : {
           personal_info: {
-            first_name: user?.first_name ?? "",
-            last_name: user?.last_name ?? "",
-            phone_number: user?.phone_number ?? "",
+            first_name: user?.first_name || "",
+            last_name: user?.last_name || "",
+            phone_number: user?.phone_number || "",
           },
           address_info: {
-            street_address: user?.street_address ?? "",
-            building_number: user?.building_number ?? "",
-            postcode: user?.postcode ?? "",
-            city: user?.city ?? "",
+            street_address: user?.street_address || "",
+            building_number: user?.building_number || "",
+            postcode: user?.postcode || "",
+            city: user?.city || "",
           },
           delivery_time: null,
           order_notes: null,
@@ -51,13 +60,6 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   useEffect(() => {
     localStorage.setItem("checkout_data", JSON.stringify(checkoutData));
   }, [checkoutData]);
-
-  const { cartId } = useParams();
-  const { data: cart = {}, isLoading: isCartLoading } = useGetCart(cartId);
-  const { mutateAsync: createOrder } = useCreateOrder();
-  const notifications = useNotifications();
-
-  const restaurantCart = Object.values(cart)[0];
 
   async function handleCheckout() {
     const isPersonalInfoValid =
