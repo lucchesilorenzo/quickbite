@@ -55,3 +55,11 @@ export type DeliveryTime = Pick<Order, "delivery_time">;
 export type OrderNotes = Pick<Order, "notes">;
 
 export type PaymentMethod = Pick<Order, "payment_method">;
+
+export type CheckoutData = {
+  personal_info: PersonalInfo;
+  address_info: AddressInfo;
+  delivery_time: DeliveryTime | null;
+  order_notes: OrderNotes | null;
+  payment_method: PaymentMethod | null;
+};
