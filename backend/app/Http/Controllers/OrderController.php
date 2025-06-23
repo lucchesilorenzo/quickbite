@@ -49,7 +49,7 @@ class OrderController extends Controller
                 'order' => $order->load('orderItems'),
             ], 201);
         } catch (\Throwable $e) {
-            return response()->json(['message' => 'Error creating order.', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'Error creating order.'], 500);
         }
     }
 }

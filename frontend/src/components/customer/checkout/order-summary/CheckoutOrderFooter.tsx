@@ -17,7 +17,7 @@ import { useCheckout } from "@/hooks/contexts/useCheckout";
 import { formatCurrency } from "@/lib/utils";
 
 export default function CheckoutOrderFooter() {
-  const { cart } = useCheckout();
+  const { cart, handleCheckout } = useCheckout();
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
 
@@ -78,7 +78,12 @@ export default function CheckoutOrderFooter() {
       </Stack>
 
       <Box sx={{ mt: 2 }}>
-        <Button variant="contained" size="large" fullWidth>
+        <Button
+          variant="contained"
+          size="large"
+          fullWidth
+          onClick={handleCheckout}
+        >
           Order and pay
         </Button>
 
