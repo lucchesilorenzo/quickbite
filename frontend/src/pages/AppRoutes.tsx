@@ -8,6 +8,7 @@ import AppLayout from "../layouts/AppLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 import CheckoutPage from "./private/customer/CheckoutPage";
+import CheckoutSuccessPage from "./private/customer/CheckoutSuccessPage";
 import AreaPage from "./public/AreaPage";
 import BecomeAPartnerPage from "./public/BecomeAPartnerPage";
 import BecomeARiderPage from "./public/BecomeARiderPage";
@@ -88,6 +89,12 @@ export default function AppRoutes() {
                     element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
                   >
                     <Route index element={<CheckoutPage />} />
+                  </Route>
+                  <Route
+                    path="checkout/success"
+                    element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
+                  >
+                    <Route index element={<CheckoutSuccessPage />} />
                   </Route>
                 </Route>
 
