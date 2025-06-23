@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
-            $table->integer('order_code');
+            $table->integer('order_code')->unique();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number');
@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('postcode');
             $table->string('city');
             $table->string('country')->default('Italy');
-            $table->time('delivery_time')->nullable();
+            $table->time('delivery_time');
             $table->string('notes', 160)->nullable();
-            $table->string('payment_method')->default('cash');
+            $table->string('payment_method');
             $table->timestamps();
         });
     }
