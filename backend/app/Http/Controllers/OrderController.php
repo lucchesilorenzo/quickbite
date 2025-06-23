@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateOrderRequest;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -18,11 +17,16 @@ class OrderController extends Controller
             // Get user
             $user = auth()->user();
 
+            // Generate random order code
+            do {
+                $randomOrderCode = random_int(100000, 999999);
+            } while (Order::where('order_code', $randomOrderCode)->exists());
+
             // Create order
             $order = Order::create([
                 'user_id' => $user->id,
                 'restaurant_id' => $data['restaurant_id'],
-                'order_code' => Str::uuid(),
+                'order_code' => $randomOrderCode,
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'phone_number' => $data['phone_number'],
