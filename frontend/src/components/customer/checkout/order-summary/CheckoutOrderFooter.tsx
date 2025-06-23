@@ -1,7 +1,15 @@
 import { useState } from "react";
 
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
-import { Box, Divider, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
@@ -68,6 +76,51 @@ export default function CheckoutOrderFooter() {
           {formatCurrency(total)}
         </Typography>
       </Stack>
+
+      <Box sx={{ mt: 2 }}>
+        <Button variant="contained" size="large" fullWidth>
+          Order and pay
+        </Button>
+
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          sx={{ mt: 2, textAlign: "justify" }}
+        >
+          By clicking on "Order and pay" you confirm the content of the cart,
+          the data you have filled in, accepting{" "}
+          <Typography
+            component={Link}
+            to="/privacy-policy"
+            variant="body2"
+            color="textPrimary"
+            sx={{
+              cursor: "pointer",
+              textDecoration: "underline",
+              mr: 0.5,
+              "&:hover": { textDecoration: "none" },
+            }}
+          >
+            the privacy policy
+          </Typography>
+          and
+          <Typography
+            component={Link}
+            to="/terms-and-conditions"
+            variant="body2"
+            color="textPrimary"
+            sx={{
+              cursor: "pointer",
+              textDecoration: "underline",
+              ml: 0.5,
+              "&:hover": { textDecoration: "none" },
+            }}
+          >
+            terms of use
+          </Typography>
+          .
+        </Typography>
+      </Box>
 
       <DeliveryFeeDialog
         openDeliveryFeeDialog={openDeliveryFeeDialog}
