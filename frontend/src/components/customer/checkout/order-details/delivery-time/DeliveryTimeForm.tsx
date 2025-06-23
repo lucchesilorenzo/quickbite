@@ -28,7 +28,7 @@ type DeliveryTimeFormProps = {
 export default function DeliveryTimeForm({
   setOpenDeliveryTimeDialog,
 }: DeliveryTimeFormProps) {
-  const { deliveryTime, setDeliveryTime } = useCheckout();
+  const { checkoutData, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,
@@ -37,12 +37,15 @@ export default function DeliveryTimeForm({
   } = useForm({
     resolver: zodResolver(checkoutDeliveryTimeForm),
     defaultValues: {
-      delivery_time: deliveryTime?.delivery_time ?? "",
+      delivery_time: checkoutData.delivery_time?.delivery_time ?? "",
     },
   });
 
   function onSubmit(data: TCheckoutDeliveryTimeForm) {
-    setDeliveryTime(data);
+    setCheckoutData((prev) => ({
+      ...prev,
+      delivery_time: data,
+    }));
     setOpenDeliveryTimeDialog(false);
   }
 

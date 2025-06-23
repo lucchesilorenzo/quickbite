@@ -1,20 +1,14 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
+import { useAuth } from "@/hooks/contexts/useAuth";
 import { useGetCart } from "@/hooks/react-query/private/cart/useGetCart";
 import { useCreateOrder } from "@/hooks/react-query/private/orders/useCreateOrder";
 import { Cart } from "@/types";
-import {
-  AddressInfo,
-  CreateOrder,
-  DeliveryTime,
-  OrderNotes,
-  PaymentMethod,
-  PersonalInfo,
-} from "@/types/order-types";
+import { CheckoutData, CreateOrder } from "@/types/order-types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
@@ -22,29 +16,41 @@ type CheckoutProviderProps = {
 
 type CheckoutContext = {
   cart: Cart;
-  personalInfo: PersonalInfo | null;
-  addressInfo: AddressInfo | null;
-  deliveryTime: DeliveryTime | null;
-  orderNotes: OrderNotes | null;
-  paymentMethod: PaymentMethod | null;
-  setPersonalInfo: React.Dispatch<React.SetStateAction<PersonalInfo | null>>;
-  setAddressInfo: React.Dispatch<React.SetStateAction<AddressInfo | null>>;
-  setDeliveryTime: React.Dispatch<React.SetStateAction<DeliveryTime | null>>;
-  setOrderNotes: React.Dispatch<React.SetStateAction<OrderNotes | null>>;
-  setPaymentMethod: React.Dispatch<React.SetStateAction<PaymentMethod | null>>;
+  checkoutData: CheckoutData;
+  setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
   handleCheckout: () => Promise<void>;
 };
 
 export const CheckoutContext = createContext<CheckoutContext | null>(null);
 
 export default function CheckoutProvider({ children }: CheckoutProviderProps) {
-  const [personalInfo, setPersonalInfo] = useState<PersonalInfo | null>(null);
-  const [addressInfo, setAddressInfo] = useState<AddressInfo | null>(null);
-  const [deliveryTime, setDeliveryTime] = useState<DeliveryTime | null>(null);
-  const [orderNotes, setOrderNotes] = useState<OrderNotes | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
-    null,
-  );
+  const { user } = useAuth();
+
+  const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
+    const stored = localStorage.getItem("checkout_data");
+    return stored
+      ? JSON.parse(stored)
+      : {
+          personal_info: {
+            first_name: user?.first_name ?? "",
+            last_name: user?.last_name ?? "",
+            phone_number: user?.phone_number ?? "",
+          },
+          address_info: {
+            street_address: user?.street_address ?? "",
+            building_number: user?.building_number ?? "",
+            postcode: user?.postcode ?? "",
+            city: user?.city ?? "",
+          },
+          delivery_time: null,
+          order_notes: null,
+          payment_method: null,
+        };
+  });
+
+  useEffect(() => {
+    localStorage.setItem("checkout_data", JSON.stringify(checkoutData));
+  }, [checkoutData]);
 
   const { cartId } = useParams();
   const { data: cart = {}, isLoading: isCartLoading } = useGetCart(cartId);
@@ -54,7 +60,25 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const restaurantCart = Object.values(cart)[0];
 
   async function handleCheckout() {
-    if (!personalInfo || !addressInfo || !deliveryTime || !paymentMethod) {
+    const isPersonalInfoValid =
+      checkoutData.personal_info &&
+      checkoutData.personal_info.first_name.trim() &&
+      checkoutData.personal_info.last_name.trim() &&
+      checkoutData.personal_info.phone_number.trim();
+
+    const isAddressValid =
+      checkoutData.address_info &&
+      checkoutData.address_info.street_address.trim() &&
+      checkoutData.address_info.building_number.trim() &&
+      checkoutData.address_info.postcode.trim() &&
+      checkoutData.address_info.city.trim();
+
+    if (
+      !isPersonalInfoValid ||
+      !isAddressValid ||
+      !checkoutData.delivery_time ||
+      !checkoutData.payment_method
+    ) {
       notifications.show("Please fill in all the required fields.", {
         key: "checkout-error",
         severity: "error",
@@ -64,11 +88,11 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
     }
 
     const order: CreateOrder = {
-      ...personalInfo,
-      ...addressInfo,
-      ...deliveryTime,
-      ...orderNotes,
-      ...paymentMethod,
+      ...checkoutData.personal_info,
+      ...checkoutData.address_info,
+      ...checkoutData.delivery_time,
+      ...checkoutData.order_notes,
+      ...checkoutData.payment_method,
       restaurant_id: restaurantCart.restaurant_id,
       order_items: restaurantCart.items.map((i) => ({
         menu_item_id: i.id,
@@ -76,8 +100,6 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
         item_total: i.item_total,
       })),
     };
-
-    console.log(order);
 
     await createOrder(order);
   }
@@ -88,16 +110,8 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
     <CheckoutContext.Provider
       value={{
         cart,
-        personalInfo,
-        addressInfo,
-        deliveryTime,
-        orderNotes,
-        paymentMethod,
-        setPersonalInfo,
-        setAddressInfo,
-        setDeliveryTime,
-        setOrderNotes,
-        setPaymentMethod,
+        checkoutData,
+        setCheckoutData,
         handleCheckout,
       }}
     >

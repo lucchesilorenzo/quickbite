@@ -16,7 +16,7 @@ type OrderNotesFormProps = {
 export default function OrderNotesForm({
   setOpenOrderNotesDialog,
 }: OrderNotesFormProps) {
-  const { orderNotes, setOrderNotes } = useCheckout();
+  const { checkoutData, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,
@@ -25,12 +25,15 @@ export default function OrderNotesForm({
   } = useForm({
     resolver: zodResolver(checkoutOrderNotesForm),
     defaultValues: {
-      notes: orderNotes?.notes ?? "",
+      notes: checkoutData.order_notes?.notes || "",
     },
   });
 
   function onSubmit(data: TCheckoutOrderNotesForm) {
-    setOrderNotes(data);
+    setCheckoutData((prev) => ({
+      ...prev,
+      order_notes: data,
+    }));
     setOpenOrderNotesDialog(false);
   }
 
