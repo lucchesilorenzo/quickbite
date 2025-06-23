@@ -61,7 +61,7 @@ export default function PaymentMethodForm({
         render={({ field }) => (
           <Stack spacing={2}>
             {paymentMethodOptions.map((option) => (
-              <Box>
+              <Box key={option.value}>
                 <Paper
                   {...field}
                   component={Button}
