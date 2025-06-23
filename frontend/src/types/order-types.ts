@@ -11,7 +11,7 @@ export type Order = {
   postcode: string;
   city: string;
   delivery_time: string;
-  notes: string;
+  notes?: string;
   payment_method: string;
   order_items: OrderItem[];
   created_at: string;
@@ -23,9 +23,21 @@ export type OrderItem = {
   order_id: string;
   menu_item_id: string;
   quantity: number;
-  price: number;
+  item_total: number;
   created_at: string;
   updated_at: string;
+};
+
+export type CreateOrderItem = Omit<
+  OrderItem,
+  "id" | "created_at" | "updated_at" | "order_id"
+>;
+
+export type CreateOrder = Omit<
+  Order,
+  "id" | "order_code" | "created_at" | "updated_at" | "user_id" | "order_items"
+> & {
+  order_items: CreateOrderItem[];
 };
 
 export type PersonalInfo = Pick<
