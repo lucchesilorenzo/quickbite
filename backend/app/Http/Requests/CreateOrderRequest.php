@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Rules\ValidPhoneNumber;
+use Illuminate\Foundation\Http\FormRequest;
+
+class CreateOrderRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'restaurant_id' => ['required', 'exists:restaurants,id'],
+            'first_name' => ['required', 'string', 'min:1', 'max:50'],
+            'last_name' => ['required', 'string', 'min:1', 'max:50'],
+            'phone_number' => ['required', 'string', 'min:1', new ValidPhoneNumber('IT')],
+            'street_address' => ['required', 'string', 'min:1', 'max:50'],
+            'building_number' => ['required', 'string', 'min:1', 'max:50'],
+            'postcode' => ['required', 'string', 'min:1', 'max:50'],
+            'city' => ['required', 'string', 'min:1', 'max:50'],
+            'delivery_time' => ['required', 'string', 'min:1', 'max:5'],
+            'notes' => ['nullable', 'string', 'max:160'],
+            'payment_method' => ['required', 'string', 'min:1', 'max:50'],
+
+            'order_items' => ['required', 'array', 'min:1'],
+            'order_items.*.menu_item_id' => ['required', 'exists:menu_items,id'],
+            'order_items.*.quantity' => ['required', 'integer', 'min:1'],
+            'order_items.*.item_total' => ['required', 'numeric', 'min:0'],
+        ];
+    }
+}
