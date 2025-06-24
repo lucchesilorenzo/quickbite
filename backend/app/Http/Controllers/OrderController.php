@@ -8,6 +8,39 @@ use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
+    /**
+     * Get an order for the authenticated user.
+     *
+     * @param Order $order
+     * @return JsonResponse
+     */
+    public function getOrder(Order $order): JsonResponse
+    {
+        try {
+            $user = auth()->user();
+
+            if ($order->user_id !== $user->id) {
+                return response()->json([
+                    'message' => 'You are not authorized to view this order.',
+                ], 403);
+            }
+
+            $order->load('orderItems');
+
+            return response()->json($order, 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Could not get order.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Create a new order.
+     *
+     * @param CreateOrderRequest $request
+     * @return JsonResponse
+     */
     public function createOrder(CreateOrderRequest $request): JsonResponse
     {
         // Get validated data
@@ -48,9 +81,11 @@ class OrderController extends Controller
                 ]);
             }
 
+            $order->load('orderItems');
+
             return response()->json([
-                'message' => 'Order created successfully',
-                'order' => $order->load('orderItems'),
+                'message' => 'Order created successfully.',
+                'order' => $order,
             ], 201);
         } catch (\Throwable $e) {
             return response()->json(['message' => 'Error creating order.'], 500);
