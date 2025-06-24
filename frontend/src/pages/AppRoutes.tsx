@@ -91,7 +91,7 @@ export default function AppRoutes() {
                     <Route index element={<CheckoutPage />} />
                   </Route>
                   <Route
-                    path="checkout/success"
+                    path="checkout/:orderId/success"
                     element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
                   >
                     <Route index element={<CheckoutSuccessPage />} />
