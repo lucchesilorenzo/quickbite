@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNotifications } from "@toolpad/core/useNotifications";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
@@ -25,6 +25,7 @@ export default function CheckoutOrderFooter() {
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const notifications = useNotifications();
+  const navigate = useNavigate();
 
   const restaurantCart = Object.values(cart)[0];
 
@@ -73,7 +74,8 @@ export default function CheckoutOrderFooter() {
       })),
     };
 
-    await createOrder(order);
+    const { order: newOrder } = await createOrder(order);
+    navigate(`/checkout/${newOrder.id}/success`, { replace: true });
   }
 
   return (
