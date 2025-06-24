@@ -7,5 +7,6 @@ export function useGetCart(cartId?: string) {
   return useQuery({
     queryKey: ["cart", cartId],
     queryFn: (): Promise<Cart> => fetchData(`/carts/${cartId}`),
+    enabled: !!cartId,
   });
 }
