@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
@@ -7,6 +9,10 @@ import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useGetOrder } from "@/hooks/react-query/private/orders/useGetOrder";
 
 export default function CheckoutSuccessPage() {
+  useEffect(() => {
+    document.title = "Checkout success | QuickBite";
+  }, []);
+
   const { orderId } = useParams();
   const {
     data: order,
