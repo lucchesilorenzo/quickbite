@@ -5,6 +5,7 @@ import {
   DialogTitle,
   IconButton,
   Stack,
+  useMediaQuery,
 } from "@mui/material";
 
 import PersonalInfoForm from "./PersonalInfoForm";
@@ -18,11 +19,14 @@ export default function PersonalInfoDialog({
   openPersonalInfoDialog,
   setOpenPersonalInfoDialog,
 }: PersonalInfoDialogProps) {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
     <Dialog
       open={openPersonalInfoDialog}
       onClose={() => setOpenPersonalInfoDialog(false)}
-      fullWidth
+      fullWidth={!isMobile}
+      fullScreen={isMobile}
       disableRestoreFocus
     >
       <Stack spacing={2} sx={{ p: 2 }}>
