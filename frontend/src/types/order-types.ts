@@ -1,4 +1,4 @@
-import { RestaurantBase } from "./restaurant-types";
+import { RestaurantBase, Review } from "./restaurant-types";
 
 export type Order = {
   id: string;
@@ -16,7 +16,9 @@ export type Order = {
   notes?: string;
   payment_method: string;
   order_items: OrderItem[];
-  restaurant: RestaurantBase;
+  restaurant: RestaurantBase & {
+    reviews: Review[];
+  };
   created_at: string;
   updated_at: string;
 };
