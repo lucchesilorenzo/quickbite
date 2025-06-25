@@ -9,6 +9,10 @@ import {
 } from "@mui/material";
 
 import EmptyOrders from "./EmptyOrders";
+import OrdersList from "./OrdersList";
+
+import Spinner from "@/components/common/Spinner";
+import { useGetOrders } from "@/hooks/react-query/private/orders/useGetOrders";
 
 type OrdersDialogProps = {
   openOrdersDialog: boolean;
@@ -22,6 +26,8 @@ export default function OrdersDialog({
   setOpenHeaderCustomerDialog,
 }: OrdersDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  const { data: orders, isLoading: isLoadingOrders } = useGetOrders();
 
   return (
     <Dialog
@@ -58,10 +64,16 @@ export default function OrdersDialog({
         </Stack>
 
         <DialogContent sx={{ p: 1 }}>
-          <EmptyOrders
-            setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
-            setOpenOrdersDialog={setOpenOrdersDialog}
-          />
+          {isLoadingOrders && <Spinner />}
+
+          {!orders?.length ? (
+            <EmptyOrders
+              setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
+              setOpenOrdersDialog={setOpenOrdersDialog}
+            />
+          ) : (
+            <OrdersList orders={orders} />
+          )}
         </DialogContent>
       </Stack>
     </Dialog>
