@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Customer\CreateReviewRequest;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
 
@@ -75,6 +76,49 @@ class RestaurantController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Create a review.
+     *
+     * @param string $restaurantSlug
+     * @return JsonResponse
+     */
+    public function createReview(CreateReviewRequest $request, string $restaurantSlug): JsonResponse
+    {
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            // Get user
+            $user = auth()->user();
+
+            // Get restaurant
+            $restaurant = Restaurant::where('slug', $restaurantSlug)->first();
+
+            if (empty($restaurant)) {
+                return response()->json([
+                    'message' => 'Restaurant not found.',
+                ], 404);
+            }
+
+            // Create review
+            $restaurant->reviews()->create([
+                'user_id' => $user->id,
+                'comment' => $data['comment'],
+                'rating' => $data['rating'],
+            ]);
+
+            return response()->json([
+                'message' => 'Review created successfully.',
+                'restaurant' => $restaurant,
+            ], 201);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Could not create review.',
                 'error' => $e->getMessage(),
             ], 500);
         }
