@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 import AddReviewDialog from "./AddReviewDialog";
 
+import { useAuth } from "@/hooks/contexts/useAuth";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
 import { Order } from "@/types/order-types";
@@ -22,6 +23,7 @@ type OrderItemProps = {
 };
 
 export default function OrderItem({ order }: OrderItemProps) {
+  const { user } = useAuth();
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
@@ -29,6 +31,10 @@ export default function OrderItem({ order }: OrderItemProps) {
   const orderTotal = order.order_items.reduce(
     (acc, curr) => acc + curr.item_total,
     0,
+  );
+
+  const hasCustomerReviewed = order.restaurant.reviews.some(
+    (review) => review.user_id === user?.id,
   );
 
   return (
@@ -80,6 +86,7 @@ export default function OrderItem({ order }: OrderItemProps) {
             variant="contained"
             color="info"
             onClick={() => setOpenAddReviewDialog(true)}
+            disabled={hasCustomerReviewed}
           >
             Leave a review
           </Button>
