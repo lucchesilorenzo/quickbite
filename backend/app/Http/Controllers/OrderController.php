@@ -18,7 +18,7 @@ class OrderController extends Controller
         try {
             $user = auth()->user();
 
-            $orders = $user->orders()->with(['orderItems', 'restaurant'])->get();
+            $orders = $user->orders()->with(['orderItems', 'restaurant.reviews.customer'])->get();
 
             return response()->json($orders, 200);
         } catch (\Throwable $e) {
@@ -43,7 +43,7 @@ class OrderController extends Controller
                 ], 403);
             }
 
-            $order->load(['orderItems', 'restaurant']);
+            $order->load(['orderItems', 'restaurant.reviews.customer']);
 
             return response()->json($order, 200);
         } catch (\Throwable $e) {
@@ -99,7 +99,7 @@ class OrderController extends Controller
                 ]);
             }
 
-            $order->load(['orderItems', 'restaurant']);
+            $order->load(['orderItems', 'restaurant.reviews.customer']);
 
             return response()->json([
                 'message' => 'Order created successfully.',
