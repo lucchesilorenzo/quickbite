@@ -42,10 +42,10 @@ export default function RestaurantMetaInfo({
             <Typography
               variant="body2"
               component="span"
-              sx={{ fontWeight: "700" }}
+              sx={{ fontWeight: 700 }}
               color="textPrimary"
             >
-              {restaurant.reviews_avg_rating}
+              {restaurant.reviews_avg_rating.toFixed(2)}
             </Typography>
 
             <Typography variant="body2" component="span" color="textPrimary">

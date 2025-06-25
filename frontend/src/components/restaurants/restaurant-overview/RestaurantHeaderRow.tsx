@@ -10,8 +10,6 @@ import { formatCurrency } from "@/lib/utils";
 export default function RestaurantHeaderRow() {
   const { restaurant, setOpenRestaurantAboutDialog } = useSingleRestaurant();
 
-  console.log(restaurant);
-
   function handleOpenDialogAndScroll() {
     setTimeout(() => {
       const anchor = document.querySelector("#delivery-fee");
