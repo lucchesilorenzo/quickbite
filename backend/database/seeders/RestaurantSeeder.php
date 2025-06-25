@@ -15,8 +15,9 @@ class RestaurantSeeder extends Seeder
     {
         Restaurant::factory(10)
             ->has(RestaurantDeliveryDay::factory()->fullWeek()->count(7), 'deliveryDays')
-            ->hasReviews(5)
             ->hasMenuCategories(6)
+            // ->hasOrders(5)
+            // ->hasReviews(5)
             ->create();
     }
 }
