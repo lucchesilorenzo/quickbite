@@ -105,9 +105,22 @@ class RestaurantController extends Controller
                 ], 404);
             }
 
+            // Check if user has already reviewed this order
+            $alreadyReviewed = $restaurant->reviews()
+                ->where('order_id', $data['order_id'])
+                ->where('user_id', $user->id)
+                ->exists();
+
+            if ($alreadyReviewed) {
+                return response()->json([
+                    'message' => 'You have already reviewed this order.',
+                ], 409);
+            }
+
             // Create review
             $restaurant->reviews()->create([
                 'user_id' => $user->id,
+                'order_id' => $data['order_id'],
                 'comment' => $data['comment'],
                 'rating' => $data['rating'],
             ]);
