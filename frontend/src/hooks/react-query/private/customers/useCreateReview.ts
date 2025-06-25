@@ -9,10 +9,12 @@ export function useCreateReview(restaurantSlug: string) {
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: TReviewForm) =>
+    mutationFn: (data: TReviewForm & { order_id: string }) =>
       postData(`/restaurants/${restaurantSlug}/reviews`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["restaurants"] });
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+
       notifications.show(response.message, {
         key: "create-review-success",
         severity: "success",

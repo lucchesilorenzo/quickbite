@@ -37,7 +37,7 @@ export type RestaurantBase = {
 };
 
 export type RestaurantListItem = RestaurantBase & {
-  reviews_avg_rating: number;
+  reviews_avg_rating: number | null;
   reviews_count: number;
   categories: CategoryWithPivot[];
   delivery_days: DeliveryDay[];
@@ -70,8 +70,9 @@ export type DeliveryDay = {
 
 export type Review = {
   id: string;
-  restaurant_id: string;
   user_id: string;
+  restaurant_id: string;
+  order_id: string;
   comment?: string;
   rating: number;
   created_at: string;
