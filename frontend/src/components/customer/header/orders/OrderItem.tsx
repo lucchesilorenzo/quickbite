@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { format } from "date-fns";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import AddReviewDialog from "./AddReviewDialog";
 
@@ -24,6 +24,8 @@ type OrderItemProps = {
 
 export default function OrderItem({ order }: OrderItemProps) {
   const { user } = useAuth();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
@@ -36,6 +38,9 @@ export default function OrderItem({ order }: OrderItemProps) {
   const hasCustomerReviewed = order.restaurant.reviews.some(
     (review) => review.user_id === user?.id,
   );
+
+  const isOnRestaurantPage =
+    pathname === `/restaurants/${order.restaurant.slug}`;
 
   return (
     <Paper variant="outlined" sx={{ p: 1 }}>
@@ -92,8 +97,13 @@ export default function OrderItem({ order }: OrderItemProps) {
           </Button>
 
           <Button
-            component={Link}
-            to={`/restaurants/${order.restaurant.slug}`}
+            onClick={() => {
+              if (isOnRestaurantPage) {
+                navigate(0);
+              } else {
+                navigate(`/restaurants/${order.restaurant.slug}`);
+              }
+            }}
             variant="contained"
             color="primary"
           >

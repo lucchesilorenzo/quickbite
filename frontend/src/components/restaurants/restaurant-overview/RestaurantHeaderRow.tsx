@@ -10,6 +10,8 @@ import { formatCurrency } from "@/lib/utils";
 export default function RestaurantHeaderRow() {
   const { restaurant, setOpenRestaurantAboutDialog } = useSingleRestaurant();
 
+  console.log(restaurant);
+
   function handleOpenDialogAndScroll() {
     setTimeout(() => {
       const anchor = document.querySelector("#delivery-fee");
@@ -38,7 +40,7 @@ export default function RestaurantHeaderRow() {
             color="textPrimary"
             sx={{ fontWeight: 500, mr: 0.5 }}
           >
-            {restaurant.reviews_avg_rating}
+            {restaurant.reviews_avg_rating.toFixed(2)}
           </Typography>
 
           <Typography component="span" variant="body2" color="textPrimary">
