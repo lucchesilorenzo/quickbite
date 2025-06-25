@@ -9,6 +9,24 @@ use Illuminate\Http\JsonResponse;
 class OrderController extends Controller
 {
     /**
+     * Get all orders for the authenticated user.
+     *
+     * @return JsonResponse
+     */
+    public function getOrders(): JsonResponse
+    {
+        try {
+            $user = auth()->user();
+
+            $orders = $user->orders()->with(['orderItems', 'restaurant'])->get();
+
+            return response()->json($orders, 200);
+        } catch (\Throwable $e) {
+            return response()->json(['message' => 'Could not get orders.'], 500);
+        }
+    }
+
+    /**
      * Get an order for the authenticated user.
      *
      * @param Order $order
@@ -25,7 +43,7 @@ class OrderController extends Controller
                 ], 403);
             }
 
-            $order->load('orderItems');
+            $order->load(['orderItems', 'restaurant']);
 
             return response()->json($order, 200);
         } catch (\Throwable $e) {
@@ -81,7 +99,7 @@ class OrderController extends Controller
                 ]);
             }
 
-            $order->load('orderItems');
+            $order->load(['orderItems', 'restaurant']);
 
             return response()->json([
                 'message' => 'Order created successfully.',
