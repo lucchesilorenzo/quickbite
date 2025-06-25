@@ -113,8 +113,8 @@ export default function RestaurantProvider({
 
         result = result.filter(
           (r) =>
-            r.reviews_avg_rating >= ratingNumber &&
-            r.reviews_avg_rating <=
+            (r.reviews_avg_rating || 0) >= ratingNumber &&
+            (r.reviews_avg_rating || 0) <=
               (ratingNumber === 5 ? ratingNumber : ratingNumber + 1),
         );
       }
@@ -129,7 +129,7 @@ export default function RestaurantProvider({
     switch (sort) {
       case "review_rating":
         result = result.sort(
-          (a, b) => b.reviews_avg_rating - a.reviews_avg_rating,
+          (a, b) => (b.reviews_avg_rating || 0) - (a.reviews_avg_rating || 0),
         );
         break;
 

@@ -10,18 +10,18 @@ import {
 
 import AddReviewForm from "./AddReviewForm";
 
-import { RestaurantBase } from "@/types";
+import { Order } from "@/types/order-types";
 
 type AddReviewDialogProps = {
   openAddReviewDialog: boolean;
   setOpenAddReviewDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  restaurant: RestaurantBase;
+  order: Order;
 };
 
 export default function AddReviewDialog({
   openAddReviewDialog,
   setOpenAddReviewDialog,
-  restaurant,
+  order,
 }: AddReviewDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -52,7 +52,7 @@ export default function AddReviewDialog({
         <DialogContent sx={{ p: 1 }}>
           <AddReviewForm
             setOpenAddReviewDialog={setOpenAddReviewDialog}
-            restaurant={restaurant}
+            order={order}
           />
         </DialogContent>
       </Stack>

@@ -7,19 +7,19 @@ import { useNavigate } from "react-router-dom";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCreateReview } from "@/hooks/react-query/private/customers/useCreateReview";
-import { RestaurantBase } from "@/types";
+import { Order } from "@/types/order-types";
 import { TReviewForm, reviewForm } from "@/validations/review-validations";
 
 type AddReviewFormProps = {
   setOpenAddReviewDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  restaurant: RestaurantBase;
+  order: Order;
 };
 
 export default function AddReviewForm({
   setOpenAddReviewDialog,
-  restaurant,
+  order,
 }: AddReviewFormProps) {
-  const { mutateAsync: createReview } = useCreateReview(restaurant.slug);
+  const { mutateAsync: createReview } = useCreateReview(order.restaurant.slug);
   const navigate = useNavigate();
 
   const {
@@ -35,10 +35,10 @@ export default function AddReviewForm({
   });
 
   async function onSubmit(data: TReviewForm) {
-    await createReview(data);
+    await createReview({ ...data, order_id: order.id });
 
     setOpenAddReviewDialog(false);
-    navigate(`/restaurants/${restaurant.slug}`);
+    navigate(`/restaurants/${order.restaurant.slug}`);
   }
 
   return (

@@ -35,7 +35,7 @@ export default function RatingDisplay() {
           variant={isMobile ? "h4" : "h3"}
           sx={{ color: "white", fontWeight: 700 }}
         >
-          {restaurant.reviews_avg_rating.toFixed(2)}
+          {restaurant?.reviews_avg_rating?.toFixed(2) || "N/A"}
         </Typography>
 
         <Divider orientation="vertical" flexItem sx={{ bgcolor: grey[600] }} />

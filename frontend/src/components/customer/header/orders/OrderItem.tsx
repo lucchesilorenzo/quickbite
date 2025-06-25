@@ -36,7 +36,7 @@ export default function OrderItem({ order }: OrderItemProps) {
   );
 
   const hasCustomerReviewed = order.restaurant.reviews.some(
-    (review) => review.user_id === user?.id,
+    (review) => review.user_id === user?.id && review.order_id === order.id,
   );
 
   const isOnRestaurantPage =
@@ -115,7 +115,7 @@ export default function OrderItem({ order }: OrderItemProps) {
       <AddReviewDialog
         openAddReviewDialog={openAddReviewDialog}
         setOpenAddReviewDialog={setOpenAddReviewDialog}
-        restaurant={order.restaurant}
+        order={order}
       />
     </Paper>
   );
