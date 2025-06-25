@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Box,
   Button,
@@ -9,6 +11,8 @@ import {
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
+import AddReviewDialog from "./AddReviewDialog";
+
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
 import { Order } from "@/types/order-types";
@@ -19,6 +23,8 @@ type OrderItemProps = {
 
 export default function OrderItem({ order }: OrderItemProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
 
   const orderTotal = order.order_items.reduce(
     (acc, curr) => acc + curr.item_total,
@@ -35,8 +41,8 @@ export default function OrderItem({ order }: OrderItemProps) {
         <Stack direction="row" spacing={2}>
           <Box
             component="img"
-            src={`${env.VITE_BASE_URL}${order.restaurant?.logo}`}
-            alt={order.restaurant?.name}
+            src={`${env.VITE_BASE_URL}${order.restaurant.logo}`}
+            alt={order.restaurant.name}
             sx={{
               objectFit: "cover",
               width: 50,
@@ -51,7 +57,7 @@ export default function OrderItem({ order }: OrderItemProps) {
               variant={isMobile ? "body1" : "h6"}
               sx={{ fontWeight: 700 }}
             >
-              {order.restaurant?.name}
+              {order.restaurant.name}
             </Typography>
 
             <Typography variant="body2" color="textSecondary">
@@ -70,13 +76,17 @@ export default function OrderItem({ order }: OrderItemProps) {
         </Stack>
 
         <Stack spacing={1} sx={{ justifyContent: "space-between" }}>
-          <Button variant="contained" color="info">
+          <Button
+            variant="contained"
+            color="info"
+            onClick={() => setOpenAddReviewDialog(true)}
+          >
             Leave a review
           </Button>
 
           <Button
             component={Link}
-            to={`/restaurants/${order.restaurant?.slug}`}
+            to={`/restaurants/${order.restaurant.slug}`}
             variant="contained"
             color="primary"
           >
@@ -84,6 +94,12 @@ export default function OrderItem({ order }: OrderItemProps) {
           </Button>
         </Stack>
       </Stack>
+
+      <AddReviewDialog
+        openAddReviewDialog={openAddReviewDialog}
+        setOpenAddReviewDialog={setOpenAddReviewDialog}
+        restaurant={order.restaurant}
+      />
     </Paper>
   );
 }
