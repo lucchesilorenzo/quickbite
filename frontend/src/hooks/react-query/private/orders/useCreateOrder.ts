@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { useCheckout } from "@/hooks/contexts/useCheckout";
@@ -7,6 +7,7 @@ import { postData } from "@/lib/api-client";
 import { CreateOrder } from "@/types/order-types";
 
 export function useCreateOrder(restaurantId: string) {
+  const queryClient = useQueryClient();
   const { emptyCart } = useMultiCart();
   const { emptyCheckoutData } = useCheckout();
 
@@ -15,6 +16,7 @@ export function useCreateOrder(restaurantId: string) {
   return useMutation({
     mutationFn: (data: CreateOrder) => postData("/orders", data),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
       emptyCart(restaurantId);
       emptyCheckoutData(restaurantId);
     },
