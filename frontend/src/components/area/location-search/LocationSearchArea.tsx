@@ -114,6 +114,12 @@ export default function LocationSearchArea({
 
         setCookie("address", data);
 
+        if (!data.address.name) {
+          navigate(`/area/${data.address.city}`);
+          onCloseDialog();
+          return;
+        }
+
         if (!data.address.postcode) {
           navigate(`/area/${data.address.name}`);
           onCloseDialog();

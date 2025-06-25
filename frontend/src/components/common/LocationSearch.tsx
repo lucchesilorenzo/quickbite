@@ -103,6 +103,11 @@ export default function LocationSearch() {
 
         setCookie("address", data);
 
+        if (!data.address.name) {
+          navigate(`/area/${data.address.city}`);
+          return;
+        }
+
         if (!data.address.postcode) {
           navigate(`/area/${data.address.name}`);
           return;
