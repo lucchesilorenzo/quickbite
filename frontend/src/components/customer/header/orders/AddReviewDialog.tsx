@@ -5,7 +5,6 @@ import {
   DialogTitle,
   IconButton,
   Stack,
-  Typography,
   useMediaQuery,
 } from "@mui/material";
 
@@ -36,7 +35,9 @@ export default function AddReviewDialog({
     >
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-          <DialogTitle sx={{ p: 0, fontWeight: 700 }}>Order notes</DialogTitle>
+          <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
+            Leave your review
+          </DialogTitle>
 
           <IconButton
             color="inherit"
@@ -48,11 +49,7 @@ export default function AddReviewDialog({
           </IconButton>
         </Stack>
 
-        <DialogContent sx={{ p: 0 }}>
-          <Typography variant="body1" sx={{ mb: 2 }}>
-            Add a review
-          </Typography>
-
+        <DialogContent sx={{ p: 1 }}>
           <AddReviewForm
             setOpenAddReviewDialog={setOpenAddReviewDialog}
             restaurant={restaurant}

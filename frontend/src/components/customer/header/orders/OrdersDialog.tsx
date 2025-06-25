@@ -40,42 +40,40 @@ export default function OrdersDialog({
       fullScreen={isMobile}
       disableRestoreFocus
     >
-      <Stack spacing={2} sx={{ p: 4 }}>
-        <Stack direction="row" spacing={2}>
-          <IconButton
-            color="inherit"
-            aria-label="close"
-            onClick={() => {
-              setOpenHeaderCustomerDialog(true);
-              setOpenOrdersDialog(false);
-            }}
-            sx={{ p: 0 }}
-          >
-            <ArrowBackIosIcon />
-          </IconButton>
+      <Stack direction="row" spacing={2} sx={{ p: 2 }}>
+        <IconButton
+          color="inherit"
+          aria-label="close"
+          onClick={() => {
+            setOpenHeaderCustomerDialog(true);
+            setOpenOrdersDialog(false);
+          }}
+          sx={{ p: 0 }}
+        >
+          <ArrowBackIosIcon />
+        </IconButton>
 
-          <DialogTitle
-            component="h3"
-            variant={isMobile ? "h6" : "h5"}
-            sx={{ p: 0, fontWeight: 700 }}
-          >
-            Orders
-          </DialogTitle>
-        </Stack>
-
-        <DialogContent sx={{ p: 1 }}>
-          {isLoadingOrders && <Spinner />}
-
-          {!orders?.length ? (
-            <EmptyOrders
-              setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
-              setOpenOrdersDialog={setOpenOrdersDialog}
-            />
-          ) : (
-            <OrdersList orders={orders} />
-          )}
-        </DialogContent>
+        <DialogTitle
+          component="h3"
+          variant={isMobile ? "h6" : "h5"}
+          sx={{ p: 0, fontWeight: 700 }}
+        >
+          Orders
+        </DialogTitle>
       </Stack>
+
+      <DialogContent sx={{ p: 0 }}>
+        {isLoadingOrders && <Spinner />}
+
+        {!orders?.length ? (
+          <EmptyOrders
+            setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
+            setOpenOrdersDialog={setOpenOrdersDialog}
+          />
+        ) : (
+          <OrdersList orders={orders} />
+        )}
+      </DialogContent>
     </Dialog>
   );
 }

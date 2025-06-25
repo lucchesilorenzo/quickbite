@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import OrderItem from "./OrderItem";
 
@@ -9,14 +9,9 @@ type OrdersListProps = {
 };
 
 export default function OrdersList({ orders }: OrdersListProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   return (
-    <Box>
-      <Typography
-        variant={isMobile ? "body1" : "h6"}
-        sx={{ mb: 2, fontWeight: 700 }}
-      >
+    <Box sx={{ maxHeight: 650, overflowY: "auto", p: 2 }}>
+      <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
         Order history
       </Typography>
 
