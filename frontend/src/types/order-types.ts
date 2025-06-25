@@ -1,3 +1,5 @@
+import { RestaurantBase } from "./restaurant-types";
+
 export type Order = {
   id: string;
   user_id: string;
@@ -14,6 +16,7 @@ export type Order = {
   notes?: string;
   payment_method: string;
   order_items: OrderItem[];
+  restaurant: RestaurantBase;
   created_at: string;
   updated_at: string;
 };
@@ -35,7 +38,13 @@ export type CreateOrderItem = Omit<
 
 export type CreateOrder = Omit<
   Order,
-  "id" | "order_code" | "created_at" | "updated_at" | "user_id" | "order_items"
+  | "id"
+  | "order_code"
+  | "created_at"
+  | "updated_at"
+  | "user_id"
+  | "order_items"
+  | "restaurant"
 > & {
   order_items: CreateOrderItem[];
 };
