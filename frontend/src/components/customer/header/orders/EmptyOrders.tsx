@@ -23,6 +23,7 @@ export default function EmptyOrders({
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
+        p: 2,
       }}
     >
       <ShoppingBagOutlinedIcon fontSize="large" />

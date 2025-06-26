@@ -23,7 +23,6 @@ class RestaurantFactory extends Factory
      */
     public function definition(): array
     {
-
         return [
             'id' => Str::orderedUuid(),
             'name' => fake()->company(),

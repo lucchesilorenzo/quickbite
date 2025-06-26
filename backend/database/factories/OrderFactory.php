@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\RolesEnum;
+use App\Models\MenuItem;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -33,5 +35,38 @@ class OrderFactory extends Factory
             'notes' => fake()->optional()->text(100),
             'payment_method' => fake()->randomElement(['cash']),
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return self
+     */
+    public function configure(): self
+    {
+        return $this->afterCreating(function (Order $order) {
+            $this->assignOrderItemsToOrder($order);
+        });
+    }
+
+    /**
+     * Assign order items to order.
+     *
+     * @param Order $order
+     * @return void
+     */
+    public function assignOrderItemsToOrder(Order $order): void
+    {
+        $menuItems = MenuItem::inRandomOrder()->limit(rand(2, 4))->get();
+
+        foreach ($menuItems as $menuItem) {
+            $quantity = rand(1, 3);
+
+            $order->orderItems()->create([
+                'menu_item_id' => $menuItem->id,
+                'quantity' => $quantity,
+                'item_total' => number_format($menuItem->price * $quantity, 2),
+            ]);
+        }
     }
 }
