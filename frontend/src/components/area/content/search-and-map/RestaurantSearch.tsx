@@ -78,8 +78,13 @@ export default function RestaurantSearch() {
 
     if (currentSearchTerm) {
       setInputValue(currentSearchTerm);
+      setSelectedOption({
+        id: "search",
+        label: currentSearchTerm,
+        type: "Search",
+      });
     }
-  }, [searchParams]);
+  }, [searchParams, setInputValue, setSelectedOption]);
 
   return (
     <Autocomplete
