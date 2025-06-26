@@ -18,9 +18,9 @@ export default function CategoryDialogItem({
   category,
 }: CategoryDialogItemProps) {
   const { handleStatusChange } = useCategoryFilters();
-  const { restaurants } = useRestaurant();
+  const { originalRestaurants } = useRestaurant();
 
-  const restaurantsPerCategory = restaurants.reduce((acc, r) => {
+  const restaurantsPerCategory = originalRestaurants.reduce((acc, r) => {
     return acc + r.categories.filter((c) => c.name === category.name).length;
   }, 0);
 
