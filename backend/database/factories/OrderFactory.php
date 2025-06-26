@@ -55,7 +55,7 @@ class OrderFactory extends Factory
      * @param Order $order
      * @return void
      */
-    public function assignOrderItemsToOrder(Order $order): void
+    private function assignOrderItemsToOrder(Order $order): void
     {
         $menuItems = MenuItem::inRandomOrder()->limit(rand(2, 4))->get();
 
