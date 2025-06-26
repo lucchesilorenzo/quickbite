@@ -8,5 +8,6 @@ export function useAuthMe() {
     queryKey: ["auth"],
     queryFn: (): Promise<User> => fetchData("/auth/me"),
     retry: false,
+    refetchOnWindowFocus: false,
   });
 }

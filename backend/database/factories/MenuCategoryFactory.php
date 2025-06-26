@@ -27,7 +27,7 @@ class MenuCategoryFactory extends Factory
             'Salads',
         ];
 
-        static $i = 1;
+        static $i = 0;
 
         return [
             'name' => $menuCategories[$i % count($menuCategories)],
