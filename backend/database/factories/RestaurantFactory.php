@@ -23,22 +23,25 @@ class RestaurantFactory extends Factory
      */
     public function definition(): array
     {
+        static $logoNumber = 1;
+        static $coverNumber = 1;
+
         return [
             'id' => Str::orderedUuid(),
             'name' => fake()->company(),
             'slug' => fn(array $attributes) => Str::slug($attributes['name'] . '-' . $attributes['id']),
             'description' => fake()->sentence(),
-            'street_address' => 'Via Roma',
-            'building_number' => '4',
-            'postcode' => '04049',
-            'neighbourhood' => 'Borgo Cipollata',
-            'county' => 'Latina',
-            'city' => 'Terracina',
-            'state' => 'Lazio',
+            'street_address' => 'Via Santa Maria',
+            'building_number' => '2',
+            'postcode' => '56126',
+            'neighbourhood' => 'Pisa',
+            'county' => 'Pisa',
+            'city' => 'Pisa',
+            'state' => 'Tuscany',
             'country' => 'Italy',
-            'full_address' => 'Via Roma, 3, 04049 Terracina',
-            'latitude' => '41.' . fake()->randomNumber(),
-            'longitude' => '13.' . fake()->randomNumber(),
+            'full_address' => 'Via Santa Maria 2, 56126 Pisa',
+            'latitude' => '43.' . fake()->randomNumber(),
+            'longitude' => '10.' . fake()->randomNumber(),
             'phone_number' => fake()->e164PhoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'vat_id' => fake()->numerify('##########'),
@@ -48,8 +51,8 @@ class RestaurantFactory extends Factory
             'delivery_time_max' => fake()->randomElement([15, 20, 25, 30]),
             'discount' => fake()->randomElement([0, 0.05, 0.1, 0.15]),
             'min_discount_amount' => fn(array $attributes) => $attributes['discount'] === 0 ? 0 : fake()->randomElement([30, 50, 70]),
-            'logo' => Storage::url('restaurants/logos/logo.jpg'),
-            'cover' => Storage::url('restaurants/covers/hamburger.jpg'),
+            'logo' => Storage::url('restaurants/logos/logo' . $logoNumber++ . '.jpg'),
+            'cover' => Storage::url('restaurants/covers/cover' . $coverNumber++ . '.jpg'),
         ];
     }
 
