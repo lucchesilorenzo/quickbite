@@ -21,10 +21,10 @@ class MenuCategoryFactory extends Factory
         static $menuCategories = [
             'Starters',
             'Main Courses',
-            'Desserts',
             'Drinks',
             'Sides',
             'Salads',
+            'Desserts',
         ];
 
         static $i = 0;
@@ -96,23 +96,11 @@ class MenuCategoryFactory extends Factory
                         'image' => Storage::url('restaurants/menu-items/grilled-chicken.jpg'),
                         'is_available' => true,
                     ],
-                ];
-                break;
-
-            case 'Desserts':
-                $menuItems = [
                     [
-                        'name' => 'Tiramisu',
-                        'description' => 'Coffee-flavored Italian dessert',
-                        'price' => 6.00,
-                        'image' => Storage::url('restaurants/menu-items/tiramisu.jpg'),
-                        'is_available' => true,
-                    ],
-                    [
-                        'name' => 'Panna Cotta',
-                        'description' => 'Creamy Italian custard topped with berries',
-                        'price' => 5.50,
-                        'image' => Storage::url('restaurants/menu-items/panna-cotta.jpg'),
+                        'name' => 'Margherita Pizza',
+                        'description' => 'Classic pizza with tomato, mozzarella and fresh basil',
+                        'price' => 8.00,
+                        'image' => Storage::url('restaurants/menu-items/pizza.jpg'),
                         'is_available' => true,
                     ],
                 ];
@@ -128,10 +116,10 @@ class MenuCategoryFactory extends Factory
                         'is_available' => true,
                     ],
                     [
-                        'name' => 'Lemonade',
-                        'description' => 'Refreshing lemon drink',
-                        'price' => 2.80,
-                        'image' => Storage::url('restaurants/menu-items/lemonade.jpg'),
+                        'name' => 'Chianti Red Wine',
+                        'description' => 'A glass of classic Tuscan Chianti red wine',
+                        'price' => 4.50,
+                        'image' => Storage::url('restaurants/menu-items/chianti.jpg'),
                         'is_available' => true,
                     ],
                 ];
@@ -170,6 +158,25 @@ class MenuCategoryFactory extends Factory
                         'description' => 'Cucumbers, tomatoes, and feta cheese',
                         'price' => 7.50,
                         'image' => Storage::url('restaurants/menu-items/greek-salad.jpg'),
+                        'is_available' => true,
+                    ],
+                ];
+                break;
+
+            case 'Desserts':
+                $menuItems = [
+                    [
+                        'name' => 'Tiramisu',
+                        'description' => 'Coffee-flavored Italian dessert',
+                        'price' => 6.00,
+                        'image' => Storage::url('restaurants/menu-items/tiramisu.jpg'),
+                        'is_available' => true,
+                    ],
+                    [
+                        'name' => 'Panna Cotta',
+                        'description' => 'Creamy Italian custard topped with berries',
+                        'price' => 5.50,
+                        'image' => Storage::url('restaurants/menu-items/panna-cotta.jpg'),
                         'is_available' => true,
                     ],
                 ];
