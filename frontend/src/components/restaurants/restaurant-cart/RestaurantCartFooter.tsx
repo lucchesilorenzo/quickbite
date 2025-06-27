@@ -33,7 +33,7 @@ export default function RestaurantCartFooter() {
 
   const navigate = useNavigate();
 
-  async function handleCheckout() {
+  async function handleCartCheckout() {
     if (!isCustomer(user)) {
       navigate("/customer/auth/login");
       return;
@@ -42,7 +42,7 @@ export default function RestaurantCartFooter() {
     const cart = getCart(restaurant.id);
 
     const { cart: updatedCart } = await createOrUpdateCart(cart);
-    navigate(`/checkout/${updatedCart[restaurant.id].cart_id}`);
+    navigate(`/checkout/${updatedCart.cart_id}`);
   }
 
   return (
@@ -101,7 +101,7 @@ export default function RestaurantCartFooter() {
 
       <Box sx={{ mt: 2 }}>
         <Button
-          onClick={handleCheckout}
+          onClick={handleCartCheckout}
           variant="contained"
           size="large"
           fullWidth

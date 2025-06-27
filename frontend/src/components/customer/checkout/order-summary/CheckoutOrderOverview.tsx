@@ -12,8 +12,6 @@ export default function CheckoutOrderOverview() {
 
   const [openOrderItemsDialog, setOpenOrderItemsDialog] = useState(false);
 
-  const restaurantCart = Object.values(cart)[0];
-
   return (
     <Stack
       direction="row"
@@ -21,7 +19,7 @@ export default function CheckoutOrderOverview() {
     >
       <Box>
         <Typography variant="body1" sx={{ fontWeight: 500 }}>
-          {restaurantCart.restaurant.name}
+          {cart.restaurant.name}
         </Typography>
 
         <Typography
@@ -34,14 +32,14 @@ export default function CheckoutOrderOverview() {
           }}
           onClick={() => setOpenOrderItemsDialog(true)}
         >
-          Show {restaurantCart.total_items} articles
+          Show {cart.total_items} articles
         </Typography>
       </Box>
 
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${restaurantCart.restaurant.logo}`}
-        alt={restaurantCart.restaurant.name}
+        src={`${env.VITE_BASE_URL}${cart.restaurant.logo}`}
+        alt={cart.restaurant.name}
         sx={{
           objectFit: "cover",
           width: 50,

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { useGetCart } from "@/hooks/react-query/private/cart/useGetCart";
-import { Cart } from "@/types";
+import { RestaurantCart } from "@/types";
 import { CheckoutData } from "@/types/order-types";
 
 type CheckoutProviderProps = {
@@ -13,7 +13,7 @@ type CheckoutProviderProps = {
 };
 
 type CheckoutContext = {
-  cart: Cart;
+  cart: RestaurantCart;
   checkoutData: CheckoutData;
   restaurantId: string;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
@@ -24,12 +24,10 @@ export const CheckoutContext = createContext<CheckoutContext | null>(null);
 
 export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const { cartId } = useParams();
-  const { data: cart = {}, isLoading: isCartLoading } = useGetCart(cartId);
-
-  const restaurantCart = Object.values(cart)[0];
-  const restaurantId = restaurantCart?.restaurant_id;
-
   const { user } = useAuth();
+
+  const { data: cart, isLoading: isCartLoading } = useGetCart(cartId);
+  const restaurantId = cart?.restaurant.id;
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
     const stored = localStorage.getItem("checkout_data_by_restaurant");

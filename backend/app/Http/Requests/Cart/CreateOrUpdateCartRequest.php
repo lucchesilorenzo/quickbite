@@ -22,7 +22,7 @@ class CreateOrUpdateCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'restaurant_id' => ['required', 'uuid', 'exists:restaurants,id'],
+            'restaurant.id' => ['required', 'uuid', 'exists:restaurants,id'],
             'total_items' => ['required', 'integer', 'min:1'],
             'total_unique_items' => ['required', 'integer', 'min:1'],
             'cart_total' => ['required', 'numeric', 'min:0'],

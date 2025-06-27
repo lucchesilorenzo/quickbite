@@ -27,12 +27,9 @@ export default function CheckoutOrderFooter() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  const restaurantCart = Object.values(cart)[0];
+  const total = cart.cart_total + cart.restaurant.shipping_cost;
 
-  const total =
-    restaurantCart.cart_total + restaurantCart.restaurant.shipping_cost;
-
-  async function handleCheckout() {
+  async function handleOrderCheckout() {
     const isPersonalInfoValid =
       checkoutData[restaurantId].personal_info &&
       checkoutData[restaurantId].personal_info.first_name.trim() &&
@@ -66,8 +63,8 @@ export default function CheckoutOrderFooter() {
       ...checkoutData[restaurantId].delivery_time,
       ...checkoutData[restaurantId].order_notes,
       ...checkoutData[restaurantId].payment_method,
-      restaurant_id: restaurantCart.restaurant_id,
-      order_items: restaurantCart.items.map((i) => ({
+      restaurant_id: cart.restaurant.id,
+      order_items: cart.items.map((i) => ({
         menu_item_id: i.id,
         quantity: i.quantity,
         item_total: i.item_total,
@@ -89,7 +86,7 @@ export default function CheckoutOrderFooter() {
         </Typography>
 
         <Typography variant="body2" sx={{ fontWeight: 500 }}>
-          {formatCurrency(restaurantCart.cart_total)}
+          {formatCurrency(cart.cart_total)}
         </Typography>
       </Stack>
 
@@ -110,7 +107,7 @@ export default function CheckoutOrderFooter() {
         </Stack>
 
         <Typography variant="body2">
-          {formatCurrency(restaurantCart.restaurant.shipping_cost)}
+          {formatCurrency(cart.restaurant.shipping_cost)}
         </Typography>
       </Stack>
 
@@ -134,7 +131,7 @@ export default function CheckoutOrderFooter() {
           variant="contained"
           size="large"
           fullWidth
-          onClick={handleCheckout}
+          onClick={handleOrderCheckout}
         >
           Order and pay
         </Button>

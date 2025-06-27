@@ -6,8 +6,6 @@ import env from "@/lib/env";
 export default function OrderItemsHeader() {
   const { cart } = useCheckout();
 
-  const restaurantCart = Object.values(cart)[0];
-
   return (
     <Stack
       direction="row"
@@ -15,22 +13,18 @@ export default function OrderItemsHeader() {
     >
       <Stack spacing={0.5}>
         <Typography variant="body1" sx={{ fontWeight: 500 }}>
-          {restaurantCart.restaurant.name}
+          {cart.restaurant.name}
         </Typography>
 
-        <Typography variant="body2">
-          {restaurantCart.restaurant.full_address}
-        </Typography>
+        <Typography variant="body2">{cart.restaurant.full_address}</Typography>
 
-        <Typography variant="body1">
-          {restaurantCart.total_items} articles
-        </Typography>
+        <Typography variant="body1">{cart.total_items} articles</Typography>
       </Stack>
 
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${restaurantCart.restaurant.logo}`}
-        alt={restaurantCart.restaurant.name}
+        src={`${env.VITE_BASE_URL}${cart.restaurant.logo}`}
+        alt={cart.restaurant.name}
         sx={{
           objectFit: "cover",
           width: 50,

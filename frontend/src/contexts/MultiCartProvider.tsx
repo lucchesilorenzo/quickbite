@@ -40,7 +40,6 @@ type MultiCartContext = {
 const initialState: RestaurantCart = {
   items: [],
   restaurant: emptyRestaurant,
-  restaurant_id: "",
   total_items: 0,
   total_unique_items: 0,
   cart_total: 0,
@@ -126,7 +125,6 @@ export default function MultiCartProvider({
       return {
         ...prev,
         [restaurantId]: {
-          restaurant_id: restaurantId,
           restaurant,
           items: updatedItems,
           total_items,
