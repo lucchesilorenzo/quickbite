@@ -3,7 +3,6 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import Footer from "@/components/common/Footer";
 import CheckoutHeader from "@/components/customer/checkout/CheckoutHeader";
-import CheckoutProvider from "@/contexts/CheckoutProvider";
 
 export default function CheckoutLayout() {
   const { pathname } = useLocation();
@@ -12,9 +11,7 @@ export default function CheckoutLayout() {
     <Stack sx={{ minHeight: "100vh" }}>
       <CheckoutHeader />
 
-      <CheckoutProvider>
-        <Outlet />
-      </CheckoutProvider>
+      <Outlet />
 
       {pathname.includes("success") && <Footer />}
     </Stack>

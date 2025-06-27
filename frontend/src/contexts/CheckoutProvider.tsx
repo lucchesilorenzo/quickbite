@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/useAuth";
@@ -25,7 +25,6 @@ export const CheckoutContext = createContext<CheckoutContext | null>(null);
 export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const { cartId } = useParams();
   const { data: cart = {}, isLoading: isCartLoading } = useGetCart(cartId);
-  const { pathname } = useLocation();
 
   const restaurantCart = Object.values(cart)[0];
   const restaurantId = restaurantCart?.restaurant_id;
@@ -83,7 +82,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
     });
   }
 
-  if ((isCartLoading || !isCheckoutReady) && !pathname.includes("success")) {
+  if (isCartLoading || !isCheckoutReady) {
     return <FullPageSpinner />;
   }
 
