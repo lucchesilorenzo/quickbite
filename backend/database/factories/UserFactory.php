@@ -58,14 +58,14 @@ class UserFactory extends Factory
     }
 
     /**
-     * Create a new user with RESTAURATEUR role.
+     * Create a new user with partner role.
      *
      * @return static
      */
-    public function restaurateur(): static
+    public function partner(): static
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole(RolesEnum::RESTAURATEUR);
+            $user->assignRole(RolesEnum::PARTNER);
         });
     }
 

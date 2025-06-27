@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::firstOrCreate(['name' => RolesEnum::CUSTOMER]);
-        Role::firstOrCreate(['name' => RolesEnum::RESTAURATEUR]);
+        Role::firstOrCreate(['name' => RolesEnum::PARTNER]);
         Role::firstOrCreate(['name' => RolesEnum::RIDER]);
     }
 }

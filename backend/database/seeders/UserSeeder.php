@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory(5)->customer()->create();
-        User::factory(5)->restaurateur()->create();
+        User::factory(5)->partner()->create();
         User::factory(5)->rider()->create();
     }
 }

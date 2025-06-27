@@ -5,7 +5,7 @@ namespace App\Enums;
 enum RolesEnum: string
 {
     case CUSTOMER = 'customer';
-    case RESTAURATEUR = 'restaurateur';
+    case PARTNER = 'partner';
     case RIDER = 'rider';
 
     /**

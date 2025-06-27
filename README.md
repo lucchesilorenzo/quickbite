@@ -11,7 +11,7 @@
 
 ### 🔐 Authentication
 
-- Secure login for Customers, Restaurateurs, and Riders.
+- Secure login for Customers, Partners, and Riders.
 - Role-based access and permissions.
 
 ### 🛒 Customer
@@ -151,7 +151,7 @@ Ensure you have the following installed:
 
 - Integrate Stripe for payment processing.
 - Improve user experience and design.
-- 🍽️ Restaurateur
+- 🍽️ Partner
   - Manage restaurant profiles and menus.
   - Receive and update order statuses.
   - Track sales and manage availability.

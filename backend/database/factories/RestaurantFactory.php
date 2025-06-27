@@ -65,7 +65,7 @@ class RestaurantFactory extends Factory
     {
         return $this->afterCreating(function (Restaurant $restaurant) {
             $this->assignCategoriesToRestaurant($restaurant);
-            $this->assignRestaurateursToRestaurant($restaurant);
+            $this->assignPartnersToRestaurant($restaurant);
             $this->assignRidersToRestaurant($restaurant);
         });
     }
@@ -86,45 +86,45 @@ class RestaurantFactory extends Factory
     }
 
     /**
-     * Assign restaurateurs to restaurant.
+     * Assign partners to restaurant.
      *
      * @param Restaurant $restaurant
      * @return void
      */
-    private function assignRestaurateursToRestaurant(Restaurant $restaurant): void
+    private function assignPartnersToRestaurant(Restaurant $restaurant): void
     {
-        // Get restaurateurs
-        $restaurateurs = User::role(RolesEnum::RESTAURATEUR)
+        // Get partners
+        $partners = User::role(RolesEnum::PARTNER)
             ->inRandomOrder()
             ->pluck('id');
 
         // Check if the restaurant already has an owner
-        $hasOwner = $restaurant->restaurateurs()
+        $hasOwner = $restaurant->partners()
             ->wherePivot('role', RestaurantRolesEnum::OWNER)
             ->exists();
 
         // Check if the restaurant already has a co-owner
-        $hasCoOwner = $restaurant->restaurateurs()
+        $hasCoOwner = $restaurant->partners()
             ->wherePivot('role', RestaurantRolesEnum::CO_OWNER)
             ->exists();
 
         // Assign owner
-        if (!$hasOwner && $restaurateurs->isNotEmpty()) {
-            $ownerId = $restaurateurs->random();
+        if (!$hasOwner && $partners->isNotEmpty()) {
+            $ownerId = $partners->random();
 
-            $restaurant->restaurateurs()->attach($ownerId, [
+            $restaurant->partners()->attach($ownerId, [
                 'role' => RestaurantRolesEnum::OWNER,
             ]);
 
-            // Remove owner from restaurateurs (to avoid duplicates)
-            $restaurateurs = $restaurateurs->filter(fn($id) => $id !== $ownerId);
+            // Remove owner from partners (to avoid duplicates)
+            $partners = $partners->filter(fn($id) => $id !== $ownerId);
         }
 
         // Assign co-owner
-        if (!$hasCoOwner && $restaurateurs->isNotEmpty()) {
-            $coOwnerId = $restaurateurs->random();
+        if (!$hasCoOwner && $partners->isNotEmpty()) {
+            $coOwnerId = $partners->random();
 
-            $restaurant->restaurateurs()->attach($coOwnerId, [
+            $restaurant->partners()->attach($coOwnerId, [
                 'role' => RestaurantRolesEnum::CO_OWNER,
             ]);
         }

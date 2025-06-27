@@ -31,6 +31,6 @@ export type User = {
 
 export enum Role {
   CUSTOMER = "customer",
-  RESTAURATEUR = "restaurateur",
+  PARTNER = "partner",
   RIDER = "rider",
 }

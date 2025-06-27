@@ -54,11 +54,11 @@ class Restaurant extends Model
     ];
 
     /**
-     * Get the restaurant's restaurateurs (owners and co-owners).
+     * Get the restaurant's partners (owners and co-owners).
      *
      * @return BelongsToMany
      */
-    public function restaurateurs(): BelongsToMany
+    public function partners(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
             ->withPivot('role')

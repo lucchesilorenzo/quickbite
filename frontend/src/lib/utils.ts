@@ -78,8 +78,8 @@ export function isCustomer(user: User | null): user is User {
   return hasRole(user, Role.CUSTOMER);
 }
 
-export function isRestaurateur(user: User | null): user is User {
-  return hasRole(user, Role.RESTAURATEUR);
+export function isPartner(user: User | null): user is User {
+  return hasRole(user, Role.PARTNER);
 }
 
 export function isRider(user: User | null): user is User {
