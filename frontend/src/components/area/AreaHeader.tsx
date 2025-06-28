@@ -10,7 +10,6 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useCookies } from "react-cookie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import HeaderDialogCustomer from "../customer/header/HeaderDialogCustomer";
@@ -20,30 +19,19 @@ import LocationSearchDialog from "./location-search/LocationSearchDialog";
 import RestaurantSearchContainerMobile from "./mobile/RestaurantSearchContainerMobile";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
+import { useAddress } from "@/hooks/contexts/useAddress";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { isCustomer } from "@/lib/utils";
 
 export default function AreaHeader() {
   const { user } = useAuth();
+  const { currentAddress } = useAddress();
   const { search } = useLocation();
 
-  const [cookies] = useCookies(["address"]);
   const [openDialog, setOpenDialog] = useState(false);
 
   const navigate = useNavigate();
-
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-
-  // Check if the address cookie has all the required fields
-  const hasFullAddressFields =
-    (cookies.address?.address?.name || cookies.address?.address?.road) &&
-    cookies.address?.address?.house_number &&
-    cookies.address?.address?.postcode &&
-    cookies.address?.address?.city;
-
-  const fullAddress = hasFullAddressFields
-    ? `${cookies.address.address.name || cookies.address.address.road}, ${cookies.address.address.house_number}, ${cookies.address.address.postcode} ${cookies.address.address.city}`
-    : cookies.address?.display_name;
 
   const showHeader =
     !isMobile || (isMobile && !search.includes("view_type=map"));
@@ -76,7 +64,7 @@ export default function AreaHeader() {
           </Stack>
 
           <LocationSearchButton
-            fullAddress={fullAddress}
+            fullAddress={currentAddress?.display_name}
             setOpenDialog={setOpenDialog}
           />
 

@@ -13,7 +13,6 @@ import { NotificationsProvider } from "@toolpad/core/useNotifications";
 import { enUS } from "date-fns/locale";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 import "leaflet/dist/leaflet.css";
-import { CookiesProvider } from "react-cookie";
 import { createRoot } from "react-dom/client";
 // @ts-ignore
 import "react-leaflet-markercluster/styles";
@@ -56,27 +55,22 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
-      <CookiesProvider defaultSetOptions={{ path: "/" }}>
-        <NotificationsProvider
-          slotProps={{
-            snackbar: {
-              anchorOrigin: { vertical: "top", horizontal: "right" },
-              autoHideDuration: 5000,
-            },
-          }}
-        >
-          <LocalizationProvider
-            dateAdapter={AdapterDateFns}
-            adapterLocale={enUS}
-          >
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
+      <NotificationsProvider
+        slotProps={{
+          snackbar: {
+            anchorOrigin: { vertical: "top", horizontal: "right" },
+            autoHideDuration: 5000,
+          },
+        }}
+      >
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enUS}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
 
-              <AppRoutes />
-            </ThemeProvider>
-          </LocalizationProvider>
-        </NotificationsProvider>
-      </CookiesProvider>
+            <AppRoutes />
+          </ThemeProvider>
+        </LocalizationProvider>
+      </NotificationsProvider>
     </QueryClientProvider>
   </StrictMode>,
 );

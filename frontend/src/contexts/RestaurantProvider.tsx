@@ -3,12 +3,13 @@ import { createContext, useMemo, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { differenceInDays, format } from "date-fns";
 import { getDistance } from "geolib";
-import { useCookies } from "react-cookie";
 import { useSearchParams } from "react-router-dom";
 
+import { useAddress } from "@/hooks/contexts/useAddress";
 import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 import { useGetRestaurants } from "@/hooks/react-query/public/restaurants/useGetRestaurants";
 import { ratings } from "@/lib/data";
+import { generateSlug } from "@/lib/utils";
 import { RestaurantListItem, RestaurantSearchOption } from "@/types";
 
 type RestaurantProviderProps = {
@@ -36,17 +37,18 @@ export default function RestaurantProvider({
   children,
 }: RestaurantProviderProps) {
   const { allCategories } = useCategoryFilters();
+  const { currentAddress } = useAddress();
 
   const [searchParams] = useSearchParams();
-  const [cookies] = useCookies(["address"]);
   const [viewMap, setViewMap] = useState(false);
   const [selectedOption, setSelectedOption] = useState<
     RestaurantSearchOption | string | null
   >(null);
 
-  const postcode = cookies.address?.address?.postcode;
-  const latitude = Number(cookies.address?.lat);
-  const longitude = Number(cookies.address?.lon);
+  const addressSlug =
+    currentAddress && generateSlug(currentAddress.display_name);
+  const latitude = Number(currentAddress?.lat);
+  const longitude = Number(currentAddress?.lon);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
   const isMapViewMobile = isMobile && viewMap;
@@ -55,7 +57,7 @@ export default function RestaurantProvider({
     data: restaurants = [],
     isLoading: isRestaurantsLoading,
     error: restaurantsError,
-  } = useGetRestaurants(postcode);
+  } = useGetRestaurants(addressSlug);
 
   const filteredRestaurantsWithoutMov = useMemo(() => {
     let result = [...restaurants];

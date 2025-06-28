@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
-import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { FormHelperTextError } from "./FormHelperTextError";
 
+import { useAddress } from "@/hooks/contexts/useAddress";
+import { generateSlug } from "@/lib/utils";
 import {
   TLocationEditForm,
   locationEditForm,
@@ -18,7 +19,8 @@ type LocationEditFormProps = {
 export default function LocationEditForm({
   onCloseDialog,
 }: LocationEditFormProps) {
-  const [cookies, setCookie] = useCookies(["address"]);
+  const { currentAddress, setCurrentAddress } = useAddress();
+
   const {
     handleSubmit,
     register,
@@ -35,27 +37,19 @@ export default function LocationEditForm({
   async function onSubmit(data: TLocationEditForm) {
     onCloseDialog();
 
-    const currentAddress = cookies.address;
+    if (!currentAddress) return;
 
     const updatedAddress = {
       ...currentAddress,
       address: {
         ...currentAddress.address,
-        house_number: data.house_number,
+        house_number: String(data.house_number),
       },
-      display_name: `${cookies.address.address.name || cookies.address.address.road}, ${data.house_number}, ${cookies.address.address.postcode} ${cookies.address.address.city}`,
+      display_name: `${data.house_number}, ${currentAddress.display_name}`,
     };
 
-    setCookie("address", updatedAddress);
-
-    if (!updatedAddress.address.postcode) {
-      navigate(`/area/${updatedAddress.address.name}`);
-      return;
-    }
-
-    navigate(
-      `/area/${updatedAddress.address.postcode}-${updatedAddress.address.city}`,
-    );
+    setCurrentAddress(updatedAddress);
+    navigate(`/area/${generateSlug(updatedAddress.display_name)}`);
   }
 
   return (

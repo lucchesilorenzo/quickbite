@@ -20,6 +20,7 @@ import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
 import RestaurantPage from "./public/RestaurantPage";
 import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
 
+import AddressProvider from "@/contexts/AddressProvider";
 import AuthProvider from "@/contexts/AuthProvider";
 import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 import MultiCartProvider from "@/contexts/MultiCartProvider";
@@ -36,75 +37,87 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <MultiCartProvider>
-          <CategoryFiltersProvider>
-            <RestaurantProvider>
-              <Routes>
-                <Route path="/" element={<HomeLayout />}>
-                  <Route index element={<HomePage />} />
-                </Route>
-
-                <Route path="/" element={<CustomerAuthLayout />}>
-                  <Route
-                    path="customer/auth"
-                    element={<RedirectIfAuthenticated />}
-                  >
-                    <Route index element={<Navigate to="login" />} />
-                    <Route path="register" element={<CustomerRegisterPage />} />
-                    <Route path="login" element={<CustomerLoginPage />} />
+        <AddressProvider>
+          <MultiCartProvider>
+            <CategoryFiltersProvider>
+              <RestaurantProvider>
+                <Routes>
+                  <Route path="/" element={<HomeLayout />}>
+                    <Route index element={<HomePage />} />
                   </Route>
-                </Route>
 
-                <Route path="/" element={<AppLayout />}>
-                  <Route path="become-a-rider" element={<BecomeARiderPage />} />
-                  <Route
-                    path="become-a-partner"
-                    element={<BecomeAPartnerPage />}
-                  />
-                  <Route
-                    path="terms-and-conditions"
-                    element={<TermsAndConditionsPage />}
-                  />
-                  <Route
-                    path="privacy-policy"
-                    element={<PrivacyPolicyPage />}
-                  />
-                </Route>
-
-                <Route path="/" element={<AreaLayout />}>
-                  <Route path="area/:areaSlug">
-                    <Route index element={<AreaPage />} />
+                  <Route path="/" element={<CustomerAuthLayout />}>
+                    <Route
+                      path="customer/auth"
+                      element={<RedirectIfAuthenticated />}
+                    >
+                      <Route index element={<Navigate to="login" />} />
+                      <Route
+                        path="register"
+                        element={<CustomerRegisterPage />}
+                      />
+                      <Route path="login" element={<CustomerLoginPage />} />
+                    </Route>
                   </Route>
-                </Route>
 
-                <Route path="/" element={<RestaurantLayout />}>
-                  <Route path="restaurants/:restaurantSlug">
-                    <Route index element={<RestaurantPage />} />
+                  <Route path="/" element={<AppLayout />}>
+                    <Route
+                      path="become-a-rider"
+                      element={<BecomeARiderPage />}
+                    />
+                    <Route
+                      path="become-a-partner"
+                      element={<BecomeAPartnerPage />}
+                    />
+                    <Route
+                      path="terms-and-conditions"
+                      element={<TermsAndConditionsPage />}
+                    />
+                    <Route
+                      path="privacy-policy"
+                      element={<PrivacyPolicyPage />}
+                    />
                   </Route>
-                </Route>
 
-                <Route path="/" element={<CheckoutLayout />}>
-                  <Route
-                    path="checkout/:cartId"
-                    element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
-                  >
-                    <Route index element={<CheckoutPage />} />
+                  <Route path="/" element={<AreaLayout />}>
+                    <Route path="area/:areaSlug">
+                      <Route index element={<AreaPage />} />
+                    </Route>
                   </Route>
-                  <Route
-                    path="checkout/:orderId/success"
-                    element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
-                  >
-                    <Route index element={<CheckoutSuccessPage />} />
-                  </Route>
-                </Route>
 
-                <Route path="/" element={<ErrorLayout />}>
-                  <Route path="*" element={<ErrorPage />} />
-                </Route>
-              </Routes>
-            </RestaurantProvider>
-          </CategoryFiltersProvider>
-        </MultiCartProvider>
+                  <Route path="/" element={<RestaurantLayout />}>
+                    <Route path="restaurants/:restaurantSlug">
+                      <Route index element={<RestaurantPage />} />
+                    </Route>
+                  </Route>
+
+                  <Route path="/" element={<CheckoutLayout />}>
+                    <Route
+                      path="checkout/:cartId"
+                      element={
+                        <ProtectedRoute allowedRoles={[Role.CUSTOMER]} />
+                      }
+                    >
+                      <Route index element={<CheckoutPage />} />
+                    </Route>
+                    <Route
+                      path="checkout/:orderId/success"
+                      element={
+                        <ProtectedRoute allowedRoles={[Role.CUSTOMER]} />
+                      }
+                    >
+                      <Route index element={<CheckoutSuccessPage />} />
+                    </Route>
+                  </Route>
+
+                  <Route path="/" element={<ErrorLayout />}>
+                    <Route path="*" element={<ErrorPage />} />
+                  </Route>
+                </Routes>
+              </RestaurantProvider>
+            </CategoryFiltersProvider>
+          </MultiCartProvider>
+        </AddressProvider>
       </AuthProvider>
     </BrowserRouter>
   );

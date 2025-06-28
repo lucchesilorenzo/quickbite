@@ -2,7 +2,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Button, Stack, Typography } from "@mui/material";
 
 type LocationSearchButtonProps = {
-  fullAddress: string;
+  fullAddress?: string;
   setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

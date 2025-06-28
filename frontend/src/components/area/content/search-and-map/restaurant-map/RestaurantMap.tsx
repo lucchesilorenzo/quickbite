@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { Button, useMediaQuery } from "@mui/material";
 import { Icon, LatLngTuple } from "leaflet";
-import { useCookies } from "react-cookie";
 import {
   CircleMarker,
   LayerGroup,
@@ -19,21 +18,22 @@ import ClickResetHandler from "./ClickResetHandler";
 import ZoomGestureHandling from "./ZoomGestureHandling";
 
 import RestaurantCardMobile from "@/components/area/mobile/RestaurantCardMobile";
+import { useAddress } from "@/hooks/contexts/useAddress";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantMap() {
   const { restaurants } = useRestaurant();
+  const { currentAddress } = useAddress();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [cookies] = useCookies(["address"]);
   const [selectedPosition, setSelectedPosition] = useState<LatLngTuple | null>(
     null,
   );
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  const latitude = Number(cookies?.address?.lat);
-  const longitude = Number(cookies?.address?.lon);
+  const latitude = Number(currentAddress?.lat);
+  const longitude = Number(currentAddress?.lon);
 
   const selectedRestaurant = restaurants.find(
     (r) =>

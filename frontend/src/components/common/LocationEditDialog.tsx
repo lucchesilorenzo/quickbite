@@ -10,9 +10,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useCookies } from "react-cookie";
 
 import LocationEditForm from "./LocationEditForm";
+
+import { useAddress } from "@/hooks/contexts/useAddress";
 
 type LocationEditDialogProps = {
   openDialog: boolean;
@@ -23,10 +24,9 @@ export default function LocationEditDialog({
   openDialog,
   onCloseDialog,
 }: LocationEditDialogProps) {
-  const [cookies] = useCookies(["address"]);
+  const { currentAddress } = useAddress();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-  const address = cookies.address?.display_name;
 
   return (
     <Dialog
@@ -59,7 +59,7 @@ export default function LocationEditDialog({
               add more details to your address:
               <Box component="span" sx={{ ml: 1 }}>
                 <Typography component="span" sx={{ fontWeight: 700 }}>
-                  {`"${address}"`}
+                  {`"${currentAddress?.display_name}"`}
                 </Typography>
                 .
               </Box>
