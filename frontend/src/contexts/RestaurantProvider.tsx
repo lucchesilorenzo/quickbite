@@ -25,6 +25,8 @@ type RestaurantContext = {
   viewMap: boolean;
   isMapViewMobile: boolean;
   selectedOption: RestaurantSearchOption | string | null;
+  areaSlug?: string;
+  setAreaSlug: React.Dispatch<React.SetStateAction<string | undefined>>;
   setViewMap: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedOption: React.Dispatch<
     React.SetStateAction<RestaurantSearchOption | string | null>
@@ -40,6 +42,7 @@ export default function RestaurantProvider({
   const { currentAddress } = useAddress();
 
   const [searchParams] = useSearchParams();
+  const [areaSlug, setAreaSlug] = useState<string | undefined>();
   const [viewMap, setViewMap] = useState(false);
   const [selectedOption, setSelectedOption] = useState<
     RestaurantSearchOption | string | null
@@ -254,6 +257,8 @@ export default function RestaurantProvider({
         viewMap,
         isMapViewMobile,
         selectedOption,
+        areaSlug,
+        setAreaSlug,
         setViewMap,
         setSelectedOption,
       }}
