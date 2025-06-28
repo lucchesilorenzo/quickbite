@@ -11,14 +11,18 @@ class RestaurantController extends Controller
     /**
      * Get restaurants by display name.
      *
-     * @param string $displayName
      * @return JsonResponse
      */
-    public function getRestaurants(string $displayName): JsonResponse
+    public function getRestaurants(): JsonResponse
     {
         try {
-            $keywords = explode('-', $displayName);
+            // Get the full address from query
+            $fullAddress = request()->query('address');
 
+            // Split the address into keywords
+            $keywords = explode('-', $fullAddress);
+
+            // Get restaurants
             $restaurants = Restaurant::with([
                 'categories',
                 'deliveryDays',
@@ -30,7 +34,8 @@ class RestaurantController extends Controller
                 }
             })
                 ->withAvg('reviews', 'rating')
-                ->withCount('reviews')->get();
+                ->withCount('reviews')
+                ->get();
 
             return response()->json($restaurants);
         } catch (\Throwable $e) {
@@ -49,6 +54,7 @@ class RestaurantController extends Controller
     public function getRestaurant(string $restaurantSlug): JsonResponse
     {
         try {
+            // Get restaurant
             $restaurant = Restaurant::with([
                 'categories',
                 'deliveryDays',
@@ -66,7 +72,7 @@ class RestaurantController extends Controller
                 ], 404);
             }
 
-            return response()->json($restaurant);
+            return response()->json($restaurant, 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
