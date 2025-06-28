@@ -9,39 +9,33 @@ use Illuminate\Http\JsonResponse;
 class RestaurantController extends Controller
 {
     /**
-     * Get all restaurants.
+     * Get restaurants by display name.
      *
+     * @param string $displayName
      * @return JsonResponse
      */
-    public function getRestaurants(): JsonResponse
+    public function getRestaurants(string $displayName): JsonResponse
     {
         try {
-            $fullAddress = json_decode(request()->cookie('address'), true);
-
-            if (empty($fullAddress['address']['postcode'])) {
-                return response()->json([
-                    'message' => 'Postcode is not valid.',
-                ], 400);
-            }
-
-            $postcode = $fullAddress['address']['postcode'];
+            $keywords = explode('-', $displayName);
 
             $restaurants = Restaurant::with([
                 'categories',
                 'deliveryDays',
                 'reviews.customer',
                 'menuCategories.menuItems',
-            ])
-                ->where('postcode', $postcode)
+            ])->where(function ($query) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $query->orWhereLike('full_address', "%{$word}%");
+                }
+            })
                 ->withAvg('reviews', 'rating')
-                ->withCount('reviews')
-                ->get();
+                ->withCount('reviews')->get();
 
             return response()->json($restaurants);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -76,7 +70,6 @@ class RestaurantController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -132,7 +125,6 @@ class RestaurantController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not create review.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }
