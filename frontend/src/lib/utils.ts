@@ -68,6 +68,14 @@ export function getRestaurantOpeningTime(restaurant: RestaurantDetail) {
   return formattedStart;
 }
 
+export function generateSlug(text: string) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "");
+}
+
 // --- Auth ---
 
 export function hasRole(user: User | null, role: Role) {
