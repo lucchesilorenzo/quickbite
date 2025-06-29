@@ -1,14 +1,20 @@
+import { useState } from "react";
+
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StarIcon from "@mui/icons-material/Star";
 import { IconButton, Link, Stack, Typography } from "@mui/material";
 
+import ServiceFeeDialog from "../../common/ServiceFeeDialog";
+
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantHeaderRow() {
   const { restaurant, setOpenRestaurantAboutDialog } = useSingleRestaurant();
+
+  const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
   const isDeliveryFeeFree = restaurant.shipping_cost === 0;
 
@@ -65,7 +71,7 @@ export default function RestaurantHeaderRow() {
 
       <Typography component="span">&bull;</Typography>
 
-      <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+      <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
         <DeliveryDiningOutlinedIcon fontSize="small" color="inherit" />
 
         <Typography component="span" variant="body2" color="textPrimary">
@@ -80,9 +86,39 @@ export default function RestaurantHeaderRow() {
           sx={{ "&:hover": { bgcolor: "transparent" }, p: 0 }}
           onClick={handleOpenDialogAndScroll}
         >
-          <InfoOutlineIcon fontSize="small" />
+          <InfoOutlineIcon fontSize="inherit" />
         </IconButton>
       </Stack>
+
+      {restaurant.service_fee > 0 && (
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <Typography component="span">&bull;</Typography>
+
+          <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
+            <Typography component="span" variant="body2" color="textPrimary">
+              Service fee
+            </Typography>
+
+            <Typography component="span" variant="body2" color="textPrimary">
+              {formatCurrency(restaurant.service_fee)}
+            </Typography>
+
+            <IconButton
+              color="inherit"
+              size="small"
+              sx={{ "&:hover": { bgcolor: "transparent" }, p: 0 }}
+              onClick={() => setOpenServiceFeeDialog(true)}
+            >
+              <InfoOutlineIcon fontSize="inherit" />
+            </IconButton>
+          </Stack>
+        </Stack>
+      )}
+
+      <ServiceFeeDialog
+        openServiceFeeDialog={openServiceFeeDialog}
+        setOpenServiceFeeDialog={setOpenServiceFeeDialog}
+      />
     </Stack>
   );
 }

@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
+import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
 import { useCreateOrder } from "@/hooks/react-query/private/orders/useCreateOrder";
 import { formatCurrency } from "@/lib/utils";
@@ -24,10 +25,15 @@ export default function CheckoutOrderFooter() {
   const { mutateAsync: createOrder } = useCreateOrder(restaurantId);
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
+  const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
+
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  const total = cart.cart_total + cart.restaurant.shipping_cost;
+  const total =
+    cart.cart_total +
+    cart.restaurant.shipping_cost +
+    cart.restaurant.service_fee;
 
   async function handleOrderCheckout() {
     const isPersonalInfoValid =
@@ -101,6 +107,7 @@ export default function CheckoutOrderFooter() {
           <IconButton
             color="inherit"
             size="small"
+            sx={{ "&:hover": { bgcolor: "transparent" } }}
             onClick={() => setOpenDeliveryFeeDialog(true)}
           >
             <InfoOutlineIcon fontSize="inherit" color="inherit" />
@@ -111,6 +118,32 @@ export default function CheckoutOrderFooter() {
           {formatCurrency(cart.restaurant.shipping_cost)}
         </Typography>
       </Stack>
+
+      {cart.restaurant.service_fee > 0 && (
+        <Stack
+          direction="row"
+          sx={{ alignItems: "center", justifyContent: "space-between" }}
+        >
+          <Stack direction="row" sx={{ alignItems: "center" }}>
+            <Typography variant="body2" component="div">
+              Service fee
+            </Typography>
+
+            <IconButton
+              color="inherit"
+              size="small"
+              sx={{ "&:hover": { bgcolor: "transparent" } }}
+              onClick={() => setOpenServiceFeeDialog(true)}
+            >
+              <InfoOutlineIcon fontSize="inherit" />
+            </IconButton>
+          </Stack>
+
+          <Typography variant="body2" component="div">
+            {formatCurrency(cart.restaurant.service_fee)}
+          </Typography>
+        </Stack>
+      )}
 
       <Divider sx={{ my: 2 }} />
 
@@ -180,6 +213,11 @@ export default function CheckoutOrderFooter() {
       <DeliveryFeeDialog
         openDeliveryFeeDialog={openDeliveryFeeDialog}
         setOpenDeliveryFeeDialog={setOpenDeliveryFeeDialog}
+      />
+
+      <ServiceFeeDialog
+        openServiceFeeDialog={openServiceFeeDialog}
+        setOpenServiceFeeDialog={setOpenServiceFeeDialog}
       />
     </Box>
   );

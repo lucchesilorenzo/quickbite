@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+import ServiceFeeDialog from "../../common/ServiceFeeDialog";
 import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 
 import { useAuth } from "@/hooks/contexts/useAuth";
@@ -27,9 +28,12 @@ export default function RestaurantCartFooter() {
   const { mutateAsync: createOrUpdateCart } = useCreateOrUpdateCart();
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
+  const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
+
+  const isDeliveryFeeFree = restaurant.shipping_cost === 0;
 
   const subtotal = cartTotal(restaurant.id);
-  const total = subtotal + restaurant.shipping_cost;
+  const total = subtotal + restaurant.shipping_cost + restaurant.service_fee;
 
   const navigate = useNavigate();
 
@@ -80,9 +84,37 @@ export default function RestaurantCartFooter() {
         </Stack>
 
         <Typography variant="body2" component="div">
-          {formatCurrency(restaurant.shipping_cost)}
+          {!isDeliveryFeeFree
+            ? formatCurrency(restaurant.shipping_cost)
+            : "Free"}
         </Typography>
       </Stack>
+
+      {restaurant.service_fee > 0 && (
+        <Stack
+          direction="row"
+          sx={{ alignItems: "center", justifyContent: "space-between" }}
+        >
+          <Stack direction="row" sx={{ alignItems: "center" }}>
+            <Typography variant="body2" component="div">
+              Service fee
+            </Typography>
+
+            <IconButton
+              color="inherit"
+              onClick={() => setOpenServiceFeeDialog(true)}
+              size="small"
+              sx={{ "&:hover": { bgcolor: "transparent" } }}
+            >
+              <InfoOutlineIcon fontSize="inherit" />
+            </IconButton>
+          </Stack>
+
+          <Typography variant="body2" component="div">
+            {formatCurrency(restaurant.service_fee)}
+          </Typography>
+        </Stack>
+      )}
 
       <Divider sx={{ my: 1 }} />
 
@@ -111,6 +143,11 @@ export default function RestaurantCartFooter() {
           Checkout ({formatCurrency(total)})
         </Button>
       </Box>
+
+      <ServiceFeeDialog
+        openServiceFeeDialog={openServiceFeeDialog}
+        setOpenServiceFeeDialog={setOpenServiceFeeDialog}
+      />
 
       <RestaurantCartDeliveryFeeDialog
         openDeliveryFeeDialog={openDeliveryFeeDialog}
