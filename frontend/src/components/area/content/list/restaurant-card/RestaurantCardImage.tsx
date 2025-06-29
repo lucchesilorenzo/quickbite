@@ -63,7 +63,7 @@ export default function RestaurantCardImage({
           <Typography
             variant="caption"
             component="span"
-            sx={{ fontWeight: "600" }}
+            sx={{ fontWeight: 600 }}
             color="textPrimary"
           >
             {restaurant.discount * 100}% off - Minimum order{" "}

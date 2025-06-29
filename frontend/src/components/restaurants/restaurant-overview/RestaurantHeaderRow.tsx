@@ -10,6 +10,8 @@ import { formatCurrency } from "@/lib/utils";
 export default function RestaurantHeaderRow() {
   const { restaurant, setOpenRestaurantAboutDialog } = useSingleRestaurant();
 
+  const isDeliveryFeeFree = restaurant.shipping_cost === 0;
+
   function handleOpenDialogAndScroll() {
     setTimeout(() => {
       const anchor = document.querySelector("#delivery-fee");
@@ -67,7 +69,9 @@ export default function RestaurantHeaderRow() {
         <DeliveryDiningOutlinedIcon fontSize="small" color="inherit" />
 
         <Typography component="span" variant="body2" color="textPrimary">
-          {formatCurrency(restaurant.shipping_cost)}
+          {!isDeliveryFeeFree
+            ? formatCurrency(restaurant.shipping_cost)
+            : "Free"}
         </Typography>
 
         <IconButton
