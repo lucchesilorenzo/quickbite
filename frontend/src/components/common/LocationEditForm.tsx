@@ -1,12 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
+import { useNotifications } from "@toolpad/core/useNotifications";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { FormHelperTextError } from "./FormHelperTextError";
 
 import { useAddress } from "@/hooks/contexts/useAddress";
+import env from "@/lib/env";
 import { generateSlug } from "@/lib/utils";
+import { Address } from "@/types";
 import {
   TLocationEditForm,
   locationEditForm,
@@ -33,23 +37,30 @@ export default function LocationEditForm({
   });
 
   const navigate = useNavigate();
+  const notifications = useNotifications();
 
   async function onSubmit(data: TLocationEditForm) {
     onCloseDialog();
 
     if (!currentAddress) return;
 
-    const updatedAddress = {
-      ...currentAddress,
-      address: {
-        ...currentAddress.address,
-        house_number: String(data.house_number),
-      },
-      display_name: `${data.house_number}, ${currentAddress.display_name}`,
-    };
+    const updatedDisplayName = `${data.house_number}, ${currentAddress.display_name}`;
 
-    setCurrentAddress(updatedAddress);
-    navigate(`/area/${generateSlug(updatedAddress.display_name)}`);
+    try {
+      const { data: address } = await axios.get<Address[]>(
+        `https://eu1.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${updatedDisplayName}&format=json&normalizeaddress=1`,
+      );
+
+      setCurrentAddress(address[0]);
+      navigate(
+        `/area/${generateSlug(address[0].display_name)}?lat=${address[0].lat}&lon=${address[0].lon}`,
+      );
+    } catch {
+      notifications.show("There was an error fetching your location.", {
+        key: "geolocation-error",
+        severity: "error",
+      });
+    }
   }
 
   return (

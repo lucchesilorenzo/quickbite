@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Container } from "@mui/material";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import DesktopAreaLayout from "@/components/area/layouts/DesktopAreaLayout";
 import MobileAreaLayout from "@/components/area/layouts/MobileAreaLayout";
@@ -12,14 +12,13 @@ import env from "@/lib/env";
 import { Address } from "@/types";
 
 export default function AreaPage() {
-  const { areaSlug } = useParams();
+  const [searchParams] = useSearchParams();
 
   const {
     restaurants,
     isRestaurantsLoading,
     restaurantsError,
     isMapViewMobile,
-    setAreaSlug,
   } = useRestaurant();
   const { currentAddress, setCurrentAddress } = useAddress();
 
@@ -30,24 +29,25 @@ export default function AreaPage() {
   }, [currentAddress]);
 
   useEffect(() => {
-    if (currentAddress || !areaSlug) return;
+    const lat = searchParams.get("lat");
+    const lon = searchParams.get("lon");
 
-    const updatedAreaSlug = areaSlug.replace(/-/g, ", ");
+    if (currentAddress || !lat || !lon) return;
 
-    async function fetchAddress(value: string) {
+    async function fetchAddress() {
       try {
-        const { data } = await axios.get<Address[]>(
-          `https://api.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${value}&limit=1&dedupe=1&countrycodes=IT&normalizecity=1`,
+        const { data } = await axios.get<Address>(
+          `https://eu1.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${lat}&lon=${lon}&format=json&normalizeaddress=1`,
         );
 
-        setCurrentAddress(data[0]);
+        setCurrentAddress(data);
       } catch {
         setAddressError(true);
       }
     }
 
-    fetchAddress(updatedAreaSlug);
-  }, [areaSlug, currentAddress, setAreaSlug, setCurrentAddress]);
+    fetchAddress();
+  }, [currentAddress, setCurrentAddress, searchParams]);
 
   const isLoading = isRestaurantsLoading;
   const hasNoResults = !restaurants.length || restaurantsError || addressError;

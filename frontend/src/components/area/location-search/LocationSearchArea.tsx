@@ -71,7 +71,9 @@ export default function LocationSearchArea({
 
     if (selectedAddress) {
       setCurrentAddress(selectedAddress);
-      navigate(`/area/${generateSlug(selectedAddress.display_name)}`);
+      navigate(
+        `/area/${generateSlug(selectedAddress.display_name)}?lat=${selectedAddress.lat}&lon=${selectedAddress.lon}`,
+      );
 
       if (!selectedAddress.address.house_number) {
         setOpenEditDialog(true);
@@ -89,7 +91,9 @@ export default function LocationSearchArea({
         );
 
         setCurrentAddress(data);
-        navigate(`/area/${generateSlug(data.display_name)}`);
+        navigate(
+          `/area/${generateSlug(data.display_name)}?lat=${data.lat}&lon=${data.lon}`,
+        );
 
         if (!data.address.house_number) {
           setOpenEditDialog(true);

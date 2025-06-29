@@ -69,7 +69,9 @@ export default function LocationSearch() {
         return;
       }
 
-      navigate(`/area/${generateSlug(selectedAddress.display_name)}`);
+      navigate(
+        `/area/${generateSlug(selectedAddress.display_name)}?lat=${selectedAddress.lat}&lon=${selectedAddress.lon}`,
+      );
     }
   }
 
@@ -89,7 +91,9 @@ export default function LocationSearch() {
           return;
         }
 
-        navigate(`/area/${generateSlug(data.display_name)}`);
+        navigate(
+          `/area/${generateSlug(data.display_name)}?lat=${data.lat}&lon=${data.lon}`,
+        );
       } catch {
         notifications.show("There was an error fetching your location.", {
           key: "geolocation-error",
