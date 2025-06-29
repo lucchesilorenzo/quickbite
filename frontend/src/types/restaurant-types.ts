@@ -25,6 +25,7 @@ export type RestaurantBase = {
   vat_id: string | null;
   min_amount: number;
   shipping_cost: number;
+  service_fee: number;
   delivery_time_min: number;
   delivery_time_max: number;
   discount: number;

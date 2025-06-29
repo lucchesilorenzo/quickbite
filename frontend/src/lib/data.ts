@@ -33,6 +33,7 @@ export const emptyRestaurant: RestaurantDetail = {
   vat_id: null,
   min_amount: 0,
   shipping_cost: 0,
+  service_fee: 0,
   delivery_time_min: 0,
   delivery_time_max: 0,
   discount: 0,
