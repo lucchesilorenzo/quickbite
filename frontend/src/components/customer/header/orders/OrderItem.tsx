@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import AddReviewDialog from "./AddReviewDialog";
+import ViewOrderDialog from "./ViewOrderDialog";
 
 import { useAuth } from "@/hooks/contexts/useAuth";
 import env from "@/lib/env";
@@ -25,9 +26,11 @@ type OrderItemProps = {
 export default function OrderItem({ order }: OrderItemProps) {
   const { user } = useAuth();
   const { pathname } = useLocation();
+
   const navigate = useNavigate();
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
+  const [openViewOrderDialog, setOpenViewOrderDialog] = useState(false);
   const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
 
   const orderTotal = order.order_items.reduce(
@@ -89,6 +92,14 @@ export default function OrderItem({ order }: OrderItemProps) {
         <Stack spacing={1} sx={{ justifyContent: "space-between" }}>
           <Button
             variant="contained"
+            color="success"
+            onClick={() => setOpenViewOrderDialog(true)}
+          >
+            View order
+          </Button>
+
+          <Button
+            variant="contained"
             color="info"
             onClick={() => setOpenAddReviewDialog(true)}
             disabled={hasCustomerReviewed}
@@ -111,6 +122,12 @@ export default function OrderItem({ order }: OrderItemProps) {
           </Button>
         </Stack>
       </Stack>
+
+      <ViewOrderDialog
+        openViewOrderDialog={openViewOrderDialog}
+        setOpenViewOrderDialog={setOpenViewOrderDialog}
+        order={order}
+      />
 
       <AddReviewDialog
         openAddReviewDialog={openAddReviewDialog}
