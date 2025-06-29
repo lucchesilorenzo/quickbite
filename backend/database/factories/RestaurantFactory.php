@@ -47,6 +47,7 @@ class RestaurantFactory extends Factory
             'vat_id' => fake()->numerify('##########'),
             'min_amount' => fake()->randomElement([30, 40, 50]),
             'shipping_cost' => fake()->randomElement([0, 2.99, 4.99]),
+            'service_fee' => fake()->randomElement([0, 0.30, 0.50, 0.75, 1.00]),
             'delivery_time_min' => fake()->randomElement([10, 15]),
             'delivery_time_max' => fake()->randomElement([15, 20, 25, 30]),
             'discount' => fake()->randomElement([0, 0.05, 0.1, 0.15]),

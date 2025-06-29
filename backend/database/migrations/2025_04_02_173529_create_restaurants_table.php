@@ -39,6 +39,8 @@ return new class extends Migration
             $table->decimal('min_amount', 8, 2)->default(0);
 
             $table->decimal('shipping_cost', 8, 2)->default(0);
+            $table->decimal('service_fee', 8, 2)->default(0);
+
             $table->unsignedSmallInteger('delivery_time_min');
             $table->unsignedSmallInteger('delivery_time_max');
 

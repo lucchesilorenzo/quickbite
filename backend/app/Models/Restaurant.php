@@ -36,6 +36,7 @@ class Restaurant extends Model
         'vat_id',
         'min_amount',
         'shipping_cost',
+        'service_fee',
         'delivery_time_min',
         'delivery_time_max',
         'discount',
@@ -48,6 +49,7 @@ class Restaurant extends Model
     protected $casts = [
         'min_amount' => 'float',
         'shipping_cost' => 'float',
+        'service_fee' => 'float',
         'discount' => 'float',
         'min_discount_amount' => 'float',
         'reviews_avg_rating' => 'float',
