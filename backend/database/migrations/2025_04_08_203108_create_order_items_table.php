@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('order_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('menu_item_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
             $table->integer('quantity')->default(1);
             $table->decimal('item_total', 8, 2);
             $table->timestamps();

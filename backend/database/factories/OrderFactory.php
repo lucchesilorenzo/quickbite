@@ -64,6 +64,7 @@ class OrderFactory extends Factory
 
             $order->orderItems()->create([
                 'menu_item_id' => $menuItem->id,
+                'name' => $menuItem->name,
                 'quantity' => $quantity,
                 'item_total' => number_format($menuItem->price * $quantity, 2),
             ]);

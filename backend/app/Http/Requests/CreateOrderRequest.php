@@ -37,6 +37,7 @@ class CreateOrderRequest extends FormRequest
 
             'order_items' => ['required', 'array', 'min:1'],
             'order_items.*.menu_item_id' => ['required', 'exists:menu_items,id'],
+            'order_items.*.name' => ['required', 'exists:menu_items,name'],
             'order_items.*.quantity' => ['required', 'integer', 'min:1'],
             'order_items.*.item_total' => ['required', 'numeric', 'min:0'],
         ];
