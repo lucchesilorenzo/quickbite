@@ -3,11 +3,16 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/lib/api-client";
 import { RestaurantListItem } from "@/types/restaurant-types";
 
-export function useGetRestaurants(addressSlug: string | null) {
+type GetRestaurants = {
+  lat?: string;
+  lon?: string;
+};
+
+export function useGetRestaurants({ lat, lon }: GetRestaurants) {
   return useQuery({
-    queryKey: ["restaurants", addressSlug],
+    queryKey: ["restaurants", lat, lon],
     queryFn: (): Promise<RestaurantListItem[]> =>
-      fetchData(`/restaurants?address=${addressSlug}`),
-    enabled: !!addressSlug,
+      fetchData(`/restaurants?lat=${lat}&lon=${lon}`),
+    enabled: !!lat && !!lon,
   });
 }

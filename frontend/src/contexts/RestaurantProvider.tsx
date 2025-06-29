@@ -9,7 +9,6 @@ import { useAddress } from "@/hooks/contexts/useAddress";
 import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 import { useGetRestaurants } from "@/hooks/react-query/public/restaurants/useGetRestaurants";
 import { ratings } from "@/lib/data";
-import { generateSlug } from "@/lib/utils";
 import { RestaurantListItem, RestaurantSearchOption } from "@/types";
 
 type RestaurantProviderProps = {
@@ -25,8 +24,6 @@ type RestaurantContext = {
   viewMap: boolean;
   isMapViewMobile: boolean;
   selectedOption: RestaurantSearchOption | string | null;
-  areaSlug?: string;
-  setAreaSlug: React.Dispatch<React.SetStateAction<string | undefined>>;
   setViewMap: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedOption: React.Dispatch<
     React.SetStateAction<RestaurantSearchOption | string | null>
@@ -42,14 +39,11 @@ export default function RestaurantProvider({
   const { currentAddress } = useAddress();
 
   const [searchParams] = useSearchParams();
-  const [areaSlug, setAreaSlug] = useState<string | undefined>();
   const [viewMap, setViewMap] = useState(false);
   const [selectedOption, setSelectedOption] = useState<
     RestaurantSearchOption | string | null
   >(null);
 
-  const addressSlug =
-    currentAddress && generateSlug(currentAddress.display_name);
   const latitude = Number(currentAddress?.lat);
   const longitude = Number(currentAddress?.lon);
 
@@ -60,7 +54,7 @@ export default function RestaurantProvider({
     data: restaurants = [],
     isLoading: isRestaurantsLoading,
     error: restaurantsError,
-  } = useGetRestaurants(addressSlug);
+  } = useGetRestaurants({ lat: currentAddress?.lat, lon: currentAddress?.lon });
 
   const filteredRestaurantsWithoutMov = useMemo(() => {
     let result = [...restaurants];
@@ -257,8 +251,6 @@ export default function RestaurantProvider({
         viewMap,
         isMapViewMobile,
         selectedOption,
-        areaSlug,
-        setAreaSlug,
         setViewMap,
         setSelectedOption,
       }}
