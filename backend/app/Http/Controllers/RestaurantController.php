@@ -16,23 +16,37 @@ class RestaurantController extends Controller
     public function getRestaurants(): JsonResponse
     {
         try {
-            // Get the full address from query
-            $fullAddress = request()->query('address');
+            // Get latitude and longitude
+            $lat = request()->query('lat');
+            $lon = request()->query('lon');
 
-            // Split the address into keywords
-            $keywords = explode('-', $fullAddress);
+            if (!$lat || !$lon) {
+                return response()->json([
+                    'message' => 'Latitude and longitude are required.',
+                ], 400);
+            }
 
-            // Get restaurants
-            $restaurants = Restaurant::with([
-                'categories',
-                'deliveryDays',
-                'reviews.customer',
-                'menuCategories.menuItems',
-            ])->where(function ($query) use ($keywords) {
-                foreach ($keywords as $word) {
-                    $query->orWhereLike('full_address', "%{$word}%");
-                }
-            })
+            $radius = 5; // km
+
+            // Haversine formula
+            $haversine = '(6371 * acos(
+                cos(radians(?)) *
+                cos(radians(latitude)) *
+                cos(radians(longitude) - radians(?)) +
+                sin(radians(?)) *
+                sin(radians(latitude))
+            ))';
+
+            $restaurants = Restaurant::select('*')
+                ->selectRaw("$haversine AS distance", [$lat, $lon, $lat])
+                ->whereRaw("$haversine < ?", [$lat, $lon, $lat, $radius])
+                ->orderByRaw("$haversine ASC", [$lat, $lon, $lat])
+                ->with([
+                    'categories',
+                    'deliveryDays',
+                    'reviews.customer',
+                    'menuCategories.menuItems',
+                ])
                 ->withAvg('reviews', 'rating')
                 ->withCount('reviews')
                 ->get();
@@ -41,6 +55,7 @@ class RestaurantController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
