@@ -66,6 +66,7 @@ export default function CheckoutOrderFooter() {
       restaurant_id: cart.restaurant.id,
       order_items: cart.items.map((i) => ({
         menu_item_id: i.id,
+        name: i.name,
         quantity: i.quantity,
         item_total: i.item_total,
       })),

@@ -27,6 +27,7 @@ export type OrderItem = {
   id: string;
   order_id: string;
   menu_item_id: string;
+  name: string;
   quantity: number;
   item_total: number;
   created_at: string;
