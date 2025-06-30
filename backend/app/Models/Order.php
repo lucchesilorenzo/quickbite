@@ -35,6 +35,15 @@ class Order extends Model
         'total',
     ];
 
+    protected $casts = [
+        'subtotal' => 'float',
+        'delivery_fee' => 'float',
+        'service_fee' => 'float',
+        'discount_rate' => 'float',
+        'discount' => 'float',
+        'total' => 'float',
+    ];
+
     /**
      * Get the customer that owns the order.
      *

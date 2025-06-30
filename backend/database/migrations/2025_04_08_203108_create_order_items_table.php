@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignUuid('menu_item_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->integer('quantity')->default(1);
-            $table->decimal('item_total', 8, 2);
+            $table->decimal('item_total');
             $table->timestamps();
         });
     }

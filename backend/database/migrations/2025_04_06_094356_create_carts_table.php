@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
-            $table->decimal('cart_total', 8, 2)->default(0);
+            $table->decimal('cart_total')->default(0);
             $table->integer('total_items')->default(0);
             $table->integer('total_unique_items')->default(0);
             $table->timestamps();

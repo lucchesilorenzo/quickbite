@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('menu_category_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('price', 8, 2);
+            $table->decimal('price');
             $table->string('image')->nullable();
             $table->boolean('is_available')->default(true);
             $table->timestamps();
