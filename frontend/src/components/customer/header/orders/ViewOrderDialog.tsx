@@ -8,6 +8,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import ViewOrderFeesAndDiscounts from "./ViewOrderFeesAndDiscounts";
 import ViewOrderItemsList from "./ViewOrderItemsList";
 
 import { Order } from "@/types/order-types";
@@ -51,6 +52,7 @@ export default function ViewOrderDialog({
 
         <DialogContent sx={{ p: 0 }}>
           <ViewOrderItemsList order={order} />
+          <ViewOrderFeesAndDiscounts order={order} />
         </DialogContent>
       </Stack>
     </Dialog>
