@@ -18,7 +18,10 @@ export default function RestaurantCartMobile() {
     useState(false);
 
   const subtotal = cartTotal(restaurant.id);
-  const total = subtotal + restaurant.delivery_fee;
+  const discount = subtotal * restaurant.discount_rate;
+
+  const total =
+    subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;
 
   return (
     <>

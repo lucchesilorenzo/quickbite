@@ -32,9 +32,9 @@ export default function CheckoutOrderFooter() {
 
   const isDeliveryFeeFree = cart.restaurant.delivery_fee === 0;
   const isDiscountApplicable =
+    cart.restaurant.discount_rate > 0 &&
     cart.cart_total >= cart.restaurant.min_discount_amount;
-  const discount =
-    (cart.cart_total * (cart.restaurant.discount_rate * 100)) / 100;
+  const discount = cart.cart_total * cart.restaurant.discount_rate;
 
   const total =
     cart.cart_total +

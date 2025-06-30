@@ -33,8 +33,11 @@ export default function RestaurantCartFooter() {
   const subtotal = cartTotal(restaurant.id);
 
   const isDeliveryFeeFree = restaurant.delivery_fee === 0;
-  const isDiscountApplicable = subtotal >= restaurant.min_discount_amount;
-  const discount = (subtotal * (restaurant.discount_rate * 100)) / 100;
+
+  const isDiscountApplicable =
+    restaurant.discount_rate > 0 && subtotal >= restaurant.min_discount_amount;
+
+  const discount = subtotal * restaurant.discount_rate;
 
   const total =
     subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;
