@@ -38,12 +38,15 @@ class RestaurantController extends Controller
             ))';
 
             $restaurants = Restaurant::select('*')
-                ->selectRaw("$haversine AS distance", [$lat, $lon, $lat])
-                ->whereRaw("$haversine < ?", [$lat, $lon, $lat, $radius])
-                ->orderByRaw("$haversine ASC", [$lat, $lon, $lat])
+                ->selectRaw("{$haversine} AS distance", [$lat, $lon, $lat])
+                ->whereRaw("{$haversine} < ?", [$lat, $lon, $lat, $radius])
+                ->orderByRaw("{$haversine} ASC", [$lat, $lon, $lat])
                 ->with([
                     'categories',
                     'deliveryDays',
+                    'reviews' => function ($query) {
+                        $query->orderBy('created_at', 'desc');
+                    },
                     'reviews.customer',
                     'menuCategories.menuItems',
                 ])
@@ -73,6 +76,9 @@ class RestaurantController extends Controller
             $restaurant = Restaurant::with([
                 'categories',
                 'deliveryDays',
+                'reviews' => function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                },
                 'reviews.customer',
                 'menuCategories.menuItems',
             ])

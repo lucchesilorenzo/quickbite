@@ -56,7 +56,6 @@
 
 - [React Router](https://reactrouter.com/) for routing.
 - [React Query](https://tanstack.com/query/v4) for data fetching.
-- [react-cookie](https://www.npmjs.com/package/react-cookie) for handling cookies.
 - [embla-carousel-react](https://embla-carousel.com/) for carousel component.
 - [React Hook Form](https://react-hook-form.com/) for form handling.
 - [Zod](https://zod.dev/) for schema validation.
