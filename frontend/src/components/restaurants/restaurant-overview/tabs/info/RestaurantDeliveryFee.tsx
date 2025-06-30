@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -6,12 +8,26 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantDeliveryFee() {
+  const { restaurant, scrollToDeliveryFee, setScrollToDeliveryFee } =
+    useSingleRestaurant();
+
+  const deliveryFeeRef = useRef<HTMLDivElement | null>(null);
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  const { restaurant } = useSingleRestaurant();
+  useEffect(() => {
+    if (scrollToDeliveryFee && deliveryFeeRef.current) {
+      deliveryFeeRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+
+      setScrollToDeliveryFee(false);
+    }
+  }, [scrollToDeliveryFee, deliveryFeeRef, setScrollToDeliveryFee]);
 
   return (
-    <Box id="delivery-fee" sx={{ mb: 2 }}>
+    <Box ref={deliveryFeeRef} sx={{ mb: 2 }}>
       <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 1 }}>
         <ReceiptIcon />
 

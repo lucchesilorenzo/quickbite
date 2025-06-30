@@ -11,23 +11,20 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantHeaderRow() {
-  const { restaurant, setOpenRestaurantAboutDialog, setTabToOpen } =
-    useSingleRestaurant();
+  const {
+    restaurant,
+    setOpenRestaurantAboutDialog,
+    setTabToOpen,
+    setScrollToDeliveryFee,
+  } = useSingleRestaurant();
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
   const isDeliveryFeeFree = restaurant.delivery_fee === 0;
 
   function handleOpenDialogAndScroll() {
-    setTimeout(() => {
-      const anchor = document.getElementById("delivery-fee");
-
-      if (anchor) {
-        anchor.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 300);
-
     setTabToOpen("info");
+    setScrollToDeliveryFee(true);
     setOpenRestaurantAboutDialog(true);
   }
 

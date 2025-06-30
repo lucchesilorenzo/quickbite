@@ -16,6 +16,8 @@ type SingleRestaurantContext = {
   openRestaurantAboutDialog: boolean;
   searchTerm: string;
   tabToOpen: RestaurantTab;
+  scrollToDeliveryFee: boolean;
+  setScrollToDeliveryFee: React.Dispatch<React.SetStateAction<boolean>>;
   setTabToOpen: React.Dispatch<React.SetStateAction<RestaurantTab>>;
   setOpenRestaurantAboutDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -37,6 +39,7 @@ export default function SingleRestaurantProvider({
 
   const [openRestaurantAboutDialog, setOpenRestaurantAboutDialog] =
     useState(false);
+  const [scrollToDeliveryFee, setScrollToDeliveryFee] = useState(false);
   const [tabToOpen, setTabToOpen] = useState<RestaurantTab>("info");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -59,6 +62,8 @@ export default function SingleRestaurantProvider({
         openRestaurantAboutDialog,
         searchTerm,
         tabToOpen,
+        scrollToDeliveryFee,
+        setScrollToDeliveryFee,
         setTabToOpen,
         setOpenRestaurantAboutDialog,
         setSearchTerm,
