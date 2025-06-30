@@ -13,7 +13,13 @@ export default function RestaurantHeader() {
     restaurant,
     openRestaurantAboutDialog,
     setOpenRestaurantAboutDialog,
+    setTabToOpen,
   } = useSingleRestaurant();
+
+  function handleOpenDialogAndSetTab() {
+    setTabToOpen("info");
+    setOpenRestaurantAboutDialog(true);
+  }
 
   return (
     <Stack
@@ -31,7 +37,7 @@ export default function RestaurantHeader() {
       <IconButton
         color="inherit"
         sx={{ bgcolor: grey[100], "&:hover": { bgcolor: grey[200] } }}
-        onClick={() => setOpenRestaurantAboutDialog(true)}
+        onClick={handleOpenDialogAndSetTab}
         size={isMobile ? "small" : "medium"}
       >
         <InfoOutlineIcon fontSize={isMobile ? "small" : "medium"} />

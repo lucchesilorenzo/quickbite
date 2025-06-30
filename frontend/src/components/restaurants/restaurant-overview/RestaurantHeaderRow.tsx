@@ -6,13 +6,13 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StarIcon from "@mui/icons-material/Star";
 import { IconButton, Link, Stack, Typography } from "@mui/material";
 
-import ServiceFeeDialog from "../../common/ServiceFeeDialog";
-
+import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantHeaderRow() {
-  const { restaurant, setOpenRestaurantAboutDialog } = useSingleRestaurant();
+  const { restaurant, setOpenRestaurantAboutDialog, setTabToOpen } =
+    useSingleRestaurant();
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
@@ -20,13 +20,14 @@ export default function RestaurantHeaderRow() {
 
   function handleOpenDialogAndScroll() {
     setTimeout(() => {
-      const anchor = document.querySelector("#delivery-fee");
+      const anchor = document.getElementById("delivery-fee");
 
       if (anchor) {
         anchor.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     }, 300);
 
+    setTabToOpen("info");
     setOpenRestaurantAboutDialog(true);
   }
 

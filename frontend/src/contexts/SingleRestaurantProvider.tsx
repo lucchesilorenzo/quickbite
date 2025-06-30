@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Spinner from "@/components/common/Spinner";
 import { useGetRestaurant } from "@/hooks/react-query/public/restaurants/useGetRestaurant";
 import ErrorPage from "@/pages/public/ErrorPage";
-import { RestaurantDetail } from "@/types";
+import { RestaurantDetail, RestaurantTab } from "@/types";
 
 type SingleRestaurantProviderProps = {
   children: React.ReactNode;
@@ -15,6 +15,8 @@ type SingleRestaurantContext = {
   restaurant: RestaurantDetail;
   openRestaurantAboutDialog: boolean;
   searchTerm: string;
+  tabToOpen: RestaurantTab;
+  setTabToOpen: React.Dispatch<React.SetStateAction<RestaurantTab>>;
   setOpenRestaurantAboutDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -35,6 +37,7 @@ export default function SingleRestaurantProvider({
 
   const [openRestaurantAboutDialog, setOpenRestaurantAboutDialog] =
     useState(false);
+  const [tabToOpen, setTabToOpen] = useState<RestaurantTab>("info");
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -55,6 +58,8 @@ export default function SingleRestaurantProvider({
         restaurant,
         openRestaurantAboutDialog,
         searchTerm,
+        tabToOpen,
+        setTabToOpen,
         setOpenRestaurantAboutDialog,
         setSearchTerm,
       }}
