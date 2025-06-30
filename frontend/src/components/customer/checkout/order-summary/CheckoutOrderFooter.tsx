@@ -30,10 +30,16 @@ export default function CheckoutOrderFooter() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
+  const isDeliveryFeeFree = cart.restaurant.shipping_cost === 0;
+  const isDiscountApplicable =
+    cart.cart_total >= cart.restaurant.min_discount_amount;
+  const discount = (cart.cart_total * (cart.restaurant.discount * 100)) / 100;
+
   const total =
     cart.cart_total +
     cart.restaurant.shipping_cost +
-    cart.restaurant.service_fee;
+    cart.restaurant.service_fee -
+    discount;
 
   async function handleOrderCheckout() {
     const isPersonalInfoValid =
@@ -76,6 +82,12 @@ export default function CheckoutOrderFooter() {
         quantity: i.quantity,
         item_total: i.item_total,
       })),
+      subtotal: cart.cart_total,
+      delivery_fee: cart.restaurant.shipping_cost,
+      service_fee: cart.restaurant.service_fee,
+      discount_rate: cart.restaurant.discount,
+      discount,
+      total,
     };
 
     const { order: newOrder } = await createOrder(order);
@@ -115,7 +127,9 @@ export default function CheckoutOrderFooter() {
         </Stack>
 
         <Typography variant="body2">
-          {formatCurrency(cart.restaurant.shipping_cost)}
+          {!isDeliveryFeeFree
+            ? formatCurrency(cart.restaurant.shipping_cost)
+            : "Free"}
         </Typography>
       </Stack>
 
@@ -141,6 +155,21 @@ export default function CheckoutOrderFooter() {
 
           <Typography variant="body2" component="div">
             {formatCurrency(cart.restaurant.service_fee)}
+          </Typography>
+        </Stack>
+      )}
+
+      {isDiscountApplicable && (
+        <Stack
+          direction="row"
+          sx={{ alignItems: "center", justifyContent: "space-between" }}
+        >
+          <Typography variant="body2" component="div">
+            {cart.restaurant.discount * 100}% off
+          </Typography>
+
+          <Typography variant="body2" component="div">
+            -{formatCurrency(discount)}
           </Typography>
         </Stack>
       )}

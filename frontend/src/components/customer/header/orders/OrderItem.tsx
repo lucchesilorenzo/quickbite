@@ -33,11 +33,6 @@ export default function OrderItem({ order }: OrderItemProps) {
   const [openViewOrderDialog, setOpenViewOrderDialog] = useState(false);
   const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
 
-  const orderTotal = order.order_items.reduce(
-    (acc, curr) => acc + curr.item_total,
-    0,
-  );
-
   const hasCustomerReviewed = order.restaurant.reviews.some(
     (review) => review.user_id === user?.id && review.order_id === order.id,
   );
@@ -84,7 +79,7 @@ export default function OrderItem({ order }: OrderItemProps) {
             </Typography>
 
             <Typography variant="body1">
-              {formatCurrency(orderTotal)}
+              {formatCurrency(order.total)}
             </Typography>
           </Box>
         </Stack>

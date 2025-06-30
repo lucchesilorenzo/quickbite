@@ -30,10 +30,14 @@ export default function RestaurantCartFooter() {
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const isDeliveryFeeFree = restaurant.shipping_cost === 0;
-
   const subtotal = cartTotal(restaurant.id);
-  const total = subtotal + restaurant.shipping_cost + restaurant.service_fee;
+
+  const isDeliveryFeeFree = restaurant.shipping_cost === 0;
+  const isDiscountApplicable = subtotal >= restaurant.min_discount_amount;
+  const discount = (subtotal * (restaurant.discount * 100)) / 100;
+
+  const total =
+    subtotal + restaurant.shipping_cost + restaurant.service_fee - discount;
 
   const navigate = useNavigate();
 
@@ -112,6 +116,21 @@ export default function RestaurantCartFooter() {
 
           <Typography variant="body2" component="div">
             {formatCurrency(restaurant.service_fee)}
+          </Typography>
+        </Stack>
+      )}
+
+      {isDiscountApplicable && (
+        <Stack
+          direction="row"
+          sx={{ alignItems: "center", justifyContent: "space-between" }}
+        >
+          <Typography variant="body2" component="div">
+            {restaurant.discount * 100}% off
+          </Typography>
+
+          <Typography variant="body2" component="div">
+            -{formatCurrency(discount)}
           </Typography>
         </Stack>
       )}
