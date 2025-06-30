@@ -172,4 +172,25 @@ class CartController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Delete a cart for the authenticated user.
+     *
+     * @param Cart $cart
+     * @return JsonResponse
+     */
+    public function deleteCart(Cart $cart): JsonResponse
+    {
+        try {
+            $cart->delete();
+
+            return response()->json([
+                'message' => 'Cart deleted successfully.',
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Could not delete cart.',
+            ], 500);
+        }
+    }
 }
