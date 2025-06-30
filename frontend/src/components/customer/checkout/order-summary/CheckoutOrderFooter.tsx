@@ -16,13 +16,16 @@ import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useDeleteCart } from "@/hooks/react-query/private/cart/useDeleteCart";
 import { useCreateOrder } from "@/hooks/react-query/private/orders/useCreateOrder";
 import { formatCurrency } from "@/lib/utils";
 import { CreateOrder } from "@/types/order-types";
 
 export default function CheckoutOrderFooter() {
   const { cart, checkoutData, restaurantId } = useCheckout();
+
   const { mutateAsync: createOrder } = useCreateOrder(restaurantId);
+  const { mutateAsync: deleteCart } = useDeleteCart(cart.cart_id);
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
@@ -92,6 +95,8 @@ export default function CheckoutOrderFooter() {
     };
 
     const { order: newOrder } = await createOrder(order);
+    await deleteCart();
+
     navigate(`/checkout/${newOrder.id}/success`, { replace: true });
   }
 
