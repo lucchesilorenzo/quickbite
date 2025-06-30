@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import ViewOrderItem from "./ViewOrderItem";
 
@@ -11,6 +11,10 @@ type ViewOrderItemsListProps = {
 export default function ViewOrderItemsList({ order }: ViewOrderItemsListProps) {
   return (
     <Box>
+      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+        Your articles
+      </Typography>
+
       {order.order_items.map((item, index) => (
         <ViewOrderItem
           key={item.id}

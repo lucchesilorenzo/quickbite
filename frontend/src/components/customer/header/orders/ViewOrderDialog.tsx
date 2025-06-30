@@ -34,10 +34,10 @@ export default function ViewOrderDialog({
       fullScreen={isMobile}
       disableRestoreFocus
     >
-      <Stack spacing={4} sx={{ p: 2 }}>
+      <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
           <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
-            Your articles
+            Order # {order.order_code}
           </DialogTitle>
 
           <IconButton
