@@ -27,6 +27,12 @@ class Order extends Model
         'delivery_time',
         'notes',
         'payment_method',
+        'subtotal',
+        'delivery_fee',
+        'service_fee',
+        'discount_rate',
+        'discount',
+        'total',
     ];
 
     /**

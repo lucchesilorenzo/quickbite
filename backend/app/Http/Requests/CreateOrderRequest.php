@@ -34,6 +34,12 @@ class CreateOrderRequest extends FormRequest
             'delivery_time' => ['required', 'string', 'min:1', 'max:5'],
             'notes' => ['nullable', 'string', 'max:160'],
             'payment_method' => ['required', 'string', 'min:1', 'max:50'],
+            'subtotal' => ['required', 'numeric', 'min:0'],
+            'delivery_fee' => ['required', 'numeric', 'min:0'],
+            'service_fee' => ['required', 'numeric', 'min:0'],
+            'discount_rate' => ['required', 'numeric', 'min:0'],
+            'discount' => ['required', 'numeric', 'min:0'],
+            'total' => ['required', 'numeric', 'min:0'],
 
             'order_items' => ['required', 'array', 'min:1'],
             'order_items.*.menu_item_id' => ['required', 'exists:menu_items,id'],

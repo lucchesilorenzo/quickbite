@@ -88,6 +88,12 @@ class OrderController extends Controller
                 'delivery_time' => $data['delivery_time'] === "asap" ? now()->format('H:i:s') : $data['delivery_time'],
                 'notes' => $data['notes'] ?? null,
                 'payment_method' => $data['payment_method'],
+                'subtotal' => $data['subtotal'],
+                'delivery_fee' => $data['delivery_fee'],
+                'service_fee' => $data['service_fee'],
+                'discount_rate' => $data['discount_rate'],
+                'discount' => $data['discount'],
+                'total' => $data['total'],
             ]);
 
             // Create order items

@@ -34,6 +34,12 @@ class OrderFactory extends Factory
             'delivery_time' => fake()->time('H:i'),
             'notes' => fake()->optional()->text(100),
             'payment_method' => fake()->randomElement(['cash']),
+            'subtotal' => fake()->randomFloat(2, 10, 100),
+            'delivery_fee' => fake()->randomElement([0, 2.99, 4.99]),
+            'service_fee' => fake()->randomElement([0, 0.30, 0.50, 0.75, 1.00]),
+            'discount_rate' => fake()->randomElement([0.1, 0.2, 0.3, 0.4, 0.5]),
+            'discount' => fake()->randomFloat(2, 0, 10),
+            'total' => fake()->randomFloat(2, 10, 100),
         ];
     }
 

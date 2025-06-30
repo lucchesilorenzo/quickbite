@@ -27,6 +27,12 @@ return new class extends Migration
             $table->time('delivery_time');
             $table->string('notes', 160)->nullable();
             $table->string('payment_method');
+            $table->decimal('subtotal');
+            $table->decimal('delivery_fee')->default(0);
+            $table->decimal('service_fee')->default(0);
+            $table->decimal('discount_rate')->default(0);
+            $table->decimal('discount')->default(0);
+            $table->decimal('total');
             $table->timestamps();
         });
     }
