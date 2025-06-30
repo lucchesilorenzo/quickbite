@@ -29,7 +29,11 @@ export default function RestaurantHeaderRow() {
   }
 
   return (
-    <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 2 }}>
+    <Stack
+      direction="row"
+      spacing={1}
+      sx={{ alignItems: "center", mb: 2, flexWrap: "wrap" }}
+    >
       <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
         <StarIcon fontSize="small" color="primary" />
 

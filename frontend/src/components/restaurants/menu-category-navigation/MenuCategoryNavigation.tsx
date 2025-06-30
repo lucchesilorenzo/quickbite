@@ -12,7 +12,7 @@ import MenuCategoryNavigationDialog from "./MenuCategoryNavigationDialog";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function MenuCategoryNavigation() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant, menuCategoryRefs } = useSingleRestaurant();
 
   const [selectedMenuCategoryId, setSelectedMenuCategoryId] = useState("");
   const [
@@ -27,17 +27,20 @@ export default function MenuCategoryNavigation() {
   function handleClick(menuCategoryId: string) {
     setSelectedMenuCategoryId(menuCategoryId);
 
-    const category = document.querySelector(`#category_${menuCategoryId}`);
+    // Desktop
+    document.querySelector(`#category-${menuCategoryId}`)?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
 
-    if (category) {
-      category.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    // Mobile
+    menuCategoryRefs.current[menuCategoryId]?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
   }
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "center",
-    containScroll: "trimSnaps",
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel({});
   const [canScrollPrev, setCanScrollPrev] = useState(true);
   const [canScrollNext, setCanScrollNext] = useState(true);
 

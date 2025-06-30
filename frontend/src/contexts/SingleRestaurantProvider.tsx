@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -17,6 +17,7 @@ type SingleRestaurantContext = {
   searchTerm: string;
   tabToOpen: RestaurantTab;
   scrollToDeliveryFee: boolean;
+  menuCategoryRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
   setScrollToDeliveryFee: React.Dispatch<React.SetStateAction<boolean>>;
   setTabToOpen: React.Dispatch<React.SetStateAction<RestaurantTab>>;
   setOpenRestaurantAboutDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,6 +44,8 @@ export default function SingleRestaurantProvider({
   const [tabToOpen, setTabToOpen] = useState<RestaurantTab>("info");
   const [searchTerm, setSearchTerm] = useState("");
 
+  const menuCategoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
   useEffect(() => {
     if (restaurant?.name && restaurant?.city) {
       document.title = `${restaurant.name} restaurant menu in ${restaurant.city} - Order from QuickBite`;
@@ -63,6 +66,7 @@ export default function SingleRestaurantProvider({
         searchTerm,
         tabToOpen,
         scrollToDeliveryFee,
+        menuCategoryRefs,
         setScrollToDeliveryFee,
         setTabToOpen,
         setOpenRestaurantAboutDialog,

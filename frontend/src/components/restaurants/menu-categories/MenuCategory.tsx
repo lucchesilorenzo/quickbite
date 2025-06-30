@@ -2,6 +2,7 @@ import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import MenuItemRow from "./MenuItemRow";
 
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { RestaurantDetail } from "@/types";
 
 type MenuCategoryProps = {
@@ -9,10 +10,19 @@ type MenuCategoryProps = {
 };
 
 export default function MenuCategory({ menuCategory }: MenuCategoryProps) {
+  const { menuCategoryRefs } = useSingleRestaurant();
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
-    <Stack id={`category_${menuCategory.id}`} spacing={2} sx={{ mb: 4 }}>
+    <Stack
+      id={`category-${menuCategory.id}`}
+      ref={(el) => {
+        menuCategoryRefs.current[menuCategory.id] = el;
+      }}
+      spacing={2}
+      sx={{ mb: 4 }}
+    >
       <Box sx={{ px: { xs: 2, lg: 0 } }}>
         <Typography
           component="h2"
