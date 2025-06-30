@@ -16,7 +16,7 @@ export default function RestaurantHeaderRow() {
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const isDeliveryFeeFree = restaurant.shipping_cost === 0;
+  const isDeliveryFeeFree = restaurant.delivery_fee === 0;
 
   function handleOpenDialogAndScroll() {
     setTimeout(() => {
@@ -77,7 +77,7 @@ export default function RestaurantHeaderRow() {
 
         <Typography component="span" variant="body2" color="textPrimary">
           {!isDeliveryFeeFree
-            ? formatCurrency(restaurant.shipping_cost)
+            ? formatCurrency(restaurant.delivery_fee)
             : "Free"}
         </Typography>
 

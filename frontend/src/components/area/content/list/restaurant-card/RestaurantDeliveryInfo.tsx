@@ -14,7 +14,7 @@ type RestaurantDeliveryInfoProps = {
 export default function RestaurantDeliveryInfo({
   restaurant,
 }: RestaurantDeliveryInfoProps) {
-  const hasFreeDelivery = restaurant.shipping_cost === 0;
+  const hasFreeDelivery = restaurant.delivery_fee === 0;
   const hasSameDeliveryTime =
     restaurant.delivery_time_min === restaurant.delivery_time_max;
   const deliveryTime = hasSameDeliveryTime
@@ -48,8 +48,8 @@ export default function RestaurantDeliveryInfo({
           <DeliveryDiningIcon fontSize="small" color="primary" />
 
           <Typography variant="body2" component="span" color="textPrimary">
-            {restaurant.shipping_cost > 0
-              ? `${formatCurrency(restaurant.shipping_cost)} Delivery`
+            {restaurant.delivery_fee > 0
+              ? `${formatCurrency(restaurant.delivery_fee)} Delivery`
               : "Free delivery"}
           </Typography>
         </Stack>

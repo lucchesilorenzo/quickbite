@@ -32,12 +32,12 @@ export default function RestaurantCartFooter() {
 
   const subtotal = cartTotal(restaurant.id);
 
-  const isDeliveryFeeFree = restaurant.shipping_cost === 0;
+  const isDeliveryFeeFree = restaurant.delivery_fee === 0;
   const isDiscountApplicable = subtotal >= restaurant.min_discount_amount;
-  const discount = (subtotal * (restaurant.discount * 100)) / 100;
+  const discount = (subtotal * (restaurant.discount_rate * 100)) / 100;
 
   const total =
-    subtotal + restaurant.shipping_cost + restaurant.service_fee - discount;
+    subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;
 
   const navigate = useNavigate();
 
@@ -89,7 +89,7 @@ export default function RestaurantCartFooter() {
 
         <Typography variant="body2" component="div">
           {!isDeliveryFeeFree
-            ? formatCurrency(restaurant.shipping_cost)
+            ? formatCurrency(restaurant.delivery_fee)
             : "Free"}
         </Typography>
       </Stack>
@@ -126,7 +126,7 @@ export default function RestaurantCartFooter() {
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
           <Typography variant="body2" component="div">
-            {restaurant.discount * 100}% off
+            {restaurant.discount_rate * 100}% off
           </Typography>
 
           <Typography variant="body2" component="div">

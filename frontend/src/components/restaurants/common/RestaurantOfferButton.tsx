@@ -27,7 +27,7 @@ export default function RestaurantOfferButton() {
       disableElevation
       onClick={handleOpenAboutDialogAndOffersTab}
     >
-      {restaurant.discount * 100}% off when you spend{" "}
+      {restaurant.discount_rate * 100}% off when you spend{" "}
       {formatCurrency(restaurant.min_discount_amount)} or more
     </Button>
   );

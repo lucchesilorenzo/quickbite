@@ -24,11 +24,11 @@ export type RestaurantBase = {
   email: string;
   vat_id: string | null;
   min_amount: number;
-  shipping_cost: number;
+  delivery_fee: number;
   service_fee: number;
   delivery_time_min: number;
   delivery_time_max: number;
-  discount: number;
+  discount_rate: number;
   min_discount_amount: number;
   logo: string;
   cover: string;

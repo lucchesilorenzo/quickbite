@@ -49,9 +49,9 @@ export default function RestaurantDeliveryFee() {
           </Typography>
 
           <Typography variant={isMobile ? "body2" : "body1"}>
-            {restaurant.shipping_cost === 0
+            {restaurant.delivery_fee === 0
               ? "Free"
-              : formatCurrency(restaurant.shipping_cost)}
+              : formatCurrency(restaurant.delivery_fee)}
           </Typography>
         </Stack>
       </Card>

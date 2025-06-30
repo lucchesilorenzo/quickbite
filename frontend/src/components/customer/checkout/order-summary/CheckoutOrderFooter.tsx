@@ -30,14 +30,15 @@ export default function CheckoutOrderFooter() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  const isDeliveryFeeFree = cart.restaurant.shipping_cost === 0;
+  const isDeliveryFeeFree = cart.restaurant.delivery_fee === 0;
   const isDiscountApplicable =
     cart.cart_total >= cart.restaurant.min_discount_amount;
-  const discount = (cart.cart_total * (cart.restaurant.discount * 100)) / 100;
+  const discount =
+    (cart.cart_total * (cart.restaurant.discount_rate * 100)) / 100;
 
   const total =
     cart.cart_total +
-    cart.restaurant.shipping_cost +
+    cart.restaurant.delivery_fee +
     cart.restaurant.service_fee -
     discount;
 
@@ -83,9 +84,9 @@ export default function CheckoutOrderFooter() {
         item_total: i.item_total,
       })),
       subtotal: cart.cart_total,
-      delivery_fee: cart.restaurant.shipping_cost,
+      delivery_fee: cart.restaurant.delivery_fee,
       service_fee: cart.restaurant.service_fee,
-      discount_rate: cart.restaurant.discount,
+      discount_rate: cart.restaurant.discount_rate,
       discount,
       total,
     };
@@ -128,7 +129,7 @@ export default function CheckoutOrderFooter() {
 
         <Typography variant="body2">
           {!isDeliveryFeeFree
-            ? formatCurrency(cart.restaurant.shipping_cost)
+            ? formatCurrency(cart.restaurant.delivery_fee)
             : "Free"}
         </Typography>
       </Stack>
@@ -165,7 +166,7 @@ export default function CheckoutOrderFooter() {
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
           <Typography variant="body2" component="div">
-            {cart.restaurant.discount * 100}% off
+            {cart.restaurant.discount_rate * 100}% off
           </Typography>
 
           <Typography variant="body2" component="div">

@@ -24,7 +24,7 @@ export default function RestaurantCartDeliveryFeeDialog({
   const { restaurant } = useSingleRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-  const isDeliveryFeeFree = restaurant.shipping_cost === 0;
+  const isDeliveryFeeFree = restaurant.delivery_fee === 0;
 
   return (
     <Dialog
@@ -64,7 +64,7 @@ export default function RestaurantCartDeliveryFeeDialog({
 
               <Typography variant="body2">
                 {!isDeliveryFeeFree
-                  ? formatCurrency(restaurant.shipping_cost)
+                  ? formatCurrency(restaurant.delivery_fee)
                   : "Free"}
               </Typography>
             </Stack>

@@ -19,7 +19,7 @@ export default function RestaurantOfferFilters() {
       {
         label: "Deals",
         key: "with_discounts",
-        count: originalRestaurants.filter((r) => r.discount).length,
+        count: originalRestaurants.filter((r) => r.discount_rate).length,
       },
     ],
     [originalRestaurants],

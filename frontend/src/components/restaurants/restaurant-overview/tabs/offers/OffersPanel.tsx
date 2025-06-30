@@ -12,7 +12,7 @@ export default function OffersPanel() {
         All
       </Typography>
 
-      {restaurant.discount > 0 && restaurant.min_discount_amount > 0 && (
+      {restaurant.discount_rate > 0 && restaurant.min_discount_amount > 0 && (
         <RestaurantOfferButton />
       )}
     </Stack>

@@ -99,7 +99,7 @@ export default function RestaurantProvider({
     }
 
     if (filters.includes("free_delivery")) {
-      result = result.filter((r) => r.shipping_cost === 0);
+      result = result.filter((r) => r.delivery_fee === 0);
     }
 
     if (Object.entries(ratings).some(([, v]) => filters.includes(v))) {
@@ -120,7 +120,7 @@ export default function RestaurantProvider({
     }
 
     if (filters.includes("with_discounts")) {
-      result = result.filter((r) => r.discount);
+      result = result.filter((r) => r.discount_rate);
     }
 
     // --- Sort params ---
@@ -161,7 +161,7 @@ export default function RestaurantProvider({
         break;
 
       case "delivery_fee":
-        result = result.sort((a, b) => a.shipping_cost - b.shipping_cost);
+        result = result.sort((a, b) => a.delivery_fee - b.delivery_fee);
         break;
     }
 
