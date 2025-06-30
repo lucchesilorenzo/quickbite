@@ -2,6 +2,9 @@ import { RestaurantBase, Review } from "./restaurant-types";
 
 export type Order = {
   id: string;
+  restaurant: RestaurantBase & {
+    reviews: Review[];
+  };
   user_id: string;
   restaurant_id: string;
   order_code: number;
@@ -16,9 +19,12 @@ export type Order = {
   notes?: string;
   payment_method: string;
   order_items: OrderItem[];
-  restaurant: RestaurantBase & {
-    reviews: Review[];
-  };
+  subtotal: number;
+  delivery_fee: number;
+  service_fee: number;
+  discount_rate: number;
+  discount: number;
+  total: number;
   created_at: string;
   updated_at: string;
 };
