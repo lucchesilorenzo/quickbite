@@ -109,3 +109,5 @@ export type RestaurantSearchOption = {
   label: string;
   type: string;
 };
+
+export type RestaurantTab = "reviews" | "info" | "offers";
