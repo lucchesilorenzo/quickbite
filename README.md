@@ -122,8 +122,8 @@ Ensure you have the following installed:
    DB_HOST=127.0.0.1
    DB_PORT=5432
    DB_DATABASE=quickbite
-   DB_USERNAME=your_username
-   DB_PASSWORD=your_password
+   DB_USERNAME=quickbite
+   DB_PASSWORD=quickbite
    ```
 
 6. **Generate Laravel application key**:
@@ -132,13 +132,19 @@ Ensure you have the following installed:
    php artisan key:generate
    ```
 
-7. **Run database migrations and seed data**:
+7. **Create symlink for public folder**:
+
+   ```bash
+   php artisan storage:link
+   ```
+
+8. **Run database migrations and seed data**:
 
    ```bash
    php artisan migrate --seed
    ```
 
-8. **Start both the frontend and backend**:
+9. **Start both the frontend and backend**:
 
    ```bash
    cd .. && npm start
@@ -158,6 +164,59 @@ Ensure you have the following installed:
   - View assigned delivery orders.
   - Update order pickup and delivery status.
   - Real-time notifications for new deliveries.
+
+## Installation with Docker
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- [Docker](https://www.docker.com/get-started/)
+
+1. **Copy the `.env.example` file to `.env` in both the frontend and backend directories.**
+
+2. **Generate the Laravel application key by running:**
+
+   ```bash
+   php artisan key:generate
+   ```
+
+3. **Update the database host in the backend `.env` file:**
+
+   ```bash
+   DB_CONNECTION=pgsql
+   DB_HOST=db
+   DB_PORT=5432
+   DB_DATABASE=quickbite
+   DB_USERNAME=quickbite
+   DB_PASSWORD=quickbite
+   ```
+
+4. **Start the containers with:**
+
+   ```bash
+   docker compose up
+   ```
+
+5. **Make migrations and seed data:**
+
+   ```bash
+   docker compose exec api php artisan migrate --seed
+   ```
+
+6. **Create symlink for public folder**:
+
+   ```bash
+   docker compose exec api php artisan storage:link
+   ```
+
+   If you've already created the symlink in the host machine, we first need to remove it and then create a new one:
+
+   ```bash
+   docker compose exec api rm public/storage && docker compose exec api php artisan storage:link
+   ```
+
+7. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
 
 ## License
 
