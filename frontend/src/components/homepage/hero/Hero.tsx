@@ -16,7 +16,7 @@ export default function Hero() {
           <Typography
             variant={isMobile ? "h4" : "h3"}
             component="h1"
-            sx={{ fontWeight: "700" }}
+            sx={{ fontWeight: 700 }}
           >
             Order food and more
           </Typography>
@@ -24,7 +24,7 @@ export default function Hero() {
           <Typography
             variant={isMobile ? "h5" : "h4"}
             component="h2"
-            sx={{ fontWeight: "700" }}
+            sx={{ fontWeight: 700 }}
           >
             Restaurants and grocery stores delivering near you
           </Typography>
