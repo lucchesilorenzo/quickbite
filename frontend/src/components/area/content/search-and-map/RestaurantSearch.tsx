@@ -64,6 +64,8 @@ export default function RestaurantSearch() {
     if (option && typeof option === "object") {
       setSelectedOption(option);
       setSearchParams({
+        lat: searchParams.getAll("lat"),
+        lon: searchParams.getAll("lon"),
         filter: [],
         mov: [],
         sort_by: [],
@@ -98,6 +100,8 @@ export default function RestaurantSearch() {
           setInputValue("");
           setSelectedOption(null);
           setSearchParams({
+            lat: searchParams.getAll("lat"),
+            lon: searchParams.getAll("lon"),
             filter: searchParams.getAll("filter"),
             mov: searchParams.getAll("mov"),
             sort_by: searchParams.getAll("sort_by"),

@@ -61,10 +61,6 @@ export default function CategoryFiltersProvider({
 
     // Update query params
     const currentFilters = searchParams.getAll("filter");
-    const currentMOV = searchParams.getAll("mov");
-    const currentSort = searchParams.getAll("sort_by");
-    const currentViewType = searchParams.getAll("view_type");
-    const currentSearchTerm = searchParams.getAll("q");
 
     // Take all the filters that are category filters
     const selectedFilters = updatedCategories
@@ -77,11 +73,13 @@ export default function CategoryFiltersProvider({
     );
 
     setSearchParams({
+      lat: searchParams.getAll("lat"),
+      lon: searchParams.getAll("lon"),
       filter: [...selectedFilters, ...nonCategoryFilters],
-      mov: currentMOV,
-      sort_by: currentSort,
-      view_type: currentViewType,
-      q: currentSearchTerm,
+      mov: searchParams.getAll("mov"),
+      sort_by: searchParams.getAll("sort_by"),
+      view_type: searchParams.getAll("view_type"),
+      q: searchParams.getAll("q"),
     });
 
     setOpenCategoriesDialog(false);

@@ -69,17 +69,14 @@ export default function RestaurantMap() {
   }
 
   function handleReturnToList() {
-    const currentFilters = searchParams.getAll("filter");
-    const currentMOV = searchParams.getAll("mov");
-    const currentSort = searchParams.getAll("sort_by");
-    const currentSearchTerm = searchParams.getAll("q");
-
     setSearchParams({
-      filter: currentFilters,
-      mov: currentMOV,
-      sort_by: currentSort,
+      lat: searchParams.getAll("lat"),
+      lon: searchParams.getAll("lon"),
+      filter: searchParams.getAll("filter"),
+      mov: searchParams.getAll("mov"),
+      sort_by: searchParams.getAll("sort_by"),
       view_type: [],
-      q: currentSearchTerm,
+      q: searchParams.getAll("q"),
     });
   }
 

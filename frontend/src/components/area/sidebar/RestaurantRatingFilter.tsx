@@ -27,6 +27,8 @@ export default function RestaurantRatingFilter() {
     // If rating is null, remove it from the query params
     if (!value) {
       setSearchParams({
+        lat: searchParams.getAll("lat"),
+        lon: searchParams.getAll("lon"),
         filter: updatedFilters,
         mov: currentMOV,
         sort_by: currentSort,
@@ -40,6 +42,8 @@ export default function RestaurantRatingFilter() {
 
     // If rating is not null, add it to the query params
     setSearchParams({
+      lat: searchParams.getAll("lat"),
+      lon: searchParams.getAll("lon"),
       filter: [...updatedFilters, ratings[value]],
       mov: currentMOV,
       sort_by: currentSort,

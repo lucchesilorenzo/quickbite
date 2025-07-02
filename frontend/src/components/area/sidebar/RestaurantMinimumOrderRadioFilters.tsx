@@ -40,18 +40,16 @@ export default function RestaurantMinimumOrderRadioFilters() {
     setValue(e.target.value);
 
     // Update query params
-    const currentFilters = searchParams.getAll("filter");
     const updatedMOV = e.target.value !== "all" ? e.target.value : [];
-    const currentSort = searchParams.getAll("sort_by");
-    const currentViewType = searchParams.getAll("view_type");
-    const currentSearchTerm = searchParams.getAll("q");
 
     setSearchParams({
-      filter: currentFilters,
+      lat: searchParams.getAll("lat"),
+      lon: searchParams.getAll("lon"),
+      filter: searchParams.getAll("filter"),
       mov: updatedMOV,
-      sort_by: currentSort,
-      view_type: currentViewType,
-      q: currentSearchTerm,
+      sort_by: searchParams.getAll("sort_by"),
+      view_type: searchParams.getAll("view_type"),
+      q: searchParams.getAll("q"),
     });
   }
 

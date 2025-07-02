@@ -15,18 +15,14 @@ export default function RestaurantViewSwitcher() {
     // Use a variable to avoid getting an outdated value from the hook
     const updatedViewMap = !viewMap;
 
-    // Update query params
-    const currentFilters = searchParams.getAll("filter");
-    const currentMOV = searchParams.getAll("mov");
-    const currentSort = searchParams.getAll("sort_by");
-    const currentSearchTerm = searchParams.getAll("q");
-
     setSearchParams({
-      filter: currentFilters,
-      mov: currentMOV,
-      sort_by: currentSort,
+      lat: searchParams.getAll("lat"),
+      lon: searchParams.getAll("lon"),
+      filter: searchParams.getAll("filter"),
+      mov: searchParams.getAll("mov"),
+      sort_by: searchParams.getAll("sort_by"),
       view_type: updatedViewMap ? "map" : [],
-      q: currentSearchTerm,
+      q: searchParams.getAll("q"),
     });
 
     setViewMap((prev) => !prev);

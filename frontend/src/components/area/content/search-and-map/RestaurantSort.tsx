@@ -22,18 +22,16 @@ export default function RestaurantSort() {
     setValue(e.target.value);
 
     // Update query params
-    const currentFilters = searchParams.getAll("filter");
-    const currentMOV = searchParams.getAll("mov");
     const updatedSort = e.target.value !== "best-match" ? e.target.value : [];
-    const currentViewType = searchParams.getAll("view_type");
-    const currentSearchTerm = searchParams.getAll("q");
 
     setSearchParams({
-      filter: currentFilters,
-      mov: currentMOV,
+      lat: searchParams.getAll("lat"),
+      lon: searchParams.getAll("lon"),
+      filter: searchParams.getAll("filter"),
+      mov: searchParams.getAll("mov"),
       sort_by: updatedSort,
-      view_type: currentViewType,
-      q: currentSearchTerm,
+      view_type: searchParams.getAll("view_type"),
+      q: searchParams.getAll("q"),
     });
   }
 

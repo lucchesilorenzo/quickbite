@@ -24,6 +24,8 @@ export default function RestaurantHeadingContainerMobile({
 
   function handleClearAllFilters() {
     setSearchParams({
+      lat: searchParams.getAll("lat"),
+      lon: searchParams.getAll("lon"),
       filter: [],
       mov: [],
       sort_by: [],
