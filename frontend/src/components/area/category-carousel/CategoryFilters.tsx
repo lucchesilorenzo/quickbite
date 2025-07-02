@@ -2,18 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Fade,
-  IconButton,
-  Stack,
-} from "@mui/material";
+import { Box, Container, Fade, IconButton, Stack } from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
 
 import CategoryDialog from "./CategoryDialog";
 import CuisineFilterSlide from "./CategoryFilterSlide";
+import CategoryFiltersSpinner from "./CategoryFiltersSpinner";
 
 import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 
@@ -64,19 +58,17 @@ export default function CategoryFilters() {
       )}
 
       <Box sx={{ overflow: "hidden", flex: 1 }} ref={emblaRef}>
-        <Stack direction="row" sx={{ alignItems: "center" }}>
-          {isLoadingCategories ? (
-            <CircularProgress size={24} />
-          ) : (
-            <>
-              {visibleCategories.map((category) => (
-                <CuisineFilterSlide key={category.id} category={category} />
-              ))}
+        {isLoadingCategories ? (
+          <CategoryFiltersSpinner />
+        ) : (
+          <Stack direction="row" sx={{ alignItems: "center" }}>
+            {visibleCategories.map((category) => (
+              <CuisineFilterSlide key={category.id} category={category} />
+            ))}
 
-              <CategoryDialog categories={allCategories} />
-            </>
-          )}
-        </Stack>
+            <CategoryDialog categories={allCategories} />
+          </Stack>
+        )}
       </Box>
 
       {canScrollNext && (
