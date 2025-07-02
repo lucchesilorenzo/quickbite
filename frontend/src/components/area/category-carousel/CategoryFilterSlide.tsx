@@ -18,7 +18,7 @@ export default function CategoryFilterSlide({
   const [isTickVisible, setIsTickVisible] = useState(false);
 
   return (
-    <Box sx={{ scrollSnapAlign: "center", pl: 2 }}>
+    <Box sx={{ scrollSnapAlign: "center" }}>
       <Button
         onClick={() => handleStatusChange(category)}
         onMouseEnter={() => setIsTickVisible(true)}

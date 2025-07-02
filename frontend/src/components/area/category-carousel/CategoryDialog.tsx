@@ -42,7 +42,7 @@ export default function CategoryDialog({ categories }: CategoryDialogProps) {
   );
 
   return (
-    <Box sx={{ scrollSnapAlign: "center", pl: 2 }}>
+    <Box sx={{ scrollSnapAlign: "center" }}>
       <Button
         onClick={() => setOpenCategoriesDialog(true)}
         variant="outlined"
