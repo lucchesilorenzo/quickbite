@@ -12,7 +12,7 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { RestaurantTab } from "@/types";
 
 export default function RestaurantAboutDialogTabs() {
-  const { tabToOpen, setTabToOpen } = useSingleRestaurant();
+  const { tabToOpen, setTabToOpen, restaurant } = useSingleRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -34,7 +34,9 @@ export default function RestaurantAboutDialogTabs() {
       >
         <Tab label="Reviews" value="reviews" />
         <Tab label="Info" value="info" />
-        <Tab label="Offers" value="offers" />
+        {restaurant.discount_rate > 0 && restaurant.min_discount_amount > 0 && (
+          <Tab label="Offers" value="offers" />
+        )}
       </TabList>
 
       <TabPanel
