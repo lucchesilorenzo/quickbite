@@ -30,13 +30,13 @@ type MenuItemRowProps = {
 };
 
 export default function MenuItemRow({ menuItem, isLast }: MenuItemRowProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const { restaurant } = useSingleRestaurant();
   const { inCart } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
   const [openMenuItemInfoDialog, setOpenMenuItemInfoDialog] = useState(false);
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <>

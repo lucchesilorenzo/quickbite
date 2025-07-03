@@ -14,6 +14,8 @@ export default function MenuCategory({ menuCategory }: MenuCategoryProps) {
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
+  console.log(menuCategory);
+
   return (
     <Stack
       id={`category-${menuCategory.id}`}
@@ -24,13 +26,22 @@ export default function MenuCategory({ menuCategory }: MenuCategoryProps) {
       sx={{ mb: 4 }}
     >
       <Box sx={{ px: { xs: 2, lg: 0 } }}>
-        <Typography
-          component="h2"
-          variant={isMobile ? "h6" : "h5"}
-          sx={{ fontWeight: 700 }}
+        <Stack
+          direction="row"
+          sx={{ justifyContent: "space-between", alignItems: "center" }}
         >
-          {menuCategory.name}
-        </Typography>
+          <Typography
+            component="h2"
+            variant={isMobile ? "h6" : "h5"}
+            sx={{ fontWeight: 700 }}
+          >
+            {menuCategory.name}
+          </Typography>
+
+          <Typography component="p" variant="body2">
+            {menuCategory.menu_items.length} items
+          </Typography>
+        </Stack>
 
         {menuCategory.description && (
           <Typography component="div" variant="body2" color="textSecondary">
