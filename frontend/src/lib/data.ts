@@ -149,3 +149,93 @@ export const ratings: Record<number, string> = {
   4: "four_star",
   5: "five_star",
 };
+
+export const termsOfService = [
+  {
+    title: "Eligibility",
+    content: [
+      "To use the Platform, you must be at least 18 years old or the age of majority in your jurisdiction. By using the Platform, you represent and warrant that you meet these requirements.",
+    ],
+  },
+  {
+    title: "User Accounts",
+    content: [
+      "You must create an account to place orders, become a restaurant partner, or register as a rider.",
+      "You agree to provide accurate and complete information and to keep your account credentials secure.",
+      "You are responsible for all activities that occur under your account.",
+    ],
+  },
+  {
+    title: "Orders and Payments",
+    content: [
+      "Orders placed through the Platform are binding.",
+      "You agree to pay all charges associated with your order, including delivery fees and taxes.",
+      "Payments are processed securely through third-party providers.",
+      "Once an order is confirmed, cancellations or refunds may not be guaranteed.",
+    ],
+  },
+  {
+    title: "Restaurant and Menu Information",
+    content: [
+      "Restaurants are responsible for the accuracy of their menus, prices, and availability.",
+      "We do not guarantee the quality, safety, or legality of the food or beverages offered by restaurants.",
+    ],
+  },
+  {
+    title: "Deliveries",
+    content: [
+      "Delivery times are estimates and may vary due to external conditions (e.g., weather, traffic).",
+      "It is your responsibility to ensure someone is available to receive the delivery.",
+      "In case of failed delivery attempts due to your unavailability, you may still be charged.",
+    ],
+  },
+  {
+    title: "Use of the Platform",
+    content: [
+      "Use the Platform only for lawful purposes.",
+      "Do not misuse or interfere with the Platform’s functionality or security.",
+      "Do not submit false information or impersonate others.",
+    ],
+  },
+  {
+    title: "Termination",
+    content: [
+      "We reserve the right to suspend or terminate your access to the Platform at our sole discretion, with or without notice, for behavior that violates these Terms or is harmful to other users or the Platform.",
+    ],
+  },
+  {
+    title: "Intellectual Property",
+    content: [
+      "All content, trademarks, and technology used in the Platform are owned by us or our partners.",
+      "You may not reproduce, distribute, or exploit any part of the Platform without our prior written consent.",
+    ],
+  },
+  {
+    title: "Limitation of Liability",
+    content: [
+      "We are not liable for any indirect, incidental, or consequential damages.",
+      "We are not responsible for delays, failed deliveries, or errors caused by third parties (restaurants, riders, payment providers).",
+      "We are not liable for losses resulting from unauthorized account access.",
+    ],
+  },
+  {
+    title: "Privacy",
+    content: [
+      "Your personal information is handled in accordance with our Privacy Policy.",
+      "By using the Platform, you consent to such handling.",
+    ],
+  },
+  {
+    title: "Changes to Terms",
+    content: [
+      "We may update these Terms from time to time.",
+      "Continued use of the Platform constitutes your acceptance of the revised Terms.",
+    ],
+  },
+  {
+    title: "Contact",
+    content: [
+      "For questions or concerns, contact us at: quickbite@support.com.",
+    ],
+  },
+];
