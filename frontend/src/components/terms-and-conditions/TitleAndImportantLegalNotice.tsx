@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-export default function TermsAndConditionsTitleAndImportantLegalNotice() {
+export default function TitleAndImportantLegalNotice() {
   return (
     <Box>
       <Typography

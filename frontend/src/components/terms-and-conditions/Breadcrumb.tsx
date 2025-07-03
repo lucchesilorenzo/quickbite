@@ -3,7 +3,7 @@ import { Breadcrumbs, Link as MuiLink, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
-export default function TermsAndConditionsBreadcrumb() {
+export default function Breadcrumb() {
   return (
     <Breadcrumbs
       separator={
