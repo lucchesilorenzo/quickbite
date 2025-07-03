@@ -14,8 +14,6 @@ export default function MenuCategory({ menuCategory }: MenuCategoryProps) {
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  console.log(menuCategory);
-
   return (
     <Stack
       id={`category-${menuCategory.id}`}
