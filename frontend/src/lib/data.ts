@@ -150,7 +150,10 @@ export const ratings: Record<number, string> = {
   5: "five_star",
 };
 
-export const termsOfService = [
+export const termsOfService: {
+  title: string;
+  content: string[];
+}[] = [
   {
     title: "Eligibility",
     content: [
@@ -235,7 +238,176 @@ export const termsOfService = [
   {
     title: "Contact",
     content: [
-      "For questions or concerns, contact us at: quickbite@support.com.",
+      "For questions or concerns, contact us at: support@quickbite.com.",
+    ],
+  },
+];
+
+export const privacyPolicy: {
+  title: string;
+  content: {
+    type: "paragraph" | "list";
+    text?: string;
+    items?: string[];
+  }[];
+}[] = [
+  {
+    title: "Introduction",
+    content: [
+      {
+        type: "paragraph",
+        text: "This Privacy Policy explains how we collect, use, and protect your personal data when you use our platform, including the mobile app and related services. We are committed to safeguarding your privacy and complying with applicable data protection laws.",
+      },
+    ],
+  },
+  {
+    title: "Who is responsible",
+    content: [
+      {
+        type: "paragraph",
+        text: "The data controller of your personal data is the entity operating the food delivery platform in your country. If you have any questions about this policy or wish to exercise your rights, please contact us using the details provided below.",
+      },
+    ],
+  },
+  {
+    title: "What data we collect",
+    content: [
+      {
+        type: "paragraph",
+        text: "We may collect the following types of personal data:",
+      },
+      {
+        type: "list",
+        items: [
+          "Account Information: name, email, phone number, address",
+          "Order Information: order details, payment information, delivery address",
+          "Device and Usage Data: IP address, browser, app usage, location (if enabled)",
+          "Communication Data: messages sent to restaurants/riders, customer support",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Why we collect your data",
+    content: [
+      {
+        type: "paragraph",
+        text: "We process your data to:",
+      },
+      {
+        type: "list",
+        items: [
+          "Provide and deliver our services",
+          "Communicate with you (e.g. order confirmations, support)",
+          "Improve our platform and services",
+          "Comply with legal obligations",
+          "Prevent fraud and misuse",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Legal basis for processing",
+    content: [
+      {
+        type: "paragraph",
+        text: "We process your personal data based on:",
+      },
+      {
+        type: "list",
+        items: [
+          "The performance of a contract (e.g. processing your order)",
+          "Your consent (e.g. marketing)",
+          "Compliance with legal obligations",
+          "Our legitimate interests (e.g. service improvement)",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Sharing your data",
+    content: [
+      {
+        type: "paragraph",
+        text: "We may share your personal data with:",
+      },
+      {
+        type: "list",
+        items: [
+          "Restaurants and riders to fulfill your orders",
+          "Payment service providers",
+          "Customer support partners",
+          "IT and hosting providers",
+          "Authorities when legally required",
+          "We never sell your personal data.",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Your privacy rights",
+    content: [
+      {
+        type: "paragraph",
+        text: "You have the right to:",
+      },
+      {
+        type: "list",
+        items: [
+          "Access your personal data",
+          "Correct or update your data",
+          "Request deletion of your data",
+          "Object to or restrict processing",
+          "Withdraw consent at any time",
+          "Receive a copy of your data (data portability)",
+          "Lodge a complaint with a data protection authority",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "To exercise your rights, please contact us using the form or contact details below. We may verify your identity before fulfilling your request.",
+      },
+    ],
+  },
+  {
+    title: "Security",
+    content: [
+      {
+        type: "paragraph",
+        text: "We implement appropriate technical and organizational measures to protect your data from unauthorized access, misuse, or loss. Only authorized personnel have access to your personal data.",
+      },
+    ],
+  },
+  {
+    title: "Contact us",
+    content: [
+      {
+        type: "paragraph",
+        text: "If you have questions or concerns about this Privacy Policy or our data practices, contact us at:",
+      },
+      {
+        type: "list",
+        items: [
+          "Email: privacy@quickbite.it",
+          "Address: QuickBite S.r.l.",
+          "Via Dante Alighieri, 23",
+          "50100 Florence",
+          "Italy",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Changes to this Policy",
+    content: [
+      {
+        type: "paragraph",
+        text: "We may update this Privacy Policy from time to time.",
+      },
+      {
+        type: "paragraph",
+        text: "The latest version will always be available on our website and app.",
+      },
     ],
   },
 ];
