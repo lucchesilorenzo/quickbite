@@ -23,12 +23,7 @@ export default function Terms() {
 
           <Stack
             component="ol"
-            sx={{
-              listStyle: "none",
-              p: 0,
-              m: 0,
-              fontSize: 14,
-            }}
+            sx={{ listStyle: "none", p: 0, m: 0, fontSize: 14 }}
           >
             {content.map((paragraph, paragraphIndex) => (
               <Stack

@@ -193,7 +193,7 @@ export const termsOfService = [
     title: "Use of the Platform",
     content: [
       "Use the Platform only for lawful purposes.",
-      "Do not misuse or interfere with the Platform’s functionality or security.",
+      "Do not misuse or interfere with the Platform's functionality or security.",
       "Do not submit false information or impersonate others.",
     ],
   },
