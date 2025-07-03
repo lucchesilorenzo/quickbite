@@ -18,6 +18,8 @@ type SingleRestaurantContext = {
   tabToOpen: RestaurantTab;
   scrollToDeliveryFee: boolean;
   menuCategoryRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
+  openRestaurantClosedDialog: boolean;
+  setOpenRestaurantClosedDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setScrollToDeliveryFee: React.Dispatch<React.SetStateAction<boolean>>;
   setTabToOpen: React.Dispatch<React.SetStateAction<RestaurantTab>>;
   setOpenRestaurantAboutDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,6 +40,8 @@ export default function SingleRestaurantProvider({
     error: restaurantError,
   } = useGetRestaurant(restaurantSlug);
 
+  const [openRestaurantClosedDialog, setOpenRestaurantClosedDialog] =
+    useState(false);
   const [openRestaurantAboutDialog, setOpenRestaurantAboutDialog] =
     useState(false);
   const [scrollToDeliveryFee, setScrollToDeliveryFee] = useState(false);
@@ -67,6 +71,8 @@ export default function SingleRestaurantProvider({
         tabToOpen,
         scrollToDeliveryFee,
         menuCategoryRefs,
+        openRestaurantClosedDialog,
+        setOpenRestaurantClosedDialog,
         setScrollToDeliveryFee,
         setTabToOpen,
         setOpenRestaurantAboutDialog,

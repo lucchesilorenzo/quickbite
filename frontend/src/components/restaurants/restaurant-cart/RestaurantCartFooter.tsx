@@ -18,7 +18,7 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { useCreateOrUpdateCart } from "@/hooks/react-query/private/cart/useCreateOrUpdateCart";
-import { formatCurrency, isCustomer } from "@/lib/utils";
+import { formatCurrency, isCustomer, isRestaurantOpen } from "@/lib/utils";
 
 export default function RestaurantCartFooter() {
   const { user } = useAuth();
@@ -41,6 +41,9 @@ export default function RestaurantCartFooter() {
 
   const total =
     subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;
+
+  const isCheckoutDisabled =
+    !isRestaurantOpen(restaurant) || subtotal < restaurant.min_amount;
 
   const navigate = useNavigate();
 
@@ -160,7 +163,7 @@ export default function RestaurantCartFooter() {
           size="large"
           fullWidth
           sx={{ fontWeight: 700 }}
-          disabled={subtotal < restaurant.min_amount}
+          disabled={isCheckoutDisabled}
         >
           Checkout ({formatCurrency(total)})
         </Button>

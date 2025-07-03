@@ -1,9 +1,27 @@
+import { useEffect } from "react";
+
 import { Box, Grid } from "@mui/material";
 
 import RestaurantDetails from "../RestaurantDetails";
+import RestaurantClosedDialog from "../common/RestaurantClosedDialog";
 import RestaurantCart from "../restaurant-cart/RestaurantCart";
 
+import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { isRestaurantOpen } from "@/lib/utils";
+
 export default function DesktopRestaurantLayout() {
+  const {
+    restaurant,
+    openRestaurantClosedDialog,
+    setOpenRestaurantClosedDialog,
+  } = useSingleRestaurant();
+
+  useEffect(() => {
+    if (!isRestaurantOpen(restaurant)) {
+      setOpenRestaurantClosedDialog(true);
+    }
+  }, [restaurant, setOpenRestaurantClosedDialog]);
+
   return (
     <Box
       component="main"
@@ -18,6 +36,11 @@ export default function DesktopRestaurantLayout() {
           <RestaurantCart />
         </Grid>
       </Grid>
+
+      <RestaurantClosedDialog
+        openRestaurantClosedDialog={openRestaurantClosedDialog}
+        setOpenRestaurantClosedDialog={setOpenRestaurantClosedDialog}
+      />
     </Box>
   );
 }

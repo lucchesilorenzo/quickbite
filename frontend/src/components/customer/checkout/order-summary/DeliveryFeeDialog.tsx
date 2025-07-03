@@ -10,7 +10,7 @@ import {
 
 type DeliveryFeeDialogProps = {
   openDeliveryFeeDialog: boolean;
-  setOpenDeliveryFeeDialog: (openDeliveryFeeDialog: boolean) => void;
+  setOpenDeliveryFeeDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function DeliveryFeeDialog({
