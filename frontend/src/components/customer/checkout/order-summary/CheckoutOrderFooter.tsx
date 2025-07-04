@@ -18,7 +18,10 @@ import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
 import { useDeleteCart } from "@/hooks/react-query/private/cart/useDeleteCart";
 import { useCreateOrder } from "@/hooks/react-query/private/orders/useCreateOrder";
-import { formatCurrency } from "@/lib/utils";
+import {
+  formatCurrency,
+  getBestRestaurantOfferGivenSubtotal,
+} from "@/lib/utils";
 import { CreateOrder } from "@/types/order-types";
 
 export default function CheckoutOrderFooter() {
@@ -34,10 +37,13 @@ export default function CheckoutOrderFooter() {
   const navigate = useNavigate();
 
   const isDeliveryFeeFree = cart.restaurant.delivery_fee === 0;
-  const isDiscountApplicable =
-    cart.restaurant.discount_rate > 0 &&
-    cart.cart_total >= cart.restaurant.min_discount_amount;
-  const discount = cart.cart_total * cart.restaurant.discount_rate;
+
+  const bestOffer = getBestRestaurantOfferGivenSubtotal(
+    cart.restaurant,
+    cart.cart_total,
+  );
+
+  const discount = cart.cart_total * (bestOffer?.discount_rate || 0);
 
   const total =
     cart.cart_total +
@@ -89,7 +95,7 @@ export default function CheckoutOrderFooter() {
       subtotal: cart.cart_total,
       delivery_fee: cart.restaurant.delivery_fee,
       service_fee: cart.restaurant.service_fee,
-      discount_rate: cart.restaurant.discount_rate,
+      discount_rate: bestOffer?.discount_rate || 0,
       discount,
       total,
     };
@@ -165,13 +171,13 @@ export default function CheckoutOrderFooter() {
         </Stack>
       )}
 
-      {isDiscountApplicable && (
+      {bestOffer && (
         <Stack
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
           <Typography variant="body2" component="div">
-            {cart.restaurant.discount_rate * 100}% off
+            {bestOffer.discount_rate * 100}% off
           </Typography>
 
           <Typography variant="body2" component="div">

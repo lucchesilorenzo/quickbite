@@ -34,9 +34,7 @@ export default function RestaurantAboutDialogTabs() {
       >
         <Tab label="Reviews" value="reviews" />
         <Tab label="Info" value="info" />
-        {restaurant.discount_rate > 0 && restaurant.min_discount_amount > 0 && (
-          <Tab label="Offers" value="offers" />
-        )}
+        {restaurant.offers.length > 0 && <Tab label="Offers" value="offers" />}
       </TabList>
 
       <TabPanel
