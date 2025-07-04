@@ -8,7 +8,10 @@ import RestaurantCartDialogMobile from "./RestaurantCartDialogMobile";
 
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-import { formatCurrency } from "@/lib/utils";
+import {
+  formatCurrency,
+  getBestRestaurantOfferGivenSubtotal,
+} from "@/lib/utils";
 
 export default function RestaurantCartMobile() {
   const { restaurant } = useSingleRestaurant();
@@ -18,7 +21,10 @@ export default function RestaurantCartMobile() {
     useState(false);
 
   const subtotal = cartTotal(restaurant.id);
-  const discount = subtotal * restaurant.discount_rate;
+
+  const bestOffer = getBestRestaurantOfferGivenSubtotal(restaurant, subtotal);
+
+  const discount = subtotal * (bestOffer?.discount_rate || 0);
 
   const total =
     subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;

@@ -18,7 +18,12 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { useCreateOrUpdateCart } from "@/hooks/react-query/private/cart/useCreateOrUpdateCart";
-import { formatCurrency, isCustomer, isRestaurantOpen } from "@/lib/utils";
+import {
+  formatCurrency,
+  getBestRestaurantOfferGivenSubtotal,
+  isCustomer,
+  isRestaurantOpen,
+} from "@/lib/utils";
 
 export default function RestaurantCartFooter() {
   const { user } = useAuth();
@@ -34,10 +39,9 @@ export default function RestaurantCartFooter() {
 
   const isDeliveryFeeFree = restaurant.delivery_fee === 0;
 
-  const isDiscountApplicable =
-    restaurant.discount_rate > 0 && subtotal >= restaurant.min_discount_amount;
+  const bestOffer = getBestRestaurantOfferGivenSubtotal(restaurant, subtotal);
 
-  const discount = subtotal * restaurant.discount_rate;
+  const discount = subtotal * (bestOffer?.discount_rate || 0);
 
   const total =
     subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;
@@ -126,13 +130,13 @@ export default function RestaurantCartFooter() {
         </Stack>
       )}
 
-      {isDiscountApplicable && (
+      {bestOffer && (
         <Stack
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
           <Typography variant="body2" component="div">
-            {restaurant.discount_rate * 100}% off
+            {bestOffer.discount_rate * 100}% off
           </Typography>
 
           <Typography variant="body2" component="div">
