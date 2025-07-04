@@ -1,9 +1,11 @@
 import { Box, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import RestaurantAvailability from "../../../common/RestaurantAvailability";
 import RestaurantCardImage from "./RestaurantCardImage";
 import RestaurantCardText from "./RestaurantCardText";
 
+import { isRestaurantOpen } from "@/lib/utils";
 import { RestaurantListItem } from "@/types";
 
 type RestaurantCardProps = {
@@ -47,22 +49,28 @@ export default function RestaurantCard({
   }
 
   return (
-    <Paper component="li" variant="outlined">
-      <Box
-        component={Link}
-        to={`/restaurants/${restaurant.slug}`}
-        sx={{ textDecoration: "none" }}
-      >
-        <Grid container>
-          <Grid size={4}>
-            <RestaurantCardImage restaurant={restaurant} />
-          </Grid>
+    <Box>
+      {!isRestaurantOpen(restaurant) && (
+        <RestaurantAvailability restaurant={restaurant} />
+      )}
 
-          <Grid size={8}>
-            <RestaurantCardText restaurant={restaurant} />
+      <Paper component="li" variant="outlined">
+        <Box
+          component={Link}
+          to={`/restaurants/${restaurant.slug}`}
+          sx={{ textDecoration: "none" }}
+        >
+          <Grid container>
+            <Grid size={4}>
+              <RestaurantCardImage restaurant={restaurant} />
+            </Grid>
+
+            <Grid size={8}>
+              <RestaurantCardText restaurant={restaurant} />
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
-    </Paper>
+        </Box>
+      </Paper>
+    </Box>
   );
 }
