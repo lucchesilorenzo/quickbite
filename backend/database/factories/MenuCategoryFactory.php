@@ -19,20 +19,20 @@ class MenuCategoryFactory extends Factory
     public function definition(): array
     {
         $menuCategories = [
-            'Starters' => 0,
-            'Main Courses' => 1,
-            'Drinks' => 2,
-            'Sides' => 3,
-            'Salads' => 4,
-            'Desserts' => 5,
+            'Starters',
+            'Main Courses',
+            'Drinks',
+            'Sides',
+            'Salads',
+            'Desserts',
         ];
 
         static $i = 0;
 
         return [
-            'name' => array_keys($menuCategories)[$i % count($menuCategories)],
+            'name' => $menuCategories[$i % count($menuCategories)],
             'description' => fake()->sentence(),
-            'order' => array_values($menuCategories)[($i++ % count($menuCategories))],
+            'order' => array_keys($menuCategories)[($i++ % count($menuCategories))],
         ];
     }
 

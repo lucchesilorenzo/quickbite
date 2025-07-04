@@ -6,6 +6,7 @@ use App\Enums\RestaurantRolesEnum;
 use App\Enums\RolesEnum;
 use App\Models\Category;
 use App\Models\Restaurant;
+use App\Models\RestaurantOffer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
@@ -39,7 +40,7 @@ class RestaurantFactory extends Factory
             'city' => 'Pisa',
             'state' => 'Tuscany',
             'country' => 'Italy',
-            'full_address' => 'Via Santa Maria 2, 56126 Pisa',
+            'full_address' => 'Via Santa Maria, 2, 56126 Pisa',
             'latitude' => fake()->randomFloat(6, 43.7050, 43.7120),
             'longitude' => fake()->randomFloat(6, 10.4000, 10.4100),
             'phone_number' => fake()->e164PhoneNumber(),
@@ -50,8 +51,6 @@ class RestaurantFactory extends Factory
             'service_fee' => fake()->randomElement([0, 0.30, 0.50, 0.75, 1.00]),
             'delivery_time_min' => fake()->randomElement([10, 15]),
             'delivery_time_max' => fake()->randomElement([15, 20, 25, 30]),
-            'discount_rate' => fake()->randomElement([0, 0.05, 0.1, 0.15]),
-            'min_discount_amount' => fn(array $attributes) => $attributes['discount_rate'] === 0 ? 0 : fake()->randomElement([30, 50, 70]),
             'logo' => Storage::url('restaurants/logos/logo' . $logoNumber++ . '.jpg'),
             'cover' => Storage::url('restaurants/covers/cover' . $coverNumber++ . '.jpg'),
         ];
@@ -65,10 +64,28 @@ class RestaurantFactory extends Factory
     public function configure(): self
     {
         return $this->afterCreating(function (Restaurant $restaurant) {
+            $this->assignOffersToRestaurant($restaurant);
             $this->assignCategoriesToRestaurant($restaurant);
             $this->assignPartnersToRestaurant($restaurant);
             $this->assignRidersToRestaurant($restaurant);
         });
+    }
+
+    /**
+     * Assign offers to restaurant.
+     *
+     * @param Restaurant $restaurant
+     * @return void
+     */
+    private function assignOffersToRestaurant(Restaurant $restaurant): void
+    {
+        $offersCount = rand(0, 3);
+
+        if ($offersCount > 0) {
+            $restaurant->offers()->createMany(
+                RestaurantOffer::factory($offersCount)->make()->toArray()
+            );
+        }
     }
 
     /**
