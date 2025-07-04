@@ -43,7 +43,7 @@ export default function RestaurantCardImage({
         }}
       />
 
-      {restaurant.discount_rate > 0 && (
+      {restaurant.offers.length > 0 && (
         <Stack
           direction="row"
           spacing={1}
@@ -66,8 +66,8 @@ export default function RestaurantCardImage({
             sx={{ fontWeight: 600 }}
             color="textPrimary"
           >
-            {restaurant.discount_rate * 100}% off - Minimum order{" "}
-            {formatCurrency(restaurant.min_discount_amount)}
+            {restaurant.offers[0].discount_rate * 100}% off - Minimum order{" "}
+            {formatCurrency(restaurant.offers[0].min_discount_amount)}
           </Typography>
         </Stack>
       )}

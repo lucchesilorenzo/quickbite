@@ -120,7 +120,7 @@ export default function RestaurantProvider({
     }
 
     if (filters.includes("with_discounts")) {
-      result = result.filter((r) => r.discount_rate);
+      result = result.filter((r) => r.offers.length > 0);
     }
 
     // --- Sort params ---
