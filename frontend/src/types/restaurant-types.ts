@@ -28,8 +28,6 @@ export type RestaurantBase = {
   service_fee: number;
   delivery_time_min: number;
   delivery_time_max: number;
-  discount_rate: number;
-  min_discount_amount: number;
   logo: string;
   cover: string;
   is_approved: boolean;
@@ -42,6 +40,7 @@ export type RestaurantListItem = RestaurantBase & {
   reviews_count: number;
   categories: CategoryWithPivot[];
   delivery_days: DeliveryDay[];
+  offers: Offer[];
   menu_categories: MenuCategory[];
   reviews: Review[];
 };
@@ -65,6 +64,15 @@ export type DeliveryDay = {
     | "SUNDAY";
   start_time: string | null;
   end_time: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type Offer = {
+  id: string;
+  restaurant_id: string;
+  discount_rate: number;
+  min_discount_amount: number;
   created_at: string;
   updated_at: string;
 };
