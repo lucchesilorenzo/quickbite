@@ -3,10 +3,16 @@ import { yellow } from "@mui/material/colors";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
+import { Offer } from "@/types";
 
-export default function RestaurantOfferButton() {
-  const { restaurant, setOpenRestaurantAboutDialog, setTabToOpen } =
-    useSingleRestaurant();
+type RestaurantOfferButtonProps = {
+  offer: Offer;
+};
+
+export default function RestaurantOfferButton({
+  offer,
+}: RestaurantOfferButtonProps) {
+  const { setOpenRestaurantAboutDialog, setTabToOpen } = useSingleRestaurant();
 
   function handleOpenAboutDialogAndOffersTab() {
     setOpenRestaurantAboutDialog(true);
@@ -26,9 +32,10 @@ export default function RestaurantOfferButton() {
       }}
       disableElevation
       onClick={handleOpenAboutDialogAndOffersTab}
+      fullWidth
     >
-      {restaurant.discount_rate * 100}% off when you spend{" "}
-      {formatCurrency(restaurant.min_discount_amount)} or more
+      {offer.discount_rate * 100}% off when you spend{" "}
+      {formatCurrency(offer.min_discount_amount)} or more
     </Button>
   );
 }

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-import RestaurantOfferButton from "../common/RestaurantOfferButton";
+import RestaurantOffersList from "../common/RestaurantOffersList";
 import RestaurantHeader from "../restaurant-overview/RestaurantHeader";
 import RestaurantHeaderRow from "../restaurant-overview/RestaurantHeaderRow";
 
@@ -16,11 +16,7 @@ export default function RestaurantOverviewMobile() {
     >
       <RestaurantHeader />
       <RestaurantHeaderRow />
-      {restaurant.discount_rate > 0 && restaurant.min_discount_amount > 0 && (
-        <Box sx={{ mb: 2 }}>
-          <RestaurantOfferButton />
-        </Box>
-      )}
+      {restaurant.offers.length > 0 && <RestaurantOffersList />}
     </Box>
   );
 }
