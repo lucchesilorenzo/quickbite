@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Stack } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import ClearFiltersButton from "../content/ClearFiltersButton";
+import ClearFiltersButton from "../common/ClearFiltersButton";
 
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 

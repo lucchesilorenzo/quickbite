@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 
-import NoRestaurantsOrLoading from "../content/NoRestaurantsOrLoading";
+import NoRestaurantsOrLoading from "../common/NoRestaurantsOrLoading";
 import RestaurantMap from "../content/search-and-map/restaurant-map/RestaurantMap";
 import RestaurantListMobile from "../mobile/RestaurantListMobile";
 
