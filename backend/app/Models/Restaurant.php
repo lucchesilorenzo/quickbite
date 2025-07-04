@@ -39,8 +39,6 @@ class Restaurant extends Model
         'service_fee',
         'delivery_time_min',
         'delivery_time_max',
-        'discount_rate',
-        'min_discount_amount',
         'logo',
         'cover',
         'is_approved',
@@ -50,8 +48,6 @@ class Restaurant extends Model
         'min_amount' => 'float',
         'delivery_fee' => 'float',
         'service_fee' => 'float',
-        'discount_rate' => 'float',
-        'min_discount_amount' => 'float',
         'reviews_avg_rating' => 'float',
     ];
 
@@ -97,6 +93,16 @@ class Restaurant extends Model
     public function deliveryDays(): HasMany
     {
         return $this->hasMany(RestaurantDeliveryDay::class);
+    }
+
+    /**
+     * Get the restaurant's offers.
+     *
+     * @return HasMany
+     */
+    public function offers(): HasMany
+    {
+        return $this->hasMany(RestaurantOffer::class);
     }
 
     /**

@@ -33,6 +33,12 @@ class CartController extends Controller
             $restaurant = $cart->restaurant()->with([
                 'categories',
                 'deliveryDays',
+                'offers' => function ($query) {
+                    $query->orderBy('discount_rate', 'asc');
+                },
+                'reviews' => function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                },
                 'reviews.customer',
                 'menuCategories.menuItems',
             ])
@@ -130,6 +136,12 @@ class CartController extends Controller
             $restaurant = $cart->restaurant()->with([
                 'categories',
                 'deliveryDays',
+                'offers' => function ($query) {
+                    $query->orderBy('discount_rate', 'asc');
+                },
+                'reviews' => function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                },
                 'reviews.customer',
                 'menuCategories.menuItems',
             ])

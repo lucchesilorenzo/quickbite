@@ -44,9 +44,6 @@ return new class extends Migration
             $table->unsignedSmallInteger('delivery_time_min');
             $table->unsignedSmallInteger('delivery_time_max');
 
-            $table->decimal('discount_rate')->default(0);
-            $table->decimal('min_discount_amount')->default(0);
-
             $table->string('logo')->nullable();
             $table->string('cover')->nullable();
             $table->boolean('is_approved')->default(false);

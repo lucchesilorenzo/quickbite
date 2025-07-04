@@ -44,6 +44,9 @@ class RestaurantController extends Controller
                 ->with([
                     'categories',
                     'deliveryDays',
+                    'offers' => function ($query) {
+                        $query->orderBy('discount_rate', 'asc');
+                    },
                     'reviews' => function ($query) {
                         $query->orderBy('created_at', 'desc');
                     },
@@ -54,7 +57,7 @@ class RestaurantController extends Controller
                 ->withCount('reviews')
                 ->get();
 
-            return response()->json($restaurants);
+            return response()->json($restaurants, 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
@@ -76,6 +79,9 @@ class RestaurantController extends Controller
             $restaurant = Restaurant::with([
                 'categories',
                 'deliveryDays',
+                'offers' => function ($query) {
+                    $query->orderBy('discount_rate', 'asc');
+                },
                 'reviews' => function ($query) {
                     $query->orderBy('created_at', 'desc');
                 },
