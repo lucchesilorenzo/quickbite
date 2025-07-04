@@ -1,6 +1,6 @@
 import { differenceInYears, format, isValid, parse, parseISO } from "date-fns";
 
-import { RestaurantDetail, Role, User } from "@/types";
+import { Offer, RestaurantDetail, Role, User } from "@/types";
 
 export function formatCurrency(price: number) {
   return new Intl.NumberFormat("it-IT", {
@@ -66,6 +66,21 @@ export function getRestaurantOpeningTime(restaurant: RestaurantDetail) {
   const formattedStart = format(start, "HH:mm");
 
   return formattedStart;
+}
+
+export function getBestRestaurantOfferGivenSubtotal(
+  restaurant: RestaurantDetail,
+  subtotal: number,
+): Offer | null {
+  const validOffers = restaurant.offers.filter(
+    (offer) => subtotal >= offer.min_discount_amount,
+  );
+
+  if (!validOffers.length) return null;
+
+  return validOffers.reduce((best, curr) =>
+    curr.discount_rate > best.discount_rate ? curr : best,
+  );
 }
 
 export function generateSlug(text: string) {
