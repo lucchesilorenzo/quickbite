@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Customer\CreateReviewRequest;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
 {
@@ -103,6 +104,35 @@ class RestaurantController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Get a restaurant logo as base64.
+     *
+     * @param Restaurant $restaurant
+     * @return JsonResponse
+     */
+    public function getBase64Logo(Restaurant $restaurant): JsonResponse
+    {
+        try {
+            // Remove '/storage/' prefix from path
+            $relativePath = str_replace('/storage/', '', $restaurant->logo);
+
+            if (!$relativePath || !Storage::disk('public')->exists($relativePath)) {
+                return response()->json(['message' => 'Logo not found.'], 404);
+            }
+
+            $logo = Storage::disk('public')->get($relativePath);
+            $mimeType = Storage::disk('public')->mimeType($relativePath);
+
+            $base64Logo = 'data:' . $mimeType . ';base64,' . base64_encode($logo);
+
+            return response()->json(['logo' => $base64Logo], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Could not get logo.',
             ], 500);
         }
     }
