@@ -387,7 +387,7 @@ export const privacyPolicy: {
       {
         type: "list",
         items: [
-          "Email: privacy@quickbite.it",
+          "Email: privacy@quickbite.com",
           "Address: QuickBite S.r.l.",
           "Via Dante Alighieri, 23",
           "50100 Florence",

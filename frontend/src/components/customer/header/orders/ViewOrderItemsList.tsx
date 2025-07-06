@@ -11,7 +11,7 @@ type ViewOrderItemsListProps = {
 export default function ViewOrderItemsList({ order }: ViewOrderItemsListProps) {
   return (
     <Box>
-      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+      <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
         Your articles
       </Typography>
 
