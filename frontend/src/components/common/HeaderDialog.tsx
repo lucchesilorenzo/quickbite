@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import { headerDialogOptions } from "@/lib/data";
 
 export default function HeaderDialog() {
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openHeaderDialog, setOpenHeaderDialog] = useState(false);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
@@ -30,14 +30,14 @@ export default function HeaderDialog() {
       <IconButton
         color="inherit"
         aria-label="menu"
-        onClick={() => setOpenDialog(true)}
+        onClick={() => setOpenHeaderDialog(true)}
       >
         <MenuIcon />
       </IconButton>
 
       <Dialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
+        open={openHeaderDialog}
+        onClose={() => setOpenHeaderDialog(false)}
         fullWidth={!isMobile}
         fullScreen={isMobile}
         disableRestoreFocus
@@ -49,7 +49,7 @@ export default function HeaderDialog() {
             <IconButton
               color="inherit"
               aria-label="close"
-              onClick={() => setOpenDialog(false)}
+              onClick={() => setOpenHeaderDialog(false)}
               sx={{ p: 0 }}
             >
               <CloseIcon />
@@ -62,7 +62,7 @@ export default function HeaderDialog() {
               color="inherit"
               component={Link}
               to="/customer/auth/login"
-              onClick={() => setOpenDialog(false)}
+              onClick={() => setOpenHeaderDialog(false)}
             >
               Log in
             </Button>
@@ -71,7 +71,7 @@ export default function HeaderDialog() {
               variant="contained"
               component={Link}
               to="/customer/auth/register"
-              onClick={() => setOpenDialog(false)}
+              onClick={() => setOpenHeaderDialog(false)}
             >
               Create an account
             </Button>
@@ -85,7 +85,7 @@ export default function HeaderDialog() {
                 <ListItemButton
                   component={Link}
                   to={option.href}
-                  onClick={() => setOpenDialog(false)}
+                  onClick={() => setOpenHeaderDialog(false)}
                 >
                   <ListItemIcon>
                     <option.icon />

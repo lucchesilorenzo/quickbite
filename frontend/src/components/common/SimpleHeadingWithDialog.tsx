@@ -31,7 +31,7 @@ export default function SimpleHeadingWithDialog({
   actionText,
 }: SimpleHeadingWithDialogProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openSimpleHeadingDialog, setSimpleHeadingDialog] = useState(false);
   const [isThereAnyFilter, setIsThereAnyFilter] = useState(false);
 
   function handleClearFilters() {
@@ -65,7 +65,10 @@ export default function SimpleHeadingWithDialog({
           {headingText}
         </Typography>
 
-        <IconButton color="inherit" onClick={() => setOpenDialog(true)}>
+        <IconButton
+          color="inherit"
+          onClick={() => setSimpleHeadingDialog(true)}
+        >
           <InfoOutlineIcon />
         </IconButton>
       </Stack>
@@ -77,8 +80,8 @@ export default function SimpleHeadingWithDialog({
       )}
 
       <Dialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
+        open={openSimpleHeadingDialog}
+        onClose={() => setSimpleHeadingDialog(false)}
         disableRestoreFocus
       >
         <Stack spacing={2} sx={{ p: 2 }}>
@@ -88,7 +91,7 @@ export default function SimpleHeadingWithDialog({
             <IconButton
               color="inherit"
               aria-label="close"
-              onClick={() => setOpenDialog(false)}
+              onClick={() => setSimpleHeadingDialog(false)}
               sx={{ p: 0 }}
             >
               <CloseIcon />

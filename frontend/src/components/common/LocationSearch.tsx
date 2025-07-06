@@ -107,8 +107,8 @@ export default function LocationSearch() {
     <Box>
       {openEditDialog && (
         <EditLocationDialog
-          openDialog={openEditDialog}
-          onCloseDialog={() => setOpenEditDialog(false)}
+          openLocationEditDialog={openEditDialog}
+          onCloseDialogs={() => setOpenEditDialog(false)}
         />
       )}
 

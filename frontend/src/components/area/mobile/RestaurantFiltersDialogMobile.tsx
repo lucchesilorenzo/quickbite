@@ -15,7 +15,8 @@ import RestaurantHeadingContainerMobile from "./RestaurantHeadingContainerMobile
 
 export default function RestaurantFiltersDialogMobile() {
   const [searchParams] = useSearchParams();
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openRestaurantFiltersDialog, setOpenRestaurantFiltersDialog] =
+    useState(false);
   const [isThereAnyFilter, setIsThereAnyFilter] = useState(false);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function RestaurantFiltersDialogMobile() {
         size="small"
         color="primary"
         aria-label="menu"
-        onClick={() => setOpenDialog(true)}
+        onClick={() => setOpenRestaurantFiltersDialog(true)}
         sx={{ p: 0 }}
       >
         <Badge
@@ -50,8 +51,8 @@ export default function RestaurantFiltersDialogMobile() {
       </IconButton>
 
       <Dialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
+        open={openRestaurantFiltersDialog}
+        onClose={() => setOpenRestaurantFiltersDialog(false)}
         fullScreen
         disableRestoreFocus
       >
@@ -62,7 +63,7 @@ export default function RestaurantFiltersDialogMobile() {
             <IconButton
               color="inherit"
               aria-label="close"
-              onClick={() => setOpenDialog(false)}
+              onClick={() => setOpenRestaurantFiltersDialog(false)}
               sx={{ p: 0 }}
             >
               <CloseIcon />
@@ -77,7 +78,7 @@ export default function RestaurantFiltersDialogMobile() {
             <RestaurantOfferFilters />
             <RestaurantHeadingContainerMobile
               isThereAnyFilter={isThereAnyFilter}
-              onCloseDialog={() => setOpenDialog(false)}
+              onCloseDialog={() => setOpenRestaurantFiltersDialog(false)}
               setIsThereAnyFilter={setIsThereAnyFilter}
             />
           </Stack>
