@@ -1,6 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
@@ -10,6 +11,7 @@ import {
 
 import ViewOrderFeesAndDiscounts from "./ViewOrderFeesAndDiscounts";
 import ViewOrderItemsList from "./ViewOrderItemsList";
+import ViewOrderReceipt from "./ViewOrderReceipt";
 
 import { Order } from "@/types/order-types";
 
@@ -54,6 +56,10 @@ export default function ViewOrderDialog({
           <ViewOrderItemsList order={order} />
           <ViewOrderFeesAndDiscounts order={order} />
         </DialogContent>
+
+        <DialogActions sx={{ p: 0 }}>
+          <ViewOrderReceipt order={order} />
+        </DialogActions>
       </Stack>
     </Dialog>
   );
