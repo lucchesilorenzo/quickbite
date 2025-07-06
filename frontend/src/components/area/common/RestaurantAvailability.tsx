@@ -13,6 +13,10 @@ export default function RestaurantAvailability({
 }: RestaurantAvailabilityProps) {
   const openingTime = getRestaurantOpeningTime(restaurant);
 
+  const availabilityInfo = openingTime
+    ? `Delivery from ${openingTime}`
+    : "Closed for delivery";
+
   return (
     <Stack
       direction="row"
@@ -25,7 +29,7 @@ export default function RestaurantAvailability({
       }}
     >
       <Typography variant="body2" component="span">
-        Delivery from {openingTime}
+        {availabilityInfo}
       </Typography>
     </Stack>
   );
