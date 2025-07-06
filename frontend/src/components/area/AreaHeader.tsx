@@ -28,7 +28,8 @@ export default function AreaHeader() {
   const { currentAddress } = useAddress();
   const { search } = useLocation();
 
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openLocationSearchDialog, setOpenLocationSearchDialog] =
+    useState(false);
 
   const navigate = useNavigate();
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -65,13 +66,13 @@ export default function AreaHeader() {
 
           <LocationSearchButton
             fullAddress={currentAddress?.display_name}
-            setOpenDialog={setOpenDialog}
+            setOpenLocationSearchDialog={setOpenLocationSearchDialog}
           />
 
-          {openDialog && (
+          {openLocationSearchDialog && (
             <LocationSearchDialog
-              openDialog={openDialog}
-              onCloseDialog={() => setOpenDialog(false)}
+              openLocationSearchDialog={openLocationSearchDialog}
+              setOpenLocationSearchDialog={setOpenLocationSearchDialog}
             />
           )}
 

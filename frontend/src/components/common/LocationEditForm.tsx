@@ -17,11 +17,11 @@ import {
 } from "@/validations/location-validations";
 
 type LocationEditFormProps = {
-  onCloseDialog: () => void;
+  onCloseDialogs: () => void;
 };
 
 export default function LocationEditForm({
-  onCloseDialog,
+  onCloseDialogs,
 }: LocationEditFormProps) {
   const { currentAddress, setCurrentAddress } = useAddress();
 
@@ -40,7 +40,7 @@ export default function LocationEditForm({
   const notifications = useNotifications();
 
   async function onSubmit(data: TLocationEditForm) {
-    onCloseDialog();
+    onCloseDialogs();
 
     if (!currentAddress) return;
 

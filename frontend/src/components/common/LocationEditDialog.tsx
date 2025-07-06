@@ -16,13 +16,13 @@ import LocationEditForm from "./LocationEditForm";
 import { useAddress } from "@/hooks/contexts/useAddress";
 
 type LocationEditDialogProps = {
-  openDialog: boolean;
-  onCloseDialog: () => void;
+  openLocationEditDialog: boolean;
+  onCloseDialogs: () => void;
 };
 
 export default function LocationEditDialog({
-  openDialog,
-  onCloseDialog,
+  openLocationEditDialog,
+  onCloseDialogs,
 }: LocationEditDialogProps) {
   const { currentAddress } = useAddress();
 
@@ -30,8 +30,8 @@ export default function LocationEditDialog({
 
   return (
     <Dialog
-      open={openDialog}
-      onClose={onCloseDialog}
+      open={openLocationEditDialog}
+      onClose={onCloseDialogs}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -45,7 +45,7 @@ export default function LocationEditDialog({
           <IconButton
             color="inherit"
             aria-label="close"
-            onClick={onCloseDialog}
+            onClick={onCloseDialogs}
             sx={{ p: 0 }}
           >
             <CloseIcon />
@@ -65,7 +65,7 @@ export default function LocationEditDialog({
               </Box>
             </DialogContentText>
 
-            <LocationEditForm onCloseDialog={onCloseDialog} />
+            <LocationEditForm onCloseDialogs={onCloseDialogs} />
           </Stack>
         </DialogContent>
       </Stack>

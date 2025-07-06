@@ -11,20 +11,20 @@ import {
 import LocationSearchArea from "./LocationSearchArea";
 
 type LocationSearchDialogProps = {
-  openDialog: boolean;
-  onCloseDialog: () => void;
+  openLocationSearchDialog: boolean;
+  setOpenLocationSearchDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function LocationSearchDialog({
-  openDialog,
-  onCloseDialog,
+  openLocationSearchDialog,
+  setOpenLocationSearchDialog,
 }: LocationSearchDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   return (
     <Dialog
-      open={openDialog}
-      onClose={onCloseDialog}
+      open={openLocationSearchDialog}
+      onClose={() => setOpenLocationSearchDialog(false)}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -38,7 +38,7 @@ export default function LocationSearchDialog({
           <IconButton
             color="inherit"
             aria-label="menu"
-            onClick={onCloseDialog}
+            onClick={() => setOpenLocationSearchDialog(false)}
             sx={{ p: 0 }}
           >
             <CloseIcon />
@@ -47,8 +47,8 @@ export default function LocationSearchDialog({
 
         <DialogContent sx={{ p: 0 }}>
           <LocationSearchArea
-            openDialog={openDialog}
-            onCloseDialog={onCloseDialog}
+            openLocationSearchDialog={openLocationSearchDialog}
+            setOpenLocationSearchDialog={setOpenLocationSearchDialog}
           />
         </DialogContent>
       </Stack>

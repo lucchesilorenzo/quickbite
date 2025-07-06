@@ -3,19 +3,19 @@ import { Button, Stack, Typography } from "@mui/material";
 
 type LocationSearchButtonProps = {
   fullAddress?: string;
-  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenLocationSearchDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function LocationSearchButton({
   fullAddress,
-  setOpenDialog,
+  setOpenLocationSearchDialog,
 }: LocationSearchButtonProps) {
   return (
     <Button
       variant="contained"
       sx={{ textTransform: "none" }}
       color="inherit"
-      onClick={() => setOpenDialog(true)}
+      onClick={() => setOpenLocationSearchDialog(true)}
     >
       <Stack
         direction="row"

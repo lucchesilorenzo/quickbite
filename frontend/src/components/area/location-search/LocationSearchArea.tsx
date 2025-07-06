@@ -19,18 +19,18 @@ import { generateSlug } from "@/lib/utils";
 import { Address } from "@/types";
 
 type LocationSearchAreaProps = {
-  openDialog: boolean;
-  onCloseDialog: () => void;
+  openLocationSearchDialog: boolean;
+  setOpenLocationSearchDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function LocationSearchArea({
-  openDialog,
-  onCloseDialog,
+  openLocationSearchDialog,
+  setOpenLocationSearchDialog,
 }: LocationSearchAreaProps) {
   const { setCurrentAddress } = useAddress();
 
   const [addresses, setAddresses] = useState<Address[]>([]);
-  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openLocationEditDialog, setOpenLocationEditDialog] = useState(false);
 
   const notifications = useNotifications();
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ export default function LocationSearchArea({
       );
 
       if (!selectedAddress.address.house_number) {
-        setOpenEditDialog(true);
+        setOpenLocationEditDialog(true);
       }
     }
   }
@@ -96,7 +96,7 @@ export default function LocationSearchArea({
         );
 
         if (!data.address.house_number) {
-          setOpenEditDialog(true);
+          setOpenLocationEditDialog(true);
           return;
         }
       } catch {
@@ -110,12 +110,12 @@ export default function LocationSearchArea({
 
   return (
     <Box>
-      {openDialog && (
+      {openLocationSearchDialog && (
         <LocationEditDialog
-          openDialog={openEditDialog}
-          onCloseDialog={() => {
-            setOpenEditDialog(false);
-            onCloseDialog();
+          openLocationEditDialog={openLocationEditDialog}
+          onCloseDialogs={() => {
+            setOpenLocationEditDialog(false);
+            setOpenLocationSearchDialog(false);
           }}
         />
       )}
