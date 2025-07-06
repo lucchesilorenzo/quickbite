@@ -28,6 +28,14 @@ export default function RestaurantClosedDialog({
 
   const openingTime = getRestaurantOpeningTime(restaurant);
 
+  const availabilityTitle = openingTime
+    ? `${restaurant.name} starts delivering at ${openingTime}`
+    : `${restaurant.name} is closed for delivery`;
+
+  const availabilityContent = openingTime
+    ? `Delivery from ${openingTime}`
+    : "Closed for delivery.";
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
@@ -44,7 +52,7 @@ export default function RestaurantClosedDialog({
           sx={{ justifyContent: "space-between", alignItems: "flex-start" }}
         >
           <DialogTitle sx={{ p: 0, fontWeight: 700, maxWidth: "80%" }}>
-            {restaurant.name} starts delivering at {openingTime}
+            {availabilityTitle}
           </DialogTitle>
 
           <IconButton
@@ -58,9 +66,7 @@ export default function RestaurantClosedDialog({
         </Stack>
 
         <DialogContent sx={{ p: 0 }}>
-          <Typography sx={{ mb: 2 }}>
-            You can schedule delivery from {openingTime}.
-          </Typography>
+          <Typography sx={{ mb: 2 }}>{availabilityContent}</Typography>
         </DialogContent>
 
         <DialogActions sx={{ p: 0 }}>
