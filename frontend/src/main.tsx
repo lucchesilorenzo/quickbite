@@ -10,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NotificationsProvider } from "@toolpad/core/useNotifications";
+import { Buffer } from "buffer";
 import { enUS } from "date-fns/locale";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.css";
 import "leaflet/dist/leaflet.css";
@@ -20,6 +21,8 @@ import "react-leaflet-markercluster/styles";
 import AppRoutes from "./pages/AppRoutes";
 
 import "@/styles/globals.css";
+
+window.Buffer = Buffer;
 
 const queryClient = new QueryClient();
 
