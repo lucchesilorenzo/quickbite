@@ -40,7 +40,7 @@ class UserFactory extends Factory
             'city' => fake()->city(),
             'country' => 'Italy',
             'driving_licence' => null,
-            'is_approved' => fake()->boolean(),
+            'is_approved' => true,
             'remember_token' => Str::random(10),
         ];
     }

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('country')->nullable()->default('Italy');
             $table->string('driving_licence')->nullable()->unique();
-            $table->boolean('is_approved')->default(false); // When email verification will be implemented
+            $table->boolean('is_approved')->default(true); // When email verification will be implemented
             $table->rememberToken();
             $table->timestamps();
         });
