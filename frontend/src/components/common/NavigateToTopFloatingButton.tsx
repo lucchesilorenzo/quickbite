@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Box, Fab, Fade, useScrollTrigger } from "@mui/material";
 
@@ -6,6 +8,22 @@ export default function NavigateToTopFloatingButton() {
     disableHysteresis: true,
     threshold: 100,
   });
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  useEffect(() => {
+    function checkDialogOpen() {
+      const isDialogOpen = !!document.querySelector('[role="dialog"]');
+      setDialogOpen(isDialogOpen);
+    }
+
+    const observer = new MutationObserver(checkDialogOpen);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    checkDialogOpen();
+
+    return () => observer.disconnect();
+  }, []);
 
   function handleClick() {
     const anchor = document.querySelector("#back-to-top");
@@ -16,7 +34,7 @@ export default function NavigateToTopFloatingButton() {
   }
 
   return (
-    <Fade in={trigger}>
+    <Fade in={trigger && !dialogOpen}>
       <Box
         onClick={handleClick}
         role="presentation"

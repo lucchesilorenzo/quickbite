@@ -18,6 +18,21 @@ export default function RetaurantNavigateToTopFloatingButton() {
   });
 
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  useEffect(() => {
+    function checkDialogOpen() {
+      const isDialogOpen = !!document.querySelector('[role="dialog"]');
+      setDialogOpen(isDialogOpen);
+    }
+
+    const observer = new MutationObserver(checkDialogOpen);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    checkDialogOpen();
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const footer = document.querySelector("#footer");
@@ -41,7 +56,7 @@ export default function RetaurantNavigateToTopFloatingButton() {
   }
 
   return (
-    <Fade in={trigger && !isFooterVisible}>
+    <Fade in={trigger && !isFooterVisible && !dialogOpen}>
       <Box
         onClick={handleClick}
         role="presentation"
