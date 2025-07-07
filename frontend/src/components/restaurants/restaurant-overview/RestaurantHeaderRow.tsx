@@ -48,7 +48,7 @@ export default function RestaurantHeaderRow() {
             color="textPrimary"
             sx={{ fontWeight: 500, mr: 0.5 }}
           >
-            {restaurant?.reviews_avg_rating?.toFixed(2) || "N/A"}
+            {restaurant?.reviews_avg_rating?.toFixed(1) || "N/A"}
           </Typography>
 
           <Typography component="span" variant="body2" color="textPrimary">
