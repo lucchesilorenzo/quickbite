@@ -410,3 +410,47 @@ export const privacyPolicy: {
     ],
   },
 ];
+
+export const rankingSections = [
+  {
+    title: "Default Restaurant Listing",
+    description:
+      "Restaurants on our platform are currently displayed without a specific ranking algorithm. This means that all visible restaurants are shown in a neutral order by default. We do not prioritize restaurants based on popularity, distance, or performance. The initial list simply includes all available restaurants that can deliver to the selected location.",
+    points: [
+      "No bias towards new or popular restaurants",
+      "All listed restaurants are treated equally",
+      "Results are only updated when filters are applied",
+    ],
+  },
+  {
+    title: "Dynamic Filtering Experience",
+    description:
+      "Although we don’t apply a fixed sorting algorithm, users can customize their browsing experience through interactive filters. When users select filters, the restaurant list dynamically updates to show only the restaurants that match the selected criteria.",
+    points: [
+      "Cuisine type (e.g., Pizza, Sushi, Indian, etc.)",
+      "Delivery time and availability",
+      "Opening hours and active restaurants",
+      "Delivery fees (if implemented)",
+    ],
+  },
+  {
+    title: "No Sponsored or Paid Listings",
+    description:
+      "At the moment, we do not support promoted or sponsored restaurants. All businesses have equal visibility on the platform and cannot pay to improve their position in the listings. This ensures a transparent and fair experience for all businesses and users.",
+    points: [
+      "No advertising-based ranking influence",
+      "Equal exposure for all approved restaurants",
+      "Future sponsorship opportunities may be evaluated based on fairness and transparency",
+    ],
+  },
+  {
+    title: "Upcoming Enhancements",
+    description:
+      "We are working on improving how restaurants are displayed and discovered. Our goal is to introduce features that enhance user experience while remaining fair to all partners. Planned improvements include smart sorting algorithms and indicators for new or top-rated restaurants.",
+    points: [
+      "Smart sorting based on distance, ratings, or delivery performance",
+      "Highlighting newly added restaurants to the platform",
+      "Personalized suggestions based on user preferences and past orders",
+    ],
+  },
+];
