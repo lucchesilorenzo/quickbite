@@ -16,6 +16,7 @@ import CustomerLoginPage from "./public/CustomerLoginPage";
 import CustomerRegisterPage from "./public/CustomerRegisterPage";
 import ErrorPage from "./public/ErrorPage";
 import HomePage from "./public/HomePage";
+import HowDoILeaveAReviewPage from "./public/HowDoILeaveAReviewPage";
 import HowWeRankPage from "./public/HowWeRankPage";
 import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
 import RestaurantPage from "./public/RestaurantPage";
@@ -79,6 +80,10 @@ export default function AppRoutes() {
                       element={<PrivacyPolicyPage />}
                     />
                     <Route path="how-we-rank" element={<HowWeRankPage />} />
+                    <Route
+                      path="how-do-i-leave-a-review"
+                      element={<HowDoILeaveAReviewPage />}
+                    />
                   </Route>
 
                   <Route path="/" element={<AreaLayout />}>
