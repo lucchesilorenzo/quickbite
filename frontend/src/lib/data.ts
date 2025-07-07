@@ -454,3 +454,25 @@ export const rankingSections = [
     ],
   },
 ];
+
+export const howDoILeaveAReviewSections = [
+  {
+    title: "",
+    content: [
+      "To leave a review, simply log in to your QuickBite account and go to your order history. From there, select the relevant order, rate your experience out of five stars, and tell us all about it by writing a review.",
+      "Leaving a review helps other people find great places to order from. It also allows you to tell the business you ordered from what they did well and how they can improve.",
+    ],
+  },
+  {
+    title: "Can I change my review after I've left it?",
+    content: [
+      "Once it's submitted, you won't be able to amend your review, so please always make sure you double-check everything and base any comments on your genuine experience.",
+    ],
+  },
+  {
+    title: "Can I delete my review after I've left it?",
+    content: [
+      "You won't be able to delete your review once it's been published, so it's always a good idea to check it over before pressing the submit button.",
+    ],
+  },
+];
