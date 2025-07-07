@@ -16,6 +16,7 @@ import CustomerLoginPage from "./public/CustomerLoginPage";
 import CustomerRegisterPage from "./public/CustomerRegisterPage";
 import ErrorPage from "./public/ErrorPage";
 import HomePage from "./public/HomePage";
+import HowWeRankPage from "./public/HowWeRankPage";
 import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
 import RestaurantPage from "./public/RestaurantPage";
 import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
@@ -77,6 +78,7 @@ export default function AppRoutes() {
                       path="privacy-policy"
                       element={<PrivacyPolicyPage />}
                     />
+                    <Route path="how-we-rank" element={<HowWeRankPage />} />
                   </Route>
 
                   <Route path="/" element={<AreaLayout />}>

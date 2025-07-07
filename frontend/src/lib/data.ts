@@ -425,7 +425,7 @@ export const rankingSections = [
   {
     title: "Dynamic Filtering Experience",
     description:
-      "Although we don’t apply a fixed sorting algorithm, users can customize their browsing experience through interactive filters. When users select filters, the restaurant list dynamically updates to show only the restaurants that match the selected criteria.",
+      "Although we don't apply a fixed sorting algorithm, users can customize their browsing experience through interactive filters. When users select filters, the restaurant list dynamically updates to show only the restaurants that match the selected criteria.",
     points: [
       "Cuisine type (e.g., Pizza, Sushi, Indian, etc.)",
       "Delivery time and availability",

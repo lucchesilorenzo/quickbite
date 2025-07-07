@@ -101,7 +101,7 @@ export default function SimpleHeadingWithDialog({
           <DialogContent sx={{ p: 0 }}>{content}</DialogContent>
 
           <DialogActions>
-            <Button variant="contained" component={Link} to="/faq">
+            <Button variant="contained" component={Link} to="/how-we-rank">
               {actionText}
             </Button>
           </DialogActions>
