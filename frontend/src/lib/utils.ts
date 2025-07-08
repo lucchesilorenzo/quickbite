@@ -1,6 +1,13 @@
 import { differenceInYears, format, isValid, parse, parseISO } from "date-fns";
 
-import { Offer, RestaurantDetail, Role, User } from "@/types";
+import {
+  Cart,
+  Offer,
+  RestaurantCart,
+  RestaurantDetail,
+  Role,
+  User,
+} from "@/types";
 
 export function formatCurrency(price: number) {
   return new Intl.NumberFormat("it-IT", {
@@ -81,6 +88,12 @@ export function getBestRestaurantOfferGivenSubtotal(
   return validOffers.reduce((best, curr) =>
     curr.discount_rate > best.discount_rate ? curr : best,
   );
+}
+export function addRestaurantIdAsKey(carts: RestaurantCart[]) {
+  return carts.reduce((acc, curr) => {
+    acc[curr.restaurant.id] = { ...curr };
+    return acc;
+  }, {} as Cart);
 }
 
 export function generateSlug(text: string) {
