@@ -120,7 +120,119 @@ class CartController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get cart.',
-                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Create or update multiple carts for the authenticated user.
+     *
+     * @param CreateOrUpdateCartsRequest $request
+     * @return JsonResponse
+     */
+    public function createOrUpdateCarts(CreateOrUpdateCartsRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        try {
+            $user = auth()->user();
+
+            foreach ($data as $cart) {
+                $restaurantId = $cart['restaurant']['id'];
+
+                // Get existing cart
+                $existingCart = $user->carts()
+                    ->where('restaurant_id', $restaurantId)
+                    ->first();
+
+                // Check if cart exists
+                if (!$existingCart) {
+                    $newCart = $user->carts()->create([
+                        'restaurant_id' => $restaurantId,
+                        'cart_total' => $cart['cart_total'],
+                        'total_items' => $cart['total_items'],
+                        'total_unique_items' => $cart['total_unique_items'],
+                    ]);
+
+                    // Create items
+                    foreach ($cart['items'] as $item) {
+                        $newCart->cartItems()->create([
+                            'cart_id' => $newCart->id,
+                            'menu_item_id' => $item['id'],
+                            'quantity' => $item['quantity'],
+                            'item_total' => $item['item_total'],
+                        ]);
+                    }
+                } else {
+                    // Merge items
+                    foreach ($cart['items'] as $newItem) {
+                        $existingItem = $existingCart->cartItems()
+                            ->where('menu_item_id', $newItem['id'])
+                            ->first();
+
+                        // If item exists, update quantity; otherwise, create new item
+                        if ($existingItem) {
+                            $existingItem->update([
+                                'quantity' => $existingItem->quantity + $newItem['quantity'],
+                                'item_total' => ($existingItem->quantity + $newItem['quantity']) * $newItem['price'],
+                            ]);
+                        } else {
+                            $existingCart->cartItems()->create([
+                                'cart_id' => $existingCart->id,
+                                'menu_item_id' => $newItem['id'],
+                                'quantity' => $newItem['quantity'],
+                                'item_total' => $newItem['item_total'],
+                            ]);
+                        }
+                    }
+
+                    // Update cart totals
+                    $totalItems = $existingCart->cartItems->sum('quantity');
+                    $totalUniqueItems = $existingCart->cartItems->count();
+                    $total = $existingCart->cartItems->sum('item_total');
+
+                    $existingCart->update([
+                        'total_items' => $totalItems,
+                        'total_unique_items' => $totalUniqueItems,
+                        'cart_total' => $total,
+                    ]);
+                }
+            }
+
+            $carts = $user->carts()->with(['restaurant', 'cartItems.menuItem'])->get();
+
+            $formattedCarts = $carts->map(function ($cart) {
+                return [
+                    'id' => $cart->id,
+                    'restaurant' => $cart->restaurant,
+                    'total_items' => $cart->total_items,
+                    'total_unique_items' => $cart->total_unique_items,
+                    'cart_total' => $cart->cart_total,
+                    'items' => $cart->cartItems->map(function ($item) {
+                        return [
+                            'id' => $item->menuItem->id,
+                            'menu_category_id' => $item->menuItem->menu_category_id,
+                            'name' => $item->menuItem->name,
+                            'description' => $item->menuItem->description,
+                            'price' => $item->menuItem->price,
+                            'image' => $item->menuItem->image,
+                            'is_available' => $item->menuItem->is_available,
+                            'quantity' => $item->quantity,
+                            'item_total' => $item->item_total,
+                            'created_at' => $item->menuItem->created_at,
+                            'updated_at' => $item->menuItem->updated_at,
+                        ];
+                    }),
+                ];
+            });
+
+            return response()->json([
+                'message' => 'Carts merged successfully.',
+                'carts' => $formattedCarts,
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Could not merge carts.',
             ], 500);
         }
     }
