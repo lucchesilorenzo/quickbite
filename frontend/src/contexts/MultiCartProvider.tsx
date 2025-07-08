@@ -1,6 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 
+import { useAuth } from "@/hooks/contexts/useAuth";
+import { useCreateOrUpdateCart } from "@/hooks/react-query/private/cart/useCreateOrUpdateCart";
+import { useGetCarts } from "@/hooks/react-query/private/cart/useGetCarts";
 import { emptyRestaurant } from "@/lib/data";
+import { addRestaurantIdAsKey, isCustomer } from "@/lib/utils";
 import { MenuItem, RestaurantDetail } from "@/types";
 import { Cart, CartItem, RestaurantCart } from "@/types/cart-types";
 
@@ -9,6 +13,7 @@ type MultiCartProviderProps = {
 };
 
 type MultiCartContext = {
+  getCarts: () => RestaurantCart[];
   getCart: (restaurantId: string) => RestaurantCart;
   getItems: (restaurantId: string) => CartItem[];
   isEmpty: (restaurantId: string) => boolean;
@@ -34,7 +39,8 @@ type MultiCartContext = {
     quantity?: number,
   ) => void;
   cartTotal: (restaurantId: string) => number;
-  emptyAllCarts: () => void;
+  emptyCarts: () => void;
+  isCartUpdating: boolean;
 };
 
 const initialState: RestaurantCart = {
@@ -50,10 +56,24 @@ export const MultiCartContext = createContext<MultiCartContext | null>(null);
 export default function MultiCartProvider({
   children,
 }: MultiCartProviderProps) {
+  const { user } = useAuth();
+  const isUserCustomer = isCustomer(user);
+
+  const { data: updatedCarts = [] } = useGetCarts(isUserCustomer);
+  const { mutateAsync: createOrUpdateCart, isPending: isCartUpdating } =
+    useCreateOrUpdateCart();
+
   const [carts, setCarts] = useState<Cart>(() => {
     const stored = localStorage.getItem("carts");
     return stored ? JSON.parse(stored) : {};
   });
+
+  useEffect(() => {
+    if (isCartUpdating || !isUserCustomer || updatedCarts.length === 0) return;
+
+    const cartsWithRestaurantKey = addRestaurantIdAsKey(updatedCarts);
+    setCarts(cartsWithRestaurantKey);
+  }, [updatedCarts, isUserCustomer, isCartUpdating]);
 
   useEffect(() => {
     localStorage.setItem("carts", JSON.stringify(carts));
@@ -72,6 +92,10 @@ export default function MultiCartProvider({
     return { total_items, total_unique_items, cart_total };
   }
 
+  function getCarts() {
+    return Object.values(carts);
+  }
+
   function getCart(restaurantId: string) {
     return carts[restaurantId];
   }
@@ -84,11 +108,13 @@ export default function MultiCartProvider({
     return carts[restaurantId]?.items.find((item) => item.id === cartItemId);
   }
 
-  function addItem(
+  async function addItem(
     restaurant: RestaurantDetail,
     menuItem: MenuItem,
     quantity: number,
   ) {
+    let updatedCart: RestaurantCart | null = null;
+
     setCarts((prev) => {
       const { id: restaurantId } = restaurant;
 
@@ -122,17 +148,24 @@ export default function MultiCartProvider({
       const { total_items, total_unique_items, cart_total } =
         calculateCartTotals(updatedItems);
 
+      updatedCart = {
+        ...existingCart,
+        restaurant,
+        items: updatedItems,
+        total_items,
+        total_unique_items,
+        cart_total: Number(cart_total.toFixed(2)),
+      };
+
       return {
         ...prev,
-        [restaurantId]: {
-          restaurant,
-          items: updatedItems,
-          total_items,
-          total_unique_items,
-          cart_total: Number(cart_total.toFixed(2)),
-        },
+        [restaurantId]: updatedCart,
       };
     });
+
+    if (isUserCustomer && updatedCart) {
+      await createOrUpdateCart(updatedCart);
+    }
   }
 
   function removeItem(restaurantId: string, cartItemId: string) {
@@ -157,11 +190,13 @@ export default function MultiCartProvider({
     });
   }
 
-  function incrementItemQuantity(
+  async function incrementItemQuantity(
     restaurantId: string,
     cartItemId: string,
     quantity: number = 1,
   ) {
+    let updatedCart: RestaurantCart | null = null;
+
     setCarts((prev) => {
       const cart = prev[restaurantId];
 
@@ -180,24 +215,32 @@ export default function MultiCartProvider({
       const { total_items, total_unique_items, cart_total } =
         calculateCartTotals(updatedItems);
 
+      updatedCart = {
+        ...cart,
+        items: updatedItems,
+        total_items,
+        total_unique_items,
+        cart_total: Number(cart_total.toFixed(2)),
+      };
+
       return {
         ...prev,
-        [restaurantId]: {
-          ...cart,
-          items: updatedItems,
-          total_items,
-          total_unique_items,
-          cart_total: Number(cart_total.toFixed(2)),
-        },
+        [restaurantId]: updatedCart,
       };
     });
+
+    if (isUserCustomer && updatedCart) {
+      await createOrUpdateCart(updatedCart);
+    }
   }
 
-  function decrementItemQuantity(
+  async function decrementItemQuantity(
     restaurantId: string,
     cartItemId: string,
     quantity: number = 1,
   ) {
+    let updatedCart: RestaurantCart | null = null;
+
     setCarts((prev) => {
       const cart = prev[restaurantId];
 
@@ -218,17 +261,23 @@ export default function MultiCartProvider({
       const { total_items, total_unique_items, cart_total } =
         calculateCartTotals(updatedItems);
 
+      updatedCart = {
+        ...cart,
+        items: updatedItems,
+        total_items,
+        total_unique_items,
+        cart_total: Number(cart_total.toFixed(2)),
+      };
+
       return {
         ...prev,
-        [restaurantId]: {
-          ...cart,
-          items: updatedItems,
-          total_items,
-          total_unique_items,
-          cart_total: Number(cart_total.toFixed(2)),
-        },
+        [restaurantId]: updatedCart,
       };
     });
+
+    if (isUserCustomer && updatedCart) {
+      await createOrUpdateCart(updatedCart);
+    }
   }
 
   function inCart(restaurantId: string, cartItemId: string) {
@@ -260,13 +309,14 @@ export default function MultiCartProvider({
     return !carts[restaurantId] || carts[restaurantId].items.length === 0;
   }
 
-  function emptyAllCarts() {
+  function emptyCarts() {
     setCarts({});
   }
 
   return (
     <MultiCartContext.Provider
       value={{
+        getCarts,
         getCart,
         getItems,
         isEmpty,
@@ -280,7 +330,8 @@ export default function MultiCartProvider({
         incrementItemQuantity,
         decrementItemQuantity,
         cartTotal,
-        emptyAllCarts,
+        emptyCarts,
+        isCartUpdating,
       }}
     >
       {children}
