@@ -21,7 +21,6 @@ class CategoryController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get categories.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }

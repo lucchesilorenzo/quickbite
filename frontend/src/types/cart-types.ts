@@ -6,7 +6,7 @@ export type CartItem = MenuItem & {
 };
 
 export type RestaurantCart = {
-  cart_id?: string;
+  id?: string;
   restaurant: RestaurantDetail;
   items: CartItem[];
   total_items: number;

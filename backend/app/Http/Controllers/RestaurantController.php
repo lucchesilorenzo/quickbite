@@ -62,7 +62,6 @@ class RestaurantController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }
