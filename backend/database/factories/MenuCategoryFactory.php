@@ -19,20 +19,25 @@ class MenuCategoryFactory extends Factory
     public function definition(): array
     {
         $menuCategories = [
-            'Starters',
-            'Main Courses',
-            'Drinks',
-            'Sides',
-            'Salads',
-            'Desserts',
+            'Starters' => 'Tasty small dishes to begin your meal.',
+            'Main Courses' => 'Hearty and satisfying main dishes.',
+            'Drinks' => 'Refreshing beverages to pair with your food.',
+            'Sides' => 'Complementary sides to enhance your dish.',
+            'Salads' => 'Fresh and crisp salads for a light option.',
+            'Desserts' => 'Sweet treats to end your meal perfectly.',
         ];
+
 
         static $i = 0;
 
+        if ($i >= count($menuCategories)) {
+            $i = 0;
+        }
+
         return [
-            'name' => $menuCategories[$i % count($menuCategories)],
-            'description' => fake()->sentence(),
-            'order' => array_keys($menuCategories)[($i++ % count($menuCategories))],
+            'name' => array_keys($menuCategories)[($i % count($menuCategories))],
+            'description' => array_values($menuCategories)[($i % count($menuCategories))],
+            'order' => $i++,
         ];
     }
 
