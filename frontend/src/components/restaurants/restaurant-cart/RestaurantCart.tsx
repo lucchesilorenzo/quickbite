@@ -4,6 +4,7 @@ import { Paper, Typography } from "@mui/material";
 
 import RestaurantCartMOVNotReachedAlert from "../common/RestaurantCartMOVNotReachedAlert";
 import RestaurantCartShippingInfo from "../common/RestaurantCartShippingInfo";
+import RestaurantCartSpinner from "../common/RestaurantCartSpinner";
 import EmptyRestaurantCart from "./EmptyRestaurantCart";
 import RestaurantCartFooter from "./RestaurantCartFooter";
 import RestaurantCartList from "./RestaurantCartList";
@@ -13,7 +14,7 @@ import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function RestaurantCart() {
   const { restaurant } = useSingleRestaurant();
-  const { isEmpty, cartTotal } = useMultiCart();
+  const { isEmpty, cartTotal, isCartUpdating } = useMultiCart();
 
   const [topOffset, setTopOffset] = useState(0);
   const [bottomOffset, setBottomOffset] = useState(0);
@@ -69,6 +70,8 @@ export default function RestaurantCart() {
       }}
       elevation={3}
     >
+      {isCartUpdating && <RestaurantCartSpinner />}
+
       <Typography
         component="h2"
         variant="h5"

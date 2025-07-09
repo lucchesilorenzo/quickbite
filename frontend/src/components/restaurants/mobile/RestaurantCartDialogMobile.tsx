@@ -9,6 +9,7 @@ import {
 
 import RestaurantCartMOVNotReachedAlert from "../common/RestaurantCartMOVNotReachedAlert";
 import RestaurantCartShippingInfo from "../common/RestaurantCartShippingInfo";
+import RestaurantCartSpinner from "../common/RestaurantCartSpinner";
 import RestaurantCartFooter from "../restaurant-cart/RestaurantCartFooter";
 import RestaurantCartList from "../restaurant-cart/RestaurantCartList";
 
@@ -27,7 +28,7 @@ export default function RestaurantCartDialogMobile({
   setOpenRestaurantCartDialogMobile,
 }: RestaurantCartDialogMobileProps) {
   const { restaurant } = useSingleRestaurant();
-  const { cartTotal, isEmpty } = useMultiCart();
+  const { cartTotal, isEmpty, isCartUpdating } = useMultiCart();
 
   const subtotal = cartTotal(restaurant.id);
   const amountToReachMOV = restaurant.min_amount - subtotal;
@@ -43,6 +44,8 @@ export default function RestaurantCartDialogMobile({
       fullScreen
       disableRestoreFocus
     >
+      {isCartUpdating && <RestaurantCartSpinner />}
+
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
           <DialogTitle sx={{ p: 0, fontWeight: 700 }}>Cart</DialogTitle>
