@@ -1,13 +1,25 @@
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function RestaurantInfo() {
   const { restaurant } = useSingleRestaurant();
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
-    <Container component="section" maxWidth="md" sx={{ my: 4 }}>
+    <Container
+      component="section"
+      maxWidth={isMobile ? "lg" : "md"}
+      sx={{ my: 4 }}
+    >
       <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
         <ApartmentOutlinedIcon />
 
@@ -17,15 +29,24 @@ export default function RestaurantInfo() {
       </Stack>
 
       <Box sx={{ mt: 1 }}>
-        <Typography variant="body1" color="textSecondary">
+        <Typography
+          variant={isMobile ? "body2" : "body1"}
+          color="textSecondary"
+        >
           {restaurant.name}
         </Typography>
 
-        <Typography variant="body1" color="textSecondary">
+        <Typography
+          variant={isMobile ? "body2" : "body1"}
+          color="textSecondary"
+        >
           {restaurant.street_address}, {restaurant.building_number}
         </Typography>
 
-        <Typography variant="body1" color="textSecondary">
+        <Typography
+          variant={isMobile ? "body2" : "body1"}
+          color="textSecondary"
+        >
           {restaurant.postcode} {restaurant.city}
         </Typography>
       </Box>
