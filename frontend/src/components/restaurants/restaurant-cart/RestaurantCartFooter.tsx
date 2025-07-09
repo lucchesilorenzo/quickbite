@@ -17,7 +17,6 @@ import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-import { useCreateOrUpdateCart } from "@/hooks/react-query/private/cart/useCreateOrUpdateCart";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,
@@ -28,9 +27,7 @@ import {
 export default function RestaurantCartFooter() {
   const { user } = useAuth();
   const { restaurant } = useSingleRestaurant();
-  const { getCart, cartTotal } = useMultiCart();
-
-  const { mutateAsync: createOrUpdateCart } = useCreateOrUpdateCart();
+  const { getCart, cartTotal, isCartUpdating } = useMultiCart();
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
@@ -58,9 +55,7 @@ export default function RestaurantCartFooter() {
     }
 
     const cart = getCart(restaurant.id);
-
-    const { cart: updatedCart } = await createOrUpdateCart(cart);
-    navigate(`/checkout/${updatedCart.cart_id}`);
+    navigate(`/checkout/${cart.id}`);
   }
 
   return (
@@ -167,7 +162,7 @@ export default function RestaurantCartFooter() {
           size="large"
           fullWidth
           sx={{ fontWeight: 700 }}
-          disabled={isCheckoutDisabled}
+          disabled={isCheckoutDisabled || isCartUpdating}
         >
           Checkout ({formatCurrency(total)})
         </Button>

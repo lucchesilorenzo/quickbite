@@ -35,6 +35,7 @@ export default function RestaurantCartItem({
     incrementItemQuantity,
     decrementItemQuantity,
     getItem,
+    isCartUpdating,
   } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
@@ -82,6 +83,7 @@ export default function RestaurantCartItem({
             color="inherit"
             aria-label="remove"
             onClick={() => decrementItemQuantity(restaurant.id, item.id)}
+            disabled={isCartUpdating}
           >
             {item.quantity === 1 ? (
               <DeleteOutlineOutlinedIcon fontSize="small" />
@@ -98,6 +100,7 @@ export default function RestaurantCartItem({
             color="inherit"
             aria-label="add"
             onClick={() => incrementItemQuantity(restaurant.id, item.id)}
+            disabled={isCartUpdating}
           >
             <AddIcon fontSize="small" />
           </IconButton>
