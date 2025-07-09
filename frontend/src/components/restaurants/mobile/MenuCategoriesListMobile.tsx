@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
+import RestaurantInfo from "../RestaurantInfo";
 import MenuCategory from "../menu-categories/MenuCategory";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
@@ -28,6 +29,8 @@ export default function MenuCategoriesListMobile() {
           Adults need around 2000 kcal (8400 kJ) a day.
         </Typography>
       </Stack>
+
+      <RestaurantInfo />
     </Box>
   );
 }

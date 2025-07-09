@@ -25,12 +25,12 @@ type MenuItemCardProps = {
 };
 
 export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const { restaurant } = useSingleRestaurant();
   const { inCart } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <>

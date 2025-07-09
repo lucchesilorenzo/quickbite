@@ -68,7 +68,7 @@ export default function MenuCategoryNavigationSearch() {
         }}
       />
 
-      {searchTerm && filteredMenuItems.length ? (
+      {searchTerm && filteredMenuItems.length > 0 ? (
         <MenuItemsList menuItems={filteredMenuItems} />
       ) : (
         searchTerm && <MenuItemsEmpty setSearchTerm={setSearchTerm} />
