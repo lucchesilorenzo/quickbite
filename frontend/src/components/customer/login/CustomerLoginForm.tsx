@@ -13,6 +13,8 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
+import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useCreateOrUpdateCarts } from "@/hooks/react-query/private/cart/useCreateOrUpdateCarts";
 import { useLoginCustomer } from "@/hooks/react-query/private/customers/auth/useLoginCustomer";
 import {
   TCustomerLoginFormSchema,
@@ -22,6 +24,8 @@ import {
 export default function CustomerLoginForm() {
   const { mutateAsync: loginCustomer, isPending: isLoggingIn } =
     useLoginCustomer();
+  const { getCarts, emptyCarts } = useMultiCart();
+  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCarts();
 
   const {
     handleSubmit,
@@ -39,6 +43,13 @@ export default function CustomerLoginForm() {
 
   async function onSubmit(data: TCustomerLoginFormSchema) {
     await loginCustomer(data);
+
+    const carts = getCarts();
+    await createOrUpdateCarts(carts);
+
+    // Clear local state and local storage
+    emptyCarts();
+    localStorage.removeItem("carts");
   }
 
   return (

@@ -25,6 +25,7 @@ import { Link } from "react-router-dom";
 import PersonalInfoDialog from "./PersonalInfoDialog";
 import OrdersDialog from "./orders/OrdersDialog";
 
+import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useLogoutCustomer } from "@/hooks/react-query/private/customers/auth/useLogoutCustomer";
 import { headerDialogCustomerOptions } from "@/lib/data";
 import { User } from "@/types";
@@ -37,6 +38,7 @@ export default function HeaderDialogCustomer({
   customer,
 }: HeaderDialogCustomerProps) {
   const { mutateAsync: logoutCustomer } = useLogoutCustomer();
+  const { emptyCarts } = useMultiCart();
 
   const [openHeaderCustomerDialog, setOpenHeaderCustomerDialog] =
     useState(false);
@@ -47,7 +49,11 @@ export default function HeaderDialogCustomer({
 
   async function handleLogout() {
     setOpenHeaderCustomerDialog(false);
+
     await logoutCustomer();
+
+    // Clear local state
+    emptyCarts();
   }
 
   return (

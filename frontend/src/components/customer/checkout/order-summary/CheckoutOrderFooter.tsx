@@ -28,7 +28,7 @@ export default function CheckoutOrderFooter() {
   const { cart, checkoutData, restaurantId } = useCheckout();
 
   const { mutateAsync: createOrder } = useCreateOrder(restaurantId);
-  const { mutateAsync: deleteCart } = useDeleteCart(cart.cart_id);
+  const { mutateAsync: deleteCart } = useDeleteCart(cart.id);
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
