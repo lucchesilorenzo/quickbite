@@ -64,20 +64,32 @@ export default function MultiCartProvider({
     useCreateOrUpdateCart();
 
   const [carts, setCarts] = useState<Cart>(() => {
-    const stored = localStorage.getItem("carts");
-    return stored ? JSON.parse(stored) : {};
+    if (!isUserCustomer) {
+      const stored = localStorage.getItem("carts");
+      return stored ? JSON.parse(stored) : {};
+    }
+
+    return {};
   });
 
   useEffect(() => {
-    if (isCartUpdating || !isUserCustomer || updatedCarts.length === 0) return;
+    if (!isUserCustomer) return;
 
     const cartsWithRestaurantKey = addRestaurantIdAsKey(updatedCarts);
-    setCarts(cartsWithRestaurantKey);
-  }, [updatedCarts, isUserCustomer, isCartUpdating]);
+
+    setCarts((prev) => {
+      const prevString = JSON.stringify(prev);
+      const nextString = JSON.stringify(cartsWithRestaurantKey);
+      if (prevString === nextString) return prev;
+      return cartsWithRestaurantKey;
+    });
+  }, [isUserCustomer, updatedCarts]);
 
   useEffect(() => {
-    localStorage.setItem("carts", JSON.stringify(carts));
-  }, [carts]);
+    if (!isUserCustomer) {
+      localStorage.setItem("carts", JSON.stringify(carts));
+    }
+  }, [carts, isUserCustomer]);
 
   // Helper function to calculate cart totals
   function calculateCartTotals(items: CartItem[]) {
