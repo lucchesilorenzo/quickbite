@@ -52,6 +52,25 @@ class Restaurant extends Model
     ];
 
     /**
+     * Check if the restaurant is open.
+     *
+     * @return boolean
+     */
+    public function isOpen(): bool
+    {
+        $dayName = strtoupper(now()->format('l'));
+        $currentTime = now()->format('H:i');
+
+        return $this->deliveryDays()
+            ->where('day', $dayName)
+            ->whereNotNull('start_time')
+            ->whereNotNull('end_time')
+            ->where('start_time', '<=', $currentTime)
+            ->where('end_time', '>=', $currentTime)
+            ->exists();
+    }
+
+    /**
      * Get the restaurant's partners (owners and co-owners).
      *
      * @return BelongsToMany
