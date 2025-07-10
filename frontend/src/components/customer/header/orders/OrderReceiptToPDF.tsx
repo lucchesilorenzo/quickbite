@@ -96,6 +96,8 @@ export default function OrderReceiptToPDF({
               {order.payment_method}
             </Text>
           </View>
+
+          {order.notes && <Text>Notes: {order.notes}</Text>}
         </View>
 
         {/* Items */}
