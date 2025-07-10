@@ -3,7 +3,6 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Button, Rating, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCreateReview } from "@/hooks/react-query/private/customers/useCreateReview";
@@ -20,7 +19,6 @@ export default function AddReviewForm({
   order,
 }: AddReviewFormProps) {
   const { mutateAsync: createReview } = useCreateReview(order.restaurant.slug);
-  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -36,9 +34,7 @@ export default function AddReviewForm({
 
   async function onSubmit(data: TReviewForm) {
     await createReview({ ...data, order_id: order.id });
-
     setOpenAddReviewDialog(false);
-    navigate(`/restaurants/${order.restaurant.slug}`);
   }
 
   return (
