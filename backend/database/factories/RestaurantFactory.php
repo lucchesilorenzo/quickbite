@@ -46,7 +46,7 @@ class RestaurantFactory extends Factory
             'phone_number' => fake()->e164PhoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'vat_id' => fake()->numerify('##########'),
-            'min_amount' => fake()->randomElement([30, 40, 50]),
+            'min_amount' => fake()->randomElement([10, 15, 20]),
             'delivery_fee' => fake()->randomElement([0, 2.99, 4.99]),
             'service_fee' => fake()->randomElement([0, 0.30, 0.50, 0.75, 1.00]),
             'delivery_time_min' => fake()->randomElement([10, 15]),
