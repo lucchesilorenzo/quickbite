@@ -46,6 +46,7 @@
 - [PHP](https://www.php.net/) for server-side programming.
 - [Laravel](https://laravel.com/) for building a robust and powerful web application.
 - [Laravel Sanctum](https://laravel.com/docs/sanctum) for authentication.
+- [giggsey/libphonenumber-for-php](https://github.com/giggsey/libphonenumber-for-php) for phone number validation.
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission) for role-based access control.
 
 ### Database
