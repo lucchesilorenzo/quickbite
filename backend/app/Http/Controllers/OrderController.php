@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateOrderRequest;
+use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 
