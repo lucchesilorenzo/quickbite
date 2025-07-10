@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Order;
+use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
@@ -68,16 +69,22 @@ class OrderController extends Controller
             // Get user
             $user = auth()->user();
 
-            // Generate random order code
-            do {
-                $randomOrderCode = random_int(100000, 999999);
-            } while (Order::where('order_code', $randomOrderCode)->exists());
+            // Get restaurant
+            $restaurant = Restaurant::find($data['restaurant_id']);
+
+            if (!$restaurant) {
+                return response()->json(['message' => 'Could not find the restaurant.'], 404);
+            }
+
+            if (!$restaurant->isOpen() || $data['subtotal'] < $restaurant->min_amount) {
+                return response()->json(['message' => 'The restaurant is not open or the subtotal is less than the minimum amount.'], 400);
+            }
 
             // Create order
             $order = Order::create([
                 'user_id' => $user->id,
                 'restaurant_id' => $data['restaurant_id'],
-                'order_code' => $randomOrderCode,
+                'order_code' => $this->generateOrderCode(),
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'phone_number' => $data['phone_number'],
@@ -85,7 +92,7 @@ class OrderController extends Controller
                 'building_number' => $data['building_number'],
                 'postcode' => $data['postcode'],
                 'city' => $data['city'],
-                'delivery_time' => $data['delivery_time'] === "asap" ? now()->format('H:i:s') : $data['delivery_time'],
+                'delivery_time' => $data['delivery_time'] === 'asap' ? now()->format('H:i:s') : $data['delivery_time'],
                 'notes' => $data['notes'] ?? null,
                 'payment_method' => $data['payment_method'],
                 'subtotal' => $data['subtotal'],
