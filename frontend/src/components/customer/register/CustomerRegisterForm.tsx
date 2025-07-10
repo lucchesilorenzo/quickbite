@@ -17,6 +17,8 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
+import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useCreateOrUpdateCarts } from "@/hooks/react-query/private/cart/useCreateOrUpdateCarts";
 import { useRegisterCustomer } from "@/hooks/react-query/private/customers/auth/useRegisterCustomer";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
@@ -25,8 +27,11 @@ import {
 } from "@/validations/customer-auth-validations";
 
 export default function CustomerRegisterForm() {
+  const { getCarts, emptyCarts } = useMultiCart();
+
   const { mutateAsync: registerCustomer, isPending: isRegistering } =
     useRegisterCustomer();
+  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCarts();
 
   const {
     handleSubmit,
@@ -55,6 +60,13 @@ export default function CustomerRegisterForm() {
 
   async function onSubmit(data: TCustomerRegisterFormSchema) {
     await registerCustomer(data);
+
+    const carts = getCarts();
+    await createOrUpdateCarts(carts);
+
+    // Clear local state and local storage
+    emptyCarts();
+    localStorage.removeItem("carts");
   }
 
   return (
