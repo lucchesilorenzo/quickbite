@@ -7,10 +7,19 @@ import { getRestaurantOpeningTime, isRestaurantOpen } from "@/lib/utils";
 export default function RestaurantCartShippingInfo() {
   const { restaurant } = useSingleRestaurant();
 
+  const isSameDeliveryTime =
+    restaurant.delivery_time_min === restaurant.delivery_time_max;
+
+  const openingTime = getRestaurantOpeningTime(restaurant);
+
+  const deliveryTime = isSameDeliveryTime
+    ? `${restaurant.delivery_time_min} min`
+    : `${restaurant.delivery_time_min}-${restaurant.delivery_time_max} min`;
+
   const openingInfo = isRestaurantOpen(restaurant)
-    ? `${restaurant.delivery_time_min}-${restaurant.delivery_time_max} min`
-    : getRestaurantOpeningTime(restaurant)
-      ? `From ${getRestaurantOpeningTime(restaurant)}`
+    ? deliveryTime
+    : openingTime
+      ? `From ${openingTime}`
       : "Closed";
 
   return (
