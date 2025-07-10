@@ -116,4 +116,18 @@ class OrderController extends Controller
             return response()->json(['message' => 'Error creating order.'], 500);
         }
     }
+
+    /**
+     * Generate a random order code.
+     *
+     * @return integer
+     */
+    private function generateOrderCode(): int
+    {
+        do {
+            $code = random_int(100000, 999999);
+        } while (Order::where('order_code', $code)->exists());
+
+        return $code;
+    }
 }
