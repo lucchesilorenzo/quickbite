@@ -19,7 +19,9 @@ class OrderController extends Controller
         try {
             $user = auth()->user();
 
-            $orders = $user->orders()->with(['orderItems', 'restaurant.reviews.customer'])->get();
+            $orders = $user->orders()->with(['orderItems', 'restaurant.reviews.customer'])
+                ->orderBy('created_at', 'desc')
+                ->get();
 
             return response()->json($orders, 200);
         } catch (\Throwable $e) {
