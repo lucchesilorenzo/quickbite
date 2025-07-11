@@ -71,11 +71,11 @@ export default function OrderReceiptToPDF({
         <View style={styles.section}>
           <View style={styles.headingRow}>
             {base64Logo && <Image src={base64Logo} style={styles.logo} />}
-            <Text style={styles.subtitle}>QuickBite</Text>
+            <Text style={styles.subtitle}>{order.restaurant.name}</Text>
           </View>
 
-          <Text>Address: Via Dante Alighieri, 23, 50100 Florence, Italy</Text>
-          <Text>Email: support@quickbite.com</Text>
+          <Text>Address: {order.restaurant.full_address}</Text>
+          <Text>Email: {order.restaurant.email}</Text>
         </View>
 
         {/* Order Info */}
