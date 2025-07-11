@@ -156,7 +156,9 @@ export default function RestaurantProvider({
 
       case "delivery_time":
         result = result.sort(
-          (a, b) => a.delivery_time_min - b.delivery_time_min,
+          (a, b) =>
+            (a.delivery_time_min + a.delivery_time_max) / 2 -
+            (b.delivery_time_min + b.delivery_time_max) / 2,
         );
         break;
 
