@@ -53,7 +53,7 @@ export default function AddReviewForm({
             {...field}
             multiline
             autoComplete="off"
-            label="Add a review (optional)"
+            label="Add a comment (optional)"
             placeholder="Your review will be shared with the restaurant and other customers."
             maxRows={4}
             error={!!errors.comment}
