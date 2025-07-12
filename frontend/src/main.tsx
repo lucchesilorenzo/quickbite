@@ -18,7 +18,7 @@ import { createRoot } from "react-dom/client";
 // @ts-ignore
 import "react-leaflet-markercluster/styles";
 // @ts-ignore
-import "swiper/css/bundle";
+import "swiper/css";
 
 import AppRoutes from "./pages/AppRoutes";
 
