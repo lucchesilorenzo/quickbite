@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Box, Container, Fade, IconButton } from "@mui/material";
+import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
 import CategoryDialog from "./CategoryDialog";
@@ -20,11 +21,6 @@ export default function CategoryFilters() {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
-  useEffect(() => {
-    setCanScrollPrev(!swiperRef.current?.isBeginning);
-    setCanScrollNext(!swiperRef.current?.isEnd);
-  }, [visibleCategories]);
-
   function handleSlideChange(swiper: SwiperClass) {
     setCanScrollPrev(!swiper.isBeginning);
     setCanScrollNext(!swiper.isEnd);
@@ -37,6 +33,11 @@ export default function CategoryFilters() {
   function scrollNext() {
     swiperRef.current?.slideNext();
   }
+
+  useEffect(() => {
+    setCanScrollPrev(!swiperRef.current?.isBeginning);
+    setCanScrollNext(!swiperRef.current?.isEnd);
+  }, [visibleCategories]);
 
   return (
     <Container
@@ -55,6 +56,9 @@ export default function CategoryFilters() {
             swiperRef.current = swiper;
           }}
           onSlideChange={handleSlideChange}
+          keyboard
+          mousewheel
+          modules={[Keyboard, Mousewheel]}
           breakpoints={{
             0: {
               slidesPerView: 2,
