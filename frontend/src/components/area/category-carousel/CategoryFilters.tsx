@@ -1,16 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import {
-  Box,
-  Container,
-  Fade,
-  IconButton,
-  Skeleton,
-  Stack,
-} from "@mui/material";
-import useEmblaCarousel from "embla-carousel-react";
+import { Box, Container, Fade, IconButton } from "@mui/material";
+import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
 import CategoryDialog from "./CategoryDialog";
 import CategoryFilterSkeleton from "./CategoryFilterSkeleton";
@@ -22,80 +15,97 @@ export default function CategoryFilters() {
   const { visibleCategories, allCategories, isLoadingCategories } =
     useCategoryFilters();
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "center",
-    containScroll: "trimSnaps",
-  });
-  const [canScrollPrev, setCanScrollPrev] = useState(true);
-  const [canScrollNext, setCanScrollNext] = useState(true);
+  const swiperRef = useRef<SwiperClass>(null);
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-
-    setCanScrollPrev(emblaApi.canScrollPrev());
-    setCanScrollNext(emblaApi.canScrollNext());
-  }, [emblaApi]);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
 
   useEffect(() => {
-    if (!emblaApi) return;
+    setCanScrollPrev(!swiperRef.current?.isBeginning);
+    setCanScrollNext(!swiperRef.current?.isEnd);
+  }, [visibleCategories]);
 
-    emblaApi.on("select", onSelect);
-    onSelect();
-  }, [emblaApi, onSelect]);
+  function handleSlideChange(swiper: SwiperClass) {
+    setCanScrollPrev(!swiper.isBeginning);
+    setCanScrollNext(!swiper.isEnd);
+  }
+
+  function scrollPrev() {
+    swiperRef.current?.slidePrev();
+  }
+
+  function scrollNext() {
+    swiperRef.current?.slideNext();
+  }
 
   return (
     <Container
       maxWidth="lg"
       sx={{ display: "flex", alignItems: "center", py: 2 }}
     >
-      {canScrollPrev && (
-        <Fade in={canScrollPrev}>
-          <IconButton onClick={scrollPrev} disabled={!canScrollPrev}>
-            <ArrowBackIosNewIcon fontSize="small" />
-          </IconButton>
-        </Fade>
-      )}
+      <Fade in={canScrollPrev}>
+        <IconButton onClick={scrollPrev} disabled={!canScrollPrev}>
+          <ArrowBackIosNewIcon fontSize="small" />
+        </IconButton>
+      </Fade>
 
-      <Box sx={{ overflow: "hidden", flex: 1 }} ref={emblaRef}>
-        {isLoadingCategories ? (
-          <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
-            {Array.from({ length: 7 }).map((_, i) => (
-              <CategoryFilterSkeleton key={i} />
-            ))}
+      <Box sx={{ width: 1, overflow: "hidden" }}>
+        <Swiper
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          onSlideChange={handleSlideChange}
+          breakpoints={{
+            0: {
+              slidesPerView: 2,
+            },
+            500: {
+              slidesPerView: 3,
+            },
+            600: {
+              slidesPerView: 4,
+            },
+            800: {
+              slidesPerView: 5,
+            },
+            900: {
+              slidesPerView: 6,
+            },
+            1000: {
+              slidesPerView: 7,
+            },
+            1200: {
+              slidesPerView: 8,
+            },
+          }}
+        >
+          {isLoadingCategories ? (
+            Array.from({ length: 8 }).map((_, i) => (
+              <SwiperSlide key={i}>
+                <CategoryFilterSkeleton />
+              </SwiperSlide>
+            ))
+          ) : (
+            <>
+              {visibleCategories.map((category) => (
+                <SwiperSlide key={category.id}>
+                  <CuisineFilterSlide category={category} />
+                </SwiperSlide>
+              ))}
 
-            <Skeleton
-              variant="rounded"
-              width={120}
-              animation="wave"
-              sx={{ ml: 2 }}
-            />
-          </Stack>
-        ) : (
-          <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
-            {visibleCategories.map((category) => (
-              <CuisineFilterSlide key={category.id} category={category} />
-            ))}
-
-            <CategoryDialog categories={allCategories} />
-          </Stack>
-        )}
+              <SwiperSlide>
+                <CategoryDialog categories={allCategories} />
+              </SwiperSlide>
+            </>
+          )}
+        </Swiper>
       </Box>
 
-      {canScrollNext && (
-        <Fade in={canScrollNext}>
-          <IconButton onClick={scrollNext} disabled={!canScrollNext}>
-            <ArrowForwardIosIcon fontSize="small" />
-          </IconButton>
-        </Fade>
-      )}
+      <Fade in={canScrollNext}>
+        <IconButton onClick={scrollNext} disabled={!canScrollNext}>
+          <ArrowForwardIosIcon fontSize="small" />
+        </IconButton>
+      </Fade>
     </Container>
   );
 }
