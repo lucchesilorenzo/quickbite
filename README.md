@@ -105,7 +105,7 @@ Ensure you have the following installed:
    VITE_APP_NAME="Order food from your favorite local restaurants | QuickBite"
    VITE_APP_DESCRIPTION="QuickBite lets you order food online from your favorite local restaurants with fast delivery and no hassle."
    VITE_BASE_URL="http://localhost:8000"
-   VITE_LOCATIONIQ_API_KEY=your_api_key
+   VITE_LOCATIONIQ_API_KEY=your-api-key
    ```
 
 4. **Create a PostgreSQL database with the name "quickbite"**.
@@ -172,17 +172,45 @@ Ensure you have the following installed:
 
 Ensure you have the following installed:
 
+- [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com/get-started/)
 
-1. **Copy the `.env.example` file to `.env` in both the frontend and backend directories.**
-
-2. **Generate the Laravel application key by running:**
+1. **Clone the repository**:
 
    ```bash
-   php artisan key:generate
+   git clone https://github.com/lucchesilorenzo/quickbite
+   cd quickbite
+   code .
    ```
 
-3. **Update the database host in the backend `.env` file:**
+2. **Install dependencies**:
+
+   ```bash
+   npm install && npm run install-all
+   ```
+
+3. **Configure frontend environment variables**:
+
+   ```bash
+   cd frontend
+   ```
+
+   Create a `.env` file at the root of the frontend project and copy what's in the `.env.example` file:
+
+   ```bash
+   VITE_APP_NAME="Order food from your favorite local restaurants | QuickBite"
+   VITE_APP_DESCRIPTION="QuickBite lets you order food online from your favorite local restaurants with fast delivery and no hassle."
+   VITE_BASE_URL="http://localhost:8000"
+   VITE_LOCATIONIQ_API_KEY=your-api-key
+   ```
+
+4. **Configure backend environment variables**:
+
+   ```bash
+   cd ../backend
+   ```
+
+   Create a `.env` file at the root of the backend project and copy what's in the `.env.example` file. Then, configure your database connection details:
 
    ```bash
    DB_CONNECTION=pgsql
@@ -193,19 +221,25 @@ Ensure you have the following installed:
    DB_PASSWORD=quickbite
    ```
 
-4. **Start the containers with:**
+5. **Generate the Laravel application key by running:**
+
+   ```bash
+   php artisan key:generate
+   ```
+
+6. **Start the containers with:**
 
    ```bash
    docker compose up
    ```
 
-5. **Make migrations and seed data:**
+7. **Make migrations and seed data:**
 
    ```bash
    docker compose exec api php artisan migrate --seed
    ```
 
-6. **Create symlink for public folder**:
+8. **Create symlink for public folder**:
 
    ```bash
    docker compose exec api php artisan storage:link
@@ -217,7 +251,7 @@ Ensure you have the following installed:
    docker compose exec api rm public/storage && docker compose exec api php artisan storage:link
    ```
 
-7. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
+9. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
 
 ## License
 
