@@ -1,5 +1,5 @@
+import WhyChooseUsFeatureMobile from "../mobile/WhyChooseUsFeatureMobile";
 import WhyChooseUsFeatureDesktop from "./WhyChooseUsFeatureDesktop";
-import WhyChooseUsFeatureMobile from "./WhyChooseUsFeatureMobile";
 
 export default function WhyChooseUsFeatures() {
   return (
