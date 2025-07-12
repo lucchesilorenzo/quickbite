@@ -39,6 +39,7 @@
     "react-leaflet": "^5.0.0",
     "react-leaflet-markercluster": "^5.0.0-rc.0",
     "react-router-dom": "^7.4.1",
+    "swiper": "^11.2.10",
     "zod": "^3.25.71"
   },
   "devDependencies": {
