@@ -57,7 +57,7 @@
 
 - [React Router](https://reactrouter.com/) for routing.
 - [React Query](https://tanstack.com/query/v4) for data fetching.
-- [embla-carousel-react](https://embla-carousel.com/) for carousel component.
+- [Swiper](https://swiperjs.com/) for carousel components.
 - [React Hook Form](https://react-hook-form.com/) for form handling.
 - [Zod](https://zod.dev/) for schema validation.
 - [Axios](https://axios-http.com/) for API requests.
