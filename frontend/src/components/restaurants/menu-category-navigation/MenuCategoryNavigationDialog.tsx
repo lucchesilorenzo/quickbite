@@ -21,14 +21,14 @@ type MenuCategoryNavigationDialogProps = {
   setOpenMenuCategoryNavigationDialog: React.Dispatch<
     React.SetStateAction<boolean>
   >;
-  onHandleClick: (menuCategoryId: string) => void;
+  onSlideClick: (menuCategoryId: string) => void;
 };
 
 export default function MenuCategoryNavigationDialog({
   menuCategories,
   openMenuCategoryNavigationDialog,
   setOpenMenuCategoryNavigationDialog,
-  onHandleClick,
+  onSlideClick,
 }: MenuCategoryNavigationDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -66,7 +66,7 @@ export default function MenuCategoryNavigationDialog({
                 setOpenMenuCategoryNavigationDialog={
                   setOpenMenuCategoryNavigationDialog
                 }
-                onHandleClick={onHandleClick}
+                onSlideClick={onSlideClick}
               />
             ))}
           </List>

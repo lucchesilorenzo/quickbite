@@ -18,14 +18,14 @@ type MenuCategoryNavigationItemProps = {
   setOpenMenuCategoryNavigationDialog: React.Dispatch<
     React.SetStateAction<boolean>
   >;
-  onHandleClick: (menuCategoryId: string) => void;
+  onSlideClick: (menuCategoryId: string) => void;
 };
 
 export default function MenuCategoryNavigationItem({
   menuCategory,
   isLast,
   setOpenMenuCategoryNavigationDialog,
-  onHandleClick,
+  onSlideClick,
 }: MenuCategoryNavigationItemProps) {
   return (
     <>
@@ -40,7 +40,7 @@ export default function MenuCategoryNavigationItem({
       >
         <ListItemButton
           onClick={() => {
-            onHandleClick(menuCategory.id);
+            onSlideClick(menuCategory.id);
             setOpenMenuCategoryNavigationDialog(false);
           }}
         >
