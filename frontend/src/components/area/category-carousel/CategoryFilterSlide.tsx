@@ -15,10 +15,11 @@ export default function CategoryFilterSlide({
   category,
 }: CategoryFilterSlideProps) {
   const { handleStatusChange } = useCategoryFilters();
+
   const [isTickVisible, setIsTickVisible] = useState(false);
 
   return (
-    <Box sx={{ scrollSnapAlign: "center" }}>
+    <Box>
       <Button
         onClick={() => handleStatusChange(category)}
         onMouseEnter={() => setIsTickVisible(true)}
@@ -36,7 +37,8 @@ export default function CategoryFilterSlide({
           src={`${env.VITE_BASE_URL}${category.image}`}
           alt={category.name}
           sx={{
-            maxWidth: 120,
+            width: 120,
+            height: 80,
             borderRadius: 2,
             objectFit: "contain",
           }}

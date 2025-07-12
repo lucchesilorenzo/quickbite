@@ -16,6 +16,7 @@ import {
   TextField,
   useMediaQuery,
 } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 import CategoryDialogItem from "./CategoryDialogItem";
 
@@ -29,6 +30,7 @@ type CategoryDialogProps = {
 export default function CategoryDialog({ categories }: CategoryDialogProps) {
   const { openCategoriesDialog, setOpenCategoriesDialog } =
     useCategoryFilters();
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -42,15 +44,17 @@ export default function CategoryDialog({ categories }: CategoryDialogProps) {
   );
 
   return (
-    <Box sx={{ scrollSnapAlign: "center" }}>
+    <Box>
       <Button
         onClick={() => setOpenCategoriesDialog(true)}
         variant="outlined"
         color="inherit"
         fullWidth
         sx={{
+          width: 120,
+          height: 80,
           borderRadius: 2,
-          borderColor: "grey.300",
+          borderColor: grey[300],
           textTransform: "none",
           textWrap: "nowrap",
           fontWeight: 700,

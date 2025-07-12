@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import MapIcon from "@mui/icons-material/Map";
 import { Box, IconButton } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { useSearchParams } from "react-router-dom";
 
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
@@ -40,8 +41,8 @@ export default function RestaurantViewSwitcher() {
         size="large"
         color="inherit"
         sx={{
-          bgcolor: "grey.100",
-          "&:hover": { bgcolor: "grey.200" },
+          bgcolor: grey[100],
+          "&:hover": { bgcolor: grey[200] },
           display: { xs: "none", lg: "flex" },
         }}
         onClick={handleViewMapClick}
