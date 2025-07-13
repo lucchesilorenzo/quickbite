@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\RolesEnum;
@@ -45,8 +47,6 @@ class OrderFactory extends Factory
 
     /**
      * Configure the model factory.
-     *
-     * @return self
      */
     public function configure(): self
     {
@@ -57,9 +57,6 @@ class OrderFactory extends Factory
 
     /**
      * Assign order items to order.
-     *
-     * @param Order $order
-     * @return void
      */
     private function assignOrderItemsToOrder(Order $order): void
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -17,7 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasUuids, HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -51,6 +53,64 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    // --- CUSTOMER ---
+
+    /**
+     * Get the user's reviews.
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(RestaurantReview::class);
+    }
+
+    /**
+     * Get the user's carts.
+     */
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Get the user's orders.
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    // --- PARTNERS ---
+
+    /**
+     * Get the user's owned restaurants.
+     */
+    public function ownedRestaurants(): BelongsToMany
+    {
+        return $this->belongsToMany(Restaurant::class)
+            ->wherePivot('role', RestaurantRolesEnum::OWNER);
+    }
+
+    /**
+     * Get the user's co-owned restaurants.
+     */
+    public function coOwnedRestaurants(): BelongsToMany
+    {
+        return $this->belongsToMany(Restaurant::class)
+            ->wherePivot('role', RestaurantRolesEnum::CO_OWNER);
+    }
+
+    // --- RIDER ---
+
+    /**
+     * Get the user's rider restaurants.
+     */
+    public function riderRestaurants(): BelongsToMany
+    {
+        return $this->belongsToMany(Restaurant::class)
+            ->wherePivot('role', RestaurantRolesEnum::RIDER)
+            ->withPivot('contract_start', 'contract_end', 'is_active');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -62,75 +122,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    // --- CUSTOMER ---
-
-    /**
-     * Get the user's reviews.
-     *
-     * @return HasMany
-     */
-    public function reviews(): HasMany
-    {
-        return $this->hasMany(RestaurantReview::class);
-    }
-
-    /**
-     * Get the user's carts.
-     *
-     * @return HasMany
-     */
-    public function carts(): HasMany
-    {
-        return $this->hasMany(Cart::class);
-    }
-
-    /**
-     * Get the user's orders.
-     *
-     * @return HasMany
-     */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    // --- PARTNERS ---
-
-    /**
-     * Get the user's owned restaurants.
-     *
-     * @return BelongsToMany
-     */
-    public function ownedRestaurants(): BelongsToMany
-    {
-        return $this->belongsToMany(Restaurant::class)
-            ->wherePivot('role', RestaurantRolesEnum::OWNER);
-    }
-
-    /**
-     * Get the user's co-owned restaurants.
-     *
-     * @return BelongsToMany
-     */
-    public function coOwnedRestaurants(): BelongsToMany
-    {
-        return $this->belongsToMany(Restaurant::class)
-            ->wherePivot('role', RestaurantRolesEnum::CO_OWNER);
-    }
-
-    // --- RIDER --- 
-
-    /**
-     * Get the user's rider restaurants.
-     *
-     * @return BelongsToMany
-     */
-    public function riderRestaurants(): BelongsToMany
-    {
-        return $this->belongsToMany(Restaurant::class)
-            ->wherePivot('role', RestaurantRolesEnum::RIDER)
-            ->withPivot('contract_start', 'contract_end', 'is_active');
     }
 }

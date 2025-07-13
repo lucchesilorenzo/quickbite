@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use libphonenumber\PhoneNumberUtil;
+use Throwable;
 
 class ValidPhoneNumber implements ValidationRule
 {
@@ -15,7 +18,7 @@ class ValidPhoneNumber implements ValidationRule
     /**
      * Run the validation rule.
      *
-     * @param  \Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @param  Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -27,13 +30,14 @@ class ValidPhoneNumber implements ValidationRule
 
             if ($phoneNumberCountryCode !== $this->countryCode) {
                 $fail("The country code of the phone number is not {$this->countryCode}");
+
                 return;
             }
 
-            if (!$phoneNumberUtil->isValidNumber($phoneNumber)) {
+            if (! $phoneNumberUtil->isValidNumber($phoneNumber)) {
                 $fail('The phone number is not valid.');
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $fail('The phone number could not be parsed.');
         }
     }

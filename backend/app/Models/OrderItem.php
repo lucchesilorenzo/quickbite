@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'order_id',
@@ -25,8 +27,6 @@ class OrderItem extends Model
 
     /**
      * Get the order that owns the OrderItem.
-     *
-     * @return BelongsTo
      */
     public function order(): BelongsTo
     {
@@ -35,8 +35,6 @@ class OrderItem extends Model
 
     /**
      * Get the menu item that owns the OrderItem.
-     *
-     * @return BelongsTo
      */
     public function menuItem(): BelongsTo
     {

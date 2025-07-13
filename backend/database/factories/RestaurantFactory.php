@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\RestaurantRolesEnum;
@@ -30,7 +32,7 @@ class RestaurantFactory extends Factory
         return [
             'id' => Str::orderedUuid(),
             'name' => fake()->company(),
-            'slug' => fn(array $attributes) => Str::slug($attributes['name'] . '-' . $attributes['id']),
+            'slug' => fn (array $attributes) => Str::slug($attributes['name'] . '-' . $attributes['id']),
             'description' => fake()->sentence(),
             'street_address' => 'Via Santa Maria',
             'building_number' => '2',
@@ -58,8 +60,6 @@ class RestaurantFactory extends Factory
 
     /**
      * Configure the model factory.
-     *
-     * @return self
      */
     public function configure(): self
     {
@@ -73,9 +73,6 @@ class RestaurantFactory extends Factory
 
     /**
      * Assign offers to restaurant.
-     *
-     * @param Restaurant $restaurant
-     * @return void
      */
     private function assignOffersToRestaurant(Restaurant $restaurant): void
     {
@@ -89,10 +86,7 @@ class RestaurantFactory extends Factory
     }
 
     /**
-     * Assign categories to restaurant. 
-     *
-     * @param Restaurant $restaurant
-     * @return void
+     * Assign categories to restaurant.
      */
     private function assignCategoriesToRestaurant(Restaurant $restaurant): void
     {
@@ -105,9 +99,6 @@ class RestaurantFactory extends Factory
 
     /**
      * Assign partners to restaurant.
-     *
-     * @param Restaurant $restaurant
-     * @return void
      */
     private function assignPartnersToRestaurant(Restaurant $restaurant): void
     {
@@ -127,7 +118,7 @@ class RestaurantFactory extends Factory
             ->exists();
 
         // Assign owner
-        if (!$hasOwner && $partners->isNotEmpty()) {
+        if (! $hasOwner && $partners->isNotEmpty()) {
             $ownerId = $partners->random();
 
             $restaurant->partners()->attach($ownerId, [
@@ -135,11 +126,11 @@ class RestaurantFactory extends Factory
             ]);
 
             // Remove owner from partners (to avoid duplicates)
-            $partners = $partners->filter(fn($id) => $id !== $ownerId);
+            $partners = $partners->filter(fn ($id) => $id !== $ownerId);
         }
 
         // Assign co-owner
-        if (!$hasCoOwner && $partners->isNotEmpty()) {
+        if (! $hasCoOwner && $partners->isNotEmpty()) {
             $coOwnerId = $partners->random();
 
             $restaurant->partners()->attach($coOwnerId, [
@@ -150,9 +141,6 @@ class RestaurantFactory extends Factory
 
     /**
      * Assign riders to restaurant.
-     *
-     * @param Restaurant $restaurant
-     * @return void
      */
     private function assignRidersToRestaurant(Restaurant $restaurant): void
     {

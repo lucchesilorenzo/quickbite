@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cart extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'user_id',
@@ -26,8 +28,6 @@ class Cart extends Model
 
     /**
      * Get the user that owns the cart.
-     *
-     * @return BelongsTo
      */
     public function customer(): BelongsTo
     {
@@ -36,8 +36,6 @@ class Cart extends Model
 
     /**
      * Get the restaurant that owns the cart.
-     *
-     * @return BelongsTo
      */
     public function restaurant(): BelongsTo
     {
@@ -46,8 +44,6 @@ class Cart extends Model
 
     /**
      * Get all of the cart items for the cart.
-     *
-     * @return HasMany
      */
     public function cartItems(): HasMany
     {

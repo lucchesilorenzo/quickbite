@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Customer\CreateReviewRequest;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class RestaurantController extends Controller
 {
     /**
      * Get restaurants by display name.
-     *
-     * @return JsonResponse
      */
     public function getRestaurants(): JsonResponse
     {
@@ -21,7 +22,7 @@ class RestaurantController extends Controller
             $lat = request()->query('lat');
             $lon = request()->query('lon');
 
-            if (!$lat || !$lon) {
+            if (! $lat || ! $lon) {
                 return response()->json([
                     'message' => 'Latitude and longitude are required.',
                 ], 400);
@@ -59,7 +60,7 @@ class RestaurantController extends Controller
                 ->get();
 
             return response()->json($restaurants, 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
             ], 500);
@@ -68,9 +69,6 @@ class RestaurantController extends Controller
 
     /**
      * Get a restaurant.
-     *
-     * @param string $restaurantSlug
-     * @return JsonResponse
      */
     public function getRestaurant(string $restaurantSlug): JsonResponse
     {
@@ -100,7 +98,7 @@ class RestaurantController extends Controller
             }
 
             return response()->json($restaurant, 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
             ], 500);
@@ -109,9 +107,6 @@ class RestaurantController extends Controller
 
     /**
      * Get a restaurant logo as base64.
-     *
-     * @param Restaurant $restaurant
-     * @return JsonResponse
      */
     public function getBase64Logo(Restaurant $restaurant): JsonResponse
     {
@@ -119,7 +114,7 @@ class RestaurantController extends Controller
             // Remove '/storage/' prefix from path
             $relativePath = str_replace('/storage/', '', $restaurant->logo);
 
-            if (!$relativePath || !Storage::disk('public')->exists($relativePath)) {
+            if (! $relativePath || ! Storage::disk('public')->exists($relativePath)) {
                 return response()->json(['message' => 'Logo not found.'], 404);
             }
 
@@ -129,7 +124,7 @@ class RestaurantController extends Controller
             $base64Logo = 'data:' . $mimeType . ';base64,' . base64_encode($logo);
 
             return response()->json(['logo' => $base64Logo], 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get logo.',
             ], 500);
@@ -138,9 +133,6 @@ class RestaurantController extends Controller
 
     /**
      * Create a review.
-     *
-     * @param string $restaurantSlug
-     * @return JsonResponse
      */
     public function createReview(CreateReviewRequest $request, string $restaurantSlug): JsonResponse
     {
@@ -184,7 +176,7 @@ class RestaurantController extends Controller
                 'message' => 'Review created successfully.',
                 'restaurant' => $restaurant,
             ], 201);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not create review.',
             ], 500);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RestaurantDeliveryDay extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'restaurant_id',
@@ -20,8 +22,6 @@ class RestaurantDeliveryDay extends Model
 
     /**
      * Get the restaurant that owns the delivery day.
-     *
-     * @return BelongsTo
      */
     public function restaurant(): BelongsTo
     {

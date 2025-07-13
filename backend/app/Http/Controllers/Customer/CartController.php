@@ -1,19 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Cart\CreateOrUpdateCartsRequest;
 use App\Http\Requests\Cart\CreateOrUpdateCartRequest;
+use App\Http\Requests\Cart\CreateOrUpdateCartsRequest;
 use App\Models\Cart;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
 class CartController extends Controller
 {
     /**
      * Get all carts for the authenticated user.
-     *
-     * @return JsonResponse
      */
     public function getCarts(): JsonResponse
     {
@@ -48,7 +49,7 @@ class CartController extends Controller
             });
 
             return response()->json($formattedCarts, 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get carts.',
             ], 500);
@@ -57,8 +58,6 @@ class CartController extends Controller
 
     /**
      * Get a cart for the authenticated user.
-     *
-     * @return JsonResponse
      */
     public function getCart(Cart $cart): JsonResponse
     {
@@ -100,7 +99,7 @@ class CartController extends Controller
                 'total_unique_items' => $cart->total_unique_items,
                 'cart_total' => $cart->cart_total,
                 'items' => $cart->cartItems->map(
-                    fn($item) => [
+                    fn ($item) => [
                         'id' => $item->menuItem->id,
                         'menu_category_id' => $item->menuItem->menu_category_id,
                         'name' => $item->menuItem->name,
@@ -113,11 +112,11 @@ class CartController extends Controller
                         'created_at' => $item->menuItem->created_at,
                         'updated_at' => $item->menuItem->updated_at,
                     ]
-                )
+                ),
             ];
 
             return response()->json($formattedCart, 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get cart.',
             ], 500);
@@ -126,9 +125,6 @@ class CartController extends Controller
 
     /**
      * Create or update multiple carts for the authenticated user.
-     *
-     * @param CreateOrUpdateCartsRequest $request
-     * @return JsonResponse
      */
     public function createOrUpdateCarts(CreateOrUpdateCartsRequest $request): JsonResponse
     {
@@ -146,7 +142,7 @@ class CartController extends Controller
                     ->first();
 
                 // Check if cart exists
-                if (!$existingCart) {
+                if (! $existingCart) {
                     $newCart = $user->carts()->create([
                         'restaurant_id' => $restaurantId,
                         'cart_total' => $cart['cart_total'],
@@ -230,7 +226,7 @@ class CartController extends Controller
                 'message' => 'Carts merged successfully.',
                 'carts' => $formattedCarts,
             ], 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not merge carts.',
             ], 500);
@@ -239,9 +235,6 @@ class CartController extends Controller
 
     /**
      * Update a cart for the authenticated user.
-     *
-     * @param CreateOrUpdateCartRequest $request
-     * @return JsonResponse
      */
     public function createOrUpdateCart(CreateOrUpdateCartRequest $request): JsonResponse
     {
@@ -253,7 +246,7 @@ class CartController extends Controller
 
             $cart = $user->carts()->where('restaurant_id', $data['restaurant']['id'])->first();
 
-            if (!$cart) {
+            if (! $cart) {
                 $cart = $user->carts()->create(
                     [
                         'restaurant_id' => $data['restaurant']['id'],
@@ -298,7 +291,7 @@ class CartController extends Controller
                     'total_unique_items' => $cart->total_unique_items,
                     'cart_total' => $cart->cart_total,
                     'items' => $cart->cartItems->map(
-                        fn($item) => [
+                        fn ($item) => [
                             'id' => $item->menuItem->id,
                             'menu_category_id' => $item->menuItem->menu_category_id,
                             'name' => $item->menuItem->name,
@@ -311,7 +304,7 @@ class CartController extends Controller
                             'created_at' => $item->menuItem->created_at,
                             'updated_at' => $item->menuItem->updated_at,
                         ]
-                    )
+                    ),
                 ];
 
                 return response()->json([
@@ -378,7 +371,7 @@ class CartController extends Controller
                 'total_unique_items' => $cart->total_unique_items,
                 'cart_total' => $cart->cart_total,
                 'items' => $cart->cartItems->map(
-                    fn($item) => [
+                    fn ($item) => [
                         'id' => $item->menuItem->id,
                         'menu_category_id' => $item->menuItem->menu_category_id,
                         'name' => $item->menuItem->name,
@@ -391,14 +384,14 @@ class CartController extends Controller
                         'created_at' => $item->menuItem->created_at,
                         'updated_at' => $item->menuItem->updated_at,
                     ]
-                )
+                ),
             ];
 
             return response()->json([
                 'message' => 'Cart updated successfully.',
                 'cart' => $formattedCart,
             ], 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update cart.',
             ], 500);
@@ -407,9 +400,6 @@ class CartController extends Controller
 
     /**
      * Delete a cart for the authenticated user.
-     *
-     * @param Cart $cart
-     * @return JsonResponse
      */
     public function deleteCart(Cart $cart): JsonResponse
     {
@@ -419,7 +409,7 @@ class CartController extends Controller
             return response()->json([
                 'message' => 'Cart deleted successfully.',
             ], 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not delete cart.',
             ], 500);

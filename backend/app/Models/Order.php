@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'user_id',
@@ -46,8 +48,6 @@ class Order extends Model
 
     /**
      * Get the customer that owns the order.
-     *
-     * @return BelongsTo
      */
     public function customer(): BelongsTo
     {
@@ -56,8 +56,6 @@ class Order extends Model
 
     /**
      * Get the restaurant that owns the order.
-     *
-     * @return BelongsTo
      */
     public function restaurant(): BelongsTo
     {
@@ -66,8 +64,6 @@ class Order extends Model
 
     /**
      * Get the order items for the order.
-     *
-     * @return HasMany
      */
     public function orderItems(): HasMany
     {

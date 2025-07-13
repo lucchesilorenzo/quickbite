@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
 class CategoryController extends Controller
 {
     /**
      * Get all categories.
-     *
-     * @return JsonResponse
      */
     public function getCategories(): JsonResponse
     {
@@ -18,7 +19,7 @@ class CategoryController extends Controller
             $categories = Category::all();
 
             return response()->json($categories);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get categories.',
             ], 500);

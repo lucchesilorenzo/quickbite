@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CartItem extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'cart_id',
@@ -24,8 +26,6 @@ class CartItem extends Model
 
     /**
      * Get the cart that owns the cart item.
-     *
-     * @return BelongsTo
      */
     public function cart(): BelongsTo
     {
@@ -34,8 +34,6 @@ class CartItem extends Model
 
     /**
      * Get the menu item that owns the cart item.
-     *
-     * @return BelongsTo
      */
     public function menuItem(): BelongsTo
     {

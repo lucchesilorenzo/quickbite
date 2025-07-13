@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -9,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RestaurantReview extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'user_id',
@@ -21,8 +23,6 @@ class RestaurantReview extends Model
 
     /**
      * Get the user that owns the review.
-     *
-     * @return BelongsTo
      */
     public function customer(): BelongsTo
     {
@@ -31,8 +31,6 @@ class RestaurantReview extends Model
 
     /**
      * Get the restaurant that owns the review.
-     *
-     * @return BelongsTo
      */
     public function restaurant(): BelongsTo
     {
@@ -41,8 +39,6 @@ class RestaurantReview extends Model
 
     /**
      * Get the order that owns the review.
-     *
-     * @return BelongsTo
      */
     public function order(): BelongsTo
     {

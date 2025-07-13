@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MenuItem extends Model
 {
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'menu_category_id',
@@ -27,8 +29,6 @@ class MenuItem extends Model
 
     /**
      * Get the menu category that owns the menu item.
-     *
-     * @return BelongsTo
      */
     public function menuCategory(): BelongsTo
     {
@@ -37,8 +37,6 @@ class MenuItem extends Model
 
     /**
      * Get all of the cart items for the menu item.
-     *
-     * @return HasMany
      */
     public function cartItems(): HasMany
     {
@@ -47,8 +45,6 @@ class MenuItem extends Model
 
     /**
      * Get all of the order items for the menu item.
-     *
-     * @return HasMany
      */
     public function orderItems(): HasMany
     {

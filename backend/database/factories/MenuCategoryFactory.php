@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\MenuCategory;
@@ -27,7 +29,6 @@ class MenuCategoryFactory extends Factory
             'Desserts' => 'Sweet treats to end your meal perfectly.',
         ];
 
-
         static $i = 0;
 
         if ($i >= count($menuCategories)) {
@@ -43,8 +44,6 @@ class MenuCategoryFactory extends Factory
 
     /**
      * Configure the model factory.
-     *
-     * @return self
      */
     public function configure(): self
     {
@@ -57,9 +56,6 @@ class MenuCategoryFactory extends Factory
 
     /**
      * Get the menu items for the menu category.
-     *
-     * @param string $categoryName
-     * @return array
      */
     private function getMenuItemsForCategory(string $categoryName): array
     {

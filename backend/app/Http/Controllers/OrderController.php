@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Order;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
 class OrderController extends Controller
 {
     /**
      * Get all orders for the authenticated user.
-     *
-     * @return JsonResponse
      */
     public function getOrders(): JsonResponse
     {
@@ -24,16 +25,13 @@ class OrderController extends Controller
                 ->get();
 
             return response()->json($orders, 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json(['message' => 'Could not get orders.'], 500);
         }
     }
 
     /**
      * Get an order for the authenticated user.
-     *
-     * @param Order $order
-     * @return JsonResponse
      */
     public function getOrder(Order $order): JsonResponse
     {
@@ -49,7 +47,7 @@ class OrderController extends Controller
             $order->load(['orderItems', 'restaurant.reviews.customer']);
 
             return response()->json($order, 200);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get order.',
             ], 500);
@@ -58,9 +56,6 @@ class OrderController extends Controller
 
     /**
      * Create a new order.
-     *
-     * @param CreateOrderRequest $request
-     * @return JsonResponse
      */
     public function createOrder(CreateOrderRequest $request): JsonResponse
     {
@@ -74,11 +69,11 @@ class OrderController extends Controller
             // Get restaurant
             $restaurant = Restaurant::find($data['restaurant_id']);
 
-            if (!$restaurant) {
+            if (! $restaurant) {
                 return response()->json(['message' => 'Could not find the restaurant.'], 404);
             }
 
-            if (!$restaurant->isOpen() || $data['subtotal'] < $restaurant->min_amount) {
+            if (! $restaurant->isOpen() || $data['subtotal'] < $restaurant->min_amount) {
                 return response()->json(['message' => 'The restaurant is not open or the subtotal is less than the minimum amount.'], 400);
             }
 
@@ -121,15 +116,13 @@ class OrderController extends Controller
                 'message' => 'Order created successfully.',
                 'order' => $order,
             ], 201);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return response()->json(['message' => 'Error creating order.'], 500);
         }
     }
 
     /**
      * Generate a random order code.
-     *
-     * @return integer
      */
     private function generateOrderCode(): int
     {

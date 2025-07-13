@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\RolesEnum;
@@ -47,8 +49,6 @@ class UserFactory extends Factory
 
     /**
      * Create a new user with CUSTOMER role.
-     *
-     * @return static
      */
     public function customer(): static
     {
@@ -59,8 +59,6 @@ class UserFactory extends Factory
 
     /**
      * Create a new user with partner role.
-     *
-     * @return static
      */
     public function partner(): static
     {
@@ -71,8 +69,6 @@ class UserFactory extends Factory
 
     /**
      * Create a new user with RIDER role.
-     *
-     * @return static
      */
     public function rider(): static
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 enum RestaurantRolesEnum: string
@@ -10,8 +12,6 @@ enum RestaurantRolesEnum: string
 
     /**
      * Get the enum values.
-     *
-     * @return array
      */
     public static function values(): array
     {

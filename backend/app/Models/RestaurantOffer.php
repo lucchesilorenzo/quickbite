@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class RestaurantOffer extends Model
 {
     /** @use HasFactory<\Database\Factories\RestaurantOfferFactory> */
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'restaurant_id',
@@ -25,8 +27,6 @@ class RestaurantOffer extends Model
 
     /**
      * Get the restaurant that owns the offer.
-     *
-     * @return BelongsTo
      */
     public function restaurant(): BelongsTo
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Restaurant;
@@ -28,8 +30,6 @@ class RestaurantDeliveryDayFactory extends Factory
 
     /**
      * Indicate that the model should be full week.
-     *
-     * @return self
      */
     public function fullWeek(): self
     {

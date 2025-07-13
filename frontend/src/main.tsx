@@ -8,7 +8,7 @@ import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NotificationsProvider } from "@toolpad/core/useNotifications";
 import { Buffer } from "buffer";
 import { enUS } from "date-fns/locale";
@@ -59,7 +59,7 @@ const theme = createTheme({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+      {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" /> */}
       <NotificationsProvider
         slotProps={{
           snackbar: {

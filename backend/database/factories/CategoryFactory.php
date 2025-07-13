@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,15 +23,13 @@ class CategoryFactory extends Factory
         return [
             'name' => fake()->words(2, true),
             'slug' => fake()->slug(),
-            'image' => "",
+            'image' => '',
             'is_default' => fake()->boolean(),
         ];
     }
 
     /**
      * Configure the model factory.
-     *
-     * @return self
      */
     public function configure(): self
     {

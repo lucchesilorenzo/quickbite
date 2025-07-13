@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Restaurant extends Model
 {
     /** @use HasFactory<\Database\Factories\RestaurantFactory> */
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'name',
@@ -53,12 +55,10 @@ class Restaurant extends Model
 
     /**
      * Check if the restaurant is open.
-     *
-     * @return boolean
      */
     public function isOpen(): bool
     {
-        $dayName = strtoupper(now()->format('l'));
+        $dayName = mb_strtoupper(now()->format('l'));
         $currentTime = now()->format('H:i');
 
         return $this->deliveryDays()
@@ -72,8 +72,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's partners (owners and co-owners).
-     *
-     * @return BelongsToMany
      */
     public function partners(): BelongsToMany
     {
@@ -84,8 +82,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's riders.
-     *
-     * @return BelongsToMany
      */
     public function riders(): BelongsToMany
     {
@@ -96,8 +92,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's categories.
-     *
-     * @return BelongsToMany
      */
     public function categories(): BelongsToMany
     {
@@ -106,8 +100,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's delivery days.
-     *
-     * @return HasMany
      */
     public function deliveryDays(): HasMany
     {
@@ -116,8 +108,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's offers.
-     *
-     * @return HasMany
      */
     public function offers(): HasMany
     {
@@ -126,8 +116,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's menu categories.
-     *
-     * @return HasMany
      */
     public function menuCategories(): HasMany
     {
@@ -136,8 +124,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's reviews.
-     *
-     * @return HasMany
      */
     public function reviews(): HasMany
     {
@@ -146,8 +132,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's carts.
-     *
-     * @return HasMany
      */
     public function carts(): HasMany
     {
@@ -156,8 +140,6 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's orders.
-     *
-     * @return HasMany
      */
     public function orders(): HasMany
     {

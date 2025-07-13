@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Customer;
 
 use App\Enums\RolesEnum;
@@ -9,117 +11,110 @@ use App\Http\Requests\Customer\Auth\CustomerRegisterRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use Throwable;
 
 class AuthController extends Controller
 {
-  /**
-   * Register a new customer.
-   *
-   * @param CustomerRegisterRequest $request
-   * @return JsonResponse
-   */
-  public function register(CustomerRegisterRequest $request): JsonResponse
-  {
-    // Get validated data
-    $data = $request->validated();
+    /**
+     * Register a new customer.
+     */
+    public function register(CustomerRegisterRequest $request): JsonResponse
+    {
+        // Get validated data
+        $data = $request->validated();
 
-    try {
-      // Create customer
-      $customer = User::create([
-        ...$data,
-        'password' => bcrypt($data['password']),
-      ]);
+        try {
+            // Create customer
+            $customer = User::create([
+                ...$data,
+                'password' => bcrypt($data['password']),
+            ]);
 
-      // Assign role
-      $customer->assignRole(RolesEnum::CUSTOMER);
+            // Assign role
+            $customer->assignRole(RolesEnum::CUSTOMER);
 
-      // Generate token
-      $token = $customer->createToken('customer_web_token')->plainTextToken;
+            // Generate token
+            $token = $customer->createToken('customer_web_token')->plainTextToken;
 
-      return response()->json([
-        'message' => 'Customer registered successfully.',
-        'token' => $token,
-      ], 201);
-    } catch (\Throwable $e) {
-      if ($e->getCode() === 23000) {
-        return response()->json([
-          'message' => 'Customer already exists.',
-        ], 409);
-      }
+            return response()->json([
+                'message' => 'Customer registered successfully.',
+                'token' => $token,
+            ], 201);
+        } catch (Throwable $e) {
+            if ($e->getCode() === 23000) {
+                return response()->json([
+                    'message' => 'Customer already exists.',
+                ], 409);
+            }
 
-      return response()->json([
-        'message' => 'Could not register customer.',
-      ], 500);
+            return response()->json([
+                'message' => 'Could not register customer.',
+            ], 500);
+        }
     }
-  }
 
-  /**
-   * Login a customer.
-   *
-   * @param CustomerLoginRequest $request
-   * @return JsonResponse
-   */
-  public function login(CustomerLoginRequest $request): JsonResponse
-  {
-    // Get validated data
-    $data = $request->validated();
+    /**
+     * Login a customer.
+     */
+    public function login(CustomerLoginRequest $request): JsonResponse
+    {
+        // Get validated data
+        $data = $request->validated();
 
-    try {
-      // Get customer
-      $customer = User::where('email', $data['email'])->first();
+        try {
+            // Get customer
+            $customer = User::where('email', $data['email'])->first();
 
-      // Check if customer exists
-      if (empty($customer)) {
-        return response()->json([
-          'message' => 'Customer not found.',
-        ], 404);
-      }
+            // Check if customer exists
+            if (empty($customer)) {
+                return response()->json([
+                    'message' => 'Customer not found.',
+                ], 404);
+            }
 
-      // Check if password is correct
-      if (!Hash::check($data['password'], $customer->password)) {
-        return response()->json([
-          'message' => 'Invalid credentials.',
-        ], 401);
-      }
+            // Check if password is correct
+            if (! Hash::check($data['password'], $customer->password)) {
+                return response()->json([
+                    'message' => 'Invalid credentials.',
+                ], 401);
+            }
 
-      // Check if customer has CUSTOMER role
-      if (!$customer->hasRole(RolesEnum::CUSTOMER)) {
-        return response()->json([
-          'message' => 'You are not authorized to log in as a customer.',
-        ], 403);
-      }
+            // Check if customer has CUSTOMER role
+            if (! $customer->hasRole(RolesEnum::CUSTOMER)) {
+                return response()->json([
+                    'message' => 'You are not authorized to log in as a customer.',
+                ], 403);
+            }
 
-      // Generate token
-      $token = $customer->createToken('customer_web_token')->plainTextToken;
+            // Generate token
+            $token = $customer->createToken('customer_web_token')->plainTextToken;
 
-      return response()->json([
-        'message' => 'Customer logged in successfully.',
-        'token' => $token,
-      ], 200);
-    } catch (\Throwable $e) {
-      return response()->json([
-        'message' => 'Could not login customer.',
-      ], 500);
+            return response()->json([
+                'message' => 'Customer logged in successfully.',
+                'token' => $token,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not login customer.',
+            ], 500);
+        }
     }
-  }
 
-  /**
-   * Logout a customer.
-   *
-   * @return JsonResponse
-   */
-  public function logout(): JsonResponse
-  {
-    try {
-      auth()->user()->currentAccessToken()->delete();
+    /**
+     * Logout a customer.
+     */
+    public function logout(): JsonResponse
+    {
+        try {
+            auth()->user()->currentAccessToken()->delete();
 
-      return response()->json([
-        'message' => 'Customer logged out successfully.',
-      ], 200);
-    } catch (\Throwable $e) {
-      return response()->json([
-        'message' => 'Could not logout customer.',
-      ], 500);
+            return response()->json([
+                'message' => 'Customer logged out successfully.',
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not logout customer.',
+            ], 500);
+        }
     }
-  }
 }

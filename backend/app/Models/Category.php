@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Category extends Model
 {
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
-    use HasUuids, HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'name',
@@ -21,8 +23,6 @@ class Category extends Model
 
     /**
      * Get the restaurants for the category.
-     *
-     * @return BelongsToMany
      */
     public function restaurants(): BelongsToMany
     {
