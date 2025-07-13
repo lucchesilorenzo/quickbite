@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "QuickBite",
   "scripts": {
-    "start": "concurrently --names \"Laravel,React\" --prefix-colors \"red,blue\" \"npm run backend\" \"npm run frontend\"",
-    "backend": "cd backend && php artisan serve",
+    "start": "concurrently --names \"api,web,logs\" --prefix-colors \"red,blue,green\" \"npm run backend\" \"npm run frontend\" \"npm run logs\"",
     "frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && php artisan serve",
+    "logs": "cd backend && php artisan pail --timeout=0",
     "install-all": "cd frontend && npm install && cd ../backend && npm install && composer install"
   },
   "author": "Lorenzo Lucchesi",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.2.0"
   }
 }
