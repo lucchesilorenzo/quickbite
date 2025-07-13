@@ -9,7 +9,7 @@ export default function MenuCategoryNavigationSectionMobile() {
   const { searchTerm } = useSingleRestaurant();
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 500,
+    threshold: 800,
   });
 
   return (
