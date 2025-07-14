@@ -183,13 +183,7 @@ Ensure you have the following installed:
    code .
    ```
 
-2. **Install dependencies**:
-
-   ```bash
-   npm install && npm run install-all
-   ```
-
-3. **Configure frontend environment variables**:
+2. **Configure frontend environment variables**:
 
    ```bash
    cd frontend
@@ -204,7 +198,7 @@ Ensure you have the following installed:
    VITE_LOCATIONIQ_API_KEY=your-api-key
    ```
 
-4. **Configure backend environment variables**:
+3. **Configure backend environment variables**:
 
    ```bash
    cd ../backend
@@ -221,19 +215,13 @@ Ensure you have the following installed:
    DB_PASSWORD=quickbite
    ```
 
-5. **Start the containers with:**
+4. **Start the containers with:**
 
    ```bash
    docker compose up
    ```
 
-6. **Make migrations and seed data:**
-
-   ```bash
-   docker compose exec api php artisan migrate --seed
-   ```
-
-7. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
+5. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
 
 ## License
 
