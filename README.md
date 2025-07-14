@@ -221,37 +221,19 @@ Ensure you have the following installed:
    DB_PASSWORD=quickbite
    ```
 
-5. **Generate the Laravel application key by running:**
-
-   ```bash
-   php artisan key:generate
-   ```
-
-6. **Start the containers with:**
+5. **Start the containers with:**
 
    ```bash
    docker compose up
    ```
 
-7. **Make migrations and seed data:**
+6. **Make migrations and seed data:**
 
    ```bash
    docker compose exec api php artisan migrate --seed
    ```
 
-8. **Create symlink for public folder**:
-
-   ```bash
-   docker compose exec api php artisan storage:link
-   ```
-
-   If you've already created the symlink in the host machine, we first need to remove it and then create a new one:
-
-   ```bash
-   docker compose exec api rm public/storage && docker compose exec api php artisan storage:link
-   ```
-
-9. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
+7. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
 
 ## License
 
