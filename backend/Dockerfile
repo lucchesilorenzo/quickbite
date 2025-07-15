@@ -7,7 +7,8 @@ RUN apt-get update -y && apt-get install -y \
   zip \
   unzip \
   git \
-  libpq-dev
+  libpq-dev \
+  graphviz
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
