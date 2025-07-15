@@ -1,4 +1,7 @@
 <h1 align="center">
+ <br />
+   <img src="screenshots/quickbite-logo.png" alt="QuickBite Logo"  />
+  <br />
      🍔 QuickBite
   <br />
 </h1>
@@ -228,6 +231,10 @@ Ensure you have the following installed:
    ```
 
 6. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
+
+## 📊 Data Models and Relationships
+
+For detailed information about the database schema, models, and relationships, see the [Entity Relationship Diagram and Models](./docs/ERD.md).
 
 ## License
 
