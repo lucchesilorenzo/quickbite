@@ -221,7 +221,13 @@ Ensure you have the following installed:
    docker compose up
    ```
 
-5. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
+5. **Make migrations and seed data:**
+
+   ```bash
+   docker compose exec api php artisan migrate --seed
+   ```
+
+6. **Access the frontend at [http://localhost:5173](http://localhost:5173).**
 
 ## License
 
