@@ -78,7 +78,7 @@ export default function RestaurantSearch() {
   useEffect(() => {
     const currentSearchTerm = searchParams.get("q");
 
-    if (currentSearchTerm) {
+    if (currentSearchTerm && !selectedOption) {
       setInputValue(currentSearchTerm);
       setSelectedOption({
         id: "search",
@@ -86,7 +86,7 @@ export default function RestaurantSearch() {
         type: "Search",
       });
     }
-  }, [searchParams, setInputValue, setSelectedOption]);
+  }, [searchParams, selectedOption, setInputValue, setSelectedOption]);
 
   return (
     <Autocomplete
