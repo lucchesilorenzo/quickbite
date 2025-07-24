@@ -10,7 +10,6 @@ import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 import CheckoutPage from "./private/customer/CheckoutPage";
 import CheckoutSuccessPage from "./private/customer/CheckoutSuccessPage";
 import AreaPage from "./public/AreaPage";
-import BecomeAPartnerPage from "./public/BecomeAPartnerPage";
 import BecomeARiderPage from "./public/BecomeARiderPage";
 import CustomerLoginPage from "./public/CustomerLoginPage";
 import CustomerRegisterPage from "./public/CustomerRegisterPage";
@@ -18,6 +17,8 @@ import ErrorPage from "./public/ErrorPage";
 import HomePage from "./public/HomePage";
 import HowDoILeaveAReviewPage from "./public/HowDoILeaveAReviewPage";
 import HowWeRankPage from "./public/HowWeRankPage";
+import PartnerLoginPage from "./public/PartnerLoginPage";
+import PartnerRegisterPage from "./public/PartnerRegisterPage";
 import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
 import RestaurantPage from "./public/RestaurantPage";
 import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
@@ -32,6 +33,7 @@ import CheckoutLayout from "@/layouts/CheckoutLayout";
 import CustomerAuthLayout from "@/layouts/CustomerAuthLayout";
 import ErrorLayout from "@/layouts/ErrorLayout";
 import HomeLayout from "@/layouts/HomeLayout";
+import PartnerAuthLayout from "@/layouts/PartnerAuthLayout";
 import RestaurantLayout from "@/layouts/RestaurantLayout";
 import { Role } from "@/types";
 
@@ -62,24 +64,38 @@ export default function AppRoutes() {
                     </Route>
                   </Route>
 
+                  <Route path="/" element={<PartnerAuthLayout />}>
+                    <Route
+                      path="partner/auth"
+                      // element={<RedirectIfAuthenticated />}
+                    >
+                      <Route index element={<Navigate to="login" />} />
+                      <Route
+                        path="register"
+                        element={<PartnerRegisterPage />}
+                      />
+                      <Route path="login" element={<PartnerLoginPage />} />
+                    </Route>
+                  </Route>
+
                   <Route path="/" element={<AppLayout />}>
                     <Route
                       path="become-a-rider"
                       element={<BecomeARiderPage />}
                     />
-                    <Route
-                      path="become-a-partner"
-                      element={<BecomeAPartnerPage />}
-                    />
+
                     <Route
                       path="terms-and-conditions"
                       element={<TermsAndConditionsPage />}
                     />
+
                     <Route
                       path="privacy-policy"
                       element={<PrivacyPolicyPage />}
                     />
+
                     <Route path="how-we-rank" element={<HowWeRankPage />} />
+
                     <Route
                       path="how-do-i-leave-a-review"
                       element={<HowDoILeaveAReviewPage />}

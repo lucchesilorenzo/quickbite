@@ -57,7 +57,7 @@ export const routes = [
     icon: DeliveryDiningOutlinedIcon,
   },
   {
-    href: "/become-a-partner",
+    href: "/partner/auth/register",
     label: "Become a partner",
     icon: RestaurantOutlinedIcon,
   },
@@ -70,7 +70,7 @@ export const headerDialogOptions = [
     icon: DeliveryDiningOutlinedIcon,
   },
   {
-    href: "/become-a-partner",
+    href: "/partner/auth/register",
     label: "Become a partner",
     icon: RestaurantOutlinedIcon,
   },
