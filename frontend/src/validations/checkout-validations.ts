@@ -1,5 +1,5 @@
 import { matchIsValidTel } from "mui-tel-input";
-import { z } from "zod/v4";
+import z from "zod";
 
 export const checkoutPersonalInfoForm = z.object({
   first_name: z

@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import z from "zod";
 
 export const reviewForm = z.object({
   comment: z.string().trim().max(200, "Comment is too long."),

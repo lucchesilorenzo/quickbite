@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import z from "zod";
 
 export const locationEditForm = z.object({
   house_number: z.coerce
