@@ -7,12 +7,14 @@ namespace App\Http\Controllers\Partner;
 use App\Enums\RestaurantRolesEnum;
 use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Partner\Auth\PartnerLoginRequest;
 use App\Http\Requests\Partner\Auth\PartnerRegisterRequest;
 use App\Models\Restaurant;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Throwable;
@@ -92,6 +94,53 @@ class AuthController extends Controller
 
             return response()->json([
                 'message' => 'Could not register partner.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Login a partner.
+     */
+    public function login(PartnerLoginRequest $request): JsonResponse
+    {
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            // Get partner
+            $partner = User::where('email', $data['email'])->first();
+
+            // Check if partner exists
+            if (empty($partner)) {
+                return response()->json([
+                    'message' => 'Partner not found.',
+                ], 404);
+            }
+
+            // Check if partner has PARTNER role
+            if (! $partner->hasRole(RolesEnum::PARTNER)) {
+                return response()->json([
+                    'message' => 'You are not authorized to log in as a partner.',
+                ], 403);
+            }
+
+            // Check if password is correct
+            if (! Hash::check($data['password'], $partner->password)) {
+                return response()->json([
+                    'message' => 'Invalid credentials.',
+                ], 401);
+            }
+
+            // Generate token
+            $token = $partner->createToken('partner_web_token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Partner logged in successfully.',
+                'token' => $token,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not login partner.',
             ], 500);
         }
     }

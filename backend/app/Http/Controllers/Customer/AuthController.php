@@ -72,18 +72,18 @@ class AuthController extends Controller
                 ], 404);
             }
 
-            // Check if password is correct
-            if (! Hash::check($data['password'], $customer->password)) {
-                return response()->json([
-                    'message' => 'Invalid credentials.',
-                ], 401);
-            }
-
             // Check if customer has CUSTOMER role
             if (! $customer->hasRole(RolesEnum::CUSTOMER)) {
                 return response()->json([
                     'message' => 'You are not authorized to log in as a customer.',
                 ], 403);
+            }
+
+            // Check if password is correct
+            if (! Hash::check($data['password'], $customer->password)) {
+                return response()->json([
+                    'message' => 'Invalid credentials.',
+                ], 401);
             }
 
             // Generate token
