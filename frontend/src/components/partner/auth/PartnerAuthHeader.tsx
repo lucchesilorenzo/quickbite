@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
@@ -9,9 +11,13 @@ import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-export default function PartnerRegisterHeader() {
-  const { pathname } = useLocation();
+import PartnerRegisterFormDialog from "./register/PartnerRegisterFormDialog";
 
+export default function PartnerRegisterHeader() {
+  const [openPartnerRegisterFormDialog, setOpenPartnerRegisterFormDialog] =
+    useState(false);
+
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   return (
@@ -59,14 +65,20 @@ export default function PartnerRegisterHeader() {
             </Button>
 
             <Button
-              component={Link}
-              to="/partner/auth/login"
               variant="contained"
               color="primary"
               sx={{ fontWeight: 700 }}
+              onClick={() => setOpenPartnerRegisterFormDialog(true)}
             >
               Get Started
             </Button>
+
+            <PartnerRegisterFormDialog
+              openPartnerRegisterFormDialog={openPartnerRegisterFormDialog}
+              setOpenPartnerRegisterFormDialog={
+                setOpenPartnerRegisterFormDialog
+              }
+            />
           </Stack>
         )}
       </Toolbar>
