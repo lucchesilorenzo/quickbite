@@ -4,11 +4,11 @@ import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
 import MultiCartProvider from "@/contexts/MultiCartProvider";
 import RestaurantProvider from "@/contexts/RestaurantProvider";
 
-type ProviderProps = {
+type ProvidersProps = {
   children: React.ReactNode;
 };
 
-export default function Providers({ children }: ProviderProps) {
+export default function Providers({ children }: ProvidersProps) {
   return (
     <AuthProvider>
       <AddressProvider>

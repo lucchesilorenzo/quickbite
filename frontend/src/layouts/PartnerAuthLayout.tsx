@@ -1,17 +1,19 @@
 import { Stack } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import Footer from "@/components/common/Footer";
 import PartnerRegisterHeader from "@/components/partner/auth/PartnerAuthHeader";
 
 export default function PartnerAuthLayout() {
+  const { pathname } = useLocation();
+
   return (
     <Stack sx={{ minHeight: "100vh" }}>
       <PartnerRegisterHeader />
 
       <Outlet />
 
-      <Footer />
+      {pathname !== "/partner/auth/login" && <Footer />}
     </Stack>
   );
 }

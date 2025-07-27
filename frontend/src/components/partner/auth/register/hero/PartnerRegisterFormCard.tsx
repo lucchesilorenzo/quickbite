@@ -24,6 +24,7 @@ export default function PartnerRegisterFormCard() {
           </Typography>
         </Typography>
       </Box>
+
       <PartnerRegisterForm />
     </Paper>
   );
