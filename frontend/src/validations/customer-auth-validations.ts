@@ -52,6 +52,7 @@ export const customerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[a-z]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -59,6 +60,7 @@ export const customerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[0-9]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -66,6 +68,7 @@ export const customerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[^A-Za-z0-9]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -90,6 +93,7 @@ export const customerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[a-z]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -97,6 +101,7 @@ export const customerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[0-9]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -104,6 +109,7 @@ export const customerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[^A-Za-z0-9]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",

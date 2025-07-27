@@ -30,6 +30,11 @@ export const partnerRegisterFormSchema = z
       .trim()
       .min(1, "Please fill out your city.")
       .max(50, "City is too long."),
+    state: z
+      .string()
+      .trim()
+      .min(1, "Please fill out your state.")
+      .max(50, "State is too long."),
     first_name: z
       .string()
       .trim()
@@ -77,6 +82,7 @@ export const partnerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[a-z]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -84,6 +90,7 @@ export const partnerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[0-9]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -91,6 +98,7 @@ export const partnerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[^A-Za-z0-9]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -115,6 +123,7 @@ export const partnerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[a-z]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -122,6 +131,7 @@ export const partnerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[0-9]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
@@ -129,6 +139,7 @@ export const partnerRegisterFormSchema = z
             input: ctx.value,
           });
         }
+
         if (!/[^A-Za-z0-9]/.test(ctx.value)) {
           ctx.issues.push({
             code: "custom",
