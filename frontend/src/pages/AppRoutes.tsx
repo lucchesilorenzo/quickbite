@@ -2,146 +2,25 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 
-import AppLayout from "../layouts/AppLayout";
-import ProtectedRoute from "./ProtectedRoute";
-import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
-import CheckoutPage from "./private/customer/CheckoutPage";
-import CheckoutSuccessPage from "./private/customer/CheckoutSuccessPage";
-import AreaPage from "./public/AreaPage";
-import BecomeARiderPage from "./public/BecomeARiderPage";
-import CustomerLoginPage from "./public/CustomerLoginPage";
-import CustomerRegisterPage from "./public/CustomerRegisterPage";
-import ErrorPage from "./public/ErrorPage";
-import HomePage from "./public/HomePage";
-import HowDoILeaveAReviewPage from "./public/HowDoILeaveAReviewPage";
-import HowWeRankPage from "./public/HowWeRankPage";
-import PartnerLoginPage from "./public/PartnerLoginPage";
-import PartnerRegisterPage from "./public/PartnerRegisterPage";
-import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
-import RestaurantPage from "./public/RestaurantPage";
-import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
-
-import AddressProvider from "@/contexts/AddressProvider";
-import AuthProvider from "@/contexts/AuthProvider";
-import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
-import MultiCartProvider from "@/contexts/MultiCartProvider";
-import RestaurantProvider from "@/contexts/RestaurantProvider";
-import AreaLayout from "@/layouts/AreaLayout";
-import CheckoutLayout from "@/layouts/CheckoutLayout";
-import CustomerAuthLayout from "@/layouts/CustomerAuthLayout";
-import ErrorLayout from "@/layouts/ErrorLayout";
-import HomeLayout from "@/layouts/HomeLayout";
-import PartnerAuthLayout from "@/layouts/PartnerAuthLayout";
-import RestaurantLayout from "@/layouts/RestaurantLayout";
-import { Role } from "@/types";
+import { AuthRoutes } from "./AuthRoutes";
+import { CustomerRoutes } from "./CustomerRoutes";
+import { ErrorRoutes } from "./ErrorRoutes";
+import Providers from "./Providers";
+import { PublicRoutes } from "./PublicRoutes";
 
 export default function AppRoutes() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <AddressProvider>
-          <MultiCartProvider>
-            <CategoryFiltersProvider>
-              <RestaurantProvider>
-                <Routes>
-                  <Route path="/" element={<HomeLayout />}>
-                    <Route index element={<HomePage />} />
-                  </Route>
-
-                  <Route path="/" element={<CustomerAuthLayout />}>
-                    <Route
-                      path="customer/auth"
-                      element={<RedirectIfAuthenticated />}
-                    >
-                      <Route index element={<Navigate to="login" />} />
-                      <Route
-                        path="register"
-                        element={<CustomerRegisterPage />}
-                      />
-                      <Route path="login" element={<CustomerLoginPage />} />
-                    </Route>
-                  </Route>
-
-                  <Route path="/" element={<PartnerAuthLayout />}>
-                    <Route
-                      path="partner/auth"
-                      // element={<RedirectIfAuthenticated />}
-                    >
-                      <Route index element={<Navigate to="login" />} />
-                      <Route
-                        path="register"
-                        element={<PartnerRegisterPage />}
-                      />
-                      <Route path="login" element={<PartnerLoginPage />} />
-                    </Route>
-                  </Route>
-
-                  <Route path="/" element={<AppLayout />}>
-                    <Route
-                      path="become-a-rider"
-                      element={<BecomeARiderPage />}
-                    />
-
-                    <Route
-                      path="terms-and-conditions"
-                      element={<TermsAndConditionsPage />}
-                    />
-
-                    <Route
-                      path="privacy-policy"
-                      element={<PrivacyPolicyPage />}
-                    />
-
-                    <Route path="how-we-rank" element={<HowWeRankPage />} />
-
-                    <Route
-                      path="how-do-i-leave-a-review"
-                      element={<HowDoILeaveAReviewPage />}
-                    />
-                  </Route>
-
-                  <Route path="/" element={<AreaLayout />}>
-                    <Route path="area/:areaSlug">
-                      <Route index element={<AreaPage />} />
-                    </Route>
-                  </Route>
-
-                  <Route path="/" element={<RestaurantLayout />}>
-                    <Route path="restaurants/:restaurantSlug">
-                      <Route index element={<RestaurantPage />} />
-                    </Route>
-                  </Route>
-
-                  <Route path="/" element={<CheckoutLayout />}>
-                    <Route
-                      path="checkout/:cartId"
-                      element={
-                        <ProtectedRoute allowedRoles={[Role.CUSTOMER]} />
-                      }
-                    >
-                      <Route index element={<CheckoutPage />} />
-                    </Route>
-                    <Route
-                      path="checkout/:orderId/success"
-                      element={
-                        <ProtectedRoute allowedRoles={[Role.CUSTOMER]} />
-                      }
-                    >
-                      <Route index element={<CheckoutSuccessPage />} />
-                    </Route>
-                  </Route>
-
-                  <Route path="/" element={<ErrorLayout />}>
-                    <Route path="*" element={<ErrorPage />} />
-                  </Route>
-                </Routes>
-              </RestaurantProvider>
-            </CategoryFiltersProvider>
-          </MultiCartProvider>
-        </AddressProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <Router>
+      <Providers>
+        <Routes>
+          {AuthRoutes}
+          {PublicRoutes}
+          {CustomerRoutes}
+          {ErrorRoutes}
+        </Routes>
+      </Providers>
+    </Router>
   );
 }

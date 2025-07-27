@@ -40,17 +40,18 @@ export default function HomeHeader() {
           spacing={{ md: 4 }}
           sx={{ display: { xs: "none", md: "flex" } }}
         >
-          {routes.map((route) => (
-            <Button
-              key={route.href}
-              color="inherit"
-              startIcon={<route.icon />}
-              component={Link}
-              to={route.href}
-            >
-              {route.label}
-            </Button>
-          ))}
+          {!user &&
+            routes.map((route) => (
+              <Button
+                key={route.href}
+                color="inherit"
+                startIcon={<route.icon />}
+                component={Link}
+                to={route.href}
+              >
+                {route.label}
+              </Button>
+            ))}
 
           {!isCustomer(user) && (
             <Button
