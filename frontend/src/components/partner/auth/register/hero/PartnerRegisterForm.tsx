@@ -20,6 +20,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
+import { useRegisterPartner } from "@/hooks/react-query/private/partners/auth/useRegisterPartner";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
   TPartnerRegisterFormSchema,
@@ -27,6 +28,9 @@ import {
 } from "@/validations/partner-auth-validations";
 
 export default function PartnerRegisterForm() {
+  const { mutateAsync: registerPartner, isPending: isRegisterPending } =
+    useRegisterPartner();
+
   const {
     handleSubmit,
     control,
@@ -40,6 +44,7 @@ export default function PartnerRegisterForm() {
       building_number: "",
       postcode: "",
       city: "",
+      state: "",
       first_name: "",
       last_name: "",
       email: "",
@@ -58,7 +63,7 @@ export default function PartnerRegisterForm() {
   const strength = calculatePasswordStrength(password);
 
   async function onSubmit(data: TPartnerRegisterFormSchema) {
-    console.log(data);
+    await registerPartner(data);
   }
 
   return (
@@ -88,7 +93,7 @@ export default function PartnerRegisterForm() {
                 required
                 autoComplete="off"
                 label="Business name"
-                placeholder="eg. McDonalds"
+                placeholder="eg. McDonald's"
                 error={!!errors.business_name}
                 helperText={
                   errors.business_name?.message && (
@@ -191,6 +196,28 @@ export default function PartnerRegisterForm() {
                 helperText={
                   errors.city?.message && (
                     <FormHelperTextError message={errors.city.message} />
+                  )
+                }
+                fullWidth
+                sx={{ minWidth: 150 }}
+              />
+            )}
+          />
+
+          <Controller
+            name="state"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                required
+                autoComplete="off"
+                label="State"
+                placeholder="eg. Tuscany"
+                error={!!errors.state}
+                helperText={
+                  errors.state?.message && (
+                    <FormHelperTextError message={errors.state.message} />
                   )
                 }
                 fullWidth
@@ -434,8 +461,8 @@ export default function PartnerRegisterForm() {
 
         <Button
           type="submit"
-          disabled={isSubmitting}
-          loading={isSubmitting}
+          disabled={isSubmitting || isRegisterPending}
+          loading={isSubmitting || isRegisterPending}
           loadingIndicator="Submitting..."
           variant="contained"
           sx={{
