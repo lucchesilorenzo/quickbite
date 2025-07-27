@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->text('description');
+            $table->text('description')->nullable();
 
             $table->string('street_address');
             $table->string('building_number');
@@ -35,20 +35,20 @@ return new class extends Migration
             $table->float('latitude');
             $table->float('longitude');
 
-            $table->string('phone_number')->unique();
-            $table->string('email')->unique();
+            $table->string('phone_number')->nullable()->unique();
+            $table->string('email')->nullable()->unique();
             $table->string('vat_id')->nullable()->unique();
             $table->decimal('min_amount')->default(0);
 
             $table->decimal('delivery_fee')->default(0);
             $table->decimal('service_fee')->default(0);
 
-            $table->unsignedSmallInteger('delivery_time_min');
-            $table->unsignedSmallInteger('delivery_time_max');
+            $table->unsignedSmallInteger('delivery_time_min')->nullable();
+            $table->unsignedSmallInteger('delivery_time_max')->nullable();
 
             $table->string('logo')->nullable();
             $table->string('cover')->nullable();
-            $table->boolean('is_approved')->default(false);
+            $table->boolean('is_approved')->default(true);
             $table->timestamps();
         });
     }
