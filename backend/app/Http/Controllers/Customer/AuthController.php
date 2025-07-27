@@ -41,7 +41,7 @@ class AuthController extends Controller
                 'token' => $token,
             ], 201);
         } catch (Throwable $e) {
-            if ($e->getCode() === 23000) {
+            if ($e->getCode() === '23505') {
                 return response()->json([
                     'message' => 'Customer already exists.',
                 ], 409);
