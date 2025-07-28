@@ -54,7 +54,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the user's restaurants.
+     * Get the partner's restaurants.
      */
     public function restaurants(): BelongsToMany
     {
