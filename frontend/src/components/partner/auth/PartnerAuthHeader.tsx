@@ -3,7 +3,7 @@ import { useState } from "react";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, useMediaQuery } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
@@ -19,6 +19,8 @@ export default function PartnerRegisterHeader() {
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <AppBar position="relative" color="inherit" elevation={3}>
@@ -52,6 +54,7 @@ export default function PartnerRegisterHeader() {
               component={Link}
               to="/partner/auth/login"
               variant="contained"
+              size={isMobile ? "small" : "medium"}
               color="success"
               startIcon={<PersonOutlinedIcon color="primary" />}
               sx={{
@@ -66,6 +69,7 @@ export default function PartnerRegisterHeader() {
 
             <Button
               variant="contained"
+              size={isMobile ? "small" : "medium"}
               color="primary"
               sx={{ fontWeight: 700 }}
               onClick={() => setOpenPartnerRegisterFormDialog(true)}
