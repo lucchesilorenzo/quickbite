@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 
-import { Box, Grid } from "@mui/material";
-
-import PartnerLoginFormContainer from "@/components/partner/auth/login/PartnerLoginFormContainer";
-import PartnerLoginImage from "@/components/partner/auth/login/PartnerLoginImage";
+import DesktopPartnerLoginLayout from "@/components/partner/auth/login/layouts/DesktopPartnerLoginLayout";
+import MobilePartnerLoginLayout from "@/components/partner/auth/login/layouts/MobilePartnerLoginLayout";
 
 export default function PartnerLoginPage() {
   useEffect(() => {
@@ -11,16 +9,9 @@ export default function PartnerLoginPage() {
   }, []);
 
   return (
-    <Box component="main">
-      <Grid container>
-        <Grid size={6}>
-          <PartnerLoginImage />
-        </Grid>
-
-        <Grid size={6}>
-          <PartnerLoginFormContainer />
-        </Grid>
-      </Grid>
-    </Box>
+    <>
+      <DesktopPartnerLoginLayout />
+      <MobilePartnerLoginLayout />
+    </>
   );
 }
