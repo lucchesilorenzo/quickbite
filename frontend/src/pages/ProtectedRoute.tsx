@@ -12,7 +12,7 @@ type ProtectedRouteProps = {
 export default function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
   const { user, isLoading } = useAuth();
 
-  if (user === null && !isLoading) return <FullPageSpinner />;
+  if (isLoading) return <FullPageSpinner />;
 
   const isAuthorized = user && allowedRoles.some((role) => hasRole(user, role));
 

@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { hasRole, isCustomer, isPartner, isRider } from "@/lib/utils";
 import { Role } from "@/types";
@@ -10,9 +9,7 @@ type BlockRoleRouteProps = {
 };
 
 export default function BlockRoleRoute({ blockedRoles }: BlockRoleRouteProps) {
-  const { user, isLoading } = useAuth();
-
-  if (isLoading) return <FullPageSpinner />;
+  const { user } = useAuth();
 
   const isBlocked = user && blockedRoles.some((role) => hasRole(user, role));
 
