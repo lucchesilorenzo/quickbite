@@ -146,6 +146,24 @@ class AuthController extends Controller
     }
 
     /**
+     * Logout a partner.
+     */
+    public function logout(): JsonResponse
+    {
+        try {
+            auth()->user()->currentAccessToken()->delete();
+
+            return response()->json([
+                'message' => 'Partner logged out successfully.',
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not logout partner.',
+            ], 500);
+        }
+    }
+
+    /**
      * Get location data.
      */
     private function getLocationData(array $data): ?array
