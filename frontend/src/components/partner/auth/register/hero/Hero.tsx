@@ -12,7 +12,7 @@ export default function Hero() {
       <Container
         component="main"
         maxWidth={false}
-        sx={{ maxWidth: "1650px" }}
+        sx={{ maxWidth: 1700, px: 2 }}
         disableGutters
       >
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>

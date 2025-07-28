@@ -14,6 +14,6 @@ export default function HeroBackground() {
         objectFit: "contain",
         bgcolor: "#F3DF62",
       }}
-    ></Box>
+    />
   );
 }

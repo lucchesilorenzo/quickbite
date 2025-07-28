@@ -83,31 +83,27 @@ export default function PartnerRegisterForm() {
       </Stack>
 
       <Stack spacing={4}>
-        <Stack direction="row" spacing={2}>
-          <Controller
-            name="business_name"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                required
-                autoComplete="off"
-                label="Business name"
-                placeholder="eg. McDonald's"
-                error={!!errors.business_name}
-                helperText={
-                  errors.business_name?.message && (
-                    <FormHelperTextError
-                      message={errors.business_name.message}
-                    />
-                  )
-                }
-                fullWidth
-                sx={{ minWidth: 150 }}
-              />
-            )}
-          />
-        </Stack>
+        <Controller
+          name="business_name"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              required
+              autoComplete="off"
+              label="Business name"
+              placeholder="eg. McDonald's"
+              error={!!errors.business_name}
+              helperText={
+                errors.business_name?.message && (
+                  <FormHelperTextError message={errors.business_name.message} />
+                )
+              }
+              fullWidth
+              sx={{ minWidth: 150 }}
+            />
+          )}
+        />
 
         <Stack direction="row" spacing={2}>
           <Controller
