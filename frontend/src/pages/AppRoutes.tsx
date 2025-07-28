@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes } from "react-router-dom";
 import { AuthRoutes } from "./AuthRoutes";
 import { CustomerRoutes } from "./CustomerRoutes";
 import { ErrorRoutes } from "./ErrorRoutes";
+import { PartnerRoutes } from "./PartnerRoutes";
 import Providers from "./Providers";
 import { PublicRoutes } from "./PublicRoutes";
 
@@ -18,6 +19,7 @@ export default function AppRoutes() {
           {AuthRoutes}
           {PublicRoutes}
           {CustomerRoutes}
+          {PartnerRoutes}
           {ErrorRoutes}
         </Routes>
       </Providers>
