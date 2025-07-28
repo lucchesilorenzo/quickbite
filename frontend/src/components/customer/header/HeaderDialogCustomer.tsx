@@ -47,7 +47,7 @@ export default function HeaderDialogCustomer({
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
-  async function handleLogout() {
+  async function handleLogoutCustomer() {
     setOpenHeaderCustomerDialog(false);
 
     await logoutCustomer();
@@ -150,7 +150,7 @@ export default function HeaderDialogCustomer({
             ))}
 
             <ListItem disablePadding>
-              <ListItemButton onClick={handleLogout}>
+              <ListItemButton onClick={handleLogoutCustomer}>
                 <ListItemIcon sx={{ color: grey[900] }}>
                   <PowerSettingsNewIcon />
                 </ListItemIcon>

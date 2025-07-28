@@ -32,7 +32,9 @@ export default function PartnerRegisterFormDialog({
     >
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-          <DialogTitle sx={{ p: 0, fontWeight: 700 }}>Sign up</DialogTitle>
+          <DialogTitle variant="h6" sx={{ p: 0, fontWeight: 700 }}>
+            Sign up
+          </DialogTitle>
 
           <IconButton
             color="inherit"
@@ -45,7 +47,7 @@ export default function PartnerRegisterFormDialog({
         </Stack>
 
         <DialogContent sx={{ p: 0 }}>
-          <Typography variant="h5" sx={{ fontWeight: 700 }}>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>
             Grow your orders, your customers and your brand
           </Typography>
 

@@ -21,11 +21,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const { data = null, isLoading, isError } = useAuthMe();
 
   useEffect(() => {
-    if (!isError) {
-      setUser(data);
-    } else {
-      setUser(null);
-    }
+    setUser(!isError ? data : null);
   }, [isError, data]);
 
   if (isLoading) return <FullPageSpinner />;
