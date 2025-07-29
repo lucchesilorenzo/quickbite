@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import PartnerNavigation from "../PartnerNavigation";
+import PartnerNavigation from "./restaurants/PartnerNavigation";
 
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
 
