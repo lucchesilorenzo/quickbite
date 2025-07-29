@@ -15,5 +15,6 @@ Route::prefix('partner')->group(function () {
 
     Route::prefix('restaurants')->middleware(['auth:sanctum', 'role:partner'])->group(function () {
         Route::get('/', [PartnerRestaurantController::class, 'getRestaurants']);
+        Route::get('/{restaurant}', [PartnerRestaurantController::class, 'getRestaurant']);
     });
 });
