@@ -9,26 +9,25 @@ type AuthProviderProps = {
 };
 
 type AuthContext = {
-  user: User | null;
-  isLoading: boolean;
+  user?: User | null;
 };
 
 export const AuthContext = createContext<AuthContext | null>(null);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null | undefined>();
 
   const { data = null, isLoading, isError } = useAuthMe();
 
   useEffect(() => {
-    setUser(!isError ? data : null);
-  }, [isError, data]);
+    if (!isLoading) {
+      setUser(!isError ? data : null);
+    }
+  }, [isLoading, isError, data]);
 
-  if (isLoading) return <FullPageSpinner />;
+  if (user === undefined) return <FullPageSpinner />;
 
   return (
-    <AuthContext.Provider value={{ user, isLoading }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );
 }
