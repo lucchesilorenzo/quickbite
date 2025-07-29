@@ -63,6 +63,22 @@ export const routes = [
   },
 ];
 
+export const partnerRoutes = (restaurantId: string) => [
+  {
+    href: `/partner/restaurants/${restaurantId}/dashboard`,
+    label: "Dashboard",
+  },
+  {
+    href: `/partner/restaurants/${restaurantId}/settings`,
+    label: "Restaurant settings",
+  },
+  { href: `/partner/restaurants/${restaurantId}/menu`, label: "Menu" },
+  { href: `/partner/restaurants/${restaurantId}/orders`, label: "Orders" },
+  { href: `/partner/restaurants/${restaurantId}/offers`, label: "Offers" },
+  { href: `/partner/restaurants/${restaurantId}/reviews`, label: "Reviews" },
+  { href: `/partner/restaurants/${restaurantId}/stats`, label: "Stats" },
+];
+
 export const headerDialogOptions = [
   {
     href: "/become-a-rider",
