@@ -15,7 +15,7 @@ export function useLoginPartner() {
       postData("/partner/auth/login", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate("/partner/dashboard");
+      navigate("/partner/restaurants");
     },
     onError: (error) => {
       notifications.show(error.message, {
