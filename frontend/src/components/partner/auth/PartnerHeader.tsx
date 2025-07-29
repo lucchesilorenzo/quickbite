@@ -1,21 +1,22 @@
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import {
   AppBar,
   Button,
-  IconButton,
   Stack,
   Toolbar,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import PartnerNavigation from "../PartnerNavigation";
 
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
 
 export default function PartnerHeader() {
   const { mutateAsync: logoutPartner } = useLogoutPartner();
 
-  const navigate = useNavigate();
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   async function handleLogoutPartner() {
     await logoutPartner();
@@ -31,10 +32,6 @@ export default function PartnerHeader() {
           to="/"
           sx={{ alignItems: "center", textDecoration: "none" }}
         >
-          <IconButton onClick={() => navigate(-1)}>
-            <KeyboardArrowLeftIcon color="primary" />
-          </IconButton>
-
           <RestaurantMenuIcon color="primary" />
 
           <Typography
@@ -47,9 +44,12 @@ export default function PartnerHeader() {
           </Typography>
         </Stack>
 
+        <PartnerNavigation />
+
         <Button
           variant="contained"
           color="primary"
+          size={isMobile ? "small" : "medium"}
           sx={{ fontWeight: 700 }}
           onClick={handleLogoutPartner}
         >
