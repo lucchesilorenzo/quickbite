@@ -9,8 +9,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import PartnerNavigation from "./restaurants/PartnerNavigation";
-
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
 
 export default function PartnerHeader() {
@@ -43,8 +41,6 @@ export default function PartnerHeader() {
             QuickBite
           </Typography>
         </Stack>
-
-        <PartnerNavigation />
 
         <Button
           variant="contained"

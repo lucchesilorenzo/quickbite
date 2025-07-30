@@ -2,13 +2,16 @@ import { Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import PartnerRestaurantHeader from "@/components/partner/restaurants/PartnerRestaurantHeader";
+import PartnerRestaurantProvider from "@/contexts/PartnerRestaurantProvider";
 
 export default function PartnerRestaurantLayout() {
   return (
-    <Stack sx={{ minHeight: "100vh" }}>
-      <PartnerRestaurantHeader />
+    <PartnerRestaurantProvider>
+      <Stack sx={{ minHeight: "100vh" }}>
+        <PartnerRestaurantHeader />
 
-      <Outlet />
-    </Stack>
+        <Outlet />
+      </Stack>
+    </PartnerRestaurantProvider>
   );
 }

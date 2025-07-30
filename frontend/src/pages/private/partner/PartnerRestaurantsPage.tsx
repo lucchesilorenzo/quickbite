@@ -5,7 +5,7 @@ import { Box, Container, Typography } from "@mui/material";
 import Spinner from "@/components/common/Spinner";
 import PartnerRestaurantsSelection from "@/components/partner/restaurants/PartnerRestaurantsSelection";
 import { useAuth } from "@/hooks/contexts/useAuth";
-import { useGetPartnerRestaurants } from "@/hooks/react-query/private/partners/useGetPartnerRestaurants";
+import { useGetPartnerRestaurants } from "@/hooks/react-query/private/partners/restaurants/useGetPartnerRestaurants";
 
 export default function PartnerRestaurantsPage() {
   const { user } = useAuth();
