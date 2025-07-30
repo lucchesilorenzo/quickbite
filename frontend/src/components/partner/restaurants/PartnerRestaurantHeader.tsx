@@ -1,7 +1,9 @@
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import {
   AppBar,
   Button,
+  IconButton,
   Stack,
   Toolbar,
   Typography,
@@ -24,7 +26,7 @@ export default function PartnerRestaurantHeader() {
 
   return (
     <AppBar position="relative" color="inherit" elevation={3}>
-      <Toolbar sx={{ justifyContent: "space-between" }}>
+      <Toolbar sx={{ justifyContent: "space-between", gap: 1 }}>
         <Stack
           direction="row"
           spacing={1}
@@ -46,15 +48,20 @@ export default function PartnerRestaurantHeader() {
 
         <PartnerNavigation />
 
-        <Button
-          variant="contained"
-          color="primary"
-          size={isMobile ? "small" : "medium"}
-          sx={{ fontWeight: 700 }}
-          onClick={handleLogoutPartner}
-        >
-          Log out
-        </Button>
+        {isMobile ? (
+          <IconButton color="primary" onClick={handleLogoutPartner}>
+            <LogoutOutlinedIcon />
+          </IconButton>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ fontWeight: 700 }}
+            onClick={handleLogoutPartner}
+          >
+            Log out
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

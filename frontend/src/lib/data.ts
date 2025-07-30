@@ -63,14 +63,14 @@ export const routes = [
   },
 ];
 
-export const partnerRoutes = (restaurantId: string) => [
+export const partnerRoutes = (restaurantId?: string) => [
   {
     href: `/partner/restaurants/${restaurantId}/dashboard`,
     label: "Dashboard",
   },
   {
     href: `/partner/restaurants/${restaurantId}/settings`,
-    label: "Restaurant settings",
+    label: "Settings",
   },
   { href: `/partner/restaurants/${restaurantId}/menu`, label: "Menu" },
   { href: `/partner/restaurants/${restaurantId}/orders`, label: "Orders" },

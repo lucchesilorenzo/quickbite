@@ -1,0 +1,23 @@
+import { Tab, Tabs } from "@mui/material";
+import { Link, useLocation, useParams } from "react-router-dom";
+
+import { partnerRoutes } from "@/lib/data";
+
+export default function PartnerNavigation() {
+  const { restaurantId } = useParams();
+  const { pathname } = useLocation();
+
+  return (
+    <Tabs
+      value={pathname}
+      variant="scrollable"
+      scrollButtons
+      allowScrollButtonsMobile
+      role="navigation"
+    >
+      {partnerRoutes(restaurantId).map(({ href, label }) => (
+        <Tab key={href} label={label} value={href} component={Link} to={href} />
+      ))}
+    </Tabs>
+  );
+}
