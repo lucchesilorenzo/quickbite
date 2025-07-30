@@ -1,10 +1,16 @@
 import { Navigate, Route } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
+import ParterRestaurantDashboardPage from "./private/partner/PartnerRestaurantDashboardPage";
+import PartnerRestaurantMenuPage from "./private/partner/PartnerRestaurantMenuPage";
+import PartnerRestaurantOffersPage from "./private/partner/PartnerRestaurantOffersPage";
+import PartnerRestaurantOrdersPage from "./private/partner/PartnerRestaurantOrdersPage";
+import PartnerRestaurantReviewsPage from "./private/partner/PartnerRestaurantReviewsPage";
+import PartnerRestaurantSettingsPage from "./private/partner/PartnerRestaurantSettingsPage";
+import PartnerRestaurantStatsPage from "./private/partner/PartnerRestaurantStatsPage";
 
 import PartnerLayout from "@/layouts/PartnerLayout";
 import PartnerRestaurantLayout from "@/layouts/PartnerRestaurantLayout";
-import PartnerDashboardPage from "@/pages/private/partner/PartnerDashboardPage";
 import PartnerRestaurantsPage from "@/pages/private/partner/PartnerRestaurantsPage";
 import { Role } from "@/types";
 
@@ -23,7 +29,13 @@ export const PartnerRoutes = [
       element={<PartnerRestaurantLayout />}
     >
       <Route index element={<Navigate to="dashboard" replace />} />
-      <Route path="dashboard" element={<PartnerDashboardPage />} />
+      <Route path="dashboard" element={<ParterRestaurantDashboardPage />} />
+      <Route path="settings" element={<PartnerRestaurantSettingsPage />} />
+      <Route path="menu" element={<PartnerRestaurantMenuPage />} />
+      <Route path="orders" element={<PartnerRestaurantOrdersPage />} />
+      <Route path="offers" element={<PartnerRestaurantOffersPage />} />
+      <Route path="reviews" element={<PartnerRestaurantReviewsPage />} />
+      <Route path="stats" element={<PartnerRestaurantStatsPage />} />
     </Route>
   </Route>,
 ];
