@@ -74,7 +74,9 @@ class OrderController extends Controller
             }
 
             if (! $restaurant->isOpen() || $data['subtotal'] < $restaurant->min_amount) {
-                return response()->json(['message' => 'The restaurant is not open or the subtotal is less than the minimum amount.'], 400);
+                return response()->json([
+                    'message' => 'The restaurant is not open or the subtotal is less than the minimum amount.',
+                ], 400);
             }
 
             // Create order
