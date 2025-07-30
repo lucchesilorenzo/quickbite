@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-import PartnerRestaurantHeader from "@/components/partner/restaurants/PartnerRestaurantHeader";
+import PartnerRestaurantHeader from "@/components/partner/PartnerRestaurantHeader";
 import PartnerRestaurantProvider from "@/contexts/PartnerRestaurantProvider";
 
 export default function PartnerRestaurantLayout() {
