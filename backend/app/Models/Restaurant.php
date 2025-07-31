@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -54,10 +55,14 @@ class Restaurant extends Model
         'reviews_avg_rating' => 'float',
     ];
 
+    protected $appends = [
+        'is_open',
+    ];
+
     /**
      * Check if the restaurant is open.
      */
-    public function isOpen(): bool
+    public function calculateIsOpen(): bool
     {
         $dayName = mb_strtoupper(now()->format('l'));
         $currentTime = now()->format('H:i');
@@ -145,5 +150,17 @@ class Restaurant extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Get the is_open attribute.
+     */
+    protected function isOpen(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->force_close
+                ? false
+                : $this->calculateIsOpen()
+        );
     }
 }
