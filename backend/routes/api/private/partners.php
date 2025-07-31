@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('partner')->group(function () {
     Route::prefix('auth')->group(function () {
-        Route::post('register', [AuthController::class, 'register']);
-        Route::post('login', [AuthController::class, 'login']);
-        Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'role:partner']);
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'role:partner']);
     });
 
     Route::prefix('restaurants')->middleware(['auth:sanctum', 'role:partner'])->group(function () {
         Route::get('/', [PartnerRestaurantController::class, 'getRestaurants']);
         Route::get('/{restaurant}', [PartnerRestaurantController::class, 'getRestaurant']);
+        Route::patch('/{restaurant}/status', [PartnerRestaurantController::class, 'updateRestaurantStatus']);
     });
 });
