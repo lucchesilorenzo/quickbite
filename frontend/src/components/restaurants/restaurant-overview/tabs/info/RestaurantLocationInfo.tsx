@@ -1,6 +1,12 @@
-import { Card, CardContent, Chip, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Chip,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 
-import { getRestaurantOpeningTime, isRestaurantOpen } from "@/lib/utils";
+import { getRestaurantOpeningTime } from "@/lib/utils";
 import { RestaurantDetail } from "@/types";
 
 type RestaurantLocationInfoProps = {
@@ -10,13 +16,23 @@ type RestaurantLocationInfoProps = {
 export default function RestaurantLocationInfo({
   restaurant,
 }: RestaurantLocationInfoProps) {
+  const openingTime = getRestaurantOpeningTime(restaurant);
+
+  const availability = restaurant.force_close
+    ? "Temporarily closed"
+    : openingTime
+      ? `From ${openingTime}`
+      : "Closed";
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
     <Card
       variant="outlined"
       sx={{
         position: "absolute",
-        left: 120,
-        right: 120,
+        left: isMobile ? 90 : 120,
+        right: isMobile ? 90 : 120,
         bottom: 20,
         zIndex: 1000,
       }}
@@ -34,14 +50,10 @@ export default function RestaurantLocationInfo({
           {restaurant.postcode} {restaurant.city}
         </Typography>
 
-        {isRestaurantOpen(restaurant) ? (
+        {restaurant.is_open ? (
           <Chip label="Open" color="success" sx={{ mt: 1 }} />
         ) : (
-          <Chip
-            variant="outlined"
-            label={`From ${getRestaurantOpeningTime(restaurant) || "Closed"}`}
-            sx={{ mt: 1 }}
-          />
+          <Chip variant="outlined" label={availability} sx={{ mt: 1 }} />
         )}
       </CardContent>
     </Card>

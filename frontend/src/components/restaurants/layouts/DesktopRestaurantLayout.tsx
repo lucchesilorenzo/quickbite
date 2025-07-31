@@ -7,7 +7,6 @@ import RestaurantClosedDialog from "../common/RestaurantClosedDialog";
 import RestaurantCart from "../restaurant-cart/RestaurantCart";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-import { isRestaurantOpen } from "@/lib/utils";
 
 export default function DesktopRestaurantLayout() {
   const {
@@ -17,7 +16,7 @@ export default function DesktopRestaurantLayout() {
   } = useSingleRestaurant();
 
   useEffect(() => {
-    if (!isRestaurantOpen(restaurant)) {
+    if (!restaurant.is_open) {
       setOpenRestaurantClosedDialog(true);
     }
   }, [restaurant, setOpenRestaurantClosedDialog]);

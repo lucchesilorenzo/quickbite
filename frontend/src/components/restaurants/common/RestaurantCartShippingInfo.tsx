@@ -2,7 +2,7 @@ import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-import { getRestaurantOpeningTime, isRestaurantOpen } from "@/lib/utils";
+import { getRestaurantOpeningTime } from "@/lib/utils";
 
 export default function RestaurantCartShippingInfo() {
   const { restaurant } = useSingleRestaurant();
@@ -16,11 +16,13 @@ export default function RestaurantCartShippingInfo() {
     ? `${restaurant.delivery_time_min} min`
     : `${restaurant.delivery_time_min}-${restaurant.delivery_time_max} min`;
 
-  const openingInfo = isRestaurantOpen(restaurant)
-    ? deliveryTime
-    : openingTime
-      ? `From ${openingTime}`
-      : "Closed";
+  const openingInfo = restaurant.force_close
+    ? "Temporarily unavailable"
+    : restaurant.is_open
+      ? deliveryTime
+      : openingTime
+        ? `From ${openingTime}`
+        : "Closed";
 
   return (
     <Container maxWidth="md" sx={{ p: 2 }}>

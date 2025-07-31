@@ -5,7 +5,6 @@ import RestaurantAvailability from "../../../common/RestaurantAvailability";
 import RestaurantCardImage from "./RestaurantCardImage";
 import RestaurantCardText from "./RestaurantCardText";
 
-import { isRestaurantOpen } from "@/lib/utils";
 import { RestaurantListItem } from "@/types";
 
 type RestaurantCardProps = {
@@ -50,7 +49,7 @@ export default function RestaurantCard({
 
   return (
     <Box>
-      {!isRestaurantOpen(restaurant) && (
+      {!restaurant.is_open && (
         <RestaurantAvailability restaurant={restaurant} />
       )}
 

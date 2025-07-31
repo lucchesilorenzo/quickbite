@@ -8,7 +8,6 @@ import RestaurantDetailsMobile from "../mobile/RestaurantDetailsMobile";
 
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-import { isRestaurantOpen } from "@/lib/utils";
 
 export default function MobileRestaurantLayout() {
   const {
@@ -19,7 +18,7 @@ export default function MobileRestaurantLayout() {
   const { isEmpty } = useMultiCart();
 
   useEffect(() => {
-    if (!isRestaurantOpen(restaurant)) {
+    if (!restaurant.is_open) {
       setOpenRestaurantClosedDialog(true);
     }
   }, [restaurant, setOpenRestaurantClosedDialog]);

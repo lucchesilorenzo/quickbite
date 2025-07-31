@@ -31,6 +31,8 @@ export type RestaurantBase = {
   logo: string;
   cover: string;
   is_approved: boolean;
+  is_open: boolean;
+  force_close: boolean;
   created_at: string;
   updated_at: string;
 };

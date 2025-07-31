@@ -80,6 +80,7 @@ export default function MultiCartProvider({
     setCarts((prev) => {
       const prevString = JSON.stringify(prev);
       const nextString = JSON.stringify(cartsWithRestaurantKey);
+
       if (prevString === nextString) return prev;
       return cartsWithRestaurantKey;
     });

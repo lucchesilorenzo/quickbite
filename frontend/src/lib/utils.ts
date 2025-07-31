@@ -48,21 +48,6 @@ export function calculatePasswordStrength(password: string) {
   return (strength / 5) * 100;
 }
 
-export function isRestaurantOpen(restaurant: RestaurantDetail): boolean {
-  const dayName = format(new Date(), "EEEE").toUpperCase();
-  const currentTime = format(new Date(), "HH:mm");
-
-  return restaurant.delivery_days.some((d) => {
-    if (!d.start_time || !d.end_time) return false;
-
-    return (
-      d.day === dayName &&
-      currentTime >= d.start_time &&
-      currentTime <= d.end_time
-    );
-  });
-}
-
 export function getRestaurantOpeningTime(restaurant: RestaurantDetail) {
   const dayName = format(new Date(), "EEEE").toUpperCase();
 

@@ -28,13 +28,17 @@ export default function RestaurantClosedDialog({
 
   const openingTime = getRestaurantOpeningTime(restaurant);
 
-  const availabilityTitle = openingTime
-    ? `${restaurant.name} starts delivering at ${openingTime}`
-    : `${restaurant.name} is closed for delivery`;
+  const availabilityTitle = restaurant.force_close
+    ? `${restaurant.name} is temporarily closed`
+    : openingTime
+      ? `${restaurant.name} starts delivering at ${openingTime}`
+      : `${restaurant.name} is closed for delivery`;
 
-  const availabilityContent = openingTime
-    ? `Delivery from ${openingTime}`
-    : "Closed for delivery.";
+  const availabilityContent = restaurant.force_close
+    ? "This restaurant is temporarily unavailable."
+    : openingTime
+      ? `Delivery from ${openingTime}`
+      : "Closed for delivery.";
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

@@ -13,9 +13,11 @@ export default function RestaurantAvailability({
 }: RestaurantAvailabilityProps) {
   const openingTime = getRestaurantOpeningTime(restaurant);
 
-  const availabilityInfo = openingTime
-    ? `Delivery from ${openingTime}`
-    : "Closed for delivery";
+  const availabilityInfo = restaurant.force_close
+    ? "Temporarily closed"
+    : openingTime
+      ? `Delivery from ${openingTime}`
+      : "Closed for delivery";
 
   return (
     <Stack

@@ -5,7 +5,6 @@ import RestaurantAvailability from "../common/RestaurantAvailability";
 import RestaurantCardImage from "../content/list/restaurant-card/RestaurantCardImage";
 import RestaurantCardTextMobile from "./RestaurantCardTextMobile";
 
-import { isRestaurantOpen } from "@/lib/utils";
 import { RestaurantListItem } from "@/types";
 
 type RestaurantCardMobileProps = {
@@ -45,7 +44,7 @@ export default function RestaurantCardMobile({
 
   return (
     <Box>
-      {!isRestaurantOpen(restaurant) && (
+      {!restaurant.is_open && (
         <RestaurantAvailability restaurant={restaurant} />
       )}
 

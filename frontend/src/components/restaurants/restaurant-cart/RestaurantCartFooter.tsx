@@ -21,7 +21,6 @@ import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,
   isCustomer,
-  isRestaurantOpen,
 } from "@/lib/utils";
 
 export default function RestaurantCartFooter() {
@@ -44,7 +43,7 @@ export default function RestaurantCartFooter() {
     subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;
 
   const isCheckoutDisabled =
-    !isRestaurantOpen(restaurant) || subtotal < restaurant.min_amount;
+    !restaurant.is_open || subtotal < restaurant.min_amount;
 
   const navigate = useNavigate();
 
