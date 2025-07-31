@@ -44,6 +44,7 @@ class Restaurant extends Model
         'logo',
         'cover',
         'is_approved',
+        'force_close',
     ];
 
     protected $casts = [
