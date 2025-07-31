@@ -11,7 +11,7 @@ type PartnerRestaurantProviderProps = {
 };
 
 type PartnerRestaurantContext = {
-  restaurant?: RestaurantDetail;
+  restaurant: RestaurantDetail;
 };
 
 export const PartnerRestaurantContext =
@@ -28,7 +28,7 @@ export default function PartnerRestaurantProvider({
   } = useGetPartnerRestaurant(restaurantId);
 
   if (isLoading) return <FullPageSpinner />;
-  if (isError) return <Navigate to="*" />;
+  if (isError || !restaurant) return <Navigate to="*" />;
 
   return (
     <PartnerRestaurantContext.Provider value={{ restaurant }}>
