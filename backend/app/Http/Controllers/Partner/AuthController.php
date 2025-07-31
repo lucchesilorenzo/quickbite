@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Partner;
 
-use App\Enums\RestaurantRolesEnum;
-use App\Enums\RolesEnum;
+use App\Enums\RestaurantRole;
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\Auth\PartnerLoginRequest;
 use App\Http\Requests\Partner\Auth\PartnerRegisterRequest;
@@ -42,7 +42,7 @@ class AuthController extends Controller
                 ]);
 
                 // Assign role
-                $partner->assignRole(RolesEnum::PARTNER);
+                $partner->assignRole(UserRole::PARTNER);
 
                 // Get location
                 $locationData = $this->getLocationData($data);
@@ -65,7 +65,7 @@ class AuthController extends Controller
                 ]);
 
                 $partner->restaurants()->attach($restaurant->id, [
-                    'role' => RestaurantRolesEnum::OWNER,
+                    'role' => RestaurantRole::OWNER,
                 ]);
 
                 $token = $partner->createToken('partner_web_token')->plainTextToken;
@@ -118,7 +118,7 @@ class AuthController extends Controller
             }
 
             // Check if partner has PARTNER role
-            if (! $partner->hasRole(RolesEnum::PARTNER)) {
+            if (! $partner->hasRole(UserRole::PARTNER)) {
                 return response()->json([
                     'message' => 'You are not authorized to log in as a partner.',
                 ], 403);

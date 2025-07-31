@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\RolesEnum;
+use App\Enums\UserRole;
 use App\Models\MenuItem;
 use App\Models\Order;
 use App\Models\User;
@@ -23,7 +23,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::role(RolesEnum::CUSTOMER)->inRandomOrder()->first()->id,
+            'user_id' => User::role(UserRole::CUSTOMER)->inRandomOrder()->first()->id,
             'order_code' => fake()->unique()->numberBetween(100000, 999999),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum RestaurantRolesEnum: string
+enum UserRole: string
 {
-    case OWNER = 'owner';
-    case CO_OWNER = 'co-owner';
+    case CUSTOMER = 'customer';
+    case PARTNER = 'partner';
     case RIDER = 'rider';
 
     /**

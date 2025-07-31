@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Enums\RolesEnum;
+use App\Enums\UserRole;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 
@@ -15,8 +15,8 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::firstOrCreate(['name' => RolesEnum::CUSTOMER]);
-        Role::firstOrCreate(['name' => RolesEnum::PARTNER]);
-        Role::firstOrCreate(['name' => RolesEnum::RIDER]);
+        Role::firstOrCreate(['name' => UserRole::CUSTOMER]);
+        Role::firstOrCreate(['name' => UserRole::PARTNER]);
+        Role::firstOrCreate(['name' => UserRole::RIDER]);
     }
 }

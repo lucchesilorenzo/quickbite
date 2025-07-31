@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Customer;
 
-use App\Enums\RolesEnum;
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Auth\CustomerLoginRequest;
 use App\Http\Requests\Customer\Auth\CustomerRegisterRequest;
@@ -31,7 +31,7 @@ class AuthController extends Controller
             ]);
 
             // Assign role
-            $customer->assignRole(RolesEnum::CUSTOMER);
+            $customer->assignRole(UserRole::CUSTOMER);
 
             // Generate token
             $token = $customer->createToken('customer_web_token')->plainTextToken;
@@ -73,7 +73,7 @@ class AuthController extends Controller
             }
 
             // Check if customer has CUSTOMER role
-            if (! $customer->hasRole(RolesEnum::CUSTOMER)) {
+            if (! $customer->hasRole(UserRole::CUSTOMER)) {
                 return response()->json([
                     'message' => 'You are not authorized to log in as a customer.',
                 ], 403);

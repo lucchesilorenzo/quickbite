@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\RolesEnum;
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -53,7 +53,7 @@ class UserFactory extends Factory
     public function customer(): static
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole(RolesEnum::CUSTOMER);
+            $user->assignRole(UserRole::CUSTOMER);
         });
     }
 
@@ -63,7 +63,7 @@ class UserFactory extends Factory
     public function partner(): static
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole(RolesEnum::PARTNER);
+            $user->assignRole(UserRole::PARTNER);
         });
     }
 
@@ -73,7 +73,7 @@ class UserFactory extends Factory
     public function rider(): static
     {
         return $this->afterCreating(function (User $user) {
-            $user->assignRole(RolesEnum::RIDER);
+            $user->assignRole(UserRole::RIDER);
             $user->update(['driving_licence' => fake()->boolean() ? fake()->numerify('##########') : null]);
         });
     }

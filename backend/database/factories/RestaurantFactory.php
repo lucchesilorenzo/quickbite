@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\RestaurantRolesEnum;
-use App\Enums\RolesEnum;
+use App\Enums\RestaurantRole;
+use App\Enums\UserRole;
 use App\Models\Category;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
@@ -103,18 +103,18 @@ class RestaurantFactory extends Factory
     private function assignPartnersToRestaurant(Restaurant $restaurant): void
     {
         // Get partners
-        $partners = User::role(RolesEnum::PARTNER)
+        $partners = User::role(UserRole::PARTNER)
             ->inRandomOrder()
             ->pluck('id');
 
         // Check if the restaurant already has an owner
         $hasOwner = $restaurant->partners()
-            ->wherePivot('role', RestaurantRolesEnum::OWNER)
+            ->wherePivot('role', RestaurantRole::OWNER)
             ->exists();
 
         // Check if the restaurant already has a co-owner
         $hasCoOwner = $restaurant->partners()
-            ->wherePivot('role', RestaurantRolesEnum::CO_OWNER)
+            ->wherePivot('role', RestaurantRole::CO_OWNER)
             ->exists();
 
         // Assign owner
@@ -122,7 +122,7 @@ class RestaurantFactory extends Factory
             $ownerId = $partners->random();
 
             $restaurant->partners()->attach($ownerId, [
-                'role' => RestaurantRolesEnum::OWNER,
+                'role' => RestaurantRole::OWNER,
             ]);
 
             // Remove owner from partners (to avoid duplicates)
@@ -134,7 +134,7 @@ class RestaurantFactory extends Factory
             $coOwnerId = $partners->random();
 
             $restaurant->partners()->attach($coOwnerId, [
-                'role' => RestaurantRolesEnum::CO_OWNER,
+                'role' => RestaurantRole::CO_OWNER,
             ]);
         }
     }
@@ -145,12 +145,12 @@ class RestaurantFactory extends Factory
     private function assignRidersToRestaurant(Restaurant $restaurant): void
     {
         // Get riders
-        $riders = User::role(RolesEnum::RIDER)
+        $riders = User::role(UserRole::RIDER)
             ->inRandomOrder()
             ->pluck('id');
 
         $restaurant->riders()->attach($riders, [
-            'role' => RestaurantRolesEnum::RIDER,
+            'role' => RestaurantRole::RIDER,
             'contract_start' => now(),
             'contract_end' => now()->addDays(30),
             'is_active' => true,
