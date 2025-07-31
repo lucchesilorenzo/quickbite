@@ -5,7 +5,7 @@ import { RestaurantDetail } from "@/types";
 
 export function useGetPartnerRestaurant(restaurantId?: string) {
   return useQuery({
-    queryKey: ["partner-restaurant"],
+    queryKey: ["partner-restaurant", restaurantId],
     queryFn: (): Promise<RestaurantDetail> =>
       fetchData(`/partner/restaurants/${restaurantId}`),
   });
