@@ -11,7 +11,7 @@ export default function PartnerDashboardStatsTitle() {
   return (
     <Stack
       direction="row"
-      sx={{ alignItems: "center", justifyContent: "space-between" }}
+      sx={{ alignItems: "center", justifyContent: "space-between", mb: 2 }}
     >
       <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
         <Typography variant="h6" sx={{ fontWeight: 600 }}>
