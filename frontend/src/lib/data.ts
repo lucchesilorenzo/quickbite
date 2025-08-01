@@ -39,6 +39,8 @@ export const emptyRestaurant: RestaurantDetail = {
   logo: "",
   cover: "",
   is_approved: false,
+  is_open: false,
+  force_close: false,
   created_at: "",
   updated_at: "",
   reviews_avg_rating: 0,

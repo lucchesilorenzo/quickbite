@@ -25,9 +25,19 @@ export type Order = {
   discount_rate: number;
   discount: number;
   total: number;
+  status: OrderStatus;
   created_at: string;
   updated_at: string;
 };
+
+export type OrderStatus =
+  | "pending"
+  | "accepted"
+  | "rejected"
+  | "preparing"
+  | "delivering"
+  | "delivered"
+  | "cancelled";
 
 export type OrderItem = {
   id: string;
