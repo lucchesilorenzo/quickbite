@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   Box,
   Button,
-  Paper,
+  Card,
   Stack,
   Typography,
   useMediaQuery,
@@ -14,6 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AddReviewDialog from "./AddReviewDialog";
 import ViewOrderDialog from "./ViewOrderDialog";
 
+import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
@@ -28,7 +29,7 @@ export default function OrderItem({ order }: OrderItemProps) {
   const { pathname } = useLocation();
 
   const navigate = useNavigate();
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const [openViewOrderDialog, setOpenViewOrderDialog] = useState(false);
   const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
@@ -41,11 +42,11 @@ export default function OrderItem({ order }: OrderItemProps) {
     pathname === `/restaurants/${order.restaurant.slug}`;
 
   return (
-    <Paper variant="outlined" sx={{ p: 1 }}>
+    <Card variant="outlined" sx={{ p: 1 }}>
       <Stack
-        direction="row"
+        direction={isMobile ? "column" : "row"}
         spacing={1}
-        sx={{ justifyContent: "space-between" }}
+        sx={{ justifyContent: "space-between", alignItems: "center" }}
       >
         <Stack direction="row" spacing={2}>
           <Box
@@ -61,13 +62,17 @@ export default function OrderItem({ order }: OrderItemProps) {
             }}
           />
 
-          <Box>
-            <Typography
-              variant={isMobile ? "body1" : "h6"}
-              sx={{ fontWeight: 700 }}
-            >
-              {order.restaurant.name}
-            </Typography>
+          <Box sx={{ maxWidth: 300 }}>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "baseline" }}>
+              <Typography
+                variant={isMobile ? "body1" : "h6"}
+                sx={{ fontWeight: 700 }}
+              >
+                {order.restaurant.name}
+              </Typography>
+
+              <OrderStatusBadge order={order} />
+            </Stack>
 
             <Typography variant="body2" color="textSecondary">
               {format(new Date(order.created_at), "d MMMM yyyy 'at' HH:mm")}
@@ -84,7 +89,7 @@ export default function OrderItem({ order }: OrderItemProps) {
           </Box>
         </Stack>
 
-        <Stack spacing={1} sx={{ justifyContent: "space-between" }}>
+        <Stack spacing={1} direction={isMobile ? "row" : "column"}>
           <Button
             variant="contained"
             color="success"
@@ -129,6 +134,6 @@ export default function OrderItem({ order }: OrderItemProps) {
         setOpenAddReviewDialog={setOpenAddReviewDialog}
         order={order}
       />
-    </Paper>
+    </Card>
   );
 }

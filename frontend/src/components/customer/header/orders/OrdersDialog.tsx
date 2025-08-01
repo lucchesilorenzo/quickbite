@@ -25,7 +25,7 @@ export default function OrdersDialog({
   setOpenOrdersDialog,
   setOpenHeaderCustomerDialog,
 }: OrdersDialogProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const { data: orders, isLoading: isLoadingOrders } = useGetOrders();
 

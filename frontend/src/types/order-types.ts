@@ -58,6 +58,7 @@ export type CreateOrderItem = Omit<
 export type CreateOrder = Omit<
   Order,
   | "id"
+  | "status"
   | "order_code"
   | "created_at"
   | "updated_at"
