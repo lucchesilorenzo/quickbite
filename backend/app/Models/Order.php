@@ -35,6 +35,7 @@ class Order extends Model
         'discount_rate',
         'discount',
         'total',
+        'status',
     ];
 
     protected $casts = [

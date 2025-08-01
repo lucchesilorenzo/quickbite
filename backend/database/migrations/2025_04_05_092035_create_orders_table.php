@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\OrderStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -35,6 +36,7 @@ return new class extends Migration
             $table->decimal('discount_rate')->default(0);
             $table->decimal('discount')->default(0);
             $table->decimal('total');
+            $table->enum('status', OrderStatus::values())->default(OrderStatus::PENDING);
             $table->timestamps();
         });
     }
