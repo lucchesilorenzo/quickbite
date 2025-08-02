@@ -1,7 +1,8 @@
 import { Container } from "@mui/material";
 
-import PartnerDashboardHeader from "../header/PartnerDashboardHeader";
-import PartnerDashboardStats from "../stats/PartnerDashboardStats";
+import PartnerDashboardStatsAndRating from "../stats-and-rating/PartnerDashboardStatsAndRating";
+import PartnerDashboardStatsTitle from "../stats-and-rating/stats/PartnerDashboardStatsTitle";
+import PartnerDashboardWelcomeAndStatus from "../welcome-and-status/PartnerDashboardWelcomeAndStatus";
 
 export default function DesktopDashboardLayout() {
   return (
@@ -10,8 +11,10 @@ export default function DesktopDashboardLayout() {
       maxWidth="md"
       sx={{ display: { xs: "none", lg: "block" }, mt: 6 }}
     >
-      <PartnerDashboardHeader />
-      <PartnerDashboardStats />
+      <PartnerDashboardWelcomeAndStatus />
+
+      <PartnerDashboardStatsTitle />
+      <PartnerDashboardStatsAndRating />
     </Container>
   );
 }
