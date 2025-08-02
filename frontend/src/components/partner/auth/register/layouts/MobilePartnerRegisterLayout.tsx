@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 
-import MobileHero from "@/components/partner/mobile/MobileHero";
-import MobilePartnerRegisterFormCard from "@/components/partner/mobile/MobilePartnerRegisterFormCard";
+import MobileHero from "@/components/partner/auth/register/mobile/MobileHero";
+import MobilePartnerRegisterFormCard from "@/components/partner/auth/register/mobile/MobilePartnerRegisterFormCard";
 
 export default function MobilePartnerRegisterLayout() {
   return (
