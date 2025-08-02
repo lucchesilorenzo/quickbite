@@ -18,7 +18,7 @@ export default function PartnerDashboardRestaurantStatus() {
   ) {
     setRestaurantStatus(e.target.checked);
 
-    await updatePartnerRestaurantStatus({ force_close: e.target.checked });
+    await updatePartnerRestaurantStatus({ force_close: !e.target.checked });
   }
 
   return (
