@@ -9,7 +9,7 @@ export default function DesktopDashboardLayout() {
     <Container
       component="main"
       maxWidth="md"
-      sx={{ display: { xs: "none", md: "block" }, mt: 6 }}
+      sx={{ display: { xs: "none", md: "block" }, mt: 4 }}
     >
       <PartnerDashboardWelcomeAndStatus />
 
