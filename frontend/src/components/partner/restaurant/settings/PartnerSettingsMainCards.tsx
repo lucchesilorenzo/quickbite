@@ -13,10 +13,10 @@ export default function PartnerSettingsMainCards() {
 
   const cards = [
     {
-      title: "Delivery fees",
-      description: "Set your delivery fees and minimum order amount",
+      title: "Fees",
+      description: "Set your delivery, service and minimum order fees",
       icon: ShoppingBagOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/settings/delivery-fee`,
+      href: `/partner/restaurants/${restaurant.id}/settings/fees`,
     },
     {
       title: "Delivery times",
