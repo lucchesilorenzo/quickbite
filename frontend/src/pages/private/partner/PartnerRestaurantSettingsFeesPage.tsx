@@ -8,8 +8,8 @@ import PartnerSettingsFeesFormCard from "@/components/partner/restaurant/setting
 import PartnerSettingsFeesHeader from "@/components/partner/restaurant/settings/fees/PartnerSettingsFeesHeader";
 import PartnerRestaurantSettingsFeesProvider from "@/contexts/PartnerRestaurantSettingsFeesProvider";
 import {
-  TPartnerRestaurantSettingsFormSchema,
-  partnerRestaurantSettingsFormSchema,
+  TPartnerRestaurantSettingsFeesFormSchema,
+  partnerRestaurantSettingsFeesFormSchema,
 } from "@/validations/partner-restaurant-settings-validations";
 
 export default function PartnerRestaurantSettingsFeesPage() {
@@ -18,7 +18,7 @@ export default function PartnerRestaurantSettingsFeesPage() {
   }, []);
 
   const methods = useForm({
-    resolver: zodResolver(partnerRestaurantSettingsFormSchema),
+    resolver: zodResolver(partnerRestaurantSettingsFeesFormSchema),
     defaultValues: {
       delivery_fee: "",
       delivery_time_min: "",
@@ -30,7 +30,7 @@ export default function PartnerRestaurantSettingsFeesPage() {
 
   const { handleSubmit } = methods;
 
-  async function onSubmit(data: TPartnerRestaurantSettingsFormSchema) {
+  async function onSubmit(data: TPartnerRestaurantSettingsFeesFormSchema) {
     console.log(data);
   }
 

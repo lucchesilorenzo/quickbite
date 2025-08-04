@@ -3,7 +3,7 @@ import { Controller, useFormContext } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/usePartnerRestaurantSettingsFees";
-import { TPartnerRestaurantSettingsFormSchema } from "@/validations/partner-restaurant-settings-validations";
+import { TPartnerRestaurantSettingsFeesFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
 export default function PartnerSettingsFeesFormDeliverySection() {
   const { editMode } = usePartnerRestaurantSettingsFees();
@@ -11,7 +11,7 @@ export default function PartnerSettingsFeesFormDeliverySection() {
   const {
     control,
     formState: { errors },
-  } = useFormContext<TPartnerRestaurantSettingsFormSchema>();
+  } = useFormContext<TPartnerRestaurantSettingsFeesFormSchema>();
 
   return (
     <Stack spacing={2}>

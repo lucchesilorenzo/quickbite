@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const partnerRestaurantSettingsFormSchema = z.object({
+const partnerRestaurantSettingsFeesFormDeliverySectionSchema = z.object({
   delivery_fee: z.coerce.number({
     error: (issue) =>
       issue.input === undefined
@@ -11,18 +11,21 @@ export const partnerRestaurantSettingsFormSchema = z.object({
     .number({
       error: (issue) =>
         issue.input === undefined
-          ? "Delivery time is required."
-          : "Delivery time must be a number.",
+          ? "Minimum delivery time is required."
+          : "Minimum delivery time must be a number.",
     })
-    .positive("Delivery time must be a positive number."),
+    .positive("Minimum delivery time must be a positive number."),
   delivery_time_max: z.coerce
     .number({
       error: (issue) =>
         issue.input === undefined
-          ? "Delivery time is required."
-          : "Delivery time must be a number.",
+          ? "Maximum delivery time is required."
+          : "Maximum delivery time must be a number.",
     })
-    .positive("Delivery time must be a positive number."),
+    .positive("Maximum delivery time must be a positive number."),
+});
+
+const partnerRestaurantSettingsFeesFormDeliveryOtherFeesSchema = z.object({
   service_fee: z.coerce.number({
     error: (issue) =>
       issue.input === undefined
@@ -37,6 +40,17 @@ export const partnerRestaurantSettingsFormSchema = z.object({
   }),
 });
 
-export type TPartnerRestaurantSettingsFormSchema = z.infer<
-  typeof partnerRestaurantSettingsFormSchema
+export const partnerRestaurantSettingsFeesFormSchema = z
+  .object({
+    ...partnerRestaurantSettingsFeesFormDeliverySectionSchema.shape,
+    ...partnerRestaurantSettingsFeesFormDeliveryOtherFeesSchema.shape,
+  })
+  .refine((data) => data.delivery_time_min >= data.delivery_time_max, {
+    message:
+      "Minimum delivery time must be less or equal than delivery time max.",
+    path: ["delivery_time_min"],
+  });
+
+export type TPartnerRestaurantSettingsFeesFormSchema = z.infer<
+  typeof partnerRestaurantSettingsFeesFormSchema
 >;
