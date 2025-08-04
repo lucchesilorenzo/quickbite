@@ -3,6 +3,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Box, Button, Stack, Typography } from "@mui/material";
 
+import PartnerBackButton from "../../common/PartnerBackButton";
+
 import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/usePartnerRestaurantSettingsFees";
 
 export default function PartnerSettingsFeesHeader() {
@@ -21,7 +23,9 @@ export default function PartnerSettingsFeesHeader() {
       sx={{ justifyContent: "space-between", alignItems: "center" }}
     >
       <Box>
-        <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+        <PartnerBackButton />
+
+        <Typography variant="h5" sx={{ fontWeight: 600, my: 1 }}>
           Fees
         </Typography>
 
