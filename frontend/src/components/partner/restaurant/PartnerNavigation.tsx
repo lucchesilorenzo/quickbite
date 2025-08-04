@@ -7,9 +7,13 @@ export default function PartnerNavigation() {
   const { restaurantId } = useParams();
   const { pathname } = useLocation();
 
+  const activeTabValue = partnerRoutes(restaurantId).find((route) =>
+    pathname.startsWith(route.href),
+  )?.href;
+
   return (
     <Tabs
-      value={pathname}
+      value={activeTabValue}
       variant="scrollable"
       scrollButtons
       allowScrollButtonsMobile
