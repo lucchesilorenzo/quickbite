@@ -45,9 +45,9 @@ export const partnerRestaurantSettingsFeesFormSchema = z
     ...partnerRestaurantSettingsFeesFormDeliverySectionSchema.shape,
     ...partnerRestaurantSettingsFeesFormDeliveryOtherFeesSchema.shape,
   })
-  .refine((data) => data.delivery_time_min >= data.delivery_time_max, {
+  .refine((data) => data.delivery_time_min <= data.delivery_time_max, {
     message:
-      "Minimum delivery time must be less or equal than delivery time max.",
+      "Minimum delivery time must be less or equal than maximum delivery time.",
     path: ["delivery_time_min"],
   });
 
