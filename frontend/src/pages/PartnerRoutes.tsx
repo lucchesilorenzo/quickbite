@@ -6,6 +6,7 @@ import PartnerRestaurantMenuPage from "./private/partner/PartnerRestaurantMenuPa
 import PartnerRestaurantOffersPage from "./private/partner/PartnerRestaurantOffersPage";
 import PartnerRestaurantOrdersPage from "./private/partner/PartnerRestaurantOrdersPage";
 import PartnerRestaurantReviewsPage from "./private/partner/PartnerRestaurantReviewsPage";
+import PartnerRestaurantSettingsFeesPage from "./private/partner/PartnerRestaurantSettingsFeesPage";
 import PartnerRestaurantSettingsPage from "./private/partner/PartnerRestaurantSettingsPage";
 import PartnerRestaurantStatsPage from "./private/partner/PartnerRestaurantStatsPage";
 
@@ -30,7 +31,12 @@ export const PartnerRoutes = [
     >
       <Route index element={<Navigate to="dashboard" replace />} />
       <Route path="dashboard" element={<ParterRestaurantDashboardPage />} />
-      <Route path="settings" element={<PartnerRestaurantSettingsPage />} />
+
+      <Route path="settings">
+        <Route index element={<PartnerRestaurantSettingsPage />} />
+        <Route path="fees" element={<PartnerRestaurantSettingsFeesPage />} />
+      </Route>
+
       <Route path="menu" element={<PartnerRestaurantMenuPage />} />
       <Route path="orders" element={<PartnerRestaurantOrdersPage />} />
       <Route path="offers" element={<PartnerRestaurantOffersPage />} />
