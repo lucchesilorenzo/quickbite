@@ -10,6 +10,7 @@ import PartnerRestaurantSettingsFeesPage from "./private/partner/PartnerRestaura
 import PartnerRestaurantSettingsPage from "./private/partner/PartnerRestaurantSettingsPage";
 import PartnerRestaurantStatsPage from "./private/partner/PartnerRestaurantStatsPage";
 
+import PartnerRestaurantSettingsDeliveryTimesPage from "@/components/partner/restaurant/settings/delivery-times/PartnerRestaurantSettingsDeliveryTimesPage";
 import PartnerLayout from "@/layouts/PartnerLayout";
 import PartnerRestaurantLayout from "@/layouts/PartnerRestaurantLayout";
 import PartnerRestaurantsPage from "@/pages/private/partner/PartnerRestaurantsPage";
@@ -35,6 +36,10 @@ export const PartnerRoutes = [
       <Route path="settings">
         <Route index element={<PartnerRestaurantSettingsPage />} />
         <Route path="fees" element={<PartnerRestaurantSettingsFeesPage />} />
+        <Route
+          path="delivery-times"
+          element={<PartnerRestaurantSettingsDeliveryTimesPage />}
+        />
       </Route>
 
       <Route path="menu" element={<PartnerRestaurantMenuPage />} />

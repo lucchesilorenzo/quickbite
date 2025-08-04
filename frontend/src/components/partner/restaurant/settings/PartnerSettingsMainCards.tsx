@@ -22,7 +22,7 @@ export default function PartnerSettingsMainCards() {
       title: "Delivery times",
       description: "Configure your delivery time slots and availability",
       icon: WatchLaterOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/settings/delivery-time`,
+      href: `/partner/restaurants/${restaurant.id}/settings/delivery-times`,
     },
     {
       title: "Promotions",
