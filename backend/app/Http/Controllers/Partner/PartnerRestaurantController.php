@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
@@ -124,6 +125,43 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update restaurant status.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Update a partner's restaurant fees.
+     */
+    public function updateRestaurantFees(
+        Restaurant $restaurant,
+        UpdateRestaurantFeesRequest $request
+    ): JsonResponse {
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            $user = auth()->user();
+
+            $restaurant = $user->restaurants()
+                ->where('id', $restaurant->id)
+                ->first();
+
+            if (! $restaurant) {
+                return response()->json([
+                    'message' => 'No restaurant found.',
+                ], 404);
+            }
+
+            $restaurant->update($data);
+
+            return response()->json([
+                'message' => 'Restaurant fees updated successfully.',
+                'restaurant' => $restaurant,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not update restaurant fees.',
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
