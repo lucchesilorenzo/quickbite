@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
@@ -6,6 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import PartnerSettingsFeesFormCard from "@/components/partner/restaurant/settings/fees/PartnerSettingsFeesFormCard";
 import PartnerSettingsFeesHeader from "@/components/partner/restaurant/settings/fees/PartnerSettingsFeesHeader";
+import PartnerRestaurantSettingsFeesProvider from "@/contexts/PartnerRestaurantSettingsFeesProvider";
 import {
   TPartnerRestaurantSettingsFormSchema,
   partnerRestaurantSettingsFormSchema,
@@ -29,29 +30,25 @@ export default function PartnerRestaurantSettingsFeesPage() {
 
   const { handleSubmit } = methods;
 
-  const [editMode, setEditMode] = useState(false);
-
   async function onSubmit(data: TPartnerRestaurantSettingsFormSchema) {
     console.log(data);
   }
 
   return (
     <FormProvider {...methods}>
-      <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          autoComplete="off"
-          noValidate
-        >
-          <PartnerSettingsFeesHeader
-            editMode={editMode}
-            setEditMode={setEditMode}
-          />
-
-          <PartnerSettingsFeesFormCard editMode={editMode} />
-        </Box>
-      </Container>
+      <PartnerRestaurantSettingsFeesProvider>
+        <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
+            noValidate
+          >
+            <PartnerSettingsFeesHeader />
+            <PartnerSettingsFeesFormCard />
+          </Box>
+        </Container>
+      </PartnerRestaurantSettingsFeesProvider>
     </FormProvider>
   );
 }

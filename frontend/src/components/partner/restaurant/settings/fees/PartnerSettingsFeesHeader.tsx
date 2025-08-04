@@ -3,15 +3,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Box, Button, Stack, Typography } from "@mui/material";
 
-type PartnerSettingsFeesHeaderProps = {
-  editMode: boolean;
-  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/usePartnerRestaurantSettingsFees";
 
-export default function PartnerSettingsFeesHeader({
-  editMode,
-  setEditMode,
-}: PartnerSettingsFeesHeaderProps) {
+export default function PartnerSettingsFeesHeader() {
+  const { editMode, setEditMode } = usePartnerRestaurantSettingsFees();
+
   function handleEditMode(e: React.MouseEvent<HTMLButtonElement>) {
     if (!editMode) {
       e.preventDefault();
