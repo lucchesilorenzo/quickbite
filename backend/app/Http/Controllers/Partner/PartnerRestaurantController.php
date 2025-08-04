@@ -161,7 +161,6 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update restaurant fees.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }

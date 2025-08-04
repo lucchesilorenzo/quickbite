@@ -7,6 +7,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import PartnerSettingsFeesFormCard from "@/components/partner/restaurant/settings/fees/PartnerSettingsFeesFormCard";
 import PartnerSettingsFeesHeader from "@/components/partner/restaurant/settings/fees/PartnerSettingsFeesHeader";
 import PartnerRestaurantSettingsFeesProvider from "@/contexts/PartnerRestaurantSettingsFeesProvider";
+import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantSettingsFees";
 import {
   TPartnerRestaurantSettingsFeesFormSchema,
   partnerRestaurantSettingsFeesFormSchema,
@@ -17,21 +19,26 @@ export default function PartnerRestaurantSettingsFeesPage() {
     document.title = "Fees | QuickBite";
   }, []);
 
+  const { restaurant } = usePartnerRestaurant();
+
+  const { mutateAsync: updatePartnerRestaurantSettingsFees } =
+    useUpdatePartnerRestaurantSettingsFees(restaurant.id);
+
   const methods = useForm({
     resolver: zodResolver(partnerRestaurantSettingsFeesFormSchema),
     defaultValues: {
-      delivery_fee: "",
-      delivery_time_min: "",
-      delivery_time_max: "",
-      service_fee: "",
-      min_amount: "",
+      delivery_fee: restaurant.delivery_fee || "",
+      delivery_time_min: restaurant.delivery_time_min || "",
+      delivery_time_max: restaurant.delivery_time_max || "",
+      service_fee: restaurant.service_fee || "",
+      min_amount: restaurant.min_amount || "",
     },
   });
 
   const { handleSubmit } = methods;
 
   async function onSubmit(data: TPartnerRestaurantSettingsFeesFormSchema) {
-    console.log(data);
+    await updatePartnerRestaurantSettingsFees(data);
   }
 
   return (
