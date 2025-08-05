@@ -6,6 +6,7 @@ import PartnerRestaurantMenuPage from "./private/partner/PartnerRestaurantMenuPa
 import PartnerRestaurantOffersPage from "./private/partner/PartnerRestaurantOffersPage";
 import PartnerRestaurantOrdersPage from "./private/partner/PartnerRestaurantOrdersPage";
 import PartnerRestaurantReviewsPage from "./private/partner/PartnerRestaurantReviewsPage";
+import PartnerRestaurantSettingsDeliveryTimesEditPage from "./private/partner/PartnerRestaurantSettingsDeliveryTimesEditPage";
 import PartnerRestaurantSettingsFeesPage from "./private/partner/PartnerRestaurantSettingsFeesPage";
 import PartnerRestaurantSettingsPage from "./private/partner/PartnerRestaurantSettingsPage";
 import PartnerRestaurantStatsPage from "./private/partner/PartnerRestaurantStatsPage";
@@ -36,10 +37,17 @@ export const PartnerRoutes = [
       <Route path="settings">
         <Route index element={<PartnerRestaurantSettingsPage />} />
         <Route path="fees" element={<PartnerRestaurantSettingsFeesPage />} />
-        <Route
-          path="delivery-times"
-          element={<PartnerRestaurantSettingsDeliveryTimesPage />}
-        />
+
+        <Route path="delivery-times">
+          <Route
+            index
+            element={<PartnerRestaurantSettingsDeliveryTimesPage />}
+          />
+          <Route
+            path="edit"
+            element={<PartnerRestaurantSettingsDeliveryTimesEditPage />}
+          />
+        </Route>
       </Route>
 
       <Route path="menu" element={<PartnerRestaurantMenuPage />} />

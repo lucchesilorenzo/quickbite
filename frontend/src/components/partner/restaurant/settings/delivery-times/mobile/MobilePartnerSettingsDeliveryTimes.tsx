@@ -12,7 +12,7 @@ export default function MobilePartnerSettingsDeliveryTimes() {
     <>
       <Button
         component={Link}
-        to={`/restaurants/${restaurant.id}/settings/delivery-times/edit`}
+        to={`/partner/restaurants/${restaurant.id}/settings/delivery-times/edit`}
         variant="contained"
         startIcon={<EditIcon />}
         sx={{ alignSelf: "flex-start", mb: 4 }}
