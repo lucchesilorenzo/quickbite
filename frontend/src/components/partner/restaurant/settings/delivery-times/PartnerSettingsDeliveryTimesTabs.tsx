@@ -30,7 +30,7 @@ export default function PartnerSettingsDeliveryTimesTabs() {
         <Tab label="Delivery" value="delivery" />
       </TabList>
 
-      <TabPanel value="delivery">
+      <TabPanel value="delivery" sx={{ px: 0 }}>
         <PartnerSettingsDeliveryTimesTab />
       </TabPanel>
     </TabContext>
