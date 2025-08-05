@@ -35,11 +35,7 @@ export default function PartnerSettingsDeliveryTimes() {
                 variant="body1"
                 color="text"
                 component="div"
-                sx={{
-                  fontWeight: 300,
-                  minWidth: 400,
-                  textAlign: "center",
-                }}
+                sx={{ fontWeight: 300, minWidth: 400, textAlign: "center" }}
               >
                 {formattedStart && formattedEnd
                   ? `${formattedStart} - ${formattedEnd}`
