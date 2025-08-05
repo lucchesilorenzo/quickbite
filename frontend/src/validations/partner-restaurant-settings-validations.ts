@@ -51,6 +51,42 @@ export const partnerRestaurantSettingsFeesFormSchema = z
     path: ["delivery_time_min"],
   });
 
+export const partnerRestaurantSettingsDeliveryTimesFormSchema = z.object({
+  delivery_days: z.array(
+    z
+      .object({
+        day: z.string(),
+        start_time: z.date().nullable(),
+        end_time: z.date().nullable(),
+        enabled: z.boolean(),
+      })
+      .refine(
+        (data) =>
+          (data.enabled && data.start_time && data.end_time) ||
+          (!data.enabled && !data.start_time && !data.end_time),
+        {
+          message:
+            "Start time and end time must be provided if delivery is enabled.",
+          path: ["start_time"],
+        },
+      )
+      .refine(
+        (data) =>
+          data.start_time === null ||
+          data.end_time === null ||
+          data.start_time < data.end_time,
+        {
+          message: "Start time must be before end time.",
+          path: ["start_time"],
+        },
+      ),
+  ),
+});
+
 export type TPartnerRestaurantSettingsFeesFormSchema = z.infer<
   typeof partnerRestaurantSettingsFeesFormSchema
+>;
+
+export type TPartnerRestaurantSettingsDeliveryTimesFormSchema = z.infer<
+  typeof partnerRestaurantSettingsDeliveryTimesFormSchema
 >;
