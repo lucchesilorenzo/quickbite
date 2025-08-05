@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { capitalize } from "@/lib/utils";
 
-export default function PartnerSettingsDeliveryTimes() {
+export default function PartnerSettingsDeliveryTimesTab() {
   const { restaurant } = usePartnerRestaurant();
 
   return (

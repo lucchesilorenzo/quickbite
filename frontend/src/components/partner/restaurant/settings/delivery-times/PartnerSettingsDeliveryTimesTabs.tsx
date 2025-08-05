@@ -5,7 +5,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Tab } from "@mui/material";
 
-import PartnerSettingsDeliveryTimes from "./PartnerSettingsDeliveryTimes";
+import PartnerSettingsDeliveryTimesTab from "./PartnerSettingsDeliveryTimesTab";
 
 export default function PartnerSettingsDeliveryTimesTabs() {
   const [tabToOpen, setTabToOpen] = useState("delivery");
@@ -31,7 +31,7 @@ export default function PartnerSettingsDeliveryTimesTabs() {
       </TabList>
 
       <TabPanel value="delivery">
-        <PartnerSettingsDeliveryTimes />
+        <PartnerSettingsDeliveryTimesTab />
       </TabPanel>
     </TabContext>
   );

@@ -5,9 +5,9 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Tab } from "@mui/material";
 
-import MobilePartnerSettingsDeliveryTimesTab from "./MobilePartnerSettingsDeliveryTimes";
+import PartnerSettingsDeliveryTimesEditTab from "./PartnerSettingsDeliveryTimesEditTab";
 
-export default function MobilePartnerSettingsDeliveryTimesTabs() {
+export default function PartnerSettingsDeliveryTimesEditTabs() {
   const [tabToOpen, setTabToOpen] = useState("delivery");
 
   function handleChange(_e: React.SyntheticEvent, newValue: "delivery") {
@@ -30,8 +30,8 @@ export default function MobilePartnerSettingsDeliveryTimesTabs() {
         <Tab label="Delivery" value="delivery" />
       </TabList>
 
-      <TabPanel value="delivery" sx={{ px: 0 }}>
-        <MobilePartnerSettingsDeliveryTimesTab />
+      <TabPanel value="delivery">
+        <PartnerSettingsDeliveryTimesEditTab />
       </TabPanel>
     </TabContext>
   );

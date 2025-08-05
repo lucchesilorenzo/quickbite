@@ -11,9 +11,9 @@ import PartnerRestaurantSettingsFeesPage from "./private/partner/PartnerRestaura
 import PartnerRestaurantSettingsPage from "./private/partner/PartnerRestaurantSettingsPage";
 import PartnerRestaurantStatsPage from "./private/partner/PartnerRestaurantStatsPage";
 
-import PartnerRestaurantSettingsDeliveryTimesPage from "@/components/partner/restaurant/settings/delivery-times/PartnerRestaurantSettingsDeliveryTimesPage";
 import PartnerLayout from "@/layouts/PartnerLayout";
 import PartnerRestaurantLayout from "@/layouts/PartnerRestaurantLayout";
+import PartnerRestaurantSettingsDeliveryTimesPage from "@/pages/private/partner/PartnerRestaurantSettingsDeliveryTimesPage";
 import PartnerRestaurantsPage from "@/pages/private/partner/PartnerRestaurantsPage";
 import { Role } from "@/types";
 

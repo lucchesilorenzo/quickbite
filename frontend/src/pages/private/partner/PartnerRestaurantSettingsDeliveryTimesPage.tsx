@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import DesktopSettingsDeliveryTimesLayout from "./layouts/DesktopSettingsDeliveryTimesLayout";
-import MobileSettingsDeliveryTimesLayout from "./layouts/MobileSettingsDeliveryTimesLayout";
+import DesktopSettingsDeliveryTimesLayout from "@/components/partner/restaurant/settings/delivery-times/layouts/DesktopSettingsDeliveryTimesLayout";
+import MobileSettingsDeliveryTimesLayout from "@/components/partner/restaurant/settings/delivery-times/layouts/MobileSettingsDeliveryTimesLayout";
 
 export default function PartnerRestaurantSettingsDeliveryTimesPage() {
   useEffect(() => {

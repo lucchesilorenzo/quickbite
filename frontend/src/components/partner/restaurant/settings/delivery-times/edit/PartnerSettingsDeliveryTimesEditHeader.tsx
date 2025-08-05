@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import PartnerBackButton from "@/components/partner/restaurant/common/PartnerBackButton";
 
-export default function PartnerRestaurantSettingsDeliveryTimeEditHeader() {
+export default function PartnerSettingsDeliveryTimesEditHeader() {
   return (
     <Stack
       direction="row"
