@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 
 import PartnerSettingsDeliveryTimesHeader from "../PartnerSettingsDeliveryTimesHeader";
+import PartnerSettingsDeliveryTimesTabs from "../PartnerSettingsDeliveryTimesTabs";
 
 export default function DesktopSettingsDeliveryTimesLayout() {
   return (
@@ -10,6 +11,7 @@ export default function DesktopSettingsDeliveryTimesLayout() {
       sx={{ mt: 4, display: { xs: "none", md: "block" } }}
     >
       <PartnerSettingsDeliveryTimesHeader />
+      <PartnerSettingsDeliveryTimesTabs />
     </Container>
   );
 }
