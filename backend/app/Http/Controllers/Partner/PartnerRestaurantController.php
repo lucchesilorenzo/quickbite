@@ -24,7 +24,9 @@ class PartnerRestaurantController extends Controller
 
             $restaurants = $user->restaurants()->with([
                 'categories',
-                'deliveryDays',
+                'deliveryDays' => function ($query) {
+                    $query->orderBy('order', 'asc');
+                },
                 'offers' => function ($query) {
                     $query->orderBy('discount_rate', 'asc');
                 },
@@ -64,7 +66,9 @@ class PartnerRestaurantController extends Controller
                 ->where('id', $restaurant->id)
                 ->with([
                     'categories',
-                    'deliveryDays',
+                    'deliveryDays' => function ($query) {
+                        $query->orderBy('order', 'asc');
+                    },
                     'offers' => function ($query) {
                         $query->orderBy('discount_rate', 'asc');
                     },

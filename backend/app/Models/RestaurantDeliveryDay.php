@@ -18,6 +18,7 @@ class RestaurantDeliveryDay extends Model
         'day',
         'start_time',
         'end_time',
+        'order',
     ];
 
     /**

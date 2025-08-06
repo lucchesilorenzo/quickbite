@@ -45,7 +45,9 @@ class RestaurantController extends Controller
                 ->orderByRaw("{$haversine} ASC", [$lat, $lon, $lat])
                 ->with([
                     'categories',
-                    'deliveryDays',
+                    'deliveryDays' => function ($query) {
+                        $query->orderBy('order', 'asc');
+                    },
                     'offers' => function ($query) {
                         $query->orderBy('discount_rate', 'asc');
                     },
@@ -76,7 +78,9 @@ class RestaurantController extends Controller
             // Get restaurant
             $restaurant = Restaurant::with([
                 'categories',
-                'deliveryDays',
+                'deliveryDays' => function ($query) {
+                    $query->orderBy('order', 'asc');
+                },
                 'offers' => function ($query) {
                     $query->orderBy('discount_rate', 'asc');
                 },

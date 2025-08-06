@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('day', DeliveryDay::values());
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
+            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }
