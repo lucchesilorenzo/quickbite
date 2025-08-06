@@ -9,11 +9,13 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { format } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { useUpdatePartnerRestaurantSettingsDeliveryTimes } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantSettingsDeliveryTimes";
 import { capitalize } from "@/lib/utils";
 import {
   TPartnerRestaurantSettingsDeliveryTimesFormSchema,
@@ -22,6 +24,9 @@ import {
 
 export default function PartnerSettingsDeliveryTimesEditTab() {
   const { restaurant } = usePartnerRestaurant();
+
+  const { mutateAsync: updatePartnerRestaurantSettingsDeliveryTimes } =
+    useUpdatePartnerRestaurantSettingsDeliveryTimes(restaurant.id);
 
   const {
     handleSubmit,
@@ -62,7 +67,15 @@ export default function PartnerSettingsDeliveryTimesEditTab() {
   async function onSubmit(
     data: TPartnerRestaurantSettingsDeliveryTimesFormSchema,
   ) {
-    console.log(data);
+    const normalized = {
+      delivery_days: data.delivery_days.map((d) => ({
+        day: d.day,
+        start_time: d.start_time ? format(d.start_time, "HH:mm") : null,
+        end_time: d.end_time ? format(d.end_time, "HH:mm") : null,
+      })),
+    };
+
+    await updatePartnerRestaurantSettingsDeliveryTimes(normalized);
   }
 
   return (
