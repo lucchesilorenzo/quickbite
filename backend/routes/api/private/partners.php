@@ -18,5 +18,6 @@ Route::prefix('partner')->group(function () {
         Route::get('/{restaurant}', [PartnerRestaurantController::class, 'getRestaurant']);
         Route::patch('/{restaurant}/status', [PartnerRestaurantController::class, 'updateRestaurantStatus']);
         Route::patch('/{restaurant}/settings/fees', [PartnerRestaurantController::class, 'updateRestaurantFees']);
+        Route::patch('/{restaurant}/settings/delivery-times', [PartnerRestaurantController::class, 'updateRestaurantDeliveryTimes']);
     });
 });
