@@ -4,6 +4,7 @@ import PlusIcon from "@mui/icons-material/Add";
 import { Box, Button } from "@mui/material";
 
 import PartnerSettingsPromotionsAddPromotionDialog from "./PartnerSettingsPromotionsAddPromotionDialog";
+import PartnerSettingsPromotionsOffersList from "./PartnerSettingsPromotionsOffersList";
 
 export default function PartnerSettingsPromotionsWrapper() {
   const [openAddPromotionDialog, setOpenAddPromotionDialog] = useState(false);
@@ -18,6 +19,8 @@ export default function PartnerSettingsPromotionsWrapper() {
       >
         Add promotion
       </Button>
+
+      <PartnerSettingsPromotionsOffersList />
 
       <PartnerSettingsPromotionsAddPromotionDialog
         openAddPromotionDialog={openAddPromotionDialog}
