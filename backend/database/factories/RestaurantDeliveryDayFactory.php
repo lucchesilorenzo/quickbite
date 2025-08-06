@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\DeliveryDay;
 use App\Models\Restaurant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -22,7 +23,7 @@ class RestaurantDeliveryDayFactory extends Factory
     {
         return [
             'restaurant_id' => Restaurant::inRandomOrder()->first()->id,
-            'day' => fake()->randomElement(['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']),
+            'day' => fake()->randomElement(DeliveryDay::values()),
             'start_time' => fake()->time('H:i'),
             'end_time' => fake()->time('H:i'),
         ];
@@ -34,13 +35,13 @@ class RestaurantDeliveryDayFactory extends Factory
     public function fullWeek(): self
     {
         return $this->state(new Sequence(
-            ['day' => 'MONDAY', 'start_time' => '10:00:00', 'end_time' => '22:00:00'],
-            ['day' => 'TUESDAY', 'start_time' => '10:00:00', 'end_time' => '22:00:00'],
-            ['day' => 'WEDNESDAY', 'start_time' => '10:00:00', 'end_time' => '22:00:00'],
-            ['day' => 'THURSDAY', 'start_time' => '10:00:00', 'end_time' => '22:00:00'],
-            ['day' => 'FRIDAY', 'start_time' => '10:00:00', 'end_time' => '23:00:00'],
-            ['day' => 'SATURDAY', 'start_time' => '10:00:00', 'end_time' => '23:00:00'],
-            ['day' => 'SUNDAY', 'start_time' => null, 'end_time' => null],
+            ['day' => DeliveryDay::MONDAY, 'start_time' => '10:00:00', 'end_time' => '22:00:00'],
+            ['day' => DeliveryDay::TUESDAY, 'start_time' => '10:00:00', 'end_time' => '22:00:00'],
+            ['day' => DeliveryDay::WEDNESDAY, 'start_time' => '10:00:00', 'end_time' => '22:00:00'],
+            ['day' => DeliveryDay::THURSDAY, 'start_time' => '10:00:00', 'end_time' => '22:00:00'],
+            ['day' => DeliveryDay::FRIDAY, 'start_time' => '10:00:00', 'end_time' => '23:00:00'],
+            ['day' => DeliveryDay::SATURDAY, 'start_time' => '10:00:00', 'end_time' => '23:00:00'],
+            ['day' => DeliveryDay::SUNDAY, 'start_time' => null, 'end_time' => null],
         ));
     }
 }
