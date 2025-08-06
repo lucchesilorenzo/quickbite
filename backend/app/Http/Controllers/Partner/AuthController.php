@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Partner;
 
+use App\Enums\DeliveryDay;
 use App\Enums\RestaurantRole;
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
@@ -51,6 +52,7 @@ class AuthController extends Controller
                     throw new Exception('Location not found.');
                 }
 
+                // Create restaurant
                 $restaurant = Restaurant::create([
                     'name' => $data['business_name'],
                     'slug' => Str::slug($data['business_name'] . '-' . Str::orderedUuid()),
@@ -63,6 +65,19 @@ class AuthController extends Controller
                     'latitude' => $locationData['lat'],
                     'longitude' => $locationData['lon'],
                 ]);
+
+                // Populate delivery days
+                $deliveryDays = collect(DeliveryDay::values())->map(function ($day, $i) {
+                    return [
+                        'day' => $day,
+                        'start_time' => null,
+                        'end_time' => null,
+                        'order' => $i,
+                    ];
+                });
+
+                // Create delivery days
+                $restaurant->deliveryDays()->createMany($deliveryDays);
 
                 $partner->restaurants()->attach($restaurant->id, [
                     'role' => RestaurantRole::OWNER,
