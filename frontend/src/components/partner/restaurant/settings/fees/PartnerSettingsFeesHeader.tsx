@@ -2,13 +2,19 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Box, Button, Stack, Typography } from "@mui/material";
+import { useFormContext } from "react-hook-form";
 
 import PartnerBackButton from "../../common/PartnerBackButton";
 
 import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/usePartnerRestaurantSettingsFees";
+import { TPartnerRestaurantSettingsFeesFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
 export default function PartnerSettingsFeesHeader() {
   const { editMode, setEditMode } = usePartnerRestaurantSettingsFees();
+
+  const {
+    formState: { isSubmitting },
+  } = useFormContext<TPartnerRestaurantSettingsFeesFormSchema>();
 
   function handleEditMode(e: React.MouseEvent<HTMLButtonElement>) {
     if (!editMode) {
@@ -46,8 +52,11 @@ export default function PartnerSettingsFeesHeader() {
         )}
 
         <Button
-          variant="contained"
           type={editMode ? "submit" : "button"}
+          variant="contained"
+          disabled={isSubmitting}
+          loading={isSubmitting}
+          loadingIndicator="Saving..."
           startIcon={editMode ? <Save /> : <EditIcon />}
           onClick={handleEditMode}
         >
