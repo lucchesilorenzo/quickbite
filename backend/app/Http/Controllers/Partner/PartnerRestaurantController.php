@@ -8,8 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
+use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
+use App\Models\RestaurantOffer;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -259,6 +261,54 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update restaurant delivery times.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Update a partner's restaurant offer.
+     */
+    public function updateRestaurantOffer(
+        Restaurant $restaurant,
+        RestaurantOffer $offer,
+        UpdateRestaurantOfferRequest $request
+    ): JsonResponse {
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            $user = auth()->user();
+
+            $restaurant = $user->restaurants()
+                ->where('id', $restaurant->id)
+                ->first();
+
+            if (! $restaurant) {
+                return response()->json([
+                    'message' => 'No restaurant found.',
+                ], 404);
+            }
+
+            // Check if offer already exists
+            $doesOfferExist = $restaurant->offers()
+                ->where('discount_rate', $data['discount_rate'])
+                ->exists();
+
+            if ($doesOfferExist) {
+                return response()->json([
+                    'message' => 'An offer with the same discount rate already exists.',
+                ], 422);
+            }
+
+            $offer->update($data);
+
+            return response()->json([
+                'message' => 'Offer updated successfully.',
+                'offer' => $offer,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not update offer.',
             ], 500);
         }
     }
