@@ -1,5 +1,7 @@
 import z from "zod";
 
+import { discountRates } from "@/lib/data";
+
 const partnerRestaurantSettingsFeesFormDeliverySectionSchema = z.object({
   delivery_fee: z.coerce.number({
     error: (issue) =>
@@ -83,10 +85,43 @@ export const partnerRestaurantSettingsDeliveryTimesFormSchema = z.object({
   ),
 });
 
+export function partnerRestaurantSettingsPromotionsFormSchema(
+  minAmount: number,
+) {
+  return z
+    .object({
+      discount_rate: z.union([
+        z.literal(""),
+        ...discountRates.map((rate) => z.literal(rate.value)),
+      ]),
+      min_discount_amount: z.coerce
+        .number({
+          error: (issue) =>
+            issue.input === undefined
+              ? "Minimum discount amount is required."
+              : "Minimum discount amount must be a number.",
+        })
+        .positive("Minimum discount amount must be a positive number."),
+    })
+    .refine((data) => data.discount_rate, {
+      message: "Discount rate is required.",
+      path: ["discount_rate"],
+    })
+    .refine((data) => data.min_discount_amount >= minAmount, {
+      message:
+        "Minimum discount amount must be greater or equal than the minimum order amount.",
+      path: ["min_discount_amount"],
+    });
+}
+
 export type TPartnerRestaurantSettingsFeesFormSchema = z.infer<
   typeof partnerRestaurantSettingsFeesFormSchema
 >;
 
 export type TPartnerRestaurantSettingsDeliveryTimesFormSchema = z.infer<
   typeof partnerRestaurantSettingsDeliveryTimesFormSchema
+>;
+
+export type TPartnerRestaurantSettingsPromotionsFormSchema = z.infer<
+  ReturnType<typeof partnerRestaurantSettingsPromotionsFormSchema>
 >;
