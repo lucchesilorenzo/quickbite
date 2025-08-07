@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
@@ -92,6 +93,54 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Create a partner's restaurant offer.
+     */
+    public function createRestaurantOffer(
+        Restaurant $restaurant,
+        CreateRestaurantOfferRequest $request,
+    ) {
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            $user = auth()->user();
+
+            $restaurant = $user->restaurants()
+                ->where('id', $restaurant->id)
+                ->first();
+
+            if (! $restaurant) {
+                return response()->json([
+                    'message' => 'No restaurant found.',
+                ], 404);
+            }
+
+            // Check if offer already exists
+            $doesOfferExist = $restaurant->offers()
+                ->where('discount_rate', $data['discount_rate'])
+                ->exists();
+
+            if ($doesOfferExist) {
+                return response()->json([
+                    'message' => 'An offer with the same discount rate already exists.',
+                ], 422);
+            }
+
+            // Create offer
+            $offer = $restaurant->offers()->create($data);
+
+            return response()->json([
+                'message' => 'Offer created successfully.',
+                'offer' => $offer,
+            ], 201);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not create offer.',
             ], 500);
         }
     }

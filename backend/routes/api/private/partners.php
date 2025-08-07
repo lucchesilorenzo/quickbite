@@ -16,6 +16,9 @@ Route::prefix('partner')->group(function () {
     Route::prefix('restaurants')->middleware(['auth:sanctum', 'role:partner'])->group(function () {
         Route::get('/', [PartnerRestaurantController::class, 'getRestaurants']);
         Route::get('/{restaurant}', [PartnerRestaurantController::class, 'getRestaurant']);
+
+        Route::post('/{restaurant}/offers', [PartnerRestaurantController::class, 'createRestaurantOffer']);
+
         Route::patch('/{restaurant}/status', [PartnerRestaurantController::class, 'updateRestaurantStatus']);
         Route::patch('/{restaurant}/settings/fees', [PartnerRestaurantController::class, 'updateRestaurantFees']);
         Route::patch('/{restaurant}/settings/delivery-times', [PartnerRestaurantController::class, 'updateRestaurantDeliveryTimes']);
