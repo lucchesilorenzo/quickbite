@@ -1,29 +1,35 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { postData } from "@/lib/api-client";
+import { updateData } from "@/lib/api-client";
 import { TPartnerRestaurantSettingsOffersFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
-export function useCreatePartnerRestaurantOffer(restaurantId: string) {
+export function useUpdatePartnerRestaurantOffer(
+  restaurantId: string,
+  offerId: string,
+) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
     mutationFn: (data: TPartnerRestaurantSettingsOffersFormSchema) =>
-      postData(`/partner/restaurants/${restaurantId}/offers`, data),
+      updateData(
+        `/partner/restaurants/${restaurantId}/offers/${offerId}`,
+        data,
+      ),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-restaurant", restaurantId],
       });
 
       notifications.show(response.message, {
-        key: "crete-restaurant-offer-success",
+        key: "update-restaurant-offer-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "crete-restaurant-offer-error",
+        key: "update-restaurant-offer-error",
         severity: "error",
       });
     },
