@@ -9,7 +9,6 @@ import PartnerRestaurantReviewsPage from "./private/partner/PartnerRestaurantRev
 import PartnerRestaurantSettingsDeliveryTimesEditPage from "./private/partner/PartnerRestaurantSettingsDeliveryTimesEditPage";
 import PartnerRestaurantSettingsFeesPage from "./private/partner/PartnerRestaurantSettingsFeesPage";
 import PartnerRestaurantSettingsPage from "./private/partner/PartnerRestaurantSettingsPage";
-import PartnerRestaurantSettingsPromotionsPage from "./private/partner/PartnerRestaurantSettingsPromotionsPage";
 import PartnerRestaurantStatsPage from "./private/partner/PartnerRestaurantStatsPage";
 
 import PartnerLayout from "@/layouts/PartnerLayout";
@@ -48,10 +47,6 @@ export const PartnerRoutes = [
             element={<PartnerRestaurantSettingsDeliveryTimesEditPage />}
           />
         </Route>
-        <Route
-          path="promotions"
-          element={<PartnerRestaurantSettingsPromotionsPage />}
-        />
       </Route>
 
       <Route path="menu" element={<PartnerRestaurantMenuPage />} />

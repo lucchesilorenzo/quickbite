@@ -85,9 +85,7 @@ export const partnerRestaurantSettingsDeliveryTimesFormSchema = z.object({
   ),
 });
 
-export function partnerRestaurantSettingsPromotionsFormSchema(
-  minAmount: number,
-) {
+export function partnerRestaurantSettingsOffersFormSchema(minAmount: number) {
   return z
     .object({
       discount_rate: z.union([
@@ -122,6 +120,6 @@ export type TPartnerRestaurantSettingsDeliveryTimesFormSchema = z.infer<
   typeof partnerRestaurantSettingsDeliveryTimesFormSchema
 >;
 
-export type TPartnerRestaurantSettingsPromotionsFormSchema = z.infer<
-  ReturnType<typeof partnerRestaurantSettingsPromotionsFormSchema>
+export type TPartnerRestaurantSettingsOffersFormSchema = z.infer<
+  ReturnType<typeof partnerRestaurantSettingsOffersFormSchema>
 >;

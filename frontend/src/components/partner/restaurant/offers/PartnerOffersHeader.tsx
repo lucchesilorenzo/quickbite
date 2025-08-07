@@ -1,22 +1,18 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import PartnerBackButton from "../../common/PartnerBackButton";
-
-export default function PartnerSettingsPromotionsHeader() {
+export default function PartnerOffersHeader() {
   return (
     <Stack
       direction="row"
       sx={{ justifyContent: "space-between", alignItems: "center" }}
     >
       <Box>
-        <PartnerBackButton />
-
         <Typography variant="h5" sx={{ fontWeight: 600, my: 1 }}>
-          Promotions
+          Offers
         </Typography>
 
         <Typography variant="body2" sx={{ mb: 2 }}>
-          Create and manage your promotions.
+          Create and manage your offers.
         </Typography>
       </Box>
     </Stack>

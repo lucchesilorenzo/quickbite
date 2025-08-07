@@ -1,16 +1,16 @@
 import { Grid, Typography } from "@mui/material";
 
-import PartnerSettingsPromotionsOffersItem from "./PartnerSettingsPromotionsOffersItem";
+import PartnerOffersItem from "./PartnerOffersItem";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 
-export default function PartnerSettingsPromotionsOffersList() {
+export default function PartnerOffersList() {
   const { restaurant } = usePartnerRestaurant();
 
   if (!restaurant.offers.length) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center" }}>
-        Start adding your promotions here.
+        Start adding your offers here.
       </Typography>
     );
   }
@@ -19,7 +19,7 @@ export default function PartnerSettingsPromotionsOffersList() {
     <Grid container spacing={2} sx={{ mb: 2 }}>
       {restaurant.offers.map((offer) => (
         <Grid key={offer.id} size={6}>
-          <PartnerSettingsPromotionsOffersItem offer={offer} />
+          <PartnerOffersItem offer={offer} />
         </Grid>
       ))}
     </Grid>

@@ -1,4 +1,3 @@
-import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
@@ -23,12 +22,6 @@ export default function PartnerSettingsMainCards() {
       description: "Configure your delivery time slots and availability",
       icon: WatchLaterOutlinedIcon,
       href: `/partner/restaurants/${restaurant.id}/settings/delivery-times`,
-    },
-    {
-      title: "Promotions",
-      description: "Create and manage your active offers",
-      icon: LocalOfferOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/settings/promotions`,
     },
     {
       title: "Restaurant profile",

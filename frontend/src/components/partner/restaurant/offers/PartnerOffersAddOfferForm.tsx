@@ -15,17 +15,17 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { discountRates } from "@/lib/data";
 import {
-  TPartnerRestaurantSettingsPromotionsFormSchema,
-  partnerRestaurantSettingsPromotionsFormSchema,
+  TPartnerRestaurantSettingsOffersFormSchema,
+  partnerRestaurantSettingsOffersFormSchema,
 } from "@/validations/partner-restaurant-settings-validations";
 
-type PartnerSettingsPromotionsAddPromotionFormProps = {
-  setOpenAddPromotionDialog: React.Dispatch<React.SetStateAction<boolean>>;
+type PartnerOffersAddOfferFormProps = {
+  setOpenAddOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function PartnerSettingsPromotionsAddPromotionForm({
-  setOpenAddPromotionDialog,
-}: PartnerSettingsPromotionsAddPromotionFormProps) {
+export default function PartnerOffersAddOfferForm({
+  setOpenAddOfferDialog,
+}: PartnerOffersAddOfferFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
   const {
@@ -34,7 +34,7 @@ export default function PartnerSettingsPromotionsAddPromotionForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      partnerRestaurantSettingsPromotionsFormSchema(restaurant.min_amount),
+      partnerRestaurantSettingsOffersFormSchema(restaurant.min_amount),
     ),
     defaultValues: {
       discount_rate: "",
@@ -42,12 +42,10 @@ export default function PartnerSettingsPromotionsAddPromotionForm({
     },
   });
 
-  async function onSubmit(
-    data: TPartnerRestaurantSettingsPromotionsFormSchema,
-  ) {
+  async function onSubmit(data: TPartnerRestaurantSettingsOffersFormSchema) {
     console.log(data);
 
-    setOpenAddPromotionDialog(false);
+    setOpenAddOfferDialog(false);
   }
 
   return (
@@ -114,7 +112,7 @@ export default function PartnerSettingsPromotionsAddPromotionForm({
         loadingIndicator="Adding..."
         variant="contained"
       >
-        Add promotion
+        Add offer
       </Button>
     </Stack>
   );

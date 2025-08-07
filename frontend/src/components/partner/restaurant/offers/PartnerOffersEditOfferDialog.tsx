@@ -7,32 +7,30 @@ import {
   Stack,
 } from "@mui/material";
 
-type PartnerSettingsPromotionsEditPromotionDialogProps = {
-  openEditPromotionDialog: boolean;
-  setOpenEditPromotionDialog: React.Dispatch<React.SetStateAction<boolean>>;
+type PartnerOffersEditOfferDialogProps = {
+  openEditOfferDialog: boolean;
+  setOpenEditOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function PartnerSettingsPromotionsEditPromotionDialog({
-  openEditPromotionDialog,
-  setOpenEditPromotionDialog,
-}: PartnerSettingsPromotionsEditPromotionDialogProps) {
+export default function PartnerOffersEditOfferDialog({
+  openEditOfferDialog,
+  setOpenEditOfferDialog,
+}: PartnerOffersEditOfferDialogProps) {
   return (
     <Dialog
-      open={openEditPromotionDialog}
-      onClose={() => setOpenEditPromotionDialog(false)}
+      open={openEditOfferDialog}
+      onClose={() => setOpenEditOfferDialog(false)}
       fullWidth
       disableRestoreFocus
     >
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
-          <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
-            Edit promotion
-          </DialogTitle>
+          <DialogTitle sx={{ p: 0, fontWeight: 700 }}>Edit offer</DialogTitle>
 
           <IconButton
             color="inherit"
             aria-label="close"
-            onClick={() => setOpenEditPromotionDialog(false)}
+            onClick={() => setOpenEditOfferDialog(false)}
             sx={{ p: 0 }}
           >
             <CloseIcon />

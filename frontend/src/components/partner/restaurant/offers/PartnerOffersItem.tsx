@@ -3,19 +3,17 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
-import PartnerSettingsPromotionsEditPromotionDialog from "./PartnerSettingsPromotionsEditPromotionDialog";
+import PartnerOffersEditOfferDialog from "./PartnerOffersEditOfferDialog";
 
 import { formatCurrency } from "@/lib/utils";
 import { RestaurantDetail } from "@/types";
 
-type PartnerSettingsPromotionsOffersItemProps = {
+type PartnerOffersItemProps = {
   offer: RestaurantDetail["offers"][number];
 };
 
-export default function PartnerSettingsPromotionsOffersItem({
-  offer,
-}: PartnerSettingsPromotionsOffersItemProps) {
-  const [openEditPromotionDialog, setOpenEditPromotionDialog] = useState(false);
+export default function PartnerOffersItem({ offer }: PartnerOffersItemProps) {
+  const [openEditOfferDialog, setOpenEditOfferDialog] = useState(false);
 
   return (
     <>
@@ -30,16 +28,16 @@ export default function PartnerSettingsPromotionsOffersItem({
           textTransform: "none",
         }}
         disableElevation
-        onClick={() => setOpenEditPromotionDialog(true)}
+        onClick={() => setOpenEditOfferDialog(true)}
         fullWidth
       >
         {offer.discount_rate * 100}% off when you spend{" "}
         {formatCurrency(offer.min_discount_amount)} or more
       </Button>
 
-      <PartnerSettingsPromotionsEditPromotionDialog
-        openEditPromotionDialog={openEditPromotionDialog}
-        setOpenEditPromotionDialog={setOpenEditPromotionDialog}
+      <PartnerOffersEditOfferDialog
+        openEditOfferDialog={openEditOfferDialog}
+        setOpenEditOfferDialog={setOpenEditOfferDialog}
       />
     </>
   );
