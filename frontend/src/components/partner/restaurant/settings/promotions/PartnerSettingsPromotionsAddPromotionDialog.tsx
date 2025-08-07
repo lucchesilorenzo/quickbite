@@ -7,6 +7,8 @@ import {
   Stack,
 } from "@mui/material";
 
+import PartnerSettingsPromotionsAddPromotionForm from "./PartnerSettingsPromotionsAddPromotionForm";
+
 type PartnerSettingsPromotionsAddPromotionDialogProps = {
   openAddPromotionDialog: boolean;
   setOpenAddPromotionDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,7 +41,11 @@ export default function PartnerSettingsPromotionsAddPromotionDialog({
           </IconButton>
         </Stack>
 
-        <DialogContent sx={{ p: 0 }}>Form</DialogContent>
+        <DialogContent sx={{ p: 1 }}>
+          <PartnerSettingsPromotionsAddPromotionForm
+            setOpenAddPromotionDialog={setOpenAddPromotionDialog}
+          />
+        </DialogContent>
       </Stack>
     </Dialog>
   );
