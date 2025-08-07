@@ -7,12 +7,18 @@ import {
   Stack,
 } from "@mui/material";
 
+import PartnerOffersEditOfferForm from "./PartnerOffersEditOfferForm";
+
+import { RestaurantDetail } from "@/types";
+
 type PartnerOffersEditOfferDialogProps = {
+  offer: RestaurantDetail["offers"][number];
   openEditOfferDialog: boolean;
   setOpenEditOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function PartnerOffersEditOfferDialog({
+  offer,
   openEditOfferDialog,
   setOpenEditOfferDialog,
 }: PartnerOffersEditOfferDialogProps) {
@@ -37,7 +43,12 @@ export default function PartnerOffersEditOfferDialog({
           </IconButton>
         </Stack>
 
-        <DialogContent sx={{ p: 0 }}>Form</DialogContent>
+        <DialogContent sx={{ p: 1 }}>
+          <PartnerOffersEditOfferForm
+            offer={offer}
+            setOpenEditOfferDialog={setOpenEditOfferDialog}
+          />
+        </DialogContent>
       </Stack>
     </Dialog>
   );

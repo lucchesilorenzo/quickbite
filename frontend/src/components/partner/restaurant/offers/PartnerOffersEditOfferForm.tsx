@@ -13,23 +13,26 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { useCreatePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/useCreatePartnerRestaurantOffer";
+import { useUpdatePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantOffer";
 import { discountRates } from "@/lib/data";
+import { RestaurantDetail } from "@/types";
 import {
   TPartnerRestaurantSettingsOffersFormSchema,
   partnerRestaurantSettingsOffersFormSchema,
 } from "@/validations/partner-restaurant-settings-validations";
 
-type PartnerOffersAddOfferFormProps = {
-  setOpenAddOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
+type PartnerOffersEditOfferFormProps = {
+  offer: RestaurantDetail["offers"][number];
+  setOpenEditOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function PartnerOffersAddOfferForm({
-  setOpenAddOfferDialog,
-}: PartnerOffersAddOfferFormProps) {
+export default function PartnerOffersEditOfferForm({
+  offer,
+  setOpenEditOfferDialog,
+}: PartnerOffersEditOfferFormProps) {
   const { restaurant } = usePartnerRestaurant();
-  const { mutateAsync: createPartnerRestaurantOffer, isPending } =
-    useCreatePartnerRestaurantOffer(restaurant.id);
+  const { mutateAsync: updatePartnerRestaurantOffer } =
+    useUpdatePartnerRestaurantOffer(restaurant.id, offer.id);
 
   const {
     handleSubmit,
@@ -40,14 +43,14 @@ export default function PartnerOffersAddOfferForm({
       partnerRestaurantSettingsOffersFormSchema(restaurant.min_amount),
     ),
     defaultValues: {
-      discount_rate: "",
-      min_discount_amount: "",
+      discount_rate: offer.discount_rate,
+      min_discount_amount: offer.min_discount_amount,
     },
   });
 
   async function onSubmit(data: TPartnerRestaurantSettingsOffersFormSchema) {
-    await createPartnerRestaurantOffer(data);
-    setOpenAddOfferDialog(false);
+    await updatePartnerRestaurantOffer(data);
+    setOpenEditOfferDialog(false);
   }
 
   return (
@@ -109,12 +112,12 @@ export default function PartnerOffersAddOfferForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting || isPending}
-        loading={isSubmitting || isPending}
-        loadingIndicator="Adding..."
+        disabled={isSubmitting}
+        loading={isSubmitting}
+        loadingIndicator="Editing..."
         variant="contained"
       >
-        Add offer
+        Edit offer
       </Button>
     </Stack>
   );

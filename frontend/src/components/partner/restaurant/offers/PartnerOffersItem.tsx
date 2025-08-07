@@ -36,6 +36,7 @@ export default function PartnerOffersItem({ offer }: PartnerOffersItemProps) {
       </Button>
 
       <PartnerOffersEditOfferDialog
+        offer={offer}
         openEditOfferDialog={openEditOfferDialog}
         setOpenEditOfferDialog={setOpenEditOfferDialog}
       />
