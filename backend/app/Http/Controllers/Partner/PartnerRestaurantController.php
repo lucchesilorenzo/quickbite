@@ -8,12 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
+use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
 use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class PartnerRestaurantController extends Controller
@@ -283,6 +285,59 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not delete offer.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Update a partner's restaurant info.
+     */
+    public function updateRestaurantInfo(
+        Restaurant $restaurant,
+        UpdateRestaurantInfoRequest $request
+    ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('update', $restaurant);
+
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            if ($request->hasFile('logo')) {
+                if ($restaurant->logo) {
+                    $oldLogoPath = str_replace('/storage/', '', $restaurant->logo);
+
+                    if (Storage::disk('public')->exists($oldLogoPath)) {
+                        Storage::disk('public')->delete($oldLogoPath);
+                    }
+                }
+
+                $path = $request->file('logo')->store('restaurants/logos', 'public');
+                $data['logo'] = '/storage/' . $path;
+            }
+
+            if ($request->hasFile('cover')) {
+                if ($restaurant->cover) {
+                    $oldCoverPath = str_replace('/storage/', '', $restaurant->cover);
+
+                    if (Storage::disk('public')->exists($oldCoverPath)) {
+                        Storage::disk('public')->delete($oldCoverPath);
+                    }
+                }
+
+                $path = $request->file('cover')->store('restaurants/covers', 'public');
+                $data['cover'] = '/storage/' . $path;
+            }
+
+            $restaurant->update($data);
+
+            return response()->json([
+                'message' => 'Restaurant info updated successfully.',
+                'restaurant' => $restaurant,
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not update restaurant info.',
             ], 500);
         }
     }
