@@ -26,6 +26,7 @@ export default function PartnerSettingsInfoMainFormSection() {
         render={({ field }) => (
           <TextField
             {...field}
+            required
             variant="filled"
             autoComplete="off"
             label="Business name"
@@ -109,7 +110,6 @@ export default function PartnerSettingsInfoMainFormSection() {
           render={({ field }) => (
             <MuiTelInput
               {...field}
-              required
               variant="filled"
               label="Phone number"
               defaultCountry="IT"
