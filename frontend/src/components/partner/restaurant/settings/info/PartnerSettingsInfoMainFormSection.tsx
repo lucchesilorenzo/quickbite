@@ -3,6 +3,7 @@ import { useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import PreviewIcon from "@mui/icons-material/Preview";
 import {
+  Box,
   Button,
   Divider,
   IconButton,
@@ -19,6 +20,7 @@ import PreviewImageDialog from "./PreviewImageDialog";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/usePartnerRestaurantSettingsInfo";
+import env from "@/lib/env";
 import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
 export default function PartnerSettingsInfoMainFormSection() {
@@ -31,18 +33,19 @@ export default function PartnerSettingsInfoMainFormSection() {
   } = useFormContext<TPartnerRestaurantSettingsInfoFormSchema>();
 
   const [openPreviewImageDialog, setOpenPreviewImageDialog] = useState(false);
-  const [previewImageFile, setPreviewImageFile] = useState<File | null>(null);
+  const [previewImageFile, setPreviewImageFile] = useState<File | string>();
 
   const logo = watch("logo");
   const cover = watch("cover");
 
-  function handlePreviewImage(fileList?: FileList | string) {
-    if (fileList && fileList.length > 0 && fileList instanceof FileList) {
-      const file = fileList[0];
-
-      setPreviewImageFile(file);
-      setOpenPreviewImageDialog(true);
+  function handlePreviewImage(fileOrPath?: FileList | string) {
+    if (fileOrPath && fileOrPath instanceof FileList && fileOrPath.length > 0) {
+      setPreviewImageFile(fileOrPath[0]);
+    } else if (typeof fileOrPath === "string") {
+      setPreviewImageFile(`${env.VITE_BASE_URL}${fileOrPath}`);
     }
+
+    setOpenPreviewImageDialog(true);
   }
 
   function handleFileUpload(
@@ -197,12 +200,14 @@ export default function PartnerSettingsInfoMainFormSection() {
           />
 
           <Tooltip title="Preview">
-            <IconButton
-              disabled={!editMode || !logo || !logo.length}
-              onClick={() => handlePreviewImage(logo)}
-            >
-              <PreviewIcon />
-            </IconButton>
+            <Box component="span">
+              <IconButton
+                disabled={!editMode || !logo || !logo.length}
+                onClick={() => handlePreviewImage(logo)}
+              >
+                <PreviewIcon />
+              </IconButton>
+            </Box>
           </Tooltip>
         </Stack>
 
@@ -232,12 +237,14 @@ export default function PartnerSettingsInfoMainFormSection() {
           />
 
           <Tooltip title="Preview">
-            <IconButton
-              disabled={!editMode || !cover || !cover.length}
-              onClick={() => handlePreviewImage(cover)}
-            >
-              <PreviewIcon />
-            </IconButton>
+            <Box component="span">
+              <IconButton
+                disabled={!editMode || !cover || !cover.length}
+                onClick={() => handlePreviewImage(cover)}
+              >
+                <PreviewIcon />
+              </IconButton>
+            </Box>
           </Tooltip>
         </Stack>
       </Stack>

@@ -3,7 +3,7 @@ import { Box, Dialog, DialogContent, Stack } from "@mui/material";
 type ViewOrderDialogProps = {
   openPreviewImageDialog: boolean;
   setOpenPreviewImageDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  image: File | null;
+  image?: File | string;
 };
 
 export default function ViewOrderDialog({
@@ -24,8 +24,7 @@ export default function ViewOrderDialog({
         <DialogContent sx={{ p: 0 }}>
           <Box
             component="img"
-            src={URL.createObjectURL(image)}
-            alt="Preview"
+            src={typeof image === "string" ? image : URL.createObjectURL(image)}
             sx={{ width: 1, height: 1, objectFit: "contain" }}
           />
         </DialogContent>
