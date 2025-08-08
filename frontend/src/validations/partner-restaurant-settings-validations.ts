@@ -1,3 +1,4 @@
+import { matchIsValidTel } from "mui-tel-input";
 import z from "zod";
 
 import { discountRates } from "@/lib/data";
@@ -112,6 +113,56 @@ export function partnerRestaurantSettingsOffersFormSchema(minAmount: number) {
     });
 }
 
+export const partnerRestaurantSettingsInfoFormSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your name.")
+    .max(50, "Name is too long."),
+  description: z.string().trim().max(200, "Description is too long."),
+  street_address: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your street address.")
+    .max(50, "Street address is too long."),
+  building_number: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your building number.")
+    .max(50, "Building number is too long."),
+  postcode: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your postcode.")
+    .max(50, "Postcode is too long."),
+  city: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your city.")
+    .max(50, "City is too long."),
+  state: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your state.")
+    .max(50, "State is too long."),
+  email: z
+    .email({ error: "Please enter a valid email address." })
+    .min(1, "Email is required."),
+  phone_number: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your phone number.")
+    .refine(
+      (phone_number) =>
+        matchIsValidTel(phone_number, { onlyCountries: ["IT"] }),
+      {
+        error: "Please enter a valid phone number.",
+      },
+    ),
+  logo: z.instanceof(FileList).optional(),
+  cover: z.instanceof(FileList).optional(),
+});
+
 export type TPartnerRestaurantSettingsFeesFormSchema = z.infer<
   typeof partnerRestaurantSettingsFeesFormSchema
 >;
@@ -122,4 +173,8 @@ export type TPartnerRestaurantSettingsDeliveryTimesFormSchema = z.infer<
 
 export type TPartnerRestaurantSettingsOffersFormSchema = z.infer<
   ReturnType<typeof partnerRestaurantSettingsOffersFormSchema>
+>;
+
+export type TPartnerRestaurantSettingsInfoFormSchema = z.infer<
+  typeof partnerRestaurantSettingsInfoFormSchema
 >;
