@@ -8,6 +8,7 @@ import PartnerSettingsInfoFormCard from "@/components/partner/restaurant/setting
 import PartnerSettingsInfoHeader from "@/components/partner/restaurant/settings/info/PartnerSettingsInfoHeader";
 import PartnerRestaurantSettingsInfoProvider from "@/contexts/PartnerRestaurantSettingsInfoProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { useUpdatePartnerRestaurantInfo } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantInfo";
 import {
   TPartnerRestaurantSettingsInfoFormSchema,
   partnerRestaurantSettingsInfoFormSchema,
@@ -19,6 +20,9 @@ export default function PartnerRestaurantSettingsInfoPage() {
   }, []);
 
   const { restaurant } = usePartnerRestaurant();
+
+  const { mutateAsync: updatePartnerRestaurantInfo } =
+    useUpdatePartnerRestaurantInfo(restaurant.id);
 
   const methods = useForm({
     resolver: zodResolver(partnerRestaurantSettingsInfoFormSchema),
@@ -32,15 +36,39 @@ export default function PartnerRestaurantSettingsInfoPage() {
       state: restaurant.state || "",
       email: restaurant.email || "",
       phone_number: restaurant.phone_number || "",
-      logo: undefined,
-      cover: undefined,
+      logo: restaurant.logo,
+      cover: restaurant.cover,
     },
   });
 
   const { handleSubmit } = methods;
 
   async function onSubmit(data: TPartnerRestaurantSettingsInfoFormSchema) {
-    console.log(data);
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("street_address", data.street_address);
+    formData.append("building_number", data.building_number);
+    formData.append("postcode", data.postcode);
+    formData.append("city", data.city);
+    formData.append("state", data.state);
+    formData.append("email", data.email);
+    formData.append("phone_number", data.phone_number);
+
+    if (data.logo instanceof FileList && data.logo.length > 0) {
+      formData.append("logo", data.logo[0]);
+    } else if (typeof data.logo === "string") {
+      formData.append("logo", data.logo);
+    }
+
+    if (data.cover instanceof FileList && data.cover.length > 0) {
+      formData.append("cover", data.cover[0]);
+    } else if (typeof data.cover === "string") {
+      formData.append("cover", data.cover);
+    }
+
+    await updatePartnerRestaurantInfo(formData);
   }
 
   return (
