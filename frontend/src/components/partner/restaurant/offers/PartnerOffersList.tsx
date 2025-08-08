@@ -18,7 +18,7 @@ export default function PartnerOffersList() {
   return (
     <Grid container spacing={2} sx={{ mb: 2 }}>
       {restaurant.offers.map((offer, i) => (
-        <Grid key={offer.id} size={6}>
+        <Grid key={offer.id} size={{ xs: 12, sm: 6 }}>
           <PartnerOffersItem
             offer={offer}
             hasSibling={i % 2 === 0 && !!restaurant.offers[i + 1]}

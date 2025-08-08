@@ -1,7 +1,13 @@
 import { useState } from "react";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Button, Divider, IconButton, Stack } from "@mui/material";
+import {
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
 import PartnerOffersDeleteOfferDialog from "./PartnerOffersDeleteOfferDialog";
@@ -22,6 +28,8 @@ export default function PartnerOffersItem({
   const [openEditOfferDialog, setOpenEditOfferDialog] = useState(false);
   const [openDeleteOfferDialog, setOpenDeleteOfferDialog] = useState(false);
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   return (
     <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
       <Button
@@ -29,6 +37,7 @@ export default function PartnerOffersItem({
         color="inherit"
         size="large"
         sx={{
+          width: 350,
           bgcolor: yellow[700],
           borderRadius: 3,
           fontWeight: 700,
@@ -36,7 +45,6 @@ export default function PartnerOffersItem({
         }}
         disableElevation
         onClick={() => setOpenEditOfferDialog(true)}
-        fullWidth
       >
         {offer.discount_rate * 100}% off when you spend{" "}
         {formatCurrency(offer.min_discount_amount)} or more
@@ -50,7 +58,7 @@ export default function PartnerOffersItem({
         <DeleteIcon />
       </IconButton>
 
-      {hasSibling && <Divider orientation="vertical" flexItem />}
+      {!isMobile && hasSibling && <Divider orientation="vertical" flexItem />}
 
       <PartnerOffersEditOfferDialog
         offer={offer}

@@ -5,6 +5,7 @@ import {
   DialogTitle,
   IconButton,
   Stack,
+  useMediaQuery,
 } from "@mui/material";
 
 import PartnerOffersAddOfferForm from "./PartnerOffersAddOfferForm";
@@ -18,11 +19,14 @@ export default function PartnerOffersAddOfferDialog({
   openAddOfferDialog,
   setOpenAddOfferDialog,
 }: PartnerOffersAddOfferDialogProps) {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
     <Dialog
       open={openAddOfferDialog}
       onClose={() => setOpenAddOfferDialog(false)}
-      fullWidth
+      fullWidth={!isMobile}
+      fullScreen={isMobile}
       disableRestoreFocus
     >
       <Stack spacing={2} sx={{ p: 2 }}>

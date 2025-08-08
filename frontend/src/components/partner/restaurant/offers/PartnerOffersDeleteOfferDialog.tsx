@@ -7,6 +7,7 @@ import {
   DialogTitle,
   IconButton,
   Stack,
+  useMediaQuery,
 } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
@@ -29,11 +30,14 @@ export default function PartnerOffersDeleteOfferDialog({
   const { mutateAsync: deletePartnerRestaurantOffer, isPending } =
     useDeletePartnerRestaurantOffer(restaurant.id, offer.id);
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
     <Dialog
       open={openDeleteOfferDialog}
       onClose={() => setOpenDeleteOfferDialog(false)}
-      fullWidth
+      fullWidth={!isMobile}
+      fullScreen={isMobile}
       disableRestoreFocus
     >
       <Stack spacing={2} sx={{ p: 2 }}>
