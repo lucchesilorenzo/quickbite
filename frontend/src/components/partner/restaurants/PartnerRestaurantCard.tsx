@@ -16,9 +16,9 @@ export default function PartnerRestaurantCard({
       <CardActionArea
         component={Link}
         to={`/partner/restaurants/${restaurant.id}/dashboard`}
-        sx={{ p: 2 }}
+        sx={{ p: 2, height: 100 }}
       >
-        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+        <Stack direction="row" spacing={1}>
           <StorefrontOutlinedIcon fontSize="small" />
 
           <Typography variant="body1" sx={{ fontWeight: 500 }}>
