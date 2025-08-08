@@ -151,7 +151,6 @@ export const partnerRestaurantSettingsInfoFormSchema = z.object({
   phone_number: z
     .string()
     .trim()
-    .min(1, "Please fill out your phone number.")
     .refine(
       (phone_number) =>
         matchIsValidTel(phone_number, { onlyCountries: ["IT"] }),
