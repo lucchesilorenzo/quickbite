@@ -8,6 +8,7 @@ use App\Http\Requests\Order\CreateOrderRequest;
 use App\Models\Order;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 use Throwable;
 
 class OrderController extends Controller
@@ -35,15 +36,10 @@ class OrderController extends Controller
      */
     public function getOrder(Order $order): JsonResponse
     {
+        // Check if the order belongs to the authenticated user
+        Gate::authorize('view', $order);
+
         try {
-            $user = auth()->user();
-
-            if ($order->user_id !== $user->id) {
-                return response()->json([
-                    'message' => 'You are not authorized to view this order.',
-                ], 403);
-            }
-
             $order->load(['orderItems', 'restaurant.reviews.customer']);
 
             return response()->json($order, 200);
