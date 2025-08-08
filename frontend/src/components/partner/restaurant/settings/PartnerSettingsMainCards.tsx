@@ -27,7 +27,7 @@ export default function PartnerSettingsMainCards() {
       title: "Restaurant profile",
       description: "Update your logo, contact info and details",
       icon: StoreOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/settings/other`,
+      href: `/partner/restaurants/${restaurant.id}/settings/info`,
     },
   ];
 
