@@ -9,6 +9,7 @@ use App\Http\Requests\Cart\CreateOrUpdateCartRequest;
 use App\Http\Requests\Cart\CreateOrUpdateCartsRequest;
 use App\Models\Cart;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 use Throwable;
 
 class CartController extends Controller
@@ -61,16 +62,10 @@ class CartController extends Controller
      */
     public function getCart(Cart $cart): JsonResponse
     {
+        // Check if user owns cart
+        Gate::authorize('view', $cart);
+
         try {
-            // Get user
-            $user = auth()->user();
-
-            if ($cart->user_id !== $user->id) {
-                return response()->json([
-                    'message' => 'You are not authorized to view this cart.',
-                ], 403);
-            }
-
             // Eager load cart items
             $cart->load('cartItems.menuItem');
 
@@ -160,6 +155,8 @@ class CartController extends Controller
                         ]);
                     }
                 } else {
+                    Gate::authorize('update', $existingCart);
+
                     // Merge items
                     foreach ($cart['items'] as $newItem) {
                         $existingItem = $existingCart->cartItems()
@@ -313,6 +310,8 @@ class CartController extends Controller
                 ], 201);
             }
 
+            Gate::authorize('update', $cart);
+
             if (empty($data['items'])) {
                 $cart->delete();
 
@@ -403,6 +402,9 @@ class CartController extends Controller
      */
     public function deleteCart(Cart $cart): JsonResponse
     {
+        // Check if user owns cart
+        Gate::authorize('delete', $cart);
+
         try {
             $cart->delete();
 
