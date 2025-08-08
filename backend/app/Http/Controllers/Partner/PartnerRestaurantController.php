@@ -13,6 +13,7 @@ use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 use Throwable;
 
 class PartnerRestaurantController extends Controller
@@ -62,6 +63,9 @@ class PartnerRestaurantController extends Controller
      */
     public function getRestaurant(Restaurant $restaurant): JsonResponse
     {
+        // Check if user is authorized
+        Gate::authorize('viewPartnerRestaurant', $restaurant);
+
         try {
             $user = auth()->user();
 
@@ -85,12 +89,6 @@ class PartnerRestaurantController extends Controller
                 ->withCount('reviews')
                 ->first();
 
-            if (! $restaurant) {
-                return response()->json([
-                    'message' => 'No restaurant found.',
-                ], 404);
-            }
-
             return response()->json($restaurant, 200);
         } catch (Throwable $e) {
             return response()->json([
@@ -106,22 +104,12 @@ class PartnerRestaurantController extends Controller
         Restaurant $restaurant,
         CreateRestaurantOfferRequest $request,
     ) {
+        Gate::authorize('createOffer', $restaurant);
+
         // Get validated data
         $data = $request->validated();
 
         try {
-            $user = auth()->user();
-
-            $restaurant = $user->restaurants()
-                ->where('id', $restaurant->id)
-                ->first();
-
-            if (! $restaurant) {
-                return response()->json([
-                    'message' => 'No restaurant found.',
-                ], 404);
-            }
-
             // Check if offer already exists
             $doesOfferExist = $restaurant->offers()
                 ->where('discount_rate', $data['discount_rate'])
@@ -154,22 +142,13 @@ class PartnerRestaurantController extends Controller
         Restaurant $restaurant,
         UpdateRestaurantStatusRequest $request
     ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('update', $restaurant);
+
         // Get validated data
         $data = $request->validated();
 
         try {
-            $user = auth()->user();
-
-            $restaurant = $user->restaurants()
-                ->where('id', $restaurant->id)
-                ->first();
-
-            if (! $restaurant) {
-                return response()->json([
-                    'message' => 'No restaurant found.',
-                ], 404);
-            }
-
             $restaurant->update([
                 'force_close' => $data['force_close'],
             ]);
@@ -192,22 +171,13 @@ class PartnerRestaurantController extends Controller
         Restaurant $restaurant,
         UpdateRestaurantFeesRequest $request
     ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('update', $restaurant);
+
         // Get validated data
         $data = $request->validated();
 
         try {
-            $user = auth()->user();
-
-            $restaurant = $user->restaurants()
-                ->where('id', $restaurant->id)
-                ->first();
-
-            if (! $restaurant) {
-                return response()->json([
-                    'message' => 'No restaurant found.',
-                ], 404);
-            }
-
             $restaurant->update($data);
 
             return response()->json([
@@ -228,22 +198,13 @@ class PartnerRestaurantController extends Controller
         Restaurant $restaurant,
         UpdateRestaurantDeliveryTimesRequest $request
     ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('update', $restaurant);
+
         // Get validated data
         $data = $request->validated();
 
         try {
-            $user = auth()->user();
-
-            $restaurant = $user->restaurants()
-                ->where('id', $restaurant->id)
-                ->first();
-
-            if (! $restaurant) {
-                return response()->json([
-                    'message' => 'No restaurant found.',
-                ], 404);
-            }
-
             // Update delivery days
             foreach ($data['delivery_days'] as $deliveryDay) {
                 $restaurant->deliveryDays()
@@ -273,25 +234,17 @@ class PartnerRestaurantController extends Controller
         RestaurantOffer $offer,
         UpdateRestaurantOfferRequest $request
     ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('update', $offer);
+
         // Get validated data
         $data = $request->validated();
 
         try {
-            $user = auth()->user();
-
-            $restaurant = $user->restaurants()
-                ->where('id', $restaurant->id)
-                ->first();
-
-            if (! $restaurant) {
-                return response()->json([
-                    'message' => 'No restaurant found.',
-                ], 404);
-            }
-
             // Check if offer already exists
             $doesOfferExist = $restaurant->offers()
                 ->where('discount_rate', $data['discount_rate'])
+                ->whereNot('id', $offer->id)
                 ->exists();
 
             if ($doesOfferExist) {
@@ -309,6 +262,27 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update offer.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Delete a partner's restaurant offer.
+     */
+    public function deleteRestaurantOffer(RestaurantOffer $offer): JsonResponse
+    {
+        // Check if user is authorized
+        Gate::authorize('delete', $offer);
+
+        try {
+            $offer->delete();
+
+            return response()->json([
+                'message' => 'Offer deleted successfully.',
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not delete offer.',
             ], 500);
         }
     }
