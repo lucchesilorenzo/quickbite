@@ -1,7 +1,20 @@
+import { useState } from "react";
+
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import PreviewIcon from "@mui/icons-material/Preview";
+import {
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useFormContext } from "react-hook-form";
+
+import PreviewImageDialog from "./PreviewImageDialog";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
@@ -13,8 +26,33 @@ export default function PartnerSettingsInfoMainFormSection() {
 
   const {
     control,
+    watch,
     formState: { errors },
   } = useFormContext<TPartnerRestaurantSettingsInfoFormSchema>();
+
+  const [openPreviewImageDialog, setOpenPreviewImageDialog] = useState(false);
+  const [previewImageFile, setPreviewImageFile] = useState<File | null>(null);
+
+  const logo = watch("logo");
+  const cover = watch("cover");
+
+  function handlePreviewImage(fileList?: FileList | string) {
+    if (fileList && fileList.length > 0 && fileList instanceof FileList) {
+      const file = fileList[0];
+
+      setPreviewImageFile(file);
+      setOpenPreviewImageDialog(true);
+    }
+  }
+
+  function handleFileUpload(
+    e: React.ChangeEvent<HTMLInputElement>,
+    fieldOnChange: (value: FileList) => void,
+  ) {
+    if (e.target.files && e.target.files.length > 0) {
+      fieldOnChange(e.target.files);
+    }
+  }
 
   return (
     <Stack spacing={2}>
@@ -135,58 +173,80 @@ export default function PartnerSettingsInfoMainFormSection() {
       </Stack>
 
       <Stack direction="row" spacing={2}>
-        <Controller
-          name="logo"
-          control={control}
-          render={({ field }) => (
-            <Button
-              {...field}
-              component="label"
-              role={undefined}
-              variant="contained"
-              tabIndex={-1}
-              startIcon={<CloudUploadIcon />}
-              disabled={!editMode}
-            >
-              Upload logo
-              <VisuallyHiddenInput
-                type="file"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files.length > 0) {
-                    field.onChange(e.target.files);
-                  }
-                }}
-              />
-            </Button>
-          )}
-        />
+        <Stack direction="row" spacing={1}>
+          <Controller
+            name="logo"
+            control={control}
+            render={({ field }) => (
+              <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+                disabled={!editMode}
+              >
+                Upload logo
+                <VisuallyHiddenInput
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileUpload(e, field.onChange)}
+                />
+              </Button>
+            )}
+          />
 
-        <Controller
-          name="cover"
-          control={control}
-          render={({ field }) => (
-            <Button
-              {...field}
-              component="label"
-              role={undefined}
-              variant="contained"
-              tabIndex={-1}
-              startIcon={<CloudUploadIcon />}
-              disabled={!editMode}
+          <Tooltip title="Preview">
+            <IconButton
+              disabled={!editMode || !logo || !logo.length}
+              onClick={() => handlePreviewImage(logo)}
             >
-              Upload cover
-              <VisuallyHiddenInput
-                type="file"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files.length > 0) {
-                    field.onChange(e.target.files);
-                  }
-                }}
-              />
-            </Button>
-          )}
-        />
+              <PreviewIcon />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+
+        <Divider orientation="vertical" flexItem />
+
+        <Stack direction="row" spacing={1}>
+          <Controller
+            name="cover"
+            control={control}
+            render={({ field }) => (
+              <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+                disabled={!editMode}
+              >
+                Upload cover
+                <VisuallyHiddenInput
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileUpload(e, field.onChange)}
+                />
+              </Button>
+            )}
+          />
+
+          <Tooltip title="Preview">
+            <IconButton
+              disabled={!editMode || !cover || !cover.length}
+              onClick={() => handlePreviewImage(cover)}
+            >
+              <PreviewIcon />
+            </IconButton>
+          </Tooltip>
+        </Stack>
       </Stack>
+
+      <PreviewImageDialog
+        openPreviewImageDialog={openPreviewImageDialog}
+        setOpenPreviewImageDialog={setOpenPreviewImageDialog}
+        image={previewImageFile}
+      />
     </Stack>
   );
 }
