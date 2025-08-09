@@ -183,7 +183,6 @@ export default function PartnerSettingsInfoMainFormSection() {
             render={({ field }) => (
               <Button
                 component="label"
-                role={undefined}
                 variant="contained"
                 tabIndex={-1}
                 startIcon={<CloudUploadIcon />}
@@ -220,7 +219,6 @@ export default function PartnerSettingsInfoMainFormSection() {
             render={({ field }) => (
               <Button
                 component="label"
-                role={undefined}
                 variant="contained"
                 tabIndex={-1}
                 startIcon={<CloudUploadIcon />}
