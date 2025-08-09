@@ -2,9 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
+import MobilePartnerSettingsInfoFormCard from "../mobile/MobilePartnerSettingsInfoFormCard";
 import MobilePartnerSettingsInfoHeader from "../mobile/MobilePartnerSettingsInfoHeader";
 
-import PartnerSettingsInfoFormCard from "@/components/partner/restaurant/settings/info/PartnerSettingsInfoFormCard";
 import PartnerRestaurantSettingsInfoProvider from "@/contexts/PartnerRestaurantSettingsInfoProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantInfo } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantInfo";
@@ -81,7 +81,7 @@ export default function MobileSettingsInfoLayout() {
             noValidate
           >
             <MobilePartnerSettingsInfoHeader />
-            <PartnerSettingsInfoFormCard />
+            <MobilePartnerSettingsInfoFormCard />
           </Box>
         </Container>
       </PartnerRestaurantSettingsInfoProvider>
