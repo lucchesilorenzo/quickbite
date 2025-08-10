@@ -48,7 +48,7 @@ export default function LocationEditForm({
 
     try {
       const { data: address } = await axios.get<Address[]>(
-        `https://eu1.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${updatedDisplayName}&format=json&normalizeaddress=1`,
+        `https://eu1.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${updatedDisplayName}&format=json&normalizeaddress=1&countrycodes=IT`,
       );
 
       setCurrentAddress(address[0]);

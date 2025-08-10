@@ -37,7 +37,7 @@ export default function AreaPage() {
     async function fetchAddress() {
       try {
         const { data } = await axios.get<Address>(
-          `https://eu1.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${lat}&lon=${lon}&format=json&normalizeaddress=1`,
+          `https://eu1.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${lat}&lon=${lon}&format=json&normalizeaddress=1&countrycodes=IT`,
         );
 
         setCurrentAddress(data);

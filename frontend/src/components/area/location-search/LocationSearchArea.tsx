@@ -44,7 +44,7 @@ export default function LocationSearchArea({
 
       try {
         const { data } = await axios.get<Address[]>(
-          `https://api.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${value}&limit=5&dedupe=1&countrycodes=IT&normalizecity=1`,
+          `https://api.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${value}&limit=5&dedupe=1&normalizecity=1&countrycodes=IT`,
         );
 
         setAddresses(data);
@@ -87,7 +87,7 @@ export default function LocationSearchArea({
 
       try {
         const { data } = await axios.get<Address>(
-          `https://api.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${latitude}&lon=${longitude}&format=json&normalizecity=1`,
+          `https://api.locationiq.com/v1/reverse?key=${env.VITE_LOCATIONIQ_API_KEY}&lat=${latitude}&lon=${longitude}&format=json&normalizecity=1&countrycodes=IT`,
         );
 
         setCurrentAddress(data);
