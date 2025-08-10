@@ -13,6 +13,8 @@ use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
+use App\Services\LocationService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +22,11 @@ use Throwable;
 
 class PartnerRestaurantController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct(private LocationService $locationService) {}
+
     /**
      * Get partner's restaurants.
      */
@@ -329,13 +336,31 @@ class PartnerRestaurantController extends Controller
                 $data['cover'] = '/storage/' . $path;
             }
 
-            $restaurant->update($data);
+            // Get location
+            $locationData = $this->locationService->getLocationData($data);
+
+            if (! $locationData) {
+                throw new Exception('Location not found.');
+            }
+
+            // Update restaurant info
+            $restaurant->update([
+                ...$data,
+                'latitude' => $locationData['lat'],
+                'longitude' => $locationData['lon'],
+            ]);
 
             return response()->json([
                 'message' => 'Restaurant info updated successfully.',
                 'restaurant' => $restaurant,
             ], 200);
         } catch (Throwable $e) {
+            if ($e->getMessage() === 'Location not found.') {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 404);
+            }
+
             return response()->json([
                 'message' => 'Could not update restaurant info.',
             ], 500);

@@ -12,16 +12,21 @@ use App\Http\Requests\Partner\Auth\PartnerLoginRequest;
 use App\Http\Requests\Partner\Auth\PartnerRegisterRequest;
 use App\Models\Restaurant;
 use App\Models\User;
+use App\Services\LocationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Throwable;
 
 class AuthController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct(private LocationService $locationService) {}
+
     /**
      * Register a new partner.
      */
@@ -46,7 +51,7 @@ class AuthController extends Controller
                 $partner->assignRole(UserRole::PARTNER);
 
                 // Get location
-                $locationData = $this->getLocationData($data);
+                $locationData = $this->locationService->getLocationData($data);
 
                 if (! $locationData) {
                     throw new Exception('Location not found.');
@@ -176,30 +181,5 @@ class AuthController extends Controller
                 'message' => 'Could not logout partner.',
             ], 500);
         }
-    }
-
-    /**
-     * Get location data.
-     */
-    private function getLocationData(array $data): ?array
-    {
-        $response = Http::get('https://eu1.locationiq.com/v1/search', [
-            'key' => env('LOCATIONIQ_API_KEY'),
-            'q' => "{$data['street_address']} {$data['building_number']}, {$data['postcode']} {$data['city']}, {$data['state']}",
-            'normalizecity' => 1,
-            'format' => 'json',
-        ]);
-
-        if (! $response->successful()) {
-            return null;
-        }
-
-        $json = $response->json();
-
-        if (! is_array($json) || count($json) === 0) {
-            return null;
-        }
-
-        return $json[0];
     }
 }
