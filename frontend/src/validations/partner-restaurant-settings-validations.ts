@@ -158,8 +158,8 @@ export const partnerRestaurantSettingsInfoFormSchema = z.object({
         error: "Please enter a valid phone number.",
       },
     ),
-  logo: z.union([z.string(), z.instanceof(FileList)]).optional(),
-  cover: z.union([z.string(), z.instanceof(FileList)]).optional(),
+  logo: z.union([z.string(), z.instanceof(FileList)]).nullable(),
+  cover: z.union([z.string(), z.instanceof(FileList)]).nullable(),
 });
 
 export type TPartnerRestaurantSettingsFeesFormSchema = z.infer<
