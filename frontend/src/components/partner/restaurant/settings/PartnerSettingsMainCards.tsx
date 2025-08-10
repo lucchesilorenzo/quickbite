@@ -3,7 +3,7 @@ import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
 import { Stack } from "@mui/material";
 
-import PartnerSettingsMainCard from "./PartnerSettingsMainCard";
+import PartnerMainCard from "../common/PartnerMainCard";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 
@@ -34,7 +34,7 @@ export default function PartnerSettingsMainCards() {
   return (
     <Stack spacing={2}>
       {cards.map((card) => (
-        <PartnerSettingsMainCard key={card.title} card={card} />
+        <PartnerMainCard key={card.title} card={card} />
       ))}
     </Stack>
   );

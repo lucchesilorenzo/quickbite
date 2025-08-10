@@ -3,7 +3,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Card, IconButton, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-type PartnerSettingsMainCardProps = {
+type PartnerMainCardProps = {
   card: {
     title: string;
     description: string;
@@ -12,9 +12,7 @@ type PartnerSettingsMainCardProps = {
   };
 };
 
-export default function PartnerSettingsMainCard({
-  card,
-}: PartnerSettingsMainCardProps) {
+export default function PartnerMainCard({ card }: PartnerMainCardProps) {
   return (
     <Card variant="outlined" sx={{ p: 2, height: 1 }}>
       <Stack direction="row" sx={{ justifyContent: "space-between" }}>
