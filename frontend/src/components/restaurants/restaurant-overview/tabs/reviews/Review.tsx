@@ -3,10 +3,10 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Card, CardContent, Rating, Typography } from "@mui/material";
 import { format } from "date-fns";
 
-import { RestaurantDetail } from "@/types";
+import { type Review } from "@/types";
 
 type ReviewProps = {
-  review: RestaurantDetail["reviews"][number];
+  review: Review;
 };
 
 export default function Review({ review }: ReviewProps) {
