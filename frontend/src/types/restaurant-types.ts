@@ -1,4 +1,5 @@
 import { CategoryWithPivot } from "./category-types";
+import { Order } from "./order-types";
 import { User } from "./user-types";
 
 export type RestaurantBase = {
@@ -89,6 +90,7 @@ export type Review = {
   created_at: string;
   updated_at: string;
   customer: User;
+  order: Order;
 };
 
 export type MenuItem = {
