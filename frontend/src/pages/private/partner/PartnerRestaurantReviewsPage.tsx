@@ -1,6 +1,7 @@
 import { Container, Typography } from "@mui/material";
 
 import DesktopReviewsLayout from "@/components/partner/restaurant/reviews/layouts/DesktopReviewsLayout";
+import MobileReviewsLayout from "@/components/partner/restaurant/reviews/layouts/MobileReviewsLayout";
 
 export default function PartnerRestaurantReviewsPage() {
   return (
@@ -10,6 +11,7 @@ export default function PartnerRestaurantReviewsPage() {
       </Typography>
 
       <DesktopReviewsLayout />
+      <MobileReviewsLayout />
     </Container>
   );
 }
