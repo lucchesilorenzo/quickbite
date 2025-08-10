@@ -37,13 +37,13 @@ class UpdateRestaurantInfoRequest extends FormRequest
                 'nullable',
                 Rule::when(function ($input) {
                     return request()->hasFile('logo');
-                }, ['image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'], ['string']),
+                }, ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
             'cover' => [
                 'nullable',
                 Rule::when(function ($input) {
                     return request()->hasFile('cover');
-                }, ['image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'], ['string']),
+                }, ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
         ];
     }
