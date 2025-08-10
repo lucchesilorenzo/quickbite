@@ -47,6 +47,7 @@ class PartnerRestaurantController extends Controller
                     $query->orderBy('created_at', 'desc');
                 },
                 'reviews.customer',
+                'reviews.order',
                 'menuCategories.menuItems',
             ])
                 ->withAvg('reviews', 'rating')
@@ -92,6 +93,7 @@ class PartnerRestaurantController extends Controller
                         $query->orderBy('created_at', 'desc');
                     },
                     'reviews.customer',
+                    'reviews.order',
                     'menuCategories.menuItems',
                 ])
                 ->withAvg('reviews', 'rating')

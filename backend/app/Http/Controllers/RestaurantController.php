@@ -55,6 +55,7 @@ class RestaurantController extends Controller
                         $query->orderBy('created_at', 'desc');
                     },
                     'reviews.customer',
+                    'reviews.order',
                     'menuCategories.menuItems',
                 ])
                 ->withAvg('reviews', 'rating')
@@ -88,6 +89,7 @@ class RestaurantController extends Controller
                     $query->orderBy('created_at', 'desc');
                 },
                 'reviews.customer',
+                'reviews.order',
                 'menuCategories.menuItems',
             ])
                 ->where('slug', $restaurantSlug)
