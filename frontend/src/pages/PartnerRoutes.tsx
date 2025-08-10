@@ -2,7 +2,9 @@ import { Navigate, Route } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import ParterRestaurantDashboardPage from "./private/partner/PartnerRestaurantDashboardPage";
+import PartnerRestaurantMenuEditPage from "./private/partner/PartnerRestaurantMenuEditPage";
 import PartnerRestaurantMenuPage from "./private/partner/PartnerRestaurantMenuPage";
+import PartnerRestaurantMenuSuspendPage from "./private/partner/PartnerRestaurantMenuSuspendPage";
 import PartnerRestaurantOffersPage from "./private/partner/PartnerRestaurantOffersPage";
 import PartnerRestaurantOrdersPage from "./private/partner/PartnerRestaurantOrdersPage";
 import PartnerRestaurantReviewsPage from "./private/partner/PartnerRestaurantReviewsPage";
@@ -51,7 +53,12 @@ export const PartnerRoutes = [
         <Route path="info" element={<PartnerRestaurantSettingsInfoPage />} />
       </Route>
 
-      <Route path="menu" element={<PartnerRestaurantMenuPage />} />
+      <Route path="menu">
+        <Route index element={<PartnerRestaurantMenuPage />} />
+        <Route path="edit" element={<PartnerRestaurantMenuEditPage />} />
+        <Route path="suspend" element={<PartnerRestaurantMenuSuspendPage />} />
+      </Route>
+
       <Route path="orders" element={<PartnerRestaurantOrdersPage />} />
       <Route path="offers" element={<PartnerRestaurantOffersPage />} />
       <Route path="reviews" element={<PartnerRestaurantReviewsPage />} />
