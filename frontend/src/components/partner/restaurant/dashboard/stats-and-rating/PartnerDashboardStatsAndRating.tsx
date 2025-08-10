@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 
-import PartnerDashboardRatingDisplayCard from "./rating/PartnerDashboardRatingDisplayCard";
+import PartnerRatingDisplayCard from "../../common/PartnerRatingDisplayCard";
 import PartnerDashboardStatsCard from "./stats/PartnerDashboardStatsCard";
 
 export default function PartnerDashboardStatsAndRating() {
@@ -11,7 +11,7 @@ export default function PartnerDashboardStatsAndRating() {
       </Grid>
 
       <Grid size={5}>
-        <PartnerDashboardRatingDisplayCard />
+        <PartnerRatingDisplayCard type="dashboard" />
       </Grid>
     </Grid>
   );

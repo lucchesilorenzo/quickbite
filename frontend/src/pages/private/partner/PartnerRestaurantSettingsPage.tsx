@@ -11,7 +11,7 @@ export default function PartnerRestaurantSettingsPage() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+      <Typography variant="h5" sx={{ fontWeight: 600, mb: 4 }}>
         Settings
       </Typography>
 

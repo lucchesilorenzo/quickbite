@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
 
+import PartnerRatingDisplayCard from "../../common/PartnerRatingDisplayCard";
 import MobilePartnerDashboardStats from "../mobile/MobilePartnerDashboardStats";
 import MobilePartnerDashboardWelcomeAndStatus from "../mobile/MobilePartnerDashboardWelcomeAndStatus";
-import PartnerDashboardRatingDisplayCard from "../stats-and-rating/rating/PartnerDashboardRatingDisplayCard";
 
 export default function MobileDashboardLayout() {
   return (
@@ -13,7 +13,7 @@ export default function MobileDashboardLayout() {
     >
       <MobilePartnerDashboardWelcomeAndStatus />
       <MobilePartnerDashboardStats />
-      <PartnerDashboardRatingDisplayCard />
+      <PartnerRatingDisplayCard type="dashboard" />
     </Stack>
   );
 }

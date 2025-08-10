@@ -1,6 +1,6 @@
 import { Container, Typography } from "@mui/material";
 
-import PartnerRestaurantReviewsList from "@/components/partner/restaurant/reviews/PartnerRestaurantReviewsList";
+import DesktopReviewsLayout from "@/components/partner/restaurant/reviews/layouts/DesktopReviewsLayout";
 
 export default function PartnerRestaurantReviewsPage() {
   return (
@@ -9,7 +9,7 @@ export default function PartnerRestaurantReviewsPage() {
         Ratings and reviews
       </Typography>
 
-      <PartnerRestaurantReviewsList />
+      <DesktopReviewsLayout />
     </Container>
   );
 }
