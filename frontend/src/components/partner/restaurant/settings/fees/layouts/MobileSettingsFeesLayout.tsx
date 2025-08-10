@@ -5,7 +5,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import MobilePartnerSettingsFeesFormCard from "../mobile/MobilePartnerSettingsFeesFormCard";
 import MobilePartnerSettingsFeesHeader from "../mobile/MobilePartnerSettingsFeesHeader";
 
-import PartnerRestaurantSettingsFeesProvider from "@/contexts/PartnerRestaurantSettingsFeesProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantSettingsFees";
 import {
@@ -38,23 +37,21 @@ export default function MobileSettingsFeesLayout() {
 
   return (
     <FormProvider {...methods}>
-      <PartnerRestaurantSettingsFeesProvider>
-        <Container
-          component="main"
-          maxWidth="md"
-          sx={{ py: 4, display: { xs: "block", md: "none" } }}
+      <Container
+        component="main"
+        maxWidth="md"
+        sx={{ py: 4, display: { xs: "block", md: "none" } }}
+      >
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          autoComplete="off"
+          noValidate
         >
-          <Box
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            autoComplete="off"
-            noValidate
-          >
-            <MobilePartnerSettingsFeesHeader />
-            <MobilePartnerSettingsFeesFormCard />
-          </Box>
-        </Container>
-      </PartnerRestaurantSettingsFeesProvider>
+          <MobilePartnerSettingsFeesHeader />
+          <MobilePartnerSettingsFeesFormCard />
+        </Box>
+      </Container>
     </FormProvider>
   );
 }

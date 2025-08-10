@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Dialog, DialogContent, Stack, Typography } from "@mui/material";
 
-type ViewOrderDialogProps = {
+type PreviewImageDialogProps = {
   openPreviewImageDialog: boolean;
+  image?: File | string | null;
   setOpenPreviewImageDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  image?: File | string;
 };
 
-export default function ViewOrderDialog({
+export default function PreviewImageDialog({
   openPreviewImageDialog,
-  setOpenPreviewImageDialog,
   image,
-}: ViewOrderDialogProps) {
+  setOpenPreviewImageDialog,
+}: PreviewImageDialogProps) {
   const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    setLoadError(false);
+  }, [image]);
 
   if (!image) return null;
 

@@ -32,12 +32,14 @@ export default function MobilePartnerSettingsInfoMainFormSection() {
   } = useFormContext<TPartnerRestaurantSettingsInfoFormSchema>();
 
   const [openPreviewImageDialog, setOpenPreviewImageDialog] = useState(false);
-  const [previewImageFile, setPreviewImageFile] = useState<File | string>();
+  const [previewImageFile, setPreviewImageFile] = useState<
+    File | string | null
+  >(null);
 
   const logo = watch("logo");
   const cover = watch("cover");
 
-  function handlePreviewImage(fileOrPath?: FileList | string) {
+  function handlePreviewImage(fileOrPath?: FileList | string | null) {
     if (fileOrPath && fileOrPath instanceof FileList && fileOrPath.length > 0) {
       setPreviewImageFile(fileOrPath[0]);
     } else if (typeof fileOrPath === "string") {
@@ -183,6 +185,7 @@ export default function MobilePartnerSettingsInfoMainFormSection() {
               tabIndex={-1}
               startIcon={<CloudUploadIcon />}
               disabled={!editMode}
+              fullWidth
             >
               Upload logo
               <VisuallyHiddenInput
@@ -219,6 +222,7 @@ export default function MobilePartnerSettingsInfoMainFormSection() {
               tabIndex={-1}
               startIcon={<CloudUploadIcon />}
               disabled={!editMode}
+              fullWidth
             >
               Upload cover
               <VisuallyHiddenInput
@@ -244,8 +248,8 @@ export default function MobilePartnerSettingsInfoMainFormSection() {
 
       <PreviewImageDialog
         openPreviewImageDialog={openPreviewImageDialog}
-        setOpenPreviewImageDialog={setOpenPreviewImageDialog}
         image={previewImageFile}
+        setOpenPreviewImageDialog={setOpenPreviewImageDialog}
       />
     </Stack>
   );

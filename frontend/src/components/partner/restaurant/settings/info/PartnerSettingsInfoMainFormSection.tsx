@@ -33,12 +33,14 @@ export default function PartnerSettingsInfoMainFormSection() {
   } = useFormContext<TPartnerRestaurantSettingsInfoFormSchema>();
 
   const [openPreviewImageDialog, setOpenPreviewImageDialog] = useState(false);
-  const [previewImageFile, setPreviewImageFile] = useState<File | string>();
+  const [previewImageFile, setPreviewImageFile] = useState<
+    File | string | null
+  >(null);
 
   const logo = watch("logo");
   const cover = watch("cover");
 
-  function handlePreviewImage(fileOrPath?: FileList | string) {
+  function handlePreviewImage(fileOrPath?: FileList | string | null) {
     if (fileOrPath && fileOrPath instanceof FileList && fileOrPath.length > 0) {
       setPreviewImageFile(fileOrPath[0]);
     } else if (typeof fileOrPath === "string") {
@@ -249,8 +251,8 @@ export default function PartnerSettingsInfoMainFormSection() {
 
       <PreviewImageDialog
         openPreviewImageDialog={openPreviewImageDialog}
-        setOpenPreviewImageDialog={setOpenPreviewImageDialog}
         image={previewImageFile}
+        setOpenPreviewImageDialog={setOpenPreviewImageDialog}
       />
     </Stack>
   );

@@ -1,5 +1,6 @@
 import { Card, Divider, Stack } from "@mui/material";
 
+import MobilePartnerSettingsInfoAddressFormSection from "./MobilePartnerSettingsInfoAddressFormSection";
 import MobilePartnerSettingsInfoMainFormSection from "./MobilePartnerSettingsInfoMainFormSection";
 
 export default function MobilePartnerSettingsInfoFormCard() {
@@ -8,7 +9,7 @@ export default function MobilePartnerSettingsInfoFormCard() {
       <Stack spacing={2}>
         <MobilePartnerSettingsInfoMainFormSection />
         <Divider />
-        {/* <PartnerSettingsInfoAddressFormSection /> */}
+        <MobilePartnerSettingsInfoAddressFormSection />
       </Stack>
     </Card>
   );
