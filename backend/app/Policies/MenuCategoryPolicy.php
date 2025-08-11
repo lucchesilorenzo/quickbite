@@ -47,9 +47,13 @@ class MenuCategoryPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, MenuCategory $menuCategory): bool
+    public function delete(User $user, MenuCategory $menuCategory): Response
     {
-        return false;
+        return $user->restaurants()
+            ->where('id', $menuCategory->restaurant_id)
+            ->exists()
+            ? Response::allow()
+            : Response::deny('You are not authorized to delete this menu category.');
     }
 
     /**

@@ -456,4 +456,31 @@ class PartnerRestaurantController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Delete a partner's restaurant menu category.
+     */
+    public function deleteRestaurantMenuCategory(MenuCategory $menuCategory): JsonResponse
+    {
+        // Check if user is authorized
+        Gate::authorize('delete', $menuCategory);
+
+        try {
+            // Delete menu category
+            $menuCategory->delete();
+
+            // Decrement menu categories order
+            MenuCategory::where('restaurant_id', $menuCategory->restaurant_id)
+                ->where('order', '>', $menuCategory->order)
+                ->decrement('order');
+
+            return response()->json([
+                'message' => 'Menu category deleted successfully.',
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not delete menu category.',
+            ], 500);
+        }
+    }
 }
