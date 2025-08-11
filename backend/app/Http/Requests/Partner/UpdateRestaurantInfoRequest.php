@@ -35,6 +35,8 @@ class UpdateRestaurantInfoRequest extends FormRequest
             'state' => ['required', 'string', 'min:1', 'max:50'],
             'email' => ['required', 'email'],
             'phone_number' => ['required', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
+            'categories' => ['required', 'array', 'min:1', 'max:3'],
+            'categories.*' => ['uuid', 'exists:categories,id'],
             'logo' => [
                 'nullable',
                 Rule::when(function ($input) {

@@ -352,6 +352,9 @@ class PartnerRestaurantController extends Controller
                 'longitude' => $locationData['lon'],
             ]);
 
+            // Create or update restaurant categories
+            $restaurant->categories()->sync($data['categories']);
+
             return response()->json([
                 'message' => 'Restaurant info updated successfully.',
                 'restaurant' => $restaurant,
