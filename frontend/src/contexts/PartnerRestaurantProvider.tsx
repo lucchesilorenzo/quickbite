@@ -21,6 +21,7 @@ export default function PartnerRestaurantProvider({
   children,
 }: PartnerRestaurantProviderProps) {
   const { restaurantId } = useParams();
+
   const {
     data: restaurant,
     isLoading,

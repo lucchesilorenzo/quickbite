@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Container, Typography } from "@mui/material";
 
 import PartnerMenuCategoriesAddMenuCategoryDialog from "@/components/partner/restaurant/menu/menu-categories/PartnerMenuCategoriesAddMenuCategoryDialog";
+import PartnerMenuCategoriesList from "@/components/partner/restaurant/menu/menu-categories/PartnerMenuCategoriesList";
 
 export default function PartnerRestaurantMenuCategoriesPage() {
   useEffect(() => {
@@ -16,6 +17,7 @@ export default function PartnerRestaurantMenuCategoriesPage() {
       </Typography>
 
       <PartnerMenuCategoriesAddMenuCategoryDialog />
+      <PartnerMenuCategoriesList />
     </Container>
   );
 }
