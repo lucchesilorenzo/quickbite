@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { Chip } from "@mui/material";
 
+import PartnerMenuCategoriesDeleteMenuCategoryDialog from "./PartnerMenuCategoriesDeleteMenuCategoryDialog";
 import PartnerMenuCategoriesEditMenuCategoryDialog from "./PartnerMenuCategoriesEditMenuCategoryDialog";
 
 import { MenuCategory } from "@/types";
@@ -30,6 +31,12 @@ export default function PartnerMenuCategoriesItem({
         menuCategory={menuCategory}
         openEditMenuCategoryDialog={openEditMenuCategoryDialog}
         setOpenEditMenuCategoryDialog={setOpenEditMenuCategoryDialog}
+      />
+
+      <PartnerMenuCategoriesDeleteMenuCategoryDialog
+        menuCategory={menuCategory}
+        openDeleteMenuCategoryDialog={openDeleteMenuCategoryDialog}
+        setOpenDeleteMenuCategoryDialog={setOpenDeleteMenuCategoryDialog}
       />
     </>
   );
