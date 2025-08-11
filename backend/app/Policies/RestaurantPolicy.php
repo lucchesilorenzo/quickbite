@@ -59,6 +59,18 @@ class RestaurantPolicy
     }
 
     /**
+     * Determine whether the user can create models.
+     */
+    public function createMenuCategory(User $user, Restaurant $restaurant): Response
+    {
+        return $user->restaurants()
+            ->where('id', $restaurant->id)
+            ->exists()
+            ? Response::allow()
+            : Response::deny('You are not authorized to update this menu category.');
+    }
+
+    /**
      * Determine whether the user can update the model.
      */
     public function update(User $user, Restaurant $restaurant): Response

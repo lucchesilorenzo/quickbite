@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Partner\CreateRestaurantMenuCategoryRequest;
 use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
@@ -368,6 +369,45 @@ class PartnerRestaurantController extends Controller
 
             return response()->json([
                 'message' => 'Could not update restaurant info.',
+            ], 500);
+        }
+    }
+
+    public function createRestaurantMenuCategory(
+        Restaurant $restaurant,
+        CreateRestaurantMenuCategoryRequest $request
+    ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('createMenuCategory', $restaurant);
+
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            // Get menu category order
+            $menuCategoryOrder = $restaurant->menuCategories()->max('order');
+
+            $data['order'] = is_null($menuCategoryOrder) ? 0 : $menuCategoryOrder + 1;
+
+            // Create menu category
+            $menuCategory = $restaurant->menuCategories()->create([
+                ...$data,
+                'order' => $data['order'],
+            ]);
+
+            return response()->json([
+                'message' => 'Menu category created successfully.',
+                'menuCategory' => $menuCategory,
+            ], 200);
+        } catch (Throwable $e) {
+            if ($e->getCode() === '23505') {
+                return response()->json([
+                    'message' => 'Menu category with the same name already exists.',
+                ], 422);
+            }
+
+            return response()->json([
+                'message' => 'Could not create menu category.',
             ], 500);
         }
     }
