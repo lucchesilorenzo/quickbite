@@ -1,5 +1,5 @@
 import FastfoodOutlinedIcon from "@mui/icons-material/FastfoodOutlined";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import { Stack } from "@mui/material";
 
 import PartnerMainCard from "../common/PartnerMainCard";
@@ -11,16 +11,16 @@ export default function PartnerMenuMainCards() {
 
   const cards = [
     {
-      title: "Menu",
-      description: "View and update your menu",
-      icon: FastfoodOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/menu/edit`,
+      title: "Menu categories",
+      description: "View and update your categories",
+      icon: MenuBookOutlinedIcon,
+      href: `/partner/restaurants/${restaurant.id}/menu/categories`,
     },
     {
-      title: "Menu",
-      description: "Suspend your products temporarily",
-      icon: VisibilityOffOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/menu/suspend`,
+      title: "Menu items",
+      description: "View and update your products",
+      icon: FastfoodOutlinedIcon,
+      href: `/partner/restaurants/${restaurant.id}/menu/edit`,
     },
   ];
 
