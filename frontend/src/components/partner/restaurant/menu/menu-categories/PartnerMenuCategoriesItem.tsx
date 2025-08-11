@@ -2,14 +2,16 @@ import { useState } from "react";
 
 import { Chip } from "@mui/material";
 
+import PartnerMenuCategoriesEditMenuCategoryDialog from "./PartnerMenuCategoriesEditMenuCategoryDialog";
+
 import { MenuCategory } from "@/types";
 
 type PartnerMenuCategoriesItemProps = {
-  category: MenuCategory;
+  menuCategory: MenuCategory;
 };
 
 export default function PartnerMenuCategoriesItem({
-  category,
+  menuCategory,
 }: PartnerMenuCategoriesItemProps) {
   const [openEditMenuCategoryDialog, setOpenEditMenuCategoryDialog] =
     useState(false);
@@ -19,9 +21,15 @@ export default function PartnerMenuCategoriesItem({
   return (
     <>
       <Chip
-        label={category.name}
+        label={menuCategory.name}
         onClick={() => setOpenEditMenuCategoryDialog(true)}
         onDelete={() => setOpenDeleteMenuCategoryDialog(true)}
+      />
+
+      <PartnerMenuCategoriesEditMenuCategoryDialog
+        menuCategory={menuCategory}
+        openEditMenuCategoryDialog={openEditMenuCategoryDialog}
+        setOpenEditMenuCategoryDialog={setOpenEditMenuCategoryDialog}
       />
     </>
   );

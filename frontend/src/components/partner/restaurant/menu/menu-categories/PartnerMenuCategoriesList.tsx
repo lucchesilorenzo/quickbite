@@ -18,8 +18,11 @@ export default function PartnerMenuCategoriesList() {
   return (
     <Box sx={{ mt: 4 }}>
       <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
-        {restaurant.menu_categories.map((c) => (
-          <PartnerMenuCategoriesItem key={c.id} category={c} />
+        {restaurant.menu_categories.map((menuCategory) => (
+          <PartnerMenuCategoriesItem
+            key={menuCategory.id}
+            menuCategory={menuCategory}
+          />
         ))}
       </Stack>
     </Box>
