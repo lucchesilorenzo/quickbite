@@ -15,11 +15,9 @@ export default function MenuCategoriesListDesktop() {
       sx={{ display: { xs: "none", lg: "block" }, my: 4 }}
     >
       <Container maxWidth="md">
-        {[...restaurant.menu_categories]
-          .sort((a, b) => a.order - b.order)
-          .map((menuCategory) => (
-            <MenuCategory key={menuCategory.id} menuCategory={menuCategory} />
-          ))}
+        {restaurant.menu_categories.map((menuCategory) => (
+          <MenuCategory key={menuCategory.id} menuCategory={menuCategory} />
+        ))}
 
         <Stack direction="row" spacing={0.5}>
           <InfoOutlineIcon fontSize="inherit" />

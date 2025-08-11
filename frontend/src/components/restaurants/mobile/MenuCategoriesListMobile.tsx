@@ -16,11 +16,9 @@ export default function MenuCategoriesListMobile() {
       component="section"
       sx={{ display: { xs: "block", lg: "none" }, mt: 4 }}
     >
-      {[...restaurant.menu_categories]
-        .sort((a, b) => a.order - b.order)
-        .map((menuCategory) => (
-          <MenuCategory key={menuCategory.id} menuCategory={menuCategory} />
-        ))}
+      {restaurant.menu_categories.map((menuCategory) => (
+        <MenuCategory key={menuCategory.id} menuCategory={menuCategory} />
+      ))}
 
       <Stack direction="row" spacing={0.5} sx={{ p: 2 }}>
         <InfoOutlineIcon fontSize="inherit" />
