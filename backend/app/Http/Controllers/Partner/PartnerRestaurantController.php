@@ -51,7 +51,10 @@ class PartnerRestaurantController extends Controller
                 },
                 'reviews.customer',
                 'reviews.order',
-                'menuCategories.menuItems',
+                'menuCategories' => function ($query) {
+                    $query->orderBy('order', 'asc')
+                        ->with('menuItems');
+                },
             ])
                 ->withAvg('reviews', 'rating')
                 ->withCount('reviews')
@@ -97,7 +100,10 @@ class PartnerRestaurantController extends Controller
                     },
                     'reviews.customer',
                     'reviews.order',
-                    'menuCategories.menuItems',
+                    'menuCategories' => function ($query) {
+                        $query->orderBy('order', 'asc')
+                            ->with('menuItems');
+                    },
                 ])
                 ->withAvg('reviews', 'rating')
                 ->withCount('reviews')
@@ -375,6 +381,9 @@ class PartnerRestaurantController extends Controller
         }
     }
 
+    /**
+     * Create a partner's restaurant menu category.
+     */
     public function createRestaurantMenuCategory(
         Restaurant $restaurant,
         CreateRestaurantMenuCategoryRequest $request

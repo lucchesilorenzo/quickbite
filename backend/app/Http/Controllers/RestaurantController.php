@@ -56,7 +56,10 @@ class RestaurantController extends Controller
                     },
                     'reviews.customer',
                     'reviews.order',
-                    'menuCategories.menuItems',
+                    'menuCategories' => function ($query) {
+                        $query->orderBy('order', 'asc')
+                            ->with('menuItems');
+                    },
                 ])
                 ->withAvg('reviews', 'rating')
                 ->withCount('reviews')
@@ -90,7 +93,10 @@ class RestaurantController extends Controller
                 },
                 'reviews.customer',
                 'reviews.order',
-                'menuCategories.menuItems',
+                'menuCategories' => function ($query) {
+                    $query->orderBy('order', 'asc')
+                        ->with('menuItems');
+                },
             ])
                 ->where('slug', $restaurantSlug)
                 ->withAvg('reviews', 'rating')
