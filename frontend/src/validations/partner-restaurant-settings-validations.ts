@@ -158,6 +158,10 @@ export const partnerRestaurantSettingsInfoFormSchema = z.object({
         error: "Please enter a valid phone number.",
       },
     ),
+  categories: z
+    .array(z.uuid())
+    .min(1, "Please select at least one category.")
+    .max(3, "You can select up to 3 categories."),
   logo: z.union([z.string(), z.instanceof(FileList)]).nullable(),
   cover: z.union([z.string(), z.instanceof(FileList)]).nullable(),
 });

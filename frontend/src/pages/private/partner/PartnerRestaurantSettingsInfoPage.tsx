@@ -36,6 +36,7 @@ export default function PartnerRestaurantSettingsInfoPage() {
       state: restaurant.state || "",
       email: restaurant.email || "",
       phone_number: restaurant.phone_number || "",
+      categories: restaurant.categories.map((c) => c.id),
       logo: restaurant.logo,
       cover: restaurant.cover,
     },
@@ -55,6 +56,7 @@ export default function PartnerRestaurantSettingsInfoPage() {
     formData.append("state", data.state);
     formData.append("email", data.email);
     formData.append("phone_number", data.phone_number);
+    data.categories.forEach((c) => formData.append("categories[]", c));
 
     if (data.logo instanceof FileList && data.logo.length > 0) {
       formData.append("logo", data.logo[0]);

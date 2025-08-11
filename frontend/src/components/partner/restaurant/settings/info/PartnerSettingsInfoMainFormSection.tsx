@@ -1,10 +1,14 @@
 import { useState } from "react";
 
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import PreviewIcon from "@mui/icons-material/Preview";
 import {
+  Autocomplete,
   Box,
   Button,
+  Checkbox,
   Divider,
   IconButton,
   Stack,
@@ -19,11 +23,13 @@ import PreviewImageDialog from "./PreviewImageDialog";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
+import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/usePartnerRestaurantSettingsInfo";
 import env from "@/lib/env";
 import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
 export default function PartnerSettingsInfoMainFormSection() {
+  const { allCategories } = useCategoryFilters();
   const { editMode } = usePartnerRestaurantSettingsInfo();
 
   const {
@@ -176,6 +182,54 @@ export default function PartnerSettingsInfoMainFormSection() {
           )}
         />
       </Stack>
+
+      <Controller
+        name="categories"
+        control={control}
+        render={({ field }) => (
+          <Autocomplete
+            multiple
+            value={allCategories.filter((c) => field.value.includes(c.id))}
+            onChange={(_, value) => field.onChange(value.map((c) => c.id))}
+            readOnly={!editMode}
+            options={allCategories}
+            getOptionLabel={(option) => option.name}
+            slotProps={{
+              listbox: {
+                sx: {
+                  maxHeight: 250,
+                },
+              },
+            }}
+            renderOption={(props, option, { selected }) => (
+              <li {...props} key={option.id}>
+                <Checkbox
+                  icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                  checkedIcon={<CheckBoxIcon fontSize="small" />}
+                  style={{ marginRight: 8 }}
+                  checked={selected}
+                />
+                {option.name}
+              </li>
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...field}
+                {...params}
+                label="Categories"
+                placeholder="Select categories"
+                variant="filled"
+                error={!!errors.categories}
+                helperText={
+                  errors.categories?.message && (
+                    <FormHelperTextError message={errors.categories.message} />
+                  )
+                }
+              />
+            )}
+          />
+        )}
+      />
 
       <Stack direction="row" spacing={2}>
         <Stack direction="row" spacing={1}>
