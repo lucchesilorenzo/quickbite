@@ -3,6 +3,8 @@ import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
+import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { useCreatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partners/restaurants/useCreatePartnerRestaurantMenuCategory";
 import {
   TPartnerRestaurantMenuCategoriesForm,
   partnerRestaurantMenuCategoriesFormSchema,
@@ -15,6 +17,11 @@ type PartnerMenuCategoriesAddMenuCategoryFormProps = {
 export default function PartnerMenuCategoriesAddMenuCategoryForm({
   setOpenAddMenuCategoryDialog,
 }: PartnerMenuCategoriesAddMenuCategoryFormProps) {
+  const { restaurant } = usePartnerRestaurant();
+
+  const { mutateAsync: createPartnerRestaurantMenuCategory } =
+    useCreatePartnerRestaurantMenuCategory(restaurant.id);
+
   const {
     handleSubmit,
     control,
@@ -28,7 +35,7 @@ export default function PartnerMenuCategoriesAddMenuCategoryForm({
   });
 
   async function onSubmit(data: TPartnerRestaurantMenuCategoriesForm) {
-    console.log(data);
+    await createPartnerRestaurantMenuCategory(data);
     setOpenAddMenuCategoryDialog(false);
   }
 
