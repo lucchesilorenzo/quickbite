@@ -10,8 +10,10 @@ use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
+use App\Http\Requests\Partner\UpdateRestaurantMenuCategoryRequest;
 use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
+use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
 use App\Services\LocationService;
@@ -408,6 +410,40 @@ class PartnerRestaurantController extends Controller
 
             return response()->json([
                 'message' => 'Could not create menu category.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Update a partner's restaurant menu category.
+     */
+    public function updateRestaurantMenuCategory(
+        MenuCategory $menuCategory,
+        UpdateRestaurantMenuCategoryRequest $request
+    ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('update', $menuCategory);
+
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            // Update menu category
+            $menuCategory->update($data);
+
+            return response()->json([
+                'message' => 'Menu category updated successfully.',
+                'menuCategory' => $menuCategory,
+            ], 200);
+        } catch (Throwable $e) {
+            if ($e->getCode() === '23505') {
+                return response()->json([
+                    'message' => 'Menu category with the same name already exists.',
+                ], 422);
+            }
+
+            return response()->json([
+                'message' => 'Could not update menu category.',
             ], 500);
         }
     }
