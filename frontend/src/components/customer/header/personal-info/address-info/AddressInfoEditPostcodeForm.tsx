@@ -7,8 +7,8 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {
-  TAddressInfoEditPostcodeForm,
-  addressInfoEditPostcodeForm,
+  TAddressInfoEditPostcodeFormSchema,
+  addressInfoEditPostcodeFormSchema,
 } from "@/validations/personal-info-validations";
 
 export default function AddressInfoEditPostcodeForm() {
@@ -20,13 +20,13 @@ export default function AddressInfoEditPostcodeForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(addressInfoEditPostcodeForm),
+    resolver: zodResolver(addressInfoEditPostcodeFormSchema),
     defaultValues: {
       postcode: isCustomer(user) ? (user.postcode ?? "") : "",
     },
   });
 
-  async function onSubmit(data: TAddressInfoEditPostcodeForm) {
+  async function onSubmit(data: TAddressInfoEditPostcodeFormSchema) {
     await updateCustomerProfile(data);
   }
 

@@ -7,8 +7,8 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {
-  TPersonalInfoEditEmailForm,
-  personalInfoEditEmailForm,
+  TPersonalInfoEditEmailFormSchema,
+  personalInfoEditEmailFormSchema,
 } from "@/validations/personal-info-validations";
 
 export default function PersonalInfoEditEmailForm() {
@@ -20,13 +20,13 @@ export default function PersonalInfoEditEmailForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(personalInfoEditEmailForm),
+    resolver: zodResolver(personalInfoEditEmailFormSchema),
     defaultValues: {
       email: isCustomer(user) ? user.email : "",
     },
   });
 
-  async function onSubmit(data: TPersonalInfoEditEmailForm) {
+  async function onSubmit(data: TPersonalInfoEditEmailFormSchema) {
     await updateCustomerProfile(data);
   }
 

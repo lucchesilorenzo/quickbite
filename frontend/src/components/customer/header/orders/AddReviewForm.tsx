@@ -7,7 +7,10 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCreateReview } from "@/hooks/react-query/private/customers/useCreateReview";
 import { Order } from "@/types/order-types";
-import { TReviewForm, reviewForm } from "@/validations/review-validations";
+import {
+  TReviewFormSchema,
+  reviewFormSchema,
+} from "@/validations/review-validations";
 
 type AddReviewFormProps = {
   setOpenAddReviewDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,14 +28,14 @@ export default function AddReviewForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(reviewForm),
+    resolver: zodResolver(reviewFormSchema),
     defaultValues: {
       comment: "",
       rating: 0,
     },
   });
 
-  async function onSubmit(data: TReviewForm) {
+  async function onSubmit(data: TReviewFormSchema) {
     await createReview({ ...data, order_id: order.id });
     setOpenAddReviewDialog(false);
   }

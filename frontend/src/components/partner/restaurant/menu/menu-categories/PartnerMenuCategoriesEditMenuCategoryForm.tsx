@@ -7,7 +7,7 @@ import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantMenuCategory";
 import { MenuCategory } from "@/types";
 import {
-  TPartnerRestaurantMenuCategoriesForm,
+  TPartnerRestaurantMenuCategoriesFormSchema,
   partnerRestaurantMenuCategoriesFormSchema,
 } from "@/validations/partner-restaurant-menu-validations";
 
@@ -37,7 +37,7 @@ export default function PartnerMenuCategoriesEditMenuCategoryForm({
     },
   });
 
-  async function onSubmit(data: TPartnerRestaurantMenuCategoriesForm) {
+  async function onSubmit(data: TPartnerRestaurantMenuCategoriesFormSchema) {
     await updatePartnerRestaurantMenuCategory(data);
     setOpenEditMenuCategoryDialog(false);
   }

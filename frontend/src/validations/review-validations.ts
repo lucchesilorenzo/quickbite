@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const reviewForm = z.object({
+export const reviewFormSchema = z.object({
   comment: z.string().trim().max(200, "Comment is too long."),
   rating: z
     .number()
@@ -8,4 +8,4 @@ export const reviewForm = z.object({
     .max(5, "Rating must be between 1 and 5."),
 });
 
-export type TReviewForm = z.infer<typeof reviewForm>;
+export type TReviewFormSchema = z.infer<typeof reviewFormSchema>;

@@ -7,8 +7,8 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {
-  TAddressInfoEditBuildingNumberForm,
-  addressInfoEditBuildingNumberForm,
+  TAddressInfoEditBuildingNumberFormSchema,
+  addressInfoEditBuildingNumberFormSchema,
 } from "@/validations/personal-info-validations";
 
 export default function AddressInfoEditBuildingNumberForm() {
@@ -20,13 +20,13 @@ export default function AddressInfoEditBuildingNumberForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(addressInfoEditBuildingNumberForm),
+    resolver: zodResolver(addressInfoEditBuildingNumberFormSchema),
     defaultValues: {
       building_number: isCustomer(user) ? (user.building_number ?? "") : "",
     },
   });
 
-  async function onSubmit(data: TAddressInfoEditBuildingNumberForm) {
+  async function onSubmit(data: TAddressInfoEditBuildingNumberFormSchema) {
     await updateCustomerProfile(data);
   }
 

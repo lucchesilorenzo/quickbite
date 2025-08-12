@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { postData } from "@/lib/api-client";
-import { TPartnerRestaurantMenuCategoriesForm } from "@/validations/partner-restaurant-menu-validations";
+import { TPartnerRestaurantMenuCategoriesFormSchema } from "@/validations/partner-restaurant-menu-validations";
 
 export function useCreatePartnerRestaurantMenuCategory(restaurantId: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: TPartnerRestaurantMenuCategoriesForm) =>
+    mutationFn: (data: TPartnerRestaurantMenuCategoriesFormSchema) =>
       postData(`/partner/restaurants/${restaurantId}/menu/categories`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({

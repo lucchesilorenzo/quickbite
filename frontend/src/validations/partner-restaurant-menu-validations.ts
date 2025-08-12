@@ -9,6 +9,6 @@ export const partnerRestaurantMenuCategoriesFormSchema = z.object({
   description: z.string().trim().max(200, "Description is too long."),
 });
 
-export type TPartnerRestaurantMenuCategoriesForm = z.infer<
+export type TPartnerRestaurantMenuCategoriesFormSchema = z.infer<
   typeof partnerRestaurantMenuCategoriesFormSchema
 >;

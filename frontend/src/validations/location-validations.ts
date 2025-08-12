@@ -12,4 +12,4 @@ export const locationEditForm = z.object({
     .positive("House number must be a positive number."),
 });
 
-export type TLocationEditForm = z.infer<typeof locationEditForm>;
+export type TLocationEditFormSchema = z.infer<typeof locationEditForm>;

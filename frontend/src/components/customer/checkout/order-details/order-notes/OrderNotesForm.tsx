@@ -5,8 +5,8 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
 import {
-  TCheckoutOrderNotesForm,
-  checkoutOrderNotesForm,
+  TCheckoutOrderNotesFormSchema,
+  checkoutOrderNotesFormSchema,
 } from "@/validations/checkout-validations";
 
 type OrderNotesFormProps = {
@@ -23,13 +23,13 @@ export default function OrderNotesForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(checkoutOrderNotesForm),
+    resolver: zodResolver(checkoutOrderNotesFormSchema),
     defaultValues: {
       notes: checkoutData[restaurantId].order_notes?.notes || "",
     },
   });
 
-  function onSubmit(data: TCheckoutOrderNotesForm) {
+  function onSubmit(data: TCheckoutOrderNotesFormSchema) {
     setCheckoutData((prev) => ({
       ...prev,
       [restaurantId]: {

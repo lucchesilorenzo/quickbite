@@ -7,8 +7,8 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {
-  TPersonalInfoEditFullNameForm,
-  personalInfoEditFullNameForm,
+  TPersonalInfoEditFullNameFormSchema,
+  personalInfoEditFullNameFormSchema,
 } from "@/validations/personal-info-validations";
 
 export default function PersonalInfoEditFullNameForm() {
@@ -20,14 +20,14 @@ export default function PersonalInfoEditFullNameForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(personalInfoEditFullNameForm),
+    resolver: zodResolver(personalInfoEditFullNameFormSchema),
     defaultValues: {
       first_name: isCustomer(user) ? user.first_name : "",
       last_name: isCustomer(user) ? user.last_name : "",
     },
   });
 
-  async function onSubmit(data: TPersonalInfoEditFullNameForm) {
+  async function onSubmit(data: TPersonalInfoEditFullNameFormSchema) {
     await updateCustomerProfile(data);
   }
 

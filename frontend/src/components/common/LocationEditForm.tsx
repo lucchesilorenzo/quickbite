@@ -12,7 +12,7 @@ import env from "@/lib/env";
 import { generateSlug } from "@/lib/utils";
 import { Address } from "@/types";
 import {
-  TLocationEditForm,
+  TLocationEditFormSchema,
   locationEditForm,
 } from "@/validations/location-validations";
 
@@ -39,7 +39,7 @@ export default function LocationEditForm({
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  async function onSubmit(data: TLocationEditForm) {
+  async function onSubmit(data: TLocationEditFormSchema) {
     onCloseDialogs();
 
     if (!currentAddress) return;

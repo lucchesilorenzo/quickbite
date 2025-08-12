@@ -9,8 +9,8 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {
-  TPersonalInfoEditDateOfBirthForm,
-  personalInfoEditDateOfBirthForm,
+  TPersonalInfoEditDateOfBirthFormSchema,
+  personalInfoEditDateOfBirthFormSchema,
 } from "@/validations/personal-info-validations";
 
 export default function PersonalInfoEditDateOfBirthForm() {
@@ -22,13 +22,13 @@ export default function PersonalInfoEditDateOfBirthForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(personalInfoEditDateOfBirthForm),
+    resolver: zodResolver(personalInfoEditDateOfBirthFormSchema),
     defaultValues: {
       date_of_birth: isCustomer(user) ? user.date_of_birth : "",
     },
   });
 
-  async function onSubmit(data: TPersonalInfoEditDateOfBirthForm) {
+  async function onSubmit(data: TPersonalInfoEditDateOfBirthFormSchema) {
     await updateCustomerProfile(data);
   }
 

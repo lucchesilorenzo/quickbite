@@ -15,8 +15,8 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
 import {
-  TCheckoutDeliveryTimeForm,
-  checkoutDeliveryTimeForm,
+  TCheckoutDeliveryTimeFormSchema,
+  checkoutDeliveryTimeFormSchema,
 } from "@/validations/checkout-validations";
 
 const deliveryTimes = [{ label: "As soon as possible", value: "asap" }];
@@ -35,14 +35,14 @@ export default function DeliveryTimeForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(checkoutDeliveryTimeForm),
+    resolver: zodResolver(checkoutDeliveryTimeFormSchema),
     defaultValues: {
       delivery_time:
         checkoutData[restaurantId].delivery_time?.delivery_time || "",
     },
   });
 
-  function onSubmit(data: TCheckoutDeliveryTimeForm) {
+  function onSubmit(data: TCheckoutDeliveryTimeFormSchema) {
     setCheckoutData((prev) => ({
       ...prev,
       [restaurantId]: {

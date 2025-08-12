@@ -7,8 +7,8 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {
-  TAddressInfoEditCityForm,
-  addressInfoEditCityForm,
+  TAddressInfoEditCityFormSchema,
+  addressInfoEditCityFormSchema,
 } from "@/validations/personal-info-validations";
 
 export default function AddressInfoEditCityForm() {
@@ -20,13 +20,13 @@ export default function AddressInfoEditCityForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(addressInfoEditCityForm),
+    resolver: zodResolver(addressInfoEditCityFormSchema),
     defaultValues: {
       city: isCustomer(user) ? (user.city ?? "") : "",
     },
   });
 
-  async function onSubmit(data: TAddressInfoEditCityForm) {
+  async function onSubmit(data: TAddressInfoEditCityFormSchema) {
     await updateCustomerProfile(data);
   }
 

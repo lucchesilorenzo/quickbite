@@ -8,8 +8,8 @@ import { useAuth } from "@/hooks/contexts/useAuth";
 import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {
-  TPersonalInfoEditPhoneNumberForm,
-  personalInfoEditPhoneNumberForm,
+  TPersonalInfoEditPhoneNumberFormSchema,
+  personalInfoEditPhoneNumberFormSchema,
 } from "@/validations/personal-info-validations";
 
 export default function PersonalInfoEditPhoneNumberForm() {
@@ -21,13 +21,13 @@ export default function PersonalInfoEditPhoneNumberForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(personalInfoEditPhoneNumberForm),
+    resolver: zodResolver(personalInfoEditPhoneNumberFormSchema),
     defaultValues: {
       phone_number: isCustomer(user) ? user.phone_number : "",
     },
   });
 
-  async function onSubmit(data: TPersonalInfoEditPhoneNumberForm) {
+  async function onSubmit(data: TPersonalInfoEditPhoneNumberFormSchema) {
     await updateCustomerProfile(data);
   }
 

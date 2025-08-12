@@ -3,7 +3,7 @@ import z from "zod";
 
 import { isAdult } from "@/lib/utils";
 
-export const personalInfoEditFullNameForm = z.object({
+export const personalInfoEditFullNameFormSchema = z.object({
   first_name: z
     .string()
     .trim()
@@ -16,13 +16,13 @@ export const personalInfoEditFullNameForm = z.object({
     .max(50, "Last name is too long."),
 });
 
-export const personalInfoEditEmailForm = z.object({
+export const personalInfoEditEmailFormSchema = z.object({
   email: z
     .email({ error: "Please enter a valid email address." })
     .min(1, "Email is required."),
 });
 
-export const personalInfoEditPhoneNumberForm = z.object({
+export const personalInfoEditPhoneNumberFormSchema = z.object({
   phone_number: z
     .string()
     .trim()
@@ -36,7 +36,7 @@ export const personalInfoEditPhoneNumberForm = z.object({
     ),
 });
 
-export const personalInfoEditDateOfBirthForm = z.object({
+export const personalInfoEditDateOfBirthFormSchema = z.object({
   date_of_birth: z
     .string()
     .trim()
@@ -46,7 +46,7 @@ export const personalInfoEditDateOfBirthForm = z.object({
     }),
 });
 
-export const addressInfoEditStreetAddressForm = z.object({
+export const addressInfoEditStreetAddressFormSchema = z.object({
   street_address: z
     .string()
     .trim()
@@ -54,7 +54,7 @@ export const addressInfoEditStreetAddressForm = z.object({
     .max(50, "Street address is too long."),
 });
 
-export const addressInfoEditBuildingNumberForm = z.object({
+export const addressInfoEditBuildingNumberFormSchema = z.object({
   building_number: z
     .string()
     .trim()
@@ -62,7 +62,7 @@ export const addressInfoEditBuildingNumberForm = z.object({
     .max(50, "Building number is too long."),
 });
 
-export const addressInfoEditPostcodeForm = z.object({
+export const addressInfoEditPostcodeFormSchema = z.object({
   postcode: z
     .string()
     .trim()
@@ -70,7 +70,7 @@ export const addressInfoEditPostcodeForm = z.object({
     .max(50, "Postcode is too long."),
 });
 
-export const addressInfoEditCityForm = z.object({
+export const addressInfoEditCityFormSchema = z.object({
   city: z
     .string()
     .trim()
@@ -78,42 +78,44 @@ export const addressInfoEditCityForm = z.object({
     .max(50, "City is too long."),
 });
 
-export type TPersonalInfoEditFullNameForm = z.infer<
-  typeof personalInfoEditFullNameForm
+export type TPersonalInfoEditFullNameFormSchema = z.infer<
+  typeof personalInfoEditFullNameFormSchema
 >;
 
-export type TPersonalInfoEditEmailForm = z.infer<
-  typeof personalInfoEditEmailForm
+export type TPersonalInfoEditEmailFormSchema = z.infer<
+  typeof personalInfoEditEmailFormSchema
 >;
 
-export type TPersonalInfoEditPhoneNumberForm = z.infer<
-  typeof personalInfoEditPhoneNumberForm
+export type TPersonalInfoEditPhoneNumberFormSchema = z.infer<
+  typeof personalInfoEditPhoneNumberFormSchema
 >;
 
-export type TPersonalInfoEditDateOfBirthForm = z.infer<
-  typeof personalInfoEditDateOfBirthForm
+export type TPersonalInfoEditDateOfBirthFormSchema = z.infer<
+  typeof personalInfoEditDateOfBirthFormSchema
 >;
 
-export type TAddressInfoEditStreetAddressForm = z.infer<
-  typeof addressInfoEditStreetAddressForm
+export type TAddressInfoEditStreetAddressFormSchema = z.infer<
+  typeof addressInfoEditStreetAddressFormSchema
 >;
 
-export type TAddressInfoEditBuildingNumberForm = z.infer<
-  typeof addressInfoEditBuildingNumberForm
+export type TAddressInfoEditBuildingNumberFormSchema = z.infer<
+  typeof addressInfoEditBuildingNumberFormSchema
 >;
 
-export type TAddressInfoEditPostcodeForm = z.infer<
-  typeof addressInfoEditPostcodeForm
+export type TAddressInfoEditPostcodeFormSchema = z.infer<
+  typeof addressInfoEditPostcodeFormSchema
 >;
 
-export type TAddressInfoEditCityForm = z.infer<typeof addressInfoEditCityForm>;
+export type TAddressInfoEditCityFormSchema = z.infer<
+  typeof addressInfoEditCityFormSchema
+>;
 
 export type PersonalInfoField =
-  | TPersonalInfoEditFullNameForm
-  | TPersonalInfoEditEmailForm
-  | TPersonalInfoEditPhoneNumberForm
-  | TPersonalInfoEditDateOfBirthForm
-  | TAddressInfoEditStreetAddressForm
-  | TAddressInfoEditBuildingNumberForm
-  | TAddressInfoEditPostcodeForm
-  | TAddressInfoEditCityForm;
+  | TPersonalInfoEditFullNameFormSchema
+  | TPersonalInfoEditEmailFormSchema
+  | TPersonalInfoEditPhoneNumberFormSchema
+  | TPersonalInfoEditDateOfBirthFormSchema
+  | TAddressInfoEditStreetAddressFormSchema
+  | TAddressInfoEditBuildingNumberFormSchema
+  | TAddressInfoEditPostcodeFormSchema
+  | TAddressInfoEditCityFormSchema;
