@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Grid, Typography, debounce } from "@mui/material";
 
@@ -21,6 +29,11 @@ export default function PartnerMenuCategoriesList() {
   );
 
   const [items, setItems] = useState(restaurant.menu_categories);
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor),
+  );
 
   useEffect(() => {
     setItems(restaurant.menu_categories);
@@ -60,7 +73,7 @@ export default function PartnerMenuCategoriesList() {
         automatically update in the public restaurant menu.
       </Typography>
 
-      <DndContext onDragEnd={handleMenuCategorySort}>
+      <DndContext sensors={sensors} onDragEnd={handleMenuCategorySort}>
         <SortableContext items={items}>
           <Grid container spacing={1}>
             {items.map((menuCategory) => (

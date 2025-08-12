@@ -4,6 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { Chip, IconButton, Stack } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 import PartnerMenuCategoriesDeleteMenuCategoryDialog from "./PartnerMenuCategoriesDeleteMenuCategoryDialog";
 import PartnerMenuCategoriesEditMenuCategoryDialog from "./PartnerMenuCategoriesEditMenuCategoryDialog";
@@ -25,20 +26,26 @@ export default function PartnerMenuCategoriesItem({
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: menuCategory.id });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-
   return (
     <Stack
+      {...attributes}
       direction="row"
       alignItems="center"
       ref={setNodeRef}
-      style={style}
-      {...attributes}
+      sx={{ transform: CSS.Transform.toString(transform), transition }}
     >
-      <IconButton {...listeners} size="small" sx={{ cursor: "move" }}>
+      <IconButton
+        {...listeners}
+        size="small"
+        sx={{
+          cursor: "move",
+          touchAction: "manipulation",
+          "&:focus-visible": {
+            bgcolor: grey[200],
+          },
+        }}
+        aria-label="Drag to reorder"
+      >
         <DragIndicatorIcon fontSize="small" />
       </IconButton>
 
