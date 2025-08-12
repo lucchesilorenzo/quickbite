@@ -5,6 +5,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Box, Fade, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { useSearchParams } from "react-router-dom";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
@@ -26,6 +27,7 @@ export default function PartnerMenuEditNavigation() {
   ] = useState(false);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleSlideChange(swiper: SwiperClass) {
     setCanScrollPrev(!swiper.isBeginning);
@@ -42,12 +44,32 @@ export default function PartnerMenuEditNavigation() {
 
   function handleSlideClick(menuCategoryId: string) {
     setSelectedMenuCategoryId(menuCategoryId);
+    setSearchParams(
+      { menu_category_id: menuCategoryId },
+      {
+        replace: true,
+      },
+    );
   }
 
   useEffect(() => {
     setCanScrollPrev(!swiperRef.current?.isBeginning);
     setCanScrollNext(!swiperRef.current?.isEnd);
   }, [restaurant.menu_categories]);
+
+  useEffect(() => {
+    const menuCategoryId = searchParams.get("menu_category_id");
+
+    if (menuCategoryId) {
+      const menuCategory = restaurant.menu_categories.find(
+        (menuCategory) => menuCategory.id === menuCategoryId,
+      );
+
+      if (menuCategory) {
+        setSelectedMenuCategoryId(menuCategory.id);
+      }
+    }
+  }, [searchParams, restaurant.menu_categories, setSelectedMenuCategoryId]);
 
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 2 }}>
