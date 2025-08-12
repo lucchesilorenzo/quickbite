@@ -1,0 +1,115 @@
+import { useState } from "react";
+
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { grey } from "@mui/material/colors";
+
+import PartnerMenuEditMenuItemDialog from "./PartnerMenuEditMenuItemDialog";
+
+import env from "@/lib/env";
+import { formatCurrency, truncateWords } from "@/lib/utils";
+import { MenuItem } from "@/types";
+
+type PartnerMenuEditMenuItemProps = {
+  menuItem: MenuItem;
+};
+
+export default function PartnerMenuEditMenuItem({
+  menuItem,
+}: PartnerMenuEditMenuItemProps) {
+  const [openEditMenuItemDialog, setOpenEditMenuItemDialog] = useState(false);
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  return (
+    <>
+      <Card variant="outlined" elevation={3}>
+        <Box
+          role="button"
+          sx={{
+            p: 2,
+            bgcolor: !menuItem.is_available ? grey[100] : "",
+            "&:hover": {
+              bgcolor: grey[100],
+              cursor: "pointer",
+            },
+          }}
+          onClick={() => setOpenEditMenuItemDialog(true)}
+        >
+          <Stack direction="row" sx={{ alignItems: "center" }}>
+            <Box sx={{ flex: 1, pr: 1 }}>
+              <Typography
+                component="h3"
+                variant={isMobile ? "body1" : "h6"}
+                sx={{
+                  fontWeight: 700,
+                  color: !menuItem.is_available ? grey[500] : "",
+                }}
+              >
+                {menuItem.name}
+              </Typography>
+
+              <CardContent sx={{ p: 0 }}>
+                <Typography
+                  component="h4"
+                  variant={isMobile ? "body2" : "body1"}
+                  sx={{
+                    fontWeight: menuItem.is_available ? 700 : "",
+                    color: !menuItem.is_available ? grey[500] : "",
+                  }}
+                  gutterBottom
+                >
+                  {menuItem.is_available
+                    ? formatCurrency(menuItem.price)
+                    : "Unavailable"}
+                </Typography>
+
+                {menuItem.description && (
+                  <Typography
+                    component="div"
+                    variant="body2"
+                    color={!menuItem.is_available ? "textDisabled" : ""}
+                  >
+                    {truncateWords(menuItem.description, 20)}
+                  </Typography>
+                )}
+              </CardContent>
+            </Box>
+
+            <Box sx={{ flexShrink: 0, position: "relative" }}>
+              {menuItem.image ? (
+                <CardMedia
+                  component="img"
+                  sx={{
+                    height: 100,
+                    width: 150,
+                    border: "1px solid #EDEDEC",
+                    borderRadius: 2,
+                  }}
+                  image={`${env.VITE_BASE_URL}${menuItem.image}`}
+                  alt={menuItem.name}
+                  title={menuItem.name}
+                />
+              ) : (
+                <Box sx={{ height: 100, width: 150 }}></Box>
+              )}
+            </Box>
+          </Stack>
+        </Box>
+      </Card>
+
+      <PartnerMenuEditMenuItemDialog
+        menuItem={menuItem}
+        openEditMenuItemDialog={openEditMenuItemDialog}
+        setOpenEditMenuItemDialog={setOpenEditMenuItemDialog}
+      />
+    </>
+  );
+}
