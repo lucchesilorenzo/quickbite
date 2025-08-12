@@ -61,6 +61,7 @@ class RestaurantController extends Controller
                             ->with('menuItems');
                     },
                 ])
+                ->where('is_approved', true)
                 ->withAvg('reviews', 'rating')
                 ->withCount('reviews')
                 ->get();
@@ -99,6 +100,7 @@ class RestaurantController extends Controller
                 },
             ])
                 ->where('slug', $restaurantSlug)
+                ->where('is_approved', true)
                 ->withAvg('reviews', 'rating')
                 ->withCount('reviews')
                 ->first();

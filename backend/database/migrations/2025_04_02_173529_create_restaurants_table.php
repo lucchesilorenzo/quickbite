@@ -48,7 +48,7 @@ return new class extends Migration
 
             $table->string('logo')->nullable();
             $table->string('cover')->nullable();
-            $table->boolean('is_approved')->default(true);
+            $table->boolean('is_approved')->default(false);
             $table->boolean('force_close')->default(false);
             $table->timestamps();
         });

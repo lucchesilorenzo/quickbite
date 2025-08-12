@@ -55,6 +55,7 @@ class RestaurantFactory extends Factory
             'delivery_time_max' => fake()->randomElement([15, 20, 25, 30]),
             'logo' => Storage::url('restaurants/logos/logo' . $logoNumber++ . '.jpg'),
             'cover' => Storage::url('restaurants/covers/cover' . $coverNumber++ . '.jpg'),
+            'is_approved' => true,
         ];
     }
 
