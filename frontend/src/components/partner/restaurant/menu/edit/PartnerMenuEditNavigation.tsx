@@ -11,13 +11,15 @@ import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import MenuCategoryNavigationDialog from "@/components/common/menu-category-navigation/MenuCategoryNavigationDialog";
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
 
 export default function PartnerMenuEditNavigation() {
   const { restaurant } = usePartnerRestaurant();
+  const { selectedMenuCategoryId, setSelectedMenuCategoryId } =
+    usePartnerRestaurantMenu();
 
   const swiperRef = useRef<SwiperClass>(null);
 
-  const [selectedMenuCategoryId, setSelectedMenuCategoryId] = useState("");
   const [
     openMenuCategoryNavigationDialog,
     setOpenMenuCategoryNavigationDialog,
