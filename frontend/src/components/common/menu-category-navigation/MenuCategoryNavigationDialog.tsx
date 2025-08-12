@@ -22,11 +22,13 @@ type MenuCategoryNavigationDialogProps = {
     React.SetStateAction<boolean>
   >;
   onSlideClick: (menuCategoryId: string) => void;
+  title?: string;
 };
 
 export default function MenuCategoryNavigationDialog({
   menuCategories,
   openMenuCategoryNavigationDialog,
+  title = "Categories",
   setOpenMenuCategoryNavigationDialog,
   onSlideClick,
 }: MenuCategoryNavigationDialogProps) {
@@ -42,7 +44,7 @@ export default function MenuCategoryNavigationDialog({
     >
       <Stack spacing={2}>
         <Stack direction="row" sx={{ justifyContent: "space-between", p: 2 }}>
-          <DialogTitle sx={{ p: 0, fontWeight: 700 }}>Categories</DialogTitle>
+          <DialogTitle sx={{ p: 0, fontWeight: 700 }}>{title}</DialogTitle>
 
           <IconButton
             color="inherit"

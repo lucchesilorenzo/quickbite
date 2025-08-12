@@ -8,8 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 
-import MenuItemQuantityInCartBadge from "../common/MenuItemQuantityInCartBadge";
+import MenuItemQuantityInCartBadge from "../../restaurants/common/MenuItemQuantityInCartBadge";
 
+import { useAuth } from "@/hooks/contexts/useAuth";
+import { isCustomer } from "@/lib/utils";
 import { MenuCategory } from "@/types";
 
 type MenuCategoryNavigationItemProps = {
@@ -27,6 +29,10 @@ export default function MenuCategoryNavigationItem({
   setOpenMenuCategoryNavigationDialog,
   onSlideClick,
 }: MenuCategoryNavigationItemProps) {
+  const { user } = useAuth();
+
+  const showInCartBadge = user === null || isCustomer(user);
+
   return (
     <>
       <ListItem
@@ -53,10 +59,12 @@ export default function MenuCategoryNavigationItem({
           />
         </ListItemButton>
 
-        <MenuItemQuantityInCartBadge
-          type="from-search"
-          menuCategory={menuCategory}
-        />
+        {showInCartBadge && (
+          <MenuItemQuantityInCartBadge
+            type="from-search"
+            menuCategory={menuCategory}
+          />
+        )}
       </ListItem>
 
       {!isLast && <Divider />}

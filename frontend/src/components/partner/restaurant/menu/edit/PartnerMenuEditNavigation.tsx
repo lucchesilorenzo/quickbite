@@ -8,13 +8,12 @@ import { grey } from "@mui/material/colors";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
-import MenuCategoryNavigationDialog from "../../common/menu-category-navigation/MenuCategoryNavigationDialog";
-import MenuCategoryNavigationSlide from "../../common/menu-category-navigation/MenuCategoryNavigationSlide";
+import MenuCategoryNavigationDialog from "@/components/common/menu-category-navigation/MenuCategoryNavigationDialog";
+import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
+import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-
-export default function MenuCategoryNavigation() {
-  const { restaurant, menuCategoryRefs } = useSingleRestaurant();
+export default function PartnerMenuEditNavigation() {
+  const { restaurant } = usePartnerRestaurant();
 
   const swiperRef = useRef<SwiperClass>(null);
 
@@ -41,18 +40,6 @@ export default function MenuCategoryNavigation() {
 
   function handleSlideClick(menuCategoryId: string) {
     setSelectedMenuCategoryId(menuCategoryId);
-
-    // Desktop
-    document.querySelector(`#category-${menuCategoryId}`)?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-
-    // Mobile
-    menuCategoryRefs.current[menuCategoryId]?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
   }
 
   useEffect(() => {
@@ -154,6 +141,7 @@ export default function MenuCategoryNavigation() {
       <MenuCategoryNavigationDialog
         menuCategories={restaurant.menu_categories}
         openMenuCategoryNavigationDialog={openMenuCategoryNavigationDialog}
+        title="Menu categories"
         setOpenMenuCategoryNavigationDialog={
           setOpenMenuCategoryNavigationDialog
         }

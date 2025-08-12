@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Container } from "@mui/material";
 
 import PartnerMenuEditHeader from "@/components/partner/restaurant/menu/edit/PartnerMenuEditHeader";
+import PartnerMenuEditNavigation from "@/components/partner/restaurant/menu/edit/PartnerMenuEditNavigation";
 
 export default function PartnerRestaurantMenuEditPage() {
   useEffect(() => {
@@ -12,6 +13,7 @@ export default function PartnerRestaurantMenuEditPage() {
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
       <PartnerMenuEditHeader />
+      <PartnerMenuEditNavigation />
     </Container>
   );
 }
