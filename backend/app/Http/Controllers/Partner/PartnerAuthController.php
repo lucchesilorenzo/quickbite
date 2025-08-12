@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Throwable;
 
-class AuthController extends Controller
+class PartnerAuthController extends Controller
 {
     /**
      * Create a new controller instance.

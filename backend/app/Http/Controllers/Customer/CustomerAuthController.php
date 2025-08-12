@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Throwable;
 
-class AuthController extends Controller
+class CustomerAuthController extends Controller
 {
     /**
      * Register a new customer.
