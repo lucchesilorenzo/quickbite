@@ -1,11 +1,49 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { useEffect, useMemo, useState } from "react";
+
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { Box, Grid, Typography, debounce } from "@mui/material";
 
 import PartnerMenuCategoriesItem from "./PartnerMenuCategoriesItem";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { useUpdatePartnerRestaurantMenuCategoriesOrder } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantMenuCategoriesOrder";
 
 export default function PartnerMenuCategoriesList() {
   const { restaurant } = usePartnerRestaurant();
+
+  const { mutateAsync: updateRestaurantMenuCategoriesOrder } =
+    useUpdatePartnerRestaurantMenuCategoriesOrder(restaurant.id);
+
+  const debounceUpdateRestaurantMenuCategoriesOrder = useMemo(
+    () => debounce(updateRestaurantMenuCategoriesOrder, 500),
+    [updateRestaurantMenuCategoriesOrder],
+  );
+
+  const [items, setItems] = useState(restaurant.menu_categories);
+
+  useEffect(() => {
+    setItems(restaurant.menu_categories);
+  }, [restaurant.menu_categories]);
+
+  async function handleMenuCategorySort({ active, over }: DragEndEvent) {
+    if (active.id === over?.id) return;
+
+    setItems((prev) => {
+      const from = prev.findIndex((i) => i.id === active.id);
+      const to = prev.findIndex((i) => i.id === over?.id);
+
+      const newItems = arrayMove(prev, from, to);
+      const updatedItems = newItems.map((item, index) => ({
+        ...item,
+        order: index,
+      }));
+
+      debounceUpdateRestaurantMenuCategoriesOrder(updatedItems);
+
+      return updatedItems;
+    });
+  }
 
   if (!restaurant.menu_categories.length) {
     return (
@@ -17,14 +55,25 @@ export default function PartnerMenuCategoriesList() {
 
   return (
     <Box sx={{ mt: 4 }}>
-      <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
-        {restaurant.menu_categories.map((menuCategory) => (
-          <PartnerMenuCategoriesItem
-            key={menuCategory.id}
-            menuCategory={menuCategory}
-          />
-        ))}
-      </Stack>
+      <Typography variant="body2" sx={{ mb: 4 }}>
+        Drag and drop menu categories to change their order. The new order will
+        automatically update in the public restaurant menu.
+      </Typography>
+
+      <DndContext onDragEnd={handleMenuCategorySort}>
+        <SortableContext items={items}>
+          <Grid container spacing={1}>
+            {items.map((menuCategory) => (
+              <Grid key={menuCategory.id} size={{ xs: 6, sm: 4 }}>
+                <PartnerMenuCategoriesItem
+                  key={menuCategory.id}
+                  menuCategory={menuCategory}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </SortableContext>
+      </DndContext>
     </Box>
   );
 }

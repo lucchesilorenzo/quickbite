@@ -18,7 +18,7 @@ export default function PartnerMenuCategoriesAddMenuCategoryDialog() {
   const [openAddMenuCategoryDialog, setOpenAddMenuCategoryDialog] =
     useState(false);
 
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <>

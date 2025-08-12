@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-import { Chip } from "@mui/material";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import { Chip, IconButton, Stack } from "@mui/material";
 
 import PartnerMenuCategoriesDeleteMenuCategoryDialog from "./PartnerMenuCategoriesDeleteMenuCategoryDialog";
 import PartnerMenuCategoriesEditMenuCategoryDialog from "./PartnerMenuCategoriesEditMenuCategoryDialog";
@@ -19,10 +22,28 @@ export default function PartnerMenuCategoriesItem({
   const [openDeleteMenuCategoryDialog, setOpenDeleteMenuCategoryDialog] =
     useState(false);
 
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: menuCategory.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
-    <>
+    <Stack
+      direction="row"
+      alignItems="center"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+    >
+      <IconButton {...listeners} size="small" sx={{ cursor: "move" }}>
+        <DragIndicatorIcon fontSize="small" />
+      </IconButton>
+
       <Chip
-        label={menuCategory.name}
+        label={`(${menuCategory.order + 1}) ${menuCategory.name}`}
         onClick={() => setOpenEditMenuCategoryDialog(true)}
         onDelete={() => setOpenDeleteMenuCategoryDialog(true)}
       />
@@ -38,6 +59,6 @@ export default function PartnerMenuCategoriesItem({
         openDeleteMenuCategoryDialog={openDeleteMenuCategoryDialog}
         setOpenDeleteMenuCategoryDialog={setOpenDeleteMenuCategoryDialog}
       />
-    </>
+    </Stack>
   );
 }
