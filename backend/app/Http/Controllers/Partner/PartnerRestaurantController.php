@@ -10,6 +10,7 @@ use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
+use App\Http\Requests\Partner\UpdateRestaurantMenuCategoriesOrderRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuCategoryRequest;
 use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
@@ -19,6 +20,7 @@ use App\Models\RestaurantOffer;
 use App\Services\LocationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
@@ -453,6 +455,61 @@ class PartnerRestaurantController extends Controller
 
             return response()->json([
                 'message' => 'Could not update menu category.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Update a partner's restaurant menu categories order.
+     */
+    public function updateRestaurantMenuCategoriesOrder(
+        UpdateRestaurantMenuCategoriesOrderRequest $request
+    ): JsonResponse {
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            $updatedMenuCategories = DB::transaction(function () use ($data) {
+                $updatedCategories = [];
+
+                foreach ($data as $menuCategoryData) {
+                    $menuCategory = MenuCategory::find($menuCategoryData['id']);
+
+                    if (! $menuCategory) {
+                        throw new Exception('Menu category not found.', 404);
+                    }
+
+                    Gate::authorize('update', $menuCategory);
+
+                    $menuCategory->update([
+                        'order' => $menuCategoryData['order'],
+                    ]);
+
+                    $updatedCategories[] = $menuCategory;
+                }
+
+                return $updatedCategories;
+            });
+
+            return response()->json([
+                'message' => 'Order updated successfully.',
+                'menuCategories' => $updatedMenuCategories,
+            ], 200);
+        } catch (Throwable $e) {
+            if ($e->getMessage() === 'Menu category not found.') {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 404);
+            }
+
+            if ($e->getCode() === '23505') {
+                return response()->json([
+                    'message' => 'Menu category with the same name already exists.',
+                ], 422);
+            }
+
+            return response()->json([
+                'message' => 'Could not update menu categories.',
             ], 500);
         }
     }
