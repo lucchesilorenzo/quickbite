@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\RestaurantRole;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -83,7 +84,7 @@ class Restaurant extends Model
     {
         return $this->belongsToMany(User::class)
             ->withPivot('role')
-            ->wherePivotIn('role', ['OWNER', 'CO-OWNER']);
+            ->wherePivotIn('role', [RestaurantRole::OWNER, RestaurantRole::CO_OWNER]);
     }
 
     /**
@@ -93,7 +94,7 @@ class Restaurant extends Model
     {
         return $this->belongsToMany(User::class)
             ->withPivot('role', 'contract_start', 'contract_end', 'is_active')
-            ->wherePivot('role', 'RIDER');
+            ->wherePivot('role', RestaurantRole::RIDER);
     }
 
     /**
