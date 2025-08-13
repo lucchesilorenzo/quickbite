@@ -12,9 +12,11 @@ use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuCategoriesOrderRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuCategoryRequest;
+use App\Http\Requests\Partner\UpdateRestaurantMenuItemRequest;
 use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\MenuCategory;
+use App\Models\MenuItem;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
 use App\Services\LocationService;
@@ -537,6 +539,53 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not delete menu category.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Update a partner's restaurant menu item.
+     */
+    public function updateRestaurantMenuItem(
+        MenuItem $menuItem,
+        UpdateRestaurantMenuItemRequest $request
+    ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('update', $menuItem);
+
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            if ($request->hasFile('image')) {
+                if ($menuItem->image && ! str_contains($menuItem->image, 'menu-items/default')) {
+                    $oldImagePath = str_replace('/storage/', '', $menuItem->image);
+
+                    if (Storage::disk('public')->exists($oldImagePath)) {
+                        Storage::disk('public')->delete($oldImagePath);
+                    }
+                }
+
+                $path = $request->file('image')->store('restaurants/menu-items', 'public');
+                $data['image'] = '/storage/' . $path;
+            }
+
+            // Update menu item
+            $menuItem->update($data);
+
+            return response()->json([
+                'message' => 'Menu item updated successfully.',
+                'menuItem' => $menuItem,
+            ], 200);
+        } catch (Throwable $e) {
+            if ($e->getCode() === '23505') {
+                return response()->json([
+                    'message' => 'Menu item with the same name already exists.',
+                ], 422);
+            }
+
+            return response()->json([
+                'message' => 'Could not update menu item.',
             ], 500);
         }
     }
