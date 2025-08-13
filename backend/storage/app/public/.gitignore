@@ -1,2 +1,7 @@
-# *
-# !.gitignore
+*
+!.gitignore
+
+!category-filters/default/**
+!restaurants/covers/default/**
+!restaurants/logos/default/**
+!restaurants/menu-items/default/**
