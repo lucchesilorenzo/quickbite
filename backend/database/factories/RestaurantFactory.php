@@ -53,8 +53,8 @@ class RestaurantFactory extends Factory
             'service_fee' => fake()->randomElement([0, 0.30, 0.50, 0.75, 1.00]),
             'delivery_time_min' => fake()->randomElement([10, 15]),
             'delivery_time_max' => fake()->randomElement([15, 20, 25, 30]),
-            'logo' => Storage::url('restaurants/logos/logo' . $logoNumber++ . '.jpg'),
-            'cover' => Storage::url('restaurants/covers/cover' . $coverNumber++ . '.jpg'),
+            'logo' => Storage::url('restaurants/logos/default/logo' . $logoNumber++ . '.jpg'),
+            'cover' => Storage::url('restaurants/covers/default/cover' . $coverNumber++ . '.jpg'),
             'is_approved' => true,
         ];
     }

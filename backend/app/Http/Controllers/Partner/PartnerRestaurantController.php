@@ -324,7 +324,7 @@ class PartnerRestaurantController extends Controller
 
         try {
             if ($request->hasFile('logo')) {
-                if ($restaurant->logo) {
+                if ($restaurant->logo && ! str_contains($restaurant->image, 'logos/default')) {
                     $oldLogoPath = str_replace('/storage/', '', $restaurant->logo);
 
                     if (Storage::disk('public')->exists($oldLogoPath)) {
@@ -337,7 +337,7 @@ class PartnerRestaurantController extends Controller
             }
 
             if ($request->hasFile('cover')) {
-                if ($restaurant->cover) {
+                if ($restaurant->cover && ! str_contains($restaurant->image, 'covers/default')) {
                     $oldCoverPath = str_replace('/storage/', '', $restaurant->cover);
 
                     if (Storage::disk('public')->exists($oldCoverPath)) {

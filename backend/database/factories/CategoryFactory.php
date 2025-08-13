@@ -37,49 +37,49 @@ class CategoryFactory extends Factory
             [
                 'name' => 'Pizza',
                 'slug' => 'pizza',
-                'image' => Storage::url('category-filters/pizza.jpg'),
+                'image' => Storage::url('category-filters/default/pizza.jpg'),
                 'is_default' => true,
             ],
             [
                 'name' => 'Hamburger',
                 'slug' => 'hamburger',
-                'image' => Storage::url('category-filters/hamburger.jpg'),
+                'image' => Storage::url('category-filters/default/hamburger.jpg'),
                 'is_default' => true,
             ],
             [
                 'name' => 'Sushi',
                 'slug' => 'sushi',
-                'image' => Storage::url('category-filters/sushi.jpg'),
+                'image' => Storage::url('category-filters/default/sushi.jpg'),
                 'is_default' => true,
             ],
             [
                 'name' => 'Chinese',
                 'slug' => 'chinese',
-                'image' => Storage::url('category-filters/chinese.jpg'),
+                'image' => Storage::url('category-filters/default/chinese.jpg'),
                 'is_default' => true,
             ],
             [
                 'name' => 'Desserts',
                 'slug' => 'desserts',
-                'image' => Storage::url('category-filters/desserts.jpg'),
+                'image' => Storage::url('category-filters/default/desserts.jpg'),
                 'is_default' => true,
             ],
             [
                 'name' => 'Drinks',
                 'slug' => 'drinks',
-                'image' => Storage::url('category-filters/drinks.jpg'),
+                'image' => Storage::url('category-filters/default/drinks.jpg'),
                 'is_default' => true,
             ],
             [
                 'name' => 'Thai',
                 'slug' => 'thai',
-                'image' => Storage::url('category-filters/thai.jpg'),
+                'image' => Storage::url('category-filters/default/thai.jpg'),
                 'is_default' => true,
             ],
             [
                 'name' => 'Mexican',
                 'slug' => 'mexican',
-                'image' => Storage::url('category-filters/mexican.jpg'),
+                'image' => Storage::url('category-filters/default/mexican.jpg'),
                 'is_default' => false,
             ]
         ));
