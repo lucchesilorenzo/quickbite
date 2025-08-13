@@ -2,15 +2,14 @@ import { useEffect, useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Box, Fade, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
-import MenuCategoryNavigationDialog from "../../common/menu-category-navigation/MenuCategoryNavigationDialog";
 import MenuCategoryNavigationSlide from "../../common/menu-category-navigation/MenuCategoryNavigationSlide";
 
+import ShowMoreMenuCategoriesButton from "@/components/partner/restaurant/menu/edit/PartnerMenuEditNavigationMenuCategoriesButton";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function MenuCategoryNavigation() {
@@ -19,10 +18,6 @@ export default function MenuCategoryNavigation() {
   const swiperRef = useRef<SwiperClass>(null);
 
   const [selectedMenuCategoryId, setSelectedMenuCategoryId] = useState("");
-  const [
-    openMenuCategoryNavigationDialog,
-    setOpenMenuCategoryNavigationDialog,
-  ] = useState(false);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -137,26 +132,8 @@ export default function MenuCategoryNavigation() {
         </IconButton>
       </Fade>
 
-      <IconButton
-        onClick={() => setOpenMenuCategoryNavigationDialog(true)}
-        color="inherit"
-        sx={{
-          bgcolor: grey[200],
-          "&:hover": {
-            bgcolor: grey[300],
-          },
-        }}
-        size="small"
-      >
-        <FormatListBulletedIcon fontSize="small" />
-      </IconButton>
-
-      <MenuCategoryNavigationDialog
+      <ShowMoreMenuCategoriesButton
         menuCategories={restaurant.menu_categories}
-        openMenuCategoryNavigationDialog={openMenuCategoryNavigationDialog}
-        setOpenMenuCategoryNavigationDialog={
-          setOpenMenuCategoryNavigationDialog
-        }
         onSlideClick={handleSlideClick}
       />
     </Stack>

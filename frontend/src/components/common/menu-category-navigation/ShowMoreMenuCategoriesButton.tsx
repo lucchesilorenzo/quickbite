@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Box, Fade, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useSearchParams } from "react-router-dom";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
-import MenuCategoryNavigationDialog from "@/components/common/menu-category-navigation/MenuCategoryNavigationDialog";
+import ShowMoreMenuCategoriesButton from "../../partner/restaurant/menu/edit/PartnerMenuEditNavigationMenuCategoriesButton";
+
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
@@ -21,10 +21,6 @@ export default function PartnerMenuEditNavigation() {
 
   const swiperRef = useRef<SwiperClass>(null);
 
-  const [
-    openMenuCategoryNavigationDialog,
-    setOpenMenuCategoryNavigationDialog,
-  ] = useState(false);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -148,27 +144,8 @@ export default function PartnerMenuEditNavigation() {
         </IconButton>
       </Fade>
 
-      <IconButton
-        onClick={() => setOpenMenuCategoryNavigationDialog(true)}
-        color="inherit"
-        sx={{
-          bgcolor: grey[200],
-          "&:hover": {
-            bgcolor: grey[300],
-          },
-        }}
-        size="small"
-      >
-        <FormatListBulletedIcon fontSize="small" />
-      </IconButton>
-
-      <MenuCategoryNavigationDialog
+      <ShowMoreMenuCategoriesButton
         menuCategories={restaurant.menu_categories}
-        openMenuCategoryNavigationDialog={openMenuCategoryNavigationDialog}
-        title="Menu categories"
-        setOpenMenuCategoryNavigationDialog={
-          setOpenMenuCategoryNavigationDialog
-        }
         onSlideClick={handleSlideClick}
       />
     </Stack>

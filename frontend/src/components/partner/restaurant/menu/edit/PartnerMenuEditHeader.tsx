@@ -8,7 +8,7 @@ export default function PartnerMenuEditHeader() {
       <PartnerBackButton />
 
       <Typography variant="h5" sx={{ fontWeight: 600, mt: 1, mb: 2 }}>
-        Menu categories
+        Menu items
       </Typography>
 
       <Typography variant="body2">
