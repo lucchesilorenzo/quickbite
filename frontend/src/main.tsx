@@ -38,6 +38,13 @@ const theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        asterisk: {
+          color: "red",
+        },
+      },
+    },
     MuiFormHelperText: {
       styleOverrides: {
         root: {
@@ -71,7 +78,6 @@ createRoot(document.getElementById("root")!).render(
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-
             <AppRoutes />
           </ThemeProvider>
         </LocalizationProvider>
