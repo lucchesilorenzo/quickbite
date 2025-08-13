@@ -4,22 +4,26 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Box, Fade, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { useSearchParams } from "react-router-dom";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
-import MenuCategoryNavigationSlide from "../../common/menu-category-navigation/MenuCategoryNavigationSlide";
+import ShowMoreMenuCategoriesButton from "../../../../common/menu-category-navigation/ShowMoreMenuCategoriesButton";
 
-import ShowMoreMenuCategoriesButton from "@/components/common/menu-category-navigation/ShowMoreMenuCategoriesButton";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
+import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
 
-export default function MenuCategoryNavigation() {
-  const { restaurant, menuCategoryRefs } = useSingleRestaurant();
+export default function PartnerMenuEditNavigation() {
+  const { restaurant } = usePartnerRestaurant();
+  const { selectedMenuCategoryId, setSelectedMenuCategoryId } =
+    usePartnerRestaurantMenu();
 
   const swiperRef = useRef<SwiperClass>(null);
 
-  const [selectedMenuCategoryId, setSelectedMenuCategoryId] = useState("");
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleSlideChange(swiper: SwiperClass) {
     setCanScrollPrev(!swiper.isBeginning);
@@ -36,24 +40,32 @@ export default function MenuCategoryNavigation() {
 
   function handleSlideClick(menuCategoryId: string) {
     setSelectedMenuCategoryId(menuCategoryId);
-
-    // Desktop
-    document.querySelector(`#category-${menuCategoryId}`)?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-
-    // Mobile
-    menuCategoryRefs.current[menuCategoryId]?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
+    setSearchParams(
+      { menu_category_id: menuCategoryId },
+      {
+        replace: true,
+      },
+    );
   }
 
   useEffect(() => {
     setCanScrollPrev(!swiperRef.current?.isBeginning);
     setCanScrollNext(!swiperRef.current?.isEnd);
   }, [restaurant.menu_categories]);
+
+  useEffect(() => {
+    const menuCategoryId = searchParams.get("menu_category_id");
+
+    if (menuCategoryId) {
+      const menuCategory = restaurant.menu_categories.find(
+        (menuCategory) => menuCategory.id === menuCategoryId,
+      );
+
+      if (menuCategory) {
+        setSelectedMenuCategoryId(menuCategory.id);
+      }
+    }
+  }, [searchParams, restaurant.menu_categories, setSelectedMenuCategoryId]);
 
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 2 }}>
