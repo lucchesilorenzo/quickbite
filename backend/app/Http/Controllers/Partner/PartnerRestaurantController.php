@@ -58,7 +58,9 @@ class PartnerRestaurantController extends Controller
                 'reviews.order',
                 'menuCategories' => function ($query) {
                     $query->orderBy('order', 'asc')
-                        ->with('menuItems');
+                        ->with('menuItems', function ($query) {
+                            $query->orderBy('order', 'asc');
+                        });
                 },
             ])
                 ->withAvg('reviews', 'rating')
@@ -107,7 +109,9 @@ class PartnerRestaurantController extends Controller
                     'reviews.order',
                     'menuCategories' => function ($query) {
                         $query->orderBy('order', 'asc')
-                            ->with('menuItems');
+                            ->with('menuItems', function ($query) {
+                                $query->orderBy('order', 'asc');
+                            });
                     },
                 ])
                 ->withAvg('reviews', 'rating')

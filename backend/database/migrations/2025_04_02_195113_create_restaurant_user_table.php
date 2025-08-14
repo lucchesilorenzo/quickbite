@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('role', RestaurantRole::values())->default(RestaurantRole::OWNER);
             $table->date('contract_start')->nullable();
             $table->date('contract_end')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
 
             $table->primary(['user_id', 'restaurant_id']);
         });

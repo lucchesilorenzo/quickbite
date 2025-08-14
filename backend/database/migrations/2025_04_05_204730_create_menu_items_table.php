@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->string('image')->nullable();
             $table->boolean('is_available')->default(true);
+            $table->integer('order')->default(0);
             $table->timestamps();
 
             $table->unique(['menu_category_id', 'name']);

@@ -70,6 +70,8 @@ class MenuCategoryFactory extends Factory
                         'price' => 6.50,
                         'image' => Storage::url('restaurants/menu-items/default/bruschetta.jpg'),
                         'is_available' => true,
+                        'order' => 0,
+
                     ],
                     [
                         'name' => 'Garlic Bread',
@@ -77,6 +79,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 5.00,
                         'image' => Storage::url('restaurants/menu-items/default/garlic-bread.jpg'),
                         'is_available' => true,
+                        'order' => 1,
                     ],
                 ];
                 break;
@@ -89,6 +92,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 13.90,
                         'image' => Storage::url('restaurants/menu-items/default/lasagna.jpg'),
                         'is_available' => true,
+                        'order' => 0,
                     ],
                     [
                         'name' => 'Grilled Chicken',
@@ -96,6 +100,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 15.90,
                         'image' => Storage::url('restaurants/menu-items/default/grilled-chicken.jpg'),
                         'is_available' => true,
+                        'order' => 1,
                     ],
                     [
                         'name' => 'Margherita Pizza',
@@ -103,6 +108,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 8.00,
                         'image' => Storage::url('restaurants/menu-items/default/pizza.jpg'),
                         'is_available' => true,
+                        'order' => 2,
                     ],
                 ];
                 break;
@@ -115,6 +121,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 1.50,
                         'image' => Storage::url('restaurants/menu-items/default/espresso.jpg'),
                         'is_available' => true,
+                        'order' => 0,
                     ],
                     [
                         'name' => 'Chianti Red Wine',
@@ -122,6 +129,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 4.50,
                         'image' => Storage::url('restaurants/menu-items/default/chianti.jpg'),
                         'is_available' => true,
+                        'order' => 1,
                     ],
                 ];
                 break;
@@ -134,6 +142,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 4.00,
                         'image' => Storage::url('restaurants/menu-items/default/french-fries.jpg'),
                         'is_available' => true,
+                        'order' => 0,
                     ],
                     [
                         'name' => 'Coleslaw',
@@ -141,6 +150,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 3.50,
                         'image' => Storage::url('restaurants/menu-items/default/coleslaw.jpg'),
                         'is_available' => true,
+                        'order' => 1,
                     ],
                 ];
                 break;
@@ -153,6 +163,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 7.00,
                         'image' => Storage::url('restaurants/menu-items/default/caesar-salad.jpg'),
                         'is_available' => true,
+                        'order' => 0,
                     ],
                     [
                         'name' => 'Greek Salad',
@@ -160,6 +171,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 7.50,
                         'image' => Storage::url('restaurants/menu-items/default/greek-salad.jpg'),
                         'is_available' => true,
+                        'order' => 1,
                     ],
                 ];
                 break;
@@ -172,6 +184,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 6.00,
                         'image' => Storage::url('restaurants/menu-items/default/tiramisu.jpg'),
                         'is_available' => true,
+                        'order' => 0,
                     ],
                     [
                         'name' => 'Panna Cotta',
@@ -179,6 +192,7 @@ class MenuCategoryFactory extends Factory
                         'price' => 5.50,
                         'image' => Storage::url('restaurants/menu-items/default/panna-cotta.jpg'),
                         'is_available' => true,
+                        'order' => 1,
                     ],
                 ];
                 break;

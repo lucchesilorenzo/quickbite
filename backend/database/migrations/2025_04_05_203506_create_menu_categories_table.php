@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unique(['restaurant_id', 'name']);
-            $table->unique(['restaurant_id', 'order']);
         });
     }
 

@@ -58,7 +58,9 @@ class RestaurantController extends Controller
                     'reviews.order',
                     'menuCategories' => function ($query) {
                         $query->orderBy('order', 'asc')
-                            ->with('menuItems');
+                            ->with('menuItems', function ($query) {
+                                $query->orderBy('order', 'asc');
+                            });
                     },
                 ])
                 ->where('is_approved', true)
@@ -96,7 +98,9 @@ class RestaurantController extends Controller
                 'reviews.order',
                 'menuCategories' => function ($query) {
                     $query->orderBy('order', 'asc')
-                        ->with('menuItems');
+                        ->with('menuItems', function ($query) {
+                            $query->orderBy('order', 'asc');
+                        });
                 },
             ])
                 ->where('slug', $restaurantSlug)
