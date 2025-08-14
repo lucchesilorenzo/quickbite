@@ -24,12 +24,12 @@ import {
 
 type PartnerMenuEditMenuItemFormProps = {
   menuItem: MenuItem;
-  setOpenEditOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenEditMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function PartnerMenuEditMenuItemForm({
   menuItem,
-  setOpenEditOfferDialog,
+  setOpenEditMenuItemDialog,
 }: PartnerMenuEditMenuItemFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
@@ -61,7 +61,7 @@ export default function PartnerMenuEditMenuItemForm({
     formData.append("is_available", data.is_available ? "1" : "0");
 
     await updatePartnerRestaurantMenuItem(formData);
-    setOpenEditOfferDialog(false);
+    setOpenEditMenuItemDialog(false);
   }
 
   function handleFileUpload(

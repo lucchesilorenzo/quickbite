@@ -79,6 +79,7 @@ export default function MenuCategoryNavigation() {
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
+          spaceBetween={16}
           onSlideChange={handleSlideChange}
           keyboard
           mousewheel
@@ -101,17 +102,15 @@ export default function MenuCategoryNavigation() {
             },
           }}
         >
-          <Stack component="nav" direction="row" sx={{ alignItems: "center" }}>
-            {restaurant.menu_categories.map((menuCategory) => (
-              <SwiperSlide key={menuCategory.id}>
-                <MenuCategoryNavigationSlide
-                  menuCategory={menuCategory}
-                  selectedMenuCategoryId={selectedMenuCategoryId}
-                  onSlideClick={handleSlideClick}
-                />
-              </SwiperSlide>
-            ))}
-          </Stack>
+          {restaurant.menu_categories.map((menuCategory) => (
+            <SwiperSlide key={menuCategory.id}>
+              <MenuCategoryNavigationSlide
+                menuCategory={menuCategory}
+                selectedMenuCategoryId={selectedMenuCategoryId}
+                onSlideClick={handleSlideClick}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Box>
 

@@ -52,7 +52,7 @@ export default function PartnerMenuEditMenuItemDialog({
         <DialogContent sx={{ p: 1 }}>
           <PartnerMenuEditMenuItemForm
             menuItem={menuItem}
-            setOpenEditOfferDialog={setOpenEditMenuItemDialog}
+            setOpenEditMenuItemDialog={setOpenEditMenuItemDialog}
           />
         </DialogContent>
       </Stack>

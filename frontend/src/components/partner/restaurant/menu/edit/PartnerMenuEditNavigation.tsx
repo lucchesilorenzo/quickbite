@@ -9,6 +9,7 @@ import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
 import ShowMoreMenuCategoriesButton from "../../../../common/menu-category-navigation/ShowMoreMenuCategoriesButton";
+import PartnerMenuEditAddMenuItemButton from "./PartnerMenuEditAddMenuItemButton";
 
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
@@ -91,6 +92,7 @@ export default function PartnerMenuEditNavigation() {
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
+          spaceBetween={16}
           onSlideChange={handleSlideChange}
           keyboard
           mousewheel
@@ -113,17 +115,15 @@ export default function PartnerMenuEditNavigation() {
             },
           }}
         >
-          <Stack component="nav" direction="row" sx={{ alignItems: "center" }}>
-            {restaurant.menu_categories.map((menuCategory) => (
-              <SwiperSlide key={menuCategory.id}>
-                <MenuCategoryNavigationSlide
-                  menuCategory={menuCategory}
-                  selectedMenuCategoryId={selectedMenuCategoryId}
-                  onSlideClick={handleSlideClick}
-                />
-              </SwiperSlide>
-            ))}
-          </Stack>
+          {restaurant.menu_categories.map((menuCategory) => (
+            <SwiperSlide key={menuCategory.id}>
+              <MenuCategoryNavigationSlide
+                menuCategory={menuCategory}
+                selectedMenuCategoryId={selectedMenuCategoryId}
+                onSlideClick={handleSlideClick}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Box>
 
@@ -143,6 +143,8 @@ export default function PartnerMenuEditNavigation() {
           <ArrowForwardIosIcon fontSize="small" />
         </IconButton>
       </Fade>
+
+      {selectedMenuCategoryId && <PartnerMenuEditAddMenuItemButton />}
 
       <ShowMoreMenuCategoriesButton
         menuCategories={restaurant.menu_categories}
