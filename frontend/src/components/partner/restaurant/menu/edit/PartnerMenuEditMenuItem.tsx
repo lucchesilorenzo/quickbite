@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import DeleteIcon from "@mui/icons-material/Delete";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import {
   Box,
@@ -15,6 +16,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import PartnerMenuEditDeleteMenuItemDialog from "./PartnerMenuEditDeleteMenuItemDialog";
 import PartnerMenuEditMenuItemDialog from "./PartnerMenuEditMenuItemDialog";
 
 import env from "@/lib/env";
@@ -29,10 +31,13 @@ export default function PartnerMenuEditMenuItem({
   menuItem,
 }: PartnerMenuEditMenuItemProps) {
   const [openEditMenuItemDialog, setOpenEditMenuItemDialog] = useState(false);
+  const [openDeleteMenuItemDialog, setOpenDeleteMenuItemDialog] =
+    useState(false);
+
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: menuItem.id });
 
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
     <Box
@@ -41,20 +46,31 @@ export default function PartnerMenuEditMenuItem({
       sx={{ transform: CSS.Transform.toString(transform), transition }}
     >
       <Stack direction="row" sx={{ alignItems: "center" }}>
-        <IconButton
-          {...listeners}
-          size="small"
-          sx={{
-            cursor: "move",
-            touchAction: "manipulation",
-            "&:focus-visible": {
-              bgcolor: grey[200],
-            },
-          }}
-          aria-label="Drag to reorder"
-        >
-          <DragIndicatorIcon fontSize="small" />
-        </IconButton>
+        <Stack spacing={1}>
+          <IconButton
+            size="small"
+            color="error"
+            onClick={() => setOpenDeleteMenuItemDialog(true)}
+            aria-label="Delete menu item"
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+
+          <IconButton
+            {...listeners}
+            size="small"
+            sx={{
+              cursor: "move",
+              touchAction: "manipulation",
+              "&:focus-visible": {
+                bgcolor: grey[200],
+              },
+            }}
+            aria-label="Drag to reorder"
+          >
+            <DragIndicatorIcon fontSize="small" />
+          </IconButton>
+        </Stack>
 
         <Card variant="outlined" sx={{ flex: 1 }} elevation={3}>
           <Box
@@ -69,7 +85,7 @@ export default function PartnerMenuEditMenuItem({
             }}
             onClick={() => setOpenEditMenuItemDialog(true)}
           >
-            <Stack direction="row" sx={{ alignItems: "center" }}>
+            <Stack direction={isMobile ? "column" : "row"}>
               <Box sx={{ flex: 1, pr: 1 }}>
                 <Typography
                   component="h3"
@@ -124,7 +140,13 @@ export default function PartnerMenuEditMenuItem({
                     title={menuItem.name}
                   />
                 ) : (
-                  <Box sx={{ height: 100, width: 150 }}></Box>
+                  <Box
+                    sx={{
+                      display: { xs: "none", sm: "block" },
+                      height: 100,
+                      width: 150,
+                    }}
+                  ></Box>
                 )}
               </Box>
             </Stack>
@@ -135,6 +157,12 @@ export default function PartnerMenuEditMenuItem({
           menuItem={menuItem}
           openEditMenuItemDialog={openEditMenuItemDialog}
           setOpenEditMenuItemDialog={setOpenEditMenuItemDialog}
+        />
+
+        <PartnerMenuEditDeleteMenuItemDialog
+          menuItem={menuItem}
+          openDeleteMenuItemDialog={openDeleteMenuItemDialog}
+          setOpenDeleteMenuItemDialog={setOpenDeleteMenuItemDialog}
         />
       </Stack>
     </Box>
