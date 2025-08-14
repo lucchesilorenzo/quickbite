@@ -46,7 +46,7 @@ export default function PartnerMenuEditMenuItemForm({
       name: menuItem.name,
       description: menuItem.description || "",
       price: menuItem.price,
-      image: menuItem.image,
+      image: null,
       is_available: menuItem.is_available,
     },
   });
