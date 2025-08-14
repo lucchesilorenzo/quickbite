@@ -555,6 +555,9 @@ class PartnerRestaurantController extends Controller
         MenuCategory $menuCategory,
         CreateRestaurantMenuItemRequest $request
     ): JsonResponse {
+        // Check if user is authorized
+        Gate::authorize('createMenuItem', $menuCategory);
+
         // Get validated data
         $data = $request->validated();
 
@@ -564,10 +567,16 @@ class PartnerRestaurantController extends Controller
                 $data['image'] = '/storage/' . $path;
             }
 
+            // Get menu item order
+            $menuItemOrder = $menuCategory->menuItems()->max('order');
+
+            $data['order'] = is_null($menuItemOrder) ? 0 : $menuItemOrder + 1;
+
             // Create menu item
             $menuItem = MenuItem::create([
                 ...$data,
                 'menu_category_id' => $menuCategory->id,
+                'order' => $data['order'],
             ]);
 
             return response()->json([
