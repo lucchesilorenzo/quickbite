@@ -698,4 +698,39 @@ class PartnerRestaurantController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Delete a partner's restaurant menu item.
+     */
+    public function deleteRestaurantMenuItem(MenuItem $menuItem): JsonResponse
+    {
+        // Check if user is authorized
+        Gate::authorize('delete', $menuItem);
+
+        try {
+            if ($menuItem->image && ! str_contains($menuItem->image, 'menu-items/default')) {
+                $oldImagePath = str_replace('/storage/', '', $menuItem->image);
+
+                if (Storage::disk('public')->exists($oldImagePath)) {
+                    Storage::disk('public')->delete($oldImagePath);
+                }
+            }
+
+            // Delete menu item
+            $menuItem->delete();
+
+            // Decrement menu items order
+            MenuItem::where('menu_category_id', $menuItem->menu_category_id)
+                ->where('order', '>', $menuItem->order)
+                ->decrement('order');
+
+            return response()->json([
+                'message' => 'Menu item deleted successfully.',
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not delete menu item.',
+            ], 500);
+        }
+    }
 }

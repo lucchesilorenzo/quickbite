@@ -33,5 +33,6 @@ Route::prefix('partner')->group(function () {
 
         Route::delete('/offers/{offer}', [PartnerRestaurantController::class, 'deleteRestaurantOffer']);
         Route::delete('/menu/categories/{menuCategory}', [PartnerRestaurantController::class, 'deleteRestaurantMenuCategory']);
+        Route::delete('/menu/items/{menuItem}', [PartnerRestaurantController::class, 'deleteRestaurantMenuItem']);
     });
 });
