@@ -9,7 +9,7 @@ export const partnerRestaurantMenuCategoriesFormSchema = z.object({
   description: z.string().trim().max(200, "Description is too long."),
 });
 
-export const partnerRestaurantMenuItemFormSchema = z.object({
+export const partnerRestaurantAddMenuItemFormSchema = z.object({
   name: z
     .string()
     .trim()
@@ -29,7 +29,7 @@ export const partnerRestaurantMenuItemFormSchema = z.object({
 });
 
 export const partnerRestaurantMenuEditMenuItemFormSchema = z.object({
-  ...partnerRestaurantMenuItemFormSchema.shape,
+  ...partnerRestaurantAddMenuItemFormSchema.shape,
   is_available: z.boolean(),
 });
 
@@ -37,8 +37,8 @@ export type TPartnerRestaurantMenuCategoriesFormSchema = z.infer<
   typeof partnerRestaurantMenuCategoriesFormSchema
 >;
 
-export type TPartnerRestaurantMenuItemFormSchema = z.infer<
-  typeof partnerRestaurantMenuItemFormSchema
+export type TPartnerRestaurantAddMenuItemFormSchema = z.infer<
+  typeof partnerRestaurantAddMenuItemFormSchema
 >;
 
 export type TPartnerRestaurantMenuEditMenuItemFormSchema = z.infer<
