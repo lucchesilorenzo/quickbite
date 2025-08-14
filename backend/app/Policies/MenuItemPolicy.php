@@ -49,9 +49,13 @@ class MenuItemPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, MenuItem $menuItem): bool
+    public function delete(User $user, MenuItem $menuItem): Response
     {
-        return false;
+        return $menuItem->menuCategory->restaurant->partners()
+            ->where('user_id', $user->id)
+            ->exists()
+            ? Response::allow()
+            : Response::deny('You are not authorized to create a menu item.');
     }
 
     /**
