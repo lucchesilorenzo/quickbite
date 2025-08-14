@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\CreateRestaurantMenuCategoryRequest;
+use App\Http\Requests\Partner\CreateRestaurantMenuItemRequest;
 use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
@@ -539,6 +540,45 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not delete menu category.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Create a partner's restaurant menu item.
+     */
+    public function createRestaurantMenuItem(
+        MenuCategory $menuCategory,
+        CreateRestaurantMenuItemRequest $request
+    ): JsonResponse {
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('restaurants/menu-items', 'public');
+                $data['image'] = '/storage/' . $path;
+            }
+
+            // Create menu item
+            $menuItem = MenuItem::create([
+                ...$data,
+                'menu_category_id' => $menuCategory->id,
+            ]);
+
+            return response()->json([
+                'message' => 'Menu item created successfully.',
+                'menuItem' => $menuItem,
+            ], 200);
+        } catch (Throwable $e) {
+            if ($e->getCode() === '23505') {
+                return response()->json([
+                    'message' => 'Menu item with the same name already exists.',
+                ], 422);
+            }
+
+            return response()->json([
+                'message' => 'Could not create menu item.',
             ], 500);
         }
     }

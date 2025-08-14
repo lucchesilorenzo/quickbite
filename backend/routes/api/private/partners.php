@@ -20,6 +20,7 @@ Route::prefix('partner')->group(function () {
         Route::post('/{restaurant}/offers', [PartnerRestaurantController::class, 'createRestaurantOffer']);
         Route::post('/{restaurant}/info', [PartnerRestaurantController::class, 'updateRestaurantInfo']);
         Route::post('/{restaurant}/menu/categories', [PartnerRestaurantController::class, 'createRestaurantMenuCategory']);
+        Route::post('/menu/categories/{menuCategory}/items', [PartnerRestaurantController::class, 'createRestaurantMenuItem']);
         Route::post('/menu/items/{menuItem}', [PartnerRestaurantController::class, 'updateRestaurantMenuItem']);
 
         Route::patch('/{restaurant}/status', [PartnerRestaurantController::class, 'updateRestaurantStatus']);
