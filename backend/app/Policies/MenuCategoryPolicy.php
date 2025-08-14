@@ -35,6 +35,18 @@ class MenuCategoryPolicy
     }
 
     /**
+     * Determine whether the user can create a menu item.
+     */
+    public function createMenuItem(User $user, MenuCategory $menuCategory): Response
+    {
+        return $menuCategory->restaurant->partners()
+            ->where('user_id', $user->id)
+            ->exists()
+            ? Response::allow()
+            : Response::deny('You are not authorized to create a menu item.');
+    }
+
+    /**
      * Determine whether the user can update the model.
      */
     public function update(User $user, MenuCategory $menuCategory): Response
