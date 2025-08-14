@@ -29,6 +29,7 @@ Route::prefix('partner')->group(function () {
         Route::patch('/{restaurant}/offers/{offer}', [PartnerRestaurantController::class, 'updateRestaurantOffer']);
         Route::patch('/menu/categories/order', [PartnerRestaurantController::class, 'updateRestaurantMenuCategoriesOrder']);
         Route::patch('/menu/categories/{menuCategory}', [PartnerRestaurantController::class, 'updateRestaurantMenuCategory']);
+        Route::patch('/menu/items/order', [PartnerRestaurantController::class, 'updateRestaurantMenuItemsOrder']);
 
         Route::delete('/offers/{offer}', [PartnerRestaurantController::class, 'deleteRestaurantOffer']);
         Route::delete('/menu/categories/{menuCategory}', [PartnerRestaurantController::class, 'deleteRestaurantMenuCategory']);

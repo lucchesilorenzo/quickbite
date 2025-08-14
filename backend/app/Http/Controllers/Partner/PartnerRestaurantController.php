@@ -14,6 +14,7 @@ use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuCategoriesOrderRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuCategoryRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuItemRequest;
+use App\Http\Requests\Partner\UpdateRestaurantMenuItemsOrderRequest;
 use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\MenuCategory;
@@ -639,6 +640,61 @@ class PartnerRestaurantController extends Controller
 
             return response()->json([
                 'message' => 'Could not update menu item.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Update a partner's restaurant menu items order.
+     */
+    public function updateRestaurantMenuItemsOrder(
+        UpdateRestaurantMenuItemsOrderRequest $request
+    ): JsonResponse {
+        // Get validated data
+        $data = $request->validated();
+
+        try {
+            $updatedMenuItems = DB::transaction(function () use ($data) {
+                $updatedMenuItems = [];
+
+                foreach ($data as $menuItemData) {
+                    $menuItem = MenuItem::find($menuItemData['id']);
+
+                    if (! $menuItem) {
+                        throw new Exception('Menu item not found.', 404);
+                    }
+
+                    Gate::authorize('update', $menuItem);
+
+                    $menuItem->update([
+                        'order' => $menuItemData['order'],
+                    ]);
+
+                    $updatedMenuItems[] = $menuItem;
+                }
+
+                return $updatedMenuItems;
+            });
+
+            return response()->json([
+                'message' => 'Order updated successfully.',
+                'menuItems' => $updatedMenuItems,
+            ], 200);
+        } catch (Throwable $e) {
+            if ($e->getMessage() === 'Menu item not found.') {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 404);
+            }
+
+            if ($e->getCode() === '23505') {
+                return response()->json([
+                    'message' => 'Menu item with the same name already exists.',
+                ], 422);
+            }
+
+            return response()->json([
+                'message' => 'Could not update menu items.',
             ], 500);
         }
     }
