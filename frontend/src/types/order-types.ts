@@ -30,6 +30,10 @@ export type Order = {
   updated_at: string;
 };
 
+export type PartnerOrder = Omit<Order, "restaurant"> & {
+  restaurant: Omit<Order["restaurant"], "reviews">;
+};
+
 export type OrderStatus =
   | "pending"
   | "accepted"
