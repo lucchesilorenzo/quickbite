@@ -21,6 +21,18 @@ class RestaurantPolicy
     /**
      * Determine whether the user can view the model.
      */
+    public function viewRestaurantOrders(User $user, Restaurant $restaurant): Response
+    {
+        return $restaurant->partners()
+            ->where('user_id', $user->id)
+            ->exists()
+            ? Response::allow()
+            : Response::deny('You are not authorized to view the orders.');
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
     public function view(User $user, Restaurant $restaurant): bool
     {
         return false;

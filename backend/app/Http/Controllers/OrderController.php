@@ -21,7 +21,8 @@ class OrderController extends Controller
         try {
             $user = auth()->user();
 
-            $orders = $user->orders()->with(['orderItems', 'restaurant.reviews.customer'])
+            $orders = $user->orders()
+                ->with(['orderItems', 'restaurant.reviews.customer'])
                 ->orderBy('created_at', 'desc')
                 ->get();
 

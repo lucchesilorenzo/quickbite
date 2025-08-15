@@ -44,26 +44,27 @@ class PartnerRestaurantController extends Controller
         try {
             $user = auth()->user();
 
-            $restaurants = $user->restaurants()->with([
-                'categories',
-                'deliveryDays' => function ($query) {
-                    $query->orderBy('order', 'asc');
-                },
-                'offers' => function ($query) {
-                    $query->orderBy('discount_rate', 'asc');
-                },
-                'reviews' => function ($query) {
-                    $query->orderBy('created_at', 'desc');
-                },
-                'reviews.customer',
-                'reviews.order',
-                'menuCategories' => function ($query) {
-                    $query->orderBy('order', 'asc')
-                        ->with('menuItems', function ($query) {
-                            $query->orderBy('order', 'asc');
-                        });
-                },
-            ])
+            $restaurants = $user->restaurants()
+                ->with([
+                    'categories',
+                    'deliveryDays' => function ($query) {
+                        $query->orderBy('order', 'asc');
+                    },
+                    'offers' => function ($query) {
+                        $query->orderBy('discount_rate', 'asc');
+                    },
+                    'reviews' => function ($query) {
+                        $query->orderBy('created_at', 'desc');
+                    },
+                    'reviews.customer',
+                    'reviews.order',
+                    'menuCategories' => function ($query) {
+                        $query->orderBy('order', 'asc')
+                            ->with('menuItems', function ($query) {
+                                $query->orderBy('order', 'asc');
+                            });
+                    },
+                ])
                 ->withAvg('reviews', 'rating')
                 ->withCount('reviews')
                 ->get();
