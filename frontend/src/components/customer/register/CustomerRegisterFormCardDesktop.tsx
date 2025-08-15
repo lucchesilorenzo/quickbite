@@ -17,7 +17,7 @@ export default function CustomerRegisterFormCardDesktop() {
           Already have an account?{" "}
           <Typography
             component={Link}
-            to="/auth/customer/login"
+            to="/customer/auth/login"
             variant="body2"
             color="inherit"
             sx={{ "&:hover": { textDecoration: "none" } }}
