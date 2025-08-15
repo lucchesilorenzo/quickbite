@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests\Customer\Order;
 
 use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateOrderRequest extends FormRequest
+class CustomerCreateOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

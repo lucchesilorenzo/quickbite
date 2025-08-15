@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Customer\UpdateProfileRequest;
+use App\Http\Requests\Customer\Profile\CustomerUpdateProfileRequest;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class ProfileController extends Controller
+class CustomerProfileController extends Controller
 {
     /**
      * Update a customer's profile.
      */
-    public function updateProfile(UpdateProfileRequest $request): JsonResponse
+    public function updateProfile(CustomerUpdateProfileRequest $request): JsonResponse
     {
         // Get validated data
         $data = $request->validated();

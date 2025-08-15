@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Order\CreateOrderRequest;
+use App\Http\Requests\Customer\Order\CustomerCreateOrderRequest;
 use App\Models\Order;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class OrderController extends Controller
+class CustomerOrderController extends Controller
 {
     /**
-     * Get all orders for the authenticated user.
+     * Get all orders for customer.
      */
     public function getOrders(): JsonResponse
     {
@@ -33,11 +33,11 @@ class OrderController extends Controller
     }
 
     /**
-     * Get an order for the authenticated user.
+     * Get an order for customer.
      */
     public function getOrder(Order $order): JsonResponse
     {
-        // Check if the order belongs to the authenticated user
+        // Check if the order belongs to customer
         Gate::authorize('view', $order);
 
         try {
@@ -54,7 +54,7 @@ class OrderController extends Controller
     /**
      * Create a new order.
      */
-    public function createOrder(CreateOrderRequest $request): JsonResponse
+    public function createOrder(CustomerCreateOrderRequest $request): JsonResponse
     {
         // Get validated data
         $data = $request->validated();

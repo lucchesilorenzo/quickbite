@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Cart\CreateOrUpdateCartRequest;
-use App\Http\Requests\Cart\CreateOrUpdateCartsRequest;
+use App\Http\Requests\Customer\Cart\CustomerCreateOrUpdateCartRequest;
+use App\Http\Requests\Customer\Cart\CustomerCreateOrUpdateCartsRequest;
 use App\Models\Cart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class CartController extends Controller
+class CustomerCartController extends Controller
 {
     /**
-     * Get all carts for the authenticated user.
+     * Get carts for customer.
      */
     public function getCarts(): JsonResponse
     {
@@ -58,7 +58,7 @@ class CartController extends Controller
     }
 
     /**
-     * Get a cart for the authenticated user.
+     * Get a cart for customer.
      */
     public function getCart(Cart $cart): JsonResponse
     {
@@ -119,9 +119,9 @@ class CartController extends Controller
     }
 
     /**
-     * Create or update multiple carts for the authenticated user.
+     * Create or update multiple carts for customer.
      */
-    public function createOrUpdateCarts(CreateOrUpdateCartsRequest $request): JsonResponse
+    public function createOrUpdateCarts(CustomerCreateOrUpdateCartsRequest $request): JsonResponse
     {
         $data = $request->validated();
 
@@ -231,9 +231,9 @@ class CartController extends Controller
     }
 
     /**
-     * Update a cart for the authenticated user.
+     * Update a cart for customer.
      */
-    public function createOrUpdateCart(CreateOrUpdateCartRequest $request): JsonResponse
+    public function createOrUpdateCart(CustomerCreateOrUpdateCartRequest $request): JsonResponse
     {
         // Get validated data
         $data = $request->validated();
@@ -398,7 +398,7 @@ class CartController extends Controller
     }
 
     /**
-     * Delete a cart for the authenticated user.
+     * Delete a cart for customer.
      */
     public function deleteCart(Cart $cart): JsonResponse
     {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Customer;
+namespace App\Http\Requests\Customer\Profile;
 
 use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProfileRequest extends FormRequest
+class CustomerUpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
