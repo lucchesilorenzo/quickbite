@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { format } from "date-fns";
 
+import PartnerOrdersItemViewOrderDialog from "./PartnerOrdersItemViewOrderDialog";
+
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { formatCurrency } from "@/lib/utils";
 import { PartnerOrder } from "@/types/order-types";
@@ -83,6 +85,12 @@ export default function PartnerOrdersItem({ order }: PartnerOrdersItemProps) {
           </Button>
         </Box>
       </Stack>
+
+      <PartnerOrdersItemViewOrderDialog
+        order={order}
+        openViewOrderDialog={openViewOrderDialog}
+        setOpenViewOrderDialog={setOpenViewOrderDialog}
+      />
     </Card>
   );
 }

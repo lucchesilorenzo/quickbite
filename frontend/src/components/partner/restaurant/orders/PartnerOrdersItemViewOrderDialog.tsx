@@ -9,23 +9,22 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import ViewOrderFeesAndDiscounts from "../../../common/view-order-dialog/ViewOrderFeesAndDiscounts";
-import ViewOrderItemsList from "../../../common/view-order-dialog/ViewOrderItemsList";
-import ViewOrderReceipt from "../../../common/view-order-dialog/ViewOrderReceipt";
+import ViewOrderFeesAndDiscounts from "@/components/common/view-order-dialog/ViewOrderFeesAndDiscounts";
+import ViewOrderItemsList from "@/components/common/view-order-dialog/ViewOrderItemsList";
+import ViewOrderReceipt from "@/components/common/view-order-dialog/ViewOrderReceipt";
+import { PartnerOrder } from "@/types/order-types";
 
-import { Order } from "@/types/order-types";
-
-type ViewOrderDialogProps = {
-  order: Order;
+type PartnerOrdersItemViewOrderDialogProps = {
+  order: PartnerOrder;
   openViewOrderDialog: boolean;
   setOpenViewOrderDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function ViewOrderDialog({
+export default function PartnerOrdersItemViewOrderDialog({
   order,
   openViewOrderDialog,
   setOpenViewOrderDialog,
-}: ViewOrderDialogProps) {
+}: PartnerOrdersItemViewOrderDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (

@@ -8,10 +8,10 @@ import {
 } from "@react-pdf/renderer";
 
 import { formatCurrency } from "@/lib/utils";
-import { Order } from "@/types/order-types";
+import { Order, PartnerOrder } from "@/types/order-types";
 
 type OrderReceiptToPDFProps = {
-  order: Order;
+  order: Order | PartnerOrder;
   base64Logo?: string;
 };
 

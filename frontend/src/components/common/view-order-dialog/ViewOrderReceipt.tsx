@@ -4,10 +4,10 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import OrderReceiptToPDF from "./OrderReceiptToPDF";
 
 import { useGetBase64RestaurantLogo } from "@/hooks/react-query/public/restaurants/useGetBase64RestaurantLogo";
-import { Order } from "@/types/order-types";
+import { Order, PartnerOrder } from "@/types/order-types";
 
 type ViewOrderReceiptProps = {
-  order: Order;
+  order: Order | PartnerOrder;
 };
 
 export default function ViewOrderReceipt({ order }: ViewOrderReceiptProps) {

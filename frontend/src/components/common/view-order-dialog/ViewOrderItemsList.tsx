@@ -2,10 +2,10 @@ import { Box, Typography } from "@mui/material";
 
 import ViewOrderItem from "./ViewOrderItem";
 
-import { Order } from "@/types/order-types";
+import { Order, PartnerOrder } from "@/types/order-types";
 
 type ViewOrderItemsListProps = {
-  order: Order;
+  order: Order | PartnerOrder;
 };
 
 export default function ViewOrderItemsList({ order }: ViewOrderItemsListProps) {
