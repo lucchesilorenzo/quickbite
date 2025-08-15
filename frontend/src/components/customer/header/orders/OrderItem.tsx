@@ -29,7 +29,6 @@ export default function OrderItem({ order }: OrderItemProps) {
   const { pathname } = useLocation();
 
   const navigate = useNavigate();
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const [openViewOrderDialog, setOpenViewOrderDialog] = useState(false);
   const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
@@ -41,14 +40,16 @@ export default function OrderItem({ order }: OrderItemProps) {
   const isOnRestaurantPage =
     pathname === `/restaurants/${order.restaurant.slug}`;
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   return (
     <Card variant="outlined" sx={{ p: 1 }}>
       <Stack
         direction={isMobile ? "column" : "row"}
-        spacing={1}
+        spacing={2}
         sx={{ justifyContent: "space-between", alignItems: "center" }}
       >
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2} sx={{ alignItems: "" }}>
           <Box
             component="img"
             src={`${env.VITE_BASE_URL}${order.restaurant.logo}`}
@@ -62,8 +63,8 @@ export default function OrderItem({ order }: OrderItemProps) {
             }}
           />
 
-          <Box sx={{ maxWidth: 300 }}>
-            <Stack direction="row" spacing={1} sx={{ alignItems: "baseline" }}>
+          <Box sx={{ maxWidth: 500 }}>
+            <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
               <Typography
                 variant={isMobile ? "body1" : "h6"}
                 sx={{ fontWeight: 700 }}
@@ -74,14 +75,16 @@ export default function OrderItem({ order }: OrderItemProps) {
               <OrderStatusBadge order={order} />
             </Stack>
 
-            <Typography variant="body2" color="textSecondary">
-              {format(new Date(order.created_at), "d MMMM yyyy 'at' HH:mm")}
-            </Typography>
+            <Stack spacing={0.5} sx={{ mb: 1 }}>
+              <Typography variant="body2">
+                {format(new Date(order.created_at), "d MMMM yyyy 'at' HH:mm")}
+              </Typography>
 
-            <Typography variant="body2" color="textSecondary" gutterBottom>
-              {order.street_address} {order.building_number}, {order.postcode}{" "}
-              {order.city}
-            </Typography>
+              <Typography variant="body2" gutterBottom>
+                {order.street_address} {order.building_number}, {order.postcode}{" "}
+                {order.city}
+              </Typography>
+            </Stack>
 
             <Typography variant="body1">
               {formatCurrency(order.total)}
