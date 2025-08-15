@@ -1,6 +1,6 @@
 import { Chip } from "@mui/material";
 
-import { Order } from "@/types/order-types";
+import { Order, PartnerOrder } from "@/types/order-types";
 
 const orderStatus = {
   pending: { label: "Pending", color: "default" },
@@ -13,7 +13,7 @@ const orderStatus = {
 } as const;
 
 type OrderStatusBadgeProps = {
-  order: Order;
+  order: Order | PartnerOrder;
 };
 
 export default function OrderStatusBadge({ order }: OrderStatusBadgeProps) {
