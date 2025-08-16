@@ -16,10 +16,10 @@ import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { formatCurrency } from "@/lib/utils";
-import { PartnerOrder } from "@/types/order-types";
+import { Order } from "@/types/order-types";
 
 type PartnerOrdersItemProps = {
-  order: PartnerOrder;
+  order: Order;
 };
 
 export default function PartnerOrdersItem({ order }: PartnerOrdersItemProps) {
@@ -85,7 +85,7 @@ export default function PartnerOrdersItem({ order }: PartnerOrdersItemProps) {
             View order
           </Button>
 
-          <UpdateOrderStatusButton currentStatus={order.status} />
+          <UpdateOrderStatusButton order={order} />
           <Stack />
         </Stack>
 

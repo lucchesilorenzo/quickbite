@@ -12,25 +12,32 @@ import {
   Tooltip,
 } from "@mui/material";
 
+import { useUpdatePartnerRestaurantOrderStatus } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantOrderStatus";
 import { orderStatuses } from "@/lib/data";
 import { getDisabledOrderStatuses } from "@/lib/utils";
-import { OrderStatus } from "@/types/order-types";
+import { Order, OrderStatus } from "@/types/order-types";
 
 type UpdateOrderStatusButtonProps = {
-  currentStatus: OrderStatus;
+  order: Order;
 };
 
 export default function UpdateOrderStatusButton({
-  currentStatus,
+  order,
 }: UpdateOrderStatusButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [status, setStatus] = useState(currentStatus);
+  const [status, setStatus] = useState(order.status);
+
+  const {
+    mutateAsync: updatePartnerRestaurantOrderStatus,
+    isPending: isOrderStatusUpdating,
+  } = useUpdatePartnerRestaurantOrderStatus(order.id);
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setAnchorEl(e.currentTarget);
   }
 
   async function handleConfirm() {
+    await updatePartnerRestaurantOrderStatus({ status });
     setAnchorEl(null);
   }
 
@@ -72,7 +79,7 @@ export default function UpdateOrderStatusButton({
                   )}
                   key={key}
                   value={key}
-                  selected={key === currentStatus}
+                  selected={key === order.status}
                 >
                   {label}
                 </MenuItem>
@@ -81,7 +88,7 @@ export default function UpdateOrderStatusButton({
 
             <Tooltip title="Reset">
               <Box component="span">
-                <IconButton onClick={() => setStatus(currentStatus)}>
+                <IconButton onClick={() => setStatus(order.status)}>
                   <RestartAltOutlinedIcon />
                 </IconButton>
               </Box>
@@ -89,10 +96,13 @@ export default function UpdateOrderStatusButton({
           </Stack>
 
           <Button
-            fullWidth
             variant="contained"
-            sx={{ mt: 2 }}
             onClick={handleConfirm}
+            disabled={status === order.status || isOrderStatusUpdating}
+            loading={isOrderStatusUpdating}
+            loadingIndicator="Updating..."
+            sx={{ mt: 2 }}
+            fullWidth
           >
             Confirm
           </Button>
