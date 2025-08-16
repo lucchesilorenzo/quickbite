@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Customer\CreateReviewRequest;
+use App\Http\Requests\Review\Customer\CustomerCreateReviewRequest;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
@@ -152,8 +152,10 @@ class RestaurantController extends Controller
     /**
      * Create a review.
      */
-    public function createReview(CreateReviewRequest $request, string $restaurantSlug): JsonResponse
-    {
+    public function createReview(
+        CustomerCreateReviewRequest $request,
+        string $restaurantSlug
+    ): JsonResponse {
         // Get validated data
         $data = $request->validated();
 
