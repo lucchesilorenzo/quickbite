@@ -39,9 +39,13 @@ class OrderPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Order $order): bool
+    public function update(User $user, Order $order): Response
     {
-        return false;
+        return $order->restaurant->partners()
+            ->where('user_id', $user->id)
+            ->exists()
+            ? Response::allow()
+            : Response::deny('You are not authorized to update this order.');
     }
 
     /**
