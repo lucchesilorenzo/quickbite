@@ -43,6 +43,8 @@ export type OrderStatus =
   | "delivered"
   | "cancelled";
 
+export type PartnerOrderStatus = Omit<OrderStatus, "pending" | "delivered">;
+
 export type OrderItem = {
   id: string;
   order_id: string;
