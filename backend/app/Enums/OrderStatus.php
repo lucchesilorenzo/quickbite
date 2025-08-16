@@ -21,4 +21,20 @@ enum OrderStatus: string
     {
         return collect(self::cases())->pluck('value')->toArray();
     }
+
+    /**
+     * Get the partner transitions.
+     */
+    public static function partnerTransitions(): array
+    {
+        return [
+            self::PENDING->value => [self::ACCEPTED->value, self::REJECTED->value],
+            self::ACCEPTED->value => [self::PREPARING->value],
+            self::REJECTED->value => [],
+            self::PREPARING->value => [],
+            self::DELIVERING->value => [],
+            self::DELIVERED->value => [],
+            self::CANCELLED->value => [],
+        ];
+    }
 }
