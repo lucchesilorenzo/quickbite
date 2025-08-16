@@ -44,8 +44,7 @@ Route::prefix('partner')->group(function () {
         Route::delete('/menu/items/{menuItem}', [PartnerRestaurantController::class, 'deleteRestaurantMenuItem']);
 
         // === ORDERS MANAGEMENT ===
-        Route::prefix('{restaurant}/orders')->group(function () {
-            Route::get('/', [PartnerOrderController::class, 'getOrders']);
-        });
+        Route::get('/{restaurant}/orders', [PartnerOrderController::class, 'getOrders']);
+        Route::patch('/orders/{order}/status', [PartnerOrderController::class, 'updateOrderStatus']);
     });
 });
