@@ -1,5 +1,7 @@
 import { differenceInYears, format, isValid, parse, parseISO } from "date-fns";
 
+import { orderStatuses, partnerStatusTransitions } from "./data";
+
 import {
   Cart,
   Offer,
@@ -8,6 +10,7 @@ import {
   Role,
   User,
 } from "@/types";
+import { OrderStatus } from "@/types/order-types";
 
 export function formatCurrency(price: number) {
   return new Intl.NumberFormat("it-IT", {
@@ -87,6 +90,12 @@ export function generateSlug(text: string) {
     .trim()
     .replace(/\s+/g, "-")
     .replace(/[^\w-]+/g, "");
+}
+
+export function getDisabledOrderStatuses(currentStatus: OrderStatus) {
+  return Object.keys(orderStatuses).filter(
+    (s) => !partnerStatusTransitions[currentStatus].includes(s as OrderStatus),
+  );
 }
 
 // --- Auth ---
