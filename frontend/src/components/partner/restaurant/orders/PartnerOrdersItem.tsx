@@ -12,6 +12,7 @@ import {
 import { format } from "date-fns";
 
 import PartnerOrdersItemViewOrderDialog from "./PartnerOrdersItemViewOrderDialog";
+import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { formatCurrency } from "@/lib/utils";
@@ -73,7 +74,7 @@ export default function PartnerOrdersItem({ order }: PartnerOrdersItemProps) {
           </Box>
         </Stack>
 
-        <Box>
+        <Stack spacing={2}>
           <Button
             aria-label={`View details for order ${order.order_code}`}
             variant="contained"
@@ -83,14 +84,17 @@ export default function PartnerOrdersItem({ order }: PartnerOrdersItemProps) {
           >
             View order
           </Button>
-        </Box>
-      </Stack>
 
-      <PartnerOrdersItemViewOrderDialog
-        order={order}
-        openViewOrderDialog={openViewOrderDialog}
-        setOpenViewOrderDialog={setOpenViewOrderDialog}
-      />
+          <UpdateOrderStatusButton currentStatus={order.status} />
+          <Stack />
+        </Stack>
+
+        <PartnerOrdersItemViewOrderDialog
+          order={order}
+          openViewOrderDialog={openViewOrderDialog}
+          setOpenViewOrderDialog={setOpenViewOrderDialog}
+        />
+      </Stack>
     </Card>
   );
 }

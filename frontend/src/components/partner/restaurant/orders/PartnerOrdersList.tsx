@@ -15,7 +15,7 @@ export default function PartnerOrdersList() {
   if (isLoadingOrders) return <Spinner />;
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ my: 4 }}>
       {orders.map((order) => (
         <PartnerOrdersItem key={order.id} order={order} />
       ))}

@@ -6,7 +6,7 @@ import PartnerOrdersList from "@/components/partner/restaurant/orders/PartnerOrd
 
 export default function PartnerRestaurantOrdersPage() {
   useEffect(() => {
-    document.title = "Offers | QuickBite";
+    document.title = "Orders | QuickBite";
   }, []);
 
   return (
