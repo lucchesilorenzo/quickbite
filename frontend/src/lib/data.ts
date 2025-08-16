@@ -8,6 +8,7 @@ import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
 import { RestaurantDetail } from "@/types";
+import { OrderStatus } from "@/types/order-types";
 
 export const emptyRestaurant: RestaurantDetail = {
   id: "",
@@ -507,3 +508,23 @@ export const discountRates = [
   { value: 0.45, label: "45%" },
   { value: 0.5, label: "50%" },
 ];
+
+export const orderStatuses = {
+  pending: { label: "Pending", color: "default" },
+  accepted: { label: "Accepted", color: "success" },
+  rejected: { label: "Rejected", color: "error" },
+  preparing: { label: "Preparing", color: "default" },
+  delivering: { label: "Delivering", color: "primary" },
+  delivered: { label: "Delivered", color: "success" },
+  cancelled: { label: "Cancelled", color: "error" },
+} as const;
+
+export const partnerStatusTransitions: Record<OrderStatus, OrderStatus[]> = {
+  pending: ["accepted", "rejected"],
+  accepted: ["preparing"],
+  rejected: [],
+  preparing: [],
+  delivering: [],
+  delivered: [],
+  cancelled: [],
+};
