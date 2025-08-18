@@ -510,13 +510,13 @@ export const discountRates = [
 ];
 
 export const orderStatuses = {
-  pending: { label: "Pending", color: "default" },
-  accepted: { label: "Accepted", color: "success" },
-  rejected: { label: "Rejected", color: "error" },
-  preparing: { label: "Preparing", color: "default" },
-  delivering: { label: "Delivering", color: "primary" },
-  delivered: { label: "Delivered", color: "success" },
-  cancelled: { label: "Cancelled", color: "error" },
+  pending: { label: "Pending", value: "pending", color: "default" },
+  accepted: { label: "Accepted", value: "accepted", color: "success" },
+  rejected: { label: "Rejected", value: "rejected", color: "error" },
+  preparing: { label: "Preparing", value: "preparing", color: "default" },
+  delivering: { label: "Delivering", value: "delivering", color: "primary" },
+  delivered: { label: "Delivered", value: "delivered", color: "success" },
+  cancelled: { label: "Cancelled", value: "cancelled", color: "error" },
 } as const;
 
 export const partnerStatusTransitions: Record<OrderStatus, OrderStatus[]> = {
