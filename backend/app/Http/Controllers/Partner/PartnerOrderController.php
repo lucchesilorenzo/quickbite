@@ -28,7 +28,7 @@ class PartnerOrderController extends Controller
             $orders = $restaurant->orders()
                 ->with(['orderItems', 'restaurant'])
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->paginate(5);
 
             return response()->json($orders, 200);
         } catch (Throwable $e) {
@@ -62,7 +62,7 @@ class PartnerOrderController extends Controller
                     $rider = $order->restaurant->riders()
                         ->where('is_active', true)
                         ->get()
-                        ->first(fn ($rider) => ! Delivery::isRiderBusy($rider->id));
+                        ->first(fn($rider) => ! Delivery::isRiderBusy($rider->id));
 
                     if (! $rider) {
                         throw new Exception('All active riders are currently busy.');
