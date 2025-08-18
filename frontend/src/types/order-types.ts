@@ -5,7 +5,7 @@ export type Order = {
   restaurant: RestaurantBase & {
     reviews: Review[];
   };
-  user_id: string;
+  user_id: string | null;
   restaurant_id: string;
   order_code: number;
   first_name: string;
