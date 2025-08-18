@@ -72,14 +72,14 @@ export default function UpdateOrderStatusButton({
                 },
               }}
             >
-              {Object.entries(orderStatuses).map(([key, { label }]) => (
+              {Object.values(orderStatuses).map(({ value, label }) => (
                 <MenuItem
                   disabled={getDisabledOrderStatuses(status).includes(
-                    key as OrderStatus,
+                    value as OrderStatus,
                   )}
-                  key={key}
-                  value={key}
-                  selected={key === order.status}
+                  key={value}
+                  value={value}
+                  selected={value === order.status}
                 >
                   {label}
                 </MenuItem>
