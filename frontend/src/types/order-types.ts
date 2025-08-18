@@ -45,6 +45,8 @@ export type OrderStatus =
 
 export type PartnerOrderStatus = Omit<OrderStatus, "pending" | "delivered">;
 
+export type OrderStatusWithAll = OrderStatus | "all";
+
 export type OrderItem = {
   id: string;
   order_id: string;
