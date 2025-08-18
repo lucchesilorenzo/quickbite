@@ -5,7 +5,13 @@ import { usePartnerRestaurantOrders } from "@/hooks/contexts/usePartnerRestauran
 import { orderStatuses } from "@/lib/data";
 import { OrderStatusWithAll } from "@/types/order-types";
 
-export default function PartnerOrdersFilters() {
+type PartnerOrdersFiltersProps = {
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export default function PartnerOrdersFilters({
+  setPage,
+}: PartnerOrdersFiltersProps) {
   const { status, setStatus } = usePartnerRestaurantOrders();
 
   const [, setSearchParams] = useSearchParams();
@@ -15,7 +21,10 @@ export default function PartnerOrdersFilters() {
 
     setSearchParams({
       status: e.target.value !== "all" ? e.target.value : [],
+      page: [],
     });
+
+    setPage(1);
   }
 
   return (

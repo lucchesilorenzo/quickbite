@@ -1,11 +1,12 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import PartnerOrdersFilters from "./PartnerOrdersFilters";
 import PartnerOrdersItem from "./PartnerOrdersItem";
 
+import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantOrders } from "@/hooks/contexts/usePartnerRestaurantOrders";
@@ -16,14 +17,18 @@ export default function PartnerOrdersList() {
   const { restaurant } = usePartnerRestaurant();
   const { status, setStatus } = usePartnerRestaurantOrders();
 
-  const { data: orders = [], isLoading: isLoadingOrders } =
-    useGetPartnerRestaurantOrders(restaurant.id);
-
   const [searchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
+
+  const { data: ordersPagination, isLoading: isLoadingOrders } =
+    useGetPartnerRestaurantOrders(restaurant.id, page);
+
+  const orders = ordersPagination?.data;
+  const totalPages = ordersPagination?.last_page || 1;
 
   const filteredOrders = useMemo(() => {
     if (status === "all") return orders;
-    return orders.filter((order) => order.status === status);
+    return orders?.filter((order) => order.status === status);
   }, [orders, status]);
 
   useEffect(() => {
@@ -42,16 +47,26 @@ export default function PartnerOrdersList() {
 
   return (
     <Stack spacing={2} sx={{ my: 4 }}>
-      <PartnerOrdersFilters />
+      <PartnerOrdersFilters setPage={setPage} />
 
-      {!filteredOrders.length ? (
+      {!filteredOrders?.length ? (
         <Typography variant="body1" sx={{ textAlign: "center" }}>
           No orders with the selected status yet.
         </Typography>
       ) : (
-        filteredOrders.map((order) => (
-          <PartnerOrdersItem key={order.id} order={order} />
-        ))
+        <Stack spacing={2}>
+          {filteredOrders.map((order) => (
+            <PartnerOrdersItem key={order.id} order={order} />
+          ))}
+
+          <Box sx={{ alignSelf: "center" }}>
+            <CustomPagination
+              page={page}
+              totalPages={totalPages}
+              setPage={setPage}
+            />
+          </Box>
+        </Stack>
       )}
     </Stack>
   );
