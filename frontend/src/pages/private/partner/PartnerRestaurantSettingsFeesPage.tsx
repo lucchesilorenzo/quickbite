@@ -8,7 +8,7 @@ import DesktopSettingsFeesLayout from "@/components/partner/restaurant/settings/
 import MobileSettingsFeesLayout from "@/components/partner/restaurant/settings/fees/layouts/MobileSettingsFeesLayout";
 import PartnerRestaurantSettingsFeesProvider from "@/contexts/PartnerRestaurantSettingsFeesProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantSettingsFees";
+import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partners/restaurants/settings/fees/useUpdatePartnerRestaurantSettingsFees";
 import {
   TPartnerRestaurantSettingsFeesFormSchema,
   partnerRestaurantSettingsFeesFormSchema,

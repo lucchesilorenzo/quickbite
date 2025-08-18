@@ -3,7 +3,7 @@ import { createContext } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partners/restaurants/useGetPartnerRestaurant";
+import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurant";
 import { RestaurantDetail } from "@/types";
 
 type PartnerRestaurantProviderProps = {

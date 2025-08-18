@@ -6,6 +6,7 @@ import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 
 export default function PartnerOffersList() {
   const { restaurant } = usePartnerRestaurant();
+  console.log(restaurant);
 
   if (!restaurant.offers.length) {
     return (

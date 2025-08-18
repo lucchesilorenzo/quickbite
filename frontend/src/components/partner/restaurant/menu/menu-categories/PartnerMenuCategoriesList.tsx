@@ -15,7 +15,7 @@ import { Box, Grid, Typography, debounce } from "@mui/material";
 import PartnerMenuCategoriesItem from "./PartnerMenuCategoriesItem";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantMenuCategoriesOrder } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantMenuCategoriesOrder";
+import { useUpdatePartnerRestaurantMenuCategoriesOrder } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategoriesOrder";
 
 export default function PartnerMenuCategoriesList() {
   const { restaurant } = usePartnerRestaurant();

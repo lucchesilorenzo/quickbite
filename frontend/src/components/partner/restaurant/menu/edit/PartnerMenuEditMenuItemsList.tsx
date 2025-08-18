@@ -16,7 +16,7 @@ import PartnerMenuEditMenuItem from "./PartnerMenuEditMenuItem";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
-import { useUpdatePartnerRestaurantMenuItemsOrder } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantMenuItemsOrder";
+import { useUpdatePartnerRestaurantMenuItemsOrder } from "@/hooks/react-query/private/partners/restaurants/menu/items/useUpdatePartnerRestaurantMenuItemsOrder";
 
 export default function PartnerMenuEditMenuItemsList() {
   const { restaurant } = usePartnerRestaurant();

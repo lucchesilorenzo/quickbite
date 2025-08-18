@@ -10,7 +10,7 @@ import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantOrders } from "@/hooks/contexts/usePartnerRestaurantOrders";
-import { useGetPartnerRestaurantOrders } from "@/hooks/react-query/private/partners/restaurants/useGetPartnerRestaurantOrders";
+import { useGetPartnerRestaurantOrders } from "@/hooks/react-query/private/partners/restaurants/orders/useGetPartnerRestaurantOrders";
 import { orderStatuses } from "@/lib/data";
 
 export default function PartnerOrdersList() {

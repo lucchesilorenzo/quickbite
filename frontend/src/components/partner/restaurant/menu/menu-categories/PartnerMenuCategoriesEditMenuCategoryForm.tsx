@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantMenuCategory";
+import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategory";
 import { MenuCategory } from "@/types";
 import {
   TPartnerRestaurantMenuCategoriesFormSchema,

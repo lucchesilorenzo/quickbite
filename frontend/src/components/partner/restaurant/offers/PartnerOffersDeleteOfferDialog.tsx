@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { useDeletePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/useDeletePartnerRestaurantOffer";
+import { useDeletePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/offers/useDeletePartnerRestaurantOffer";
 import { RestaurantDetail } from "@/types";
 
 type PartnerOffersDeleteOfferDialogProps = {

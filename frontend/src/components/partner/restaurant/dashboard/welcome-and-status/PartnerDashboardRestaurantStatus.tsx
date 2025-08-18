@@ -4,7 +4,7 @@ import { Card, Stack, Typography } from "@mui/material";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantStatus } from "@/hooks/react-query/private/partners/restaurants/useUpdatePartnerRestaurantStatus";
+import { useUpdatePartnerRestaurantStatus } from "@/hooks/react-query/private/partners/restaurants/restaurant/useUpdatePartnerRestaurantStatus";
 
 export default function PartnerDashboardRestaurantStatus() {
   const { restaurant } = usePartnerRestaurant();
