@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Partner\PartnerAuthController;
 use App\Http\Controllers\Partner\PartnerOrderController;
 use App\Http\Controllers\Partner\PartnerRestaurantController;
+use App\Http\Controllers\Partner\PartnerRestaurantOfferController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('partner')->group(function () {
@@ -27,9 +28,10 @@ Route::prefix('partner')->group(function () {
         Route::patch('/{restaurant}/settings/delivery-times', [PartnerRestaurantController::class, 'updateRestaurantDeliveryTimes']);
 
         // Offers
-        Route::post('/{restaurant}/offers', [PartnerRestaurantController::class, 'createRestaurantOffer']);
-        Route::patch('/{restaurant}/offers/{offer}', [PartnerRestaurantController::class, 'updateRestaurantOffer']);
-        Route::delete('/{restaurant}/offers/{offer}', [PartnerRestaurantController::class, 'deleteRestaurantOffer']);
+        Route::get('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'getRestaurantOffers']);
+        Route::post('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'createRestaurantOffer']);
+        Route::patch('/{restaurant}/offers/{offer}', [PartnerRestaurantOfferController::class, 'updateRestaurantOffer']);
+        Route::delete('/offers/{offer}', [PartnerRestaurantOfferController::class, 'deleteRestaurantOffer']);
 
         // Menu Categories
         Route::post('/{restaurant}/menu/categories', [PartnerRestaurantController::class, 'createRestaurantMenuCategory']);

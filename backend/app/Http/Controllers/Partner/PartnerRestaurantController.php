@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Partner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\CreateRestaurantMenuCategoryRequest;
 use App\Http\Requests\Partner\CreateRestaurantMenuItemRequest;
-use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
@@ -15,12 +14,10 @@ use App\Http\Requests\Partner\UpdateRestaurantMenuCategoriesOrderRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuCategoryRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuItemRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuItemsOrderRequest;
-use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Models\Restaurant;
-use App\Models\RestaurantOffer;
 use App\Services\LocationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -49,9 +46,6 @@ class PartnerRestaurantController extends Controller
                     'categories',
                     'deliveryDays' => function ($query) {
                         $query->orderBy('order', 'asc');
-                    },
-                    'offers' => function ($query) {
-                        $query->orderBy('discount_rate', 'asc');
                     },
                     'reviews' => function ($query) {
                         $query->orderBy('created_at', 'desc');
@@ -101,9 +95,6 @@ class PartnerRestaurantController extends Controller
                     'deliveryDays' => function ($query) {
                         $query->orderBy('order', 'asc');
                     },
-                    'offers' => function ($query) {
-                        $query->orderBy('discount_rate', 'asc');
-                    },
                     'reviews' => function ($query) {
                         $query->orderBy('created_at', 'desc');
                     },
@@ -124,44 +115,6 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
-            ], 500);
-        }
-    }
-
-    /**
-     * Create a partner's restaurant offer.
-     */
-    public function createRestaurantOffer(
-        Restaurant $restaurant,
-        CreateRestaurantOfferRequest $request,
-    ) {
-        Gate::authorize('createOffer', $restaurant);
-
-        // Get validated data
-        $data = $request->validated();
-
-        try {
-            // Check if offer already exists
-            $doesOfferExist = $restaurant->offers()
-                ->where('discount_rate', $data['discount_rate'])
-                ->exists();
-
-            if ($doesOfferExist) {
-                return response()->json([
-                    'message' => 'An offer with the same discount rate already exists.',
-                ], 422);
-            }
-
-            // Create offer
-            $offer = $restaurant->offers()->create($data);
-
-            return response()->json([
-                'message' => 'Offer created successfully.',
-                'offer' => $offer,
-            ], 201);
-        } catch (Throwable $e) {
-            return response()->json([
-                'message' => 'Could not create offer.',
             ], 500);
         }
     }
@@ -253,67 +206,6 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update restaurant delivery times.',
-            ], 500);
-        }
-    }
-
-    /**
-     * Update a partner's restaurant offer.
-     */
-    public function updateRestaurantOffer(
-        Restaurant $restaurant,
-        RestaurantOffer $offer,
-        UpdateRestaurantOfferRequest $request
-    ): JsonResponse {
-        // Check if user is authorized
-        Gate::authorize('update', $offer);
-
-        // Get validated data
-        $data = $request->validated();
-
-        try {
-            // Check if offer already exists
-            $doesOfferExist = $restaurant->offers()
-                ->where('discount_rate', $data['discount_rate'])
-                ->whereNot('id', $offer->id)
-                ->exists();
-
-            if ($doesOfferExist) {
-                return response()->json([
-                    'message' => 'An offer with the same discount rate already exists.',
-                ], 422);
-            }
-
-            $offer->update($data);
-
-            return response()->json([
-                'message' => 'Offer updated successfully.',
-                'offer' => $offer,
-            ], 200);
-        } catch (Throwable $e) {
-            return response()->json([
-                'message' => 'Could not update offer.',
-            ], 500);
-        }
-    }
-
-    /**
-     * Delete a partner's restaurant offer.
-     */
-    public function deleteRestaurantOffer(RestaurantOffer $offer): JsonResponse
-    {
-        // Check if user is authorized
-        Gate::authorize('delete', $offer);
-
-        try {
-            $offer->delete();
-
-            return response()->json([
-                'message' => 'Offer deleted successfully.',
-            ], 200);
-        } catch (Throwable $e) {
-            return response()->json([
-                'message' => 'Could not delete offer.',
             ], 500);
         }
     }

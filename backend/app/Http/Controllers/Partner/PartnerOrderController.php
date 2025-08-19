@@ -62,7 +62,7 @@ class PartnerOrderController extends Controller
                     $rider = $order->restaurant->riders()
                         ->where('is_active', true)
                         ->get()
-                        ->first(fn($rider) => ! Delivery::isRiderBusy($rider->id));
+                        ->first(fn ($rider) => ! Delivery::isRiderBusy($rider->id));
 
                     if (! $rider) {
                         throw new Exception('All active riders are currently busy.');
