@@ -24,7 +24,9 @@ class PartnerRestaurantOfferController extends Controller
         Gate::authorize('viewPartnerRestaurant', $restaurant);
 
         try {
-            $offers = $restaurant->offers()->get();
+            $offers = $restaurant->offers()
+                ->orderBy('created_at', 'asc')
+                ->get();
 
             return response()->json($offers, 200);
         } catch (Throwable $e) {

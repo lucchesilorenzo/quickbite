@@ -41,33 +41,7 @@ class PartnerRestaurantController extends Controller
         try {
             $user = auth()->user();
 
-            $restaurants = $user->restaurants()
-                ->with([
-                    'categories',
-                    'deliveryDays' => function ($query) {
-                        $query->orderBy('order', 'asc');
-                    },
-                    'reviews' => function ($query) {
-                        $query->orderBy('created_at', 'desc');
-                    },
-                    'reviews.customer',
-                    'reviews.order',
-                    'menuCategories' => function ($query) {
-                        $query->orderBy('order', 'asc')
-                            ->with('menuItems', function ($query) {
-                                $query->orderBy('order', 'asc');
-                            });
-                    },
-                ])
-                ->withAvg('reviews', 'rating')
-                ->withCount('reviews')
-                ->get();
-
-            if ($restaurants->isEmpty()) {
-                return response()->json([
-                    'message' => 'No restaurants found.',
-                ], 404);
-            }
+            $restaurants = $user->restaurants()->get();
 
             return response()->json($restaurants, 200);
         } catch (Throwable $e) {
