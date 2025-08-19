@@ -13,17 +13,17 @@ export function useCreatePartnerRestaurantOffer(restaurantId: string) {
       postData(`/partner/restaurants/${restaurantId}/offers`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-offers", restaurantId],
       });
 
       notifications.show(response.message, {
-        key: "crete-restaurant-offer-success",
+        key: "create-restaurant-offer-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "crete-restaurant-offer-error",
+        key: "create-restaurant-offer-error",
         severity: "error",
       });
     },
