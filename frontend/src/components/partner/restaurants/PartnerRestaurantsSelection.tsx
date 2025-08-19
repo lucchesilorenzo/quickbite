@@ -2,10 +2,10 @@ import { Grid } from "@mui/material";
 
 import PartnerRestaurantCard from "./PartnerRestaurantCard";
 
-import { RestaurantDetail } from "@/types";
+import { PartnerRestaurantBase } from "@/types";
 
 type PartnerRestaurantsSelectionProps = {
-  restaurants: RestaurantDetail[];
+  restaurants: PartnerRestaurantBase[];
 };
 
 export default function PartnerRestaurantsSelection({

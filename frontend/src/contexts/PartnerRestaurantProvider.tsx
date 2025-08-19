@@ -4,14 +4,14 @@ import { Navigate, useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurant";
-import { RestaurantDetail } from "@/types";
+import { PartnerRestaurantDetail } from "@/types";
 
 type PartnerRestaurantProviderProps = {
   children: React.ReactNode;
 };
 
 type PartnerRestaurantContext = {
-  restaurant: RestaurantDetail;
+  restaurant: PartnerRestaurantDetail;
 };
 
 export const PartnerRestaurantContext =
