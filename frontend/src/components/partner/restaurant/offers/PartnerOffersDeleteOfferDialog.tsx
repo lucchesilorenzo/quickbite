@@ -12,10 +12,10 @@ import {
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useDeletePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/offers/useDeletePartnerRestaurantOffer";
-import { RestaurantDetail } from "@/types";
+import { Offer } from "@/types";
 
 type PartnerOffersDeleteOfferDialogProps = {
-  offer: RestaurantDetail["offers"][number];
+  offer: Offer;
   openDeleteOfferDialog: boolean;
   setOpenDeleteOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -31,6 +31,11 @@ export default function PartnerOffersDeleteOfferDialog({
     useDeletePartnerRestaurantOffer(restaurant.id, offer.id);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  async function handleDeleteOffer() {
+    await deletePartnerRestaurantOffer();
+    setOpenDeleteOfferDialog(false);
+  }
 
   return (
     <Dialog
@@ -64,7 +69,7 @@ export default function PartnerOffersDeleteOfferDialog({
           </Button>
 
           <Button
-            onClick={async () => await deletePartnerRestaurantOffer()}
+            onClick={handleDeleteOffer}
             disabled={isPending}
             loading={isPending}
             loadingIndicator="Deleting..."

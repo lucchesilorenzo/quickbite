@@ -15,14 +15,14 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/offers/useUpdatePartnerRestaurantOffer";
 import { discountRates } from "@/lib/data";
-import { RestaurantDetail } from "@/types";
+import { Offer } from "@/types";
 import {
   TPartnerRestaurantSettingsOffersFormSchema,
   partnerRestaurantSettingsOffersFormSchema,
 } from "@/validations/partner-restaurant-settings-validations";
 
 type PartnerOffersEditOfferFormProps = {
-  offer: RestaurantDetail["offers"][number];
+  offer: Offer;
   setOpenEditOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

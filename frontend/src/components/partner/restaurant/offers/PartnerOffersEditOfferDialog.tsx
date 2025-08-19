@@ -10,10 +10,10 @@ import {
 
 import PartnerOffersEditOfferForm from "./PartnerOffersEditOfferForm";
 
-import { RestaurantDetail } from "@/types";
+import { Offer } from "@/types";
 
 type PartnerOffersEditOfferDialogProps = {
-  offer: RestaurantDetail["offers"][number];
+  offer: Offer;
   openEditOfferDialog: boolean;
   setOpenEditOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

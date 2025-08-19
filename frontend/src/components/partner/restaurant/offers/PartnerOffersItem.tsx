@@ -14,10 +14,10 @@ import PartnerOffersDeleteOfferDialog from "./PartnerOffersDeleteOfferDialog";
 import PartnerOffersEditOfferDialog from "./PartnerOffersEditOfferDialog";
 
 import { formatCurrency } from "@/lib/utils";
-import { RestaurantDetail } from "@/types";
+import { Offer } from "@/types";
 
 type PartnerOffersItemProps = {
-  offer: RestaurantDetail["offers"][number];
+  offer: Offer;
   hasSibling: boolean;
 };
 
