@@ -54,6 +54,11 @@ export type RestaurantDetail = RestaurantListItem & {
   updated_at: string;
 };
 
+export type PartnerRestaurantBase = RestaurantBase;
+
+export type PartnerRestaurantDetail = PartnerRestaurantBase &
+  Omit<RestaurantDetail, "offers">;
+
 export type DeliveryDay = {
   id: string;
   restaurant_id: string;
