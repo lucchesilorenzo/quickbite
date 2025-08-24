@@ -18,7 +18,7 @@ class CategoryController extends Controller
         try {
             $categories = Category::all();
 
-            return response()->json($categories);
+            return response()->json($categories, 200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get categories.',

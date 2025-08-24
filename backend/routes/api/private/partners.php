@@ -6,6 +6,7 @@ use App\Http\Controllers\Partner\PartnerAuthController;
 use App\Http\Controllers\Partner\PartnerOrderController;
 use App\Http\Controllers\Partner\PartnerRestaurantController;
 use App\Http\Controllers\Partner\PartnerRestaurantOfferController;
+use App\Http\Controllers\Partner\PartnerRestaurantReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('partner')->group(function () {
@@ -32,6 +33,9 @@ Route::prefix('partner')->group(function () {
         Route::post('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'createRestaurantOffer']);
         Route::patch('/{restaurant}/offers/{offer}', [PartnerRestaurantOfferController::class, 'updateRestaurantOffer']);
         Route::delete('/offers/{offer}', [PartnerRestaurantOfferController::class, 'deleteRestaurantOffer']);
+
+        // Reviews
+        Route::get('/{restaurant}/reviews', [PartnerRestaurantReviewController::class, 'getRestaurantReviews']);
 
         // Menu Categories
         Route::post('/{restaurant}/menu/categories', [PartnerRestaurantController::class, 'createRestaurantMenuCategory']);

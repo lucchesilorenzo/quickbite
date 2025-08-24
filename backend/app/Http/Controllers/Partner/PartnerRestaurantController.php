@@ -69,11 +69,6 @@ class PartnerRestaurantController extends Controller
                     'deliveryDays' => function ($query) {
                         $query->orderBy('order', 'asc');
                     },
-                    'reviews' => function ($query) {
-                        $query->orderBy('created_at', 'desc');
-                    },
-                    'reviews.customer',
-                    'reviews.order',
                     'menuCategories' => function ($query) {
                         $query->orderBy('order', 'asc')
                             ->with('menuItems', function ($query) {
@@ -81,8 +76,6 @@ class PartnerRestaurantController extends Controller
                             });
                     },
                 ])
-                ->withAvg('reviews', 'rating')
-                ->withCount('reviews')
                 ->first();
 
             return response()->json($restaurant, 200);
