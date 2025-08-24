@@ -20,11 +20,11 @@ export default function PartnerOrdersList() {
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(1);
 
-  const { data: ordersPagination, isLoading: isLoadingOrders } =
+  const { data: ordersWithPagination, isLoading: isLoadingOrders } =
     useGetPartnerRestaurantOrders(restaurant.id, page);
 
-  const orders = ordersPagination?.data;
-  const totalPages = ordersPagination?.last_page || 1;
+  const orders = ordersWithPagination?.data;
+  const totalPages = ordersWithPagination?.last_page || 1;
 
   const filteredOrders = useMemo(() => {
     if (status === "all") return orders;
