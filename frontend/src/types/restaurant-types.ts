@@ -1,6 +1,5 @@
 import { CategoryWithPivot } from "./category-types";
-import { Order } from "./order-types";
-import { User } from "./user-types";
+import { Review } from "./reviews-types";
 
 export type RestaurantBase = {
   id: string;
@@ -54,11 +53,6 @@ export type RestaurantDetail = RestaurantListItem & {
   updated_at: string;
 };
 
-export type PartnerRestaurantBase = RestaurantBase;
-
-export type PartnerRestaurantDetail = PartnerRestaurantBase &
-  Omit<RestaurantDetail, "offers">;
-
 export type DeliveryDay = {
   id: string;
   restaurant_id: string;
@@ -83,19 +77,6 @@ export type Offer = {
   min_discount_amount: number;
   created_at: string;
   updated_at: string;
-};
-
-export type Review = {
-  id: string;
-  user_id: string;
-  restaurant_id: string;
-  order_id: string;
-  comment?: string;
-  rating: number;
-  created_at: string;
-  updated_at: string;
-  customer: User;
-  order: Order;
 };
 
 export type MenuItem = {
@@ -128,3 +109,10 @@ export type RestaurantSearchOption = {
 };
 
 export type RestaurantTab = "reviews" | "info" | "offers";
+
+// Partner
+
+export type PartnerRestaurantBase = RestaurantBase;
+
+export type PartnerRestaurantDetail = PartnerRestaurantBase &
+  Omit<RestaurantDetail, "offers" | "reviews">;
