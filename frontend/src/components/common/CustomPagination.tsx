@@ -3,21 +3,21 @@ import { useEffect } from "react";
 import { Pagination } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import { usePartnerRestaurantOrders } from "@/hooks/contexts/usePartnerRestaurantOrders";
+import { OrderStatusWithAll } from "@/types";
 
 type CustomPaginationProps = {
   page: number;
   totalPages: number;
+  status?: OrderStatusWithAll;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function CustomPagination({
   page,
   totalPages,
+  status,
   setPage,
 }: CustomPaginationProps) {
-  const { status } = usePartnerRestaurantOrders();
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function CustomPagination({
     setPage(page);
 
     setSearchParams({
-      status: status !== "all" ? status : [],
+      status: status && status !== "all" ? status : [],
       page: page !== 1 ? page.toString() : [],
     });
   }
