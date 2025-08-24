@@ -1,4 +1,5 @@
-import { MenuItem, RestaurantDetail } from "./restaurant-types";
+import { MenuItem } from "./menu-types";
+import { RestaurantDetail } from "./restaurant-types";
 
 export type CartItem = MenuItem & {
   quantity: number;

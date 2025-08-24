@@ -1,4 +1,7 @@
 import { CategoryWithPivot } from "./category-types";
+import { DeliveryDay } from "./delivery-day-types";
+import { MenuCategory } from "./menu-types";
+import { Offer } from "./offer-types";
 import { Review } from "./reviews-types";
 
 export type RestaurantBase = {
@@ -53,55 +56,6 @@ export type RestaurantDetail = RestaurantListItem & {
   updated_at: string;
 };
 
-export type DeliveryDay = {
-  id: string;
-  restaurant_id: string;
-  day:
-    | "MONDAY"
-    | "TUESDAY"
-    | "WEDNESDAY"
-    | "THURSDAY"
-    | "FRIDAY"
-    | "SATURDAY"
-    | "SUNDAY";
-  start_time: string | null;
-  end_time: string | null;
-  created_at: string;
-  updated_at: string;
-};
-
-export type Offer = {
-  id: string;
-  restaurant_id: string;
-  discount_rate: number;
-  min_discount_amount: number;
-  created_at: string;
-  updated_at: string;
-};
-
-export type MenuItem = {
-  id: string;
-  menu_category_id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  image: string | null;
-  is_available: boolean;
-  created_at: string;
-  updated_at: string;
-};
-
-export type MenuCategory = {
-  id: string;
-  restaurant_id: string;
-  name: string;
-  description: string | null;
-  order: number;
-  created_at: string;
-  updated_at: string;
-  menu_items: MenuItem[];
-};
-
 export type RestaurantSearchOption = {
   id: string;
   label: string;
@@ -110,7 +64,7 @@ export type RestaurantSearchOption = {
 
 export type RestaurantTab = "reviews" | "info" | "offers";
 
-// Partner
+// === PARTNER ===
 
 export type PartnerRestaurantBase = RestaurantBase;
 

@@ -51,10 +51,6 @@ export type OrderWithPagination = {
   total: number;
 };
 
-export type PartnerOrder = Omit<Order, "restaurant"> & {
-  restaurant: Omit<Order["restaurant"], "reviews">;
-};
-
 export type OrderStatus =
   | "pending"
   | "accepted"
@@ -63,8 +59,6 @@ export type OrderStatus =
   | "delivering"
   | "delivered"
   | "cancelled";
-
-export type PartnerOrderStatus = Omit<OrderStatus, "pending" | "delivered">;
 
 export type OrderStatusWithAll = OrderStatus | "all";
 
@@ -123,3 +117,11 @@ export type CheckoutData = {
     payment_method: PaymentMethod | null;
   };
 };
+
+// === PARTNER ===
+
+export type PartnerOrder = Omit<Order, "restaurant"> & {
+  restaurant: Omit<Order["restaurant"], "reviews">;
+};
+
+export type PartnerOrderStatus = Omit<OrderStatus, "pending" | "delivered">;

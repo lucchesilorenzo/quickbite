@@ -14,7 +14,7 @@ export type Review = {
   order: Order;
 };
 
-// Partner
+// === PARTNER ===
 
 export type PartnerReview = {
   reviews: Review[];
