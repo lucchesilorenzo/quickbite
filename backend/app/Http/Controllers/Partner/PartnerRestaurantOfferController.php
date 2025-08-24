@@ -26,7 +26,7 @@ class PartnerRestaurantOfferController extends Controller
         try {
             $offers = $restaurant->offers()
                 ->orderBy('created_at', 'asc')
-                ->get();
+                ->paginate(6);
 
             return response()->json($offers, 200);
         } catch (Throwable $e) {
