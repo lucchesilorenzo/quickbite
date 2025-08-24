@@ -14,7 +14,7 @@ import { format } from "date-fns";
 import { PartnerReview } from "@/types/reviews-types";
 
 type PartnerRestaurantReviewsItem = {
-  review: PartnerReview["reviews"][number];
+  review: PartnerReview["data"][number];
 };
 
 export default function PartnerRestaurantReviewsItem({

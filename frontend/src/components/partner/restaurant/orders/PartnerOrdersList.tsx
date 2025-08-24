@@ -63,6 +63,7 @@ export default function PartnerOrdersList() {
             <CustomPagination
               page={page}
               totalPages={totalPages}
+              status={status}
               setPage={setPage}
             />
           </Box>

@@ -1,11 +1,14 @@
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import PartnerRestaurantReviewsItem from "./PartnerRestaurantReviewsItem";
 
+import CustomPagination from "@/components/common/CustomPagination";
 import { usePartnerRestaurantReviews } from "@/hooks/contexts/usePartnerRestaurantReviews";
 
 export default function PartnerRestaurantReviewsList() {
-  const { reviewsData } = usePartnerRestaurantReviews();
+  const { reviewsData, page, setPage } = usePartnerRestaurantReviews();
+
+  const totalPages = reviewsData.reviews.last_page || 1;
 
   if (!reviewsData.count) {
     return (
@@ -17,9 +20,17 @@ export default function PartnerRestaurantReviewsList() {
 
   return (
     <Stack spacing={2}>
-      {reviewsData.reviews.map((review) => (
+      {reviewsData.reviews.data.map((review) => (
         <PartnerRestaurantReviewsItem key={review.id} review={review} />
       ))}
+
+      <Box sx={{ alignSelf: "center" }}>
+        <CustomPagination
+          page={page}
+          totalPages={totalPages}
+          setPage={setPage}
+        />
+      </Box>
     </Stack>
   );
 }

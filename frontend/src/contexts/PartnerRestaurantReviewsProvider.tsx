@@ -4,7 +4,7 @@ import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useGetPartnerRestaurantReviews } from "@/hooks/react-query/private/partners/restaurants/reviews/useGetPartnerRestaurantReviews";
 import { OrderStatusWithAll } from "@/types/order-types";
-import { PartnerReview } from "@/types/reviews-types";
+import { PartnerReviewWithPagination } from "@/types/reviews-types";
 
 type PartnerRestaurantReviewsProviderProps = {
   children: React.ReactNode;
@@ -12,7 +12,9 @@ type PartnerRestaurantReviewsProviderProps = {
 
 type PartnerRestaurantReviewsContext = {
   status: OrderStatusWithAll;
-  reviewsData: PartnerReview;
+  reviewsData: PartnerReviewWithPagination;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
   setStatus: React.Dispatch<React.SetStateAction<OrderStatusWithAll>>;
 };
 
@@ -24,18 +26,17 @@ export default function PartnerRestaurantReviewsProvider({
 }: PartnerRestaurantReviewsProviderProps) {
   const { restaurant } = usePartnerRestaurant();
 
+  const [page, setPage] = useState(1);
   const [status, setStatus] = useState<OrderStatusWithAll>("all");
 
-  const {
-    data: reviewsData = { reviews: [], avg_rating: 0, count: 0 },
-    isLoading: isLoadingReviews,
-  } = useGetPartnerRestaurantReviews(restaurant.id);
+  const { data: reviewsData, isLoading: isLoadingReviews } =
+    useGetPartnerRestaurantReviews(restaurant.id, page);
 
-  if (isLoadingReviews) return <Spinner />;
+  if (!reviewsData || isLoadingReviews) return <Spinner />;
 
   return (
     <PartnerRestaurantReviewsContext.Provider
-      value={{ status, reviewsData, setStatus }}
+      value={{ status, reviewsData, page, setPage, setStatus }}
     >
       {children}
     </PartnerRestaurantReviewsContext.Provider>
