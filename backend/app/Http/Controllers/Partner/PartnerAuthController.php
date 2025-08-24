@@ -131,7 +131,7 @@ class PartnerAuthController extends Controller
             $partner = User::where('email', $data['email'])->first();
 
             // Check if partner exists
-            if (empty($partner)) {
+            if (! $partner) {
                 return response()->json([
                     'message' => 'Partner not found.',
                 ], 404);

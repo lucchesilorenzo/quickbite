@@ -166,7 +166,7 @@ class RestaurantController extends Controller
             // Get restaurant
             $restaurant = Restaurant::where('slug', $restaurantSlug)->first();
 
-            if (empty($restaurant)) {
+            if (! $restaurant) {
                 return response()->json([
                     'message' => 'Restaurant not found.',
                 ], 404);

@@ -66,7 +66,7 @@ class CustomerAuthController extends Controller
             $customer = User::where('email', $data['email'])->first();
 
             // Check if customer exists
-            if (empty($customer)) {
+            if (! $customer) {
                 return response()->json([
                     'message' => 'Customer not found.',
                 ], 404);

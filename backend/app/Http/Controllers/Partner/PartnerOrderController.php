@@ -44,7 +44,7 @@ class PartnerOrderController extends Controller
         UpdateOrderStatus $request
     ): JsonResponse {
         // Check if user can update order
-        Gate::authorize('update', $order);
+        Gate::authorize('updatePartnerOrder', $order);
 
         // Get validated data
         $data = $request->validated();

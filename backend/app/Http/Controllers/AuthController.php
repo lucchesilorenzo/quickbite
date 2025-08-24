@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class AuthController extends Controller
@@ -13,7 +14,7 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function me()
+    public function me(): JsonResponse
     {
         try {
             $user = auth()->user();

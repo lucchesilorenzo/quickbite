@@ -6,21 +6,15 @@ namespace App\Policies;
 
 use App\Models\Order;
 use App\Models\User;
+use App\Traits\HasRestaurantAuthorization;
 use Illuminate\Auth\Access\Response;
 
 class OrderPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        return false;
-    }
+    use HasRestaurantAuthorization;
 
-    /**
-     * Determine whether the user can view the model.
-     */
+    // === CUSTOMER ===
+
     public function view(User $user, Order $order): Response
     {
         return $user->id === $order->user_id
@@ -28,47 +22,12 @@ class OrderPolicy
             : Response::deny('You are not authorized to view this order.');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
-    {
-        return false;
-    }
+    // === PARTNER ===
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Order $order): Response
+    public function updatePartnerOrder(User $user, Order $order): Response
     {
-        return $order->restaurant->partners()
-            ->where('user_id', $user->id)
-            ->exists()
+        return $this->isPartner($user, $order->restaurant)
             ? Response::allow()
             : Response::deny('You are not authorized to update this order.');
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Order $order): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Order $order): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Order $order): bool
-    {
-        return false;
     }
 }

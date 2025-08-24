@@ -62,7 +62,7 @@ class User extends Authenticatable
             ->withPivot(['role', 'contract_start', 'contract_end', 'is_active']);
     }
 
-    // --- CUSTOMER ---
+    // === CUSTOMER ===
 
     /**
      * Get the user's reviews.
@@ -88,7 +88,7 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    // --- PARTNERS ---
+    // === PARTNERS ===
 
     /**
      * Get the user's owned restaurants.
@@ -108,7 +108,7 @@ class User extends Authenticatable
             ->wherePivot('role', RestaurantRole::CO_OWNER);
     }
 
-    // --- RIDER ---
+    // === RIDER ===
 
     /**
      * Get the user's rider restaurants.
