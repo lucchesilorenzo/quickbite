@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { Offer } from "@/types";
+import { OfferWithPagination } from "@/types";
 
-export function useGetPartnerRestaurantOffers(restaurantId: string) {
+export function useGetPartnerRestaurantOffers(
+  restaurantId: string,
+  page: number,
+) {
   return useQuery({
-    queryKey: ["partner-offers", restaurantId],
-    queryFn: (): Promise<Offer[]> =>
-      fetchData(`/partner/restaurants/${restaurantId}/offers`),
+    queryKey: ["partner-offers", restaurantId, page],
+    queryFn: (): Promise<OfferWithPagination> =>
+      fetchData(`/partner/restaurants/${restaurantId}/offers?page=${page}`),
   });
 }
