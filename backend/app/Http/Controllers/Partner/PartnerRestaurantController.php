@@ -268,6 +268,12 @@ class PartnerRestaurantController extends Controller
             // Get menu category order
             $menuCategoryOrder = $restaurant->menuCategories()->max('order');
 
+            if ($menuCategoryOrder === 8) {
+                return response()->json([
+                    'message' => 'You have reached the maximum number of menu categories.',
+                ], 422);
+            }
+
             $data['order'] = is_null($menuCategoryOrder) ? 0 : $menuCategoryOrder + 1;
 
             // Create menu category
