@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Partner\PartnerAuthController;
 use App\Http\Controllers\Partner\PartnerMenuCategoryController;
+use App\Http\Controllers\Partner\PartnerMenuItemController;
 use App\Http\Controllers\Partner\PartnerOrderController;
 use App\Http\Controllers\Partner\PartnerRestaurantController;
 use App\Http\Controllers\Partner\PartnerRestaurantOfferController;
@@ -45,10 +46,10 @@ Route::prefix('partner')->group(function () {
         Route::delete('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'deleteRestaurantMenuCategory']);
 
         // Menu Items
-        Route::post('/menu/categories/{menuCategory}/items', [PartnerRestaurantController::class, 'createRestaurantMenuItem']);
-        Route::post('/menu/items/{menuItem}', [PartnerRestaurantController::class, 'updateRestaurantMenuItem']);
-        Route::patch('/menu/items/order', [PartnerRestaurantController::class, 'updateRestaurantMenuItemsOrder']);
-        Route::delete('/menu/items/{menuItem}', [PartnerRestaurantController::class, 'deleteRestaurantMenuItem']);
+        Route::post('/menu/categories/{menuCategory}/items', [PartnerMenuItemController::class, 'createRestaurantMenuItem']);
+        Route::post('/menu/items/{menuItem}', [PartnerMenuItemController::class, 'updateRestaurantMenuItem']);
+        Route::patch('/menu/items/order', [PartnerMenuItemController::class, 'updateRestaurantMenuItemsOrder']);
+        Route::delete('/menu/items/{menuItem}', [PartnerMenuItemController::class, 'deleteRestaurantMenuItem']);
 
         // === ORDERS MANAGEMENT ===
         Route::get('/{restaurant}/orders', [PartnerOrderController::class, 'getOrders']);
