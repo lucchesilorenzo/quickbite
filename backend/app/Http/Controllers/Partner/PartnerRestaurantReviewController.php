@@ -23,7 +23,7 @@ class PartnerRestaurantReviewController extends Controller
             $reviews = $restaurant->reviews()
                 ->with(['customer', 'order'])
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->paginate(5);
 
             $avg = $restaurant->reviews()->avg('rating');
             $count = $restaurant->reviews()->count();
