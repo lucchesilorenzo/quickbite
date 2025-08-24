@@ -4,6 +4,7 @@ import { Container, Typography } from "@mui/material";
 
 import DesktopReviewsLayout from "@/components/partner/restaurant/reviews/layouts/DesktopReviewsLayout";
 import MobileReviewsLayout from "@/components/partner/restaurant/reviews/layouts/MobileReviewsLayout";
+import PartnerRestaurantReviewsProvider from "@/contexts/PartnerRestaurantReviewsProvider";
 
 export default function PartnerRestaurantReviewsPage() {
   useEffect(() => {
@@ -11,13 +12,15 @@ export default function PartnerRestaurantReviewsPage() {
   }, []);
 
   return (
-    <Container component="main" maxWidth="md" sx={{ py: 4 }}>
-      <Typography variant="h5" sx={{ fontWeight: 600, mb: 4 }}>
-        Ratings and reviews
-      </Typography>
+    <PartnerRestaurantReviewsProvider>
+      <Container component="main" maxWidth="md" sx={{ py: 4 }}>
+        <Typography variant="h5" sx={{ fontWeight: 600, mb: 4 }}>
+          Ratings and reviews
+        </Typography>
 
-      <DesktopReviewsLayout />
-      <MobileReviewsLayout />
-    </Container>
+        <DesktopReviewsLayout />
+        <MobileReviewsLayout />
+      </Container>
+    </PartnerRestaurantReviewsProvider>
   );
 }

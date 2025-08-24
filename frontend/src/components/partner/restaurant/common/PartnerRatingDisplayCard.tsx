@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurantReviews } from "@/hooks/contexts/usePartnerRestaurantReviews";
 
 type PartnerRatingDisplayCardProps = {
   type: "dashboard" | "reviews";
@@ -21,6 +22,7 @@ export default function PartnerRatingDisplayCard({
   type,
 }: PartnerRatingDisplayCardProps) {
   const { restaurant } = usePartnerRestaurant();
+  const { reviewsData } = usePartnerRestaurantReviews();
 
   return (
     <Card variant="outlined">
@@ -36,11 +38,11 @@ export default function PartnerRatingDisplayCard({
           >
             <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
               <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
-                {restaurant.reviews_avg_rating?.toFixed(1) || "N/A"}
+                {reviewsData.avg_rating?.toFixed(1) || "N/A"}
               </Typography>
 
               <Rating
-                value={restaurant.reviews_avg_rating || 0}
+                value={reviewsData.avg_rating || 0}
                 icon={<StarIcon color="primary" fontSize="large" />}
                 emptyIcon={<StarBorderIcon color="primary" fontSize="large" />}
                 readOnly
@@ -58,7 +60,7 @@ export default function PartnerRatingDisplayCard({
           </Stack>
 
           <Typography variant="body2">
-            Based on {restaurant.reviews_count} reviews
+            Based on {reviewsData.count} reviews
           </Typography>
         </Stack>
       </CardContent>
