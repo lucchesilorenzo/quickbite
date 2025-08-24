@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Partner\PartnerAuthController;
+use App\Http\Controllers\Partner\PartnerMenuCategoryController;
 use App\Http\Controllers\Partner\PartnerOrderController;
 use App\Http\Controllers\Partner\PartnerRestaurantController;
 use App\Http\Controllers\Partner\PartnerRestaurantOfferController;
@@ -38,10 +39,10 @@ Route::prefix('partner')->group(function () {
         Route::get('/{restaurant}/reviews', [PartnerRestaurantReviewController::class, 'getRestaurantReviews']);
 
         // Menu Categories
-        Route::post('/{restaurant}/menu/categories', [PartnerRestaurantController::class, 'createRestaurantMenuCategory']);
-        Route::patch('/menu/categories/order', [PartnerRestaurantController::class, 'updateRestaurantMenuCategoriesOrder']);
-        Route::patch('/menu/categories/{menuCategory}', [PartnerRestaurantController::class, 'updateRestaurantMenuCategory']);
-        Route::delete('/menu/categories/{menuCategory}', [PartnerRestaurantController::class, 'deleteRestaurantMenuCategory']);
+        Route::post('/{restaurant}/menu/categories', [PartnerMenuCategoryController::class, 'createRestaurantMenuCategory']);
+        Route::patch('/menu/categories/order', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategoriesOrder']);
+        Route::patch('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategory']);
+        Route::delete('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'deleteRestaurantMenuCategory']);
 
         // Menu Items
         Route::post('/menu/categories/{menuCategory}/items', [PartnerRestaurantController::class, 'createRestaurantMenuItem']);
