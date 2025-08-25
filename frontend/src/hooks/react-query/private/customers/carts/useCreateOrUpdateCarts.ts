@@ -9,7 +9,8 @@ export function useCreateOrUpdateCarts() {
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: RestaurantCart[]) => postData("/carts/bulk", data),
+    mutationFn: (data: RestaurantCart[]) =>
+      postData("/customer/carts/bulk", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["carts"] });
     },

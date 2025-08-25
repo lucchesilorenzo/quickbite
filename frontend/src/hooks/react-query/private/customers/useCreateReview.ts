@@ -10,7 +10,7 @@ export function useCreateReview(restaurantSlug: string) {
 
   return useMutation({
     mutationFn: (data: TReviewFormSchema & { order_id: string }) =>
-      postData(`/restaurants/${restaurantSlug}/reviews`, data),
+      postData(`/customer/restaurants/${restaurantSlug}/reviews`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["restaurants"] });
       queryClient.invalidateQueries({ queryKey: ["orders"] });

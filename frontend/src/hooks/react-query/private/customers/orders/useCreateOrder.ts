@@ -14,7 +14,7 @@ export function useCreateOrder(restaurantId: string) {
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: CreateOrder) => postData("/orders", data),
+    mutationFn: (data: CreateOrder) => postData("/customer/orders", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       emptyCart(restaurantId);

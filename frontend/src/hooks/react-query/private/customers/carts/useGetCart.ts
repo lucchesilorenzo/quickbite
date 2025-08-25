@@ -6,7 +6,8 @@ import { RestaurantCart } from "@/types";
 export function useGetCart(cartId?: string) {
   return useQuery({
     queryKey: ["cart", cartId],
-    queryFn: (): Promise<RestaurantCart> => fetchData(`/carts/${cartId}`),
+    queryFn: (): Promise<RestaurantCart> =>
+      fetchData(`/customer/carts/${cartId}`),
     enabled: !!cartId,
   });
 }

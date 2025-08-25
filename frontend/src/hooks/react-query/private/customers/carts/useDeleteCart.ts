@@ -8,7 +8,7 @@ export function useDeleteCart(cartId?: string) {
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: () => deleteData(`/carts/${cartId}`),
+    mutationFn: () => deleteData(`/customer/carts/${cartId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["carts"] });
     },
