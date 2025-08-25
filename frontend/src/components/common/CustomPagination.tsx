@@ -9,6 +9,7 @@ type CustomPaginationProps = {
   page: number;
   totalPages: number;
   status?: OrderStatusWithAll;
+  menuCategoryId?: string;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -16,6 +17,7 @@ export default function CustomPagination({
   page,
   totalPages,
   status,
+  menuCategoryId,
   setPage,
 }: CustomPaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -35,6 +37,7 @@ export default function CustomPagination({
 
     setSearchParams({
       status: status && status !== "all" ? status : [],
+      menu_category_id: menuCategoryId || [],
       page: page !== 1 ? page.toString() : [],
     });
   }
