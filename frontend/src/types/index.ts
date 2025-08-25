@@ -8,3 +8,4 @@ export * from "./order-types";
 export * from "./menu-types";
 export * from "./offer-types";
 export * from "./delivery-day-types";
+export * from "./stats-types";
