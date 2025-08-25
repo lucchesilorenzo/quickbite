@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Order\CustomerCreateOrderRequest;
 use App\Models\Order;
 use App\Models\Restaurant;

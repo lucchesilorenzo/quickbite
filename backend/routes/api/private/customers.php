@@ -7,8 +7,6 @@ use App\Http\Controllers\Customer\CustomerCartController;
 use App\Http\Controllers\Customer\CustomerOrderController;
 use App\Http\Controllers\Customer\CustomerProfileController;
 use App\Http\Controllers\Customer\CustomerRestaurantController;
-use App\Http\Controllers\Customer\ProfileController;
-use App\Http\Controllers\CustomerOrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('customer')->group(function () {
@@ -26,7 +24,7 @@ Route::prefix('customer')->group(function () {
 
     // === PROFILE MANAGEMENT ===
     Route::prefix('profile')->middleware(['auth:sanctum', 'role:customer'])->group(function () {
-        Route::patch('/', [ProfileController::class, 'updateProfile']);
+        Route::patch('/', [CustomerProfileController::class, 'updateCustomerProfile']);
     });
 
     // === CARTS MANAGEMENT ===
