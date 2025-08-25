@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { Pagination } from "@mui/material";
+import { Pagination, useMediaQuery } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import { OrderStatusWithAll } from "@/types";
@@ -19,6 +19,8 @@ export default function CustomPagination({
   setPage,
 }: CustomPaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   useEffect(() => {
     const page = Number(searchParams.get("page"));
@@ -39,6 +41,7 @@ export default function CustomPagination({
 
   return (
     <Pagination
+      size={isMobile ? "small" : "medium"}
       color="primary"
       count={totalPages}
       page={page}
