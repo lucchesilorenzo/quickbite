@@ -15,7 +15,7 @@ export function useDeletePartnerRestaurantMenuItem(
       deleteData(`/partner/restaurants/menu/items/${menuItemId}`),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-menu", restaurantId],
       });
 
       notifications.show(response.message, {

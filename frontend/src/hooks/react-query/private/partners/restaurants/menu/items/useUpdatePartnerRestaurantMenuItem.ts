@@ -15,7 +15,7 @@ export function useUpdatePartnerRestaurantMenuItem(
       postData(`/partner/restaurants/menu/items/${menuItemId}`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-menu", restaurantId],
       });
 
       notifications.show(response.message, {

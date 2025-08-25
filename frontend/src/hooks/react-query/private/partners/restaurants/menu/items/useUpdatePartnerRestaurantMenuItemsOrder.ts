@@ -13,7 +13,7 @@ export function useUpdatePartnerRestaurantMenuItemsOrder(restaurantId: string) {
       updateData(`/partner/restaurants/menu/items/order`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-menu", restaurantId],
       });
 
       notifications.show(response.message, {
