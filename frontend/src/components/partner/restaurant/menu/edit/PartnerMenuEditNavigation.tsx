@@ -11,14 +11,19 @@ import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import ShowMoreMenuCategoriesButton from "../../../../common/menu-category-navigation/ShowMoreMenuCategoriesButton";
 import PartnerMenuEditAddMenuItemButton from "./PartnerMenuEditAddMenuItemButton";
 
+import Spinner from "@/components/common/Spinner";
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
+import { useGetPartnerRestaurantMenuCategories } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useGetPartnerRestaurantMenuCategories";
 
 export default function PartnerMenuEditNavigation() {
   const { restaurant } = usePartnerRestaurant();
   const { selectedMenuCategoryId, setSelectedMenuCategoryId } =
     usePartnerRestaurantMenu();
+
+  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
+    useGetPartnerRestaurantMenuCategories(restaurant.id);
 
   const swiperRef = useRef<SwiperClass>(null);
 
@@ -52,13 +57,13 @@ export default function PartnerMenuEditNavigation() {
   useEffect(() => {
     setCanScrollPrev(!swiperRef.current?.isBeginning);
     setCanScrollNext(!swiperRef.current?.isEnd);
-  }, [restaurant.menu_categories]);
+  }, [menuCategories]);
 
   useEffect(() => {
     const menuCategoryId = searchParams.get("menu_category_id");
 
     if (menuCategoryId) {
-      const menuCategory = restaurant.menu_categories.find(
+      const menuCategory = menuCategories.find(
         (menuCategory) => menuCategory.id === menuCategoryId,
       );
 
@@ -66,7 +71,9 @@ export default function PartnerMenuEditNavigation() {
         setSelectedMenuCategoryId(menuCategory.id);
       }
     }
-  }, [searchParams, restaurant.menu_categories, setSelectedMenuCategoryId]);
+  }, [searchParams, menuCategories, setSelectedMenuCategoryId]);
+
+  if (isLoadingMenuCategories) return <Spinner />;
 
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 2 }}>
@@ -115,7 +122,7 @@ export default function PartnerMenuEditNavigation() {
             },
           }}
         >
-          {restaurant.menu_categories.map((menuCategory) => (
+          {menuCategories.map((menuCategory) => (
             <SwiperSlide key={menuCategory.id}>
               <MenuCategoryNavigationSlide
                 menuCategory={menuCategory}
@@ -147,7 +154,7 @@ export default function PartnerMenuEditNavigation() {
       {selectedMenuCategoryId && <PartnerMenuEditAddMenuItemButton />}
 
       <ShowMoreMenuCategoriesButton
-        menuCategories={restaurant.menu_categories}
+        menuCategories={menuCategories}
         onSlideClick={handleSlideClick}
       />
     </Stack>

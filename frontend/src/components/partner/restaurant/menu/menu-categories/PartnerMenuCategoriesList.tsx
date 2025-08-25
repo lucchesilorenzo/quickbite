@@ -14,11 +14,16 @@ import { Box, Grid, Typography, debounce } from "@mui/material";
 
 import PartnerMenuCategoriesItem from "./PartnerMenuCategoriesItem";
 
+import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { useGetPartnerRestaurantMenuCategories } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useGetPartnerRestaurantMenuCategories";
 import { useUpdatePartnerRestaurantMenuCategoriesOrder } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategoriesOrder";
 
 export default function PartnerMenuCategoriesList() {
   const { restaurant } = usePartnerRestaurant();
+
+  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
+    useGetPartnerRestaurantMenuCategories(restaurant.id);
 
   const { mutateAsync: updateRestaurantMenuCategoriesOrder } =
     useUpdatePartnerRestaurantMenuCategoriesOrder(restaurant.id);
@@ -28,7 +33,7 @@ export default function PartnerMenuCategoriesList() {
     [updateRestaurantMenuCategoriesOrder],
   );
 
-  const [items, setItems] = useState(restaurant.menu_categories);
+  const [items, setItems] = useState(menuCategories);
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -36,8 +41,12 @@ export default function PartnerMenuCategoriesList() {
   );
 
   useEffect(() => {
-    setItems(restaurant.menu_categories);
-  }, [restaurant.menu_categories]);
+    if (JSON.stringify(items) !== JSON.stringify(menuCategories)) {
+      setItems(menuCategories);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuCategories]);
 
   async function handleMenuCategorySort({ active, over }: DragEndEvent) {
     if (active.id === over?.id) return;
@@ -58,7 +67,9 @@ export default function PartnerMenuCategoriesList() {
     });
   }
 
-  if (!restaurant.menu_categories.length) {
+  if (isLoadingMenuCategories) return <Spinner />;
+
+  if (!menuCategories.length) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center" }}>
         Start adding your menu categories here.

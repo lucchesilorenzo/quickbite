@@ -14,13 +14,18 @@ import { Stack, Typography, debounce } from "@mui/material";
 
 import PartnerMenuEditMenuItem from "./PartnerMenuEditMenuItem";
 
+import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
+import { useGetPartnerRestaurantMenuCategories } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useGetPartnerRestaurantMenuCategories";
 import { useUpdatePartnerRestaurantMenuItemsOrder } from "@/hooks/react-query/private/partners/restaurants/menu/items/useUpdatePartnerRestaurantMenuItemsOrder";
 
 export default function PartnerMenuEditMenuItemsList() {
   const { restaurant } = usePartnerRestaurant();
   const { selectedMenuCategoryId } = usePartnerRestaurantMenu();
+
+  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
+    useGetPartnerRestaurantMenuCategories(restaurant.id);
 
   const { mutateAsync: updateRestaurantMenuItemsOrder } =
     useUpdatePartnerRestaurantMenuItemsOrder(restaurant.id);
@@ -32,10 +37,10 @@ export default function PartnerMenuEditMenuItemsList() {
 
   const menuItems = useMemo(
     () =>
-      restaurant.menu_categories.find(
+      menuCategories.find(
         (menuCategory) => menuCategory.id === selectedMenuCategoryId,
       )?.menu_items || [],
-    [restaurant.menu_categories, selectedMenuCategoryId],
+    [menuCategories, selectedMenuCategoryId],
   );
 
   const [items, setItems] = useState(menuItems);
@@ -46,8 +51,14 @@ export default function PartnerMenuEditMenuItemsList() {
   );
 
   useEffect(() => {
-    setItems(menuItems);
+    if (JSON.stringify(items) !== JSON.stringify(menuItems)) {
+      setItems(menuItems);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuItems]);
+
+  if (isLoadingMenuCategories) return <Spinner />;
 
   async function handleMenuItemSort({ active, over }: DragEndEvent) {
     if (active.id === over?.id) return;
