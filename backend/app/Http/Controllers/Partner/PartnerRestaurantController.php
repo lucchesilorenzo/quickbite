@@ -60,12 +60,6 @@ class PartnerRestaurantController extends Controller
                     'deliveryDays' => function ($query) {
                         $query->orderBy('order', 'asc');
                     },
-                    'menuCategories' => function ($query) {
-                        $query->orderBy('order', 'asc')
-                            ->with('menuItems', function ($query) {
-                                $query->orderBy('order', 'asc');
-                            });
-                    },
                 ])
                 ->first();
 

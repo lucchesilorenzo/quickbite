@@ -40,6 +40,7 @@ Route::prefix('partner')->group(function () {
         Route::get('/{restaurant}/reviews', [PartnerRestaurantReviewController::class, 'getRestaurantReviews']);
 
         // Menu Categories
+        Route::get('/{restaurant}/menu/categories', [PartnerMenuCategoryController::class, 'getRestaurantMenuCategories']);
         Route::post('/{restaurant}/menu/categories', [PartnerMenuCategoryController::class, 'createRestaurantMenuCategory']);
         Route::patch('/menu/categories/order', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategoriesOrder']);
         Route::patch('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategory']);
