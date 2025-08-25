@@ -3,18 +3,18 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { deleteData } from "@/lib/api-client";
 
-export function useDeleteCart(cartId?: string) {
+export function useDeleteCustomerCart(cartId?: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
     mutationFn: () => deleteData(`/customer/carts/${cartId}`),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["carts"] });
+      queryClient.invalidateQueries({ queryKey: ["customer-carts"] });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "delete-cart-error",
+        key: "delete-customer-cart-error",
         severity: "error",
       });
     },

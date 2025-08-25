@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/useAuth";
-import { useGetCart } from "@/hooks/react-query/private/customers/carts/useGetCart";
+import { useGetCustomerCart } from "@/hooks/react-query/private/customers/carts/useGetCustomerCart";
 import { RestaurantCart } from "@/types";
 import { CheckoutData } from "@/types/order-types";
 
@@ -26,7 +26,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const { cartId } = useParams();
   const { user } = useAuth();
 
-  const { data: cart, isLoading: isCartLoading } = useGetCart(cartId);
+  const { data: cart, isLoading: isCartLoading } = useGetCustomerCart(cartId);
   const restaurantId = cart?.restaurant.id;
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {

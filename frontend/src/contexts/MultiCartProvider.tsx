@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 
 import { useAuth } from "@/hooks/contexts/useAuth";
-import { useCreateOrUpdateCart } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCart";
-import { useGetCarts } from "@/hooks/react-query/private/customers/carts/useGetCarts";
+import { useCreateOrUpdateCustomerCart } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCustomerCart";
+import { useGetCustomerCarts } from "@/hooks/react-query/private/customers/carts/useGetCustomerCarts";
 import { emptyRestaurant } from "@/lib/data";
 import { addRestaurantIdAsKey, isCustomer } from "@/lib/utils";
 import { MenuItem, RestaurantDetail } from "@/types";
@@ -59,9 +59,9 @@ export default function MultiCartProvider({
   const { user } = useAuth();
   const isUserCustomer = isCustomer(user);
 
-  const { data: updatedCarts = [] } = useGetCarts(isUserCustomer);
+  const { data: updatedCarts } = useGetCustomerCarts(isUserCustomer);
   const { mutateAsync: createOrUpdateCart, isPending: isCartUpdating } =
-    useCreateOrUpdateCart();
+    useCreateOrUpdateCustomerCart();
 
   const [carts, setCarts] = useState<Cart>(() => {
     if (!isUserCustomer) {

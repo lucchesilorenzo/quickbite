@@ -16,7 +16,7 @@ import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
-import { useDeleteCart } from "@/hooks/react-query/private/customers/carts/useDeleteCart";
+import { useDeleteCustomerCart } from "@/hooks/react-query/private/customers/carts/useDeleteCustomerCart";
 import { useCreateOrder } from "@/hooks/react-query/private/customers/orders/useCreateOrder";
 import {
   formatCurrency,
@@ -28,7 +28,7 @@ export default function CheckoutOrderFooter() {
   const { cart, checkoutData, restaurantId } = useCheckout();
 
   const { mutateAsync: createOrder } = useCreateOrder(restaurantId);
-  const { mutateAsync: deleteCart } = useDeleteCart(cart.id);
+  const { mutateAsync: deleteCart } = useDeleteCustomerCart(cart.id);
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);

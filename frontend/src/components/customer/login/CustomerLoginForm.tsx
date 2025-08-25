@@ -15,7 +15,7 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useLoginCustomer } from "@/hooks/react-query/private/customers/auth/useLoginCustomer";
-import { useCreateOrUpdateCarts } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCarts";
+import { useCreateOrUpdateCustomerCarts } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCustomerCarts";
 import {
   TCustomerLoginFormSchema,
   customerLoginFormSchema,
@@ -25,7 +25,7 @@ export default function CustomerLoginForm() {
   const { mutateAsync: loginCustomer, isPending: isLoggingIn } =
     useLoginCustomer();
   const { getCarts, emptyCarts } = useMultiCart();
-  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCarts();
+  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCustomerCarts();
 
   const {
     handleSubmit,

@@ -19,7 +19,7 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useRegisterCustomer } from "@/hooks/react-query/private/customers/auth/useRegisterCustomer";
-import { useCreateOrUpdateCarts } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCarts";
+import { useCreateOrUpdateCustomerCarts } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCustomerCarts";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
   TCustomerRegisterFormSchema,
@@ -31,7 +31,7 @@ export default function CustomerRegisterForm() {
 
   const { mutateAsync: registerCustomer, isPending: isRegistering } =
     useRegisterCustomer();
-  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCarts();
+  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCustomerCarts();
 
   const {
     handleSubmit,
