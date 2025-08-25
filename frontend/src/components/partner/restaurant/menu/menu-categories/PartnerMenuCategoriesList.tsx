@@ -22,7 +22,7 @@ import { useUpdatePartnerRestaurantMenuCategoriesOrder } from "@/hooks/react-que
 export default function PartnerMenuCategoriesList() {
   const { restaurant } = usePartnerRestaurant();
 
-  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
+  const { data: menuCategories, isLoading: isLoadingMenuCategories } =
     useGetPartnerRestaurantMenuCategories(restaurant.id);
 
   const { mutateAsync: updateRestaurantMenuCategoriesOrder } =

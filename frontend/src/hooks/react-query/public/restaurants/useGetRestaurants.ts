@@ -14,5 +14,6 @@ export function useGetRestaurants({ lat, lon }: GetRestaurants) {
     queryFn: (): Promise<RestaurantListItem[]> =>
       fetchData(`/restaurants?lat=${lat}&lon=${lon}`),
     enabled: !!lat && !!lon,
+    initialData: [],
   });
 }

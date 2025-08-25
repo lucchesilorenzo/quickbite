@@ -22,7 +22,7 @@ export default function PartnerMenuEditNavigation() {
   const { selectedMenuCategoryId, setSelectedMenuCategoryId } =
     usePartnerRestaurantMenu();
 
-  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
+  const { data: menuCategories, isLoading: isLoadingMenuCategories } =
     useGetPartnerRestaurantMenuCategories(restaurant.id);
 
   const swiperRef = useRef<SwiperClass>(null);

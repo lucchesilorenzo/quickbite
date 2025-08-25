@@ -17,7 +17,7 @@ export const AuthContext = createContext<AuthContext | null>(null);
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null | undefined>();
 
-  const { data = null, isLoading, isError } = useAuthMe();
+  const { data, isLoading, isError } = useAuthMe();
 
   useEffect(() => {
     if (!isLoading) {

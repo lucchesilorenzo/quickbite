@@ -24,7 +24,7 @@ export const CategoryFiltersContext =
 export default function CategoryFiltersProvider({
   children,
 }: CategoryFiltersProviderProps) {
-  const { data: categories = [], isLoading: isLoadingCategories } =
+  const { data: categories, isLoading: isLoadingCategories } =
     useGetCategories();
 
   const [allCategories, setAllCategories] = useState<CategoryWithSelected[]>(

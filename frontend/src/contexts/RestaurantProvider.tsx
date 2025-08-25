@@ -51,7 +51,7 @@ export default function RestaurantProvider({
   const isMapViewMobile = isMobile && viewMap;
 
   const {
-    data: restaurants = [],
+    data: restaurants,
     isLoading: isRestaurantsLoading,
     error: restaurantsError,
   } = useGetRestaurants({ lat: currentAddress?.lat, lon: currentAddress?.lon });

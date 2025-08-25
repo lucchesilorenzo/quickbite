@@ -13,5 +13,6 @@ export function useGetPartnerRestaurantMenuCategories(
       fetchData(
         `/partner/restaurants/${restaurantId}/menu/categories?page=${page}`,
       ),
+    initialData: [],
   });
 }
