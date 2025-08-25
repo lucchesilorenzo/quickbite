@@ -29,6 +29,13 @@ class RestaurantPolicy
             : Response::deny('You are not authorized to view the reviews.');
     }
 
+    public function viewRestaurantMenuCategories(User $user, Restaurant $restaurant): Response
+    {
+        return $this->isPartner($user, $restaurant)
+            ? Response::allow()
+            : Response::deny('You are not authorized to view menu categories.');
+    }
+
     public function viewPartnerRestaurant(User $user, Restaurant $restaurant): Response
     {
         return $user->restaurants()
