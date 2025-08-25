@@ -9,6 +9,7 @@ use App\Http\Controllers\Partner\PartnerOrderController;
 use App\Http\Controllers\Partner\PartnerRestaurantController;
 use App\Http\Controllers\Partner\PartnerRestaurantOfferController;
 use App\Http\Controllers\Partner\PartnerRestaurantReviewController;
+use App\Http\Controllers\Partner\PartnerRestaurantStatsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('partner')->group(function () {
@@ -52,8 +53,11 @@ Route::prefix('partner')->group(function () {
         Route::patch('/menu/items/order', [PartnerMenuItemController::class, 'updateRestaurantMenuItemsOrder']);
         Route::delete('/menu/items/{menuItem}', [PartnerMenuItemController::class, 'deleteRestaurantMenuItem']);
 
-        // === ORDERS MANAGEMENT ===
+        // Orders
         Route::get('/{restaurant}/orders', [PartnerOrderController::class, 'getOrders']);
         Route::patch('/orders/{order}/status', [PartnerOrderController::class, 'updateOrderStatus']);
+
+        // Stats
+        Route::get('/{restaurant}/stats', [PartnerRestaurantStatsController::class, 'getRestaurantDashboardStats']);
     });
 });
