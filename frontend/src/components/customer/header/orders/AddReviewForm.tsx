@@ -5,7 +5,7 @@ import { Button, Rating, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCreateReview } from "@/hooks/react-query/private/customers/useCreateReview";
+import { useCreateCustomerReview } from "@/hooks/react-query/private/customers/reviews/useCreateCustomerReview";
 import { Order } from "@/types/order-types";
 import {
   TReviewFormSchema,
@@ -21,7 +21,9 @@ export default function AddReviewForm({
   setOpenAddReviewDialog,
   order,
 }: AddReviewFormProps) {
-  const { mutateAsync: createReview } = useCreateReview(order.restaurant.slug);
+  const { mutateAsync: createReview } = useCreateCustomerReview(
+    order.restaurant.slug,
+  );
 
   const {
     handleSubmit,
