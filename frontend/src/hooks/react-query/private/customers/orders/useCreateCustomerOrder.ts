@@ -6,7 +6,7 @@ import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { postData } from "@/lib/api-client";
 import { CreateOrder } from "@/types/order-types";
 
-export function useCreateOrder(restaurantId: string) {
+export function useCreateCustomerOrder(restaurantId: string) {
   const queryClient = useQueryClient();
   const { emptyCart } = useMultiCart();
   const { emptyCheckoutData } = useCheckout();
@@ -16,13 +16,13 @@ export function useCreateOrder(restaurantId: string) {
   return useMutation({
     mutationFn: (data: CreateOrder) => postData("/customer/orders", data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["customer-orders"] });
       emptyCart(restaurantId);
       emptyCheckoutData(restaurantId);
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "create-order-error",
+        key: "create-customer-order-error",
         severity: "error",
       });
     },

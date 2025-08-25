@@ -6,7 +6,7 @@ import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useGetOrder } from "@/hooks/react-query/private/customers/orders/useGetOrder";
+import { useGetCustomerOrder } from "@/hooks/react-query/private/customers/orders/useGetCustomerOrder";
 
 export default function CheckoutSuccessPage() {
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function CheckoutSuccessPage() {
     data: order,
     isLoading: isOrderLoading,
     error: orderError,
-  } = useGetOrder(orderId);
+  } = useGetCustomerOrder(orderId);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

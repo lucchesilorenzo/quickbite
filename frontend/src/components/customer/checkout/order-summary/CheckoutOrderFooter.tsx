@@ -17,7 +17,7 @@ import DeliveryFeeDialog from "./DeliveryFeeDialog";
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
 import { useDeleteCustomerCart } from "@/hooks/react-query/private/customers/carts/useDeleteCustomerCart";
-import { useCreateOrder } from "@/hooks/react-query/private/customers/orders/useCreateOrder";
+import { useCreateCustomerOrder } from "@/hooks/react-query/private/customers/orders/useCreateCustomerOrder";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,
@@ -27,7 +27,7 @@ import { CreateOrder } from "@/types/order-types";
 export default function CheckoutOrderFooter() {
   const { cart, checkoutData, restaurantId } = useCheckout();
 
-  const { mutateAsync: createOrder } = useCreateOrder(restaurantId);
+  const { mutateAsync: createOrder } = useCreateCustomerOrder(restaurantId);
   const { mutateAsync: deleteCart } = useDeleteCustomerCart(cart.id);
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
