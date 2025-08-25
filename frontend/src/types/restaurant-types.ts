@@ -69,4 +69,4 @@ export type RestaurantTab = "reviews" | "info" | "offers";
 export type PartnerRestaurantBase = RestaurantBase;
 
 export type PartnerRestaurantDetail = PartnerRestaurantBase &
-  Omit<RestaurantDetail, "offers" | "reviews">;
+  Omit<RestaurantDetail, "offers" | "reviews" | "menu_categories">;
