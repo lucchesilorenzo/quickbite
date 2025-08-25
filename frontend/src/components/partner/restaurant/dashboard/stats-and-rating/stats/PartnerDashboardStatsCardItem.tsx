@@ -1,21 +1,28 @@
 import { Stack, Typography } from "@mui/material";
 
+import { formatCurrency } from "@/lib/utils";
+
 type PartnerDashboardStatsCardItemProps = {
   stat: {
     title: string;
-    value: string;
+    value: number;
+    currency: boolean;
   };
 };
 
 export default function PartnerDashboardStatsCardItem({
   stat,
 }: PartnerDashboardStatsCardItemProps) {
+  const computedValue = stat.currency
+    ? formatCurrency(stat.value)
+    : new Intl.NumberFormat("it-IT").format(stat.value);
+
   return (
     <Stack spacing={1}>
       <Typography variant="body2">{stat.title}</Typography>
 
       <Typography variant="h5" sx={{ fontWeight: 700 }}>
-        {stat.value}
+        {computedValue}
       </Typography>
     </Stack>
   );
