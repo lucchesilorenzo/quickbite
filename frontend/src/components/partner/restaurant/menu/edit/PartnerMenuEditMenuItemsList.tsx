@@ -10,10 +10,11 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-import { Stack, Typography, debounce } from "@mui/material";
+import { Box, Stack, Typography, debounce } from "@mui/material";
 
 import PartnerMenuEditMenuItem from "./PartnerMenuEditMenuItem";
 
+import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
@@ -24,8 +25,17 @@ export default function PartnerMenuEditMenuItemsList() {
   const { restaurant } = usePartnerRestaurant();
   const { selectedMenuCategoryId } = usePartnerRestaurantMenu();
 
-  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
-    useGetPartnerRestaurantMenuCategories(restaurant.id);
+  const [page, setPage] = useState(1);
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor),
+  );
+
+  const {
+    data: menuCategoriesWithMenuItemsPagination,
+    isLoading: isLoadingMenuCategories,
+  } = useGetPartnerRestaurantMenuCategories(restaurant.id, page);
 
   const { mutateAsync: updateRestaurantMenuItemsOrder } =
     useUpdatePartnerRestaurantMenuItemsOrder(restaurant.id);
@@ -35,20 +45,14 @@ export default function PartnerMenuEditMenuItemsList() {
     [updateRestaurantMenuItemsOrder],
   );
 
-  const menuItems = useMemo(
-    () =>
-      menuCategories.find(
-        (menuCategory) => menuCategory.id === selectedMenuCategoryId,
-      )?.menu_items || [],
-    [menuCategories, selectedMenuCategoryId],
+  const selectedMenuCategory = menuCategoriesWithMenuItemsPagination?.find(
+    (c) => c.id === selectedMenuCategoryId,
   );
 
+  const menuItems = selectedMenuCategory?.menu_items.data || [];
+  const totalPages = selectedMenuCategory?.menu_items.last_page || 1;
+
   const [items, setItems] = useState(menuItems);
-  const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
-    useSensor(KeyboardSensor),
-  );
 
   useEffect(() => {
     if (JSON.stringify(items) !== JSON.stringify(menuItems)) {
@@ -96,6 +100,15 @@ export default function PartnerMenuEditMenuItemsList() {
           {items.map((menuItem) => (
             <PartnerMenuEditMenuItem key={menuItem.id} menuItem={menuItem} />
           ))}
+
+          <Box sx={{ alignSelf: "center" }}>
+            <CustomPagination
+              page={page}
+              totalPages={totalPages}
+              menuCategoryId={selectedMenuCategoryId}
+              setPage={setPage}
+            />
+          </Box>
         </Stack>
       </SortableContext>
     </DndContext>
