@@ -16,8 +16,8 @@ import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useCheckout } from "@/hooks/contexts/useCheckout";
-import { useDeleteCart } from "@/hooks/react-query/private/cart/useDeleteCart";
-import { useCreateOrder } from "@/hooks/react-query/private/orders/useCreateOrder";
+import { useDeleteCart } from "@/hooks/react-query/private/customers/carts/useDeleteCart";
+import { useCreateOrder } from "@/hooks/react-query/private/customers/orders/useCreateOrder";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,

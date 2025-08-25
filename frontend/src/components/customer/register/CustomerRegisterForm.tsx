@@ -18,8 +18,8 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useCreateOrUpdateCarts } from "@/hooks/react-query/private/cart/useCreateOrUpdateCarts";
 import { useRegisterCustomer } from "@/hooks/react-query/private/customers/auth/useRegisterCustomer";
+import { useCreateOrUpdateCarts } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCarts";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
   TCustomerRegisterFormSchema,

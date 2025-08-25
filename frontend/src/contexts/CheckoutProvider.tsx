@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/useAuth";
-import { useGetCart } from "@/hooks/react-query/private/cart/useGetCart";
+import { useGetCart } from "@/hooks/react-query/private/customers/carts/useGetCart";
 import { RestaurantCart } from "@/types";
 import { CheckoutData } from "@/types/order-types";
 

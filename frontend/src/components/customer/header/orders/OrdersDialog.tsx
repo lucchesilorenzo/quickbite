@@ -12,7 +12,7 @@ import EmptyOrders from "./EmptyOrders";
 import OrdersList from "./OrdersList";
 
 import Spinner from "@/components/common/Spinner";
-import { useGetOrders } from "@/hooks/react-query/private/orders/useGetOrders";
+import { useGetOrders } from "@/hooks/react-query/private/customers/orders/useGetOrders";
 
 type OrdersDialogProps = {
   openOrdersDialog: boolean;

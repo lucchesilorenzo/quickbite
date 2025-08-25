@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 
 import { useAuth } from "@/hooks/contexts/useAuth";
-import { useCreateOrUpdateCart } from "@/hooks/react-query/private/cart/useCreateOrUpdateCart";
-import { useGetCarts } from "@/hooks/react-query/private/cart/useGetCarts";
+import { useCreateOrUpdateCart } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCart";
+import { useGetCarts } from "@/hooks/react-query/private/customers/carts/useGetCarts";
 import { emptyRestaurant } from "@/lib/data";
 import { addRestaurantIdAsKey, isCustomer } from "@/lib/utils";
 import { MenuItem, RestaurantDetail } from "@/types";

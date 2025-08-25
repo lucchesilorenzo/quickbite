@@ -6,7 +6,7 @@ import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useGetOrder } from "@/hooks/react-query/private/orders/useGetOrder";
+import { useGetOrder } from "@/hooks/react-query/private/customers/orders/useGetOrder";
 
 export default function CheckoutSuccessPage() {
   useEffect(() => {
