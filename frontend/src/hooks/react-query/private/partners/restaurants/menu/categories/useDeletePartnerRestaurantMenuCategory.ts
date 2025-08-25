@@ -15,7 +15,7 @@ export function useDeletePartnerRestaurantMenuCategory(
       deleteData(`/partner/restaurants/menu/categories/${menuCategoryId}`),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-menu", restaurantId],
       });
 
       notifications.show(response.message, {

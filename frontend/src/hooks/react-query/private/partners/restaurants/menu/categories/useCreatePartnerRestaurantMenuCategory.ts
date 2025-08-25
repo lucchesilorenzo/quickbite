@@ -13,7 +13,7 @@ export function useCreatePartnerRestaurantMenuCategory(restaurantId: string) {
       postData(`/partner/restaurants/${restaurantId}/menu/categories`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-menu", restaurantId],
       });
 
       notifications.show(response.message, {
