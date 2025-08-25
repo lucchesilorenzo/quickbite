@@ -28,13 +28,14 @@ class PartnerMenuCategoryController extends Controller
 
         try {
             $menuCategories = $restaurant->menuCategories()
-                ->with([
-                    'menuItems' => function ($query) {
-                        $query->orderBy('order', 'asc');
-                    }
-                ])
                 ->orderBy('order', 'asc')
                 ->get();
+
+            foreach ($menuCategories as $category) {
+                $category->menu_items = $category->menuItems()
+                    ->orderBy('order', 'asc')
+                    ->paginate(6);
+            }
 
             return response()->json($menuCategories, 200);
         } catch (Exception $e) {
