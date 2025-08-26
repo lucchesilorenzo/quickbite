@@ -7,6 +7,7 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 import PersonalInfoEditContainer from "./personal-info/PersonalInfoEditContainer";
 
@@ -21,15 +22,32 @@ export default function PersonalInfoDialog({
   setOpenPersonalInfoDialog,
   setOpenHeaderCustomerDialog,
 }: PersonalInfoDialogProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  function handleCloseDialog() {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      dialog: [],
+    });
+    setOpenHeaderCustomerDialog(false);
+    setOpenPersonalInfoDialog(false);
+  }
+
+  function handleGoBack() {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      dialog: [],
+    });
+    setOpenHeaderCustomerDialog(true);
+    setOpenPersonalInfoDialog(false);
+  }
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Dialog
       open={openPersonalInfoDialog}
-      onClose={() => {
-        setOpenHeaderCustomerDialog(false);
-        setOpenPersonalInfoDialog(false);
-      }}
+      onClose={handleCloseDialog}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -39,10 +57,7 @@ export default function PersonalInfoDialog({
           <IconButton
             color="inherit"
             aria-label="close"
-            onClick={() => {
-              setOpenHeaderCustomerDialog(true);
-              setOpenPersonalInfoDialog(false);
-            }}
+            onClick={handleGoBack}
             sx={{ p: 0 }}
           >
             <ArrowBackIosIcon />

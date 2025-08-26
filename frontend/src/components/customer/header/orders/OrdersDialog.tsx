@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {
   Dialog,
@@ -7,6 +9,7 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 import EmptyOrders from "./EmptyOrders";
 import OrdersList from "./OrdersList";
@@ -25,17 +28,41 @@ export default function OrdersDialog({
   setOpenOrdersDialog,
   setOpenHeaderCustomerDialog,
 }: OrdersDialogProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
+
+  const { data: ordersWithPagination, isLoading: isLoadingOrders } =
+    useGetCustomerOrders(page);
+
+  const orders = ordersWithPagination?.data || [];
+  const totalPages = ordersWithPagination?.last_page || 1;
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
-  const { data: orders, isLoading: isLoadingOrders } = useGetCustomerOrders();
+  function handleCloseDialog() {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      dialog: [],
+      ordersPage: [],
+    });
+    setOpenHeaderCustomerDialog(false);
+    setOpenOrdersDialog(false);
+  }
+
+  function handleGoBack() {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      dialog: [],
+      ordersPage: [],
+    });
+    setOpenHeaderCustomerDialog(true);
+    setOpenOrdersDialog(false);
+  }
 
   return (
     <Dialog
       open={openOrdersDialog}
-      onClose={() => {
-        setOpenHeaderCustomerDialog(false);
-        setOpenOrdersDialog(false);
-      }}
+      onClose={handleCloseDialog}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -44,10 +71,7 @@ export default function OrdersDialog({
         <IconButton
           color="inherit"
           aria-label="close"
-          onClick={() => {
-            setOpenHeaderCustomerDialog(true);
-            setOpenOrdersDialog(false);
-          }}
+          onClick={handleGoBack}
           sx={{ p: 0 }}
         >
           <ArrowBackIosIcon />
@@ -63,15 +87,20 @@ export default function OrdersDialog({
       </Stack>
 
       <DialogContent sx={{ p: 0 }}>
-        {isLoadingOrders && <Spinner />}
-
-        {!orders?.length ? (
+        {isLoadingOrders ? (
+          <Spinner />
+        ) : !orders.length ? (
           <EmptyOrders
             setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
             setOpenOrdersDialog={setOpenOrdersDialog}
           />
         ) : (
-          <OrdersList orders={orders} />
+          <OrdersList
+            orders={orders}
+            totalPages={totalPages}
+            page={page}
+            setPage={setPage}
+          />
         )}
       </DialogContent>
     </Dialog>

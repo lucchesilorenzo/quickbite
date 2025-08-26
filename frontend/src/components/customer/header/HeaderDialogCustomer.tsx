@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -20,7 +20,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import PersonalInfoDialog from "./PersonalInfoDialog";
 import OrdersDialog from "./orders/OrdersDialog";
@@ -37,15 +37,25 @@ type HeaderDialogCustomerProps = {
 export default function HeaderDialogCustomer({
   customer,
 }: HeaderDialogCustomerProps) {
-  const { mutateAsync: logoutCustomer } = useLogoutCustomer();
   const { emptyCarts } = useMultiCart();
 
+  const { mutateAsync: logoutCustomer } = useLogoutCustomer();
+
+  const [searchParams, setSearchParams] = useSearchParams();
   const [openHeaderCustomerDialog, setOpenHeaderCustomerDialog] =
     useState(false);
   const [openOrdersDialog, setOpenOrdersDialog] = useState(false);
   const [openPersonalInfoDialog, setOpenPersonalInfoDialog] = useState(false);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    if (searchParams.get("dialog") === "orders") {
+      setOpenOrdersDialog(true);
+    } else if (searchParams.get("dialog") === "personal-info") {
+      setOpenPersonalInfoDialog(true);
+    }
+  }, [searchParams]);
 
   async function handleLogoutCustomer() {
     setOpenHeaderCustomerDialog(false);
@@ -54,6 +64,32 @@ export default function HeaderDialogCustomer({
 
     // Clear local state
     emptyCarts();
+  }
+
+  function handlePersonalInfoDialog() {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      dialog: "personal-info",
+    });
+    setOpenHeaderCustomerDialog(false);
+    setOpenPersonalInfoDialog(true);
+  }
+
+  function handleOrdersDialog() {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      dialog: "orders",
+    });
+    setOpenHeaderCustomerDialog(false);
+    setOpenOrdersDialog(true);
+  }
+
+  function handleCloseDialog() {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      dialog: [],
+    });
+    setOpenHeaderCustomerDialog(false);
   }
 
   return (
@@ -68,7 +104,7 @@ export default function HeaderDialogCustomer({
 
       <Dialog
         open={openHeaderCustomerDialog}
-        onClose={() => setOpenHeaderCustomerDialog(false)}
+        onClose={handleCloseDialog}
         fullWidth={!isMobile}
         fullScreen={isMobile}
         disableRestoreFocus
@@ -83,10 +119,7 @@ export default function HeaderDialogCustomer({
               <Typography
                 variant="body1"
                 component="button"
-                onClick={() => {
-                  setOpenHeaderCustomerDialog(false);
-                  setOpenPersonalInfoDialog(true);
-                }}
+                onClick={handlePersonalInfoDialog}
                 sx={{
                   textDecoration: "underline",
                   cursor: "pointer",
@@ -106,7 +139,7 @@ export default function HeaderDialogCustomer({
             <IconButton
               color="inherit"
               aria-label="close"
-              onClick={() => setOpenHeaderCustomerDialog(false)}
+              onClick={handleCloseDialog}
               sx={{ p: 0, alignSelf: "flex-start" }}
             >
               <CloseIcon />
@@ -115,12 +148,7 @@ export default function HeaderDialogCustomer({
 
           <List disablePadding>
             <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => {
-                  setOpenHeaderCustomerDialog(false);
-                  setOpenOrdersDialog(true);
-                }}
-              >
+              <ListItemButton onClick={handleOrdersDialog}>
                 <ListItemIcon sx={{ color: grey[900] }}>
                   <ShoppingBagOutlinedIcon />
                 </ListItemIcon>
