@@ -7,7 +7,7 @@ import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
-import { RestaurantDetail } from "@/types";
+import { RestaurantDetail, RestaurantTab } from "@/types";
 import { OrderStatus } from "@/types/order-types";
 
 export const emptyRestaurant: RestaurantDetail = {
@@ -528,3 +528,5 @@ export const partnerStatusTransitions: Record<OrderStatus, OrderStatus[]> = {
   delivered: [],
   cancelled: [],
 };
+
+export const restaurantTabs: RestaurantTab[] = ["info", "reviews", "offers"];
