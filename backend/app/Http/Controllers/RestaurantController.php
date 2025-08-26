@@ -90,11 +90,6 @@ class RestaurantController extends Controller
                 'offers' => function ($query) {
                     $query->orderBy('discount_rate', 'asc');
                 },
-                'reviews' => function ($query) {
-                    $query->orderBy('created_at', 'desc');
-                },
-                'reviews.customer',
-                'reviews.order',
                 'menuCategories' => function ($query) {
                     $query->orderBy('order', 'asc')
                         ->with('menuItems', function ($query) {
@@ -104,11 +99,9 @@ class RestaurantController extends Controller
             ])
                 ->where('slug', $restaurantSlug)
                 ->where('is_approved', true)
-                ->withAvg('reviews', 'rating')
-                ->withCount('reviews')
                 ->first();
 
-            if (empty($restaurant)) {
+            if (! $restaurant) {
                 return response()->json([
                     'message' => 'Restaurant not found.',
                 ], 404);
