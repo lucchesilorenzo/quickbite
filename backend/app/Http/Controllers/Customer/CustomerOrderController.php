@@ -25,7 +25,7 @@ class CustomerOrderController extends Controller
             $orders = $user->orders()
                 ->with(['orderItems', 'restaurant.reviews.customer'])
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->paginate(5);
 
             return response()->json($orders, 200);
         } catch (Throwable $e) {
