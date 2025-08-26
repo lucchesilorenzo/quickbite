@@ -41,13 +41,13 @@ export type RestaurantBase = {
 };
 
 export type RestaurantListItem = RestaurantBase & {
+  reviews: Review[];
   reviews_avg_rating: number | null;
   reviews_count: number;
   categories: CategoryWithPivot[];
   delivery_days: DeliveryDay[];
   offers: Offer[];
   menu_categories: MenuCategory[];
-  reviews: Review[];
 };
 
 export type RestaurantDetail = RestaurantListItem & {
@@ -55,6 +55,29 @@ export type RestaurantDetail = RestaurantListItem & {
   created_at: string;
   updated_at: string;
 };
+
+export type RestaurantWithPagination = {
+  current_page: number;
+  data: RestaurantListItem[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: {
+    url: string | null;
+    label: string;
+    active: boolean;
+  }[];
+  next_page_url: string | null;
+  path: string;
+  per_page: number;
+  prev_page_url: string | null;
+  to: number;
+  total: number;
+};
+
+export type SingleRestaurantDetail = RestaurantBase &
+  Omit<RestaurantDetail, "reviews" | "reviews_avg_rating" | "reviews_count">;
 
 export type RestaurantSearchOption = {
   id: string;
@@ -69,4 +92,11 @@ export type RestaurantTab = "reviews" | "info" | "offers";
 export type PartnerRestaurantBase = RestaurantBase;
 
 export type PartnerRestaurantDetail = PartnerRestaurantBase &
-  Omit<RestaurantDetail, "offers" | "reviews" | "menu_categories">;
+  Omit<
+    RestaurantDetail,
+    | "offers"
+    | "reviews"
+    | "reviews_avg_rating"
+    | "reviews_count"
+    | "menu_categories"
+  >;
