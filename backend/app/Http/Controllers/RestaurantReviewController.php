@@ -1,24 +1,18 @@
 <?php
 
-declare(strict_types=1);
+namespace App\Http\Controllers;
 
-namespace App\Http\Controllers\Partner;
-
-use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Gate;
+use Throwable;
 
-class PartnerRestaurantReviewController extends Controller
+class RestaurantReviewController extends Controller
 {
     /**
-     * Get partner's restaurant reviews.
+     * Get restaurant reviews.
      */
     public function getRestaurantReviews(Restaurant $restaurant): JsonResponse
     {
-        // Check if user is authorized
-        Gate::authorize('viewRestaurantReviews', $restaurant);
-
         try {
             $reviews = $restaurant->reviews()
                 ->with(['customer', 'order'])

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Review\Customer\CustomerCreateReviewRequest;
+use App\Http\Requests\Customer\Review\CustomerCreateReviewRequest;
 use App\Models\Restaurant;
 use Illuminate\Http\JsonResponse;
 use Throwable;
