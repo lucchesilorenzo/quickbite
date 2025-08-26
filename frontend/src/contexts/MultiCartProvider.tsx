@@ -5,7 +5,7 @@ import { useCreateOrUpdateCustomerCart } from "@/hooks/react-query/private/custo
 import { useGetCustomerCarts } from "@/hooks/react-query/private/customers/carts/useGetCustomerCarts";
 import { emptyRestaurant } from "@/lib/data";
 import { addRestaurantIdAsKey, isCustomer } from "@/lib/utils";
-import { MenuItem, RestaurantDetail } from "@/types";
+import { MenuItem, SingleRestaurantDetail } from "@/types";
 import { Cart, CartItem, RestaurantCart } from "@/types/cart-types";
 
 type MultiCartProviderProps = {
@@ -18,7 +18,7 @@ type MultiCartContext = {
   getItems: (restaurantId: string) => CartItem[];
   isEmpty: (restaurantId: string) => boolean;
   addItem: (
-    restaurant: RestaurantDetail,
+    restaurant: SingleRestaurantDetail,
     menuItem: MenuItem,
     quantity: number,
   ) => void;
@@ -122,7 +122,7 @@ export default function MultiCartProvider({
   }
 
   async function addItem(
-    restaurant: RestaurantDetail,
+    restaurant: SingleRestaurantDetail,
     menuItem: MenuItem,
     quantity: number,
   ) {

@@ -7,10 +7,10 @@ import {
 } from "@mui/material";
 
 import { getRestaurantOpeningTime } from "@/lib/utils";
-import { RestaurantDetail } from "@/types";
+import { SingleRestaurantDetail } from "@/types";
 
 type RestaurantLocationInfoProps = {
-  restaurant: RestaurantDetail;
+  restaurant: SingleRestaurantDetail;
 };
 
 export default function RestaurantLocationInfo({

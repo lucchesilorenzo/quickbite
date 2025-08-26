@@ -5,14 +5,14 @@ import { useParams } from "react-router-dom";
 import Spinner from "@/components/common/Spinner";
 import { useGetRestaurant } from "@/hooks/react-query/public/restaurants/useGetRestaurant";
 import ErrorPage from "@/pages/public/ErrorPage";
-import { RestaurantDetail, RestaurantTab } from "@/types";
+import { RestaurantTab, SingleRestaurantDetail } from "@/types";
 
 type SingleRestaurantProviderProps = {
   children: React.ReactNode;
 };
 
 type SingleRestaurantContext = {
-  restaurant: RestaurantDetail;
+  restaurant: SingleRestaurantDetail;
   openRestaurantAboutDialog: boolean;
   searchTerm: string;
   tabToOpen: RestaurantTab;

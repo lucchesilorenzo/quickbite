@@ -6,8 +6,8 @@ import {
   Cart,
   Offer,
   RestaurantCart,
-  RestaurantDetail,
   Role,
+  SingleRestaurantDetail,
   User,
 } from "@/types";
 import { OrderStatus } from "@/types/order-types";
@@ -51,7 +51,7 @@ export function calculatePasswordStrength(password: string) {
   return (strength / 5) * 100;
 }
 
-export function getRestaurantOpeningTime(restaurant: RestaurantDetail) {
+export function getRestaurantOpeningTime(restaurant: SingleRestaurantDetail) {
   const dayName = format(new Date(), "EEEE").toUpperCase();
 
   const day = restaurant.delivery_days.find((d) => d.day === dayName);
@@ -64,7 +64,7 @@ export function getRestaurantOpeningTime(restaurant: RestaurantDetail) {
 }
 
 export function getBestRestaurantOfferGivenSubtotal(
-  restaurant: RestaurantDetail,
+  restaurant: SingleRestaurantDetail,
   subtotal: number,
 ): Offer | null {
   const validOffers = restaurant.offers.filter(
