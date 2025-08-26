@@ -10,6 +10,7 @@ type CustomPaginationProps = {
   totalPages: number;
   status?: OrderStatusWithAll;
   menuCategoryId?: string;
+  context?: "ordersPage" | "page";
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -18,6 +19,7 @@ export default function CustomPagination({
   totalPages,
   status,
   menuCategoryId,
+  context = "page",
   setPage,
 }: CustomPaginationProps) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,20 +27,20 @@ export default function CustomPagination({
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    const page = Number(searchParams.get("page"));
+    const pageParam = Number(searchParams.get(context));
 
-    if (page <= totalPages) {
-      setPage(page || 1);
+    if (pageParam <= totalPages) {
+      setPage(pageParam || 1);
     }
-  }, [searchParams, totalPages, setPage]);
+  }, [searchParams, totalPages, context, setPage]);
 
   function handlePageChange(_e: React.ChangeEvent<unknown>, page: number) {
     setPage(page);
-
     setSearchParams({
+      ...Object.fromEntries(searchParams),
       status: status && status !== "all" ? status : [],
       menu_category_id: menuCategoryId || [],
-      page: page !== 1 ? page.toString() : [],
+      [context]: page !== 1 ? page.toString() : [],
     });
   }
 
