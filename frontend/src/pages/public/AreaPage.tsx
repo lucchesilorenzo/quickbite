@@ -49,7 +49,6 @@ export default function AreaPage() {
     fetchAddress();
   }, [currentAddress, setCurrentAddress, searchParams]);
 
-  const isLoading = isRestaurantsLoading;
   const hasNoResults = !restaurants.length || restaurantsError || addressError;
 
   return (
@@ -59,8 +58,14 @@ export default function AreaPage() {
       disableGutters
       sx={{ p: isMapViewMobile ? 0 : 3 }}
     >
-      <DesktopAreaLayout isLoading={isLoading} hasNoResults={hasNoResults} />
-      <MobileAreaLayout isLoading={isLoading} hasNoResults={hasNoResults} />
+      <DesktopAreaLayout
+        isLoading={isRestaurantsLoading}
+        hasNoResults={hasNoResults}
+      />
+      <MobileAreaLayout
+        isLoading={isRestaurantsLoading}
+        hasNoResults={hasNoResults}
+      />
     </Container>
   );
 }
