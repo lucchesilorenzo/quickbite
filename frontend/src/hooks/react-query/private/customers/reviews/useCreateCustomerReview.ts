@@ -13,6 +13,7 @@ export function useCreateCustomerReview(restaurantSlug: string) {
       postData(`/customer/restaurants/${restaurantSlug}/reviews`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["restaurants"] });
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
       queryClient.invalidateQueries({ queryKey: ["customer-orders"] });
 
       notifications.show(response.message, {

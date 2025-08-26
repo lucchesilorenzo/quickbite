@@ -19,7 +19,7 @@ export function useUpdatePartnerRestaurantOffer(
       ),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-offers", restaurantId],
+        queryKey: ["partner-offer", restaurantId],
       });
 
       notifications.show(response.message, {

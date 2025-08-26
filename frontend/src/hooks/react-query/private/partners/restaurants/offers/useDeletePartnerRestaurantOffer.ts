@@ -14,7 +14,7 @@ export function useDeletePartnerRestaurantOffer(
     mutationFn: () => deleteData(`/partner/restaurants/offers/${offerId}`),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-offers", restaurantId],
+        queryKey: ["partner-offer", restaurantId],
       });
 
       notifications.show(response.message, {
