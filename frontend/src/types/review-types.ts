@@ -14,9 +14,7 @@ export type Review = {
   order: Order;
 };
 
-// === PARTNER ===
-
-export type PartnerReview = {
+export type ReviewWithPagination = {
   current_page: number;
   data: Review[];
   first_page_url: string;
@@ -36,8 +34,8 @@ export type PartnerReview = {
   total: number;
 };
 
-export type PartnerReviewWithPagination = {
-  reviews: PartnerReview;
+export type ReviewStats = {
+  reviews: ReviewWithPagination;
   avg_rating: number | null;
   count: number;
 };
