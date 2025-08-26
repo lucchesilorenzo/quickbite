@@ -1,5 +1,5 @@
 import { RestaurantBase } from "./restaurant-types";
-import { Review } from "./reviews-types";
+import { Review } from "./review-types";
 
 export type Order = {
   id: string;
