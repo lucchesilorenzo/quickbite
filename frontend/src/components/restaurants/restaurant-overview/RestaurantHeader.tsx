@@ -1,13 +1,18 @@
+import { useEffect } from "react";
+
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import { IconButton, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { useSearchParams } from "react-router-dom";
 
 import RestaurantAboutDialog from "./RestaurantAboutDialog";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { restaurantTabs } from "@/lib/data";
+import { RestaurantTab } from "@/types";
 
 export default function RestaurantHeader() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const [searchParams] = useSearchParams();
 
   const {
     restaurant,
@@ -16,10 +21,20 @@ export default function RestaurantHeader() {
     setTabToOpen,
   } = useSingleRestaurant();
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   function handleOpenDialogAndSetTab() {
     setTabToOpen("info");
     setOpenRestaurantAboutDialog(true);
   }
+
+  useEffect(() => {
+    const tab = searchParams.get("tab") as RestaurantTab;
+
+    if (tab && restaurantTabs.includes(tab)) {
+      setOpenRestaurantAboutDialog(true);
+    }
+  }, [searchParams, setOpenRestaurantAboutDialog]);
 
   return (
     <Stack
