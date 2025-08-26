@@ -10,7 +10,7 @@ type CustomPaginationProps = {
   totalPages: number;
   status?: OrderStatusWithAll;
   menuCategoryId?: string;
-  context?: "ordersPage" | "page";
+  context?: "ordersPage" | "reviewsPage" | "page";
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 

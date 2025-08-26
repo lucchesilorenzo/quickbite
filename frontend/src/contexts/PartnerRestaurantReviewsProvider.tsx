@@ -4,7 +4,7 @@ import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useGetPartnerRestaurantReviews } from "@/hooks/react-query/private/partners/restaurants/reviews/useGetPartnerRestaurantReviews";
 import { OrderStatusWithAll } from "@/types/order-types";
-import { PartnerReviewWithPagination } from "@/types/reviews-types";
+import { ReviewStats } from "@/types/review-types";
 
 type PartnerRestaurantReviewsProviderProps = {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ type PartnerRestaurantReviewsProviderProps = {
 
 type PartnerRestaurantReviewsContext = {
   status: OrderStatusWithAll;
-  reviewsData: PartnerReviewWithPagination;
+  reviewsData: ReviewStats;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setStatus: React.Dispatch<React.SetStateAction<OrderStatusWithAll>>;

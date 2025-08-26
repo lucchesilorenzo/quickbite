@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { PartnerReviewWithPagination } from "@/types/reviews-types";
+import { ReviewStats } from "@/types/review-types";
 
 export function useGetPartnerRestaurantReviews(
   restaurantId: string,
@@ -9,7 +9,7 @@ export function useGetPartnerRestaurantReviews(
 ) {
   return useQuery({
     queryKey: ["partner-reviews", restaurantId, page],
-    queryFn: (): Promise<PartnerReviewWithPagination> =>
+    queryFn: (): Promise<ReviewStats> =>
       fetchData(`/partner/restaurants/${restaurantId}/reviews?page=${page}`),
   });
 }

@@ -7,6 +7,8 @@ import StarIcon from "@mui/icons-material/Star";
 import { IconButton, Link, Stack, Typography } from "@mui/material";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
+import Spinner from "@/components/common/Spinner";
+import { useRestaurantReview } from "@/hooks/contexts/useRestaurantReview";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
@@ -17,6 +19,7 @@ export default function RestaurantHeaderRow() {
     setTabToOpen,
     setScrollToDeliveryFee,
   } = useSingleRestaurant();
+  const { reviewsData, isLoadingReviews } = useRestaurantReview();
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
@@ -27,6 +30,8 @@ export default function RestaurantHeaderRow() {
     setScrollToDeliveryFee(true);
     setOpenRestaurantAboutDialog(true);
   }
+
+  if (isLoadingReviews) return <Spinner />;
 
   return (
     <Stack
@@ -48,11 +53,11 @@ export default function RestaurantHeaderRow() {
             color="textPrimary"
             sx={{ fontWeight: 500, mr: 0.5 }}
           >
-            {restaurant?.reviews_avg_rating?.toFixed(1) || "N/A"}
+            {reviewsData?.avg_rating?.toFixed(1) || "N/A"}
           </Typography>
 
           <Typography component="span" variant="body2" color="textPrimary">
-            ({restaurant.reviews_count})
+            ({reviewsData?.count} reviews)
           </Typography>
         </Link>
       </Stack>

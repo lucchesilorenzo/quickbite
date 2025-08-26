@@ -11,12 +11,14 @@ import {
 import { blueGrey, grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
+import { useRestaurantReview } from "@/hooks/contexts/useRestaurantReview";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function RatingDisplay() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const { restaurant } = useSingleRestaurant();
+  const { reviewsData } = useRestaurantReview();
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Box sx={{ p: 2, bgcolor: blueGrey[800] }}>
@@ -35,21 +37,21 @@ export default function RatingDisplay() {
           variant={isMobile ? "h4" : "h3"}
           sx={{ color: "white", fontWeight: 700 }}
         >
-          {restaurant?.reviews_avg_rating?.toFixed(1) || "N/A"}
+          {reviewsData?.avg_rating?.toFixed(1) || "N/A"}
         </Typography>
 
         <Divider orientation="vertical" flexItem sx={{ bgcolor: grey[600] }} />
 
         <Stack spacing={1}>
           <Rating
-            value={restaurant.reviews_avg_rating}
+            value={reviewsData?.avg_rating || 0}
             icon={<StarIcon color="primary" />}
             emptyIcon={<StarBorderIcon color="primary" />}
             readOnly
           />
 
           <Typography component="div" variant="caption" sx={{ color: "white" }}>
-            out of {restaurant.reviews_count} reviews
+            out of {reviewsData?.count} reviews
           </Typography>
 
           <Typography component="div" variant="caption" sx={{ color: "white" }}>
