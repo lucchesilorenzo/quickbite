@@ -9,7 +9,7 @@ export default function OffersPanel() {
         All
       </Typography>
 
-      <RestaurantOffersList />
+      <RestaurantOffersList showPagination />
     </Stack>
   );
 }

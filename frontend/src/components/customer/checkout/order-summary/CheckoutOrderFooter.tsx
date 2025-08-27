@@ -25,7 +25,7 @@ import {
 import { CreateOrder } from "@/types/order-types";
 
 export default function CheckoutOrderFooter() {
-  const { cart, checkoutData, restaurantId } = useCheckout();
+  const { cart, checkoutData, restaurantId, offersData } = useCheckout();
 
   const { mutateAsync: createOrder } = useCreateCustomerOrder(restaurantId);
   const { mutateAsync: deleteCart } = useDeleteCustomerCart(cart.id);
@@ -36,12 +36,14 @@ export default function CheckoutOrderFooter() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  const isDeliveryFeeFree = cart.restaurant.delivery_fee === 0;
+  const offers = offersData?.data || [];
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    cart.restaurant,
+    offers,
     cart.cart_total,
   );
+
+  const isDeliveryFeeFree = cart.restaurant.delivery_fee === 0;
 
   const discount = cart.cart_total * (bestOffer?.discount_rate || 0);
 

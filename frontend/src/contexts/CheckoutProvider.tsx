@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { useGetCustomerCart } from "@/hooks/react-query/private/customers/carts/useGetCustomerCart";
-import { RestaurantCart } from "@/types";
-import { CheckoutData } from "@/types/order-types";
+import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
+import { CheckoutData, OfferWithPagination, RestaurantCart } from "@/types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
@@ -16,6 +16,7 @@ type CheckoutContext = {
   cart: RestaurantCart;
   checkoutData: CheckoutData;
   restaurantId: string;
+  offersData?: OfferWithPagination;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
   emptyCheckoutData: (restaurantId: string) => void;
 };
@@ -28,6 +29,9 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
 
   const { data: cart, isLoading: isCartLoading } = useGetCustomerCart(cartId);
   const restaurantId = cart?.restaurant.id;
+
+  const { data: offersData, isLoading: isLoadingOffers } =
+    useGetRestaurantOffers(restaurantId!);
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
     const stored = localStorage.getItem("checkout_data_by_restaurant");
@@ -80,7 +84,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
     });
   }
 
-  if (isCartLoading || !isCheckoutReady) {
+  if (isCartLoading || isLoadingOffers || !isCheckoutReady) {
     return <FullPageSpinner />;
   }
 
@@ -90,6 +94,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
         cart,
         checkoutData,
         restaurantId,
+        offersData,
         setCheckoutData,
         emptyCheckoutData,
       }}

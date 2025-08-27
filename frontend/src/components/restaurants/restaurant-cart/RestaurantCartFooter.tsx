@@ -16,6 +16,7 @@ import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import {
   formatCurrency,
@@ -26,16 +27,19 @@ import {
 export default function RestaurantCartFooter() {
   const { user } = useAuth();
   const { restaurant } = useSingleRestaurant();
+  const { offersData } = useRestaurantOffer();
   const { getCart, cartTotal, isCartUpdating } = useMultiCart();
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
+  const offers = offersData?.data || [];
+
   const subtotal = cartTotal(restaurant.id);
 
   const isDeliveryFeeFree = restaurant.delivery_fee === 0;
 
-  const bestOffer = getBestRestaurantOfferGivenSubtotal(restaurant, subtotal);
+  const bestOffer = getBestRestaurantOfferGivenSubtotal(offers, subtotal);
 
   const discount = subtotal * (bestOffer?.discount_rate || 0);
 
