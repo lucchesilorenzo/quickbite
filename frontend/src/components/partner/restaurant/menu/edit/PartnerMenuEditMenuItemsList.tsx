@@ -18,8 +18,8 @@ import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
-import { useGetPartnerRestaurantMenuCategories } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useGetPartnerRestaurantMenuCategories";
 import { useUpdatePartnerRestaurantMenuItemsOrder } from "@/hooks/react-query/private/partners/restaurants/menu/items/useUpdatePartnerRestaurantMenuItemsOrder";
+import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partners/restaurants/menu/useGetPartnerRestaurantMenu";
 
 export default function PartnerMenuEditMenuItemsList() {
   const { restaurant } = usePartnerRestaurant();
@@ -35,7 +35,7 @@ export default function PartnerMenuEditMenuItemsList() {
   const {
     data: menuCategoriesWithMenuItemsPagination,
     isLoading: isLoadingMenuCategories,
-  } = useGetPartnerRestaurantMenuCategories(restaurant.id, page);
+  } = useGetPartnerRestaurantMenu(restaurant.id, page);
 
   const { mutateAsync: updateRestaurantMenuItemsOrder } =
     useUpdatePartnerRestaurantMenuItemsOrder(restaurant.id);

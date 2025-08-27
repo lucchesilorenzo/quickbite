@@ -16,14 +16,14 @@ import PartnerMenuCategoriesItem from "./PartnerMenuCategoriesItem";
 
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { useGetPartnerRestaurantMenuCategories } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useGetPartnerRestaurantMenuCategories";
 import { useUpdatePartnerRestaurantMenuCategoriesOrder } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategoriesOrder";
+import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partners/restaurants/menu/useGetPartnerRestaurantMenu";
 
 export default function PartnerMenuCategoriesList() {
   const { restaurant } = usePartnerRestaurant();
 
   const { data: menuCategories, isLoading: isLoadingMenuCategories } =
-    useGetPartnerRestaurantMenuCategories(restaurant.id);
+    useGetPartnerRestaurantMenu(restaurant.id);
 
   const { mutateAsync: updateRestaurantMenuCategoriesOrder } =
     useUpdatePartnerRestaurantMenuCategoriesOrder(restaurant.id);
