@@ -25,19 +25,29 @@ export default function PersonalInfoDialog({
   const [searchParams, setSearchParams] = useSearchParams();
 
   function handleCloseDialog() {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      dialog: [],
-    });
+    setSearchParams(
+      {
+        ...Object.fromEntries(searchParams),
+        dialog: [],
+      },
+      {
+        replace: true,
+      },
+    );
     setOpenHeaderCustomerDialog(false);
     setOpenPersonalInfoDialog(false);
   }
 
   function handleGoBack() {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      dialog: [],
-    });
+    setSearchParams(
+      {
+        ...Object.fromEntries(searchParams),
+        dialog: [],
+      },
+      {
+        replace: true,
+      },
+    );
     setOpenHeaderCustomerDialog(true);
     setOpenPersonalInfoDialog(false);
   }

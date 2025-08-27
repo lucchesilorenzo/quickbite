@@ -67,28 +67,43 @@ export default function HeaderDialogCustomer({
   }
 
   function handlePersonalInfoDialog() {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      dialog: "personal-info",
-    });
+    setSearchParams(
+      {
+        ...Object.fromEntries(searchParams),
+        dialog: "personal-info",
+      },
+      {
+        replace: true,
+      },
+    );
     setOpenHeaderCustomerDialog(false);
     setOpenPersonalInfoDialog(true);
   }
 
   function handleOrdersDialog() {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      dialog: "orders",
-    });
+    setSearchParams(
+      {
+        ...Object.fromEntries(searchParams),
+        dialog: "orders",
+      },
+      {
+        replace: true,
+      },
+    );
     setOpenHeaderCustomerDialog(false);
     setOpenOrdersDialog(true);
   }
 
   function handleCloseDialog() {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      dialog: [],
-    });
+    setSearchParams(
+      {
+        ...Object.fromEntries(searchParams),
+        dialog: [],
+      },
+      {
+        replace: true,
+      },
+    );
     setOpenHeaderCustomerDialog(false);
   }
 

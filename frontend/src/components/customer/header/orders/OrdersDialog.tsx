@@ -40,21 +40,31 @@ export default function OrdersDialog({
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   function handleCloseDialog() {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      dialog: [],
-      ordersPage: [],
-    });
+    setSearchParams(
+      {
+        ...Object.fromEntries(searchParams),
+        dialog: [],
+        ordersPage: [],
+      },
+      {
+        replace: true,
+      },
+    );
     setOpenHeaderCustomerDialog(false);
     setOpenOrdersDialog(false);
   }
 
   function handleGoBack() {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      dialog: [],
-      ordersPage: [],
-    });
+    setSearchParams(
+      {
+        ...Object.fromEntries(searchParams),
+        dialog: [],
+        ordersPage: [],
+      },
+      {
+        replace: true,
+      },
+    );
     setOpenHeaderCustomerDialog(true);
     setOpenOrdersDialog(false);
   }
