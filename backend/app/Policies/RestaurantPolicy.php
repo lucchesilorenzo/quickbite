@@ -36,11 +36,11 @@ class RestaurantPolicy
             : Response::deny('You are not authorized to view the stats.');
     }
 
-    public function viewRestaurantMenuCategories(User $user, Restaurant $restaurant): Response
+    public function viewRestaurantMenu(User $user, Restaurant $restaurant): Response
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()
-            : Response::deny('You are not authorized to view menu categories.');
+            : Response::deny('You are not authorized to view menu.');
     }
 
     public function viewPartnerRestaurant(User $user, Restaurant $restaurant): Response
