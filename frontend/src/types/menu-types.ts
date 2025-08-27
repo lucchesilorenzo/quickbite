@@ -23,7 +23,7 @@ export type MenuItem = {
 
 // === PARTNER ===
 
-export type PartnerMenuCategoryWithMenuItemPagination = MenuCategory & {
+export type PartnerMenuWithPagination = MenuCategory & {
   menu_items: PartnerMenuItemWithPagination;
 };
 
