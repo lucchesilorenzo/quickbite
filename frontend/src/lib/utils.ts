@@ -64,10 +64,10 @@ export function getRestaurantOpeningTime(restaurant: SingleRestaurantDetail) {
 }
 
 export function getBestRestaurantOfferGivenSubtotal(
-  restaurant: SingleRestaurantDetail,
+  offers: Offer[],
   subtotal: number,
-): Offer | null {
-  const validOffers = restaurant.offers.filter(
+) {
+  const validOffers = offers.filter(
     (offer) => subtotal >= offer.min_discount_amount,
   );
 
