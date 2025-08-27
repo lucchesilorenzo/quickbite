@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import RestaurantFooter from "@/components/restaurants/RestaurantFooter";
 import RestaurantHeader from "@/components/restaurants/RestaurantHeader";
 import RestaurantNavigateToTopFloatingButton from "@/components/restaurants/RestaurantNavigateToTopFloatingButton";
+import RestaurantMenuProvider from "@/contexts/RestaurantMenuProvider";
 import RestaurantOffersProvider from "@/contexts/RestaurantOffersProvider";
 import RestaurantReviewsProvider from "@/contexts/RestaurantReviewsProvider";
 import SingleRestaurantProvider from "@/contexts/SingleRestaurantProvider";
@@ -14,12 +15,14 @@ export default function RestaurantLayout() {
       <SingleRestaurantProvider>
         <RestaurantReviewsProvider>
           <RestaurantOffersProvider>
-            <RestaurantHeader />
+            <RestaurantMenuProvider>
+              <RestaurantHeader />
 
-            <Outlet />
+              <Outlet />
 
-            <RestaurantFooter />
-            <RestaurantNavigateToTopFloatingButton />
+              <RestaurantFooter />
+              <RestaurantNavigateToTopFloatingButton />
+            </RestaurantMenuProvider>
           </RestaurantOffersProvider>
         </RestaurantReviewsProvider>
       </SingleRestaurantProvider>
