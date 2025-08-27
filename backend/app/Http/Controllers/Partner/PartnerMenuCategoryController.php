@@ -19,33 +19,6 @@ use Throwable;
 class PartnerMenuCategoryController extends Controller
 {
     /**
-     * Get partner's restaurant menu categories.
-     */
-    public function getRestaurantMenuCategories(Restaurant $restaurant): JsonResponse
-    {
-        // Check if user is authorized
-        Gate::authorize('viewRestaurantMenuCategories', $restaurant);
-
-        try {
-            $menuCategories = $restaurant->menuCategories()
-                ->orderBy('order', 'asc')
-                ->get();
-
-            foreach ($menuCategories as $category) {
-                $category->menu_items = $category->menuItems()
-                    ->orderBy('order', 'asc')
-                    ->paginate(6);
-            }
-
-            return response()->json($menuCategories, 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Could not get menu categories.',
-            ], 500);
-        }
-    }
-
-    /**
      * Create a partner's restaurant menu category.
      */
     public function createRestaurantMenuCategory(

@@ -7,6 +7,7 @@ use App\Http\Controllers\Partner\PartnerMenuCategoryController;
 use App\Http\Controllers\Partner\PartnerMenuItemController;
 use App\Http\Controllers\Partner\PartnerOrderController;
 use App\Http\Controllers\Partner\PartnerRestaurantController;
+use App\Http\Controllers\Partner\PartnerRestaurantMenuController;
 use App\Http\Controllers\Partner\PartnerRestaurantOfferController;
 use App\Http\Controllers\Partner\PartnerRestaurantReviewController;
 use App\Http\Controllers\Partner\PartnerRestaurantStatsController;
@@ -40,8 +41,10 @@ Route::prefix('partner')->group(function () {
         // Reviews
         Route::get('/{restaurant}/reviews', [PartnerRestaurantReviewController::class, 'getRestaurantReviews']);
 
+        // Menu
+        Route::get('/{restaurant}/menu', [PartnerRestaurantMenuController::class, 'getRestaurantMenu']);
+
         // Menu Categories
-        Route::get('/{restaurant}/menu/categories', [PartnerMenuCategoryController::class, 'getRestaurantMenuCategories']);
         Route::post('/{restaurant}/menu/categories', [PartnerMenuCategoryController::class, 'createRestaurantMenuCategory']);
         Route::patch('/menu/categories/order', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategoriesOrder']);
         Route::patch('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategory']);
