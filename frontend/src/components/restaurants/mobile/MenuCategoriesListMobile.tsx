@@ -6,10 +6,13 @@ import Typography from "@mui/material/Typography";
 import RestaurantInfo from "../RestaurantInfo";
 import MenuCategory from "../menu-categories/MenuCategory";
 
+import Spinner from "@/components/common/Spinner";
 import { useRestaurantMenu } from "@/hooks/contexts/useRestaurantMenu";
 
 export default function MenuCategoriesListMobile() {
-  const { menuData } = useRestaurantMenu();
+  const { menuData, isLoadingMenu } = useRestaurantMenu();
+
+  if (isLoadingMenu) return <Spinner />;
 
   return (
     <Box
