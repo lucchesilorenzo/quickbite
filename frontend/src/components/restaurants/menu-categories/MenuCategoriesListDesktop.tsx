@@ -4,10 +4,10 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import RestaurantInfo from "../RestaurantInfo";
 import MenuCategory from "./MenuCategory";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useRestaurantMenu } from "@/hooks/contexts/useRestaurantMenu";
 
 export default function MenuCategoriesListDesktop() {
-  const { restaurant } = useSingleRestaurant();
+  const { menuData } = useRestaurantMenu();
 
   return (
     <Box
@@ -15,10 +15,9 @@ export default function MenuCategoriesListDesktop() {
       sx={{ display: { xs: "none", lg: "block" }, my: 4 }}
     >
       <Container maxWidth="md">
-        {restaurant.menu_categories.map((menuCategory) => (
+        {menuData.map((menuCategory) => (
           <MenuCategory key={menuCategory.id} menuCategory={menuCategory} />
         ))}
-
         <Stack direction="row" spacing={0.5}>
           <InfoOutlineIcon fontSize="inherit" />
 

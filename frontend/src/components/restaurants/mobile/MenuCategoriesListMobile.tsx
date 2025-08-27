@@ -6,17 +6,17 @@ import Typography from "@mui/material/Typography";
 import RestaurantInfo from "../RestaurantInfo";
 import MenuCategory from "../menu-categories/MenuCategory";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useRestaurantMenu } from "@/hooks/contexts/useRestaurantMenu";
 
 export default function MenuCategoriesListMobile() {
-  const { restaurant } = useSingleRestaurant();
+  const { menuData } = useRestaurantMenu();
 
   return (
     <Box
       component="section"
       sx={{ display: { xs: "block", lg: "none" }, mt: 4 }}
     >
-      {restaurant.menu_categories.map((menuCategory) => (
+      {menuData.map((menuCategory) => (
         <MenuCategory key={menuCategory.id} menuCategory={menuCategory} />
       ))}
 

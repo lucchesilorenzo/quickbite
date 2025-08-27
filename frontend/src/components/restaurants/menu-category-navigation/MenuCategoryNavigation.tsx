@@ -10,10 +10,10 @@ import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import MenuCategoryNavigationSlide from "../../common/menu-category-navigation/MenuCategoryNavigationSlide";
 
 import ShowMoreMenuCategoriesButton from "@/components/common/menu-category-navigation/ShowMoreMenuCategoriesButton";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useRestaurantMenu } from "@/hooks/contexts/useRestaurantMenu";
 
 export default function MenuCategoryNavigation() {
-  const { restaurant, menuCategoryRefs } = useSingleRestaurant();
+  const { menuData, menuCategoryRefs } = useRestaurantMenu();
 
   const swiperRef = useRef<SwiperClass>(null);
 
@@ -53,7 +53,7 @@ export default function MenuCategoryNavigation() {
   useEffect(() => {
     setCanScrollPrev(!swiperRef.current?.isBeginning);
     setCanScrollNext(!swiperRef.current?.isEnd);
-  }, [restaurant.menu_categories]);
+  }, [menuData]);
 
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 2 }}>
@@ -102,7 +102,7 @@ export default function MenuCategoryNavigation() {
             },
           }}
         >
-          {restaurant.menu_categories.map((menuCategory) => (
+          {menuData.map((menuCategory) => (
             <SwiperSlide key={menuCategory.id}>
               <MenuCategoryNavigationSlide
                 menuCategory={menuCategory}
@@ -132,7 +132,7 @@ export default function MenuCategoryNavigation() {
       </Fade>
 
       <ShowMoreMenuCategoriesButton
-        menuCategories={restaurant.menu_categories}
+        menuCategories={menuData}
         onSlideClick={handleSlideClick}
       />
     </Stack>

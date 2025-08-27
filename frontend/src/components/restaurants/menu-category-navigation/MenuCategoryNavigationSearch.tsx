@@ -14,14 +14,16 @@ import { grey } from "@mui/material/colors";
 import MenuItemsEmpty from "./MenuItemsEmpty";
 import MenuItemsList from "./MenuItemsList";
 
+import { useRestaurantMenu } from "@/hooks/contexts/useRestaurantMenu";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 
 export default function MenuCategoryNavigationSearch() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const { restaurant, searchTerm, setSearchTerm } = useSingleRestaurant();
+  const { menuData } = useRestaurantMenu();
 
-  const menuItems = restaurant.menu_categories.flatMap((c) => c.menu_items);
+  const menuItems = menuData.flatMap((menuCategory) => menuCategory.menu_items);
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const filteredMenuItems = useMemo(
     () =>

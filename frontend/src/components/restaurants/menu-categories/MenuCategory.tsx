@@ -2,15 +2,15 @@ import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import MenuItemRow from "./MenuItemRow";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-import { RestaurantDetail } from "@/types";
+import { useRestaurantMenu } from "@/hooks/contexts/useRestaurantMenu";
+import { Menu } from "@/types";
 
 type MenuCategoryProps = {
-  menuCategory: RestaurantDetail["menu_categories"][number];
+  menuCategory: Menu;
 };
 
 export default function MenuCategory({ menuCategory }: MenuCategoryProps) {
-  const { menuCategoryRefs } = useSingleRestaurant();
+  const { menuCategoryRefs } = useRestaurantMenu();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
