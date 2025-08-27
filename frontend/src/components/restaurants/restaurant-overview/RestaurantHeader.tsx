@@ -12,7 +12,7 @@ import { restaurantTabs } from "@/lib/data";
 import { RestaurantTab } from "@/types";
 
 export default function RestaurantHeader() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     restaurant,
@@ -24,6 +24,10 @@ export default function RestaurantHeader() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   function handleOpenDialogAndSetTab() {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      tab: "info",
+    });
     setTabToOpen("info");
     setOpenRestaurantAboutDialog(true);
   }

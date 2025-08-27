@@ -11,41 +11,44 @@ import InfoTab from "./info/InfoTab";
 import OffersPanel from "./offers/OffersPanel";
 import ReviewsTab from "./reviews/ReviewsTab";
 
+import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { restaurantTabs } from "@/lib/data";
 import { RestaurantTab } from "@/types";
 
 export default function RestaurantAboutDialogTabs() {
-  const { tabToOpen, setTabToOpen, restaurant } = useSingleRestaurant();
+  const { tabToOpen, setTabToOpen } = useSingleRestaurant();
+  const { offersData } = useRestaurantOffer();
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const offers = offersData?.data || [];
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   function handleChange(_e: React.SyntheticEvent, newValue: RestaurantTab) {
+    setTabToOpen(newValue);
+
     const params = new URLSearchParams(searchParams);
     params.set("tab", newValue);
 
-    if (newValue !== "reviews") {
-      params.delete("reviewsPage");
-    }
+    if (newValue !== "reviews") params.delete("reviewsPage");
+    if (newValue !== "offers") params.delete("offersPage");
 
-    setSearchParams(params);
+    setSearchParams(params, { replace: true });
   }
 
   useEffect(() => {
     const tab = searchParams.get("tab") as RestaurantTab;
+    if (!tab || !restaurantTabs.includes(tab)) return;
 
-    if (tab && restaurantTabs.includes(tab)) {
-      setTabToOpen(tab);
+    setTabToOpen(tab);
 
-      if (tab !== "reviews" && searchParams.has("reviewsPage")) {
-        const params = new URLSearchParams(searchParams);
-        params.delete("reviewsPage");
+    const params = new URLSearchParams(searchParams);
+    if (tab !== "reviews") params.delete("reviewsPage");
+    if (tab !== "offers") params.delete("offersPage");
 
-        setSearchParams(params);
-      }
-    }
+    setSearchParams(params, { replace: true });
   }, [searchParams, setSearchParams, setTabToOpen]);
 
   return (
@@ -62,7 +65,7 @@ export default function RestaurantAboutDialogTabs() {
       >
         <Tab label="Reviews" value="reviews" />
         <Tab label="Info" value="info" />
-        {restaurant.offers.length > 0 && <Tab label="Offers" value="offers" />}
+        {offers?.length > 0 && <Tab label="Offers" value="offers" />}
       </TabList>
 
       <TabPanel

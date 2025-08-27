@@ -7,6 +7,7 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 import RestaurantAboutDialogTabs from "./tabs/RestaurantAboutDialogTabs";
 
@@ -19,12 +20,29 @@ export default function RestaurantAboutDialog({
   openRestaurantAboutDialog,
   setOpenRestaurantAboutDialog,
 }: RestaurantAboutDialogProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  function handleCloseDialog() {
+    setSearchParams(
+      {
+        ...Object.fromEntries(searchParams),
+        tab: [],
+        reviewsPage: [],
+        offersPage: [],
+      },
+      {
+        replace: true,
+      },
+    );
+    setOpenRestaurantAboutDialog(false);
+  }
 
   return (
     <Dialog
       open={openRestaurantAboutDialog}
-      onClose={() => setOpenRestaurantAboutDialog(false)}
+      onClose={handleCloseDialog}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -36,7 +54,7 @@ export default function RestaurantAboutDialog({
           <IconButton
             color="inherit"
             aria-label="close"
-            onClick={() => setOpenRestaurantAboutDialog(false)}
+            onClick={handleCloseDialog}
             sx={{ p: 0 }}
           >
             <CloseIcon />
