@@ -21,7 +21,9 @@ export type MenuItem = {
   updated_at: string;
 };
 
-// === PARTNER ===
+export type Menu = MenuCategory & {
+  menu_items: MenuItem[];
+};
 
 export type PartnerMenuWithPagination = MenuCategory & {
   menu_items: PartnerMenuItemWithPagination;
