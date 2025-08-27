@@ -77,7 +77,10 @@ export type RestaurantWithPagination = {
 };
 
 export type SingleRestaurantDetail = RestaurantBase &
-  Omit<RestaurantDetail, "reviews" | "reviews_avg_rating" | "reviews_count">;
+  Omit<
+    RestaurantDetail,
+    "reviews" | "reviews_avg_rating" | "reviews_count" | "offers"
+  >;
 
 export type RestaurantSearchOption = {
   id: string;
