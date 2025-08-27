@@ -1,19 +1,43 @@
-import { Grid } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 
 import RestaurantOfferButton from "./RestaurantOfferButton";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import CustomPagination from "@/components/common/CustomPagination";
+import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
 
-export default function RestaurantOffersList() {
-  const { restaurant } = useSingleRestaurant();
+type RestaurantOffersListProps = {
+  showPagination?: boolean;
+};
+
+export default function RestaurantOffersList({
+  showPagination = false,
+}: RestaurantOffersListProps) {
+  const { offersData, page, setPage } = useRestaurantOffer();
+
+  const offers = offersData?.data || [];
+  const totalPages = offersData?.last_page || 1;
+  const displayedOffers = showPagination ? offers : offers.slice(0, 2);
 
   return (
-    <Grid container spacing={2} sx={{ mb: 2 }}>
-      {restaurant.offers.map((offer) => (
-        <Grid key={offer.id} size={6}>
-          <RestaurantOfferButton offer={offer} />
-        </Grid>
-      ))}
-    </Grid>
+    <Stack spacing={4} sx={{ mb: 2 }}>
+      <Grid container spacing={2}>
+        {displayedOffers.map((offer) => (
+          <Grid key={offer.id} size={6}>
+            <RestaurantOfferButton offer={offer} />
+          </Grid>
+        ))}
+      </Grid>
+
+      {showPagination && (
+        <Box sx={{ alignSelf: "center" }}>
+          <CustomPagination
+            context="offersPage"
+            page={page}
+            totalPages={totalPages}
+            setPage={setPage}
+          />
+        </Box>
+      )}
+    </Stack>
   );
 }
