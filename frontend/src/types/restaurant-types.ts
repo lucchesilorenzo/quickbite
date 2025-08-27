@@ -79,7 +79,11 @@ export type RestaurantWithPagination = {
 export type SingleRestaurantDetail = RestaurantBase &
   Omit<
     RestaurantDetail,
-    "reviews" | "reviews_avg_rating" | "reviews_count" | "offers"
+    | "reviews"
+    | "reviews_avg_rating"
+    | "reviews_count"
+    | "offers"
+    | "menu_categories"
   >;
 
 export type RestaurantSearchOption = {
