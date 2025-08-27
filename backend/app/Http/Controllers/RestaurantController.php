@@ -87,9 +87,6 @@ class RestaurantController extends Controller
                 'deliveryDays' => function ($query) {
                     $query->orderBy('order', 'asc');
                 },
-                'offers' => function ($query) {
-                    $query->orderBy('discount_rate', 'asc');
-                },
                 'menuCategories' => function ($query) {
                     $query->orderBy('order', 'asc')
                         ->with('menuItems', function ($query) {
