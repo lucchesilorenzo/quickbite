@@ -42,15 +42,7 @@ class RestaurantController extends Controller
     {
         try {
             // Get restaurant
-            $restaurant = Restaurant::with([
-                'categories',
-                'deliveryDays' => function ($query) {
-                    $query->orderBy('order');
-                },
-            ])
-                ->where('slug', $restaurantSlug)
-                ->where('is_approved', true)
-                ->first();
+            $restaurant = $this->restaurantService->getRestaurant($restaurantSlug);
 
             if (! $restaurant) {
                 return response()->json([
