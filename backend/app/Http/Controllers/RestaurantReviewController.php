@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
-use App\Models\RestaurantReview;
+use App\Services\RestaurantReviewService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class RestaurantReviewController extends Controller
 {
-    public function __construct(private RestaurantReview $restaurantReview) {}
+    public function __construct(private RestaurantReviewService $restaurantReview) {}
 
     /**
      * Get restaurant reviews.
