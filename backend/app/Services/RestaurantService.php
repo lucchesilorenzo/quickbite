@@ -7,7 +7,6 @@ namespace App\Services;
 use App\Models\Restaurant;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
@@ -38,19 +37,19 @@ class RestaurantService
 
     private const PER_PAGE = 10;
 
-    public function getRestaurants(Request $request): array
+    public function getRestaurants(array $data): array
     {
-        $lat = $request->query('lat');
-        $lon = $request->query('lon');
+        $lat = $data['lat'];
+        $lon = $data['lon'];
 
         if (! $lat || ! $lon) {
             throw new InvalidArgumentException('Latitude and longitude are required.');
         }
 
-        $filters = $request->query('filter', []);
-        $sortBy = $request->query('sort_by');
-        $mov = $request->query('mov');
-        $search = $request->query('q');
+        $filters = $data['filters'] ?? [];
+        $sortBy = $data['sort_by'] ?? null;
+        $mov = $data['mov'] ?? null;
+        $search = $data['search'] ?? null;
 
         $query = Restaurant::select('*')
             ->selectRaw(self::HAVERSINE . ' AS distance', [$lat, $lon, $lat])

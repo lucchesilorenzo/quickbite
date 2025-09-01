@@ -19,8 +19,17 @@ class RestaurantController extends Controller
      */
     public function getRestaurants(Request $request): JsonResponse
     {
+        $data = [
+            'lat' => $request->query('lat'),
+            'lon' => $request->query('lon'),
+            'filters' => $request->query('filter', []),
+            'sort_by' => $request->query('sort_by'),
+            'mov' => $request->query('mov'),
+            'search' => $request->query('q'),
+        ];
+
         try {
-            $result = $this->restaurantService->getRestaurants($request);
+            $result = $this->restaurantService->getRestaurants($data);
 
             return response()->json($result, 200);
         } catch (InvalidArgumentException $e) {
