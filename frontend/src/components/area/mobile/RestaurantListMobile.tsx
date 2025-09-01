@@ -1,4 +1,7 @@
-import { Stack } from "@mui/material";
+import { useEffect } from "react";
+
+import { Box, CircularProgress, Stack } from "@mui/material";
+import { useInView } from "react-intersection-observer";
 
 import RestaurantCardMobile from "./RestaurantCardMobile";
 
@@ -6,7 +9,20 @@ import SimpleHeadingWithDialog from "@/components/common/SimpleHeadingWithDialog
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantListMobile() {
-  const { restaurantsData, totalRestaurants } = useRestaurant();
+  const {
+    restaurantsData,
+    totalRestaurants,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useRestaurant();
+
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
 
   return (
     <Stack>
@@ -26,6 +42,10 @@ export default function RestaurantListMobile() {
           />
         ))}
       </Stack>
+
+      <Box ref={ref} sx={{ textAlign: "center", mt: 2 }}>
+        {isFetchingNextPage && <CircularProgress size={30} />}
+      </Box>
     </Stack>
   );
 }
