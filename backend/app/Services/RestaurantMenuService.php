@@ -8,7 +8,7 @@ use App\Models\Restaurant;
 
 class RestaurantMenuService
 {
-    public function getRestaurantMenu(Restaurant $restaurant): array
+    public function getMenu(Restaurant $restaurant): array
     {
         $menu = $restaurant->menuCategories()
             ->orderBy('order', 'asc')

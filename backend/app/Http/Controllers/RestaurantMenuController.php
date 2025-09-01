@@ -19,7 +19,7 @@ class RestaurantMenuController extends Controller
     public function getRestaurantMenu(Restaurant $restaurant): JsonResponse
     {
         try {
-            $menu = $this->restaurantMenuService->getRestaurantMenu($restaurant);
+            $menu = $this->restaurantMenuService->getMenu($restaurant);
 
             return response()->json($menu, 200);
         } catch (Exception $e) {
