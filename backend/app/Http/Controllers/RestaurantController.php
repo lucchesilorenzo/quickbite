@@ -41,7 +41,7 @@ class RestaurantController extends Controller
                 cos(radians(longitude) - radians(?)) +
                 sin(radians(?)) *
                 sin(radians(latitude))
-                ))';
+            ))';
 
             $query = Restaurant::select('*')
                 ->selectRaw("{$haversine} AS distance", [$lat, $lon, $lat])
@@ -119,11 +119,6 @@ class RestaurantController extends Controller
                 });
             }
 
-            // MOV
-            if ($mov) {
-                $query->where('min_amount', '<=', $mov / 100);
-            }
-
             // === Search ===
             if ($search) {
                 $query->where(function ($q) use ($search) {
@@ -131,6 +126,12 @@ class RestaurantController extends Controller
                         ->orWhereHas('categories', fn($q) => $q->whereLike('name', "%{$search}%"))
                         ->orWhereHas('menuCategories.menuItems', fn($q) => $q->whereLike('name', "%{$search}%"));
                 });
+            }
+
+            $baseQuery = clone $query;
+
+            if ($mov) {
+                $query->where('min_amount', '<=', $mov / 100);
             }
 
             // === Sort ===
@@ -141,16 +142,16 @@ class RestaurantController extends Controller
                 ->when($sortBy === 'delivery_fee', fn($q) => $q->orderBy('delivery_fee')->orderBy('id'))
                 ->when(! $sortBy, fn($q) => $q->orderBy('id'));
 
-            $baseQuery = clone $query;
-            $total = $baseQuery->count();
+            $total = $query->count();
 
             $movCounts = [
-                'all' => $total,
-                '1000' => $baseQuery->where('min_amount', '<=', 10)->count(),
-                '1500' => $baseQuery->where('min_amount', '<=', 15)->count(),
+                'all'  => $baseQuery->count(),
+                '1000' => (clone $baseQuery)->where('min_amount', '<=', 10)->count(),
+                '1500' => (clone $baseQuery)->where('min_amount', '<=', 15)->count(),
             ];
+
             $offerCounts = [
-                'with_discounts' => $baseQuery->whereHas('offers')->count(),
+                'with_discounts' => (clone $baseQuery)->whereHas('offers')->count(),
             ];
 
             $restaurants = $query->cursorPaginate(2);
@@ -166,7 +167,6 @@ class RestaurantController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }

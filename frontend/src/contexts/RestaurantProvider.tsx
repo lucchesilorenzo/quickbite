@@ -82,9 +82,9 @@ export default function RestaurantProvider({
   const restaurantsData = restaurants.pages.flatMap(
     (page) => page.restaurants.data,
   );
+  const totalRestaurants = restaurants.pages[0].meta.total;
   const movCounts = restaurants.pages[0].meta.mov_counts;
   const offerCounts = restaurants.pages[0].meta.offer_counts;
-  const totalRestaurants = restaurants.pages[0].meta.total;
 
   return (
     <RestaurantContext.Provider
