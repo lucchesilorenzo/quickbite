@@ -7,7 +7,7 @@ import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantOfferFilters() {
-  const { restaurants } = useRestaurant();
+  const { offerCounts } = useRestaurant();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [checked, setChecked] = useState<Record<string, boolean>>({
@@ -19,10 +19,10 @@ export default function RestaurantOfferFilters() {
       {
         label: "Deals",
         key: "with_discounts",
-        count: restaurants.filter((r) => r.offers.length > 0).length,
+        count: offerCounts.with_discounts,
       },
     ],
-    [restaurants],
+    [offerCounts],
   );
 
   function handleCheckboxChange(e: React.ChangeEvent<HTMLInputElement>) {

@@ -9,7 +9,7 @@ export default function Spinner() {
         minHeight: "60vh",
       }}
     >
-      <CircularProgress />
+      <CircularProgress color="primary" />
     </Stack>
   );
 }

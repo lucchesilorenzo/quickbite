@@ -7,13 +7,12 @@ import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantHeadingContainer() {
-  const { allCategories } = useCategoryFilters();
-  const { restaurants } = useRestaurant();
-
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const currentFilters = searchParams.getAll("filter");
+  const { allCategories } = useCategoryFilters();
+  const { movCounts } = useRestaurant();
 
+  const currentFilters = searchParams.getAll("filter");
   const nonCategoryFilters = currentFilters.filter(
     (f) => !allCategories.some((c) => c.slug === f),
   );
@@ -38,7 +37,7 @@ export default function RestaurantHeadingContainer() {
   return (
     <Stack direction="row" sx={{ justifyContent: "space-between" }}>
       <Typography component="span" variant="h6" sx={{ fontWeight: 700 }}>
-        {restaurants.length} places
+        {movCounts.all} places
       </Typography>
 
       {nonCategoryFilters.length > 0 && (

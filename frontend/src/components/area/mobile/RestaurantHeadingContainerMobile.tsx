@@ -16,9 +16,9 @@ export default function RestaurantHeadingContainerMobile({
   onCloseDialog,
   setIsThereAnyFilter,
 }: RestaurantHeadingContainerMobileProps) {
-  const { restaurants } = useRestaurant();
-
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { movCounts } = useRestaurant();
 
   const currentViewType = searchParams.getAll("view_type");
 
@@ -74,7 +74,7 @@ export default function RestaurantHeadingContainerMobile({
             fontSize: 16,
           }}
         >
-          {restaurants.length} places
+          {movCounts.all} places
         </Button>
       </Paper>
     </Stack>

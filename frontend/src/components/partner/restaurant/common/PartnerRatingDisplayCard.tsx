@@ -38,7 +38,9 @@ export default function PartnerRatingDisplayCard({
           >
             <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
               <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
-                {reviewsData.avg_rating?.toFixed(1) || "N/A"}
+                {reviewsData.avg_rating?.toLocaleString("it-IT", {
+                  maximumFractionDigits: 1,
+                }) || "N/A"}
               </Typography>
 
               <Rating

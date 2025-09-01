@@ -37,7 +37,9 @@ export default function RatingDisplay() {
           variant={isMobile ? "h4" : "h3"}
           sx={{ color: "white", fontWeight: 700 }}
         >
-          {reviewsData?.avg_rating?.toFixed(1) || "N/A"}
+          {reviewsData?.avg_rating?.toLocaleString("it-IT", {
+            maximumFractionDigits: 1,
+          }) || "N/A"}
         </Typography>
 
         <Divider orientation="vertical" flexItem sx={{ bgcolor: grey[600] }} />

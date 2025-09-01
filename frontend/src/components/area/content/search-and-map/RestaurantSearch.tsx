@@ -12,17 +12,15 @@ import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 import { RestaurantSearchOption } from "@/types";
 
 export default function RestaurantSearch() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
-  const { originalRestaurants, selectedOption, setSelectedOption } =
-    useRestaurant();
-  const { allCategories } = useCategoryFilters();
-
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState("");
 
+  const { allCategories } = useCategoryFilters();
+  const { restaurantsData, selectedOption, setSelectedOption } =
+    useRestaurant();
+
   const restaurantSearchOptions = [
-    ...originalRestaurants.map((r) => ({
+    ...restaurantsData.map((r) => ({
       id: r.id,
       label: r.name,
       type: "Restaurant",
@@ -32,7 +30,7 @@ export default function RestaurantSearch() {
       label: c.name,
       type: "Category",
     })),
-    ...originalRestaurants
+    ...restaurantsData
       .flatMap((r) => r.menu_categories.flatMap((c) => c.menu_items))
       .map((i) => ({
         id: i.id,
@@ -59,6 +57,8 @@ export default function RestaurantSearch() {
   const uniqueOptions: RestaurantSearchOption[] = Array.from(
     uniqueMap.values(),
   );
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   function handleOptionSelect(option: RestaurantSearchOption | string | null) {
     if (option && typeof option === "object") {

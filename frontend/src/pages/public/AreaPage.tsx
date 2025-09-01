@@ -13,16 +13,17 @@ import { Address } from "@/types";
 
 export default function AreaPage() {
   const [searchParams] = useSearchParams();
+  const [addressError, setAddressError] = useState(false);
 
   const {
-    restaurants,
+    totalRestaurants,
     isRestaurantsLoading,
     restaurantsError,
     isMapViewMobile,
   } = useRestaurant();
   const { currentAddress, setCurrentAddress } = useAddress();
 
-  const [addressError, setAddressError] = useState(false);
+  const hasNoResults = !totalRestaurants || restaurantsError || addressError;
 
   useEffect(() => {
     document.title = `Restaurants and takeaways in ${currentAddress?.address.city || currentAddress?.address.postcode || "your area"} | QuickBite`;
@@ -48,8 +49,6 @@ export default function AreaPage() {
 
     fetchAddress();
   }, [currentAddress, setCurrentAddress, searchParams]);
-
-  const hasNoResults = !restaurants.length || restaurantsError || addressError;
 
   return (
     <Container

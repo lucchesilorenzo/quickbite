@@ -22,26 +22,23 @@ import { useAddress } from "@/hooks/contexts/useAddress";
 import { useRestaurant } from "@/hooks/contexts/useRestaurant";
 
 export default function RestaurantMap() {
-  const { restaurants } = useRestaurant();
-  const { currentAddress } = useAddress();
-
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedPosition, setSelectedPosition] = useState<LatLngTuple | null>(
     null,
   );
-
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const { restaurantsData } = useRestaurant();
+  const { currentAddress } = useAddress();
 
   const latitude = Number(currentAddress?.lat);
   const longitude = Number(currentAddress?.lon);
 
-  const selectedRestaurant = restaurants.find(
+  const selectedRestaurant = restaurantsData.find(
     (r) =>
       selectedPosition?.includes(r.latitude) &&
       selectedPosition?.includes(r.longitude),
   );
 
-  const restaurantMarkers = restaurants.map((r) => ({
+  const restaurantMarkers = restaurantsData.map((r) => ({
     geocode: [r.latitude, r.longitude] as LatLngTuple,
     tooltip: `Marker on the map: ${r.name}.`,
   }));
@@ -55,6 +52,8 @@ export default function RestaurantMap() {
     iconUrl: "/restaurant-pin.png",
     iconSize: [45, 45],
   });
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   function handleMarkerClick(geocode: LatLngTuple) {
     const isSameMarker =
