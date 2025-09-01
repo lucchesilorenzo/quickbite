@@ -57,23 +57,28 @@ export type RestaurantDetail = RestaurantListItem & {
 };
 
 export type RestaurantWithPagination = {
-  current_page: number;
-  data: RestaurantListItem[];
-  first_page_url: string;
-  from: number;
-  last_page: number;
-  last_page_url: string;
-  links: {
-    url: string | null;
-    label: string;
-    active: boolean;
-  }[];
-  next_page_url: string | null;
-  path: string;
-  per_page: number;
-  prev_page_url: string | null;
-  to: number;
+  restaurants: {
+    data: RestaurantListItem[];
+    path: string;
+    per_page: number;
+    next_cursor: string | null;
+    next_page_url: string | null;
+    prev_cursor: string | null;
+    prev_page_url: string | null;
+  };
+  meta: RestaurantMeta;
+};
+
+export type RestaurantMeta = {
   total: number;
+  mov_counts: {
+    all: number;
+    "1000": number;
+    "1500": number;
+  };
+  offer_counts: {
+    with_discounts: number;
+  };
 };
 
 export type SingleRestaurantDetail = RestaurantBase &

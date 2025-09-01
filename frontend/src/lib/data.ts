@@ -162,10 +162,10 @@ export const whyChooseUsFeatures = [
 
 export const ratings: Record<number, string> = {
   1: "one_star",
-  2: "two_star",
-  3: "three_star",
-  4: "four_star",
-  5: "five_star",
+  2: "two_stars",
+  3: "three_stars",
+  4: "four_stars",
+  5: "five_stars",
 };
 
 export const termsOfService: {
