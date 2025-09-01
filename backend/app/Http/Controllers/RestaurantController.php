@@ -8,7 +8,6 @@ use App\Models\Restaurant;
 use App\Services\RestaurantService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class RestaurantController extends Controller
@@ -64,17 +63,13 @@ class RestaurantController extends Controller
     public function getBase64Logo(Restaurant $restaurant): JsonResponse
     {
         try {
-            // Remove '/storage/' prefix from path
-            $relativePath = str_replace('/storage/', '', $restaurant->logo);
+            $base64Logo = $this->restaurantService->getBase64Logo($restaurant);
 
-            if (! $relativePath || ! Storage::disk('public')->exists($relativePath)) {
-                return response()->json(['message' => 'Logo not found.'], 404);
+            if (! $base64Logo) {
+                return response()->json([
+                    'message' => 'Logo not found.',
+                ], 404);
             }
-
-            $logo = Storage::disk('public')->get($relativePath);
-            $mimeType = Storage::disk('public')->mimeType($relativePath);
-
-            $base64Logo = 'data:' . $mimeType . ';base64,' . base64_encode($logo);
 
             return response()->json(['logo' => $base64Logo], 200);
         } catch (Throwable $e) {
