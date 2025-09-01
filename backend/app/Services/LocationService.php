@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Http;
 
 class LocationService
 {
-    /**
-     * Get location data.
-     */
     public function getLocationData(array $data): ?array
     {
         $response = Http::get('https://eu1.locationiq.com/v1/search', [
