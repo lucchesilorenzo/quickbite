@@ -5,30 +5,23 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
+use App\Models\RestaurantReview;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class RestaurantReviewController extends Controller
 {
+    public function __construct(private RestaurantReview $restaurantReview) {}
+
     /**
      * Get restaurant reviews.
      */
     public function getRestaurantReviews(Restaurant $restaurant): JsonResponse
     {
         try {
-            $reviews = $restaurant->reviews()
-                ->with(['customer', 'order'])
-                ->orderBy('created_at', 'desc')
-                ->paginate(5);
+            $reviews = $this->restaurantReview->getReviews($restaurant);
 
-            $avg = $restaurant->reviews()->avg('rating');
-            $count = $restaurant->reviews()->count();
-
-            return response()->json([
-                'reviews' => $reviews,
-                'avg_rating' => ! is_null($avg) ? (float) $avg : null,
-                'count' => $count,
-            ], 200);
+            return response()->json($reviews, 200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get reviews.',

@@ -9,14 +9,14 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class RestaurantOfferService
 {
-	private const PER_PAGE = 6;
+    private const PER_PAGE = 6;
 
-	public function getOffers(Restaurant $restaurant): LengthAwarePaginator
-	{
-		$offers = $restaurant->offers()
-			->orderBy('created_at')
-			->paginate(self::PER_PAGE);
+    public function getOffers(Restaurant $restaurant): LengthAwarePaginator
+    {
+        $offers = $restaurant->offers()
+            ->orderBy('created_at')
+            ->paginate(self::PER_PAGE);
 
-		return $offers;
-	}
+        return $offers;
+    }
 }
