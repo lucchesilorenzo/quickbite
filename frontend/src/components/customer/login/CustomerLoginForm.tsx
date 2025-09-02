@@ -22,9 +22,10 @@ import {
 } from "@/validations/customer-auth-validations";
 
 export default function CustomerLoginForm() {
+  const { getCarts } = useMultiCart();
+
   const { mutateAsync: loginCustomer, isPending: isLoggingIn } =
     useLoginCustomer();
-  const { getCarts, emptyCarts } = useMultiCart();
   const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCustomerCarts();
 
   const {
@@ -42,13 +43,14 @@ export default function CustomerLoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   async function onSubmit(data: TCustomerLoginFormSchema) {
+    const guestCarts = getCarts().filter((cart) => cart.items.length > 0);
+
     await loginCustomer(data);
 
-    const carts = getCarts();
-    await createOrUpdateCarts(carts);
+    if (guestCarts.length > 0) {
+      await createOrUpdateCarts(guestCarts);
+    }
 
-    // Clear local state and local storage
-    emptyCarts();
     localStorage.removeItem("carts");
   }
 

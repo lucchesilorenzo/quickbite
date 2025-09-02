@@ -31,11 +31,11 @@ export default function RestaurantCartItem({
 }: RestaurantCartItemProps) {
   const { restaurant } = useSingleRestaurant();
   const {
+    isCartUpdating,
     totalUniqueItems,
     incrementItemQuantity,
     decrementItemQuantity,
     getItem,
-    isCartUpdating,
   } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);

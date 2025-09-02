@@ -13,6 +13,7 @@ type MultiCartProviderProps = {
 };
 
 type MultiCartContext = {
+  isCartUpdating: boolean;
   getCarts: () => RestaurantCart[];
   getCart: (restaurantId: string) => RestaurantCart;
   getItems: (restaurantId: string) => CartItem[];
@@ -40,7 +41,6 @@ type MultiCartContext = {
   ) => void;
   cartTotal: (restaurantId: string) => number;
   emptyCarts: () => void;
-  isCartUpdating: boolean;
 };
 
 const initialState: RestaurantCart = {
@@ -57,14 +57,13 @@ export default function MultiCartProvider({
   children,
 }: MultiCartProviderProps) {
   const { user } = useAuth();
-  const isUserCustomer = isCustomer(user);
 
-  const { data: updatedCarts } = useGetCustomerCarts(isUserCustomer);
+  const { data: updatedCarts } = useGetCustomerCarts(isCustomer(user));
   const { mutateAsync: createOrUpdateCart, isPending: isCartUpdating } =
     useCreateOrUpdateCustomerCart();
 
   const [carts, setCarts] = useState<Cart>(() => {
-    if (!isUserCustomer) {
+    if (!isCustomer(user)) {
       const stored = localStorage.getItem("carts");
       return stored ? JSON.parse(stored) : {};
     }
@@ -73,7 +72,7 @@ export default function MultiCartProvider({
   });
 
   useEffect(() => {
-    if (!isUserCustomer) return;
+    if (!isCustomer(user)) return;
 
     const cartsWithRestaurantKey = addRestaurantIdAsKey(updatedCarts);
 
@@ -84,13 +83,13 @@ export default function MultiCartProvider({
       if (prevString === nextString) return prev;
       return cartsWithRestaurantKey;
     });
-  }, [isUserCustomer, updatedCarts]);
+  }, [user, updatedCarts]);
 
   useEffect(() => {
-    if (!isUserCustomer) {
+    if (user === null) {
       localStorage.setItem("carts", JSON.stringify(carts));
     }
-  }, [carts, isUserCustomer]);
+  }, [user, carts]);
 
   // Helper function to calculate cart totals
   function calculateCartTotals(items: CartItem[]) {
@@ -176,7 +175,7 @@ export default function MultiCartProvider({
       };
     });
 
-    if (isUserCustomer && updatedCart) {
+    if (isCustomer(user) && updatedCart) {
       await createOrUpdateCart(updatedCart);
     }
   }
@@ -242,7 +241,7 @@ export default function MultiCartProvider({
       };
     });
 
-    if (isUserCustomer && updatedCart) {
+    if (isCustomer(user) && updatedCart) {
       await createOrUpdateCart(updatedCart);
     }
   }
@@ -288,7 +287,7 @@ export default function MultiCartProvider({
       };
     });
 
-    if (isUserCustomer && updatedCart) {
+    if (isCustomer(user) && updatedCart) {
       await createOrUpdateCart(updatedCart);
     }
   }
@@ -329,6 +328,7 @@ export default function MultiCartProvider({
   return (
     <MultiCartContext.Provider
       value={{
+        isCartUpdating,
         getCarts,
         getCart,
         getItems,
@@ -344,7 +344,6 @@ export default function MultiCartProvider({
         decrementItemQuantity,
         cartTotal,
         emptyCarts,
-        isCartUpdating,
       }}
     >
       {children}

@@ -27,7 +27,7 @@ import {
 } from "@/validations/customer-auth-validations";
 
 export default function CustomerRegisterForm() {
-  const { getCarts, emptyCarts } = useMultiCart();
+  const { getCarts } = useMultiCart();
 
   const { mutateAsync: registerCustomer, isPending: isRegistering } =
     useRegisterCustomer();
@@ -59,13 +59,14 @@ export default function CustomerRegisterForm() {
   const strength = calculatePasswordStrength(password);
 
   async function onSubmit(data: TCustomerRegisterFormSchema) {
+    const guestCarts = getCarts().filter((cart) => cart.items.length > 0);
+
     await registerCustomer(data);
 
-    const carts = getCarts();
-    await createOrUpdateCarts(carts);
+    if (guestCarts.length > 0) {
+      await createOrUpdateCarts(guestCarts);
+    }
 
-    // Clear local state and local storage
-    emptyCarts();
     localStorage.removeItem("carts");
   }
 
