@@ -9,32 +9,24 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Auth\CustomerLoginRequest;
 use App\Http\Requests\Customer\Auth\CustomerRegisterRequest;
 use App\Models\User;
+use App\Services\Customer\CustomerAuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Throwable;
 
 class CustomerAuthController extends Controller
 {
+    public function __construct(private CustomerAuthService $customerAuthService) {}
+
     /**
      * Register a new customer.
      */
     public function register(CustomerRegisterRequest $request): JsonResponse
     {
-        // Get validated data
         $data = $request->validated();
 
         try {
-            // Create customer
-            $customer = User::create([
-                ...$data,
-                'password' => bcrypt($data['password']),
-            ]);
-
-            // Assign role
-            $customer->assignRole(UserRole::CUSTOMER);
-
-            // Generate token
-            $token = $customer->createToken('customer_web_token')->plainTextToken;
+            $token = $this->customerAuthService->register($data);
 
             return response()->json([
                 'message' => 'Customer registered successfully.',
@@ -58,7 +50,6 @@ class CustomerAuthController extends Controller
      */
     public function login(CustomerLoginRequest $request): JsonResponse
     {
-        // Get validated data
         $data = $request->validated();
 
         try {
