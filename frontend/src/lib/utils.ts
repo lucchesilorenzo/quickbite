@@ -98,7 +98,7 @@ export function getDisabledOrderStatuses(currentStatus: OrderStatus) {
   );
 }
 
-// --- Auth ---
+// === Auth ===
 
 export function hasRole(user: User | null | undefined, role: Role) {
   return !!user?.roles.some((r) => r.name === role);
