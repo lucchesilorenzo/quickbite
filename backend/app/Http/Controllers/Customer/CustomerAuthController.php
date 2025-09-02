@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Customer;
 
-use App\Enums\UserRole;
+use App\Exceptions\Customer\CustomerAuthException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Auth\CustomerLoginRequest;
 use App\Http\Requests\Customer\Auth\CustomerRegisterRequest;
-use App\Models\User;
 use App\Services\Customer\CustomerAuthService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 use Throwable;
 
 class CustomerAuthController extends Controller
@@ -53,37 +51,16 @@ class CustomerAuthController extends Controller
         $data = $request->validated();
 
         try {
-            // Get customer
-            $customer = User::where('email', $data['email'])->first();
-
-            // Check if customer exists
-            if (! $customer) {
-                return response()->json([
-                    'message' => 'Customer not found.',
-                ], 404);
-            }
-
-            // Check if customer has CUSTOMER role
-            if (! $customer->hasRole(UserRole::CUSTOMER)) {
-                return response()->json([
-                    'message' => 'You are not authorized to log in as a customer.',
-                ], 403);
-            }
-
-            // Check if password is correct
-            if (! Hash::check($data['password'], $customer->password)) {
-                return response()->json([
-                    'message' => 'Invalid credentials.',
-                ], 401);
-            }
-
-            // Generate token
-            $token = $customer->createToken('customer_web_token')->plainTextToken;
+            $token = $this->customerAuthService->login($data);
 
             return response()->json([
                 'message' => 'Customer logged in successfully.',
                 'token' => $token,
             ], 200);
+        } catch (CustomerAuthException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not login customer.',
