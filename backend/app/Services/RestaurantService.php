@@ -43,7 +43,7 @@ class RestaurantService
         $lon = $data['lon'];
 
         if (! $lat || ! $lon) {
-            throw new InvalidArgumentException('Latitude and longitude are required.');
+            throw new InvalidArgumentException('Latitude and longitude are required.', 400);
         }
 
         $filters = $data['filters'] ?? [];
@@ -176,20 +176,20 @@ class RestaurantService
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->whereLike('name', "%{$search}%")
-                    ->orWhereHas('categories', fn ($q) => $q->whereLike('name', "%{$search}%"))
-                    ->orWhereHas('menuCategories.menuItems', fn ($q) => $q->whereLike('name', "%{$search}%"));
+                    ->orWhereHas('categories', fn($q) => $q->whereLike('name', "%{$search}%"))
+                    ->orWhereHas('menuCategories.menuItems', fn($q) => $q->whereLike('name', "%{$search}%"));
             });
         }
     }
 
     private function applySort(Builder $query, ?string $sortBy, string $haversine, string $lat, string $lon): void
     {
-        $query->when($sortBy === 'review_rating', fn ($q) => $q->orderByDesc('reviews_avg_rating')->orderBy('id'))
-            ->when($sortBy === 'distance', fn ($q) => $q->orderByRaw("{$haversine} ASC", [$lat, $lon, $lat])->orderBy('id'))
-            ->when($sortBy === 'minimum_order_value', fn ($q) => $q->orderBy('min_amount')->orderBy('id'))
-            ->when($sortBy === 'delivery_time', fn ($q) => $q->orderByRaw('(delivery_time_min + delivery_time_max) / 2')->orderBy('id'))
-            ->when($sortBy === 'delivery_fee', fn ($q) => $q->orderBy('delivery_fee')->orderBy('id'))
-            ->when(! $sortBy, fn ($q) => $q->orderBy('id'));
+        $query->when($sortBy === 'review_rating', fn($q) => $q->orderByDesc('reviews_avg_rating')->orderBy('id'))
+            ->when($sortBy === 'distance', fn($q) => $q->orderByRaw("{$haversine} ASC", [$lat, $lon, $lat])->orderBy('id'))
+            ->when($sortBy === 'minimum_order_value', fn($q) => $q->orderBy('min_amount')->orderBy('id'))
+            ->when($sortBy === 'delivery_time', fn($q) => $q->orderByRaw('(delivery_time_min + delivery_time_max) / 2')->orderBy('id'))
+            ->when($sortBy === 'delivery_fee', fn($q) => $q->orderBy('delivery_fee')->orderBy('id'))
+            ->when(! $sortBy, fn($q) => $q->orderBy('id'));
     }
 
     private function buildMeta(Builder $baseQuery, int $total): array

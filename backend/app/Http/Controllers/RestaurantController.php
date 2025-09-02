@@ -35,7 +35,7 @@ class RestaurantController extends Controller
         } catch (InvalidArgumentException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
-            ], 400);
+            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
