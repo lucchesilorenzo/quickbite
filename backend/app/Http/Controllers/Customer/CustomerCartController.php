@@ -8,48 +8,26 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Cart\CustomerCreateOrUpdateCartRequest;
 use App\Http\Requests\Customer\Cart\CustomerCreateOrUpdateCartsRequest;
 use App\Models\Cart;
+use App\Services\Customer\CustomerCartService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
 class CustomerCartController extends Controller
 {
+    public function __construct(
+        private CustomerCartService $customerCartService
+    ) {}
+
     /**
-     * Get carts for customer.
+     * Get customer's carts.
      */
     public function getCarts(): JsonResponse
     {
         try {
-            $user = auth()->user();
+            $carts = $this->customerCartService->getCarts();
 
-            $carts = $user->carts()->with(['cartItems.menuItem'])->get();
-
-            $formattedCarts = $carts->map(function ($cart) {
-                return [
-                    'id' => $cart->id,
-                    'restaurant' => $cart->restaurant,
-                    'total_items' => $cart->total_items,
-                    'total_unique_items' => $cart->total_unique_items,
-                    'cart_total' => $cart->cart_total,
-                    'items' => $cart->cartItems->map(function ($item) {
-                        return [
-                            'id' => $item->menuItem->id,
-                            'menu_category_id' => $item->menuItem->menu_category_id,
-                            'name' => $item->menuItem->name,
-                            'description' => $item->menuItem->description,
-                            'price' => $item->menuItem->price,
-                            'image' => $item->menuItem->image,
-                            'is_available' => $item->menuItem->is_available,
-                            'quantity' => $item->quantity,
-                            'item_total' => $item->item_total,
-                            'created_at' => $item->menuItem->created_at,
-                            'updated_at' => $item->menuItem->updated_at,
-                        ];
-                    }),
-                ];
-            });
-
-            return response()->json($formattedCarts, 200);
+            return response()->json($carts, 200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get carts.',
@@ -62,7 +40,6 @@ class CustomerCartController extends Controller
      */
     public function getCart(Cart $cart): JsonResponse
     {
-        // Check if user owns cart
         Gate::authorize('view', $cart);
 
         try {
