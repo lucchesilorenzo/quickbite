@@ -26,6 +26,8 @@ class CartItemResource extends JsonResource
             'is_available' => $this->menuItem->is_available,
             'quantity' => $this->quantity,
             'item_total' => $this->item_total,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

@@ -17,64 +17,15 @@ class CustomerCartService
             ->with(['restaurant', 'cartItems.menuItem'])
             ->get();
 
-        $formattedCarts = $carts->map(function ($cart) {
-            return [
-                'id' => $cart->id,
-                'restaurant' => $cart->restaurant,
-                'total_items' => $cart->total_items,
-                'total_unique_items' => $cart->total_unique_items,
-                'cart_total' => $cart->cart_total,
-                'items' => $cart->cartItems->map(function ($item) {
-                    return [
-                        'id' => $item->menuItem->id,
-                        'menu_category_id' => $item->menuItem->menu_category_id,
-                        'name' => $item->menuItem->name,
-                        'description' => $item->menuItem->description,
-                        'price' => $item->menuItem->price,
-                        'image' => $item->menuItem->image,
-                        'is_available' => $item->menuItem->is_available,
-                        'quantity' => $item->quantity,
-                        'item_total' => $item->item_total,
-                        'created_at' => $item->menuItem->created_at,
-                        'updated_at' => $item->menuItem->updated_at,
-                    ];
-                }),
-            ];
-        });
-
-        return $formattedCarts;
+        return $carts;
     }
 
-    public function getCart(Cart $cart): array
+    public function getCart(Cart $cart): Cart
     {
         // Eager load cart items
         $cart->load(['restaurant', 'cartItems.menuItem']);
 
-        // Format cart
-        $formattedCart = [
-            'id' => $cart->id,
-            'restaurant' => $cart->restaurant,
-            'total_items' => $cart->total_items,
-            'total_unique_items' => $cart->total_unique_items,
-            'cart_total' => $cart->cart_total,
-            'items' => $cart->cartItems->map(function ($item) {
-                return [
-                    'id' => $item->menuItem->id,
-                    'menu_category_id' => $item->menuItem->menu_category_id,
-                    'name' => $item->menuItem->name,
-                    'description' => $item->menuItem->description,
-                    'price' => $item->menuItem->price,
-                    'image' => $item->menuItem->image,
-                    'is_available' => $item->menuItem->is_available,
-                    'quantity' => $item->quantity,
-                    'item_total' => $item->item_total,
-                    'created_at' => $item->menuItem->created_at,
-                    'updated_at' => $item->menuItem->updated_at,
-                ];
-            }),
-        ];
-
-        return $formattedCart;
+        return $cart;
     }
 
     public function createOrUpdateCarts(User $user, array $data): Collection
@@ -138,39 +89,15 @@ class CustomerCartService
                 }
             }
 
-            $formattedCarts = $user->carts()
+            $carts = $user->carts()
                 ->with(['restaurant', 'cartItems.menuItem'])
-                ->get()
-                ->map(function ($cart) {
-                    return [
-                        'id' => $cart->id,
-                        'restaurant' => $cart->restaurant,
-                        'total_items' => $cart->total_items,
-                        'total_unique_items' => $cart->total_unique_items,
-                        'cart_total' => $cart->cart_total,
-                        'items' => $cart->cartItems->map(function ($item) {
-                            return [
-                                'id' => $item->menuItem->id,
-                                'menu_category_id' => $item->menuItem->menu_category_id,
-                                'name' => $item->menuItem->name,
-                                'description' => $item->menuItem->description,
-                                'price' => $item->menuItem->price,
-                                'image' => $item->menuItem->image,
-                                'is_available' => $item->menuItem->is_available,
-                                'quantity' => $item->quantity,
-                                'item_total' => $item->item_total,
-                                'created_at' => $item->menuItem->created_at,
-                                'updated_at' => $item->menuItem->updated_at,
-                            ];
-                        }),
-                    ];
-                });
+                ->get();
 
-            return $formattedCarts;
+            return $carts;
         });
     }
 
-    public function createOrUpdateCart(User $user, array $data): array
+    public function createOrUpdateCart(User $user, array $data): ?Cart
     {
         return DB::transaction(function () use ($user, $data) {
             if (empty($data['items'])) {
@@ -182,7 +109,7 @@ class CustomerCartService
                     $cart->delete();
                 }
 
-                return [];
+                return null;
             }
 
             $cart = $user->carts()
@@ -212,30 +139,7 @@ class CustomerCartService
                 'cart_total' => $cart->cartItems->sum('item_total'),
             ]);
 
-            $formattedCart = [
-                'id' => $cart->id,
-                'restaurant' => $cart->restaurant,
-                'total_items' => $cart->total_items,
-                'total_unique_items' => $cart->total_unique_items,
-                'cart_total' => $cart->cart_total,
-                'items' => $cart->cartItems->map(function ($item) {
-                    return [
-                        'id' => $item->menuItem->id,
-                        'menu_category_id' => $item->menuItem->menu_category_id,
-                        'name' => $item->menuItem->name,
-                        'description' => $item->menuItem->description,
-                        'price' => $item->menuItem->price,
-                        'image' => $item->menuItem->image,
-                        'is_available' => $item->menuItem->is_available,
-                        'quantity' => $item->quantity,
-                        'item_total' => $item->item_total,
-                        'created_at' => $item->menuItem->created_at,
-                        'updated_at' => $item->menuItem->updated_at,
-                    ];
-                }),
-            ];
-
-            return $formattedCart;
+            return $cart;
         });
     }
 }

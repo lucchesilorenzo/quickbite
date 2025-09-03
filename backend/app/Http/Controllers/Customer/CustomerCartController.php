@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Cart\CustomerCreateOrUpdateCartRequest;
 use App\Http\Requests\Customer\Cart\CustomerCreateOrUpdateCartsRequest;
+use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Services\Customer\CustomerCartService;
 use Illuminate\Http\JsonResponse;
@@ -29,7 +30,9 @@ class CustomerCartController extends Controller
         try {
             $carts = $this->customerCartService->getCarts($user);
 
-            return response()->json($carts, 200);
+            return CartResource::collection($carts)
+                ->response()
+                ->setStatusCode(200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get carts.',
@@ -47,7 +50,9 @@ class CustomerCartController extends Controller
         try {
             $cart = $this->customerCartService->getCart($cart);
 
-            return response()->json($cart, 200);
+            return new CartResource($cart)
+                ->response()
+                ->setStatusCode(200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get cart.',
@@ -78,10 +83,12 @@ class CustomerCartController extends Controller
 
             $carts = $this->customerCartService->createOrUpdateCarts($user, $data);
 
-            return response()->json([
-                'message' => 'Carts merged successfully.',
-                'carts' => $carts,
-            ], 200);
+            return CartResource::collection($carts)
+                ->additional([
+                    'message' => 'Carts merged successfully.',
+                ])
+                ->response()
+                ->setStatusCode(200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not merge carts.',
@@ -110,7 +117,7 @@ class CustomerCartController extends Controller
 
             $cart = $this->customerCartService->createOrUpdateCart($user, $data);
 
-            if (empty($cart)) {
+            if (! $cart) {
                 return response()->json([
                     'message' => 'Cart has been successfully deleted as it contained no items.',
                 ], 200);
@@ -118,10 +125,12 @@ class CustomerCartController extends Controller
 
             $status = $existingCart ? 200 : 201;
 
-            return response()->json([
-                'message' => $existingCart ? 'Cart updated successfully.' : 'Cart created successfully.',
-                'cart' => $cart,
-            ], $status);
+            return new CartResource($cart)
+                ->additional([
+                    'message' => $existingCart ? 'Cart updated successfully.' : 'Cart created successfully.',
+                ])
+                ->response()
+                ->setStatusCode($status);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not create or update cart.',
