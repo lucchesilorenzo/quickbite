@@ -24,8 +24,10 @@ class CustomerCartController extends Controller
      */
     public function getCarts(): JsonResponse
     {
+        $user = auth()->user();
+
         try {
-            $carts = $this->customerCartService->getCarts();
+            $carts = $this->customerCartService->getCarts($user);
 
             return response()->json($carts, 200);
         } catch (Throwable $e) {
@@ -56,107 +58,29 @@ class CustomerCartController extends Controller
     /**
      * Create or update multiple carts for customer.
      */
-    public function createOrUpdateCarts(CustomerCreateOrUpdateCartsRequest $request): JsonResponse
-    {
+    public function createOrUpdateCarts(
+        CustomerCreateOrUpdateCartsRequest $request
+    ): JsonResponse {
         $data = $request->validated();
 
+        $user = auth()->user();
+
         try {
-            $user = auth()->user();
-
             foreach ($data as $cart) {
-                $restaurantId = $cart['restaurant']['id'];
-
-                // Get existing cart
                 $existingCart = $user->carts()
-                    ->where('restaurant_id', $restaurantId)
+                    ->where('restaurant_id', $cart['restaurant']['id'])
                     ->first();
 
-                // Check if cart exists
-                if (! $existingCart) {
-                    $newCart = $user->carts()->create([
-                        'restaurant_id' => $restaurantId,
-                        'cart_total' => $cart['cart_total'],
-                        'total_items' => $cart['total_items'],
-                        'total_unique_items' => $cart['total_unique_items'],
-                    ]);
-
-                    // Create items
-                    foreach ($cart['items'] as $item) {
-                        $newCart->cartItems()->create([
-                            'cart_id' => $newCart->id,
-                            'menu_item_id' => $item['id'],
-                            'quantity' => $item['quantity'],
-                            'item_total' => $item['item_total'],
-                        ]);
-                    }
-                } else {
+                if ($existingCart) {
                     Gate::authorize('update', $existingCart);
-
-                    // Merge items
-                    foreach ($cart['items'] as $newItem) {
-                        $existingItem = $existingCart->cartItems()
-                            ->where('menu_item_id', $newItem['id'])
-                            ->first();
-
-                        // If item exists, update quantity; otherwise, create new item
-                        if ($existingItem) {
-                            $existingItem->update([
-                                'quantity' => $existingItem->quantity + $newItem['quantity'],
-                                'item_total' => ($existingItem->quantity + $newItem['quantity']) * $newItem['price'],
-                            ]);
-                        } else {
-                            $existingCart->cartItems()->create([
-                                'cart_id' => $existingCart->id,
-                                'menu_item_id' => $newItem['id'],
-                                'quantity' => $newItem['quantity'],
-                                'item_total' => $newItem['item_total'],
-                            ]);
-                        }
-                    }
-
-                    // Update cart totals
-                    $totalItems = $existingCart->cartItems->sum('quantity');
-                    $totalUniqueItems = $existingCart->cartItems->count();
-                    $total = $existingCart->cartItems->sum('item_total');
-
-                    $existingCart->update([
-                        'total_items' => $totalItems,
-                        'total_unique_items' => $totalUniqueItems,
-                        'cart_total' => $total,
-                    ]);
                 }
             }
 
-            $carts = $user->carts()->with(['restaurant', 'cartItems.menuItem'])->get();
-
-            $formattedCarts = $carts->map(function ($cart) {
-                return [
-                    'id' => $cart->id,
-                    'restaurant' => $cart->restaurant,
-                    'total_items' => $cart->total_items,
-                    'total_unique_items' => $cart->total_unique_items,
-                    'cart_total' => $cart->cart_total,
-                    'items' => $cart->cartItems->map(function ($item) {
-                        return [
-                            'id' => $item->menuItem->id,
-                            'menu_category_id' => $item->menuItem->menu_category_id,
-                            'name' => $item->menuItem->name,
-                            'description' => $item->menuItem->description,
-                            'price' => $item->menuItem->price,
-                            'image' => $item->menuItem->image,
-                            'is_available' => $item->menuItem->is_available,
-                            'quantity' => $item->quantity,
-                            'item_total' => $item->item_total,
-                            'created_at' => $item->menuItem->created_at,
-                            'updated_at' => $item->menuItem->updated_at,
-                        ];
-                    }),
-                ];
-            });
+            $carts = $this->customerCartService->createOrUpdateCarts($user, $data);
 
             return response()->json([
                 'message' => 'Carts merged successfully.',
-                'carts' => $formattedCarts,
+                'carts' => $carts,
             ], 200);
         } catch (Throwable $e) {
             return response()->json([
@@ -168,8 +92,9 @@ class CustomerCartController extends Controller
     /**
      * Update a cart for customer.
      */
-    public function createOrUpdateCart(CustomerCreateOrUpdateCartRequest $request): JsonResponse
-    {
+    public function createOrUpdateCart(
+        CustomerCreateOrUpdateCartRequest $request
+    ): JsonResponse {
         // Get validated data
         $data = $request->validated();
 
