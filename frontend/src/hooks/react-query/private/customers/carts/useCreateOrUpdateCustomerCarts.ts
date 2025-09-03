@@ -14,8 +14,8 @@ export function useCreateOrUpdateCustomerCarts() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customer-carts"] });
     },
-    onError: () => {
-      notifications.show("Failed to create or update carts.", {
+    onError: (error) => {
+      notifications.show(error.message, {
         key: "create-or-update-customer-carts-error",
         severity: "error",
       });
