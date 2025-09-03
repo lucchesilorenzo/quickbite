@@ -6,12 +6,14 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Review\CustomerCreateReviewRequest;
-use App\Models\Restaurant;
+use App\Services\Customer\CustomerReviewService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class CustomerRestaurantReviewController extends Controller
 {
+    public function __construct(private CustomerReviewService $customerReviewService) {}
+
     /**
      * Create a customer's review.
      */
@@ -24,39 +26,20 @@ class CustomerRestaurantReviewController extends Controller
         try {
             $user = auth()->user();
 
-            // Get restaurant
-            $restaurant = Restaurant::where('slug', $restaurantSlug)->first();
-
-            if (! $restaurant) {
-                return response()->json([
-                    'message' => 'Restaurant not found.',
-                ], 404);
-            }
-
-            // Check if user has already reviewed this order
-            $alreadyReviewed = $restaurant->reviews()
-                ->where('order_id', $data['order_id'])
-                ->where('user_id', $user->id)
-                ->exists();
-
-            if ($alreadyReviewed) {
-                return response()->json([
-                    'message' => 'You have already reviewed this order.',
-                ], 409);
-            }
-
-            // Create review
-            $review = $restaurant->reviews()->create([
-                'user_id' => $user->id,
-                'order_id' => $data['order_id'],
-                'comment' => $data['comment'],
-                'rating' => $data['rating'],
-            ]);
+            $review = $this->customerReviewService->createReview(
+                $user,
+                $restaurantSlug,
+                $data,
+            );
 
             return response()->json([
                 'review' => $review,
                 'message' => 'Review created successfully.',
             ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not create review.',

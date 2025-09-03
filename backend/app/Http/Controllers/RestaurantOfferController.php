@@ -14,7 +14,7 @@ class RestaurantOfferController extends Controller
     public function __construct(private RestaurantOfferService $restaurantOfferService) {}
 
     /**
-     * Get restaurant offers.
+     * Get restaurant's offers.
      */
     public function getRestaurantOffers(Restaurant $restaurant): JsonResponse
     {
