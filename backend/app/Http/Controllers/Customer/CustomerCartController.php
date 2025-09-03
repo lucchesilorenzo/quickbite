@@ -63,9 +63,9 @@ class CustomerCartController extends Controller
     ): JsonResponse {
         $data = $request->validated();
 
-        $user = auth()->user();
-
         try {
+            $user = auth()->user();
+
             foreach ($data as $cart) {
                 $existingCart = $user->carts()
                     ->where('restaurant_id', $cart['restaurant']['id'])
@@ -90,179 +90,50 @@ class CustomerCartController extends Controller
     }
 
     /**
-     * Update a cart for customer.
+     * Update a customer's cart.
      */
     public function createOrUpdateCart(
         CustomerCreateOrUpdateCartRequest $request
     ): JsonResponse {
-        // Get validated data
         $data = $request->validated();
 
         try {
             $user = auth()->user();
 
-            $cart = $user->carts()->where('restaurant_id', $data['restaurant']['id'])->first();
+            $existingCart = $user->carts()
+                ->where('restaurant_id', $data['restaurant']['id'])
+                ->first();
 
-            if (! $cart) {
-                $cart = $user->carts()->create(
-                    [
-                        'restaurant_id' => $data['restaurant']['id'],
-                        'cart_total' => $data['cart_total'],
-                        'total_items' => $data['total_items'],
-                        'total_unique_items' => $data['total_unique_items'],
-                    ]
-                );
-
-                foreach ($data['items'] as $item) {
-                    $cart->cartItems()->create(
-                        [
-                            'menu_item_id' => $item['id'],
-                            'quantity' => $item['quantity'],
-                            'item_total' => $item['item_total'],
-                        ]
-                    );
-                }
-
-                // Get restaurant
-                $restaurant = $cart->restaurant()->with([
-                    'categories',
-                    'deliveryDays',
-                    'offers' => function ($query) {
-                        $query->orderBy('discount_rate', 'asc');
-                    },
-                    'reviews' => function ($query) {
-                        $query->orderBy('created_at', 'desc');
-                    },
-                    'reviews.customer',
-                    'menuCategories.menuItems',
-                ])
-                    ->withAvg('reviews', 'rating')
-                    ->withCount('reviews')
-                    ->first();
-
-                // Format cart
-                $formattedCart = [
-                    'id' => $cart->id,
-                    'restaurant' => $restaurant,
-                    'total_items' => $cart->total_items,
-                    'total_unique_items' => $cart->total_unique_items,
-                    'cart_total' => $cart->cart_total,
-                    'items' => $cart->cartItems->map(
-                        fn ($item) => [
-                            'id' => $item->menuItem->id,
-                            'menu_category_id' => $item->menuItem->menu_category_id,
-                            'name' => $item->menuItem->name,
-                            'description' => $item->menuItem->description,
-                            'price' => $item->menuItem->price,
-                            'image' => $item->menuItem->image,
-                            'is_available' => $item->menuItem->is_available,
-                            'quantity' => $item->quantity,
-                            'item_total' => $item->item_total,
-                            'created_at' => $item->menuItem->created_at,
-                            'updated_at' => $item->menuItem->updated_at,
-                        ]
-                    ),
-                ];
-
-                return response()->json([
-                    'message' => 'Cart created successfully.',
-                    'cart' => $formattedCart,
-                ], 201);
+            if ($existingCart) {
+                Gate::authorize('update', $existingCart);
             }
 
-            Gate::authorize('update', $cart);
+            $cart = $this->customerCartService->createOrUpdateCart($user, $data);
 
-            if (empty($data['items'])) {
-                $cart->delete();
-
+            if (empty($cart)) {
                 return response()->json([
-                    'message' => 'Cart deleted because it has no items.',
-                    'cart' => null,
+                    'message' => 'Cart has been successfully deleted as it contained no items.',
                 ], 200);
             }
 
-            // Update cart
-            $cart->update(
-                [
-                    'restaurant_id' => $data['restaurant']['id'],
-                    'cart_total' => $data['cart_total'],
-                    'total_items' => $data['total_items'],
-                    'total_unique_items' => $data['total_unique_items'],
-                ]
-            );
-
-            // Delete previous cart items
-            $cart->cartItems()->delete();
-
-            // Create cart items
-            foreach ($data['items'] as $item) {
-                $cart->cartItems()->create(
-                    [
-                        'menu_item_id' => $item['id'],
-                        'quantity' => $item['quantity'],
-                        'item_total' => $item['item_total'],
-                    ]
-                );
-            }
-
-            // Get restaurant
-            $restaurant = $cart->restaurant()->with([
-                'categories',
-                'deliveryDays',
-                'offers' => function ($query) {
-                    $query->orderBy('discount_rate', 'asc');
-                },
-                'reviews' => function ($query) {
-                    $query->orderBy('created_at', 'desc');
-                },
-                'reviews.customer',
-                'menuCategories.menuItems',
-            ])
-                ->withAvg('reviews', 'rating')
-                ->withCount('reviews')
-                ->first();
-
-            // Format cart
-            $formattedCart = [
-                'id' => $cart->id,
-                'restaurant' => $restaurant,
-                'total_items' => $cart->total_items,
-                'total_unique_items' => $cart->total_unique_items,
-                'cart_total' => $cart->cart_total,
-                'items' => $cart->cartItems->map(
-                    fn ($item) => [
-                        'id' => $item->menuItem->id,
-                        'menu_category_id' => $item->menuItem->menu_category_id,
-                        'name' => $item->menuItem->name,
-                        'description' => $item->menuItem->description,
-                        'price' => $item->menuItem->price,
-                        'image' => $item->menuItem->image,
-                        'is_available' => $item->menuItem->is_available,
-                        'quantity' => $item->quantity,
-                        'item_total' => $item->item_total,
-                        'created_at' => $item->menuItem->created_at,
-                        'updated_at' => $item->menuItem->updated_at,
-                    ]
-                ),
-            ];
+            $status = $existingCart ? 200 : 201;
 
             return response()->json([
-                'message' => 'Cart updated successfully.',
-                'cart' => $formattedCart,
-            ], 200);
+                'message' => $existingCart ? 'Cart updated successfully.' : 'Cart created successfully.',
+                'cart' => $cart,
+            ], $status);
         } catch (Throwable $e) {
             return response()->json([
-                'message' => 'Could not update cart.',
+                'message' => 'Could not create or update cart.',
             ], 500);
         }
     }
 
     /**
-     * Delete a cart for customer.
+     * Delete a customer's cart.
      */
     public function deleteCart(Cart $cart): JsonResponse
     {
-        // Check if user owns cart
         Gate::authorize('delete', $cart);
 
         try {

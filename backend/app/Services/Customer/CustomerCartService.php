@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerCartService
 {
-    public function getCarts(?User $user): Collection
+    public function getCarts(User $user): Collection
     {
         $carts = $user->carts()
             ->with(['restaurant', 'cartItems.menuItem'])
@@ -48,15 +48,12 @@ class CustomerCartService
     public function getCart(Cart $cart): array
     {
         // Eager load cart items
-        $cart->load('cartItems.menuItem');
-
-        // Get restaurant
-        $restaurant = $cart->restaurant()->first();
+        $cart->load(['restaurant', 'cartItems.menuItem']);
 
         // Format cart
         $formattedCart = [
             'id' => $cart->id,
-            'restaurant' => $restaurant,
+            'restaurant' => $cart->restaurant,
             'total_items' => $cart->total_items,
             'total_unique_items' => $cart->total_unique_items,
             'cart_total' => $cart->cart_total,
@@ -80,21 +77,19 @@ class CustomerCartService
         return $formattedCart;
     }
 
-    public function createOrUpdateCarts(?User $user, array $data): Collection
+    public function createOrUpdateCarts(User $user, array $data): Collection
     {
-        DB::transaction(function () use ($user, $data) {
+        return DB::transaction(function () use ($user, $data) {
             foreach ($data as $cart) {
-                $restaurantId = $cart['restaurant']['id'];
-
                 // Get existing cart
                 $existingCart = $user->carts()
-                    ->where('restaurant_id', $restaurantId)
+                    ->where('restaurant_id', $cart['restaurant']['id'])
                     ->first();
 
                 // Check if cart exists
                 if (! $existingCart) {
                     $newCart = $user->carts()->create([
-                        'restaurant_id' => $restaurantId,
+                        'restaurant_id' => $cart['restaurant']['id'],
                         'cart_total' => $cart['cart_total'],
                         'total_items' => $cart['total_items'],
                         'total_unique_items' => $cart['total_unique_items'],
@@ -142,36 +137,105 @@ class CustomerCartService
                     ]);
                 }
             }
+
+            $formattedCarts = $user->carts()
+                ->with(['restaurant', 'cartItems.menuItem'])
+                ->get()
+                ->map(function ($cart) {
+                    return [
+                        'id' => $cart->id,
+                        'restaurant' => $cart->restaurant,
+                        'total_items' => $cart->total_items,
+                        'total_unique_items' => $cart->total_unique_items,
+                        'cart_total' => $cart->cart_total,
+                        'items' => $cart->cartItems->map(function ($item) {
+                            return [
+                                'id' => $item->menuItem->id,
+                                'menu_category_id' => $item->menuItem->menu_category_id,
+                                'name' => $item->menuItem->name,
+                                'description' => $item->menuItem->description,
+                                'price' => $item->menuItem->price,
+                                'image' => $item->menuItem->image,
+                                'is_available' => $item->menuItem->is_available,
+                                'quantity' => $item->quantity,
+                                'item_total' => $item->item_total,
+                                'created_at' => $item->menuItem->created_at,
+                                'updated_at' => $item->menuItem->updated_at,
+                            ];
+                        }),
+                    ];
+                });
+
+            return $formattedCarts;
         });
+    }
 
-        $formattedCarts = $user->carts()
-            ->with(['restaurant', 'cartItems.menuItem'])
-            ->get()
-            ->map(function ($cart) {
-                return [
-                    'id' => $cart->id,
-                    'restaurant' => $cart->restaurant,
-                    'total_items' => $cart->total_items,
-                    'total_unique_items' => $cart->total_unique_items,
-                    'cart_total' => $cart->cart_total,
-                    'items' => $cart->cartItems->map(function ($item) {
-                        return [
-                            'id' => $item->menuItem->id,
-                            'menu_category_id' => $item->menuItem->menu_category_id,
-                            'name' => $item->menuItem->name,
-                            'description' => $item->menuItem->description,
-                            'price' => $item->menuItem->price,
-                            'image' => $item->menuItem->image,
-                            'is_available' => $item->menuItem->is_available,
-                            'quantity' => $item->quantity,
-                            'item_total' => $item->item_total,
-                            'created_at' => $item->menuItem->created_at,
-                            'updated_at' => $item->menuItem->updated_at,
-                        ];
-                    }),
-                ];
-            });
+    public function createOrUpdateCart(User $user, array $data): array
+    {
+        return DB::transaction(function () use ($user, $data) {
+            if (empty($data['items'])) {
+                $cart = $user->carts()
+                    ->where('restaurant_id', $data['restaurant']['id'])
+                    ->first();
 
-        return $formattedCarts;
+                if ($cart) {
+                    $cart->delete();
+                }
+
+                return [];
+            }
+
+            $cart = $user->carts()
+                ->with('restaurant')
+                ->firstOrCreate(
+                    ['restaurant_id' => $data['restaurant']['id']],
+                    [
+                        'cart_total' => $data['cart_total'],
+                        'total_items' => $data['total_items'],
+                        'total_unique_items' => $data['total_unique_items'],
+                    ]
+                );
+
+            $cart->cartItems()->delete();
+
+            foreach ($data['items'] as $item) {
+                $cart->cartItems()->create([
+                    'menu_item_id' => $item['id'],
+                    'quantity' => $item['quantity'],
+                    'item_total' => $item['item_total'],
+                ]);
+            }
+
+            $cart->update([
+                'total_items' => $cart->cartItems->sum('quantity'),
+                'total_unique_items' => $cart->cartItems->count(),
+                'cart_total' => $cart->cartItems->sum('item_total'),
+            ]);
+
+            $formattedCart = [
+                'id' => $cart->id,
+                'restaurant' => $cart->restaurant,
+                'total_items' => $cart->total_items,
+                'total_unique_items' => $cart->total_unique_items,
+                'cart_total' => $cart->cart_total,
+                'items' => $cart->cartItems->map(function ($item) {
+                    return [
+                        'id' => $item->menuItem->id,
+                        'menu_category_id' => $item->menuItem->menu_category_id,
+                        'name' => $item->menuItem->name,
+                        'description' => $item->menuItem->description,
+                        'price' => $item->menuItem->price,
+                        'image' => $item->menuItem->image,
+                        'is_available' => $item->menuItem->is_available,
+                        'quantity' => $item->quantity,
+                        'item_total' => $item->item_total,
+                        'created_at' => $item->menuItem->created_at,
+                        'updated_at' => $item->menuItem->updated_at,
+                    ];
+                }),
+            ];
+
+            return $formattedCart;
+        });
     }
 }
