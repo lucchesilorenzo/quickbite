@@ -14,9 +14,9 @@ class CustomerProfileController extends Controller
     /**
      * Update a customer's profile.
      */
-    public function updateCustomerProfile(CustomerUpdateProfileRequest $request): JsonResponse
-    {
-        // Get validated data
+    public function updateCustomerProfile(
+        CustomerUpdateProfileRequest $request
+    ): JsonResponse {
         $data = $request->validated();
 
         try {

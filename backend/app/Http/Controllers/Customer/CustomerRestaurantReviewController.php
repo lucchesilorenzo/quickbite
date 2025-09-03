@@ -13,17 +13,15 @@ use Throwable;
 class CustomerRestaurantReviewController extends Controller
 {
     /**
-     * Create a customer review.
+     * Create a customer's review.
      */
     public function createCustomerReview(
         CustomerCreateReviewRequest $request,
         string $restaurantSlug
     ): JsonResponse {
-        // Get validated data
         $data = $request->validated();
 
         try {
-            // Get user
             $user = auth()->user();
 
             // Get restaurant
@@ -56,8 +54,8 @@ class CustomerRestaurantReviewController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Review created successfully.',
                 'review' => $review,
+                'message' => 'Review created successfully.',
             ], 201);
         } catch (Throwable $e) {
             return response()->json([

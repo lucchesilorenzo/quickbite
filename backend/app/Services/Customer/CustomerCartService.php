@@ -22,7 +22,6 @@ class CustomerCartService
 
     public function getCart(Cart $cart): Cart
     {
-        // Eager load cart items
         $cart->load(['restaurant', 'cartItems.menuItem']);
 
         return $cart;

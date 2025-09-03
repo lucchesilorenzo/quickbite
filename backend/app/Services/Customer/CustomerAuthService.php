@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Services\Customer;
 
 use App\Enums\UserRole;
-use App\Exceptions\Customer\CustomerAuthException;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class CustomerAuthService
@@ -35,17 +35,17 @@ class CustomerAuthService
 
         // Check if customer exists
         if (! $customer) {
-            throw new CustomerAuthException('Customer not found.', 404);
+            throw new Exception('Customer not found.', 404);
         }
 
         // Check if customer has CUSTOMER role
         if (! $customer->hasRole(UserRole::CUSTOMER)) {
-            throw new CustomerAuthException('You are not authorized to log in as a customer.', 403);
+            throw new Exception('You are not authorized to log in as a customer.', 403);
         }
 
         // Check if password is correct
         if (! Hash::check($data['password'], $customer->password)) {
-            throw new CustomerAuthException('Invalid credentials.', 401);
+            throw new Exception('Invalid credentials.', 401);
         }
 
         // Generate token

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Customer;
 
-use App\Exceptions\Customer\CustomerAuthException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Auth\CustomerLoginRequest;
 use App\Http\Requests\Customer\Auth\CustomerRegisterRequest;
 use App\Services\Customer\CustomerAuthService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -57,7 +57,7 @@ class CustomerAuthController extends Controller
                 'message' => 'Customer logged in successfully.',
                 'token' => $token,
             ], 200);
-        } catch (CustomerAuthException $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

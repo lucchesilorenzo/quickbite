@@ -6,8 +6,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
 use App\Services\RestaurantMenuService;
-use Exception;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
 class RestaurantMenuController extends Controller
 {
@@ -22,7 +22,7 @@ class RestaurantMenuController extends Controller
             $menu = $this->restaurantMenuService->getMenu($restaurant);
 
             return response()->json($menu, 200);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get menu.',
             ], 500);

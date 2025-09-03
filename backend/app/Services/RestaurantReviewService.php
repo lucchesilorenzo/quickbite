@@ -18,12 +18,11 @@ class RestaurantReviewService
             ->paginate(self::PER_PAGE);
 
         $avg = $restaurant->reviews()->avg('rating');
-        $count = $restaurant->reviews()->count();
 
         return [
             'reviews' => $reviews,
             'avg_rating' => ! is_null($avg) ? (float) $avg : null,
-            'count' => $count,
+            'count' => $restaurant->reviews()->count(),
         ];
     }
 }

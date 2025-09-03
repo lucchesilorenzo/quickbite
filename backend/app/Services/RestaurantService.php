@@ -6,9 +6,9 @@ namespace App\Services;
 
 use App\Models\Restaurant;
 use DB;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
-use InvalidArgumentException;
 
 class RestaurantService
 {
@@ -43,7 +43,7 @@ class RestaurantService
         $lon = $data['lon'];
 
         if (! $lat || ! $lon) {
-            throw new InvalidArgumentException('Latitude and longitude are required.', 400);
+            throw new Exception('Latitude and longitude are required.', 400);
         }
 
         $filters = $data['filters'] ?? [];

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
 use App\Services\RestaurantService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Throwable;
@@ -32,7 +33,7 @@ class RestaurantController extends Controller
             $result = $this->restaurantService->getRestaurants($data);
 
             return response()->json($result, 200);
-        } catch (InvalidArgumentException $e) {
+        } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
