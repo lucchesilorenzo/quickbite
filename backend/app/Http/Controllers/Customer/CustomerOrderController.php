@@ -7,8 +7,8 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Order\CustomerCreateOrderRequest;
 use App\Models\Order;
-use App\Models\Restaurant;
 use App\Services\Customer\CustomerOrderService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -32,7 +32,7 @@ class CustomerOrderController extends Controller
             return response()->json($orders, 200);
         } catch (Throwable $e) {
             return response()->json([
-                'message' => 'Could not get orders.'
+                'message' => 'Could not get orders.',
             ], 500);
         }
     }
@@ -56,83 +56,29 @@ class CustomerOrderController extends Controller
     }
 
     /**
-     * Create a new order.
+     * Create a new customer's order.
      */
     public function createOrder(CustomerCreateOrderRequest $request): JsonResponse
     {
-        // Get validated data
         $data = $request->validated();
 
         try {
-            // Get user
             $user = auth()->user();
 
-            // Get restaurant
-            $restaurant = Restaurant::find($data['restaurant_id']);
-
-            if (! $restaurant) {
-                return response()->json(['message' => 'Could not find the restaurant.'], 404);
-            }
-
-            if (! $restaurant->calculateIsOpen() || $data['subtotal'] < $restaurant->min_amount) {
-                return response()->json([
-                    'message' => 'The restaurant is not open or the subtotal is less than the minimum amount.',
-                ], 400);
-            }
-
-            // Create order
-            $order = Order::create([
-                'user_id' => $user->id,
-                'restaurant_id' => $data['restaurant_id'],
-                'order_code' => $this->generateOrderCode(),
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'phone_number' => $data['phone_number'],
-                'street_address' => $data['street_address'],
-                'building_number' => $data['building_number'],
-                'postcode' => $data['postcode'],
-                'city' => $data['city'],
-                'delivery_time' => $data['delivery_time'] === 'asap' ? now()->format('H:i:s') : $data['delivery_time'],
-                'notes' => $data['notes'] ?? null,
-                'payment_method' => $data['payment_method'],
-                'subtotal' => $data['subtotal'],
-                'delivery_fee' => $data['delivery_fee'],
-                'service_fee' => $data['service_fee'],
-                'discount_rate' => $data['discount_rate'],
-                'discount' => $data['discount'],
-                'total' => $data['total'],
-            ]);
-
-            // Create order items
-            foreach ($data['order_items'] as $item) {
-                $order->orderItems()->create([
-                    'menu_item_id' => $item['menu_item_id'],
-                    'name' => $item['name'],
-                    'quantity' => $item['quantity'],
-                    'item_total' => $item['item_total'],
-                ]);
-            }
-
-            $order->load(['orderItems', 'restaurant.reviews.customer']);
+            $order = $this->customerOrderService->createOrder($user, $data);
 
             return response()->json([
-                'message' => 'Order created successfully.',
                 'order' => $order,
+                'message' => 'Order created successfully.',
             ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable $e) {
-            return response()->json(['message' => 'Error creating order.'], 500);
+            return response()->json([
+                'message' => 'Could not create order.',
+            ], 500);
         }
-    }
-
-    /**
-     * Generate a random order code.
-     */
-    private function generateOrderCode(): int
-    {
-        do {
-            $code = random_int(100000, 999999);
-        } while (Order::where('order_code', $code)->exists());
-
-        return $code;
     }
 }
