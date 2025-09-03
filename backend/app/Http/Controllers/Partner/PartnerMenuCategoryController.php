@@ -10,6 +10,7 @@ use App\Http\Requests\Partner\UpdateRestaurantMenuCategoriesOrderRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuCategoryRequest;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
+use App\Services\Partner\PartnerMenuCategoryService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,8 @@ use Throwable;
 
 class PartnerMenuCategoryController extends Controller
 {
+    public function __construct(private PartnerMenuCategoryService $partnerMenuCategoryService) {}
+
     /**
      * Create a partner's restaurant menu category.
      */
@@ -25,34 +28,21 @@ class PartnerMenuCategoryController extends Controller
         Restaurant $restaurant,
         CreateRestaurantMenuCategoryRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('createMenuCategory', $restaurant);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
-            // Get menu category order
-            $menuCategoryOrder = $restaurant->menuCategories()->max('order');
-
-            if ($menuCategoryOrder === 8) {
-                return response()->json([
-                    'message' => 'You have reached the maximum number of menu categories.',
-                ], 422);
-            }
-
-            $data['order'] = is_null($menuCategoryOrder) ? 0 : $menuCategoryOrder + 1;
-
-            // Create menu category
-            $menuCategory = $restaurant->menuCategories()->create([
-                ...$data,
-                'order' => $data['order'],
-            ]);
+            $menuCategory = $this->partnerMenuCategoryService->createMenuCategory($restaurant, $data);
 
             return response()->json([
-                'message' => 'Menu category created successfully.',
                 'menuCategory' => $menuCategory,
+                'message' => 'Menu category created successfully.',
             ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
                 return response()->json([
