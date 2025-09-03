@@ -36,58 +36,16 @@ class CustomerCartController extends Controller
     }
 
     /**
-     * Get a cart for customer.
+     * Get customer's cart.
      */
     public function getCart(Cart $cart): JsonResponse
     {
         Gate::authorize('view', $cart);
 
         try {
-            // Eager load cart items
-            $cart->load('cartItems.menuItem');
+            $cart = $this->customerCartService->getCart($cart);
 
-            // Get restaurant
-            $restaurant = $cart->restaurant()->with([
-                'categories',
-                'deliveryDays',
-                'offers' => function ($query) {
-                    $query->orderBy('discount_rate', 'asc');
-                },
-                'reviews' => function ($query) {
-                    $query->orderBy('created_at', 'desc');
-                },
-                'reviews.customer',
-                'menuCategories.menuItems',
-            ])
-                ->withAvg('reviews', 'rating')
-                ->withCount('reviews')
-                ->first();
-
-            // Format cart
-            $formattedCart = [
-                'id' => $cart->id,
-                'restaurant' => $restaurant,
-                'total_items' => $cart->total_items,
-                'total_unique_items' => $cart->total_unique_items,
-                'cart_total' => $cart->cart_total,
-                'items' => $cart->cartItems->map(
-                    fn ($item) => [
-                        'id' => $item->menuItem->id,
-                        'menu_category_id' => $item->menuItem->menu_category_id,
-                        'name' => $item->menuItem->name,
-                        'description' => $item->menuItem->description,
-                        'price' => $item->menuItem->price,
-                        'image' => $item->menuItem->image,
-                        'is_available' => $item->menuItem->is_available,
-                        'quantity' => $item->quantity,
-                        'item_total' => $item->item_total,
-                        'created_at' => $item->menuItem->created_at,
-                        'updated_at' => $item->menuItem->updated_at,
-                    ]
-                ),
-            ];
-
-            return response()->json($formattedCart, 200);
+            return response()->json($cart, 200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get cart.',
