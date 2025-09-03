@@ -13,16 +13,13 @@ class CustomerAuthService
 {
     public function register(array $data): string
     {
-        // Create customer
         $customer = User::create([
             ...$data,
             'password' => bcrypt($data['password']),
         ]);
 
-        // Assign role
         $customer->assignRole(UserRole::CUSTOMER);
 
-        // Generate token
         $token = $customer->createToken('customer_web_token')->plainTextToken;
 
         return $token;
@@ -30,25 +27,16 @@ class CustomerAuthService
 
     public function login(array $data): string
     {
-        // Get customer
         $customer = User::where('email', $data['email'])->first();
 
-        // Check if customer exists
-        if (! $customer) {
-            throw new Exception('Customer not found.', 404);
+        if (! $customer || ! Hash::check($data['password'], $customer->password)) {
+            throw new Exception('Invalid credentials.', 401);
         }
 
-        // Check if customer has CUSTOMER role
         if (! $customer->hasRole(UserRole::CUSTOMER)) {
             throw new Exception('You are not authorized to log in as a customer.', 403);
         }
 
-        // Check if password is correct
-        if (! Hash::check($data['password'], $customer->password)) {
-            throw new Exception('Invalid credentials.', 401);
-        }
-
-        // Generate token
         $token = $customer->createToken('customer_web_token')->plainTextToken;
 
         return $token;
