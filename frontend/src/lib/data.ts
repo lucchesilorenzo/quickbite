@@ -7,10 +7,10 @@ import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
-import { RestaurantDetail, RestaurantTab } from "@/types";
+import { RestaurantBase, RestaurantTab } from "@/types";
 import { OrderStatus } from "@/types/order-types";
 
-export const emptyRestaurant: RestaurantDetail = {
+export const emptyRestaurant = {
   id: "",
   name: "",
   slug: "",
@@ -44,14 +44,7 @@ export const emptyRestaurant: RestaurantDetail = {
   force_close: false,
   created_at: "",
   updated_at: "",
-  reviews_avg_rating: 0,
-  reviews_count: 0,
-  offers: [],
-  categories: [],
-  delivery_days: [],
-  menu_categories: [],
-  reviews: [],
-};
+} satisfies RestaurantBase;
 
 export const routes = [
   {

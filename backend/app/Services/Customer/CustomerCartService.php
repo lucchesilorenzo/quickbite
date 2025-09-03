@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Services\Customer;
 
 use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class CustomerCartService
 {
-    public function getCarts(): Collection
+    public function getCarts(?User $user): Collection
     {
-        $user = auth()->user();
-
         $carts = $user->carts()
-            ->with(['cartItems.menuItem'])
+            ->with(['restaurant', 'cartItems.menuItem'])
             ->get();
 
         $formattedCarts = $carts->map(function ($cart) {
@@ -51,27 +51,7 @@ class CustomerCartService
         $cart->load('cartItems.menuItem');
 
         // Get restaurant
-        $restaurant = $cart->restaurant()
-            ->with([
-                'categories',
-                'deliveryDays',
-                'offers' => function ($query) {
-                    $query->orderBy('discount_rate');
-                },
-                'reviews' => function ($query) {
-                    $query->orderByDesc('created_at');
-                },
-                'reviews.customer',
-                'menuCategories' => function ($query) {
-                    $query->orderBy('order')
-                        ->with('menuItems', function ($query) {
-                            $query->orderBy('order');
-                        });
-                },
-            ])
-            ->withAvg('reviews', 'rating')
-            ->withCount('reviews')
-            ->first();
+        $restaurant = $cart->restaurant()->first();
 
         // Format cart
         $formattedCart = [

@@ -1,5 +1,5 @@
 import { MenuItem } from "./menu-types";
-import { SingleRestaurantDetail } from "./restaurant-types";
+import { RestaurantBase } from "./restaurant-types";
 
 export type CartItem = MenuItem & {
   quantity: number;
@@ -8,7 +8,7 @@ export type CartItem = MenuItem & {
 
 export type RestaurantCart = {
   id?: string;
-  restaurant: SingleRestaurantDetail;
+  restaurant: RestaurantBase;
   items: CartItem[];
   total_items: number;
   total_unique_items: number;
