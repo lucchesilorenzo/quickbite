@@ -8,12 +8,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Order\CustomerCreateOrderRequest;
 use App\Models\Order;
 use App\Models\Restaurant;
+use App\Services\Customer\CustomerOrderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
 class CustomerOrderController extends Controller
 {
+    public function __construct(
+        private CustomerOrderService $customerOrderService
+    ) {}
+
     /**
      * Get all orders for customer.
      */
@@ -22,14 +27,13 @@ class CustomerOrderController extends Controller
         try {
             $user = auth()->user();
 
-            $orders = $user->orders()
-                ->with(['orderItems', 'restaurant.reviews.customer'])
-                ->orderBy('created_at', 'desc')
-                ->paginate(5);
+            $orders = $this->customerOrderService->getOrders($user);
 
             return response()->json($orders, 200);
         } catch (Throwable $e) {
-            return response()->json(['message' => 'Could not get orders.'], 500);
+            return response()->json([
+                'message' => 'Could not get orders.'
+            ], 500);
         }
     }
 
