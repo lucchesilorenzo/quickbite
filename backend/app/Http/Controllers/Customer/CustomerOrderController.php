@@ -20,7 +20,7 @@ class CustomerOrderController extends Controller
     ) {}
 
     /**
-     * Get all orders for customer.
+     * Get all customer's orders.
      */
     public function getOrders(): JsonResponse
     {
@@ -38,15 +38,14 @@ class CustomerOrderController extends Controller
     }
 
     /**
-     * Get an order for customer.
+     * Get a customer's order.
      */
     public function getOrder(Order $order): JsonResponse
     {
-        // Check if the order belongs to customer
         Gate::authorize('view', $order);
 
         try {
-            $order->load(['orderItems', 'restaurant.reviews.customer']);
+            $order = $this->customerOrderService->getOrder($order);
 
             return response()->json($order, 200);
         } catch (Throwable $e) {
