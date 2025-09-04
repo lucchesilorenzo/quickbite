@@ -10,6 +10,7 @@ use App\Http\Requests\Partner\UpdateOrderStatus;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Restaurant;
+use App\Services\Partner\PartnerOrderService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Gate;
 
 class PartnerOrderController extends Controller
 {
+    public function __construct(private PartnerOrderService $orderService) {}
+
     /**
      * Get restaurant's orders.
      */
@@ -25,14 +28,13 @@ class PartnerOrderController extends Controller
         Gate::authorize('viewRestaurantOrders', $restaurant);
 
         try {
-            $orders = $restaurant->orders()
-                ->with(['orderItems', 'restaurant'])
-                ->orderBy('created_at', 'desc')
-                ->paginate(5);
+            $orders = $this->orderService->getOrders($restaurant);
 
             return response()->json($orders, 200);
         } catch (Throwable $e) {
-            return response()->json(['message' => 'Could not get orders.'], 500);
+            return response()->json([
+                'message' => 'Could not get orders.'
+            ], 500);
         }
     }
 
@@ -62,7 +64,7 @@ class PartnerOrderController extends Controller
                     $rider = $order->restaurant->riders()
                         ->where('is_active', true)
                         ->get()
-                        ->first(fn ($rider) => ! Delivery::isRiderBusy($rider->id));
+                        ->first(fn($rider) => ! Delivery::isRiderBusy($rider->id));
 
                     if (! $rider) {
                         throw new Exception('All active riders are currently busy.');
