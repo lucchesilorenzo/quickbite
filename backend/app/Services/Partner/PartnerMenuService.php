@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Services\Partner;
 
 use App\Models\Restaurant;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PartnerMenuService
 {
     private const PER_PAGE = 6;
 
-    public function getMenu(Restaurant $restaurant): Collection
+    public function getMenu(Restaurant $restaurant): LengthAwarePaginator
     {
         $menu = $restaurant->menuCategories()
             ->orderBy('order')

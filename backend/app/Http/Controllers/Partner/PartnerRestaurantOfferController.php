@@ -9,24 +9,24 @@ use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
 use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
+use App\Services\Partner\PartnerOfferService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
 class PartnerRestaurantOfferController extends Controller
 {
+    public function __construct(private PartnerOfferService $partnerOfferService) {}
+
     /**
      * Get a partner's restaurant offers.
      */
     public function getRestaurantOffers(Restaurant $restaurant): JsonResponse
     {
-        // Check if user is authorized
         Gate::authorize('viewPartnerRestaurant', $restaurant);
 
         try {
-            $offers = $restaurant->offers()
-                ->orderBy('created_at', 'asc')
-                ->paginate(6);
+            $offers = $this->partnerOfferService->getOffers($restaurant);
 
             return response()->json($offers, 200);
         } catch (Throwable $e) {
