@@ -6,33 +6,25 @@ namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use App\Services\Partner\PartnerReviewService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 
 class PartnerRestaurantReviewController extends Controller
 {
+    public function __construct(private PartnerReviewService $partnerReviewService) {}
+
     /**
      * Get partner's restaurant reviews.
      */
     public function getRestaurantReviews(Restaurant $restaurant): JsonResponse
     {
-        // Check if user is authorized
         Gate::authorize('viewRestaurantReviews', $restaurant);
 
         try {
-            $reviews = $restaurant->reviews()
-                ->with(['customer', 'order'])
-                ->orderBy('created_at', 'desc')
-                ->paginate(5);
+            $reviews = $this->partnerReviewService->getReviews($restaurant);
 
-            $avg = $restaurant->reviews()->avg('rating');
-            $count = $restaurant->reviews()->count();
-
-            return response()->json([
-                'reviews' => $reviews,
-                'avg_rating' => $avg !== null ? (float) $avg : null,
-                'count' => $count,
-            ], 200);
+            return response()->json($reviews, 200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get reviews.',

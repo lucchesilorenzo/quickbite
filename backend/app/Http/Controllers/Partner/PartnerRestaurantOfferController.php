@@ -101,7 +101,6 @@ class PartnerRestaurantOfferController extends Controller
      */
     public function deleteRestaurantOffer(RestaurantOffer $offer): JsonResponse
     {
-        // Check if user is authorized
         Gate::authorize('delete', $offer);
 
         try {
