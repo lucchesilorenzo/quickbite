@@ -11,6 +11,7 @@ use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
 use App\Services\LocationService;
+use App\Services\Partner\PartnerRestaurantService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -22,7 +23,10 @@ class PartnerRestaurantController extends Controller
     /**
      * Create a new controller instance.
      */
-    public function __construct(private LocationService $locationService) {}
+    public function __construct(
+        private PartnerRestaurantService $restaurantService,
+        private LocationService $locationService
+    ) {}
 
     /**
      * Get partner's restaurants.
@@ -47,21 +51,10 @@ class PartnerRestaurantController extends Controller
      */
     public function getRestaurant(Restaurant $restaurant): JsonResponse
     {
-        // Check if user is authorized
         Gate::authorize('viewPartnerRestaurant', $restaurant);
 
         try {
-            $user = auth()->user();
-
-            $restaurant = $user->restaurants()
-                ->where('id', $restaurant->id)
-                ->with([
-                    'categories',
-                    'deliveryDays' => function ($query) {
-                        $query->orderBy('order', 'asc');
-                    },
-                ])
-                ->first();
+            $restaurant = $this->restaurantService->getRestaurant($restaurant);
 
             return response()->json($restaurant, 200);
         } catch (Throwable $e) {
