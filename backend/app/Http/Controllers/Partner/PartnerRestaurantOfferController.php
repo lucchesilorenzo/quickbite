@@ -10,6 +10,7 @@ use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
 use App\Services\Partner\PartnerOfferService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -45,28 +46,19 @@ class PartnerRestaurantOfferController extends Controller
     ): JsonResponse {
         Gate::authorize('createOffer', $restaurant);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
-            // Check if offer already exists
-            $doesOfferExist = $restaurant->offers()
-                ->where('discount_rate', $data['discount_rate'])
-                ->exists();
-
-            if ($doesOfferExist) {
-                return response()->json([
-                    'message' => 'An offer with the same discount rate already exists.',
-                ], 422);
-            }
-
-            // Create offer
-            $offer = $restaurant->offers()->create($data);
+            $offer = $this->partnerOfferService->createOffer($restaurant, $data);
 
             return response()->json([
-                'message' => 'Offer created successfully.',
                 'offer' => $offer,
+                'message' => 'Offer created successfully.',
             ], 201);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not create offer.',

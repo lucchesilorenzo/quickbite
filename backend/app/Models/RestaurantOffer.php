@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RestaurantOffer extends Model
 {
-    /** @use HasFactory<\Database\Factories\RestaurantOfferFactory> */
     use HasFactory, HasUuids;
 
     protected $fillable = [
