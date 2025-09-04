@@ -9,7 +9,7 @@ use App\Enums\RestaurantRole;
 use App\Enums\UserRole;
 use App\Models\Restaurant;
 use App\Models\User;
-use App\Services\LocationService;
+use App\Services\Shared\LocationService;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;

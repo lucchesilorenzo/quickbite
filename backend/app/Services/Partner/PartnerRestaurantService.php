@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Partner;
 
 use App\Models\Restaurant;
-use App\Services\LocationService;
+use App\Services\Shared\LocationService;
 use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -86,7 +86,7 @@ class PartnerRestaurantService
     {
         return $restaurant->load([
             'categories',
-            'deliveryDays' => fn ($query) => $query->orderBy('order'),
+            'deliveryDays' => fn($query) => $query->orderBy('order'),
         ]);
     }
 

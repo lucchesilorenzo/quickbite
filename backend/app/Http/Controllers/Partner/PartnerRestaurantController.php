@@ -10,7 +10,7 @@ use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
 use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
 use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
-use App\Services\LocationService;
+use App\Services\Shared\LocationService;
 use App\Services\Partner\PartnerRestaurantService;
 use Exception;
 use Illuminate\Http\JsonResponse;

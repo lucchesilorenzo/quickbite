@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Partner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\Auth\PartnerLoginRequest;
 use App\Http\Requests\Partner\Auth\PartnerRegisterRequest;
-use App\Services\LocationService;
+use App\Services\Shared\LocationService;
 use App\Services\Partner\PartnerAuthService;
 use Exception;
 use Illuminate\Http\JsonResponse;
