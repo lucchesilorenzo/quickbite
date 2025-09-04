@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Partner;
+namespace App\Http\Requests\Partner\Restaurant;
 
 use App\Enums\DeliveryDay;
 use Illuminate\Contracts\Validation\Validator;

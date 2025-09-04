@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Partner\UpdateRestaurantDeliveryTimesRequest;
-use App\Http\Requests\Partner\UpdateRestaurantFeesRequest;
-use App\Http\Requests\Partner\UpdateRestaurantInfoRequest;
-use App\Http\Requests\Partner\UpdateRestaurantStatusRequest;
+use App\Http\Requests\Partner\Restaurant\UpdateRestaurantDeliveryTimesRequest;
+use App\Http\Requests\Partner\Restaurant\UpdateRestaurantFeesRequest;
+use App\Http\Requests\Partner\Restaurant\UpdateRestaurantInfoRequest;
+use App\Http\Requests\Partner\Restaurant\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
 use App\Services\Partner\PartnerRestaurantService;
 use App\Services\Shared\LocationService;

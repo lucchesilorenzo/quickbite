@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Partner;
+namespace App\Http\Requests\Partner\Order;
 
-use App\Enums\DiscountRate;
-use App\Rules\ValidMinDiscountAmount;
+use App\Enums\OrderStatus;
+use App\Rules\IsOrderStatusValid;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRestaurantOfferRequest extends FormRequest
+class UpdateOrderStatus extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,10 @@ class UpdateRestaurantOfferRequest extends FormRequest
      */
     public function rules(): array
     {
-        $restaurant = $this->user()->restaurants()
-            ->where('id', $this->route('restaurant')->id)
-            ->first();
+        $order = $this->route('order');
 
         return [
-            'discount_rate' => ['required', 'numeric', Rule::in(DiscountRate::values())],
-            'min_discount_amount' => ['required', 'numeric', new ValidMinDiscountAmount($restaurant->min_amount)],
+            'status' => ['required', Rule::in(OrderStatus::values()), new IsOrderStatusValid($order)],
         ];
     }
 }

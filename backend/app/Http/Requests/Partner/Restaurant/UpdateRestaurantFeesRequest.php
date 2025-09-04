@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Partner;
+namespace App\Http\Requests\Partner\Restaurant;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRestaurantStatusRequest extends FormRequest
+class UpdateRestaurantFeesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,11 @@ class UpdateRestaurantStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'force_close' => ['required', 'boolean'],
+            'delivery_fee' => ['required', 'numeric'],
+            'delivery_time_min' => ['required', 'numeric', 'lte:delivery_time_max'],
+            'delivery_time_max' => ['required', 'numeric'],
+            'service_fee' => ['required', 'numeric'],
+            'min_amount' => ['required', 'numeric'],
         ];
     }
 }

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Partner\CreateRestaurantMenuCategoryRequest;
-use App\Http\Requests\Partner\UpdateRestaurantMenuCategoriesOrderRequest;
-use App\Http\Requests\Partner\UpdateRestaurantMenuCategoryRequest;
+use App\Http\Requests\Partner\Menu\MenuCategory\CreateRestaurantMenuCategoryRequest;
+use App\Http\Requests\Partner\Menu\MenuCategory\UpdateRestaurantMenuCategoriesOrderRequest;
+use App\Http\Requests\Partner\Menu\MenuCategory\UpdateRestaurantMenuCategoryRequest;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use App\Services\Partner\PartnerMenuCategoryService;

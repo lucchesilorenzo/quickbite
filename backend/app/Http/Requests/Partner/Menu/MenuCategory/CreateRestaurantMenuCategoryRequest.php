@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Partner;
+namespace App\Http\Requests\Partner\Menu\MenuCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateRestaurantMenuItemRequest extends FormRequest
+class CreateRestaurantMenuCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,14 +26,6 @@ class UpdateRestaurantMenuItemRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:1', 'max:30'],
             'description' => ['nullable', 'string', 'max:200'],
-            'price' => ['required', 'numeric', 'min:1', 'max:100'],
-            'image' => [
-                'nullable',
-                Rule::when(function ($input) {
-                    return request()->hasFile('image');
-                }, ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
-            ],
-            'is_available' => ['required', 'boolean'],
         ];
     }
 }

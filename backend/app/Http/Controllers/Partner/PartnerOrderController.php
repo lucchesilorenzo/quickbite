@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Partner\UpdateOrderStatus;
+use App\Http\Requests\Partner\Order\UpdateOrderStatus;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Services\Partner\PartnerOrderService;

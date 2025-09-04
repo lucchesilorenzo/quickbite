@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Partner;
+namespace App\Http\Requests\Partner\Restaurant;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRestaurantMenuCategoriesOrderRequest extends FormRequest
+class UpdateRestaurantStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class UpdateRestaurantMenuCategoriesOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            '*.id' => ['required', 'uuid', 'exists:menu_categories,id'],
-            '*.order' => ['required', 'integer'],
+            'force_close' => ['required', 'boolean'],
         ];
     }
 }

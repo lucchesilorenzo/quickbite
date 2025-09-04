@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Partner\CreateRestaurantOfferRequest;
-use App\Http\Requests\Partner\UpdateRestaurantOfferRequest;
+use App\Http\Requests\Partner\Offer\CreateRestaurantOfferRequest;
+use App\Http\Requests\Partner\Offer\UpdateRestaurantOfferRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
 use App\Services\Partner\PartnerOfferService;

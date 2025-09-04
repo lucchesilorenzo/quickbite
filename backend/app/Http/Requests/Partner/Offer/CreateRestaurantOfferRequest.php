@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Partner;
+namespace App\Http\Requests\Partner\Offer;
 
 use App\Enums\DiscountRate;
 use App\Rules\ValidMinDiscountAmount;
