@@ -72,4 +72,22 @@ class PartnerMenuItemService
             return $menuItems;
         });
     }
+
+    public function deleteMenuItem(MenuItem $menuItem): void
+    {
+        if ($menuItem->image && ! str_contains($menuItem->image, 'menu-items/default')) {
+            $oldImagePath = str_replace('/storage/', '', $menuItem->image);
+
+            if (Storage::disk('public')->exists($oldImagePath)) {
+                Storage::disk('public')->delete($oldImagePath);
+            }
+        }
+
+        $menuItem->delete();
+
+        // Decrement menu items order
+        MenuItem::where('menu_category_id', $menuItem->menu_category_id)
+            ->where('order', '>', $menuItem->order)
+            ->decrement('order');
+    }
 }

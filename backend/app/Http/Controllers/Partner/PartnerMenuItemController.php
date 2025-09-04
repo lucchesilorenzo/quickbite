@@ -14,7 +14,6 @@ use App\Services\Partner\PartnerMenuItemService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class PartnerMenuItemController extends Controller
@@ -134,7 +133,6 @@ class PartnerMenuItemController extends Controller
 
             return response()->json([
                 'message' => 'Could not update menu items.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -144,25 +142,10 @@ class PartnerMenuItemController extends Controller
      */
     public function deleteRestaurantMenuItem(MenuItem $menuItem): JsonResponse
     {
-        // Check if user is authorized
         Gate::authorize('delete', $menuItem);
 
         try {
-            if ($menuItem->image && ! str_contains($menuItem->image, 'menu-items/default')) {
-                $oldImagePath = str_replace('/storage/', '', $menuItem->image);
-
-                if (Storage::disk('public')->exists($oldImagePath)) {
-                    Storage::disk('public')->delete($oldImagePath);
-                }
-            }
-
-            // Delete menu item
-            $menuItem->delete();
-
-            // Decrement menu items order
-            MenuItem::where('menu_category_id', $menuItem->menu_category_id)
-                ->where('order', '>', $menuItem->order)
-                ->decrement('order');
+            $this->menuItemService->deleteMenuItem($menuItem);
 
             return response()->json([
                 'message' => 'Menu item deleted successfully.',
