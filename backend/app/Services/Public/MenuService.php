@@ -14,7 +14,7 @@ class MenuService
         $menu = $restaurant->menuCategories()
             ->orderBy('order')
             ->with([
-                'menuItems' => fn($q) => $q->orderBy('order'),
+                'menuItems' => fn ($q) => $q->orderBy('order'),
             ])
             ->get();
 
