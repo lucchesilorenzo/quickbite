@@ -161,7 +161,7 @@ class RestaurantService
         // Take first valid rating filter
         $selectedInterval = array_values(array_intersect(array_keys(self::RATING_INTERVALS), $filters))[0] ?? null;
 
-        if (! is_null($selectedInterval)) {
+        if ($selectedInterval !== null) {
             // Take rating interval
             $range = self::RATING_INTERVALS[$selectedInterval];
 

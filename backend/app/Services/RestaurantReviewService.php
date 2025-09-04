@@ -21,7 +21,7 @@ class RestaurantReviewService
 
         return [
             'reviews' => $reviews,
-            'avg_rating' => ! is_null($avg) ? (float) $avg : null,
+            'avg_rating' => $avg !== null ? (float) $avg : null,
             'count' => $restaurant->reviews()->count(),
         ];
     }

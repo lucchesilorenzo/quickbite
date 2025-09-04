@@ -26,7 +26,7 @@ class PartnerMenuItemService
 
         // Get menu item order
         $menuItemOrder = $menuCategory->menuItems()->max('order');
-        $data['order'] = is_null($menuItemOrder) ? 0 : $menuItemOrder + 1;
+        $data['order'] = $menuItemOrder === null ? 0 : $menuItemOrder + 1;
 
         // Create menu item
         $menuItem = MenuItem::create([

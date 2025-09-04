@@ -30,7 +30,7 @@ class PartnerRestaurantReviewController extends Controller
 
             return response()->json([
                 'reviews' => $reviews,
-                'avg_rating' => ! is_null($avg) ? (float) $avg : null,
+                'avg_rating' => $avg !== null ? (float) $avg : null,
                 'count' => $count,
             ], 200);
         } catch (Throwable $e) {

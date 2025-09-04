@@ -23,7 +23,7 @@ class PartnerMenuCategoryService
             );
         }
 
-        $data['order'] = is_null($menuCategoryOrder) ? 0 : $menuCategoryOrder + 1;
+        $data['order'] = $menuCategoryOrder === null ? 0 : $menuCategoryOrder + 1;
 
         // Create menu category
         $menuCategory = $restaurant->menuCategories()->create([
