@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
-use App\Services\RestaurantOfferService;
+use App\Services\Public\OfferService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class RestaurantOfferController extends Controller
 {
-    public function __construct(private RestaurantOfferService $restaurantOfferService) {}
+    public function __construct(private OfferService $offerService) {}
 
     /**
      * Get restaurant's offers.
@@ -19,7 +19,7 @@ class RestaurantOfferController extends Controller
     public function getRestaurantOffers(Restaurant $restaurant): JsonResponse
     {
         try {
-            $offers = $this->restaurantOfferService->getOffers($restaurant);
+            $offers = $this->offerService->getOffers($restaurant);
 
             return response()->json($offers, 200);
         } catch (Throwable $e) {

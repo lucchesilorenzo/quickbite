@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
-use App\Services\RestaurantService;
+use App\Services\Public\RestaurantService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

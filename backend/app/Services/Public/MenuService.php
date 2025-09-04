@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Public;
 
 use App\Models\Restaurant;
 use Illuminate\Support\Collection;
 
-class RestaurantMenuService
+class MenuService
 {
     public function getMenu(Restaurant $restaurant): Collection
     {
         $menu = $restaurant->menuCategories()
             ->orderBy('order')
             ->with([
-                'menuItems' => fn ($q) => $q->orderBy('order'),
+                'menuItems' => fn($q) => $q->orderBy('order'),
             ])
             ->get();
 

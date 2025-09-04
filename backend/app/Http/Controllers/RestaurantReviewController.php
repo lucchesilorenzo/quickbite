@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
-use App\Services\RestaurantReviewService;
+use App\Services\Public\ReviewService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class RestaurantReviewController extends Controller
 {
-    public function __construct(private RestaurantReviewService $restaurantReview) {}
+    public function __construct(private ReviewService $reviewService) {}
 
     /**
      * Get restaurant's reviews.
@@ -19,7 +19,7 @@ class RestaurantReviewController extends Controller
     public function getRestaurantReviews(Restaurant $restaurant): JsonResponse
     {
         try {
-            $reviews = $this->restaurantReview->getReviews($restaurant);
+            $reviews = $this->reviewService->getReviews($restaurant);
 
             return response()->json($reviews, 200);
         } catch (Throwable $e) {

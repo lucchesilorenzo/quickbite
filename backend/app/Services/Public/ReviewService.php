@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Public;
 
 use App\Models\Restaurant;
 
-class RestaurantReviewService
+class ReviewService
 {
     private const PER_PAGE = 5;
 

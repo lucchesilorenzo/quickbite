@@ -12,7 +12,9 @@ use Throwable;
 
 class CustomerRestaurantReviewController extends Controller
 {
-    public function __construct(private CustomerReviewService $customerReviewService) {}
+    public function __construct(
+        private CustomerReviewService $customerReviewService
+    ) {}
 
     /**
      * Create a customer's review.

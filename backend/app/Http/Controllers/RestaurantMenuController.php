@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
-use App\Services\RestaurantMenuService;
+use App\Services\Public\MenuService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class RestaurantMenuController extends Controller
 {
-    public function __construct(private RestaurantMenuService $restaurantMenuService) {}
+    public function __construct(private MenuService $menuService) {}
 
     /**
      * Get restaurant's menu.
@@ -19,7 +19,7 @@ class RestaurantMenuController extends Controller
     public function getRestaurantMenu(Restaurant $restaurant): JsonResponse
     {
         try {
-            $menu = $this->restaurantMenuService->getMenu($restaurant);
+            $menu = $this->menuService->getMenu($restaurant);
 
             return response()->json($menu, 200);
         } catch (Throwable $e) {

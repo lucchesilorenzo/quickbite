@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Public;
 
 use App\Models\Restaurant;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class RestaurantOfferService
+class OfferService
 {
     private const PER_PAGE = 6;
 
