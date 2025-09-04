@@ -44,4 +44,14 @@ class PartnerMenuCategoryService
             return $menuCategories;
         });
     }
+
+    public function deleteMenuCategory(MenuCategory $menuCategory): void
+    {
+        $menuCategory->delete();
+
+        // Decrement menu categories order
+        MenuCategory::where('restaurant_id', $menuCategory->restaurant_id)
+            ->where('order', '>', $menuCategory->order)
+            ->decrement('order');
+    }
 }

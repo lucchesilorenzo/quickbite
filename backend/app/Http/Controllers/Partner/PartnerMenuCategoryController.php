@@ -110,19 +110,16 @@ class PartnerMenuCategoryController extends Controller
         MenuCategory $menuCategory,
         UpdateRestaurantMenuCategoryRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('update', $menuCategory);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
-            // Update menu category
             $menuCategory->update($data);
 
             return response()->json([
-                'message' => 'Menu category updated successfully.',
                 'menuCategory' => $menuCategory,
+                'message' => 'Menu category updated successfully.',
             ], 200);
         } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
@@ -142,17 +139,10 @@ class PartnerMenuCategoryController extends Controller
      */
     public function deleteRestaurantMenuCategory(MenuCategory $menuCategory): JsonResponse
     {
-        // Check if user is authorized
         Gate::authorize('delete', $menuCategory);
 
         try {
-            // Delete menu category
-            $menuCategory->delete();
-
-            // Decrement menu categories order
-            MenuCategory::where('restaurant_id', $menuCategory->restaurant_id)
-                ->where('order', '>', $menuCategory->order)
-                ->decrement('order');
+            $this->partnerMenuCategoryService->deleteMenuCategory($menuCategory);
 
             return response()->json([
                 'message' => 'Menu category deleted successfully.',
