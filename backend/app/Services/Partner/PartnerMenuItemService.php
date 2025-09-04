@@ -6,12 +6,14 @@ namespace App\Services\Partner;
 
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
+use App\Services\Shared\ImageService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class PartnerMenuItemService
 {
+    public function __construct(private ImageService $imageService) {}
+
     public function createMenuItem(
         MenuCategory $menuCategory,
         ?UploadedFile $image,
@@ -19,8 +21,7 @@ class PartnerMenuItemService
     ): MenuItem {
         // Handle image upload if provided
         if ($image) {
-            $path = $image->store('restaurants/menu-items', 'public');
-            $data['image'] = '/storage/' . $path;
+            $this->imageService->create($image, 'restaurants/menu-items');
         }
 
         // Get menu item order
@@ -43,18 +44,12 @@ class PartnerMenuItemService
         array $data
     ): MenuItem {
         if ($image) {
-            // Delete old image, only if it's not a default image
-            if ($menuItem->image && ! str_contains($menuItem->image, 'menu-items/default')) {
-                $oldImagePath = str_replace('/storage/', '', $menuItem->image);
-
-                if (Storage::disk('public')->exists($oldImagePath)) {
-                    Storage::disk('public')->delete($oldImagePath);
-                }
-            }
-
-            // Upload new image
-            $path = $image->store('restaurants/menu-items', 'public');
-            $data['image'] = '/storage/' . $path;
+            $data['image'] = $this->imageService->update(
+                $menuItem->image,
+                $image,
+                'restaurants/menu-items',
+                'menu-items/default'
+            );
         }
 
         $menuItem->update($data);
@@ -75,13 +70,7 @@ class PartnerMenuItemService
 
     public function deleteMenuItem(MenuItem $menuItem): void
     {
-        if ($menuItem->image && ! str_contains($menuItem->image, 'menu-items/default')) {
-            $oldImagePath = str_replace('/storage/', '', $menuItem->image);
-
-            if (Storage::disk('public')->exists($oldImagePath)) {
-                Storage::disk('public')->delete($oldImagePath);
-            }
-        }
+        $this->imageService->delete($menuItem->image, 'menu-items/default');
 
         $menuItem->delete();
 

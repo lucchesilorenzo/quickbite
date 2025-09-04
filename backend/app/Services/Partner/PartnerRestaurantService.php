@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace App\Services\Partner;
 
 use App\Models\Restaurant;
+use App\Services\Shared\ImageService;
 use App\Services\Shared\LocationService;
 use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class PartnerRestaurantService
 {
-    public function __construct(private LocationService $locationService) {}
+    public function __construct(
+        private LocationService $locationService,
+        private ImageService $imageService
+    ) {}
 
     public function getRestaurant(Restaurant $restaurant): Restaurant
     {
@@ -43,7 +46,7 @@ class PartnerRestaurantService
         array $data
     ): Restaurant {
         if ($logo) {
-            $data['logo'] = $this->handleImageUpload(
+            $data['logo'] = $this->imageService->update(
                 $restaurant->logo,
                 $logo,
                 'restaurants/logos',
@@ -52,7 +55,7 @@ class PartnerRestaurantService
         }
 
         if ($cover) {
-            $data['cover'] = $this->handleImageUpload(
+            $data['cover'] = $this->imageServiceupdate(
                 $restaurant->cover,
                 $cover,
                 'restaurants/covers',
@@ -86,26 +89,7 @@ class PartnerRestaurantService
     {
         return $restaurant->load([
             'categories',
-            'deliveryDays' => fn($query) => $query->orderBy('order'),
+            'deliveryDays' => fn ($query) => $query->orderBy('order'),
         ]);
-    }
-
-    private function handleImageUpload(
-        ?string $currentPath,
-        UploadedFile $newFile,
-        string $folder,
-        string $defaultSubpath
-    ): string {
-        if ($currentPath && ! str_contains($currentPath, $defaultSubpath)) {
-            $oldPath = str_replace('/storage/', '', $currentPath);
-
-            if (Storage::disk('public')->exists($oldPath)) {
-                Storage::disk('public')->delete($oldPath);
-            }
-        }
-
-        $path = $newFile->store($folder, 'public');
-
-        return '/storage/' . $path;
     }
 }
