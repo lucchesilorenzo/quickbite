@@ -10,6 +10,7 @@ use App\Http\Requests\Partner\UpdateRestaurantMenuItemRequest;
 use App\Http\Requests\Partner\UpdateRestaurantMenuItemsOrderRequest;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
+use App\Services\Partner\PartnerMenuItemService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,8 @@ use Throwable;
 
 class PartnerMenuItemController extends Controller
 {
+    public function __construct(private PartnerMenuItemService $menuItemService) {}
+
     /**
      * Create a partner's restaurant menu item.
      */
@@ -26,34 +29,23 @@ class PartnerMenuItemController extends Controller
         MenuCategory $menuCategory,
         CreateRestaurantMenuItemRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('createMenuItem', $menuCategory);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
-            if ($request->hasFile('image')) {
-                $path = $request->file('image')->store('restaurants/menu-items', 'public');
-                $data['image'] = '/storage/' . $path;
-            }
+            $image = $request->hasFile('image') ? $request->file('image') : null;
 
-            // Get menu item order
-            $menuItemOrder = $menuCategory->menuItems()->max('order');
-
-            $data['order'] = is_null($menuItemOrder) ? 0 : $menuItemOrder + 1;
-
-            // Create menu item
-            $menuItem = MenuItem::create([
-                ...$data,
-                'menu_category_id' => $menuCategory->id,
-                'order' => $data['order'],
-            ]);
+            $menuItem = $this->menuItemService->createMenuItem(
+                $menuCategory,
+                $image,
+                $data
+            );
 
             return response()->json([
-                'message' => 'Menu item created successfully.',
                 'menuItem' => $menuItem,
-            ], 200);
+                'message' => 'Menu item created successfully.',
+            ], 201);
         } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
                 return response()->json([
