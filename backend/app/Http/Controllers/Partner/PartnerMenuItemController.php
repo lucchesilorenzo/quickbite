@@ -11,9 +11,8 @@ use App\Http\Requests\Partner\UpdateRestaurantMenuItemsOrderRequest;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Services\Partner\PartnerMenuItemService;
-use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
@@ -102,43 +101,31 @@ class PartnerMenuItemController extends Controller
     public function updateRestaurantMenuItemsOrder(
         UpdateRestaurantMenuItemsOrderRequest $request
     ): JsonResponse {
-        // Get validated data
         $data = $request->validated();
 
         try {
-            $updatedMenuItems = DB::transaction(function () use ($data) {
-                $updatedMenuItems = [];
+            $menuItems = [];
 
-                foreach ($data as $menuItemData) {
-                    $menuItem = MenuItem::find($menuItemData['id']);
+            foreach ($data as $menuItemData) {
+                $menuItem = MenuItem::findOrFail($menuItemData['id']);
 
-                    if (! $menuItem) {
-                        throw new Exception('Menu item not found.', 404);
-                    }
+                Gate::authorize('update', $menuItem);
 
-                    Gate::authorize('update', $menuItem);
-
-                    $menuItem->update([
-                        'order' => $menuItemData['order'],
-                    ]);
-
-                    $updatedMenuItems[] = $menuItem;
-                }
-
-                return $updatedMenuItems;
-            });
-
-            return response()->json([
-                'message' => 'Order updated successfully.',
-                'menuItems' => $updatedMenuItems,
-            ], 200);
-        } catch (Throwable $e) {
-            if ($e->getMessage() === 'Menu item not found.') {
-                return response()->json([
-                    'message' => $e->getMessage(),
-                ], 404);
+                $menuItem->order = $menuItemData['order'];
+                $menuItems[] = $menuItem;
             }
 
+            $updatedMenuItems = $this->menuItemService->updateMenuItemsOrder($menuItems);
+
+            return response()->json([
+                'menuItems' => $updatedMenuItems,
+                'message' => 'Order updated successfully.',
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Menu item not found.',
+            ], 404);
+        } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
                 return response()->json([
                     'message' => 'Menu item with the same name already exists.',
@@ -147,6 +134,7 @@ class PartnerMenuItemController extends Controller
 
             return response()->json([
                 'message' => 'Could not update menu items.',
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
