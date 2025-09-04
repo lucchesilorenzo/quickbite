@@ -15,7 +15,6 @@ use App\Services\Partner\PartnerRestaurantService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class PartnerRestaurantController extends Controller
@@ -148,67 +147,25 @@ class PartnerRestaurantController extends Controller
         Restaurant $restaurant,
         UpdateRestaurantInfoRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('update', $restaurant);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
-            if ($request->hasFile('logo')) {
-                if ($restaurant->logo && ! str_contains($restaurant->image, 'logos/default')) {
-                    $oldLogoPath = str_replace('/storage/', '', $restaurant->logo);
+            $logo = $request->hasFile('logo') ? $request->file('logo') : null;
+            $cover = $request->hasFile('cover') ? $request->file('cover') : null;
 
-                    if (Storage::disk('public')->exists($oldLogoPath)) {
-                        Storage::disk('public')->delete($oldLogoPath);
-                    }
-                }
-
-                $path = $request->file('logo')->store('restaurants/logos', 'public');
-                $data['logo'] = '/storage/' . $path;
-            }
-
-            if ($request->hasFile('cover')) {
-                if ($restaurant->cover && ! str_contains($restaurant->image, 'covers/default')) {
-                    $oldCoverPath = str_replace('/storage/', '', $restaurant->cover);
-
-                    if (Storage::disk('public')->exists($oldCoverPath)) {
-                        Storage::disk('public')->delete($oldCoverPath);
-                    }
-                }
-
-                $path = $request->file('cover')->store('restaurants/covers', 'public');
-                $data['cover'] = '/storage/' . $path;
-            }
-
-            // Get location
-            $locationData = $this->locationService->getLocationData($data);
-
-            if (! $locationData) {
-                throw new Exception('Location not found.');
-            }
-
-            // Update restaurant info
-            $restaurant->update([
-                ...$data,
-                'latitude' => $locationData['lat'],
-                'longitude' => $locationData['lon'],
-            ]);
-
-            // Create or update restaurant categories
-            $restaurant->categories()->sync($data['categories']);
+            $restaurant = $this->restaurantService->updateInfo($restaurant, $logo, $cover, $data);
 
             return response()->json([
-                'message' => 'Restaurant info updated successfully.',
                 'restaurant' => $restaurant,
+                'message' => 'Restaurant info updated successfully.',
             ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable $e) {
-            if ($e->getMessage() === 'Location not found.') {
-                return response()->json([
-                    'message' => $e->getMessage(),
-                ], 404);
-            }
-
             return response()->json([
                 'message' => 'Could not update restaurant info.',
             ], 500);
