@@ -71,10 +71,8 @@ class PartnerRestaurantController extends Controller
         Restaurant $restaurant,
         UpdateRestaurantStatusRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('update', $restaurant);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
@@ -83,8 +81,8 @@ class PartnerRestaurantController extends Controller
             ]);
 
             return response()->json([
-                'message' => 'Restaurant status updated successfully.',
                 'restaurant' => $restaurant,
+                'message' => 'Restaurant status updated successfully.',
             ], 200);
         } catch (Throwable $e) {
             return response()->json([
@@ -100,18 +98,16 @@ class PartnerRestaurantController extends Controller
         Restaurant $restaurant,
         UpdateRestaurantFeesRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('update', $restaurant);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
             $restaurant->update($data);
 
             return response()->json([
-                'message' => 'Restaurant fees updated successfully.',
                 'restaurant' => $restaurant,
+                'message' => 'Restaurant fees updated successfully.',
             ], 200);
         } catch (Throwable $e) {
             return response()->json([
@@ -127,26 +123,16 @@ class PartnerRestaurantController extends Controller
         Restaurant $restaurant,
         UpdateRestaurantDeliveryTimesRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('update', $restaurant);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
-            // Update delivery days
-            foreach ($data['delivery_days'] as $deliveryDay) {
-                $restaurant->deliveryDays()
-                    ->where('day', $deliveryDay['day'])
-                    ->update([
-                        'start_time' => $deliveryDay['start_time'],
-                        'end_time' => $deliveryDay['end_time'],
-                    ]);
-            }
+            $restaurant = $this->restaurantService->updateDeliveryTimes($restaurant, $data);
 
             return response()->json([
-                'message' => 'Restaurant delivery times updated successfully.',
                 'restaurant' => $restaurant,
+                'message' => 'Restaurant delivery times updated successfully.',
             ], 200);
         } catch (Throwable $e) {
             return response()->json([
