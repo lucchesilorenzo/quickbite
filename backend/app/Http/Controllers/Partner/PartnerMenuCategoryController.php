@@ -12,8 +12,8 @@ use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use App\Services\Partner\PartnerMenuCategoryService;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
@@ -62,43 +62,35 @@ class PartnerMenuCategoryController extends Controller
     public function updateRestaurantMenuCategoriesOrder(
         UpdateRestaurantMenuCategoriesOrderRequest $request
     ): JsonResponse {
-        // Get validated data
         $data = $request->validated();
 
         try {
-            $updatedMenuCategories = DB::transaction(function () use ($data) {
-                $updatedCategories = [];
+            $menuCategories = [];
 
-                foreach ($data as $menuCategoryData) {
-                    $menuCategory = MenuCategory::find($menuCategoryData['id']);
+            foreach ($data as $menuCategoryData) {
+                $menuCategory = MenuCategory::findOrFail($menuCategoryData['id']);
 
-                    if (! $menuCategory) {
-                        throw new Exception('Menu category not found.', 404);
-                    }
+                Gate::authorize('update', $menuCategory);
 
-                    Gate::authorize('update', $menuCategory);
-
-                    $menuCategory->update([
-                        'order' => $menuCategoryData['order'],
-                    ]);
-
-                    $updatedCategories[] = $menuCategory;
-                }
-
-                return $updatedCategories;
-            });
-
-            return response()->json([
-                'message' => 'Order updated successfully.',
-                'menuCategories' => $updatedMenuCategories,
-            ], 200);
-        } catch (Throwable $e) {
-            if ($e->getMessage() === 'Menu category not found.') {
-                return response()->json([
-                    'message' => $e->getMessage(),
-                ], 404);
+                $menuCategory->order = $menuCategoryData['order'];
+                $menuCategories[] = $menuCategory;
             }
 
+            $updatedMenuCategories = $this->partnerMenuCategoryService->updateMenuCategoriesOrder($menuCategories);
+
+            return response()->json([
+                'menuCategories' => $updatedMenuCategories,
+                'message' => 'Order updated successfully.',
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Menu category not found.',
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
                 return response()->json([
                     'message' => 'Menu category with the same name already exists.',

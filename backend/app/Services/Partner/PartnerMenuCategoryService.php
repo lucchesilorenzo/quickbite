@@ -7,6 +7,7 @@ namespace App\Services\Partner;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class PartnerMenuCategoryService
 {
@@ -31,5 +32,16 @@ class PartnerMenuCategoryService
         ]);
 
         return $menuCategory;
+    }
+
+    public function updateMenuCategoriesOrder(array $menuCategories): array
+    {
+        return DB::transaction(function () use ($menuCategories) {
+            foreach ($menuCategories as $menuCategory) {
+                $menuCategory->save();
+            }
+
+            return $menuCategories;
+        });
     }
 }
