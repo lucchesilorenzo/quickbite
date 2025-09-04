@@ -7,6 +7,7 @@ namespace App\Services\Partner;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class PartnerMenuItemService
 {
@@ -31,6 +32,31 @@ class PartnerMenuItemService
 			'menu_category_id' => $menuCategory->id,
 			'order' => $data['order'],
 		]);
+
+		return $menuItem;
+	}
+
+	public function updateMenuItem(
+		MenuItem $menuItem,
+		?UploadedFile $image,
+		array $data
+	): MenuItem {
+		if ($image) {
+			// Delete old image, only if it's not a default image
+			if ($menuItem->image && ! str_contains($menuItem->image, 'menu-items/default')) {
+				$oldImagePath = str_replace('/storage/', '', $menuItem->image);
+
+				if (Storage::disk('public')->exists($oldImagePath)) {
+					Storage::disk('public')->delete($oldImagePath);
+				}
+			}
+
+			// Upload new image
+			$path = $image->store('restaurants/menu-items', 'public');
+			$data['image'] = '/storage/' . $path;
+		}
+
+		$menuItem->update($data);
 
 		return $menuItem;
 	}

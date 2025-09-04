@@ -66,32 +66,22 @@ class PartnerMenuItemController extends Controller
         MenuItem $menuItem,
         UpdateRestaurantMenuItemRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('update', $menuItem);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
-            if ($request->hasFile('image')) {
-                if ($menuItem->image && ! str_contains($menuItem->image, 'menu-items/default')) {
-                    $oldImagePath = str_replace('/storage/', '', $menuItem->image);
+            $image = $request->hasFile('image') ? $request->file('image') : null;
 
-                    if (Storage::disk('public')->exists($oldImagePath)) {
-                        Storage::disk('public')->delete($oldImagePath);
-                    }
-                }
-
-                $path = $request->file('image')->store('restaurants/menu-items', 'public');
-                $data['image'] = '/storage/' . $path;
-            }
-
-            // Update menu item
-            $menuItem->update($data);
+            $menuItem = $this->menuItemService->updateMenuItem(
+                $menuItem,
+                $image,
+                $data
+            );
 
             return response()->json([
-                'message' => 'Menu item updated successfully.',
                 'menuItem' => $menuItem,
+                'message' => 'Menu item updated successfully.',
             ], 200);
         } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
