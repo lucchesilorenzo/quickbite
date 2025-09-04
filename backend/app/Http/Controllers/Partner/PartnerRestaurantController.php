@@ -19,11 +19,8 @@ use Throwable;
 
 class PartnerRestaurantController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     */
     public function __construct(
-        private PartnerRestaurantService $restaurantService,
+        private PartnerRestaurantService $partnerRestaurantService,
         private LocationService $locationService
     ) {}
 
@@ -53,7 +50,7 @@ class PartnerRestaurantController extends Controller
         Gate::authorize('viewPartnerRestaurant', $restaurant);
 
         try {
-            $restaurant = $this->restaurantService->getRestaurant($restaurant);
+            $restaurant = $this->partnerRestaurantService->getRestaurant($restaurant);
 
             return response()->json($restaurant, 200);
         } catch (Throwable $e) {
@@ -127,7 +124,7 @@ class PartnerRestaurantController extends Controller
         $data = $request->validated();
 
         try {
-            $restaurant = $this->restaurantService->updateDeliveryTimes($restaurant, $data);
+            $restaurant = $this->partnerRestaurantService->updateDeliveryTimes($restaurant, $data);
 
             return response()->json([
                 'restaurant' => $restaurant,
@@ -155,7 +152,7 @@ class PartnerRestaurantController extends Controller
             $logo = $request->hasFile('logo') ? $request->file('logo') : null;
             $cover = $request->hasFile('cover') ? $request->file('cover') : null;
 
-            $restaurant = $this->restaurantService->updateInfo($restaurant, $logo, $cover, $data);
+            $restaurant = $this->partnerRestaurantService->updateInfo($restaurant, $logo, $cover, $data);
 
             return response()->json([
                 'restaurant' => $restaurant,

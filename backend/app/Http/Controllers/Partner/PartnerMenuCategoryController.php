@@ -19,7 +19,9 @@ use Throwable;
 
 class PartnerMenuCategoryController extends Controller
 {
-    public function __construct(private PartnerMenuCategoryService $menuCategoryService) {}
+    public function __construct(
+        private PartnerMenuCategoryService $partnerMenuCategoryService
+    ) {}
 
     /**
      * Create a partner's restaurant menu category.
@@ -33,7 +35,7 @@ class PartnerMenuCategoryController extends Controller
         $data = $request->validated();
 
         try {
-            $menuCategory = $this->menuCategoryService->createMenuCategory($restaurant, $data);
+            $menuCategory = $this->partnerMenuCategoryService->createMenuCategory($restaurant, $data);
 
             return response()->json([
                 'menuCategory' => $menuCategory,
@@ -76,7 +78,7 @@ class PartnerMenuCategoryController extends Controller
                 $menuCategories[] = $menuCategory;
             }
 
-            $updatedMenuCategories = $this->menuCategoryService->updateMenuCategoriesOrder($menuCategories);
+            $updatedMenuCategories = $this->partnerMenuCategoryService->updateMenuCategoriesOrder($menuCategories);
 
             return response()->json([
                 'menuCategories' => $updatedMenuCategories,
@@ -142,7 +144,7 @@ class PartnerMenuCategoryController extends Controller
         Gate::authorize('delete', $menuCategory);
 
         try {
-            $this->menuCategoryService->deleteMenuCategory($menuCategory);
+            $this->partnerMenuCategoryService->deleteMenuCategory($menuCategory);
 
             return response()->json([
                 'message' => 'Menu category deleted successfully.',

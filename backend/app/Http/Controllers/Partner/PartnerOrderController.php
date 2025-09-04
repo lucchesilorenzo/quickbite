@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Gate;
 
 class PartnerOrderController extends Controller
 {
-    public function __construct(private PartnerOrderService $orderService) {}
+    public function __construct(
+        private PartnerOrderService $partnerOrderService
+    ) {}
 
     /**
      * Get restaurant's orders.
@@ -25,7 +27,7 @@ class PartnerOrderController extends Controller
         Gate::authorize('viewRestaurantOrders', $restaurant);
 
         try {
-            $orders = $this->orderService->getOrders($restaurant);
+            $orders = $this->partnerOrderService->getOrders($restaurant);
 
             return response()->json($orders, 200);
         } catch (Throwable $e) {
@@ -47,7 +49,7 @@ class PartnerOrderController extends Controller
         $data = $request->validated();
 
         try {
-            $order = $this->orderService->updateOrderStatus($order, $data);
+            $order = $this->partnerOrderService->updateOrderStatus($order, $data);
 
             return response()->json([
                 'order' => $order,

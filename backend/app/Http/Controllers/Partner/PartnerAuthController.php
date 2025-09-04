@@ -15,9 +15,6 @@ use Throwable;
 
 class PartnerAuthController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     */
     public function __construct(
         private PartnerAuthService $partnerAuthService,
         private LocationService $locationService

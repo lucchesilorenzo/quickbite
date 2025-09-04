@@ -18,7 +18,9 @@ use Throwable;
 
 class PartnerMenuItemController extends Controller
 {
-    public function __construct(private PartnerMenuItemService $menuItemService) {}
+    public function __construct(
+        private PartnerMenuItemService $partnerMenuItemService
+    ) {}
 
     /**
      * Create a partner's restaurant menu item.
@@ -34,7 +36,7 @@ class PartnerMenuItemController extends Controller
         try {
             $image = $request->hasFile('image') ? $request->file('image') : null;
 
-            $menuItem = $this->menuItemService->createMenuItem(
+            $menuItem = $this->partnerMenuItemService->createMenuItem(
                 $menuCategory,
                 $image,
                 $data
@@ -71,7 +73,7 @@ class PartnerMenuItemController extends Controller
         try {
             $image = $request->hasFile('image') ? $request->file('image') : null;
 
-            $menuItem = $this->menuItemService->updateMenuItem(
+            $menuItem = $this->partnerMenuItemService->updateMenuItem(
                 $menuItem,
                 $image,
                 $data
@@ -114,7 +116,7 @@ class PartnerMenuItemController extends Controller
                 $menuItems[] = $menuItem;
             }
 
-            $updatedMenuItems = $this->menuItemService->updateMenuItemsOrder($menuItems);
+            $updatedMenuItems = $this->partnerMenuItemService->updateMenuItemsOrder($menuItems);
 
             return response()->json([
                 'menuItems' => $updatedMenuItems,
@@ -145,7 +147,7 @@ class PartnerMenuItemController extends Controller
         Gate::authorize('delete', $menuItem);
 
         try {
-            $this->menuItemService->deleteMenuItem($menuItem);
+            $this->partnerMenuItemService->deleteMenuItem($menuItem);
 
             return response()->json([
                 'message' => 'Menu item deleted successfully.',
