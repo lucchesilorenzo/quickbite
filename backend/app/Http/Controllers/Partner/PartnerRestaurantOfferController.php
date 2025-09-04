@@ -74,31 +74,21 @@ class PartnerRestaurantOfferController extends Controller
         RestaurantOffer $offer,
         UpdateRestaurantOfferRequest $request
     ): JsonResponse {
-        // Check if user is authorized
         Gate::authorize('update', $offer);
 
-        // Get validated data
         $data = $request->validated();
 
         try {
-            // Check if offer already exists
-            $doesOfferExist = $restaurant->offers()
-                ->where('discount_rate', $data['discount_rate'])
-                ->whereNot('id', $offer->id)
-                ->exists();
-
-            if ($doesOfferExist) {
-                return response()->json([
-                    'message' => 'An offer with the same discount rate already exists.',
-                ], 422);
-            }
-
-            $offer->update($data);
+            $offer = $this->partnerOfferService->updateOffer($restaurant, $offer, $data);
 
             return response()->json([
-                'message' => 'Offer updated successfully.',
                 'offer' => $offer,
+                'message' => 'Offer updated successfully.',
             ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update offer.',
