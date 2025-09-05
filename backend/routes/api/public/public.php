@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\RestaurantMenuController;
-use App\Http\Controllers\RestaurantOfferController;
-use App\Http\Controllers\RestaurantReviewController;
+use App\Http\Controllers\Public\CategoryController;
+use App\Http\Controllers\Public\RestaurantController;
+use App\Http\Controllers\Public\RestaurantMenuController;
+use App\Http\Controllers\Public\RestaurantOfferController;
+use App\Http\Controllers\Public\RestaurantReviewController;
 use Illuminate\Support\Facades\Route;
 
 // === RESTAURANTS ===
