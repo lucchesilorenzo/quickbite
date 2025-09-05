@@ -16,20 +16,20 @@ class PartnerStatsService
             ->where('status', OrderStatus::DELIVERED->value)
             ->sum('total');
 
-        $acceptedOrdersCount = $restaurant->orders()
+        $acceptedOrders = $restaurant->orders()
             ->whereToday('created_at')
             ->where('status', OrderStatus::ACCEPTED->value)
             ->count();
 
-        $rejectedOrdersCount = $restaurant->orders()
+        $rejectedOrders = $restaurant->orders()
             ->whereToday('created_at')
             ->where('status', OrderStatus::REJECTED->value)
             ->count();
 
         return [
             'earnings_today' => $earningsToday,
-            'accepted_orders_count' => $acceptedOrdersCount,
-            'rejected_orders_count' => $rejectedOrdersCount,
+            'accepted_orders' => $acceptedOrders,
+            'rejected_orders' => $rejectedOrders,
         ];
     }
 }
