@@ -7,7 +7,7 @@ import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
-import { RestaurantBase, RestaurantTab } from "@/types";
+import { RestaurantBase, RestaurantTab, StatRange } from "@/types";
 import { OrderStatus } from "@/types/order-types";
 
 export const emptyRestaurant = {
@@ -503,13 +503,13 @@ export const discountRates = [
 ];
 
 export const orderStatuses = {
-  pending: { label: "Pending", value: "pending", color: "default" },
-  accepted: { label: "Accepted", value: "accepted", color: "success" },
-  rejected: { label: "Rejected", value: "rejected", color: "error" },
-  preparing: { label: "Preparing", value: "preparing", color: "default" },
-  delivering: { label: "Delivering", value: "delivering", color: "primary" },
-  delivered: { label: "Delivered", value: "delivered", color: "success" },
-  cancelled: { label: "Cancelled", value: "cancelled", color: "error" },
+  pending: { value: "pending", label: "Pending", color: "default" },
+  accepted: { value: "accepted", label: "Accepted", color: "success" },
+  rejected: { value: "rejected", label: "Rejected", color: "error" },
+  preparing: { value: "preparing", label: "Preparing", color: "default" },
+  delivering: { value: "delivering", label: "Delivering", color: "primary" },
+  delivered: { value: "delivered", label: "Delivered", color: "success" },
+  cancelled: { value: "cancelled", label: "Cancelled", color: "error" },
 } as const;
 
 export const partnerStatusTransitions: Record<OrderStatus, OrderStatus[]> = {
@@ -523,3 +523,10 @@ export const partnerStatusTransitions: Record<OrderStatus, OrderStatus[]> = {
 };
 
 export const restaurantTabs: RestaurantTab[] = ["info", "reviews", "offers"];
+
+export const statRanges: { value: StatRange; label: string }[] = [
+  { value: "all", label: "All time" },
+  { value: "7d", label: "Last 7 days" },
+  { value: "14d", label: "Last 14 days" },
+  { value: "30d", label: "Last 30 days" },
+];
