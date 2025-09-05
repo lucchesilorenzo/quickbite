@@ -61,6 +61,6 @@ Route::prefix('partner')->group(function () {
         Route::patch('/orders/{order}/status', [PartnerOrderController::class, 'updateOrderStatus']);
 
         // Stats
-        Route::get('/{restaurant}/stats', [PartnerRestaurantStatsController::class, 'getRestaurantDashboardStats']);
+        Route::get('/{restaurant}/stats/dashboard', [PartnerRestaurantStatsController::class, 'getRestaurantDashboardStats']);
     });
 });
