@@ -3,3 +3,5 @@ export type DashboardStat = {
   accepted_orders: number;
   rejected_orders: number;
 };
+
+export type StatRange = "7d" | "14d" | "30d" | "all";
