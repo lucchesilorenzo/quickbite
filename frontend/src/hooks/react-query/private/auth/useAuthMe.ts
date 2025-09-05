@@ -9,6 +9,5 @@ export function useAuthMe() {
     queryFn: (): Promise<User> => fetchData("/auth/me"),
     retry: false,
     refetchOnWindowFocus: false,
-    initialData: null,
   });
 }
