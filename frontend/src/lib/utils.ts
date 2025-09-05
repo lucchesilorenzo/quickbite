@@ -1,4 +1,11 @@
-import { differenceInYears, format, isValid, parse, parseISO } from "date-fns";
+import {
+  differenceInYears,
+  format,
+  isValid,
+  parse,
+  parseISO,
+  subDays,
+} from "date-fns";
 
 import { orderStatuses, partnerStatusTransitions } from "./data";
 
@@ -8,6 +15,7 @@ import {
   RestaurantCart,
   Role,
   SingleRestaurantDetail,
+  StatRange,
   User,
 } from "@/types";
 import { OrderStatus } from "@/types/order-types";
@@ -96,6 +104,27 @@ export function getDisabledOrderStatuses(currentStatus: OrderStatus) {
   return Object.keys(orderStatuses).filter(
     (s) => !partnerStatusTransitions[currentStatus].includes(s as OrderStatus),
   );
+}
+
+export function getComputedRangeLabel(range: StatRange) {
+  const today = new Date();
+
+  if (range === "all") {
+    return "for all time";
+  }
+
+  const ranges: Record<string, number> = {
+    "7d": 7,
+    "14d": 14,
+    "30d": 30,
+  };
+
+  const days = ranges[range];
+  if (!days) return "";
+
+  const from = subDays(today, days);
+
+  return `from ${format(from, "d MMM")} - ${format(today, "d MMM")}`;
 }
 
 // === Auth ===
