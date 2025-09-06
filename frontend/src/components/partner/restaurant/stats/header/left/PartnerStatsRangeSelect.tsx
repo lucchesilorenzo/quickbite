@@ -8,12 +8,13 @@ import { StatRange } from "@/types";
 export default function PartnerStatsRangeSelect() {
   const { range, setRange } = usePartnerRestaurantStats();
 
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleRangeChange(e: SelectChangeEvent<StatRange>) {
     setRange(e.target.value);
 
     setSearchParams({
+      ...Object.fromEntries(searchParams),
       range: e.target.value !== "all" ? e.target.value : [],
     });
   }
