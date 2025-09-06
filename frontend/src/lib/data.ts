@@ -7,7 +7,7 @@ import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
-import { RestaurantBase, RestaurantTab, StatRange } from "@/types";
+import { Kpi, RestaurantBase, RestaurantTab, StatRange } from "@/types";
 import { OrderStatus } from "@/types/order-types";
 
 export const emptyRestaurant = {
@@ -529,4 +529,11 @@ export const statRanges: { value: StatRange; label: string }[] = [
   { value: "7d", label: "Last 7 days" },
   { value: "14d", label: "Last 14 days" },
   { value: "30d", label: "Last 30 days" },
+];
+
+export const kpiKeys: Kpi[] = [
+  "accepted_orders",
+  "revenue",
+  "rejected_orders",
+  "lost_revenue",
 ];
