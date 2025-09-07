@@ -11,3 +11,5 @@ export type Kpi =
   | "revenue"
   | "rejected_orders"
   | "lost_revenue";
+
+export type PaymentMethodFilter = "cash" | "all";
