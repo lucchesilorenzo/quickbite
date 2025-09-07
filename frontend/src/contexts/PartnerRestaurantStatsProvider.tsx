@@ -22,7 +22,7 @@ export const PartnerRestaurantStatsContext =
 export default function PartnerRestaurantStatsProvider({
   children,
 }: PartnerRestaurantStatsProviderProps) {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [range, setRange] = useState<StatRange>("all");
   const [activeKpi, setActiveKpi] = useState<Kpi>("accepted_orders");
 
@@ -37,18 +37,27 @@ export default function PartnerRestaurantStatsProvider({
   }, [searchParams]);
 
   useEffect(() => {
-    const kpi = searchParams.get("kpi");
+    const kpi = searchParams.get("kpi") as Kpi | null;
 
-    if (kpi) {
-      const matchedKpi = kpiKeys.find((k) => k === kpi);
-
-      setActiveKpi(matchedKpi || "accepted_orders");
+    if (kpi && kpiKeys.includes(kpi)) {
+      setActiveKpi(kpi);
+    } else {
+      setActiveKpi("accepted_orders");
+      setSearchParams({
+        ...Object.fromEntries(searchParams),
+        kpi: "accepted_orders",
+      });
     }
-  }, [searchParams]);
+  }, [searchParams, setSearchParams]);
 
   return (
     <PartnerRestaurantStatsContext.Provider
-      value={{ range, activeKpi, setRange, setActiveKpi }}
+      value={{
+        range,
+        activeKpi,
+        setRange,
+        setActiveKpi,
+      }}
     >
       {children}
     </PartnerRestaurantStatsContext.Provider>
