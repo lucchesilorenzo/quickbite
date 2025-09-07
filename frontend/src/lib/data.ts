@@ -7,7 +7,13 @@ import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
-import { Kpi, RestaurantBase, RestaurantTab, StatRange } from "@/types";
+import {
+  Kpi,
+  PaymentMethodFilter,
+  RestaurantBase,
+  RestaurantTab,
+  StatRange,
+} from "@/types";
 import { OrderStatus } from "@/types/order-types";
 
 export const emptyRestaurant = {
@@ -536,4 +542,12 @@ export const kpiKeys: Kpi[] = [
   "revenue",
   "rejected_orders",
   "lost_revenue",
+];
+
+export const paymentMethodOptions: {
+  value: PaymentMethodFilter;
+  label: string;
+}[] = [
+  { value: "all", label: "All payment methods" },
+  { value: "cash", label: "Cash" },
 ];
