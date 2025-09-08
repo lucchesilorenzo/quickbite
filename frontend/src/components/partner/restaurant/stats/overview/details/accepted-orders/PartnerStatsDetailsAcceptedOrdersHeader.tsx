@@ -6,7 +6,7 @@ export default function PartnerStatsDetailsAcceptedOrdersHeader() {
   return (
     <Stack
       direction="row"
-      sx={{ alignItems: "center", justifyContent: "space-between" }}
+      sx={{ alignItems: "center", justifyContent: "space-between", mb: 6 }}
     >
       <Typography variant="body1" sx={{ fontWeight: 500 }}>
         Accepted orders
