@@ -6,7 +6,6 @@ namespace App\Services\Public;
 
 use App\Models\Restaurant;
 use DB;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,15 +40,10 @@ class RestaurantService
     {
         $lat = $data['lat'];
         $lon = $data['lon'];
-
-        if (! $lat || ! $lon) {
-            throw new Exception('Latitude and longitude are required.', 400);
-        }
-
-        $filters = $data['filters'] ?? [];
+        $filters = $data['filter'] ?? [];
         $sortBy = $data['sort_by'] ?? null;
         $mov = $data['mov'] ?? null;
-        $search = $data['search'] ?? null;
+        $search = $data['q'] ?? null;
 
         $query = Restaurant::select('*')
             ->selectRaw(self::HAVERSINE . ' AS distance', [$lat, $lon, $lat])

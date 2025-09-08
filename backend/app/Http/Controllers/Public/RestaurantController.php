@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Public\GetRestaurantsRequest;
 use App\Models\Restaurant;
 use App\Services\Public\RestaurantService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Throwable;
 
 class RestaurantController extends Controller
@@ -19,16 +19,9 @@ class RestaurantController extends Controller
     /**
      * Get restaurants.
      */
-    public function getRestaurants(Request $request): JsonResponse
+    public function getRestaurants(GetRestaurantsRequest $request): JsonResponse
     {
-        $data = [
-            'lat' => $request->query('lat'),
-            'lon' => $request->query('lon'),
-            'filters' => $request->query('filter', []),
-            'sort_by' => $request->query('sort_by'),
-            'mov' => $request->query('mov'),
-            'search' => $request->query('q'),
-        ];
+        $data = $request->validated();
 
         try {
             $result = $this->restaurantService->getRestaurants($data);
