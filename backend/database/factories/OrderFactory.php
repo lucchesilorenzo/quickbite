@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\OrderStatus;
 use App\Enums\UserRole;
 use App\Models\MenuItem;
 use App\Models\Order;
@@ -42,6 +43,8 @@ class OrderFactory extends Factory
             'discount_rate' => fake()->randomElement([0.1, 0.2, 0.3, 0.4, 0.5]),
             'discount' => fake()->randomFloat(2, 0, 10),
             'total' => fake()->randomFloat(2, 10, 100),
+            'status' => fake()->randomElement(OrderStatus::values()),
+            'created_at' => fake()->dateTimeBetween('-2 years', 'now'),
         ];
     }
 
