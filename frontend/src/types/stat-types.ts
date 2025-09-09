@@ -13,3 +13,10 @@ export type Kpi =
   | "lost_revenue";
 
 export type PaymentMethodFilter = "cash" | "all";
+
+export type Stat = {
+  period: string;
+  accepted: number;
+  total: number;
+  year: number;
+};
