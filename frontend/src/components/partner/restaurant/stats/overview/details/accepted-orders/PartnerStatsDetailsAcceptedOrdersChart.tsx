@@ -2,19 +2,14 @@ import { BarChart } from "@mui/x-charts/BarChart";
 
 import BarLabel from "../common/BarLabel";
 
-const data = [
-  { day: "29 Giu", total: 30, accepted: 14 },
-  { day: "30 Giu", total: 30, accepted: 15 },
-  { day: "1 Lug", total: 30, accepted: 30 },
-  { day: "2 Lug", total: 30, accepted: 16 },
-  { day: "3 Lug", total: 30, accepted: 8 },
-  { day: "4 Lug", total: 30, accepted: 13 },
-  { day: "5 Lug", total: 30, accepted: 20 },
-];
+import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 
 export default function PartnerStatsDetailsAcceptedOrdersChart() {
+  const { stats, isLoadingStats } = usePartnerRestaurantStats();
+
   return (
     <BarChart
+      loading={isLoadingStats}
       sx={{
         "& .MuiChartsAxis-line": {
           stroke: "#efefef !important",
@@ -26,7 +21,7 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
         {
           scaleType: "band",
           disableTicks: true,
-          data: data.map((d) => d.day),
+          data: stats.map((d) => d.period),
           label: "Day of the month",
           offset: 15,
           tickLabelStyle: { fontSize: 11, textTransform: "uppercase" },
@@ -39,14 +34,14 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
           type: "bar",
           id: "accepted",
           label: "Accepted",
-          data: data.map((d) => d.accepted),
+          data: stats.map((d) => d.accepted),
           stack: "total",
         },
         {
           type: "bar",
           id: "total",
           label: "Total",
-          data: data.map((d) => d.total - d.accepted),
+          data: stats.map((d) => d.total - d.accepted),
           stack: "total",
         },
       ]}

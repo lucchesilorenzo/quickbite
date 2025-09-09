@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import {
   MenuItem,
   Select,
@@ -8,12 +6,12 @@ import {
   Typography,
 } from "@mui/material";
 
+import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 import { paymentMethodOptions } from "@/lib/data";
 import { PaymentMethodFilter } from "@/types";
 
 export default function ParnerStatsDetailsAcceptedOrdersSelect() {
-  const [paymentMethod, setPaymentMethod] =
-    useState<PaymentMethodFilter>("all");
+  const { paymentMethod, setPaymentMethod } = usePartnerRestaurantStats();
 
   function handlePaymentChange(e: SelectChangeEvent<PaymentMethodFilter>) {
     setPaymentMethod(e.target.value);
