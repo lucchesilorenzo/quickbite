@@ -62,5 +62,6 @@ Route::prefix('partner')->group(function () {
 
         // Stats
         Route::get('/{restaurant}/stats/dashboard', [PartnerRestaurantStatsController::class, 'getRestaurantDashboardStats']);
+        Route::get('/{restaurant}/stats', [PartnerRestaurantStatsController::class, 'getRestaurantStats']);
     });
 });

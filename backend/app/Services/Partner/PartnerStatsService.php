@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Partner;
 
+use App\Enums\Kpi;
 use App\Enums\OrderStatus;
+use App\Enums\PaymentMethod;
+use App\Enums\StatRange;
 use App\Models\Restaurant;
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 class PartnerStatsService
 {
@@ -31,5 +36,54 @@ class PartnerStatsService
             'accepted_orders' => $acceptedOrders,
             'rejected_orders' => $rejectedOrders,
         ];
+    }
+
+    public function getStats(
+        Restaurant $restaurant,
+        Kpi $kpi,
+        ?StatRange $range,
+        ?PaymentMethod $paymentMethod,
+        int $year,
+    ): Collection {
+        return match ($kpi) {
+            Kpi::ACCEPTED_ORDERS => $this->getAcceptedOrders($restaurant, $range, $paymentMethod, $year),
+            Kpi::REVENUE => $this->getRevenue($restaurant, $range, $year),
+            Kpi::REJECTED_ORDERS => $this->getRejectedOrders($restaurant, $range, $year),
+            Kpi::LOST_REVENUE => $this->getLostRevenue($restaurant, $range, $year),
+        };
+    }
+
+    private function getAcceptedOrders(
+        Restaurant $restaurant,
+        ?StatRange $range,
+        ?PaymentMethod $paymentMethod,
+        int $year
+    ): Collection {
+        $rangeValue = $range?->value ? str_replace('d', '', $range->value) : null;
+
+        $query = $restaurant->orders()
+            ->when($rangeValue, fn ($q) => $q->whereBetween('created_at', [now()->subDays($rangeValue), now()]))
+            ->when($paymentMethod, fn ($q) => $q->where('payment_method', $paymentMethod->value))
+            ->when(! $rangeValue, fn ($q) => $q->whereYear('created_at', $year));
+
+        $periodFormat = $rangeValue ? 'DATE(created_at)' : "DATE_TRUNC('month', created_at)";
+        $dateFormat = $rangeValue ? 'd M' : 'M Y';
+
+        $acceptedOrders = $query
+            ->selectRaw("{$periodFormat} as period")
+            ->selectRaw('COUNT(*) as total')
+            ->selectRaw('COUNT(*) FILTER (WHERE status = ?) as accepted', [OrderStatus::ACCEPTED->value])
+            ->groupBy('period')
+            ->havingRaw('COUNT(*) FILTER (WHERE status = ?) > 0', [OrderStatus::ACCEPTED->value])
+            ->orderBy('period')
+            ->get()
+            ->map(fn ($order) => [
+                'period' => Carbon::parse($order->period)->format($dateFormat),
+                'accepted' => $order->accepted,
+                'total' => $order->total,
+                'year' => $year,
+            ]);
+
+        return $acceptedOrders;
     }
 }
