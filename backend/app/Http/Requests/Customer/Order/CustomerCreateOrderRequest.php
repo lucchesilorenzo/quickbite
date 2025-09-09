@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Customer\Order;
 
+use App\Enums\PaymentMethod;
 use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class CustomerCreateOrderRequest extends FormRequest
 {
@@ -35,7 +37,7 @@ class CustomerCreateOrderRequest extends FormRequest
             'city' => ['required', 'string', 'min:1', 'max:50'],
             'delivery_time' => ['required', 'string', 'min:1', 'max:5'],
             'notes' => ['nullable', 'string', 'max:160'],
-            'payment_method' => ['required', 'string', 'min:1', 'max:50'],
+            'payment_method' => ['required', new Enum(PaymentMethod::class)],
             'subtotal' => ['required', 'numeric', 'min:0'],
             'delivery_fee' => ['required', 'numeric', 'min:0'],
             'service_fee' => ['required', 'numeric', 'min:0'],
