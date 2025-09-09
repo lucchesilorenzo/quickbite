@@ -13,8 +13,8 @@ enum DiscountRate: string
     case TWENTY_FIVE = 0.25;
     case THIRTY = 0.30;
     case THIRTY_FIVE = 0.35;
-    case FOURTY = 0.40;
-    case FOURTY_FIVE = 0.45;
+    case FORTY = 0.40;
+    case FORTY_FIVE = 0.45;
     case FIFTY = 0.50;
 
     /**
