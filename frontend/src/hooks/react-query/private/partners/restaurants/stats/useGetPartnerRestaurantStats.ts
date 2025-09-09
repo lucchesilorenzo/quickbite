@@ -1,13 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { DashboardStat } from "@/types";
+import { Kpi, PaymentMethodFilter, Stat, StatRange } from "@/types";
 
-export function useGetPartnerRestaurantStats(restaurantId: string) {
+type GetPartnerRestaurantStats = {
+  restaurantId: string;
+  kpi: Kpi;
+  range: StatRange;
+  paymentMethod: PaymentMethodFilter;
+};
+
+export function useGetPartnerRestaurantStats({
+  restaurantId,
+  kpi,
+  range,
+  paymentMethod,
+}: GetPartnerRestaurantStats) {
   return useQuery({
-    queryKey: ["partner-dashboard-stats"],
-    queryFn: (): Promise<DashboardStat> =>
-      fetchData(`/partner/restaurants/${restaurantId}/stats/dashboard`),
-    initialData: { earnings_today: 0, accepted_orders: 0, rejected_orders: 0 },
+    queryKey: ["partner-stats", restaurantId, kpi, range, paymentMethod],
+    queryFn: (): Promise<Stat[]> => {
+      const params = new URLSearchParams({
+        kpi,
+        ...(range !== "all" && { range }),
+        ...(paymentMethod !== "all" && { payment_method: paymentMethod }),
+      });
+
+      return fetchData(
+        `/partner/restaurants/${restaurantId}/stats?${params.toString()}`,
+      );
+    },
+    initialData: [],
   });
 }
