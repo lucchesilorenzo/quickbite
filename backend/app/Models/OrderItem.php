@@ -27,6 +27,7 @@ class OrderItem extends Model
 
     /**
      * Get the order that owns the OrderItem.
+     * @return BelongsTo<Order, $this>
      */
     public function order(): BelongsTo
     {
@@ -35,6 +36,7 @@ class OrderItem extends Model
 
     /**
      * Get the menu item that owns the OrderItem.
+     * @return BelongsTo<MenuItem, $this>
      */
     public function menuItem(): BelongsTo
     {

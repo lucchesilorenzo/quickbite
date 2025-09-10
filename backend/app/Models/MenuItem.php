@@ -30,6 +30,7 @@ class MenuItem extends Model
 
     /**
      * Get the menu category that owns the menu item.
+     * @return BelongsTo<MenuCategory, $this>
      */
     public function menuCategory(): BelongsTo
     {
@@ -38,6 +39,7 @@ class MenuItem extends Model
 
     /**
      * Get all of the cart items for the menu item.
+     * @return HasMany<CartItem, $this>
      */
     public function cartItems(): HasMany
     {
@@ -46,6 +48,7 @@ class MenuItem extends Model
 
     /**
      * Get all of the order items for the menu item.
+     * @return HasMany<OrderItem, $this>
      */
     public function orderItems(): HasMany
     {
