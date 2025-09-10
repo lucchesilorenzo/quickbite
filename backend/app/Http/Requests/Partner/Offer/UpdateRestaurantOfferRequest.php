@@ -26,9 +26,7 @@ class UpdateRestaurantOfferRequest extends FormRequest
      */
     public function rules(): array
     {
-        $restaurant = $this->user()->restaurants()
-            ->where('id', $this->route('restaurant')->id)
-            ->first();
+        $restaurant = $this->route('restaurant');
 
         return [
             'discount_rate' => ['required', 'numeric', Rule::in(DiscountRate::values())],
