@@ -9,6 +9,7 @@ use App\Models\Restaurant;
 use App\Services\Partner\PartnerReviewService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
+use Throwable;
 
 class PartnerRestaurantReviewController extends Controller
 {
