@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Partner\Menu\MenuCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRestaurantMenuCategoryRequest extends FormRequest
 {
@@ -23,8 +24,15 @@ class CreateRestaurantMenuCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $restaurantId = $this->route('restaurant')->id;
+
         return [
-            'name' => ['required', 'string', 'min:1', 'max:30'],
+            'name' => [
+                'required',
+                'string',
+                'max:30',
+                Rule::unique('menu_categories')->where(fn ($q) => $q->where('restaurant_id', $restaurantId)),
+            ],
             'description' => ['nullable', 'string', 'max:200'],
         ];
     }
