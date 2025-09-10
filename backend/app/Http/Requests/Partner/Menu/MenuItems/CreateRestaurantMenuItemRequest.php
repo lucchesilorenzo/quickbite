@@ -24,10 +24,18 @@ class CreateRestaurantMenuItemRequest extends FormRequest
      */
     public function rules(): array
     {
+        $menuCategoryId = $this->route('menuCategory')->id;
+
         return [
-            'name' => ['required', 'string', 'min:1', 'max:30'],
+            'name' => [
+                'required',
+                'string',
+                'max:30',
+                Rule::unique('menu_items')
+                    ->where(fn($q) => $q->where('menu_category_id', $menuCategoryId)),
+            ],
             'description' => ['nullable', 'string', 'max:200'],
-            'price' => ['required', 'numeric', 'min:1', 'max:100'],
+            'price' => ['required', 'numeric', 'max:100'],
             'image' => [
                 'nullable',
                 Rule::when(function ($input) {

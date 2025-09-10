@@ -24,17 +24,18 @@ class UpdateRestaurantMenuCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        $restaurantId = $this->route('menuCategory')->restaurant_id;
+        $menuCategory = $this->route('menuCategory');
         $menuCategoryId = $this->route('menuCategory')->id;
+        $restaurantId = $menuCategory->restaurant_id;
 
         return [
             'name' => [
                 'required',
                 'string',
                 'max:30',
-                Rule::unique('menu_categories')->where(fn ($q) => $q
-                    ->where('restaurant_id', $restaurantId)
-                    ->whereNot('id', $menuCategoryId)),
+                Rule::unique('menu_categories')
+                    ->where(fn($q) => $q->where('restaurant_id', $restaurantId)
+                        ->whereNot('id', $menuCategoryId)),
             ],
             'description' => ['nullable', 'string', 'max:200'],
         ];
