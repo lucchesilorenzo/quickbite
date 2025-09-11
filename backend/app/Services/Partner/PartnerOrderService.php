@@ -65,7 +65,7 @@ class PartnerOrderService
             ->riders()
             ->where('is_active', true)
             ->get()
-            ->first(fn ($rider) => ! Delivery::isRiderBusy($rider->id));
+            ->first(fn ($rider) => ! Delivery::isRiderBusy($rider));
 
         return $rider;
     }

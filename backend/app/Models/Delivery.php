@@ -25,11 +25,10 @@ class Delivery extends Model
 
     /**
      * Check if rider is busy.
-     * @return bool
      */
-    public static function isRiderBusy(string $riderId): bool
+    public static function isRiderBusy(User $rider): bool
     {
-        return self::where('rider_id', $riderId)
+        return self::where('rider_id', $rider->id)
             ->whereNull('delivered_at')
             ->exists();
     }
