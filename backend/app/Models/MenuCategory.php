@@ -26,6 +26,7 @@ class MenuCategory extends Model
 
     /**
      * Get the restaurant that owns the menu category.
+     *
      * @return BelongsTo<Restaurant, $this>
      */
     public function restaurant(): BelongsTo
@@ -35,6 +36,7 @@ class MenuCategory extends Model
 
     /**
      * Get the menu items for the menu category.
+     *
      * @return HasMany<MenuItem, $this>
      */
     public function menuItems(): HasMany

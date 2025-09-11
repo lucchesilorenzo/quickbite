@@ -34,7 +34,7 @@ class UpdateRestaurantMenuCategoryRequest extends FormRequest
                 'string',
                 'max:30',
                 Rule::unique('menu_categories')
-                    ->where(fn($q) => $q->where('restaurant_id', $restaurantId)
+                    ->where(fn ($q) => $q->where('restaurant_id', $restaurantId)
                         ->whereNot('id', $menuCategoryId)),
             ],
             'description' => ['nullable', 'string', 'max:200'],

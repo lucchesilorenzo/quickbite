@@ -50,6 +50,7 @@ class Order extends Model
 
     /**
      * Get the customer that owns the order.
+     *
      * @return BelongsTo<User, $this>
      */
     public function customer(): BelongsTo
@@ -59,6 +60,7 @@ class Order extends Model
 
     /**
      * Get the restaurant that owns the order.
+     *
      * @return BelongsTo<Restaurant, $this>
      */
     public function restaurant(): BelongsTo
@@ -68,6 +70,7 @@ class Order extends Model
 
     /**
      * Get the order items for the order.
+     *
      * @return HasMany<OrderItem, $this>
      */
     public function orderItems(): HasMany
@@ -77,6 +80,7 @@ class Order extends Model
 
     /**
      * Get the delivery for the order.
+     *
      * @return HasOne<Delivery, $this>
      */
     public function delivery(): HasOne

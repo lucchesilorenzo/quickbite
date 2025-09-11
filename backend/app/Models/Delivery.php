@@ -35,6 +35,7 @@ class Delivery extends Model
 
     /**
      * Get the order that owns the delivery.
+     *
      * @return BelongsTo<Order, $this>
      */
     public function order(): BelongsTo
@@ -44,6 +45,7 @@ class Delivery extends Model
 
     /**
      * Get the rider that owns the delivery.
+     *
      * @return BelongsTo<User, $this>
      */
     public function rider(): BelongsTo

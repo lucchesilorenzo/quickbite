@@ -55,6 +55,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's restaurants.
+     *
      * @return BelongsToMany<Restaurant, $this>
      */
     public function restaurants(): BelongsToMany
@@ -67,6 +68,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's reviews.
+     *
      * @return HasMany<RestaurantReview, $this>
      */
     public function reviews(): HasMany
@@ -76,6 +78,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's carts.
+     *
      * @return HasMany<Cart, $this>
      */
     public function carts(): HasMany
@@ -85,6 +88,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's orders.
+     *
      * @return HasMany<Order, $this>
      */
     public function orders(): HasMany
@@ -96,6 +100,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's owned restaurants.
+     *
      * @return BelongsToMany<Restaurant, $this>
      */
     public function ownedRestaurants(): BelongsToMany
@@ -106,6 +111,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's co-owned restaurants.
+     *
      * @return BelongsToMany<Restaurant, $this>
      */
     public function coOwnedRestaurants(): BelongsToMany
@@ -118,6 +124,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's rider restaurants.
+     *
      * @return BelongsToMany<Restaurant, $this>
      */
     public function riderRestaurants(): BelongsToMany

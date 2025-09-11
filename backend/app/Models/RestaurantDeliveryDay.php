@@ -23,6 +23,7 @@ class RestaurantDeliveryDay extends Model
 
     /**
      * Get the restaurant that owns the delivery day.
+     *
      * @return BelongsTo<Restaurant, $this>
      */
     public function restaurant(): BelongsTo

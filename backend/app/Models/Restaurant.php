@@ -62,7 +62,6 @@ class Restaurant extends Model
 
     /**
      * Check if the restaurant is open.
-     * @return bool
      */
     public function calculateIsOpen(): bool
     {
@@ -80,6 +79,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's partners (owners and co-owners).
+     *
      * @return BelongsToMany<User, $this>
      */
     public function partners(): BelongsToMany
@@ -91,6 +91,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's riders.
+     *
      * @return BelongsToMany<User, $this>
      */
     public function riders(): BelongsToMany
@@ -102,6 +103,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's categories.
+     *
      * @return BelongsToMany<Category, $this>
      */
     public function categories(): BelongsToMany
@@ -111,6 +113,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's delivery days.
+     *
      * @return HasMany<RestaurantDeliveryDay, $this>
      */
     public function deliveryDays(): HasMany
@@ -120,6 +123,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's offers.
+     *
      * @return HasMany<RestaurantOffer, $this>
      */
     public function offers(): HasMany
@@ -129,6 +133,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's menu categories.
+     *
      * @return HasMany<MenuCategory, $this>
      */
     public function menuCategories(): HasMany
@@ -138,6 +143,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's reviews.
+     *
      * @return HasMany<RestaurantReview, $this>
      */
     public function reviews(): HasMany
@@ -147,6 +153,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's carts.
+     *
      * @return HasMany<Cart, $this>
      */
     public function carts(): HasMany
@@ -156,6 +163,7 @@ class Restaurant extends Model
 
     /**
      * Get the restaurant's orders.
+     *
      * @return HasMany<Order, $this>
      */
     public function orders(): HasMany
@@ -165,12 +173,11 @@ class Restaurant extends Model
 
     /**
      * Get the is_open attribute.
-     * @return Attribute
      */
     protected function isOpen(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->force_close
+            get: fn () => $this->force_close
                 ? false
                 : $this->calculateIsOpen()
         );
