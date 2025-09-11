@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unique(['menu_category_id', 'name']);
+            $table->unique(['menu_category_id', 'order']);
         });
     }
 

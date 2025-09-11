@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property \Illuminate\Pagination\LengthAwarePaginator $menu_items
+ */
 class MenuCategory extends Model
 {
     use HasFactory, HasUuids;
@@ -23,6 +26,8 @@ class MenuCategory extends Model
 
     /**
      * Get the restaurant that owns the menu category.
+     *
+     * @return BelongsTo<Restaurant, $this>
      */
     public function restaurant(): BelongsTo
     {
@@ -31,6 +36,8 @@ class MenuCategory extends Model
 
     /**
      * Get the menu items for the menu category.
+     *
+     * @return HasMany<MenuItem, $this>
      */
     public function menuItems(): HasMany
     {

@@ -23,6 +23,8 @@ class RestaurantReview extends Model
 
     /**
      * Get the user that owns the review.
+     *
+     * @return BelongsTo<User, $this>
      */
     public function customer(): BelongsTo
     {
@@ -31,6 +33,8 @@ class RestaurantReview extends Model
 
     /**
      * Get the restaurant that owns the review.
+     *
+     * @return BelongsTo<Restaurant, $this>
      */
     public function restaurant(): BelongsTo
     {
@@ -39,6 +43,8 @@ class RestaurantReview extends Model
 
     /**
      * Get the order that owns the review.
+     *
+     * @return BelongsTo<Order, $this>
      */
     public function order(): BelongsTo
     {

@@ -26,6 +26,8 @@ class RestaurantOffer extends Model
 
     /**
      * Get the restaurant that owns the offer.
+     *
+     * @return BelongsTo<Restaurant, $this>
      */
     public function restaurant(): BelongsTo
     {

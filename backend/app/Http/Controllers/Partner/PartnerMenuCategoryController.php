@@ -46,12 +46,6 @@ class PartnerMenuCategoryController extends Controller
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable $e) {
-            if ($e->getCode() === '23505') {
-                return response()->json([
-                    'message' => 'Menu category with the same name already exists.',
-                ], 422);
-            }
-
             return response()->json([
                 'message' => 'Could not create menu category.',
             ], 500);
@@ -93,12 +87,6 @@ class PartnerMenuCategoryController extends Controller
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable $e) {
-            if ($e->getCode() === '23505') {
-                return response()->json([
-                    'message' => 'Menu category with the same name already exists.',
-                ], 422);
-            }
-
             return response()->json([
                 'message' => 'Could not update menu categories.',
             ], 500);
@@ -124,12 +112,6 @@ class PartnerMenuCategoryController extends Controller
                 'message' => 'Menu category updated successfully.',
             ], 200);
         } catch (Throwable $e) {
-            if ($e->getCode() === '23505') {
-                return response()->json([
-                    'message' => 'Menu category with the same name already exists.',
-                ], 422);
-            }
-
             return response()->json([
                 'message' => 'Could not update menu category.',
             ], 500);

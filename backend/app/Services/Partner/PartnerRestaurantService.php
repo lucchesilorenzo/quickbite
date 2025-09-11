@@ -55,7 +55,7 @@ class PartnerRestaurantService
         }
 
         if ($cover) {
-            $data['cover'] = $this->imageServiceupdate(
+            $data['cover'] = $this->imageService->update(
                 $restaurant->cover,
                 $cover,
                 'restaurants/covers',

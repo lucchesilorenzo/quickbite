@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Partner\Auth\PartnerLoginRequest;
 use App\Http\Requests\Partner\Auth\PartnerRegisterRequest;
 use App\Services\Partner\PartnerAuthService;
-use App\Services\Shared\LocationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -17,7 +16,6 @@ class PartnerAuthController extends Controller
 {
     public function __construct(
         private PartnerAuthService $partnerAuthService,
-        private LocationService $locationService
     ) {}
 
     /**
@@ -39,12 +37,6 @@ class PartnerAuthController extends Controller
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable $e) {
-            if ($e->getCode() === '23505') {
-                return response()->json([
-                    'message' => 'Partner already exists.',
-                ], 409);
-            }
-
             return response()->json([
                 'message' => 'Could not register partner.',
             ], 500);

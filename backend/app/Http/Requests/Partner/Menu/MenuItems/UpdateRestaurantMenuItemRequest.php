@@ -24,10 +24,21 @@ class UpdateRestaurantMenuItemRequest extends FormRequest
      */
     public function rules(): array
     {
+        $menuItem = $this->route('menuItem');
+        $menuItemId = $menuItem->id;
+        $menuCategoryId = $menuItem->menu_category_id;
+
         return [
-            'name' => ['required', 'string', 'min:1', 'max:30'],
+            'name' => [
+                'required',
+                'string',
+                'max:30',
+                Rule::unique('menu_items')
+                    ->where(fn ($q) => $q->where('menu_category_id', $menuCategoryId))
+                    ->whereNot('id', $menuItemId),
+            ],
             'description' => ['nullable', 'string', 'max:200'],
-            'price' => ['required', 'numeric', 'min:1', 'max:100'],
+            'price' => ['required', 'numeric', 'max:100'],
             'image' => [
                 'nullable',
                 Rule::when(function ($input) {

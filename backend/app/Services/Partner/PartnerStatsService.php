@@ -53,13 +53,21 @@ class PartnerStatsService
         };
     }
 
+    /**
+     * @return Collection<int, array{
+     *     period: string,
+     *     accepted: int,
+     *     total: int,
+     *     year: int
+     * }>
+     */
     private function getAcceptedOrders(
         Restaurant $restaurant,
         ?StatRange $range,
         ?PaymentMethod $paymentMethod,
         int $year
     ): Collection {
-        $rangeValue = $range?->value ? str_replace('d', '', $range->value) : null;
+        $rangeValue = isset($range->value) ? (int) str_replace('d', '', $range->value) : null;
 
         $query = $restaurant->orders()
             ->when($rangeValue, fn ($q) => $q->whereBetween('created_at', [now()->subDays($rangeValue), now()]))
@@ -69,21 +77,38 @@ class PartnerStatsService
         $periodFormat = $rangeValue ? 'DATE(created_at)' : "DATE_TRUNC('month', created_at)";
         $dateFormat = $rangeValue ? 'd M' : 'M Y';
 
-        $acceptedOrders = $query
+        /** @var Collection<int, object{period: string, total: int, accepted: int}> */
+        $rawResults = $query
             ->selectRaw("{$periodFormat} as period")
             ->selectRaw('COUNT(*) as total')
             ->selectRaw('COUNT(*) FILTER (WHERE status = ?) as accepted', [OrderStatus::ACCEPTED->value])
             ->groupBy('period')
             ->havingRaw('COUNT(*) FILTER (WHERE status = ?) > 0', [OrderStatus::ACCEPTED->value])
             ->orderBy('period')
-            ->get()
-            ->map(fn ($order) => [
+            ->get();
+
+        return $rawResults->map(
+            fn ($order) => [
                 'period' => Carbon::parse($order->period)->format($dateFormat),
                 'accepted' => $order->accepted,
                 'total' => $order->total,
                 'year' => $year,
-            ]);
+            ]
+        );
+    }
 
-        return $acceptedOrders;
+    private function getRevenue(Restaurant $restaurant, ?StatRange $range, int $year)
+    {
+        // TODO
+    }
+
+    private function getRejectedOrders(Restaurant $restaurant, ?StatRange $range, int $year)
+    {
+        // TODO
+    }
+
+    private function getLostRevenue(Restaurant $restaurant, ?StatRange $range, int $year)
+    {
+        // TODO
     }
 }

@@ -47,12 +47,6 @@ class PartnerMenuItemController extends Controller
                 'message' => 'Menu item created successfully.',
             ], 201);
         } catch (Throwable $e) {
-            if ($e->getCode() === '23505') {
-                return response()->json([
-                    'message' => 'Menu item with the same name already exists.',
-                ], 422);
-            }
-
             return response()->json([
                 'message' => 'Could not create menu item.',
             ], 500);
@@ -84,12 +78,6 @@ class PartnerMenuItemController extends Controller
                 'message' => 'Menu item updated successfully.',
             ], 200);
         } catch (Throwable $e) {
-            if ($e->getCode() === '23505') {
-                return response()->json([
-                    'message' => 'Menu item with the same name already exists.',
-                ], 422);
-            }
-
             return response()->json([
                 'message' => 'Could not update menu item.',
             ], 500);
@@ -127,12 +115,6 @@ class PartnerMenuItemController extends Controller
                 'message' => 'Menu item not found.',
             ], 404);
         } catch (Throwable $e) {
-            if ($e->getCode() === '23505') {
-                return response()->json([
-                    'message' => 'Menu item with the same name already exists.',
-                ], 422);
-            }
-
             return response()->json([
                 'message' => 'Could not update menu items.',
             ], 500);

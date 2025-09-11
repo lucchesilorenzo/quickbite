@@ -26,6 +26,8 @@ class CartItem extends Model
 
     /**
      * Get the cart that owns the cart item.
+     *
+     * @return BelongsTo<Cart, $this>
      */
     public function cart(): BelongsTo
     {
@@ -34,6 +36,8 @@ class CartItem extends Model
 
     /**
      * Get the menu item that owns the cart item.
+     *
+     * @return BelongsTo<MenuItem, $this>
      */
     public function menuItem(): BelongsTo
     {

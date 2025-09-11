@@ -26,15 +26,17 @@ class Delivery extends Model
     /**
      * Check if rider is busy.
      */
-    public static function isRiderBusy(string $riderId): bool
+    public static function isRiderBusy(User $rider): bool
     {
-        return self::where('rider_id', $riderId)
+        return self::where('rider_id', $rider->id)
             ->whereNull('delivered_at')
             ->exists();
     }
 
     /**
      * Get the order that owns the delivery.
+     *
+     * @return BelongsTo<Order, $this>
      */
     public function order(): BelongsTo
     {
@@ -43,6 +45,8 @@ class Delivery extends Model
 
     /**
      * Get the rider that owns the delivery.
+     *
+     * @return BelongsTo<User, $this>
      */
     public function rider(): BelongsTo
     {

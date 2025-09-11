@@ -23,6 +23,8 @@ class Category extends Model
 
     /**
      * Get the restaurants for the category.
+     *
+     * @return BelongsToMany<Restaurant, $this>
      */
     public function restaurants(): BelongsToMany
     {

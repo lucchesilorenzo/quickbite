@@ -11,7 +11,6 @@ use App\Http\Requests\Partner\Restaurant\UpdateRestaurantInfoRequest;
 use App\Http\Requests\Partner\Restaurant\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
 use App\Services\Partner\PartnerRestaurantService;
-use App\Services\Shared\LocationService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -21,7 +20,6 @@ class PartnerRestaurantController extends Controller
 {
     public function __construct(
         private PartnerRestaurantService $partnerRestaurantService,
-        private LocationService $locationService
     ) {}
 
     /**

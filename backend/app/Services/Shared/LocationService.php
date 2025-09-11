@@ -11,7 +11,7 @@ class LocationService
     public function getLocationData(array $data): ?array
     {
         $response = Http::get('https://eu1.locationiq.com/v1/search', [
-            'key' => env('LOCATIONIQ_API_KEY'),
+            'key' => config('services.locationiq.key'),
             'q' => "{$data['street_address']} {$data['building_number']}, {$data['postcode']} {$data['city']}, {$data['state']}",
             'normalizecity' => 1,
             'countrycodes' => 'IT',

@@ -13,16 +13,15 @@ class PartnerMenuService
 
     public function getMenu(Restaurant $restaurant): Collection
     {
-        $menu = $restaurant->menuCategories()
+        return $restaurant->menuCategories()
             ->orderBy('order')
-            ->get();
+            ->get()
+            ->map(function ($category) {
+                $category->menu_items = $category->menuItems()
+                    ->orderBy('order')
+                    ->paginate(self::PER_PAGE);
 
-        foreach ($menu as $category) {
-            $category->menu_items = $category->menuItems()
-                ->orderBy('order')
-                ->paginate(self::PER_PAGE);
-        }
-
-        return $menu;
+                return $category;
+            });
     }
 }

@@ -12,6 +12,7 @@ use App\Services\Partner\PartnerOrderService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
+use Throwable;
 
 class PartnerOrderController extends Controller
 {
