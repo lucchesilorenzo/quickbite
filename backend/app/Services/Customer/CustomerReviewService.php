@@ -33,7 +33,7 @@ class CustomerReviewService
             throw new Exception('You have already reviewed this order.', 409);
         }
 
-        // Create review
+        /** @var RestaurantReview $review */
         $review = $restaurant->reviews()->create([
             'user_id' => $user->id,
             'order_id' => $data['order_id'],

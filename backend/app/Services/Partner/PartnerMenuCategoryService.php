@@ -25,7 +25,7 @@ class PartnerMenuCategoryService
 
         $data['order'] = $menuCategoryOrder === null ? 0 : $menuCategoryOrder + 1;
 
-        // Create menu category
+        /** @var MenuCategory $menuCategory */
         $menuCategory = $restaurant->menuCategories()->create([
             ...$data,
             'order' => $data['order'],
