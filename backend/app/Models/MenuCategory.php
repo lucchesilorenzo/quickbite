@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property \Illuminate\Pagination\LengthAwarePaginator $menu_items
+ */
 class MenuCategory extends Model
 {
     use HasFactory, HasUuids;
