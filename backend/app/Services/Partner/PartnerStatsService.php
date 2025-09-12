@@ -44,7 +44,7 @@ class PartnerStatsService
         ?StatRange $range,
         ?PaymentMethod $paymentMethod,
         int $year,
-    ): Collection {
+    ): array {
         return match ($kpi) {
             Kpi::ACCEPTED_ORDERS => $this->getAcceptedOrders($restaurant, $range, $paymentMethod, $year),
             Kpi::REVENUE => $this->getRevenue($restaurant, $range, $year),
@@ -54,19 +54,24 @@ class PartnerStatsService
     }
 
     /**
-     * @return Collection<int, array{
-     *     period: string,
-     *     accepted: int,
-     *     total: int,
-     *     year: int
-     * }>
+     * @return array{
+     *     stats: Collection<int, array{
+     *         period: string,
+     *         accepted: int,
+     *         total: int,
+     *         year: int
+     *     }>,
+     *     filters: array{
+     *         years: list<int>
+     *     }
+     * }
      */
     private function getAcceptedOrders(
         Restaurant $restaurant,
         ?StatRange $range,
         ?PaymentMethod $paymentMethod,
         int $year
-    ): Collection {
+    ): array {
         $rangeValue = isset($range->value) ? (int) str_replace('d', '', $range->value) : null;
 
         $query = $restaurant->orders()
@@ -75,7 +80,7 @@ class PartnerStatsService
             ->when(! $rangeValue, fn ($q) => $q->whereYear('created_at', $year));
 
         $periodFormat = $rangeValue ? 'DATE(created_at)' : "DATE_TRUNC('month', created_at)";
-        $dateFormat = $rangeValue ? 'd M' : 'M Y';
+        $dateFormat = $rangeValue ? 'd M' : 'M';
 
         /** @var Collection<int, object{period: string, total: int, accepted: int}> */
         $rawResults = $query
@@ -87,7 +92,7 @@ class PartnerStatsService
             ->orderBy('period')
             ->get();
 
-        return $rawResults->map(
+        $acceptedOrdersStats = $rawResults->map(
             fn ($order) => [
                 'period' => Carbon::parse($order->period)->format($dateFormat),
                 'accepted' => $order->accepted,
@@ -95,6 +100,13 @@ class PartnerStatsService
                 'year' => $year,
             ]
         );
+
+        return [
+            'stats' => $acceptedOrdersStats,
+            'filters' => [
+                'years' => $this->calculateYearsPerOrderStatus($restaurant, OrderStatus::ACCEPTED),
+            ],
+        ];
     }
 
     private function getRevenue(Restaurant $restaurant, ?StatRange $range, int $year)
