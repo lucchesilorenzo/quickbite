@@ -5,7 +5,9 @@ import BarLabel from "../common/BarLabel";
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 
 export default function PartnerStatsDetailsAcceptedOrdersChart() {
-  const { statsData, isLoadingStats } = usePartnerRestaurantStats();
+  const { statsData, range, isLoadingStats } = usePartnerRestaurantStats();
+
+  const label = range === "all" ? "Month" : "Day of the month";
 
   return (
     <BarChart
@@ -22,7 +24,7 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
           scaleType: "band",
           disableTicks: true,
           data: statsData.stats.map((d) => d.period),
-          label: "Day of the month",
+          label: label,
           offset: 15,
           tickLabelStyle: { fontSize: 11, textTransform: "uppercase" },
           labelStyle: { fontSize: 12, textTransform: "uppercase" },
