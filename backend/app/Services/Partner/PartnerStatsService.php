@@ -111,4 +111,18 @@ class PartnerStatsService
     {
         // TODO
     }
+
+    private function calculateYearsPerOrderStatus(
+        Restaurant $restaurant,
+        OrderStatus $orderStatus,
+    ): array {
+        return $restaurant->orders()
+            ->where('status', $orderStatus->value)
+            ->pluck('created_at')
+            ->map(fn ($date) => (int) $date->format('Y'))
+            ->unique()
+            ->sortDesc()
+            ->values()
+            ->toArray();
+    }
 }
