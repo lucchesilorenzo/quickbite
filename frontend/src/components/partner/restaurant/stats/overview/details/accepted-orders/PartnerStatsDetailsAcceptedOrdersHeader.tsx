@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 
-import ParnerStatsDetailsAcceptedOrdersSelect from "./ParnerStatsDetailsAcceptedOrdersSelect";
+import PartnerStatsDetailsAcceptedOrdersPaymentSelect from "./PartnerStatsDetailsAcceptedOrdersPaymentSelect";
+import PartnerStatsDetailsAcceptedOrdersYearSelect from "./PartnerStatsDetailsAcceptedOrdersYearSelect";
 
 export default function PartnerStatsDetailsAcceptedOrdersHeader() {
   return (
@@ -12,7 +13,10 @@ export default function PartnerStatsDetailsAcceptedOrdersHeader() {
         Accepted orders
       </Typography>
 
-      <ParnerStatsDetailsAcceptedOrdersSelect />
+      <Stack direction="row" spacing={4}>
+        <PartnerStatsDetailsAcceptedOrdersYearSelect />
+        <PartnerStatsDetailsAcceptedOrdersPaymentSelect />
+      </Stack>
     </Stack>
   );
 }
