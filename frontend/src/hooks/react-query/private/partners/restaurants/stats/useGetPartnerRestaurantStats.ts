@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { Kpi, PaymentMethodFilter, Stat, StatRange } from "@/types";
+import { Kpi, PaymentMethodFilter, StatRange, StatsWithFilters } from "@/types";
 
 type GetPartnerRestaurantStats = {
   restaurantId: string;
   kpi: Kpi;
   range: StatRange;
   paymentMethod: PaymentMethodFilter;
+  year: number;
 };
 
 export function useGetPartnerRestaurantStats({
@@ -15,20 +16,25 @@ export function useGetPartnerRestaurantStats({
   kpi,
   range,
   paymentMethod,
+  year,
 }: GetPartnerRestaurantStats) {
   return useQuery({
-    queryKey: ["partner-stats", restaurantId, kpi, range, paymentMethod],
-    queryFn: (): Promise<Stat[]> => {
-      const params = new URLSearchParams({
-        kpi,
-        ...(range !== "all" && { range }),
-        ...(paymentMethod !== "all" && { payment_method: paymentMethod }),
-      });
+    queryKey: ["partner-stats", restaurantId, kpi, range, paymentMethod, year],
+    queryFn: (): Promise<StatsWithFilters> => {
+      const params = new URLSearchParams();
+
+      if (kpi) params.set("kpi", kpi);
+      if (range !== "all") params.set("range", range);
+      if (paymentMethod !== "all") params.set("payment_method", paymentMethod);
+      if (year) params.set("year", year.toString());
 
       return fetchData(
         `/partner/restaurants/${restaurantId}/stats?${params.toString()}`,
       );
     },
-    initialData: [],
+    initialData: {
+      stats: [],
+      filters: { years: [] },
+    },
   });
 }

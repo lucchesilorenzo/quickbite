@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useGetPartnerRestaurantStats } from "@/hooks/react-query/private/partners/restaurants/stats/useGetPartnerRestaurantStats";
 import { kpiKeys, statRanges } from "@/lib/data";
-import { Kpi, PaymentMethodFilter, Stat, StatRange } from "@/types";
+import { Kpi, PaymentMethodFilter, StatRange, StatsWithFilters } from "@/types";
 
 type PartnerRestaurantStatsProviderProps = {
   children: React.ReactNode;
@@ -15,11 +15,13 @@ type PartnerRestaurantStatsContext = {
   range: StatRange;
   activeKpi: Kpi;
   paymentMethod: PaymentMethodFilter;
-  stats: Stat[];
+  statsData: StatsWithFilters;
   isLoadingStats: boolean;
+  year: number;
   setRange: React.Dispatch<React.SetStateAction<StatRange>>;
   setActiveKpi: React.Dispatch<React.SetStateAction<Kpi>>;
   setPaymentMethod: React.Dispatch<React.SetStateAction<PaymentMethodFilter>>;
+  setYear: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const PartnerRestaurantStatsContext =
@@ -35,13 +37,15 @@ export default function PartnerRestaurantStatsProvider({
   const [activeKpi, setActiveKpi] = useState<Kpi>("accepted_orders");
   const [paymentMethod, setPaymentMethod] =
     useState<PaymentMethodFilter>("all");
+  const [year, setYear] = useState(new Date().getFullYear());
 
-  const { data: stats, isLoading: isLoadingStats } =
+  const { data: statsData, isLoading: isLoadingStats } =
     useGetPartnerRestaurantStats({
       restaurantId: restaurant.id,
       kpi: activeKpi,
       range,
       paymentMethod,
+      year,
     });
 
   useEffect(() => {
@@ -74,11 +78,13 @@ export default function PartnerRestaurantStatsProvider({
         range,
         activeKpi,
         paymentMethod,
-        stats,
+        statsData,
         isLoadingStats,
+        year,
         setRange,
         setActiveKpi,
         setPaymentMethod,
+        setYear,
       }}
     >
       {children}
