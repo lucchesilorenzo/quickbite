@@ -8,7 +8,7 @@ use App\Enums\Kpi;
 use App\Enums\PaymentMethod;
 use App\Enums\StatRange;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 class GetRestaurantStatsRequest extends FormRequest
 {
@@ -28,10 +28,10 @@ class GetRestaurantStatsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kpi' => ['required', new Enum(Kpi::class)],
-            'range' => ['sometimes', new Enum(StatRange::class)],
-            'payment_method' => ['sometimes', new Enum(PaymentMethod::class)],
-            'year' => ['sometimes', 'integer'],
+            'kpi' => ['required', Rule::enum(Kpi::class)],
+            'range' => ['sometimes', Rule::enum(StatRange::class)],
+            'payment_method' => ['sometimes', Rule::enum(PaymentMethod::class)],
+            'year' => ['sometimes', 'integer', 'digits:4'],
         ];
     }
 }
