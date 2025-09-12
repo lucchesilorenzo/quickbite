@@ -10,7 +10,7 @@ import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurant
 import { paymentMethodOptions } from "@/lib/data";
 import { PaymentMethodFilter } from "@/types";
 
-export default function ParnerStatsDetailsAcceptedOrdersSelect() {
+export default function PartnerStatsDetailsAcceptedOrdersPaymentSelect() {
   const { paymentMethod, setPaymentMethod } = usePartnerRestaurantStats();
 
   function handlePaymentChange(e: SelectChangeEvent<PaymentMethodFilter>) {
