@@ -5,7 +5,7 @@ import BarLabel from "../common/BarLabel";
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 
 export default function PartnerStatsDetailsAcceptedOrdersChart() {
-  const { stats, isLoadingStats } = usePartnerRestaurantStats();
+  const { statsData, isLoadingStats } = usePartnerRestaurantStats();
 
   return (
     <BarChart
@@ -21,7 +21,7 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
         {
           scaleType: "band",
           disableTicks: true,
-          data: stats.map((d) => d.period),
+          data: statsData.stats.map((d) => d.period),
           label: "Day of the month",
           offset: 15,
           tickLabelStyle: { fontSize: 11, textTransform: "uppercase" },
@@ -34,14 +34,14 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
           type: "bar",
           id: "accepted",
           label: "Accepted",
-          data: stats.map((d) => d.accepted),
+          data: statsData.stats.map((d) => d.accepted),
           stack: "total",
         },
         {
           type: "bar",
           id: "total",
           label: "Total",
-          data: stats.map((d) => d.total - d.accepted),
+          data: statsData.stats.map((d) => d.total),
           stack: "total",
         },
       ]}
