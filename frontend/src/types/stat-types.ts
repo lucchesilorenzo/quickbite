@@ -1,4 +1,4 @@
-export type DashboardStat = {
+export type DashboardStats = {
   earnings_today: number;
   accepted_orders: number;
   rejected_orders: number;
@@ -19,4 +19,11 @@ export type Stat = {
   accepted: number;
   total: number;
   year: number;
+};
+
+export type StatsWithFilters = {
+  stats: Stat[];
+  filters: {
+    years: number[];
+  };
 };
