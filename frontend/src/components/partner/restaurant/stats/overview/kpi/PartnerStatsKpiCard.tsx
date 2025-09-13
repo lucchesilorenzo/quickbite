@@ -1,6 +1,7 @@
 import {
   Box,
   ButtonBase,
+  CircularProgress,
   Divider,
   Grid,
   Stack,
@@ -30,7 +31,7 @@ export default function PartnerStatsKpiCard({
   isActive,
   isLast,
 }: PartnerStatsKpiCardProps) {
-  const { setActiveKpi } = usePartnerRestaurantStats();
+  const { isLoadingKpiSummary, setActiveKpi } = usePartnerRestaurantStats();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -64,7 +65,11 @@ export default function PartnerStatsKpiCard({
               color={card.color}
               gutterBottom
             >
-              {card.value}
+              {isLoadingKpiSummary ? (
+                <CircularProgress size={20} color="inherit" />
+              ) : (
+                card.value
+              )}
             </Typography>
 
             <Typography variant="body2">{card.title}</Typography>
