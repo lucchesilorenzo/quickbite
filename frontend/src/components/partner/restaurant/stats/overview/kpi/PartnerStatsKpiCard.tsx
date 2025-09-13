@@ -45,16 +45,17 @@ export default function PartnerStatsKpiCard({
 
   return (
     <Grid size={3}>
-      <Stack direction="row">
+      <Stack
+        direction="row"
+        sx={{
+          py: 2,
+          bgcolor: isActive ? "white" : grey[100],
+          "&:hover": { bgcolor: !isActive ? grey[50] : "" },
+        }}
+      >
         <ButtonBase
           onClick={handleKpiClick}
-          sx={{
-            flex: 1,
-            textAlign: "center",
-            bgcolor: isActive ? "white" : grey[100],
-            p: 2,
-            "&:hover": { bgcolor: !isActive ? grey[50] : "" },
-          }}
+          sx={{ flex: 1, textAlign: "center" }}
         >
           <Box>
             <Typography
