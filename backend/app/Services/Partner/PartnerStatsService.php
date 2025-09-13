@@ -38,6 +38,22 @@ class PartnerStatsService
         ];
     }
 
+    public function getKpiSummary(
+        Restaurant $restaurant,
+        ?StatRange $range,
+        ?PaymentMethod $paymentMethod,
+        ?int $year
+    ): array {
+        [$query] = $this->buildOrdersQuery($restaurant, $range, $paymentMethod, $year);
+
+        return [
+            'accepted_orders' => (clone $query)->where('status', OrderStatus::ACCEPTED->value)->count(),
+            'revenue' => (clone $query)->where('status', OrderStatus::DELIVERED->value)->sum('total'),
+            'rejected_orders' => (clone $query)->where('status', OrderStatus::REJECTED->value)->count(),
+            'lost_revenue' => (clone $query)->where('status', OrderStatus::REJECTED->value)->sum('total'),
+        ];
+    }
+
     public function getStats(
         Restaurant $restaurant,
         Kpi $kpi,
@@ -72,12 +88,7 @@ class PartnerStatsService
         ?PaymentMethod $paymentMethod,
         int $year
     ): array {
-        $rangeValue = isset($range->value) ? (int) str_replace('d', '', $range->value) : null;
-
-        $query = $restaurant->orders()
-            ->when($rangeValue, fn ($q) => $q->whereBetween('created_at', [now()->subDays($rangeValue), now()]))
-            ->when($paymentMethod, fn ($q) => $q->where('payment_method', $paymentMethod->value))
-            ->when(! $rangeValue, fn ($q) => $q->whereYear('created_at', $year));
+        [$query, $rangeValue] = $this->buildOrdersQuery($restaurant, $range, $paymentMethod, $year);
 
         $periodFormat = $rangeValue ? 'DATE(created_at)' : "DATE_TRUNC('month', created_at)";
         $dateFormat = $rangeValue ? 'd M' : 'M';
@@ -122,6 +133,22 @@ class PartnerStatsService
     private function getLostRevenue(Restaurant $restaurant, ?StatRange $range, int $year)
     {
         // TODO
+    }
+
+    private function buildOrdersQuery(
+        Restaurant $restaurant,
+        ?StatRange $range,
+        ?PaymentMethod $paymentMethod,
+        ?int $year
+    ): array {
+        $rangeValue = isset($range->value) ? (int) str_replace('d', '', $range->value) : null;
+
+        $query = $restaurant->orders()
+            ->when($rangeValue, fn ($q) => $q->whereBetween('created_at', [now()->subDays($rangeValue), now()]))
+            ->when($paymentMethod, fn ($q) => $q->where('payment_method', $paymentMethod->value))
+            ->when($year, fn ($q) => $q->whereYear('created_at', $year));
+
+        return [$query, $rangeValue];
     }
 
     private function calculateYearsPerOrderStatus(
