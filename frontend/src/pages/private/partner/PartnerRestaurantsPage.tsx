@@ -8,7 +8,7 @@ import PartnerRestaurantsWelcome from "@/components/partner/restaurants/PartnerR
 import { useGetPartnerRestaurants } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurants";
 
 export default function PartnerRestaurantsPage() {
-  const { data: restaurants, isLoading } = useGetPartnerRestaurants();
+  const { data: restaurants = [], isLoading } = useGetPartnerRestaurants();
 
   useEffect(() => {
     document.title = "Choose your restaurant | QuickBite";

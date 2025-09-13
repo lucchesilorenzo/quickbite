@@ -8,6 +8,5 @@ export function useGetCustomerCarts(isCustomer: boolean) {
     queryKey: ["customer-carts"],
     queryFn: (): Promise<RestaurantCart[]> => fetchData("/customer/carts"),
     enabled: !!isCustomer,
-    initialData: [],
   });
 }

@@ -27,10 +27,8 @@ export default function RestaurantMenuProvider({
   const [page, setPage] = useState(1);
   const menuCategoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const { data: menuData, isLoading: isLoadingMenu } = useGetRestaurantMenu(
-    restaurant.id,
-    page,
-  );
+  const { data: menuData = [], isLoading: isLoadingMenu } =
+    useGetRestaurantMenu(restaurant.id, page);
 
   return (
     <RestaurantMenuContext.Provider

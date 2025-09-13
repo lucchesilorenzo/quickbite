@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 
+import PartnerStatsDetailsYearSelect from "../common/PartnerStatsDetailsYearSelect";
 import PartnerStatsDetailsAcceptedOrdersPaymentSelect from "./PartnerStatsDetailsAcceptedOrdersPaymentSelect";
-import PartnerStatsDetailsAcceptedOrdersYearSelect from "./PartnerStatsDetailsAcceptedOrdersYearSelect";
 
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 
@@ -18,7 +18,7 @@ export default function PartnerStatsDetailsAcceptedOrdersHeader() {
       </Typography>
 
       <Stack direction="row" spacing={4}>
-        {range !== "all" && <PartnerStatsDetailsAcceptedOrdersYearSelect />}
+        {range !== "all" && <PartnerStatsDetailsYearSelect />}
         <PartnerStatsDetailsAcceptedOrdersPaymentSelect />
       </Stack>
     </Stack>

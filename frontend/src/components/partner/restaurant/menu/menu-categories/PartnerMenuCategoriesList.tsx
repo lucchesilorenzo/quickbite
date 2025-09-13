@@ -22,7 +22,7 @@ import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partner
 export default function PartnerMenuCategoriesList() {
   const { restaurant } = usePartnerRestaurant();
 
-  const { data: menuCategories, isLoading: isLoadingMenuCategories } =
+  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
     useGetPartnerRestaurantMenu(restaurant.id);
 
   const { mutateAsync: updateRestaurantMenuCategoriesOrder } =

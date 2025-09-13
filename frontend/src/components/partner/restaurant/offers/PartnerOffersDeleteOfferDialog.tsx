@@ -27,7 +27,7 @@ export default function PartnerOffersDeleteOfferDialog({
 }: PartnerOffersDeleteOfferDialogProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: deletePartnerRestaurantOffer, isPending } =
+  const { mutateAsync: deletePartnerRestaurantOffer, isPending: isDeleting } =
     useDeletePartnerRestaurantOffer(restaurant.id, offer.id);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
@@ -70,8 +70,8 @@ export default function PartnerOffersDeleteOfferDialog({
 
           <Button
             onClick={handleDeleteOffer}
-            disabled={isPending}
-            loading={isPending}
+            disabled={isDeleting}
+            loading={isDeleting}
             loadingIndicator="Deleting..."
             autoFocus
           >

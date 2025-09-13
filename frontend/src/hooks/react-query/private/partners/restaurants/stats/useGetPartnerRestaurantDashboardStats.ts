@@ -5,9 +5,8 @@ import { DashboardStats } from "@/types";
 
 export function useGetPartnerRestaurantDashboardStats(restaurantId: string) {
   return useQuery({
-    queryKey: ["partner-dashboard-stats"],
+    queryKey: ["partner-dashboard-stats", restaurantId],
     queryFn: (): Promise<DashboardStats> =>
       fetchData(`/partner/restaurants/${restaurantId}/stats/dashboard`),
-    initialData: { earnings_today: 0, accepted_orders: 0, rejected_orders: 0 },
   });
 }

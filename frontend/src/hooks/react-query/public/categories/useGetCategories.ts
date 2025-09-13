@@ -7,6 +7,5 @@ export function useGetCategories() {
   return useQuery({
     queryKey: ["categories"],
     queryFn: (): Promise<Category[]> => fetchData("/categories"),
-    initialData: [],
   });
 }

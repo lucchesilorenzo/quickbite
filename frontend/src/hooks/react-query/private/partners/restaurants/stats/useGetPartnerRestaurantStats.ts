@@ -32,9 +32,5 @@ export function useGetPartnerRestaurantStats({
         `/partner/restaurants/${restaurantId}/stats?${params.toString()}`,
       );
     },
-    initialData: {
-      stats: [],
-      filters: { years: [] },
-    },
   });
 }

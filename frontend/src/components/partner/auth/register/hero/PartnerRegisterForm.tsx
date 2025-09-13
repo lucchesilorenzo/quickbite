@@ -28,7 +28,7 @@ import {
 } from "@/validations/partner-auth-validations";
 
 export default function PartnerRegisterForm() {
-  const { mutateAsync: registerPartner, isPending: isRegisterPending } =
+  const { mutateAsync: registerPartner, isPending: isRegistering } =
     useRegisterPartner();
 
   const {
@@ -457,8 +457,8 @@ export default function PartnerRegisterForm() {
 
         <Button
           type="submit"
-          disabled={isSubmitting || isRegisterPending}
-          loading={isSubmitting || isRegisterPending}
+          disabled={isSubmitting || isRegistering}
+          loading={isSubmitting || isRegistering}
           loadingIndicator="Submitting..."
           variant="contained"
           sx={{
