@@ -4,6 +4,13 @@ export type DashboardStats = {
   rejected_orders: number;
 };
 
+export type KpiSummary = {
+  accepted_orders: number;
+  rejected_orders: number;
+  revenue: number;
+  lost_revenue: number;
+};
+
 export type StatRange = "7d" | "14d" | "30d" | "all";
 
 export type Kpi =
