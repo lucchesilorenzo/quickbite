@@ -140,8 +140,11 @@ class PartnerStatsService
      *     }
      * }
      */
-    private function getRevenue(Restaurant $restaurant, ?StatRange $range, int $year): array
-    {
+    private function getRevenue(
+        Restaurant $restaurant,
+        ?StatRange $range,
+        int $year
+    ): array {
         [$ordersQuery, $rangeValue] = $this->buildOrdersQuery(
             $restaurant,
             $range,
@@ -221,9 +224,53 @@ class PartnerStatsService
         ];
     }
 
-    private function getLostRevenue(Restaurant $restaurant, ?StatRange $range, int $year)
-    {
-        // TODO
+    /**
+     * @return array{
+     *     stats: Collection<int, array{
+     *         period: string,
+     *         value: float,
+     *         total: int,
+     *         year: int
+     *     }>,
+     *     filters: array{
+     *         years: list<int>
+     *     }
+     * }
+     */
+    private function getLostRevenue(
+        Restaurant $restaurant,
+        ?StatRange $range,
+        int $year
+    ): array {
+        [$ordersQuery, $rangeValue] = $this->buildOrdersQuery(
+            $restaurant,
+            $range,
+            null,
+            $year
+        );
+
+        [$ordersPerPeriod, $dateFormat] = $this->getOrdersPerPeriodGroupedByStatus(
+            $ordersQuery,
+            $rangeValue,
+            OrderStatus::REJECTED,
+            true
+        );
+
+        $revenueStats = $ordersPerPeriod->map(
+            fn ($order) => [
+                'period' => Carbon::parse($order->period)->format($dateFormat),
+                'value' => (float) $order->value,
+                'total' => $order->total,
+                'year' => $year,
+            ]
+        );
+
+        return [
+            'stats' => $revenueStats,
+            'filters' => [
+                'years' => $this->calculateYearsByOrderStatus($restaurant, OrderStatus::REJECTED),
+            ],
+        ];
     }
 
     private function buildOrdersQuery(
