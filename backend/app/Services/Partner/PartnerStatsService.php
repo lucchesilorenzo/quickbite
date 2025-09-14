@@ -45,13 +45,21 @@ class PartnerStatsService
         ?PaymentMethod $paymentMethod,
         ?int $year
     ): array {
-        [$query] = $this->buildOrdersQuery($restaurant, $range, $paymentMethod, $year);
+        [$ordersQuery] = $this->buildOrdersQuery($restaurant, $range, $paymentMethod, $year);
 
         return [
-            'accepted_orders' => (clone $query)->where('status', OrderStatus::ACCEPTED->value)->count(),
-            'revenue' => (clone $query)->where('status', OrderStatus::DELIVERED->value)->sum('total'),
-            'rejected_orders' => (clone $query)->where('status', OrderStatus::REJECTED->value)->count(),
-            'lost_revenue' => (clone $query)->where('status', OrderStatus::REJECTED->value)->sum('total'),
+            'accepted_orders' => (clone $ordersQuery)
+                ->where('status', OrderStatus::ACCEPTED->value)
+                ->count(),
+            'revenue' => (float) (clone $ordersQuery)
+                ->where('status', OrderStatus::DELIVERED->value)
+                ->sum('total'),
+            'rejected_orders' => (clone $ordersQuery)
+                ->where('status', OrderStatus::REJECTED->value)
+                ->count(),
+            'lost_revenue' => (float) (clone $ordersQuery)
+                ->where('status', OrderStatus::REJECTED->value)
+                ->sum('total'),
         ];
     }
 
@@ -74,7 +82,7 @@ class PartnerStatsService
      * @return array{
      *     stats: Collection<int, array{
      *         period: string,
-     *         accepted: int,
+     *         value: float,
      *         total: int,
      *         year: int
      *     }>,
@@ -89,25 +97,23 @@ class PartnerStatsService
         ?PaymentMethod $paymentMethod,
         int $year
     ): array {
-        [$query, $rangeValue] = $this->buildOrdersQuery($restaurant, $range, $paymentMethod, $year);
+        [$ordersQuery, $rangeValue] = $this->buildOrdersQuery(
+            $restaurant,
+            $range,
+            $paymentMethod,
+            $year
+        );
 
-        $periodFormat = $rangeValue ? 'DATE(created_at)' : "DATE_TRUNC('month', created_at)";
-        $dateFormat = $rangeValue ? 'd M' : 'M';
+        [$ordersPerPeriod, $dateFormat] = $this->getOrdersPerPeriodGroupedByStatus(
+            $ordersQuery,
+            $rangeValue,
+            OrderStatus::ACCEPTED
+        );
 
-        /** @var Collection<int, object{period: string, total: int, accepted: int}> */
-        $rawResults = $query
-            ->selectRaw("{$periodFormat} as period")
-            ->selectRaw('COUNT(*) as total')
-            ->selectRaw('COUNT(*) FILTER (WHERE status = ?) as accepted', [OrderStatus::ACCEPTED->value])
-            ->groupBy('period')
-            ->havingRaw('COUNT(*) FILTER (WHERE status = ?) > 0', [OrderStatus::ACCEPTED->value])
-            ->orderBy('period')
-            ->get();
-
-        $acceptedOrdersStats = $rawResults->map(
+        $acceptedOrdersStats = $ordersPerPeriod->map(
             fn ($order) => [
                 'period' => Carbon::parse($order->period)->format($dateFormat),
-                'accepted' => $order->accepted,
+                'value' => (float) $order->value,
                 'total' => $order->total,
                 'year' => $year,
             ]
@@ -116,7 +122,7 @@ class PartnerStatsService
         return [
             'stats' => $acceptedOrdersStats,
             'filters' => [
-                'years' => $this->calculateYearsPerOrderStatus($restaurant, OrderStatus::ACCEPTED),
+                'years' => $this->calculateYearsByOrderStatus($restaurant, OrderStatus::ACCEPTED),
             ],
         ];
     }
@@ -144,12 +150,13 @@ class PartnerStatsService
     ): array {
         $rangeValue = isset($range->value) ? (int) str_replace('d', '', $range->value) : null;
 
-        $query = $restaurant->orders()
+        $ordersQuery = $restaurant->orders()
+            ->getQuery()
             ->when($rangeValue, fn ($q) => $q->whereBetween('created_at', [now()->subDays($rangeValue), now()]))
             ->when($paymentMethod, fn ($q) => $q->where('payment_method', $paymentMethod->value))
             ->when($year, fn ($q) => $q->whereYear('created_at', $year));
 
-        return [$query, $rangeValue];
+        return [$ordersQuery, $rangeValue];
     }
 
     private function getOrdersPerPeriodGroupedByStatus(
