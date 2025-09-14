@@ -1,10 +1,22 @@
 import { BarChart } from "@mui/x-charts/BarChart";
 
-import BarLabel from "../common/BarLabel";
+import BarLabel from "./BarLabel";
 
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 
-export default function PartnerStatsDetailsAcceptedOrdersChart() {
+type PartnerStatsDetailsBarChartProps = {
+  barPrimaryColor: string;
+  barSecondaryColor: string;
+  barId: string;
+  barLabel: string;
+};
+
+export default function PartnerStatsDetailsBarChart({
+  barPrimaryColor,
+  barSecondaryColor,
+  barId,
+  barLabel,
+}: PartnerStatsDetailsBarChartProps) {
   const { statsData, range, isLoadingStats } = usePartnerRestaurantStats();
 
   const label = range === "all" ? "Month" : "Day of the month";
@@ -17,7 +29,7 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
           stroke: "#efefef !important",
         },
       }}
-      colors={["#007840", "#E0E0E0"]}
+      colors={[barPrimaryColor, barSecondaryColor]}
       height={300}
       xAxis={[
         {
@@ -34,8 +46,8 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
       series={[
         {
           type: "bar",
-          id: "accepted",
-          label: "Accepted",
+          id: barId,
+          label: barLabel,
           data: statsData.stats.map((d) => d.value),
           stack: "total",
         },
@@ -48,7 +60,7 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
         },
       ]}
       barLabel={(item) => {
-        if (item.seriesId === "accepted") {
+        if (item.seriesId === barId) {
           return item.value?.toString();
         }
       }}
