@@ -31,6 +31,7 @@ export default function PartnerStatsDetailsYearSelect() {
           sx={{ width: 200 }}
           value={year[activeKpi]}
           onChange={handleYearChange}
+          disabled={range !== "all"}
           MenuProps={{
             PaperProps: {
               style: { maxHeight: 200 },
