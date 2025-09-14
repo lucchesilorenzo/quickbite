@@ -7,7 +7,7 @@ import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurant
 type PartnerStatsDetailsBarChartProps = {
   barPrimaryColor: string;
   barSecondaryColor: string;
-  barId: string;
+  barId: "accepted" | "rejected";
   barLabel: string;
 };
 
