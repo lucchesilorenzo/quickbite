@@ -10,6 +10,7 @@ use App\Enums\PaymentMethod;
 use App\Enums\StatRange;
 use App\Models\Restaurant;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class PartnerStatsService
@@ -151,7 +152,35 @@ class PartnerStatsService
         return [$query, $rangeValue];
     }
 
-    private function calculateYearsPerOrderStatus(
+    private function getOrdersPerPeriodGroupedByStatus(
+        Builder $ordersQuery,
+        ?int $rangeValue,
+        OrderStatus $orderStatus,
+        bool $sumTotal = false
+    ): array {
+        $periodFormat = $rangeValue ? 'DATE(created_at)' : "DATE_TRUNC('month', created_at)";
+        $dateFormat = $rangeValue ? 'd M' : 'M';
+
+        $kpiSelect = $sumTotal
+            ? 'SUM(total) FILTER (WHERE status = ?) as value'
+            : 'COUNT(*) FILTER (WHERE status = ?) as value';
+
+        $havingRawCondition = $sumTotal ? 'SUM(total)' : 'COUNT(*)';
+
+        /** @var Collection<int, object{period: string, value: string, total: int}> */
+        $ordersPerPeriod = $ordersQuery
+            ->selectRaw("{$periodFormat} as period")
+            ->selectRaw('COUNT(*) as total')
+            ->selectRaw($kpiSelect, [$orderStatus->value])
+            ->groupBy('period')
+            ->havingRaw("{$havingRawCondition} FILTER (WHERE status = ?) > 0", [$orderStatus->value])
+            ->orderBy('period')
+            ->get();
+
+        return [$ordersPerPeriod, $dateFormat];
+    }
+
+    private function calculateYearsByOrderStatus(
         Restaurant $restaurant,
         OrderStatus $orderStatus,
     ): array {
