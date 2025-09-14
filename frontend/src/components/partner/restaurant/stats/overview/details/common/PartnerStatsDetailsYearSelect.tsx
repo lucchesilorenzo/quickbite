@@ -10,11 +10,11 @@ import {
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 
 export default function PartnerStatsDetailsYearSelect() {
-  const { statsData, isLoadingStats, year, setYear } =
+  const { statsData, isLoadingStats, activeKpi, range, year, setYear } =
     usePartnerRestaurantStats();
 
   function handleYearChange(e: SelectChangeEvent<number>) {
-    setYear(e.target.value);
+    setYear((prev) => ({ ...prev, [activeKpi]: e.target.value }));
   }
 
   return (
@@ -29,7 +29,7 @@ export default function PartnerStatsDetailsYearSelect() {
         <Select
           size="small"
           sx={{ width: 200 }}
-          value={statsData.filters.years.includes(year) ? year : ""}
+          value={year[activeKpi]}
           onChange={handleYearChange}
           MenuProps={{
             PaperProps: {

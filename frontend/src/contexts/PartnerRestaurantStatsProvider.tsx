@@ -28,13 +28,13 @@ type PartnerRestaurantStatsContext = {
   paymentMethod: PaymentMethodFilter;
   statsData: StatsWithFilters;
   isLoadingStats: boolean;
-  year: number;
+  year: Record<Kpi, number>;
   kpiSummary: KpiSummary;
   isLoadingKpiSummary: boolean;
   setRange: React.Dispatch<React.SetStateAction<StatRange>>;
   setActiveKpi: React.Dispatch<React.SetStateAction<Kpi>>;
   setPaymentMethod: React.Dispatch<React.SetStateAction<PaymentMethodFilter>>;
-  setYear: React.Dispatch<React.SetStateAction<number>>;
+  setYear: React.Dispatch<React.SetStateAction<Record<Kpi, number>>>;
 };
 
 export const PartnerRestaurantStatsContext =
@@ -50,7 +50,12 @@ export default function PartnerRestaurantStatsProvider({
   const [activeKpi, setActiveKpi] = useState<Kpi>("accepted_orders");
   const [paymentMethod, setPaymentMethod] =
     useState<PaymentMethodFilter>("all");
-  const [year, setYear] = useState(new Date().getFullYear());
+  const [year, setYear] = useState<Record<Kpi, number>>({
+    accepted_orders: new Date().getFullYear(),
+    revenue: new Date().getFullYear(),
+    rejected_orders: new Date().getFullYear(),
+    lost_revenue: new Date().getFullYear(),
+  });
 
   const {
     data: kpiSummary = partnerRestaurantKpiSummaryDefaults,
@@ -59,7 +64,7 @@ export default function PartnerRestaurantStatsProvider({
     restaurantId: restaurant.id,
     range,
     paymentMethod,
-    year,
+    year: year[activeKpi],
   });
 
   const {
@@ -70,7 +75,7 @@ export default function PartnerRestaurantStatsProvider({
     kpi: activeKpi,
     range,
     paymentMethod,
-    year,
+    year: year[activeKpi],
   });
 
   useEffect(() => {
