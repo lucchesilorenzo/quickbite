@@ -23,7 +23,7 @@ export type PaymentMethodFilter = "cash" | "all";
 
 export type Stat = {
   period: string;
-  accepted: number;
+  value: number;
   total: number;
   year: number;
 };

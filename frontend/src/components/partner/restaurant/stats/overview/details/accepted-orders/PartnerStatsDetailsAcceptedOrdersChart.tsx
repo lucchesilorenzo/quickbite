@@ -36,7 +36,7 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
           type: "bar",
           id: "accepted",
           label: "Accepted",
-          data: statsData.stats.map((d) => d.accepted),
+          data: statsData.stats.map((d) => d.value),
           stack: "total",
         },
         {
