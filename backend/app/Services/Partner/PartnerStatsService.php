@@ -127,9 +127,50 @@ class PartnerStatsService
         ];
     }
 
-    private function getRevenue(Restaurant $restaurant, ?StatRange $range, int $year)
+    /**
+     * @return array{
+     *     stats: Collection<int, array{
+     *         period: string,
+     *         value: float,
+     *         total: int,
+     *         year: int
+     *     }>,
+     *     filters: array{
+     *         years: list<int>
+     *     }
+     * }
+     */
+    private function getRevenue(Restaurant $restaurant, ?StatRange $range, int $year): array
     {
-        // TODO
+        [$ordersQuery, $rangeValue] = $this->buildOrdersQuery(
+            $restaurant,
+            $range,
+            null,
+            $year
+        );
+
+        [$ordersPerPeriod, $dateFormat] = $this->getOrdersPerPeriodGroupedByStatus(
+            $ordersQuery,
+            $rangeValue,
+            OrderStatus::DELIVERED,
+            true
+        );
+
+        $revenueStats = $ordersPerPeriod->map(
+            fn ($order) => [
+                'period' => Carbon::parse($order->period)->format($dateFormat),
+                'value' => (float) $order->value,
+                'total' => $order->total,
+                'year' => $year,
+            ]
+        );
+
+        return [
+            'stats' => $revenueStats,
+            'filters' => [
+                'years' => $this->calculateYearsByOrderStatus($restaurant, OrderStatus::DELIVERED),
+            ],
+        ];
     }
 
     private function getRejectedOrders(Restaurant $restaurant, ?StatRange $range, int $year)
