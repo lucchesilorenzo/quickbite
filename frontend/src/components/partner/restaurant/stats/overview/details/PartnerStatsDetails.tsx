@@ -1,4 +1,5 @@
 import PartnerStatsDetailsAcceptedOrders from "./accepted-orders/PartnerStatsDetailsAcceptedOrders";
+import PartnerStatsDetailsLostRevenue from "./lost-revenue/PartnerStatsDetailsLostRevenue";
 import PartnerStatsDetailsRejectedOrders from "./rejected-orders/PartnerStatsDetailsRejectedOrders";
 import PartnerStatsDetailsRevenue from "./revenue/PartnerStatsDetailsRevenue";
 
@@ -11,7 +12,7 @@ export default function PartnerStatsDetails() {
     accepted_orders: <PartnerStatsDetailsAcceptedOrders />,
     revenue: <PartnerStatsDetailsRevenue />,
     rejected_orders: <PartnerStatsDetailsRejectedOrders />,
-    lost_revenue: "",
+    lost_revenue: <PartnerStatsDetailsLostRevenue />,
   };
 
   return details[activeKpi] ?? null;
