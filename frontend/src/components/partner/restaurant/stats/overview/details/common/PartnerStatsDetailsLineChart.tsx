@@ -3,7 +3,17 @@ import { LineChart } from "@mui/x-charts";
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 import { formatCurrency } from "@/lib/utils";
 
-export default function PartnerStatsDetailsRevenueChart() {
+type PartnerStatsDetailsLineChartProps = {
+  linePrimaryColor: string;
+  lineId: "revenue" | "lost_revenue";
+  lineLabel: string;
+};
+
+export default function PartnerStatsDetailsLineChart({
+  linePrimaryColor,
+  lineId,
+  lineLabel,
+}: PartnerStatsDetailsLineChartProps) {
   const { statsData, range, isLoadingStats } = usePartnerRestaurantStats();
 
   const label = range === "all" ? "Month" : "Day of the month";
@@ -16,7 +26,7 @@ export default function PartnerStatsDetailsRevenueChart() {
           stroke: "#efefef !important",
         },
       }}
-      colors={["#007840"]}
+      colors={[linePrimaryColor]}
       height={300}
       xAxis={[
         {
@@ -32,7 +42,7 @@ export default function PartnerStatsDetailsRevenueChart() {
       yAxis={[
         {
           width: 100,
-          label: "Revenue",
+          label: lineLabel,
           data: statsData.stats.map((d) => d.value),
           valueFormatter: (value: number) => formatCurrency(value),
           tickLabelStyle: { fontSize: 11, textTransform: "uppercase" },
@@ -41,12 +51,14 @@ export default function PartnerStatsDetailsRevenueChart() {
       ]}
       series={[
         {
-          id: "revenue",
-          label: "Revenue",
+          id: lineId,
+          label: lineLabel,
           data: statsData.stats.map((d) => d.value),
           valueFormatter: (value, { dataIndex }) => {
             const orderCount = statsData.stats[dataIndex].total;
-            return `${formatCurrency(value || 0)} (${orderCount} delivered orders)`;
+            return `${formatCurrency(value || 0)} (${orderCount} ${
+              lineId === "revenue" ? "delivered" : "rejected"
+            } orders)`;
           },
         },
       ]}
