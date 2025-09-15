@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { useAddress } from "@/hooks/contexts/useAddress";
 import { useGetRestaurants } from "@/hooks/react-query/public/restaurants/useGetRestaurants";
+import { partnerRestaurantsDefaults } from "@/lib/query-defaults";
 import {
   RestaurantListItem,
   RestaurantMeta,
@@ -65,7 +66,7 @@ export default function RestaurantProvider({
   const search = searchParams.get("q");
 
   const {
-    data: restaurants,
+    data: restaurants = partnerRestaurantsDefaults,
     isLoading: isRestaurantsLoading,
     error: restaurantsError,
     fetchNextPage,

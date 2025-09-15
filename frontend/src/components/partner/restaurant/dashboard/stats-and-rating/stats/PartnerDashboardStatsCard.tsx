@@ -5,12 +5,15 @@ import PartnerDashboardStatsCardItem from "./PartnerDashboardStatsCardItem";
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useGetPartnerRestaurantDashboardStats } from "@/hooks/react-query/private/partners/restaurants/stats/useGetPartnerRestaurantDashboardStats";
+import { partnerRestaurantDashboardStatsDefaults } from "@/lib/query-defaults";
 
 export default function PartnerDashboardStatsCard() {
   const { restaurant } = usePartnerRestaurant();
 
-  const { data: stats, isLoading: isLoadingStats } =
-    useGetPartnerRestaurantDashboardStats(restaurant.id);
+  const {
+    data: stats = partnerRestaurantDashboardStatsDefaults,
+    isLoading: isLoadingStats,
+  } = useGetPartnerRestaurantDashboardStats(restaurant.id);
 
   const computedStats = [
     { title: "Today's earnings", value: stats.earnings_today, currency: true },

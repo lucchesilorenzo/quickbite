@@ -1,11 +1,25 @@
 import { BarChart } from "@mui/x-charts/BarChart";
 
-import BarLabel from "../common/BarLabel";
+import BarLabel from "./BarLabel";
 
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 
-export default function PartnerStatsDetailsAcceptedOrdersChart() {
-  const { stats, isLoadingStats } = usePartnerRestaurantStats();
+type PartnerStatsDetailsBarChartProps = {
+  barPrimaryColor: string;
+  barSecondaryColor: string;
+  barId: "accepted" | "rejected";
+  barLabel: string;
+};
+
+export default function PartnerStatsDetailsBarChart({
+  barPrimaryColor,
+  barSecondaryColor,
+  barId,
+  barLabel,
+}: PartnerStatsDetailsBarChartProps) {
+  const { statsData, range, isLoadingStats } = usePartnerRestaurantStats();
+
+  const label = range === "all" ? "Month" : "Day of the month";
 
   return (
     <BarChart
@@ -15,14 +29,14 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
           stroke: "#efefef !important",
         },
       }}
-      colors={["#007840", "#E0E0E0"]}
+      colors={[barPrimaryColor, barSecondaryColor]}
       height={300}
       xAxis={[
         {
           scaleType: "band",
           disableTicks: true,
-          data: stats.map((d) => d.period),
-          label: "Day of the month",
+          data: statsData.stats.map((d) => d.period),
+          label: label,
           offset: 15,
           tickLabelStyle: { fontSize: 11, textTransform: "uppercase" },
           labelStyle: { fontSize: 12, textTransform: "uppercase" },
@@ -32,21 +46,21 @@ export default function PartnerStatsDetailsAcceptedOrdersChart() {
       series={[
         {
           type: "bar",
-          id: "accepted",
-          label: "Accepted",
-          data: stats.map((d) => d.accepted),
+          id: barId,
+          label: barLabel,
+          data: statsData.stats.map((d) => d.value),
           stack: "total",
         },
         {
           type: "bar",
           id: "total",
           label: "Total",
-          data: stats.map((d) => d.total - d.accepted),
+          data: statsData.stats.map((d) => d.total),
           stack: "total",
         },
       ]}
       barLabel={(item) => {
-        if (item.seriesId === "accepted") {
+        if (item.seriesId === barId) {
           return item.value?.toString();
         }
       }}

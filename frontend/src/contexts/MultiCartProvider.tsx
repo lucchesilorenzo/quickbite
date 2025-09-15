@@ -58,7 +58,7 @@ export default function MultiCartProvider({
 }: MultiCartProviderProps) {
   const { user } = useAuth();
 
-  const { data: updatedCarts } = useGetCustomerCarts(isCustomer(user));
+  const { data: updatedCarts = [] } = useGetCustomerCarts(isCustomer(user));
   const { mutateAsync: createOrUpdateCart, isPending: isCartUpdating } =
     useCreateOrUpdateCustomerCart();
 

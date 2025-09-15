@@ -10,7 +10,7 @@ import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurant
 import { paymentMethodOptions } from "@/lib/data";
 import { PaymentMethodFilter } from "@/types";
 
-export default function ParnerStatsDetailsAcceptedOrdersSelect() {
+export default function PartnerStatsDetailsAcceptedOrdersPaymentSelect() {
   const { paymentMethod, setPaymentMethod } = usePartnerRestaurantStats();
 
   function handlePaymentChange(e: SelectChangeEvent<PaymentMethodFilter>) {
@@ -25,7 +25,6 @@ export default function ParnerStatsDetailsAcceptedOrdersSelect() {
 
       <Select
         size="small"
-        sx={{ width: 200 }}
         value={paymentMethod}
         onChange={handlePaymentChange}
         MenuProps={{

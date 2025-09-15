@@ -7,7 +7,7 @@ namespace App\Http\Requests\Partner\Restaurant;
 use App\Enums\DeliveryDay;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 class UpdateRestaurantDeliveryTimesRequest extends FormRequest
 {
@@ -28,7 +28,7 @@ class UpdateRestaurantDeliveryTimesRequest extends FormRequest
     {
         return [
             'delivery_days' => ['required', 'array'],
-            'delivery_days.*.day' => ['required', new Enum(DeliveryDay::class)],
+            'delivery_days.*.day' => ['required', Rule::enum(DeliveryDay::class)],
             'delivery_days.*.start_time' => ['nullable', 'date_format:H:i'],
             'delivery_days.*.end_time' => ['nullable', 'date_format:H:i'],
         ];

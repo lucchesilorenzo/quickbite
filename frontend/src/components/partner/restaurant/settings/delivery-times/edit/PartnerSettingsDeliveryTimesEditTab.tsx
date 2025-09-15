@@ -27,7 +27,7 @@ export default function PartnerSettingsDeliveryTimesEditTab() {
 
   const {
     mutateAsync: updatePartnerRestaurantSettingsDeliveryTimes,
-    isPending,
+    isPending: isUpdating,
   } = useUpdatePartnerRestaurantSettingsDeliveryTimes(restaurant.id);
 
   const {
@@ -166,8 +166,8 @@ export default function PartnerSettingsDeliveryTimesEditTab() {
       <Button
         type="submit"
         variant="contained"
-        disabled={isSubmitting || isPending}
-        loading={isSubmitting || isPending}
+        disabled={isSubmitting || isUpdating}
+        loading={isSubmitting || isUpdating}
         loadingIndicator="Saving..."
         startIcon={<SaveIcon />}
         sx={{ mt: 3 }}

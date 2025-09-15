@@ -27,8 +27,10 @@ export default function PartnerMenuEditDeleteMenuItemDialog({
 }: PartnerMenuEditDeleteMenuItemDialogProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: deletePartnerRestaurantMenuItem, isPending } =
-    useDeletePartnerRestaurantMenuItem(restaurant.id, menuItem.id);
+  const {
+    mutateAsync: deletePartnerRestaurantMenuItem,
+    isPending: isDeleting,
+  } = useDeletePartnerRestaurantMenuItem(restaurant.id, menuItem.id);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -67,8 +69,8 @@ export default function PartnerMenuEditDeleteMenuItemDialog({
 
           <Button
             onClick={async () => await deletePartnerRestaurantMenuItem()}
-            disabled={isPending}
-            loading={isPending}
+            disabled={isDeleting}
+            loading={isDeleting}
             loadingIndicator="Deleting..."
             autoFocus
           >

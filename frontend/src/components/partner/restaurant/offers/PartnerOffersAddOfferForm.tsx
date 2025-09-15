@@ -28,7 +28,7 @@ export default function PartnerOffersAddOfferForm({
   setOpenAddOfferDialog,
 }: PartnerOffersAddOfferFormProps) {
   const { restaurant } = usePartnerRestaurant();
-  const { mutateAsync: createPartnerRestaurantOffer, isPending } =
+  const { mutateAsync: createPartnerRestaurantOffer, isPending: isAdding } =
     useCreatePartnerRestaurantOffer(restaurant.id);
 
   const {
@@ -109,8 +109,8 @@ export default function PartnerOffersAddOfferForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting || isPending}
-        loading={isSubmitting || isPending}
+        disabled={isSubmitting || isAdding}
+        loading={isSubmitting || isAdding}
         loadingIndicator="Adding..."
         variant="contained"
       >

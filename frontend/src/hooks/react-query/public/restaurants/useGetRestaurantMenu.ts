@@ -9,6 +9,5 @@ export function useGetRestaurantMenu(restaurantId: string, page: number = 1) {
     queryFn: (): Promise<Menu[]> =>
       fetchData(`/restaurants/${restaurantId}/menu`),
     enabled: !!restaurantId && !!page,
-    initialData: [],
   });
 }

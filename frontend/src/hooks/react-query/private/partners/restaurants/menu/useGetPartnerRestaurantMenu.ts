@@ -11,6 +11,5 @@ export function useGetPartnerRestaurantMenu(
     queryKey: ["partner-menu", restaurantId, page],
     queryFn: (): Promise<PartnerMenuWithPagination[]> =>
       fetchData(`/partner/restaurants/${restaurantId}/menu?page=${page}`),
-    initialData: [],
   });
 }

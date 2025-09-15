@@ -8,6 +8,7 @@ use App\Enums\Kpi;
 use App\Enums\PaymentMethod;
 use App\Enums\StatRange;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Partner\Stats\GetRestaurantKpiSummaryRequest;
 use App\Http\Requests\Partner\Stats\GetRestaurantStatsRequest;
 use App\Models\Restaurant;
 use App\Services\Partner\PartnerStatsService;
@@ -23,7 +24,6 @@ class PartnerRestaurantStatsController extends Controller
      * Get restaurant's dashboard stats.
      */
     public function getRestaurantDashboardStats(
-
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('viewRestaurantStats', $restaurant);
@@ -35,6 +35,32 @@ class PartnerRestaurantStatsController extends Controller
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get dashboard stats.',
+            ], 500);
+        }
+    }
+
+    public function getRestaurantKpiSummary(
+        GetRestaurantKpiSummaryRequest $request,
+        Restaurant $restaurant
+    ) {
+        Gate::authorize('viewRestaurantStats', $restaurant);
+
+        try {
+            $range = $request->enum('range', StatRange::class);
+            $paymentMethod = $request->enum('payment_method', PaymentMethod::class);
+            $year = (int) $request->query('year');
+
+            $summary = $this->partnerStatsService->getKpiSummary(
+                $restaurant,
+                $range,
+                $paymentMethod,
+                $year,
+            );
+
+            return response()->json($summary, 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not get KPI summary.',
             ], 500);
         }
     }

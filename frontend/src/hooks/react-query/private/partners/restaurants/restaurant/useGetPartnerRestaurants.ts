@@ -8,6 +8,5 @@ export function useGetPartnerRestaurants() {
     queryKey: ["partner-restaurants"],
     queryFn: (): Promise<PartnerRestaurantBase[]> =>
       fetchData("/partner/restaurants"),
-    initialData: [],
   });
 }

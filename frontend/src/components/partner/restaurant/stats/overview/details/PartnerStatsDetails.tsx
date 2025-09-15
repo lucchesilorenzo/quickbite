@@ -1,4 +1,7 @@
 import PartnerStatsDetailsAcceptedOrders from "./accepted-orders/PartnerStatsDetailsAcceptedOrders";
+import PartnerStatsDetailsLostRevenue from "./lost-revenue/PartnerStatsDetailsLostRevenue";
+import PartnerStatsDetailsRejectedOrders from "./rejected-orders/PartnerStatsDetailsRejectedOrders";
+import PartnerStatsDetailsRevenue from "./revenue/PartnerStatsDetailsRevenue";
 
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
 
@@ -7,9 +10,9 @@ export default function PartnerStatsDetails() {
 
   const details = {
     accepted_orders: <PartnerStatsDetailsAcceptedOrders />,
-    rejected_orders: "",
-    lost_revenue: "",
-    revenue: "",
+    revenue: <PartnerStatsDetailsRevenue />,
+    rejected_orders: <PartnerStatsDetailsRejectedOrders />,
+    lost_revenue: <PartnerStatsDetailsLostRevenue />,
   };
 
   return details[activeKpi] ?? null;

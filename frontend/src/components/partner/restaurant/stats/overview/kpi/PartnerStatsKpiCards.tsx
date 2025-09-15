@@ -7,32 +7,30 @@ import { formatCurrency } from "@/lib/utils";
 import { Kpi } from "@/types";
 
 export default function PartnerStatsKpiCards() {
-  const { activeKpi } = usePartnerRestaurantStats();
-
-  // TODO: Fetch stats
+  const { kpiSummary, activeKpi } = usePartnerRestaurantStats();
 
   const cards: { key: Kpi; value: string; title: string; color: string }[] = [
     {
       key: "accepted_orders",
-      value: new Intl.NumberFormat("it-IT").format(30),
+      value: new Intl.NumberFormat("it-IT").format(kpiSummary.accepted_orders),
       title: "Accepted orders",
       color: "success",
     },
     {
       key: "revenue",
-      value: formatCurrency(10),
+      value: formatCurrency(kpiSummary.revenue),
       title: "Revenue",
       color: "success",
     },
     {
       key: "rejected_orders",
-      value: new Intl.NumberFormat("it-IT").format(20),
+      value: new Intl.NumberFormat("it-IT").format(kpiSummary.rejected_orders),
       title: "Rejected orders",
       color: "error",
     },
     {
       key: "lost_revenue",
-      value: formatCurrency(40),
+      value: formatCurrency(kpiSummary.lost_revenue),
       title: "Lost revenue",
       color: "error",
     },

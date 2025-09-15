@@ -3,15 +3,15 @@ import { Box } from "@mui/material";
 import PartnerStatsDetailsBarChart from "../common/PartnerStatsDetailsBarChart";
 import PartnerStatsDetailsHeader from "../common/PartnerStatsDetailsHeader";
 
-export default function PartnerStatsDetailsAcceptedOrders() {
+export default function PartnerStatsDetailsRejectedOrders() {
   return (
     <Box component="section" sx={{ bgcolor: "white", py: 2 }}>
-      <PartnerStatsDetailsHeader title="Accepted orders" />
+      <PartnerStatsDetailsHeader title="Rejected orders" />
       <PartnerStatsDetailsBarChart
-        barPrimaryColor="#007840"
+        barPrimaryColor="#D32F2F"
         barSecondaryColor="#E0E0E0"
-        barId="accepted"
-        barLabel="Accepted"
+        barId="rejected"
+        barLabel="Rejected"
       />
     </Box>
   );
