@@ -41,11 +41,13 @@ export default function PartnerStatsDetailsLineChart({
       ]}
       yAxis={[
         {
+          disableLine: true,
+          disableTicks: true,
+          tickMinStep: 1,
           width: 100,
           label: lineLabel,
           data: statsData.stats.map((d) => d.value),
           valueFormatter: (value: number) => formatCurrency(value),
-          tickLabelStyle: { fontSize: 11, textTransform: "uppercase" },
           labelStyle: { fontSize: 12, textTransform: "uppercase" },
         },
       ]}

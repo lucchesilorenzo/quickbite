@@ -28,7 +28,6 @@ export default function PartnerStatsDetailsYearSelect() {
       ) : (
         <Select
           size="small"
-          sx={{ width: 200 }}
           value={year[activeKpi]}
           onChange={handleYearChange}
           disabled={range !== "all"}

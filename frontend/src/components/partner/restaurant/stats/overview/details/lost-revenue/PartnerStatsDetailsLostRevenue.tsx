@@ -5,7 +5,7 @@ import PartnerStatsDetailsLineChart from "../common/PartnerStatsDetailsLineChart
 
 export default function PartnerStatsDetailsLostRevenue() {
   return (
-    <Box component="section" sx={{ bgcolor: "white", px: 4, py: 2 }}>
+    <Box component="section" sx={{ bgcolor: "white", py: 2 }}>
       <PartnerStatsDetailsHeader title="Lost revenue" />
       <PartnerStatsDetailsLineChart
         linePrimaryColor="#D32F2F"

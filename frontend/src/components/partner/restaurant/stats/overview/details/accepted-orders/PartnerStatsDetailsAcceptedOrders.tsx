@@ -5,7 +5,7 @@ import PartnerStatsDetailsHeader from "../common/PartnerStatsDetailsHeader";
 
 export default function PartnerStatsDetailsAcceptedOrders() {
   return (
-    <Box component="section" sx={{ bgcolor: "white", px: 4, py: 2 }}>
+    <Box component="section" sx={{ bgcolor: "white", py: 2 }}>
       <PartnerStatsDetailsHeader title="Accepted orders" />
       <PartnerStatsDetailsBarChart
         barPrimaryColor="#007840"

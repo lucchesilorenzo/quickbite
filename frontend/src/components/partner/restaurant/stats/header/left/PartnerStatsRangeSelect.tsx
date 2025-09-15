@@ -23,7 +23,7 @@ export default function PartnerStatsRangeSelect() {
     <Box>
       <Select
         size="small"
-        sx={{ width: 200 }}
+        sx={{ width: { xs: 1, sm: 200 } }}
         value={range}
         onChange={handleRangeChange}
         MenuProps={{

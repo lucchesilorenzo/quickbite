@@ -6,6 +6,7 @@ import {
   Grid,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useSearchParams } from "react-router-dom";
@@ -35,6 +36,8 @@ export default function PartnerStatsKpiCard({
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
   function handleKpiClick() {
     setActiveKpi(card.key);
 
@@ -45,7 +48,7 @@ export default function PartnerStatsKpiCard({
   }
 
   return (
-    <Grid size={3}>
+    <Grid size={{ xs: 6, md: 3 }}>
       <Stack
         direction="row"
         sx={{
@@ -76,7 +79,7 @@ export default function PartnerStatsKpiCard({
           </Box>
         </ButtonBase>
 
-        {!isLast && !shouldHideDivider && (
+        {!isLast && !shouldHideDivider && !isMobile && (
           <Divider orientation="vertical" flexItem />
         )}
       </Stack>

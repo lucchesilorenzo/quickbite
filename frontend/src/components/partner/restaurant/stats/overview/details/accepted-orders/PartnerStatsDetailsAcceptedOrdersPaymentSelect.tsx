@@ -25,7 +25,6 @@ export default function PartnerStatsDetailsAcceptedOrdersPaymentSelect() {
 
       <Select
         size="small"
-        sx={{ width: 200 }}
         value={paymentMethod}
         onChange={handlePaymentChange}
         MenuProps={{

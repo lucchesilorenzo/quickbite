@@ -19,7 +19,7 @@ export default function PartnerStatsHeaderRightStatusCard() {
       };
 
   return (
-    <Card variant="outlined" sx={{ width: 220, p: 2 }}>
+    <Card variant="outlined" sx={{ width: { xs: 1, sm: 220 }, p: 2 }}>
       <Stack spacing={2} sx={{ alignItems: "center" }}>
         <Typography variant="body1">Status online</Typography>
 
