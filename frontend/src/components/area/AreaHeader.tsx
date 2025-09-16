@@ -40,7 +40,7 @@ export default function AreaHeader() {
   return (
     <AppBar position="relative" id="back-to-top" color="inherit" elevation={3}>
       {showHeader && (
-        <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Toolbar sx={{ justifyContent: "space-between", gap: 2 }}>
           <Stack
             direction="row"
             spacing={1}
