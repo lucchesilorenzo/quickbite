@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "QuickBite",
   "scripts": {
-    "start": "concurrently --names \"api,web,logs\" --prefix-colors \"red,blue,green\" \"npm run backend\" \"npm run frontend\" \"npm run logs\"",
+    "start": "concurrently --names \"api,web,queue,reverb,logs\" --prefix-colors \"red,blue,green,yellow,white\" \"npm run backend\" \"npm run frontend\" \"npm run queue\" \"npm run reverb\" \"npm run logs\"",
     "frontend": "cd frontend && npm run dev",
     "backend": "cd backend && php artisan serve",
+    "queue": "cd backend && php artisan queue:listen --tries=1",
+    "reverb": "cd backend && php artisan reverb:start",
     "logs": "cd backend && php artisan pail --timeout=0",
     "install-all": "cd frontend && npm install && cd ../backend && npm install && composer install"
   },
