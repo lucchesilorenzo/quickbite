@@ -1,3 +1,4 @@
+import { useEchoNotification } from "@laravel/echo-react";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
@@ -12,6 +13,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { useNotifications } from "@toolpad/core/useNotifications";
 import { Link } from "react-router-dom";
 
 import PartnerNavigation from "./PartnerNavigation";
@@ -19,17 +21,38 @@ import PartnerNavigation from "./PartnerNavigation";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
+import { NewOrderReceived } from "@/types";
 
 export default function PartnerRestaurantHeader() {
   const { user } = useAuth();
   const { restaurant } = usePartnerRestaurant();
   const { mutateAsync: logoutPartner } = useLogoutPartner();
 
+  const notifications = useNotifications();
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   async function handleLogoutPartner() {
     await logoutPartner();
   }
+
+  useEchoNotification<NewOrderReceived>(
+    `App.Models.User.${user?.id}`,
+    (notification) => {
+      notifications.show(
+        <Box>
+          <Typography variant="body1" sx={{ fontWeight: 500 }} gutterBottom>
+            {notification.title}
+          </Typography>
+
+          <Typography variant="body2">{notification.description}</Typography>
+        </Box>,
+        {
+          severity: "info",
+        },
+      );
+    },
+    "new-order-received",
+  );
 
   return (
     <AppBar position="relative" color="inherit" elevation={3}>
@@ -68,20 +91,20 @@ export default function PartnerRestaurantHeader() {
             </IconButton>
           </Link>
 
-        {isMobile ? (
-          <IconButton color="primary" onClick={handleLogoutPartner}>
-            <LogoutOutlinedIcon />
-          </IconButton>
-        ) : (
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ fontWeight: 700 }}
-            onClick={handleLogoutPartner}
-          >
-            Log out
-          </Button>
-        )}
+          {isMobile ? (
+            <IconButton color="primary" onClick={handleLogoutPartner}>
+              <LogoutOutlinedIcon />
+            </IconButton>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ fontWeight: 700 }}
+              onClick={handleLogoutPartner}
+            >
+              Log out
+            </Button>
+          )}
         </Stack>
       </Toolbar>
     </AppBar>
