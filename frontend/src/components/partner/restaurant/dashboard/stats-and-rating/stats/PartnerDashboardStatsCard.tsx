@@ -17,6 +17,7 @@ export default function PartnerDashboardStatsCard() {
 
   const computedStats = [
     { title: "Today's earnings", value: stats.earnings_today, currency: true },
+    { title: "Pending orders", value: stats.pending_orders, currency: false },
     { title: "Accepted orders", value: stats.accepted_orders, currency: false },
     { title: "Rejected orders", value: stats.rejected_orders, currency: false },
   ];
