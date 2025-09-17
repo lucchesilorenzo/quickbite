@@ -28,6 +28,7 @@ export const partnerRestaurantsDefaults = {
 
 export const partnerRestaurantDashboardStatsDefaults = {
   earnings_today: 0,
+  pending_orders: 0,
   accepted_orders: 0,
   rejected_orders: 0,
 };

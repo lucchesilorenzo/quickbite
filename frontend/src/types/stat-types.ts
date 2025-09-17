@@ -1,5 +1,6 @@
 export type DashboardStats = {
   earnings_today: number;
+  pending_orders: number;
   accepted_orders: number;
   rejected_orders: number;
 };

@@ -22,6 +22,11 @@ class PartnerStatsService
             ->where('status', OrderStatus::DELIVERED->value)
             ->sum('total');
 
+        $pendingOrders = $restaurant->orders()
+            ->whereToday('created_at')
+            ->where('status', OrderStatus::PENDING->value)
+            ->count();
+
         $acceptedOrders = $restaurant->orders()
             ->whereToday('created_at')
             ->where('status', OrderStatus::ACCEPTED->value)
@@ -34,6 +39,7 @@ class PartnerStatsService
 
         return [
             'earnings_today' => $earningsToday,
+            'pending_orders' => $pendingOrders,
             'accepted_orders' => $acceptedOrders,
             'rejected_orders' => $rejectedOrders,
         ];
