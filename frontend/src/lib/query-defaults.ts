@@ -46,3 +46,7 @@ export const partnerRestaurantStatsDefaults = {
     years: [],
   },
 };
+export const userNotificationDefaults = {
+  notifications: [],
+  unread_count: 0,
+};
