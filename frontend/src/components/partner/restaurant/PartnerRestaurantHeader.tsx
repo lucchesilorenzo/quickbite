@@ -23,7 +23,7 @@ import NotificationToast from "@/components/common/NotificationToast";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
-import { NewOrderReceived } from "@/types";
+import { NewOrderReceived, NewReviewReceived } from "@/types";
 
 export default function PartnerRestaurantHeader() {
   const { user, userNotifications } = useAuth();
@@ -70,6 +70,30 @@ export default function PartnerRestaurantHeader() {
     "new-order-received",
   );
 
+  useEchoNotification<NewReviewReceived>(
+    `App.Models.User.${user?.id}`,
+    (notification) => {
+      notifications.show(
+        <NotificationToast
+          title={notification.title}
+          description={notification.description}
+        />,
+        {
+          severity: "info",
+        },
+      );
+
+      queryClient.invalidateQueries({ queryKey: ["user-notifications"] });
+
+      if (pathname.includes("reviews") || pathname.includes("dashboard")) {
+        queryClient.invalidateQueries({
+          queryKey: ["partner-reviews", restaurant.id, 1],
+        });
+      }
+    },
+    "new-review-received",
+  );
+
   return (
     <AppBar position="relative" color="inherit" elevation={3}>
       <Toolbar sx={{ justifyContent: "space-between", gap: 1 }}>
@@ -100,16 +124,16 @@ export default function PartnerRestaurantHeader() {
           sx={{ alignItems: "center" }}
         >
           <Tooltip title="Notifications">
-          <Link to={`/partner/restaurants/${restaurant.id}/notifications`}>
-            <IconButton aria-label="notifications">
-              <Badge
-                badgeContent={userNotifications.unread_count}
-                color="error"
-              >
-                <NotificationsIcon color="action" />
-              </Badge>
-            </IconButton>
-          </Link>
+            <Link to={`/partner/restaurants/${restaurant.id}/notifications`}>
+              <IconButton aria-label="notifications">
+                <Badge
+                  badgeContent={userNotifications.unread_count}
+                  color="error"
+                >
+                  <NotificationsIcon color="action" />
+                </Badge>
+              </IconButton>
+            </Link>
           </Tooltip>
 
           {isMobile ? (
