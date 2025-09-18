@@ -5,7 +5,7 @@ import { ReviewStats } from "@/types/review-types";
 
 export function useGetPartnerRestaurantReviews(
   restaurantId: string,
-  page: number,
+  page: number = 1,
 ) {
   return useQuery({
     queryKey: ["partner-reviews", restaurantId, page],

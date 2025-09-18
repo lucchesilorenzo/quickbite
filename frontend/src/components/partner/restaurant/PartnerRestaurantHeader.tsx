@@ -9,6 +9,7 @@ import {
   IconButton,
   Stack,
   Toolbar,
+  Tooltip,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -98,6 +99,7 @@ export default function PartnerRestaurantHeader() {
           spacing={isMobile ? 1 : 4}
           sx={{ alignItems: "center" }}
         >
+          <Tooltip title="Notifications">
           <Link to={`/partner/restaurants/${restaurant.id}/notifications`}>
             <IconButton aria-label="notifications">
               <Badge
@@ -108,6 +110,7 @@ export default function PartnerRestaurantHeader() {
               </Badge>
             </IconButton>
           </Link>
+          </Tooltip>
 
           {isMobile ? (
             <IconButton color="primary" onClick={handleLogoutPartner}>
