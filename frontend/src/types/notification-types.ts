@@ -23,3 +23,9 @@ export type NewOrderReceived = {
   title: string;
   description: string;
 };
+
+export type NewReviewReceived = {
+  review_id: string;
+  title: string;
+  description: string;
+};
