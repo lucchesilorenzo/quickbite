@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
-use App\Models\Order;
+use App\Models\RestaurantReview;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Number;
 
-class NewOrderReceived extends Notification implements ShouldQueue
+class NewReviewReceived extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -19,7 +18,7 @@ class NewOrderReceived extends Notification implements ShouldQueue
      * Create a new notification instance.
      */
     public function __construct(
-        public Order $order
+        public RestaurantReview $review
     ) {}
 
     /**
@@ -40,11 +39,9 @@ class NewOrderReceived extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'order_id' => $this->order->id,
-            'order_code' => $this->order->order_code,
-            'customer_name' => "{$this->order->first_name} {$this->order->last_name}",
-            'total' => $this->order->total,
-            'created_at' => $this->order->created_at,
+            'review_id' => $this->review->id,
+            'customer_name' => "{$this->review->customer->first_name} {$this->review->customer->last_name}",
+            'created_at' => $this->review->created_at,
         ];
     }
 
@@ -54,13 +51,9 @@ class NewOrderReceived extends Notification implements ShouldQueue
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
         return new BroadcastMessage([
-            'order_id' => $this->order->id,
-            'title' => 'New order received',
-            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: " . Number::currency(
-                $this->order->total,
-                in: 'EUR',
-                locale: 'it-IT'
-            ),
+            'review_id' => $this->review->id,
+            'title' => 'New review received',
+            'description' => "Review from {$this->review->customer->first_name} {$this->review->customer->last_name} - {$this->review->rating} stars",
         ]);
     }
 
@@ -69,6 +62,6 @@ class NewOrderReceived extends Notification implements ShouldQueue
      */
     public function broadcastType(): string
     {
-        return 'new-order-received';
+        return 'new-review-received';
     }
 }
