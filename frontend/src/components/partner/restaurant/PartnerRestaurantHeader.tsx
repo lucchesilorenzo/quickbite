@@ -5,7 +5,6 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import {
   AppBar,
   Badge,
-  Box,
   Button,
   IconButton,
   Stack,
@@ -13,22 +12,27 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import PartnerNavigation from "./PartnerNavigation";
 
+import NotificationToast from "@/components/common/NotificationToast";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
 import { NewOrderReceived } from "@/types";
 
 export default function PartnerRestaurantHeader() {
-  const { user } = useAuth();
+  const { user, userNotifications } = useAuth();
   const { restaurant } = usePartnerRestaurant();
   const { mutateAsync: logoutPartner } = useLogoutPartner();
 
+  const { pathname } = useLocation();
   const notifications = useNotifications();
+  const queryClient = useQueryClient();
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   async function handleLogoutPartner() {
@@ -39,17 +43,28 @@ export default function PartnerRestaurantHeader() {
     `App.Models.User.${user?.id}`,
     (notification) => {
       notifications.show(
-        <Box>
-          <Typography variant="body1" sx={{ fontWeight: 500 }} gutterBottom>
-            {notification.title}
-          </Typography>
-
-          <Typography variant="body2">{notification.description}</Typography>
-        </Box>,
+        <NotificationToast
+          title={notification.title}
+          description={notification.description}
+        />,
         {
           severity: "info",
         },
       );
+
+      queryClient.invalidateQueries({ queryKey: ["user-notifications"] });
+
+      if (pathname.includes("orders")) {
+        queryClient.invalidateQueries({
+          queryKey: ["partner-orders", restaurant.id, 1],
+        });
+      }
+
+      if (pathname.includes("dashboard")) {
+        queryClient.invalidateQueries({
+          queryKey: ["partner-dashboard-stats", restaurant.id],
+        });
+      }
     },
     "new-order-received",
   );
@@ -85,7 +100,10 @@ export default function PartnerRestaurantHeader() {
         >
           <Link to={`/partner/restaurants/${restaurant.id}/notifications`}>
             <IconButton aria-label="notifications">
-              <Badge badgeContent={4} color="error">
+              <Badge
+                badgeContent={userNotifications.unread_count}
+                color="error"
+              >
                 <NotificationsIcon color="action" />
               </Badge>
             </IconButton>
