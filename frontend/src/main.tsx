@@ -39,6 +39,20 @@ const theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+        },
+      },
+    },
     MuiFormLabel: {
       styleOverrides: {
         asterisk: {
