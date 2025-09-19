@@ -1,5 +1,6 @@
-import { Stack, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
+import PartnerHeadingBlock from "../../../common/PartnerHeadingBlock";
 import PartnerStatsRangeSelect from "./PartnerStatsRangeSelect";
 
 import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
@@ -11,16 +12,13 @@ export default function PartnerStatsHeaderLeft() {
   const computedRange = getComputedRangeLabel(range);
 
   return (
-    <Stack spacing={2}>
-      <Typography variant="h5" sx={{ fontWeight: 600 }}>
-        Stats
-      </Typography>
-
-      <Typography variant="body2">
-        Display data in real time {computedRange}
-      </Typography>
+    <Box>
+      <PartnerHeadingBlock
+        title="Stats"
+        description={`Display data in real time ${computedRange}`}
+      />
 
       <PartnerStatsRangeSelect />
-    </Stack>
+    </Box>
   );
 }

@@ -25,7 +25,7 @@ export default function PartnerMenuMainCards() {
   ];
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ my: 3 }}>
       {cards.map((card) => (
         <PartnerMainCard key={card.title} card={card} />
       ))}

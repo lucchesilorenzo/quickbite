@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
+import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import PartnerSettingsMainCards from "@/components/partner/restaurant/settings/PartnerSettingsMainCards";
 
 export default function PartnerRestaurantSettingsPage() {
@@ -10,11 +11,8 @@ export default function PartnerRestaurantSettingsPage() {
   }, []);
 
   return (
-    <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h5" sx={{ fontWeight: 600, mb: 4 }}>
-        Settings
-      </Typography>
-
+    <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
+      <PartnerHeadingBlock title="Settings" />
       <PartnerSettingsMainCards />
     </Container>
   );

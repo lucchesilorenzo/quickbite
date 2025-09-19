@@ -46,7 +46,7 @@ export default function PartnerOrdersList() {
   if (isLoadingOrders) return <Spinner />;
 
   return (
-    <Stack spacing={2} sx={{ my: 4 }}>
+    <Stack spacing={2} sx={{ my: 3 }}>
       <PartnerOrdersFilters setPage={setPage} />
 
       {!filteredOrders?.length ? (

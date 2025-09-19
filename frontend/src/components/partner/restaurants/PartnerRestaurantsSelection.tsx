@@ -12,7 +12,7 @@ export default function PartnerRestaurantsSelection({
   restaurants,
 }: PartnerRestaurantsSelectionProps) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ my: 3 }}>
       {restaurants.map((restaurant) => (
         <Grid key={restaurant.id} size={{ xs: 6, sm: 4, md: 3 }}>
           <PartnerRestaurantCard restaurant={restaurant} />

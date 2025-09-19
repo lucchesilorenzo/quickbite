@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
 import Spinner from "@/components/common/Spinner";
+import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import PartnerRestaurantsSelection from "@/components/partner/restaurants/PartnerRestaurantsSelection";
 import PartnerRestaurantsWelcome from "@/components/partner/restaurants/PartnerRestaurantsWelcome";
 import { useGetPartnerRestaurants } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurants";
@@ -15,12 +16,9 @@ export default function PartnerRestaurantsPage() {
   }, []);
 
   return (
-    <Container component="main" maxWidth="md" sx={{ py: 6 }}>
+    <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
       <PartnerRestaurantsWelcome />
-
-      <Typography variant="h6" sx={{ mb: 3 }}>
-        🍔 Choose your restaurant
-      </Typography>
+      <PartnerHeadingBlock title="🍔 Choose your restaurant" />
 
       {isLoading ? (
         <Spinner />

@@ -78,10 +78,10 @@ export default function PartnerMenuCategoriesList() {
   }
 
   return (
-    <Box sx={{ mt: 4 }}>
-      <Typography variant="body2" sx={{ mb: 4 }}>
+    <Box sx={{ mt: 3 }}>
+      <Typography variant="body2" sx={{ mb: 3 }}>
         Drag and drop menu categories to change their order. The new order will
-        automatically update in the public restaurant menu.
+        automatically update in the public restaurant menu
       </Typography>
 
       <DndContext sensors={sensors} onDragEnd={handleMenuCategorySort}>

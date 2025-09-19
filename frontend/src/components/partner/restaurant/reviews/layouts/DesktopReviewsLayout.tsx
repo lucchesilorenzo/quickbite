@@ -5,7 +5,11 @@ import PartnerRestaurantReviewsList from "../PartnerRestaurantReviewsList";
 
 export default function DesktopReviewsLayout() {
   return (
-    <Grid container spacing={4} sx={{ display: { xs: "none", md: "flex" } }}>
+    <Grid
+      container
+      spacing={4}
+      sx={{ display: { xs: "none", md: "flex" }, my: 3 }}
+    >
       <Grid size={7}>
         <PartnerRestaurantReviewsList />
       </Grid>

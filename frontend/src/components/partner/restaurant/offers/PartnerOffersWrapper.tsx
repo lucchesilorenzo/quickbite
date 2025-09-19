@@ -14,7 +14,7 @@ export default function PartnerOffersWrapper() {
       <Button
         variant="contained"
         startIcon={<PlusIcon />}
-        sx={{ mb: 4 }}
+        sx={{ mb: 3 }}
         onClick={() => setOpenAddOfferDialog(true)}
       >
         Add offer

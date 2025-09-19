@@ -8,7 +8,7 @@ export default function PartnerDashboardWelcomeAndStatus() {
     <Stack
       component="section"
       direction="row"
-      sx={{ justifyContent: "space-between", alignItems: "center", mb: 4 }}
+      sx={{ justifyContent: "space-between", alignItems: "center", mb: 3 }}
     >
       <PartnerDashboardWelcome />
       <PartnerDashboardRestaurantStatus />
