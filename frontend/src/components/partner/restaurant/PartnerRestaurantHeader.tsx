@@ -23,7 +23,10 @@ import NotificationToast from "@/components/common/NotificationToast";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
-import { NewOrderReceived, NewReviewReceived } from "@/types";
+import {
+  NewOrderReceivedToBroadcast,
+  NewReviewReceivedToBroadcast,
+} from "@/types";
 
 export default function PartnerRestaurantHeader() {
   const { user, userNotifications } = useAuth();
@@ -40,7 +43,7 @@ export default function PartnerRestaurantHeader() {
     await logoutPartner();
   }
 
-  useEchoNotification<NewOrderReceived>(
+  useEchoNotification<NewOrderReceivedToBroadcast>(
     `App.Models.User.${user?.id}`,
     (notification) => {
       notifications.show(
@@ -53,7 +56,9 @@ export default function PartnerRestaurantHeader() {
         },
       );
 
-      queryClient.invalidateQueries({ queryKey: ["user-notifications"] });
+      queryClient.invalidateQueries({
+        queryKey: ["user-notifications", user?.id, 1],
+      });
 
       if (pathname.includes("orders")) {
         queryClient.invalidateQueries({
@@ -70,7 +75,7 @@ export default function PartnerRestaurantHeader() {
     "new-order-received",
   );
 
-  useEchoNotification<NewReviewReceived>(
+  useEchoNotification<NewReviewReceivedToBroadcast>(
     `App.Models.User.${user?.id}`,
     (notification) => {
       notifications.show(
@@ -83,7 +88,9 @@ export default function PartnerRestaurantHeader() {
         },
       );
 
-      queryClient.invalidateQueries({ queryKey: ["user-notifications"] });
+      queryClient.invalidateQueries({
+        queryKey: ["user-notifications", user?.id, 1],
+      });
 
       if (pathname.includes("reviews") || pathname.includes("dashboard")) {
         queryClient.invalidateQueries({
