@@ -13,8 +13,15 @@ class NotificationService
     public function getNotifications(User $user): array
     {
         return [
-            'notifications' => $user->notifications()->paginate(self::PER_PAGE),
+            'notifications' => $user->notifications()
+                ->paginate(self::PER_PAGE),
             'unread_count' => $user->unreadNotifications()->count(),
         ];
+    }
+
+    public function markNotificationsAsRead(User $user): void
+    {
+        $user->unreadNotifications()
+            ->update(['read_at' => now()]);
     }
 }

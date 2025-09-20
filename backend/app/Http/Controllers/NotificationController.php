@@ -28,4 +28,22 @@ class NotificationController extends Controller
             ], 500);
         }
     }
+
+    public function markNotificationsAsRead(): JsonResponse
+    {
+        try {
+            $notifications = $this->notificationService->markNotificationsAsRead(
+                auth()->user()
+            );
+
+            return response()->json([
+                ...$notifications,
+                'message' => 'Notifications successfully marked as read.',
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not mark notifications as read.',
+            ], 500);
+        }
+    }
 }
