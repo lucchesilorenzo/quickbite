@@ -1,5 +1,6 @@
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { formatDistanceToNow } from "date-fns";
 
 import { UserNotification } from "@/types";
@@ -19,7 +20,7 @@ export default function PartnerNotificationsItem({
       sx={{
         border: "1px solid",
         borderColor: "divider",
-        bgcolor: "background.paper",
+        bgcolor: notification.read_at ? "background.paper" : grey[200],
         color: "inherit",
       }}
     >
