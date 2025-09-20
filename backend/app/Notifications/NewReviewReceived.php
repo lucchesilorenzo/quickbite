@@ -39,9 +39,14 @@ class NewReviewReceived extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'review_id' => $this->review->id,
-            'customer_name' => "{$this->review->customer->first_name} {$this->review->customer->last_name}",
-            'created_at' => $this->review->created_at,
+            'title' => 'New review received',
+            'description' => "Review from {$this->review->customer->first_name} {$this->review->customer->last_name} - {$this->review->rating} stars",
+            'meta' => [
+                'review_id' => $this->review->id,
+                'first_name' => $this->review->customer->first_name,
+                'last_name' => $this->review->customer->last_name,
+                'created_at' => $this->review->created_at,
+            ],
         ];
     }
 
