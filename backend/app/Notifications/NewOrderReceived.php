@@ -40,11 +40,20 @@ class NewOrderReceived extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'order_id' => $this->order->id,
-            'order_code' => $this->order->order_code,
-            'customer_name' => "{$this->order->first_name} {$this->order->last_name}",
-            'total' => $this->order->total,
-            'created_at' => $this->order->created_at,
+            'title' => 'New order received',
+            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: " . Number::currency(
+                $this->order->total,
+                in: 'EUR',
+                locale: 'it-IT'
+            ),
+            'meta' => [
+                'order_id' => $this->order->id,
+                'order_code' => $this->order->order_code,
+                'first_name' => $this->order->first_name,
+                'last_name' => $this->order->last_name,
+                'total' => $this->order->total,
+                'created_at' => $this->order->created_at,
+            ],
         ];
     }
 
