@@ -10,3 +10,4 @@ export * from "./offer-types";
 export * from "./delivery-day-types";
 export * from "./stat-types";
 export * from "./notification-types";
+export * from "./pagination-types";

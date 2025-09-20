@@ -1,3 +1,4 @@
+import { BaseOffsetPagination } from "./pagination-types";
 import { RestaurantBase } from "./restaurant-types";
 import { Review } from "./review-types";
 
@@ -31,24 +32,8 @@ export type Order = {
   updated_at: string;
 };
 
-export type OrderWithPagination = {
-  current_page: number;
+export type OrderWithPagination = BaseOffsetPagination & {
   data: Order[];
-  first_page_url: string;
-  from: number;
-  last_page: number;
-  last_page_url: string;
-  links: {
-    url: string | null;
-    label: string;
-    active: boolean;
-  }[];
-  next_page_url: string | null;
-  path: string;
-  per_page: number;
-  prev_page_url: string | null;
-  to: number;
-  total: number;
 };
 
 export type OrderStatus =

@@ -1,3 +1,5 @@
+import { BaseOffsetPagination } from "./pagination-types";
+
 export type Offer = {
   id: string;
   restaurant_id: string;
@@ -7,22 +9,6 @@ export type Offer = {
   updated_at: string;
 };
 
-export type OfferWithPagination = {
-  current_page: number;
+export type OfferWithPagination = BaseOffsetPagination & {
   data: Offer[];
-  first_page_url: string;
-  from: number;
-  last_page: number;
-  last_page_url: string;
-  links: {
-    url: string | null;
-    label: string;
-    active: boolean;
-  }[];
-  next_page_url: string | null;
-  path: string;
-  per_page: number;
-  prev_page_url: string | null;
-  to: number;
-  total: number;
 };
