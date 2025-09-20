@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Container } from "@mui/material";
 
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
+import PartnerNotificationsList from "@/components/partner/restaurant/notifications/PartnerNotificationsList";
 
 export default function PartnerRestaurantNotificationsPage() {
   useEffect(() => {
@@ -15,6 +16,8 @@ export default function PartnerRestaurantNotificationsPage() {
         title="Notifications"
         description="View and manage your notifications"
       />
+
+      <PartnerNotificationsList />
     </Container>
   );
 }
