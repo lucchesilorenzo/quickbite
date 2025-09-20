@@ -4,7 +4,7 @@ import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuthMe } from "@/hooks/react-query/private/auth/useAuthMe";
 import { useGetUserNotifications } from "@/hooks/react-query/private/auth/useGetUserNotifications";
 import { userNotificationDefaults } from "@/lib/query-defaults";
-import { User, UserNotification } from "@/types";
+import { User, UserNotificationWithUnreadCount } from "@/types";
 
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -12,19 +12,22 @@ type AuthProviderProps = {
 
 type AuthContext = {
   user?: User | null;
-  userNotifications: UserNotification;
+  userNotifications: UserNotificationWithUnreadCount;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const AuthContext = createContext<AuthContext | null>(null);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null | undefined>();
+  const [page, setPage] = useState(1);
 
   const { data, isLoading: isLoadingUser, isError } = useAuthMe();
   const {
     data: userNotifications = userNotificationDefaults,
     isLoading: isLoadingUserNotifications,
-  } = useGetUserNotifications(user?.id);
+  } = useGetUserNotifications(user?.id, page);
 
   useEffect(() => {
     if (!isLoadingUser) {
@@ -32,11 +35,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }, [data, isLoadingUser, isError]);
 
-  if (user === undefined || isLoadingUserNotifications)
+  if (user === undefined || isLoadingUserNotifications) {
     return <FullPageSpinner />;
+  }
 
   return (
-    <AuthContext.Provider value={{ user, userNotifications }}>
+    <AuthContext.Provider value={{ user, userNotifications, page, setPage }}>
       {children}
     </AuthContext.Provider>
   );
