@@ -16,7 +16,6 @@ export default function PartnerRestaurantReviewsPage() {
     <PartnerRestaurantReviewsProvider>
       <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
         <PartnerHeadingBlock title="Ratings and reviews" />
-
         <DesktopReviewsLayout />
         <MobileReviewsLayout />
       </Container>
