@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Container } from "@mui/material";
 
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
+import PartnerNotificationsActionBar from "@/components/partner/restaurant/notifications/PartnerNotificationsActionBar";
 import PartnerNotificationsList from "@/components/partner/restaurant/notifications/PartnerNotificationsList";
 
 export default function PartnerRestaurantNotificationsPage() {
@@ -17,6 +18,7 @@ export default function PartnerRestaurantNotificationsPage() {
         description="View and manage your notifications"
       />
 
+      <PartnerNotificationsActionBar />
       <PartnerNotificationsList />
     </Container>
   );
