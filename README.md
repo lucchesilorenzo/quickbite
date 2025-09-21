@@ -132,7 +132,7 @@ Backend (`backend/.env`)
 ```bash
 # Database
 DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
+DB_HOST=127.0.0.1    # use 'db' when running inside Docker
 DB_PORT=5432
 DB_DATABASE=quickbite
 DB_USERNAME=quickbite
@@ -142,7 +142,7 @@ DB_PASSWORD=quickbite
 REVERB_APP_ID=
 REVERB_APP_KEY=
 REVERB_APP_SECRET=
-REVERB_HOST="localhost"
+REVERB_HOST="localhost"   # use 'reverb' when running inside Docker
 REVERB_PORT=8080
 REVERB_SCHEME=http
 ```
