@@ -186,7 +186,7 @@ REVERB_SCHEME=http
    ```bash
    cd .. && npm start
    ```
-
+   
 The frontend will be running at [http://localhost:5173](http://localhost:5173).
 
 ## Installation with Docker
@@ -210,8 +210,8 @@ The frontend will be running at [http://localhost:5173](http://localhost:5173).
    ```bash
    docker compose exec api php artisan migrate --seed
    ```
-
-4. **Access frontend at [http://localhost:5173](http://localhost:5173).**
+     
+The frontend will be running at [http://localhost:5173](http://localhost:5173).
 
 ## 📊 Data Models and Relationships
 
