@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 
 import { formatCurrency } from "@/lib/utils";
 
@@ -18,12 +18,14 @@ export default function PartnerDashboardStatsCardItem({
     : new Intl.NumberFormat("it-IT").format(stat.value);
 
   return (
-    <Stack spacing={1}>
-      <Typography variant="body2">{stat.title}</Typography>
+    <Grid size={6}>
+      <Stack spacing={1}>
+        <Typography variant="body2">{stat.title}</Typography>
 
-      <Typography variant="h5" sx={{ fontWeight: 700 }}>
-        {computedValue}
-      </Typography>
-    </Stack>
+        <Typography variant="h5" sx={{ fontWeight: 700 }}>
+          {computedValue}
+        </Typography>
+      </Stack>
+    </Grid>
   );
 }

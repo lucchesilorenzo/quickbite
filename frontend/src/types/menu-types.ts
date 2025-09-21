@@ -1,3 +1,5 @@
+import { BaseOffsetPagination } from "./pagination-types";
+
 export type MenuCategory = {
   id: string;
   restaurant_id: string;
@@ -29,22 +31,6 @@ export type PartnerMenuWithPagination = MenuCategory & {
   menu_items: PartnerMenuItemWithPagination;
 };
 
-export type PartnerMenuItemWithPagination = {
-  current_page: number;
+export type PartnerMenuItemWithPagination = BaseOffsetPagination & {
   data: MenuItem[];
-  first_page_url: string;
-  from: number;
-  last_page: number;
-  last_page_url: string;
-  links: {
-    url: string | null;
-    label: string;
-    active: boolean;
-  }[];
-  next_page_url: string | null;
-  path: string;
-  per_page: number;
-  prev_page_url: string | null;
-  to: number;
-  total: number;
 };

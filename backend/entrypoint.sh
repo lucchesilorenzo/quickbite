@@ -23,10 +23,4 @@ rm -rf public/storage
 php artisan storage:link
 
 # Start the server
-php artisan serve --host=0.0.0.0 --port=8000 &
-
-# Wait for the server to start
-sleep 1
-
-# Run pail
-php artisan pail --timeout=0
+php artisan serve --host=0.0.0.0 --port=8000

@@ -11,11 +11,15 @@ trait HasRestaurantAuthorization
 {
     public function isPartner(User $user, Restaurant $restaurant): bool
     {
-        return $restaurant->partners()->where('user_id', $user->id)->exists();
+        return $restaurant->partners()
+            ->where('user_id', $user->id)
+            ->exists();
     }
 
     public function isRider(User $user, Restaurant $restaurant): bool
     {
-        return $restaurant->riders()->where('user_id', $user->id)->exists();
+        return $restaurant->riders()
+            ->where('user_id', $user->id)
+            ->exists();
     }
 }

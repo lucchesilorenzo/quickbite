@@ -28,6 +28,7 @@ export const partnerRestaurantsDefaults = {
 
 export const partnerRestaurantDashboardStatsDefaults = {
   earnings_today: 0,
+  pending_orders: 0,
   accepted_orders: 0,
   rejected_orders: 0,
 };
@@ -44,4 +45,23 @@ export const partnerRestaurantStatsDefaults = {
   filters: {
     years: [],
   },
+};
+
+export const userNotificationDefaults = {
+  notifications: {
+    current_page: 1,
+    data: [],
+    first_page_url: "",
+    from: null,
+    last_page: 1,
+    last_page_url: "",
+    links: [],
+    next_page_url: null,
+    path: "",
+    per_page: 15,
+    prev_page_url: null,
+    to: null,
+    total: 0,
+  },
+  unread_count: 0,
 };

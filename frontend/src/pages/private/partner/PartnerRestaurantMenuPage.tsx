@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
+import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import PartnerMenuMainCards from "@/components/partner/restaurant/menu/PartnerMenuMainCards";
 
 export default function PartnerRestaurantMenuPage() {
@@ -10,11 +11,8 @@ export default function PartnerRestaurantMenuPage() {
   }, []);
 
   return (
-    <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h5" sx={{ fontWeight: 600, mb: 4 }}>
-        Menu
-      </Typography>
-
+    <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
+      <PartnerHeadingBlock title="Menu" />
       <PartnerMenuMainCards />
     </Container>
   );

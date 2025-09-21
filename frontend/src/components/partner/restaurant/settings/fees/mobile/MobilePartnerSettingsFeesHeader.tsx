@@ -1,10 +1,11 @@
 import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 
-import PartnerBackButton from "@/components/partner/restaurant/common/PartnerBackButton";
+import PartnerHeadingBlock from "../../../common/PartnerHeadingBlock";
+
 import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/usePartnerRestaurantSettingsFees";
 import { TPartnerRestaurantSettingsFeesFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
@@ -24,17 +25,11 @@ export default function MobilePartnerSettingsFeesHeader() {
 
   return (
     <Box sx={{ mb: 2 }}>
-      <Box>
-        <PartnerBackButton />
-
-        <Typography variant="h5" sx={{ fontWeight: 600, my: 1 }}>
-          Fees
-        </Typography>
-
-        <Typography variant="body2" sx={{ mb: 2 }}>
-          Set your fees for delivery, service and minimum order.
-        </Typography>
-      </Box>
+      <PartnerHeadingBlock
+        title="Fees"
+        description="Set your delivery, service and minimum order fees"
+        backButton
+      />
 
       <Stack direction="row" spacing={2}>
         {editMode && (

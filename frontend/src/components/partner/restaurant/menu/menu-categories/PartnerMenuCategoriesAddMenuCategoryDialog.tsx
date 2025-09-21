@@ -26,6 +26,7 @@ export default function PartnerMenuCategoriesAddMenuCategoryDialog() {
         variant="contained"
         onClick={() => setOpenAddMenuCategoryDialog(true)}
         startIcon={<PlusIcon />}
+        sx={{ mt: 1 }}
       >
         Add menu category
       </Button>

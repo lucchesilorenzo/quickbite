@@ -96,7 +96,7 @@ export default function PartnerMenuEditMenuItemsList() {
   return (
     <DndContext sensors={sensors} onDragEnd={handleMenuItemSort}>
       <SortableContext items={items}>
-        <Stack spacing={2} sx={{ my: 4 }}>
+        <Stack spacing={2} sx={{ my: 3 }}>
           {items.map((menuItem) => (
             <PartnerMenuEditMenuItem key={menuItem.id} menuItem={menuItem} />
           ))}

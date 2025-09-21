@@ -16,6 +16,7 @@ class AuthController extends Controller
     {
         try {
             $user = auth()->user();
+
             $user->getRoleNames();
 
             return response()->json($user, 200);

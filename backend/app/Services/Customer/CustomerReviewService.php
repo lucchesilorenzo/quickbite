@@ -7,7 +7,9 @@ namespace App\Services\Customer;
 use App\Models\Restaurant;
 use App\Models\RestaurantReview;
 use App\Models\User;
+use App\Notifications\NewReviewReceived;
 use Exception;
+use Illuminate\Support\Facades\Notification;
 
 class CustomerReviewService
 {
@@ -16,7 +18,6 @@ class CustomerReviewService
         string $restaurantSlug,
         array $data
     ): RestaurantReview {
-        // Get restaurant
         $restaurant = Restaurant::where('slug', $restaurantSlug)->first();
 
         if (! $restaurant) {
@@ -40,6 +41,8 @@ class CustomerReviewService
             'comment' => $data['comment'],
             'rating' => $data['rating'],
         ]);
+
+        Notification::send($restaurant->partners, new NewReviewReceived($review));
 
         return $review;
     }

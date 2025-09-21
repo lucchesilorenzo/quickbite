@@ -76,7 +76,7 @@ export default function PartnerMenuEditNavigation() {
   if (isLoadingMenuCategories) return <Spinner />;
 
   return (
-    <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 2 }}>
+    <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 3 }}>
       <Fade in={canScrollPrev}>
         <IconButton
           onClick={scrollPrev}

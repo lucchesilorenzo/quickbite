@@ -5,7 +5,7 @@ import { OrderWithPagination } from "@/types/order-types";
 
 export function useGetPartnerRestaurantOrders(
   restaurantId: string,
-  page: number,
+  page: number = 1,
 ) {
   return useQuery({
     queryKey: ["partner-orders", restaurantId, page],

@@ -22,6 +22,7 @@ import "swiper/css/bundle";
 
 import AppRoutes from "./pages/AppRoutes";
 
+import "@/lib/echo";
 import "@/styles/globals.css";
 
 window.Buffer = Buffer;
@@ -36,6 +37,20 @@ const theme = createTheme({
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+        },
       },
     },
     MuiFormLabel: {
@@ -71,7 +86,7 @@ createRoot(document.getElementById("root")!).render(
         slotProps={{
           snackbar: {
             anchorOrigin: { vertical: "top", horizontal: "right" },
-            autoHideDuration: 5000,
+            autoHideDuration: 8000,
           },
         }}
       >

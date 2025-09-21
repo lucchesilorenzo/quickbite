@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerSettingsDeliveryTimesHeader from "@/components/partner/restaurant/settings/delivery-times/PartnerSettingsDeliveryTimesHeader";
+import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import PartnerSettingsDeliveryTimesTabs from "@/components/partner/restaurant/settings/delivery-times/PartnerSettingsDeliveryTimesTabs";
 
 export default function PartnerRestaurantSettingsDeliveryTimesPage() {
@@ -12,7 +12,11 @@ export default function PartnerRestaurantSettingsDeliveryTimesPage() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
-      <PartnerSettingsDeliveryTimesHeader />
+      <PartnerHeadingBlock
+        title="Delivery times"
+        description="These are the delivery times for which you will receive orders"
+        backButton
+      />
       <PartnerSettingsDeliveryTimesTabs />
     </Container>
   );

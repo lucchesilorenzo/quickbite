@@ -1,10 +1,10 @@
 import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 
-import PartnerBackButton from "../../common/PartnerBackButton";
+import PartnerHeadingBlock from "../../common/PartnerHeadingBlock";
 
 import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/usePartnerRestaurantSettingsInfo";
 import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
@@ -28,17 +28,11 @@ export default function PartnerSettingsInfoHeader() {
       direction="row"
       sx={{ justifyContent: "space-between", alignItems: "center" }}
     >
-      <Box>
-        <PartnerBackButton />
-
-        <Typography variant="h5" sx={{ fontWeight: 600, my: 1 }}>
-          Restaurant info
-        </Typography>
-
-        <Typography variant="body2" sx={{ mb: 2 }}>
-          Edit your restaurant information.
-        </Typography>
-      </Box>
+      <PartnerHeadingBlock
+        title="Restaurant info"
+        description="Edit your restaurant information"
+        backButton
+      />
 
       <Stack direction="row" spacing={2}>
         {editMode && (

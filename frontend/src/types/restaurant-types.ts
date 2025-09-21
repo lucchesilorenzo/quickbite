@@ -2,6 +2,7 @@ import { CategoryWithPivot } from "./category-types";
 import { DeliveryDay } from "./delivery-day-types";
 import { MenuCategory } from "./menu-types";
 import { Offer } from "./offer-types";
+import { BaseCursorPagination } from "./pagination-types";
 import { Review } from "./review-types";
 
 export type RestaurantBase = {
@@ -57,14 +58,8 @@ export type RestaurantDetail = RestaurantListItem & {
 };
 
 export type RestaurantWithPagination = {
-  restaurants: {
+  restaurants: BaseCursorPagination & {
     data: RestaurantListItem[];
-    path: string;
-    per_page: number;
-    next_cursor: string | null;
-    next_page_url: string | null;
-    prev_cursor: string | null;
-    prev_page_url: string | null;
   };
   meta: RestaurantMeta;
 };

@@ -1,4 +1,4 @@
-import { Card, Stack } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 
 import PartnerDashboardStatsCardItem from "./PartnerDashboardStatsCardItem";
 
@@ -17,6 +17,7 @@ export default function PartnerDashboardStatsCard() {
 
   const computedStats = [
     { title: "Today's earnings", value: stats.earnings_today, currency: true },
+    { title: "Pending orders", value: stats.pending_orders, currency: false },
     { title: "Accepted orders", value: stats.accepted_orders, currency: false },
     { title: "Rejected orders", value: stats.rejected_orders, currency: false },
   ];
@@ -24,15 +25,12 @@ export default function PartnerDashboardStatsCard() {
   if (isLoadingStats) return <Spinner />;
 
   return (
-    <Card variant="outlined" sx={{ p: 2, height: 1 }}>
-      <Stack
-        direction="row"
-        sx={{ justifyContent: "space-between", alignItems: "center" }}
-      >
+    <Card variant="outlined" sx={{ p: 2 }}>
+      <Grid container spacing={2}>
         {computedStats.map((stat) => (
           <PartnerDashboardStatsCardItem key={stat.title} stat={stat} />
         ))}
-      </Stack>
+      </Grid>
     </Card>
   );
 }

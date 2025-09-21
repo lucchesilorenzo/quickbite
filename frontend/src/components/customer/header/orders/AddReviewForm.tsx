@@ -81,7 +81,7 @@ export default function AddReviewForm({
             <Typography variant="body1">Rate your experience</Typography>
 
             <Rating
-              value={field.value}
+              value={Number(field.value)}
               onChange={(_, value) => field.onChange(value)}
               icon={<StarIcon color="primary" fontSize="large" />}
               emptyIcon={<StarBorderIcon color="primary" fontSize="large" />}

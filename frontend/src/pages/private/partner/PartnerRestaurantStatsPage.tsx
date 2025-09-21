@@ -13,7 +13,7 @@ export default function PartnerRestaurantStatsPage() {
 
   return (
     <PartnerRestaurantStatsProvider>
-      <Container component="main" maxWidth="md" sx={{ py: 4 }}>
+      <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
         <PartnerStatsHeader />
         <PartnerStatsOverview />
       </Container>

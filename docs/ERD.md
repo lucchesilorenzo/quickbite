@@ -13,6 +13,7 @@
 | Cart                  | `App\Models\Cart`                  |
 | CartItem              | `App\Models\CartItem`              |
 | Category              | `App\Models\Category`              |
+| Delivery              | `App\Models\Delivery`              |
 | MenuCategory          | `App\Models\MenuCategory`          |
 | MenuItem              | `App\Models\MenuItem`              |
 | Order                 | `App\Models\Order`                 |
@@ -44,6 +45,11 @@
 
 - **BelongsToMany** `restaurants`
 
+#### Delivery
+
+- **BelongsTo** `order` via `order_id`
+- **BelongsTo** `rider` (User) via `user_id`
+
 #### MenuCategory
 
 - **BelongsTo** `restaurant` via `restaurant_id`
@@ -59,6 +65,7 @@
 
 - **BelongsTo** `customer` (User) via `user_id`
 - **BelongsTo** `restaurant` via `restaurant_id`
+- **HasOne** `delivery` via `order_id`
 - **HasMany** `orderItems` via `order_id`
 
 #### OrderItem

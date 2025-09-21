@@ -6,7 +6,7 @@ export default function PartnerRestaurantsWelcome() {
   const { user } = useAuth();
 
   return (
-    <Box sx={{ mb: 2 }}>
+    <Box sx={{ mb: 3 }}>
       <Typography variant="h5" sx={{ fontWeight: 600 }}>
         Welcome back,
       </Typography>

@@ -13,7 +13,7 @@ export default function PartnerNavigation() {
 
   return (
     <Tabs
-      value={activeTabValue}
+      value={activeTabValue || false}
       variant="scrollable"
       scrollButtons
       allowScrollButtonsMobile
