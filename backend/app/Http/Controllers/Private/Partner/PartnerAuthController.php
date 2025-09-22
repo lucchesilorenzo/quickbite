@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
+use App\Exceptions\Private\Partner\PartnerInvalidCredentialsException;
+use App\Exceptions\Private\Partner\PartnerUnauthorizedException;
+use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Auth\PartnerLoginRequest;
 use App\Http\Requests\Private\Partner\Auth\PartnerRegisterRequest;
 use App\Services\Private\Partner\PartnerAuthService;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -32,7 +34,7 @@ class PartnerAuthController extends Controller
                 'token' => $token,
                 'message' => 'Partner registered successfully.',
             ], 201);
-        } catch (Exception $e) {
+        } catch (LocationNotFoundException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
@@ -57,7 +59,7 @@ class PartnerAuthController extends Controller
                 'token' => $token,
                 'message' => 'Partner logged in successfully.',
             ], 200);
-        } catch (Exception $e) {
+        } catch (PartnerInvalidCredentialsException|PartnerUnauthorizedException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
