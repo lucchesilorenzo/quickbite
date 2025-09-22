@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Public;
 
-use App\Exceptions\Public\Restaurant\RestaurantLogoNotFoundException;
+use App\Exceptions\Public\RestaurantLogoNotFoundException;
 use App\Models\Restaurant;
 use DB;
 use Illuminate\Database\Eloquent\Builder;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Public;
 
-use App\Exceptions\Public\Restaurant\RestaurantLogoNotFoundException;
+use App\Exceptions\Public\RestaurantLogoNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\GetRestaurantsRequest;
 use App\Models\Restaurant;
