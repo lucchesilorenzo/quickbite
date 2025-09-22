@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
+use App\Exceptions\Private\Partner\PartnerMenuCategoryOrderExceededException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Menu\MenuCategory\CreateRestaurantMenuCategoryRequest;
 use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateRestaurantMenuCategoriesOrderRequest;
@@ -83,7 +84,7 @@ class PartnerMenuCategoryController extends Controller
             return response()->json([
                 'message' => 'Menu category not found.',
             ], 404);
-        } catch (Exception $e) {
+        } catch (PartnerMenuCategoryOrderExceededException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
