@@ -24,15 +24,11 @@ class CustomerRestaurantReviewController extends Controller
         CustomerCreateReviewRequest $request,
         string $restaurantSlug
     ): JsonResponse {
-        $data = $request->validated();
-
         try {
-            $user = auth()->user();
-
             $review = $this->customerReviewService->createReview(
-                $user,
+                auth()->user(),
+                $request->validated(),
                 $restaurantSlug,
-                $data,
             );
 
             return response()->json([

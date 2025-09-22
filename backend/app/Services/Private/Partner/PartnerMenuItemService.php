@@ -12,12 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class PartnerMenuItemService
 {
-    public function __construct(private ImageService $imageService) {}
+    public function __construct(
+        private ImageService $imageService
+    ) {}
 
     public function createMenuItem(
+        array $data,
         MenuCategory $menuCategory,
         ?UploadedFile $image,
-        array $data
     ): MenuItem {
         // Handle image upload if provided
         if ($image) {
@@ -28,20 +30,17 @@ class PartnerMenuItemService
         $menuItemOrder = $menuCategory->menuItems()->max('order');
         $data['order'] = $menuItemOrder === null ? 0 : $menuItemOrder + 1;
 
-        // Create menu item
-        $menuItem = MenuItem::create([
+        return MenuItem::create([
             ...$data,
             'menu_category_id' => $menuCategory->id,
             'order' => $data['order'],
         ]);
-
-        return $menuItem;
     }
 
     public function updateMenuItem(
+        array $data,
         MenuItem $menuItem,
         ?UploadedFile $image,
-        array $data
     ): MenuItem {
         if ($image) {
             $data['image'] = $this->imageService->update(

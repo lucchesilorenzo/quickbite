@@ -15,14 +15,12 @@ class PartnerOfferService
 
     public function getOffers(Restaurant $restaurant): LengthAwarePaginator
     {
-        $offers = $restaurant->offers()
+        return $restaurant->offers()
             ->orderBy('created_at')
             ->paginate(self::PER_PAGE);
-
-        return $offers;
     }
 
-    public function createOffer(Restaurant $restaurant, array $data): RestaurantOffer
+    public function createOffer(array $data, Restaurant $restaurant): RestaurantOffer
     {
         // Check if offer already exists
         $doesOfferExist = $restaurant->offers()
@@ -37,15 +35,13 @@ class PartnerOfferService
         }
 
         // Create offer
-        $offer = $restaurant->offers()->create($data);
-
-        return $offer;
+        return $restaurant->offers()->create($data);
     }
 
     public function updateOffer(
+        array $data,
         Restaurant $restaurant,
-        RestaurantOffer $offer,
-        array $data
+        RestaurantOffer $offer
     ): RestaurantOffer {
         // Check if offer already exists
         $doesOfferExist = $restaurant->offers()
@@ -63,5 +59,10 @@ class PartnerOfferService
         $offer->update($data);
 
         return $offer;
+    }
+
+    public function deleteOffer(RestaurantOffer $offer): void
+    {
+        $offer->delete();
     }
 }

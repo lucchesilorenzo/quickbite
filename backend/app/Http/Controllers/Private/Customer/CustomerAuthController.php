@@ -23,10 +23,10 @@ class CustomerAuthController extends Controller
      */
     public function register(CustomerRegisterRequest $request): JsonResponse
     {
-        $data = $request->validated();
-
         try {
-            $token = $this->customerAuthService->register($data);
+            $token = $this->customerAuthService->register(
+                $request->validated()
+            );
 
             return response()->json([
                 'message' => 'Customer registered successfully.',
@@ -50,10 +50,10 @@ class CustomerAuthController extends Controller
      */
     public function login(CustomerLoginRequest $request): JsonResponse
     {
-        $data = $request->validated();
-
         try {
-            $token = $this->customerAuthService->login($data);
+            $token = $this->customerAuthService->login(
+                $request->validated()
+            );
 
             return response()->json([
                 'message' => 'Customer logged in successfully.',
@@ -76,7 +76,9 @@ class CustomerAuthController extends Controller
     public function logout(): JsonResponse
     {
         try {
-            auth()->user()->currentAccessToken()->delete();
+            $this->customerAuthService->logout(
+                auth()->user()
+            );
 
             return response()->json([
                 'message' => 'Customer logged out successfully.',

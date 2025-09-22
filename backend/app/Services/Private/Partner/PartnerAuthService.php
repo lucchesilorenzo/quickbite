@@ -57,9 +57,12 @@ class PartnerAuthService
             );
         }
 
-        $token = $partner->createToken('partner_web_token')->plainTextToken;
+        return $partner->createToken('partner_web_token')->plainTextToken;
+    }
 
-        return $token;
+    public function logout(User $partner): void
+    {
+        $partner->currentAccessToken()->delete();
     }
 
     private function createPartner(array $data): User
@@ -80,7 +83,7 @@ class PartnerAuthService
 
     private function createRestaurant(array $data, array $locationData): Restaurant
     {
-        $restaurant = Restaurant::create([
+        return Restaurant::create([
             'name' => $data['business_name'],
             'slug' => Str::slug($data['business_name'] . '-' . Str::orderedUuid()),
             'street_address' => $data['street_address'],
@@ -92,8 +95,6 @@ class PartnerAuthService
             'latitude' => $locationData['lat'],
             'longitude' => $locationData['lon'],
         ]);
-
-        return $restaurant;
     }
 
     private function setupDeliveryDays(Restaurant $restaurant): void

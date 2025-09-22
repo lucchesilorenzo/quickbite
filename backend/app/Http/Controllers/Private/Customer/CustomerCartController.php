@@ -25,10 +25,10 @@ class CustomerCartController extends Controller
      */
     public function getCarts(): JsonResponse
     {
-        $user = auth()->user();
-
         try {
-            $carts = $this->customerCartService->getCarts($user);
+            $carts = $this->customerCartService->getCarts(
+                auth()->user()
+            );
 
             return CartResource::collection($carts)
                 ->response()
@@ -146,7 +146,7 @@ class CustomerCartController extends Controller
         Gate::authorize('delete', $cart);
 
         try {
-            $cart->delete();
+            $this->customerCartService->deleteCart($cart);
 
             return response()->json([
                 'message' => 'Cart deleted successfully.',

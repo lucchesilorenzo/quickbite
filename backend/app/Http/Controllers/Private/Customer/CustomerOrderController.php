@@ -25,9 +25,9 @@ class CustomerOrderController extends Controller
     public function getOrders(): JsonResponse
     {
         try {
-            $user = auth()->user();
-
-            $orders = $this->customerOrderService->getOrders($user);
+            $orders = $this->customerOrderService->getOrders(
+                auth()->user()
+            );
 
             return response()->json($orders, 200);
         } catch (Throwable $e) {
@@ -60,12 +60,11 @@ class CustomerOrderController extends Controller
      */
     public function createOrder(CustomerCreateOrderRequest $request): JsonResponse
     {
-        $data = $request->validated();
-
         try {
-            $user = auth()->user();
-
-            $order = $this->customerOrderService->createOrder($user, $data);
+            $order = $this->customerOrderService->createOrder(
+                auth()->user(),
+                $request->validated()
+            );
 
             return response()->json([
                 'order' => $order,

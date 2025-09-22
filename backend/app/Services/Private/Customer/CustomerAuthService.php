@@ -20,9 +20,7 @@ class CustomerAuthService
 
         $customer->assignRole(UserRole::CUSTOMER);
 
-        $token = $customer->createToken('customer_web_token')->plainTextToken;
-
-        return $token;
+        return $customer->createToken('customer_web_token')->plainTextToken;
     }
 
     public function login(array $data): string
@@ -37,8 +35,11 @@ class CustomerAuthService
             throw new Exception('You are not authorized to log in as a customer.', 403);
         }
 
-        $token = $customer->createToken('customer_web_token')->plainTextToken;
+        return $customer->createToken('customer_web_token')->plainTextToken;
+    }
 
-        return $token;
+    public function logout(User $customer): void
+    {
+        $customer->currentAccessToken()->delete();
     }
 }

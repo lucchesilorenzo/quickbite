@@ -19,15 +19,13 @@ class PartnerOrderService
 
     public function getOrders(Restaurant $restaurant): LengthAwarePaginator
     {
-        $orders = $restaurant->orders()
+        return $restaurant->orders()
             ->with(['orderItems', 'restaurant'])
             ->orderByDesc('created_at')
             ->paginate(self::PER_PAGE);
-
-        return $orders;
     }
 
-    public function updateOrderStatus(Order $order, array $data): Order
+    public function updateOrderStatus(array $data, Order $order): Order
     {
         return DB::transaction(function () use ($order, $data) {
             // TODO: move to rider order controller
@@ -61,12 +59,10 @@ class PartnerOrderService
 
     private function findAvailableRider(Order $order): ?User
     {
-        $rider = $order->restaurant
+        return $order->restaurant
             ->riders()
             ->where('is_active', true)
             ->get()
             ->first(fn ($rider) => ! Delivery::isRiderBusy($rider));
-
-        return $rider;
     }
 }

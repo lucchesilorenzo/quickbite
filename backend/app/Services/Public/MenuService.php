@@ -11,13 +11,11 @@ class MenuService
 {
     public function getMenu(Restaurant $restaurant): Collection
     {
-        $menu = $restaurant->menuCategories()
+        return $restaurant->menuCategories()
             ->orderBy('order')
             ->with([
                 'menuItems' => fn ($q) => $q->orderBy('order'),
             ])
             ->get();
-
-        return $menu;
     }
 }

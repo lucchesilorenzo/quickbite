@@ -42,15 +42,16 @@ class PartnerOrderController extends Controller
      * Update order status.
      */
     public function updateOrderStatus(
+        UpdateOrderStatus $request,
         Order $order,
-        UpdateOrderStatus $request
     ): JsonResponse {
         Gate::authorize('updatePartnerOrder', $order);
 
-        $data = $request->validated();
-
         try {
-            $order = $this->partnerOrderService->updateOrderStatus($order, $data);
+            $order = $this->partnerOrderService->updateOrderStatus(
+                $request->validated(),
+                $order
+            );
 
             return response()->json([
                 'order' => $order,

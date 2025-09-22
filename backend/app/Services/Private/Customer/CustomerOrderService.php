@@ -17,14 +17,12 @@ class CustomerOrderService
 {
     private const PER_PAGE = 5;
 
-    public function getOrders(User $user): LengthAwarePaginator
+    public function getOrders(User $customer): LengthAwarePaginator
     {
-        $orders = $user->orders()
+        return $customer->orders()
             ->with(['orderItems', 'restaurant.reviews.customer'])
             ->orderByDesc('created_at')
             ->paginate(self::PER_PAGE);
-
-        return $orders;
     }
 
     public function getOrder(Order $order): Order
@@ -34,10 +32,9 @@ class CustomerOrderService
         return $order;
     }
 
-    public function createOrder(User $user, array $data): Order
+    public function createOrder(User $customer, array $data): Order
     {
-        return DB::transaction(function () use ($user, $data) {
-            // Get restaurant
+        return DB::transaction(function () use ($customer, $data) {
             $restaurant = Restaurant::find($data['restaurant_id']);
 
             if (! $restaurant) {
@@ -51,9 +48,8 @@ class CustomerOrderService
                 );
             }
 
-            // Create order
             $order = Order::create([
-                'user_id' => $user->id,
+                'user_id' => $customer->id,
                 'restaurant_id' => $data['restaurant_id'],
                 'order_code' => $this->generateOrderCode(),
                 'first_name' => $data['first_name'],
@@ -78,7 +74,6 @@ class CustomerOrderService
 
             Notification::send($restaurant->partners, new NewOrderReceived($order));
 
-            // Create order items
             foreach ($data['order_items'] as $item) {
                 $order->orderItems()->create([
                     'menu_item_id' => $item['menu_item_id'],

@@ -28,9 +28,9 @@ class PartnerRestaurantController extends Controller
     public function getRestaurants(): JsonResponse
     {
         try {
-            $user = auth()->user();
-
-            $restaurants = $user->restaurants()->get();
+            $restaurants = $this->partnerRestaurantService->getRestaurants(
+                auth()->user()
+            );
 
             return response()->json($restaurants, 200);
         } catch (Throwable $e) {
@@ -62,17 +62,16 @@ class PartnerRestaurantController extends Controller
      * Update a partner's restaurant status.
      */
     public function updateRestaurantStatus(
-        Restaurant $restaurant,
-        UpdateRestaurantStatusRequest $request
+        UpdateRestaurantStatusRequest $request,
+        Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('update', $restaurant);
 
-        $data = $request->validated();
-
         try {
-            $restaurant->update([
-                'force_close' => $data['force_close'],
-            ]);
+            $restaurant = $this->partnerRestaurantService->updateStatus(
+                $request->validated(),
+                $restaurant
+            );
 
             return response()->json([
                 'restaurant' => $restaurant,
@@ -89,15 +88,16 @@ class PartnerRestaurantController extends Controller
      * Update a partner's restaurant fees.
      */
     public function updateRestaurantFees(
-        Restaurant $restaurant,
-        UpdateRestaurantFeesRequest $request
+        UpdateRestaurantFeesRequest $request,
+        Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('update', $restaurant);
 
-        $data = $request->validated();
-
         try {
-            $restaurant->update($data);
+            $restaurant = $this->partnerRestaurantService->updateFees(
+                $request->validated(),
+                $restaurant
+            );
 
             return response()->json([
                 'restaurant' => $restaurant,
@@ -114,15 +114,16 @@ class PartnerRestaurantController extends Controller
      * Update a partner's restaurant delivery times.
      */
     public function updateRestaurantDeliveryTimes(
-        Restaurant $restaurant,
-        UpdateRestaurantDeliveryTimesRequest $request
+        UpdateRestaurantDeliveryTimesRequest $request,
+        Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('update', $restaurant);
 
-        $data = $request->validated();
-
         try {
-            $restaurant = $this->partnerRestaurantService->updateDeliveryTimes($restaurant, $data);
+            $restaurant = $this->partnerRestaurantService->updateDeliveryTimes(
+                $request->validated(),
+                $restaurant
+            );
 
             return response()->json([
                 'restaurant' => $restaurant,
@@ -139,18 +140,21 @@ class PartnerRestaurantController extends Controller
      * Update a partner's restaurant info.
      */
     public function updateRestaurantInfo(
-        Restaurant $restaurant,
-        UpdateRestaurantInfoRequest $request
+        UpdateRestaurantInfoRequest $request,
+        Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('update', $restaurant);
-
-        $data = $request->validated();
 
         try {
             $logo = $request->hasFile('logo') ? $request->file('logo') : null;
             $cover = $request->hasFile('cover') ? $request->file('cover') : null;
 
-            $restaurant = $this->partnerRestaurantService->updateInfo($restaurant, $logo, $cover, $data);
+            $restaurant = $this->partnerRestaurantService->updateInfo(
+                $request->validated(),
+                $restaurant,
+                $logo,
+                $cover
+            );
 
             return response()->json([
                 'restaurant' => $restaurant,

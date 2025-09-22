@@ -43,15 +43,16 @@ class PartnerRestaurantOfferController extends Controller
      * Create a partner's restaurant offer.
      */
     public function createRestaurantOffer(
-        Restaurant $restaurant,
         CreateRestaurantOfferRequest $request,
+        Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('createOffer', $restaurant);
 
-        $data = $request->validated();
-
         try {
-            $offer = $this->partnerOfferService->createOffer($restaurant, $data);
+            $offer = $this->partnerOfferService->createOffer(
+                $request->validated(),
+                $restaurant,
+            );
 
             return response()->json([
                 'offer' => $offer,
@@ -72,16 +73,18 @@ class PartnerRestaurantOfferController extends Controller
      * Update a partner's restaurant offer.
      */
     public function updateRestaurantOffer(
+        UpdateRestaurantOfferRequest $request,
         Restaurant $restaurant,
-        RestaurantOffer $offer,
-        UpdateRestaurantOfferRequest $request
+        RestaurantOffer $offer
     ): JsonResponse {
         Gate::authorize('update', $offer);
 
-        $data = $request->validated();
-
         try {
-            $offer = $this->partnerOfferService->updateOffer($restaurant, $offer, $data);
+            $offer = $this->partnerOfferService->updateOffer(
+                $request->validated(),
+                $restaurant,
+                $offer
+            );
 
             return response()->json([
                 'offer' => $offer,
@@ -106,7 +109,7 @@ class PartnerRestaurantOfferController extends Controller
         Gate::authorize('delete', $offer);
 
         try {
-            $offer->delete();
+            $this->partnerOfferService->deleteOffer($offer);
 
             return response()->json([
                 'message' => 'Offer deleted successfully.',

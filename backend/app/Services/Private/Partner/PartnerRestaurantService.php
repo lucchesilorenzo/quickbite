@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Services\Private\Partner;
 
 use App\Models\Restaurant;
+use App\Models\User;
 use App\Services\Shared\ImageService;
 use App\Services\Shared\LocationService;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
@@ -18,12 +20,33 @@ class PartnerRestaurantService
         private ImageService $imageService
     ) {}
 
+    public function getRestaurants(User $partner): Collection
+    {
+        return $partner->restaurants()->get();
+    }
+
     public function getRestaurant(Restaurant $restaurant): Restaurant
     {
         return $this->loadRestaurantRelations($restaurant);
     }
 
-    public function updateDeliveryTimes(Restaurant $restaurant, array $data): Restaurant
+    public function updateStatus(array $data, Restaurant $restaurant): Restaurant
+    {
+        $restaurant->update([
+            'force_close' => $data['force_close'],
+        ]);
+
+        return $this->loadRestaurantRelations($restaurant);
+    }
+
+    public function updateFees(array $data, Restaurant $restaurant): Restaurant
+    {
+        $restaurant->update($data);
+
+        return $this->loadRestaurantRelations($restaurant);
+    }
+
+    public function updateDeliveryTimes(array $data, Restaurant $restaurant): Restaurant
     {
         return DB::transaction(function () use ($restaurant, $data) {
             foreach ($data['delivery_days'] as $deliveryDay) {
@@ -40,10 +63,10 @@ class PartnerRestaurantService
     }
 
     public function updateInfo(
+        array $data,
         Restaurant $restaurant,
         ?UploadedFile $logo,
-        ?UploadedFile $cover,
-        array $data
+        ?UploadedFile $cover
     ): Restaurant {
         if ($logo) {
             $data['logo'] = $this->imageService->update(

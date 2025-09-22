@@ -26,24 +26,22 @@ class PartnerMenuItemController extends Controller
      * Create a partner's restaurant menu item.
      */
     public function createRestaurantMenuItem(
-        MenuCategory $menuCategory,
-        CreateRestaurantMenuItemRequest $request
+        CreateRestaurantMenuItemRequest $request,
+        MenuCategory $menuCategory
     ): JsonResponse {
         Gate::authorize('createMenuItem', $menuCategory);
-
-        $data = $request->validated();
 
         try {
             $image = $request->hasFile('image') ? $request->file('image') : null;
 
             $menuItem = $this->partnerMenuItemService->createMenuItem(
+                $request->validated(),
                 $menuCategory,
-                $image,
-                $data
+                $image
             );
 
             return response()->json([
-                'menuItem' => $menuItem,
+                'menu_item' => $menuItem,
                 'message' => 'Menu item created successfully.',
             ], 201);
         } catch (Throwable $e) {
@@ -57,24 +55,22 @@ class PartnerMenuItemController extends Controller
      * Update a partner's restaurant menu item.
      */
     public function updateRestaurantMenuItem(
-        MenuItem $menuItem,
-        UpdateRestaurantMenuItemRequest $request
+        UpdateRestaurantMenuItemRequest $request,
+        MenuItem $menuItem
     ): JsonResponse {
         Gate::authorize('update', $menuItem);
-
-        $data = $request->validated();
 
         try {
             $image = $request->hasFile('image') ? $request->file('image') : null;
 
             $menuItem = $this->partnerMenuItemService->updateMenuItem(
+                $request->validated(),
                 $menuItem,
                 $image,
-                $data
             );
 
             return response()->json([
-                'menuItem' => $menuItem,
+                'menu_item' => $menuItem,
                 'message' => 'Menu item updated successfully.',
             ], 200);
         } catch (Throwable $e) {
@@ -107,7 +103,7 @@ class PartnerMenuItemController extends Controller
             $updatedMenuItems = $this->partnerMenuItemService->updateMenuItemsOrder($menuItems);
 
             return response()->json([
-                'menuItems' => $updatedMenuItems,
+                'menu_items' => $updatedMenuItems,
                 'message' => 'Order updated successfully.',
             ], 200);
         } catch (ModelNotFoundException $e) {

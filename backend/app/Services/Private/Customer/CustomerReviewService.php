@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Notification;
 class CustomerReviewService
 {
     public function createReview(
-        User $user,
-        string $restaurantSlug,
-        array $data
+        User $customer,
+        array $data,
+        string $restaurantSlug
     ): RestaurantReview {
         $restaurant = Restaurant::where('slug', $restaurantSlug)->first();
 
@@ -24,10 +24,10 @@ class CustomerReviewService
             throw new Exception('Restaurant not found.', 404);
         }
 
-        // Check if user has already reviewed this order
+        // Check if customer has already reviewed this order
         $alreadyReviewed = $restaurant->reviews()
             ->where('order_id', $data['order_id'])
-            ->where('user_id', $user->id)
+            ->where('user_id', $customer->id)
             ->exists();
 
         if ($alreadyReviewed) {
@@ -36,7 +36,7 @@ class CustomerReviewService
 
         /** @var RestaurantReview $review */
         $review = $restaurant->reviews()->create([
-            'user_id' => $user->id,
+            'user_id' => $customer->id,
             'order_id' => $data['order_id'],
             'comment' => $data['comment'],
             'rating' => $data['rating'],

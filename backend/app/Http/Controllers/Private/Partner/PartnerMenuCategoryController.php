@@ -27,18 +27,19 @@ class PartnerMenuCategoryController extends Controller
      * Create a partner's restaurant menu category.
      */
     public function createRestaurantMenuCategory(
-        Restaurant $restaurant,
-        CreateRestaurantMenuCategoryRequest $request
+        CreateRestaurantMenuCategoryRequest $request,
+        Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('createMenuCategory', $restaurant);
 
-        $data = $request->validated();
-
         try {
-            $menuCategory = $this->partnerMenuCategoryService->createMenuCategory($restaurant, $data);
+            $menuCategory = $this->partnerMenuCategoryService->createMenuCategory(
+                $request->validated(),
+                $restaurant
+            );
 
             return response()->json([
-                'menuCategory' => $menuCategory,
+                'menu_category' => $menuCategory,
                 'message' => 'Menu category created successfully.',
             ], 200);
         } catch (Exception $e) {
@@ -75,7 +76,7 @@ class PartnerMenuCategoryController extends Controller
             $updatedMenuCategories = $this->partnerMenuCategoryService->updateMenuCategoriesOrder($menuCategories);
 
             return response()->json([
-                'menuCategories' => $updatedMenuCategories,
+                'menu_categories' => $updatedMenuCategories,
                 'message' => 'Order updated successfully.',
             ], 200);
         } catch (ModelNotFoundException $e) {
@@ -108,7 +109,7 @@ class PartnerMenuCategoryController extends Controller
             $menuCategory->update($data);
 
             return response()->json([
-                'menuCategory' => $menuCategory,
+                'menu_category' => $menuCategory,
                 'message' => 'Menu category updated successfully.',
             ], 200);
         } catch (Throwable $e) {

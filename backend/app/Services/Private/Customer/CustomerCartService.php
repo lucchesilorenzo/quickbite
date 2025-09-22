@@ -11,13 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerCartService
 {
-    public function getCarts(User $user): Collection
+    public function getCarts(User $customer): Collection
     {
-        $carts = $user->carts()
+        return $customer->carts()
             ->with(['restaurant', 'cartItems.menuItem'])
             ->get();
-
-        return $carts;
     }
 
     public function getCart(Cart $cart): Cart
@@ -27,18 +25,18 @@ class CustomerCartService
         return $cart;
     }
 
-    public function createOrUpdateCarts(User $user, array $data): Collection
+    public function createOrUpdateCarts(User $customer, array $data): Collection
     {
-        return DB::transaction(function () use ($user, $data) {
+        return DB::transaction(function () use ($customer, $data) {
             foreach ($data as $cart) {
                 // Get existing cart
-                $existingCart = $user->carts()
+                $existingCart = $customer->carts()
                     ->where('restaurant_id', $cart['restaurant']['id'])
                     ->first();
 
                 // Check if cart exists
                 if (! $existingCart) {
-                    $newCart = $user->carts()->create([
+                    $newCart = $customer->carts()->create([
                         'restaurant_id' => $cart['restaurant']['id'],
                         'cart_total' => $cart['cart_total'],
                         'total_items' => $cart['total_items'],
@@ -88,19 +86,17 @@ class CustomerCartService
                 }
             }
 
-            $carts = $user->carts()
+            return $customer->carts()
                 ->with(['restaurant', 'cartItems.menuItem'])
                 ->get();
-
-            return $carts;
         });
     }
 
-    public function createOrUpdateCart(User $user, array $data): ?Cart
+    public function createOrUpdateCart(User $customer, array $data): ?Cart
     {
-        return DB::transaction(function () use ($user, $data) {
+        return DB::transaction(function () use ($customer, $data) {
             if (empty($data['items'])) {
-                $cart = $user->carts()
+                $cart = $customer->carts()
                     ->where('restaurant_id', $data['restaurant']['id'])
                     ->first();
 
@@ -111,7 +107,7 @@ class CustomerCartService
                 return null;
             }
 
-            $cart = $user->carts()
+            $cart = $customer->carts()
                 ->with('restaurant')
                 ->firstOrCreate(
                     ['restaurant_id' => $data['restaurant']['id']],
@@ -140,5 +136,10 @@ class CustomerCartService
 
             return $cart;
         });
+    }
+
+    public function deleteCart(Cart $cart): void
+    {
+        $cart->delete();
     }
 }

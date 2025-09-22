@@ -12,7 +12,9 @@ use Throwable;
 
 class RestaurantOfferController extends Controller
 {
-    public function __construct(private OfferService $offerService) {}
+    public function __construct(
+        private OfferService $offerService
+    ) {}
 
     /**
      * Get restaurant's offers.

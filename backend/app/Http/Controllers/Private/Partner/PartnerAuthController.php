@@ -23,14 +23,14 @@ class PartnerAuthController extends Controller
      */
     public function register(PartnerRegisterRequest $request): JsonResponse
     {
-        $data = $request->validated();
-
         try {
-            $token = $this->partnerAuthService->register($data);
+            $token = $this->partnerAuthService->register(
+                $request->validated()
+            );
 
             return response()->json([
-                'message' => 'Partner registered successfully.',
                 'token' => $token,
+                'message' => 'Partner registered successfully.',
             ], 201);
         } catch (Exception $e) {
             return response()->json([
@@ -48,14 +48,14 @@ class PartnerAuthController extends Controller
      */
     public function login(PartnerLoginRequest $request): JsonResponse
     {
-        $data = $request->validated();
-
         try {
-            $token = $this->partnerAuthService->login($data);
+            $token = $this->partnerAuthService->login(
+                $request->validated()
+            );
 
             return response()->json([
-                'message' => 'Partner logged in successfully.',
                 'token' => $token,
+                'message' => 'Partner logged in successfully.',
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -74,7 +74,9 @@ class PartnerAuthController extends Controller
     public function logout(): JsonResponse
     {
         try {
-            auth()->user()->currentAccessToken()->delete();
+            $this->partnerAuthService->logout(
+                auth()->user()
+            );
 
             return response()->json([
                 'message' => 'Partner logged out successfully.',

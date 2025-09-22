@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class PartnerMenuCategoryService
 {
-    public function createMenuCategory(Restaurant $restaurant, array $data): MenuCategory
+    public function createMenuCategory(array $data, Restaurant $restaurant): MenuCategory
     {
         // Get menu category order
         $menuCategoryOrder = $restaurant->menuCategories()->max('order');
@@ -25,13 +25,10 @@ class PartnerMenuCategoryService
 
         $data['order'] = $menuCategoryOrder === null ? 0 : $menuCategoryOrder + 1;
 
-        /** @var MenuCategory $menuCategory */
-        $menuCategory = $restaurant->menuCategories()->create([
+        return $restaurant->menuCategories()->create([
             ...$data,
             'order' => $data['order'],
         ]);
-
-        return $menuCategory;
     }
 
     public function updateMenuCategoriesOrder(array $menuCategories): array

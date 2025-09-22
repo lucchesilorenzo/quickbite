@@ -23,12 +23,12 @@ class RestaurantController extends Controller
      */
     public function getRestaurants(GetRestaurantsRequest $request): JsonResponse
     {
-        $data = $request->validated();
-
         try {
-            $result = $this->restaurantService->getRestaurants($data);
+            $restaurants = $this->restaurantService->getRestaurants(
+                $request->validated()
+            );
 
-            return response()->json($result, 200);
+            return response()->json($restaurants, 200);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -46,7 +46,6 @@ class RestaurantController extends Controller
     public function getRestaurant(string $restaurantSlug): JsonResponse
     {
         try {
-            // Get restaurant
             $restaurant = $this->restaurantService->getRestaurant($restaurantSlug);
 
             if (! $restaurant) {
@@ -77,7 +76,7 @@ class RestaurantController extends Controller
                 ], 404);
             }
 
-            return response()->json(['logo' => $base64Logo], 200);
+            return response()->json($base64Logo, 200);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get logo.',
