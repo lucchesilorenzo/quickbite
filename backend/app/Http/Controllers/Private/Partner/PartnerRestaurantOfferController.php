@@ -9,7 +9,7 @@ use App\Http\Requests\Private\Partner\Offer\CreateRestaurantOfferRequest;
 use App\Http\Requests\Private\Partner\Offer\UpdateRestaurantOfferRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
-use App\Services\Partner\PartnerOfferService;
+use App\Services\Private\Partner\PartnerOfferService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;

@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Private\Partner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Auth\PartnerLoginRequest;
 use App\Http\Requests\Private\Partner\Auth\PartnerRegisterRequest;
-use App\Services\Partner\PartnerAuthService;
+use App\Services\Private\Partner\PartnerAuthService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Throwable;

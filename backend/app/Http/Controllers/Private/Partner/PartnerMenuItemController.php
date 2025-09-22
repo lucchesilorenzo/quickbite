@@ -10,7 +10,7 @@ use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateRestaurantMenuItemReq
 use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateRestaurantMenuItemsOrderRequest;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
-use App\Services\Partner\PartnerMenuItemService;
+use App\Services\Private\Partner\PartnerMenuItemService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;

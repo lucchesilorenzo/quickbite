@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Stats\GetRestaurantKpiSummaryRequest;
 use App\Http\Requests\Private\Partner\Stats\GetRestaurantStatsRequest;
 use App\Models\Restaurant;
-use App\Services\Partner\PartnerStatsService;
+use App\Services\Private\Partner\PartnerStatsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;

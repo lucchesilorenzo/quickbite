@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Private\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Review\CustomerCreateReviewRequest;
-use App\Services\Customer\CustomerReviewService;
+use App\Services\Private\Customer\CustomerReviewService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Throwable;

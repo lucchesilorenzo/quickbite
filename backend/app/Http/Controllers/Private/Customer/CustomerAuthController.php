@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Private\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Auth\CustomerLoginRequest;
 use App\Http\Requests\Private\Customer\Auth\CustomerRegisterRequest;
-use App\Services\Customer\CustomerAuthService;
+use App\Services\Private\Customer\CustomerAuthService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Throwable;

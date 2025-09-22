@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Customer;
+namespace App\Services\Private\Customer;
 
 use App\Enums\UserRole;
 use App\Models\User;

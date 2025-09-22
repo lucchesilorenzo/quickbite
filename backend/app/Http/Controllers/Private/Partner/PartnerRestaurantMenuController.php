@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
-use App\Services\Partner\PartnerMenuService;
+use App\Services\Private\Partner\PartnerMenuService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;

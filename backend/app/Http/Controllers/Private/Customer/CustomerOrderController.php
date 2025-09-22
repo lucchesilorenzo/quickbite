@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Private\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Order\CustomerCreateOrderRequest;
 use App\Models\Order;
-use App\Services\Customer\CustomerOrderService;
+use App\Services\Private\Customer\CustomerOrderService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;

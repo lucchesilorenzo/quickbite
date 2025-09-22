@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Customer;
+namespace App\Services\Private\Customer;
 
 use App\Models\Order;
 use App\Models\Restaurant;

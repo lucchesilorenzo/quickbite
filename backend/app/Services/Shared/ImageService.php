@@ -39,8 +39,10 @@ class ImageService
     /**
      * Delete an image
      */
-    public function delete(?string $currentPath, ?string $defaultSubpath = null): void
-    {
+    public function delete(
+        ?string $currentPath,
+        ?string $defaultSubpath = null
+    ): void {
         if ($currentPath) {
             $this->deleteIfNotDefault($currentPath, $defaultSubpath);
         }
@@ -49,8 +51,10 @@ class ImageService
     /**
      * Delete image only if it's not a default image
      */
-    private function deleteIfNotDefault(string $currentPath, ?string $defaultSubpath = null): void
-    {
+    private function deleteIfNotDefault(
+        string $currentPath,
+        ?string $defaultSubpath = null
+    ): void {
         // If no default subpath specified, always delete
         // If default subpath specified, delete only if current path doesn't contain it
         if ($defaultSubpath === null || ! str_contains($currentPath, $defaultSubpath)) {

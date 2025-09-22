@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Order\UpdateOrderStatus;
 use App\Models\Order;
 use App\Models\Restaurant;
-use App\Services\Partner\PartnerOrderService;
+use App\Services\Private\Partner\PartnerOrderService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;

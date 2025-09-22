@@ -9,7 +9,7 @@ use App\Http\Requests\Private\Customer\Cart\CustomerCreateOrUpdateCartRequest;
 use App\Http\Requests\Private\Customer\Cart\CustomerCreateOrUpdateCartsRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
-use App\Services\Customer\CustomerCartService;
+use App\Services\Private\Customer\CustomerCartService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
