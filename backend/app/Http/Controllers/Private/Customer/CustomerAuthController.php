@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Customer;
 
+use App\Exceptions\Private\Customer\CustomerInvalidCredentialsException;
+use App\Exceptions\Private\Customer\CustomerUnauthorizedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Auth\CustomerLoginRequest;
 use App\Http\Requests\Private\Customer\Auth\CustomerRegisterRequest;
 use App\Services\Private\Customer\CustomerAuthService;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -56,10 +57,10 @@ class CustomerAuthController extends Controller
             );
 
             return response()->json([
-                'message' => 'Customer logged in successfully.',
                 'token' => $token,
+                'message' => 'Customer logged in successfully.',
             ], 200);
-        } catch (Exception $e) {
+        } catch (CustomerInvalidCredentialsException|CustomerUnauthorizedException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

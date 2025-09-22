@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Customer;
 
+use App\Exceptions\Private\Customer\CustomerAlreadyReviewedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Review\CustomerCreateReviewRequest;
 use App\Services\Private\Customer\CustomerReviewService;
-use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -35,7 +36,11 @@ class CustomerRestaurantReviewController extends Controller
                 'review' => $review,
                 'message' => 'Review created successfully.',
             ], 201);
-        } catch (Exception $e) {
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Restaurant not found.',
+            ], 404);
+        } catch (CustomerAlreadyReviewedException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

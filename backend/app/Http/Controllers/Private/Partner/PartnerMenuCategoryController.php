@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
+use App\Exceptions\Private\Partner\PartnerMenuCategoryOrderExceededException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Menu\MenuCategory\CreateRestaurantMenuCategoryRequest;
 use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateRestaurantMenuCategoriesOrderRequest;
@@ -11,7 +12,6 @@ use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateRestaurantMenuCate
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\PartnerMenuCategoryService;
-use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -42,7 +42,7 @@ class PartnerMenuCategoryController extends Controller
                 'menu_category' => $menuCategory,
                 'message' => 'Menu category created successfully.',
             ], 200);
-        } catch (Exception $e) {
+        } catch (PartnerMenuCategoryOrderExceededException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
@@ -83,10 +83,6 @@ class PartnerMenuCategoryController extends Controller
             return response()->json([
                 'message' => 'Menu category not found.',
             ], 404);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update menu categories.',
@@ -98,15 +94,16 @@ class PartnerMenuCategoryController extends Controller
      * Update a partner's restaurant menu category.
      */
     public function updateRestaurantMenuCategory(
-        MenuCategory $menuCategory,
-        UpdateRestaurantMenuCategoryRequest $request
+        UpdateRestaurantMenuCategoryRequest $request,
+        MenuCategory $menuCategory
     ): JsonResponse {
         Gate::authorize('update', $menuCategory);
 
-        $data = $request->validated();
-
         try {
-            $menuCategory->update($data);
+            $menuCategory = $this->partnerMenuCategoryService->updateMenuCategory(
+                $request->validated(),
+                $menuCategory
+            );
 
             return response()->json([
                 'menu_category' => $menuCategory,

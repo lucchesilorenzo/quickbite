@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Public;
 
+use App\Exceptions\Public\RestaurantLogoNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\GetRestaurantsRequest;
 use App\Models\Restaurant;
 use App\Services\Public\RestaurantService;
-use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -29,10 +30,6 @@ class RestaurantController extends Controller
             );
 
             return response()->json($restaurants, 200);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
@@ -48,13 +45,11 @@ class RestaurantController extends Controller
         try {
             $restaurant = $this->restaurantService->getRestaurant($restaurantSlug);
 
-            if (! $restaurant) {
-                return response()->json([
-                    'message' => 'Restaurant not found.',
-                ], 404);
-            }
-
             return response()->json($restaurant, 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Restaurant not found.',
+            ], 404);
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
@@ -70,16 +65,14 @@ class RestaurantController extends Controller
         try {
             $base64Logo = $this->restaurantService->getBase64Logo($restaurant);
 
-            if (! $base64Logo) {
-                return response()->json([
-                    'message' => 'Logo not found.',
-                ], 404);
-            }
-
             return response()->json($base64Logo, 200);
+        } catch (RestaurantLogoNotFoundException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
-                'message' => 'Could not get logo.',
+                'message' => 'Could not get restaurant logo.',
             ], 500);
         }
     }

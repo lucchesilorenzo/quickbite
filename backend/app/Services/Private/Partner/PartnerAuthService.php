@@ -7,10 +7,12 @@ namespace App\Services\Private\Partner;
 use App\Enums\DeliveryDay;
 use App\Enums\RestaurantRole;
 use App\Enums\UserRole;
+use App\Exceptions\Private\Partner\PartnerInvalidCredentialsException;
+use App\Exceptions\Private\Partner\PartnerUnauthorizedException;
+use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Services\Shared\LocationService;
-use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -28,7 +30,7 @@ class PartnerAuthService
             $locationData = $this->locationService->getLocationData($data);
 
             if (! $locationData) {
-                throw new Exception('Location not found.', 404);
+                throw new LocationNotFoundException;
             }
 
             $restaurant = $this->createRestaurant($data, $locationData);
@@ -47,14 +49,11 @@ class PartnerAuthService
         $partner = User::where('email', $data['email'])->first();
 
         if (! $partner || ! Hash::check($data['password'], $partner->password)) {
-            throw new Exception('Invalid credentials.', 401);
+            throw new PartnerInvalidCredentialsException;
         }
 
         if (! $partner->hasRole(UserRole::PARTNER)) {
-            throw new Exception(
-                'You are not authorized to log in as a partner.',
-                403
-            );
+            throw new PartnerUnauthorizedException;
         }
 
         return $partner->createToken('partner_web_token')->plainTextToken;

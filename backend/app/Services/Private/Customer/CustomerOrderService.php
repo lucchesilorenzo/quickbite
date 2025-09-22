@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Customer;
 
+use App\Exceptions\Private\Customer\CustomerRestaurantNotAvailableException;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Notifications\NewOrderReceived;
-use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
@@ -35,17 +35,10 @@ class CustomerOrderService
     public function createOrder(User $customer, array $data): Order
     {
         return DB::transaction(function () use ($customer, $data) {
-            $restaurant = Restaurant::find($data['restaurant_id']);
-
-            if (! $restaurant) {
-                throw new Exception('Could not find the restaurant.', 404);
-            }
+            $restaurant = Restaurant::findOrFail($data['restaurant_id']);
 
             if (! $restaurant->calculateIsOpen() || $data['subtotal'] < $restaurant->min_amount) {
-                throw new Exception(
-                    'The restaurant is not open or the subtotal is less than the minimum amount.',
-                    400
-                );
+                throw new CustomerRestaurantNotAvailableException;
             }
 
             $order = Order::create([

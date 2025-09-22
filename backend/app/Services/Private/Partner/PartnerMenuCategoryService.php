@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
+use App\Exceptions\Private\Partner\PartnerMenuCategoryOrderExceededException;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
-use Exception;
 use Illuminate\Support\Facades\DB;
 
 class PartnerMenuCategoryService
@@ -17,10 +17,7 @@ class PartnerMenuCategoryService
         $menuCategoryOrder = $restaurant->menuCategories()->max('order');
 
         if ($menuCategoryOrder === 8) {
-            throw new Exception(
-                'You have reached the maximum number of menu categories.',
-                422
-            );
+            throw new PartnerMenuCategoryOrderExceededException;
         }
 
         $data['order'] = $menuCategoryOrder === null ? 0 : $menuCategoryOrder + 1;
@@ -40,6 +37,13 @@ class PartnerMenuCategoryService
 
             return $menuCategories;
         });
+    }
+
+    public function updateMenuCategory(array $data, MenuCategory $menuCategory): MenuCategory
+    {
+        $menuCategory->update($data);
+
+        return $menuCategory;
     }
 
     public function deleteMenuCategory(MenuCategory $menuCategory): void
