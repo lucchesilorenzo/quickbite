@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Services\Private\Partner;
 
 use App\Enums\OrderStatus;
+use App\Exceptions\Private\Partner\PartnerNoAvailableRidersException;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\User;
-use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -39,7 +39,7 @@ class PartnerOrderService
                 $rider = $this->findAvailableRider($order);
 
                 if (! $rider) {
-                    throw new Exception('All active riders are currently busy.', 409);
+                    throw new PartnerNoAvailableRidersException;
                 }
 
                 Delivery::create([
