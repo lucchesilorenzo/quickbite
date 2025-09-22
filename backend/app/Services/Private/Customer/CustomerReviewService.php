@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Customer;
 
+use App\Exceptions\Private\Customer\CustomerAlreadyReviewedException;
 use App\Models\Restaurant;
 use App\Models\RestaurantReview;
 use App\Models\User;
 use App\Notifications\NewReviewReceived;
-use Exception;
 use Illuminate\Support\Facades\Notification;
 
 class CustomerReviewService
@@ -18,11 +18,8 @@ class CustomerReviewService
         array $data,
         string $restaurantSlug
     ): RestaurantReview {
-        $restaurant = Restaurant::where('slug', $restaurantSlug)->first();
-
-        if (! $restaurant) {
-            throw new Exception('Restaurant not found.', 404);
-        }
+        $restaurant = Restaurant::where('slug', $restaurantSlug)
+            ->firstOrFail();
 
         // Check if customer has already reviewed this order
         $alreadyReviewed = $restaurant->reviews()
@@ -31,7 +28,7 @@ class CustomerReviewService
             ->exists();
 
         if ($alreadyReviewed) {
-            throw new Exception('You have already reviewed this order.', 409);
+            throw new CustomerAlreadyReviewedException;
         }
 
         /** @var RestaurantReview $review */
