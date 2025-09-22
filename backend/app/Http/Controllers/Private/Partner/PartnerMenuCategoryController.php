@@ -99,15 +99,16 @@ class PartnerMenuCategoryController extends Controller
      * Update a partner's restaurant menu category.
      */
     public function updateRestaurantMenuCategory(
-        MenuCategory $menuCategory,
-        UpdateRestaurantMenuCategoryRequest $request
+        UpdateRestaurantMenuCategoryRequest $request,
+        MenuCategory $menuCategory
     ): JsonResponse {
         Gate::authorize('update', $menuCategory);
 
-        $data = $request->validated();
-
         try {
-            $menuCategory->update($data);
+            $menuCategory = $this->partnerMenuCategoryService->updateMenuCategory(
+                $request->validated(),
+                $menuCategory
+            );
 
             return response()->json([
                 'menu_category' => $menuCategory,

@@ -39,6 +39,13 @@ class PartnerMenuCategoryService
         });
     }
 
+    public function updateMenuCategory(array $data, MenuCategory $menuCategory): MenuCategory
+    {
+        $menuCategory->update($data);
+
+        return $menuCategory;
+    }
+
     public function deleteMenuCategory(MenuCategory $menuCategory): void
     {
         $menuCategory->delete();
