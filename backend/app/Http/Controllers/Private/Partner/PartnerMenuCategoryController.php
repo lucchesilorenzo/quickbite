@@ -83,10 +83,6 @@ class PartnerMenuCategoryController extends Controller
             return response()->json([
                 'message' => 'Menu category not found.',
             ], 404);
-        } catch (PartnerMenuCategoryOrderExceededException $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], $e->getCode());
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Could not update menu categories.',
