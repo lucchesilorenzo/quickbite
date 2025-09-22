@@ -14,7 +14,9 @@ use Throwable;
 
 class RestaurantController extends Controller
 {
-    public function __construct(private RestaurantService $restaurantService) {}
+    public function __construct(
+        private RestaurantService $restaurantService
+    ) {}
 
     /**
      * Get restaurants.
