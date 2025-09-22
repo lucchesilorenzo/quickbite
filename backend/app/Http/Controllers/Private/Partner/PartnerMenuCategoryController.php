@@ -12,7 +12,6 @@ use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateRestaurantMenuCate
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\PartnerMenuCategoryService;
-use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -43,7 +42,7 @@ class PartnerMenuCategoryController extends Controller
                 'menu_category' => $menuCategory,
                 'message' => 'Menu category created successfully.',
             ], 200);
-        } catch (Exception $e) {
+        } catch (PartnerMenuCategoryOrderExceededException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
