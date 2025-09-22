@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Customer;
 
+use App\Exceptions\Private\Customer\CustomerRestaurantNotAvailableException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Order\CustomerCreateOrderRequest;
 use App\Models\Order;
 use App\Services\Private\Customer\CustomerOrderService;
-use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -70,7 +71,11 @@ class CustomerOrderController extends Controller
                 'order' => $order,
                 'message' => 'Order created successfully.',
             ], 201);
-        } catch (Exception $e) {
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Restaurant not found.',
+            ], 404);
+        } catch (CustomerRestaurantNotAvailableException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
