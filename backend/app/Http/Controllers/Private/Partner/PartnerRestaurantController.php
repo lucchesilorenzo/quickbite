@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
+use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantDeliveryTimesRequest;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantFeesRequest;
@@ -11,7 +12,6 @@ use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantInfoRequest;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantStatusRequest;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\PartnerRestaurantService;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -160,7 +160,7 @@ class PartnerRestaurantController extends Controller
                 'restaurant' => $restaurant,
                 'message' => 'Restaurant info updated successfully.',
             ], 200);
-        } catch (Exception $e) {
+        } catch (LocationNotFoundException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

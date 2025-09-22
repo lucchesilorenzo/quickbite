@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
+use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Services\Shared\ImageService;
 use App\Services\Shared\LocationService;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -91,7 +91,7 @@ class PartnerRestaurantService
             $locationData = $this->locationService->getLocationData($data);
 
             if (! $locationData) {
-                throw new Exception('Location not found.', 404);
+                throw new LocationNotFoundException;
             }
 
             // Update restaurant info
