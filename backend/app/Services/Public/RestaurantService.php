@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Public;
 
+use App\Exceptions\Public\Restaurant\RestaurantLogoNotFoundException;
 use App\Models\Restaurant;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
@@ -96,7 +97,7 @@ class RestaurantService
         ];
     }
 
-    public function getRestaurant(string $restaurantSlug): ?Restaurant
+    public function getRestaurant(string $restaurantSlug): Restaurant
     {
         return Restaurant::with([
             'categories',
@@ -106,15 +107,19 @@ class RestaurantService
         ])
             ->where('slug', $restaurantSlug)
             ->where('is_approved', true)
-            ->first();
+            ->firstOrFail();
     }
 
-    public function getBase64Logo(Restaurant $restaurant): ?array
+    public function getBase64Logo(Restaurant $restaurant): array
     {
+        if (! $restaurant->logo) {
+            throw new RestaurantLogoNotFoundException;
+        }
+
         $relativePath = str_replace('/storage/', '', $restaurant->logo);
 
-        if (! $relativePath || ! Storage::disk('public')->exists($relativePath)) {
-            return null;
+        if (! Storage::disk('public')->exists($relativePath)) {
+            throw new RestaurantLogoNotFoundException;
         }
 
         $logo = Storage::disk('public')->get($relativePath);
