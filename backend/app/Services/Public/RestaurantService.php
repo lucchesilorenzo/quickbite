@@ -98,7 +98,7 @@ class RestaurantService
 
     public function getRestaurant(string $restaurantSlug): ?Restaurant
     {
-        $restaurant = Restaurant::with([
+        return Restaurant::with([
             'categories',
             'deliveryDays' => function ($query) {
                 $query->orderBy('order');
@@ -107,11 +107,9 @@ class RestaurantService
             ->where('slug', $restaurantSlug)
             ->where('is_approved', true)
             ->first();
-
-        return $restaurant;
     }
 
-    public function getBase64Logo(Restaurant $restaurant): ?string
+    public function getBase64Logo(Restaurant $restaurant): ?array
     {
         $relativePath = str_replace('/storage/', '', $restaurant->logo);
 
@@ -122,7 +120,9 @@ class RestaurantService
         $logo = Storage::disk('public')->get($relativePath);
         $mimeType = Storage::disk('public')->mimeType($relativePath);
 
-        return 'data:' . $mimeType . ';base64,' . base64_encode($logo);
+        return [
+            'logo' => 'data:' . $mimeType . ';base64,' . base64_encode($logo),
+        ];
     }
 
     private function applyFilters(Builder $query, array $filters, ?string $search): void

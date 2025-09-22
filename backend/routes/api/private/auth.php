@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Private\AuthController;
+use App\Http\Controllers\Private\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->middleware('auth:sanctum')->group(function () {

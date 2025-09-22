@@ -5,19 +5,23 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Services\Public\CategoryService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class CategoryController extends Controller
 {
+    public function __construct(
+        private CategoryService $categoryService
+    ) {}
+
     /**
      * Get all categories.
      */
     public function getCategories(): JsonResponse
     {
         try {
-            $categories = Category::all();
+            $categories = $this->categoryService->getCategories();
 
             return response()->json($categories, 200);
         } catch (Throwable $e) {

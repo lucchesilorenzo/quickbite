@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Customer\CustomerAuthController;
-use App\Http\Controllers\Customer\CustomerCartController;
-use App\Http\Controllers\Customer\CustomerOrderController;
-use App\Http\Controllers\Customer\CustomerProfileController;
-use App\Http\Controllers\Customer\CustomerRestaurantReviewController;
+use App\Http\Controllers\Private\Customer\CustomerAuthController;
+use App\Http\Controllers\Private\Customer\CustomerCartController;
+use App\Http\Controllers\Private\Customer\CustomerOrderController;
+use App\Http\Controllers\Private\Customer\CustomerProfileController;
+use App\Http\Controllers\Private\Customer\CustomerRestaurantReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('customer')->group(function () {

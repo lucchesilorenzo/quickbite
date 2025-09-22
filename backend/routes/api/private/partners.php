@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Partner\PartnerAuthController;
-use App\Http\Controllers\Partner\PartnerMenuCategoryController;
-use App\Http\Controllers\Partner\PartnerMenuItemController;
-use App\Http\Controllers\Partner\PartnerOrderController;
-use App\Http\Controllers\Partner\PartnerRestaurantController;
-use App\Http\Controllers\Partner\PartnerRestaurantMenuController;
-use App\Http\Controllers\Partner\PartnerRestaurantOfferController;
-use App\Http\Controllers\Partner\PartnerRestaurantReviewController;
-use App\Http\Controllers\Partner\PartnerRestaurantStatsController;
+use App\Http\Controllers\Private\Partner\PartnerAuthController;
+use App\Http\Controllers\Private\Partner\PartnerMenuCategoryController;
+use App\Http\Controllers\Private\Partner\PartnerMenuItemController;
+use App\Http\Controllers\Private\Partner\PartnerOrderController;
+use App\Http\Controllers\Private\Partner\PartnerRestaurantController;
+use App\Http\Controllers\Private\Partner\PartnerRestaurantMenuController;
+use App\Http\Controllers\Private\Partner\PartnerRestaurantOfferController;
+use App\Http\Controllers\Private\Partner\PartnerRestaurantReviewController;
+use App\Http\Controllers\Private\Partner\PartnerRestaurantStatsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('partner')->group(function () {
