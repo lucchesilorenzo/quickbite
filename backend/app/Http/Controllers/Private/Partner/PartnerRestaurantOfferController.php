@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
+use App\Exceptions\Private\Partner\PartnerOfferAlreadyExistsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Offer\CreateRestaurantOfferRequest;
 use App\Http\Requests\Private\Partner\Offer\UpdateRestaurantOfferRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
 use App\Services\Private\Partner\PartnerOfferService;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -58,7 +58,7 @@ class PartnerRestaurantOfferController extends Controller
                 'offer' => $offer,
                 'message' => 'Offer created successfully.',
             ], 201);
-        } catch (Exception $e) {
+        } catch (PartnerOfferAlreadyExistsException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
@@ -90,7 +90,7 @@ class PartnerRestaurantOfferController extends Controller
                 'offer' => $offer,
                 'message' => 'Offer updated successfully.',
             ], 200);
-        } catch (Exception $e) {
+        } catch (PartnerOfferAlreadyExistsException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

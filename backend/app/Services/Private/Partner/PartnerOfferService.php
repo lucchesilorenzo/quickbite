@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
+use App\Exceptions\Private\Partner\PartnerOfferAlreadyExistsException;
 use App\Models\Restaurant;
 use App\Models\RestaurantOffer;
-use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PartnerOfferService
@@ -28,10 +28,7 @@ class PartnerOfferService
             ->exists();
 
         if ($doesOfferExist) {
-            throw new Exception(
-                'An offer with the same discount rate already exists.',
-                422
-            );
+            throw new PartnerOfferAlreadyExistsException;
         }
 
         // Create offer
@@ -43,17 +40,13 @@ class PartnerOfferService
         Restaurant $restaurant,
         RestaurantOffer $offer
     ): RestaurantOffer {
-        // Check if offer already exists
         $doesOfferExist = $restaurant->offers()
             ->where('discount_rate', $data['discount_rate'])
             ->whereNot('id', $offer->id)
             ->exists();
 
         if ($doesOfferExist) {
-            throw new Exception(
-                'An offer with the same discount rate already exists.',
-                422
-            );
+            throw new PartnerOfferAlreadyExistsException;
         }
 
         $offer->update($data);
