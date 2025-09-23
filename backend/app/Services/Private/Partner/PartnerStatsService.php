@@ -285,7 +285,7 @@ class PartnerStatsService
         ?PaymentMethod $paymentMethod,
         ?int $year
     ): array {
-        $rangeValue = $range->value !== null ? (int) str_replace('d', '', $range->value) : null;
+        $rangeValue = $range?->value !== null ? (int) str_replace('d', '', $range->value) : null;
 
         $ordersQuery = $restaurant->orders()
             ->getQuery()
