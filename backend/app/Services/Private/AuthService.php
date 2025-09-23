@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Services\Private;
 
 use App\Models\User;
-use Illuminate\Support\Collection;
 
 class AuthService
 {
-    public function me(User $user): Collection
+    public function me(User $user): User
     {
-        return $user->getRoleNames();
+        $user->getRoleNames();
+
+        return $user;
     }
 }
