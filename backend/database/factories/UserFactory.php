@@ -35,7 +35,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('test'),
             'profile_picture' => null,
             'date_of_birth' => fake()->date(),
-            'phone_number' => fake()->e164PhoneNumber(),
+            'phone_number' => '+39 ' . fake()->numerify('###') . ' ' . fake()->numerify('###') . ' ' . fake()->numerify('####'),
             'street_address' => fake()->streetAddress(),
             'building_number' => fake()->buildingNumber(),
             'postcode' => fake()->postcode(),
