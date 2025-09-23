@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Storage;
 
 class RestaurantService
 {
-    private const RADIUS_KM = 5;
+    private const int RADIUS_KM = 5;
 
-    private const RATING_INTERVALS = [
+    private const array RATING_INTERVALS = [
         'one_star' => [1, 1.99],
         'two_stars' => [2, 2.99],
         'three_stars' => [3, 3.99],
@@ -22,7 +22,7 @@ class RestaurantService
         'five_stars' => [5, 5],
     ];
 
-    private const HAVERSINE = '(6371 * acos(
+    private const string HAVERSINE = '(6371 * acos(
 		cos(radians(?)) *
 		cos(radians(latitude)) *
 		cos(radians(longitude) - radians(?)) +
@@ -30,12 +30,12 @@ class RestaurantService
 		sin(radians(latitude))
     ))';
 
-    private const MOV_THRESHOLDS = [
+    private const array MOV_THRESHOLDS = [
         '1000' => 10,
         '1500' => 15,
     ];
 
-    private const PER_PAGE = 10;
+    private const int PER_PAGE = 10;
 
     public function getRestaurants(array $data): array
     {
@@ -52,20 +52,20 @@ class RestaurantService
             ->where('is_approved', true)
             ->with([
                 'categories',
-                'deliveryDays' => function ($query) {
+                'deliveryDays' => function ($query): void {
                     $query->orderBy('order');
                 },
-                'offers' => function ($query) {
+                'offers' => function ($query): void {
                     $query->orderBy('discount_rate');
                 },
-                'reviews' => function ($query) {
+                'reviews' => function ($query): void {
                     $query->orderByDesc('created_at');
                 },
                 'reviews.customer',
                 'reviews.order',
-                'menuCategories' => function ($query) {
+                'menuCategories' => function ($query): void {
                     $query->orderBy('order')
-                        ->with('menuItems', function ($query) {
+                        ->with('menuItems', function ($query): void {
                             $query->orderBy('order');
                         });
                 },
@@ -101,7 +101,7 @@ class RestaurantService
     {
         return Restaurant::with([
             'categories',
-            'deliveryDays' => function ($query) {
+            'deliveryDays' => function ($query): void {
                 $query->orderBy('order');
             },
         ])
@@ -126,7 +126,7 @@ class RestaurantService
         $mimeType = Storage::disk('public')->mimeType($relativePath);
 
         return [
-            'logo' => 'data:' . $mimeType . ';base64,' . base64_encode($logo),
+            'logo' => 'data:' . $mimeType . ';base64,' . base64_encode((string) $logo),
         ];
     }
 
@@ -136,7 +136,7 @@ class RestaurantService
             $dayName = mb_strtoupper(now()->format('l'));
             $currentTime = now()->format('H:i');
 
-            $query->whereHas('deliveryDays', function ($q) use ($dayName, $currentTime) {
+            $query->whereHas('deliveryDays', function ($q) use ($dayName, $currentTime): void {
                 $q->where('day', $dayName)
                     ->whereNotNull('start_time')
                     ->whereNotNull('end_time')
@@ -164,7 +164,7 @@ class RestaurantService
             // Take rating interval
             $range = self::RATING_INTERVALS[$selectedInterval];
 
-            $query->whereHas('reviews', function ($q) use ($range) {
+            $query->whereHas('reviews', function ($q) use ($range): void {
                 $q->select(DB::raw(1))
                     ->groupBy('restaurant_id')
                     ->havingRaw('AVG(rating) BETWEEN ? AND ?', $range);
@@ -172,8 +172,8 @@ class RestaurantService
         }
 
         // === Search ===
-        if ($search) {
-            $query->where(function ($q) use ($search) {
+        if ($search !== null && $search !== '' && $search !== '0') {
+            $query->where(function ($q) use ($search): void {
                 $q->whereLike('name', "%{$search}%")
                     ->orWhereHas('categories', fn ($q) => $q->whereLike('name', "%{$search}%"))
                     ->orWhereHas('menuCategories.menuItems', fn ($q) => $q->whereLike('name', "%{$search}%"));
@@ -188,7 +188,7 @@ class RestaurantService
             ->when($sortBy === 'minimum_order_value', fn ($q) => $q->orderBy('min_amount')->orderBy('id'))
             ->when($sortBy === 'delivery_time', fn ($q) => $q->orderByRaw('(delivery_time_min + delivery_time_max) / 2')->orderBy('id'))
             ->when($sortBy === 'delivery_fee', fn ($q) => $q->orderBy('delivery_fee')->orderBy('id'))
-            ->when(! $sortBy, fn ($q) => $q->orderBy('id'));
+            ->when($sortBy === null || $sortBy === '' || $sortBy === '0', fn ($q) => $q->orderBy('id'));
     }
 
     private function buildMeta(Builder $baseQuery, int $total): array

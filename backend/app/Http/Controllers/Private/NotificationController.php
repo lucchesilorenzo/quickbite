@@ -12,7 +12,7 @@ use Throwable;
 class NotificationController extends Controller
 {
     public function __construct(
-        private NotificationService $notificationService
+        private readonly NotificationService $notificationService
     ) {}
 
     public function getNotifications(): JsonResponse
@@ -23,7 +23,7 @@ class NotificationController extends Controller
             );
 
             return response()->json($notifications, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get notifications.',
             ], 500);
@@ -40,7 +40,7 @@ class NotificationController extends Controller
             return response()->json([
                 'message' => 'Notifications successfully marked as read.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not mark notifications as read.',
             ], 500);

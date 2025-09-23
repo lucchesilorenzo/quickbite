@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
 class PartnerAuthService
 {
     public function __construct(
-        private LocationService $locationService,
+        private readonly LocationService $locationService,
     ) {}
 
     public function register(array $data): string
@@ -29,7 +29,7 @@ class PartnerAuthService
             $partner = $this->createPartner($data);
             $locationData = $this->locationService->getLocationData($data);
 
-            if (! $locationData) {
+            if ($locationData === null) {
                 throw new LocationNotFoundException;
             }
 
@@ -98,14 +98,12 @@ class PartnerAuthService
 
     private function setupDeliveryDays(Restaurant $restaurant): void
     {
-        $deliveryDays = collect(DeliveryDay::values())->map(function ($day, $i) {
-            return [
-                'day' => $day,
-                'start_time' => null,
-                'end_time' => null,
-                'order' => $i,
-            ];
-        });
+        $deliveryDays = collect(DeliveryDay::values())->map(fn ($day, $i): array => [
+            'day' => $day,
+            'start_time' => null,
+            'end_time' => null,
+            'order' => $i,
+        ]);
 
         $restaurant->deliveryDays()->createMany($deliveryDays);
     }

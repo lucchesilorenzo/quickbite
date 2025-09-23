@@ -19,7 +19,7 @@ use Throwable;
 class PartnerMenuItemController extends Controller
 {
     public function __construct(
-        private PartnerMenuItemService $partnerMenuItemService
+        private readonly PartnerMenuItemService $partnerMenuItemService
     ) {}
 
     /**
@@ -44,7 +44,7 @@ class PartnerMenuItemController extends Controller
                 'menu_item' => $menuItem,
                 'message' => 'Menu item created successfully.',
             ], 201);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not create menu item.',
             ], 500);
@@ -73,7 +73,7 @@ class PartnerMenuItemController extends Controller
                 'menu_item' => $menuItem,
                 'message' => 'Menu item updated successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update menu item.',
             ], 500);
@@ -106,11 +106,11 @@ class PartnerMenuItemController extends Controller
                 'menu_items' => $updatedMenuItems,
                 'message' => 'Order updated successfully.',
             ], 200);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             return response()->json([
                 'message' => 'Menu item not found.',
             ], 404);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update menu items.',
             ], 500);
@@ -130,7 +130,7 @@ class PartnerMenuItemController extends Controller
             return response()->json([
                 'message' => 'Menu item deleted successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not delete menu item.',
             ], 500);

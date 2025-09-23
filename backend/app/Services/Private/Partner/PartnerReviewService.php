@@ -8,7 +8,7 @@ use App\Models\Restaurant;
 
 class PartnerReviewService
 {
-    private const PER_PAGE = 5;
+    private const int PER_PAGE = 5;
 
     public function getReviews(Restaurant $restaurant): array
     {

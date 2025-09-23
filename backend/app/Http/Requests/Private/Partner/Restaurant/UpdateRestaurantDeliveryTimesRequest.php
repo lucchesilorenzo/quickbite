@@ -39,7 +39,7 @@ class UpdateRestaurantDeliveryTimesRequest extends FormRequest
      */
     public function withValidator(Validator $validator): void
     {
-        $validator->after(function ($validator) {
+        $validator->after(function ($validator): void {
             $deliveryDays = $this->input('delivery_days');
 
             foreach ($deliveryDays as $day) {

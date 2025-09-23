@@ -17,7 +17,7 @@ use Throwable;
 class PartnerAuthController extends Controller
 {
     public function __construct(
-        private PartnerAuthService $partnerAuthService,
+        private readonly PartnerAuthService $partnerAuthService,
     ) {}
 
     /**
@@ -38,7 +38,7 @@ class PartnerAuthController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not register partner.',
             ], 500);
@@ -63,7 +63,7 @@ class PartnerAuthController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not login partner.',
             ], 500);
@@ -83,7 +83,7 @@ class PartnerAuthController extends Controller
             return response()->json([
                 'message' => 'Partner logged out successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not logout partner.',
             ], 500);

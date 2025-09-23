@@ -8,7 +8,7 @@ use App\Models\User;
 
 class NotificationService
 {
-    private const PER_PAGE = 5;
+    private const int PER_PAGE = 5;
 
     public function getNotifications(User $user): array
     {

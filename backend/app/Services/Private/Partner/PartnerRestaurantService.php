@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\DB;
 class PartnerRestaurantService
 {
     public function __construct(
-        private LocationService $locationService,
-        private ImageService $imageService
+        private readonly LocationService $locationService,
+        private readonly ImageService $imageService
     ) {}
 
     public function getRestaurants(User $partner): Collection
@@ -48,7 +48,7 @@ class PartnerRestaurantService
 
     public function updateDeliveryTimes(array $data, Restaurant $restaurant): Restaurant
     {
-        return DB::transaction(function () use ($restaurant, $data) {
+        return DB::transaction(function () use ($restaurant, $data): Restaurant {
             foreach ($data['delivery_days'] as $deliveryDay) {
                 $restaurant->deliveryDays()
                     ->where('day', $deliveryDay['day'])
@@ -68,7 +68,7 @@ class PartnerRestaurantService
         ?UploadedFile $logo,
         ?UploadedFile $cover
     ): Restaurant {
-        if ($logo) {
+        if ($logo instanceof UploadedFile) {
             $data['logo'] = $this->imageService->update(
                 $restaurant->logo,
                 $logo,
@@ -77,7 +77,7 @@ class PartnerRestaurantService
             );
         }
 
-        if ($cover) {
+        if ($cover instanceof UploadedFile) {
             $data['cover'] = $this->imageService->update(
                 $restaurant->cover,
                 $cover,
@@ -86,11 +86,11 @@ class PartnerRestaurantService
             );
         }
 
-        return DB::transaction(function () use ($restaurant, $data) {
+        return DB::transaction(function () use ($restaurant, $data): Restaurant {
             // Get location
             $locationData = $this->locationService->getLocationData($data);
 
-            if (! $locationData) {
+            if ($locationData === null) {
                 throw new LocationNotFoundException;
             }
 

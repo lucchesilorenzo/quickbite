@@ -13,7 +13,7 @@ use Throwable;
 class RestaurantReviewController extends Controller
 {
     public function __construct(
-        private ReviewService $reviewService
+        private readonly ReviewService $reviewService
     ) {}
 
     /**
@@ -25,7 +25,7 @@ class RestaurantReviewController extends Controller
             $reviews = $this->reviewService->getReviews($restaurant);
 
             return response()->json($reviews, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get reviews.',
             ], 500);

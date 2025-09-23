@@ -117,7 +117,7 @@ class PartnerStatsService
         );
 
         $acceptedOrdersStats = $ordersPerPeriod->map(
-            fn ($order) => [
+            fn ($order): array => [
                 'period' => Carbon::parse($order->period)->format($dateFormat),
                 'value' => (float) $order->value,
                 'total' => $order->total,
@@ -166,7 +166,7 @@ class PartnerStatsService
         );
 
         $revenueStats = $ordersPerPeriod->map(
-            fn ($order) => [
+            fn ($order): array => [
                 'period' => Carbon::parse($order->period)->format($dateFormat),
                 'value' => (float) $order->value,
                 'total' => $order->total,
@@ -214,7 +214,7 @@ class PartnerStatsService
         );
 
         $revenueStats = $ordersPerPeriod->map(
-            fn ($order) => [
+            fn ($order): array => [
                 'period' => Carbon::parse($order->period)->format($dateFormat),
                 'value' => (float) $order->value,
                 'total' => $order->total,
@@ -263,7 +263,7 @@ class PartnerStatsService
         );
 
         $revenueStats = $ordersPerPeriod->map(
-            fn ($order) => [
+            fn ($order): array => [
                 'period' => Carbon::parse($order->period)->format($dateFormat),
                 'value' => (float) $order->value,
                 'total' => $order->total,
@@ -285,7 +285,7 @@ class PartnerStatsService
         ?PaymentMethod $paymentMethod,
         ?int $year
     ): array {
-        $rangeValue = isset($range->value) ? (int) str_replace('d', '', $range->value) : null;
+        $rangeValue = $range->value !== null ? (int) str_replace('d', '', $range->value) : null;
 
         $ordersQuery = $restaurant->orders()
             ->getQuery()
@@ -302,8 +302,8 @@ class PartnerStatsService
         OrderStatus $orderStatus,
         bool $sumTotal = false
     ): array {
-        $periodFormat = $rangeValue ? 'DATE(created_at)' : "DATE_TRUNC('month', created_at)";
-        $dateFormat = $rangeValue ? 'd M' : 'M';
+        $periodFormat = $rangeValue !== null ? 'DATE(created_at)' : "DATE_TRUNC('month', created_at)";
+        $dateFormat = $rangeValue !== null ? 'd M' : 'M';
 
         $kpiSelect = $sumTotal
             ? 'SUM(total) FILTER (WHERE status = ?) as value'
@@ -331,7 +331,7 @@ class PartnerStatsService
         return $restaurant->orders()
             ->where('status', $orderStatus->value)
             ->pluck('created_at')
-            ->map(fn ($date) => (int) $date->format('Y'))
+            ->map(fn ($date): int => (int) $date->format('Y'))
             ->unique()
             ->sortDesc()
             ->values()

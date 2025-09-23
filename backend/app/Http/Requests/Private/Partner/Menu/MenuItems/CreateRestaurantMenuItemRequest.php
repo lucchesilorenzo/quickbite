@@ -38,9 +38,7 @@ class CreateRestaurantMenuItemRequest extends FormRequest
             'price' => ['required', 'numeric', 'max:100'],
             'image' => [
                 'nullable',
-                Rule::when(function ($input) {
-                    return request()->hasFile('image');
-                }, ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
+                Rule::when(fn ($input) => request()->hasFile('image'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
         ];
     }

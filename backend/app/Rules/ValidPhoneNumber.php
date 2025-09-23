@@ -37,7 +37,7 @@ class ValidPhoneNumber implements ValidationRule
             if (! $phoneNumberUtil->isValidNumber($phoneNumber)) {
                 $fail('The phone number is not valid.');
             }
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             $fail('The phone number could not be parsed.');
         }
     }

@@ -39,15 +39,11 @@ class UpdateRestaurantInfoRequest extends FormRequest
             'categories.*' => ['uuid', 'exists:categories,id'],
             'logo' => [
                 'nullable',
-                Rule::when(function ($input) {
-                    return request()->hasFile('logo');
-                }, ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
+                Rule::when(fn ($input) => request()->hasFile('logo'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
             'cover' => [
                 'nullable',
-                Rule::when(function ($input) {
-                    return request()->hasFile('cover');
-                }, ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
+                Rule::when(fn ($input) => request()->hasFile('cover'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
         ];
     }

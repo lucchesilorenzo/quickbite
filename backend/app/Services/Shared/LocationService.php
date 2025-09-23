@@ -24,7 +24,7 @@ class LocationService
 
         $json = $response->json();
 
-        if (! is_array($json) || empty($json)) {
+        if (! is_array($json) || count($json) === 0) {
             return null;
         }
 

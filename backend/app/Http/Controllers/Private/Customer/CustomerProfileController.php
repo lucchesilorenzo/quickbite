@@ -13,7 +13,7 @@ use Throwable;
 class CustomerProfileController extends Controller
 {
     public function __construct(
-        private CustomerProfileService $customerProfileService
+        private readonly CustomerProfileService $customerProfileService
     ) {}
 
     /**
@@ -32,7 +32,7 @@ class CustomerProfileController extends Controller
                 'customer' => $customer,
                 'message' => 'Profile updated successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update profile.',
             ], 500);
