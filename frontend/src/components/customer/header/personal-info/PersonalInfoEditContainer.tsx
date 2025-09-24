@@ -1,4 +1,4 @@
-import { Stack, Typography, useMediaQuery } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 import PersonalInfoEditDateOfBirthForm from "./PersonalInfoEditDateOfBirthForm";
 import PersonalInfoEditEmailForm from "./PersonalInfoEditEmailForm";
@@ -10,8 +10,6 @@ import AddressInfoEditPostcodeForm from "./address-info/AddressInfoEditPostcodeF
 import AddressInfoEditStreetAddressForm from "./address-info/AddressInfoEditStreetAddressForm";
 
 export default function PersonalInfoEditContainer() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   return (
     <Stack spacing={4}>
       <PersonalInfoEditFullNameForm />
@@ -19,7 +17,7 @@ export default function PersonalInfoEditContainer() {
       <PersonalInfoEditPhoneNumberForm />
       <PersonalInfoEditDateOfBirthForm />
 
-      <Typography variant={isMobile ? "body1" : "h6"}>Address info</Typography>
+      <Typography variant="h6">Address info</Typography>
 
       <AddressInfoEditStreetAddressForm />
       <AddressInfoEditBuildingNumberForm />
