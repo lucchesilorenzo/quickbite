@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack, TextField, useMediaQuery } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
@@ -14,6 +14,8 @@ import {
 export default function PersonalInfoEditFullNameForm() {
   const { user } = useAuth();
   const { mutateAsync: updateCustomerProfile } = useUpdateCustomerProfile();
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const {
     handleSubmit,
@@ -39,7 +41,7 @@ export default function PersonalInfoEditFullNameForm() {
       spacing={2}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Stack direction="row" spacing={2}>
+      <Stack direction={isMobile ? "column" : "row"} spacing={isMobile ? 4 : 2}>
         <Controller
           name="first_name"
           control={control}
