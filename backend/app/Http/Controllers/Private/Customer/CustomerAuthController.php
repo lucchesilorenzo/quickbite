@@ -16,7 +16,7 @@ use Throwable;
 class CustomerAuthController extends Controller
 {
     public function __construct(
-        private CustomerAuthService $customerAuthService
+        private readonly CustomerAuthService $customerAuthService
     ) {}
 
     /**
@@ -64,7 +64,7 @@ class CustomerAuthController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not login customer.',
             ], 500);
@@ -84,7 +84,7 @@ class CustomerAuthController extends Controller
             return response()->json([
                 'message' => 'Customer logged out successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not logout customer.',
             ], 500);

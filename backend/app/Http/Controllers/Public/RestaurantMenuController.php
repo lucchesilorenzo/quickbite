@@ -13,7 +13,7 @@ use Throwable;
 class RestaurantMenuController extends Controller
 {
     public function __construct(
-        private MenuService $menuService
+        private readonly MenuService $menuService
     ) {}
 
     /**
@@ -25,7 +25,7 @@ class RestaurantMenuController extends Controller
             $menu = $this->menuService->getMenu($restaurant);
 
             return response()->json($menu, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get menu.',
             ], 500);

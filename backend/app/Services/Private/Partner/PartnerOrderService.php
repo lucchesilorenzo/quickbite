@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class PartnerOrderService
 {
-    private const PER_PAGE = 5;
+    private const int PER_PAGE = 5;
 
     public function getOrders(Restaurant $restaurant): LengthAwarePaginator
     {
@@ -27,7 +27,7 @@ class PartnerOrderService
 
     public function updateOrderStatus(array $data, Order $order): Order
     {
-        return DB::transaction(function () use ($order, $data) {
+        return DB::transaction(function () use ($order, $data): Order {
             // TODO: move to rider order controller
             if ($data['status'] === OrderStatus::CANCELLED->value) {
                 $order->delivery?->update([
@@ -38,7 +38,7 @@ class PartnerOrderService
             if ($data['status'] === OrderStatus::PREPARING->value) {
                 $rider = $this->findAvailableRider($order);
 
-                if (! $rider) {
+                if (! $rider instanceof User) {
                     throw new PartnerNoAvailableRidersException;
                 }
 
@@ -63,6 +63,6 @@ class PartnerOrderService
             ->riders()
             ->where('is_active', true)
             ->get()
-            ->first(fn ($rider) => ! Delivery::isRiderBusy($rider));
+            ->first(fn ($rider): bool => ! Delivery::isRiderBusy($rider));
     }
 }

@@ -177,7 +177,7 @@ class Restaurant extends Model
     protected function isOpen(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->force_close
+            get: fn (): bool => $this->force_close
                 ? false
                 : $this->calculateIsOpen()
         );

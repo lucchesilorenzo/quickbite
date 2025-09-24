@@ -17,7 +17,7 @@ use Throwable;
 class CustomerCartController extends Controller
 {
     public function __construct(
-        private CustomerCartService $customerCartService
+        private readonly CustomerCartService $customerCartService
     ) {}
 
     /**
@@ -33,7 +33,7 @@ class CustomerCartController extends Controller
             return CartResource::collection($carts)
                 ->response()
                 ->setStatusCode(200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get carts.',
             ], 500);
@@ -53,7 +53,7 @@ class CustomerCartController extends Controller
             return new CartResource($cart)
                 ->response()
                 ->setStatusCode(200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get cart.',
             ], 500);
@@ -89,7 +89,7 @@ class CustomerCartController extends Controller
                 ])
                 ->response()
                 ->setStatusCode(200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not merge carts.',
             ], 500);
@@ -117,7 +117,7 @@ class CustomerCartController extends Controller
 
             $cart = $this->customerCartService->createOrUpdateCart($user, $data);
 
-            if (! $cart) {
+            if (! $cart instanceof Cart) {
                 return response()->json([
                     'message' => 'Cart has been successfully deleted as it contained no items.',
                 ], 200);
@@ -131,7 +131,7 @@ class CustomerCartController extends Controller
                 ])
                 ->response()
                 ->setStatusCode($status);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not create or update cart.',
             ], 500);
@@ -151,7 +151,7 @@ class CustomerCartController extends Controller
             return response()->json([
                 'message' => 'Cart deleted successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not delete cart.',
             ], 500);

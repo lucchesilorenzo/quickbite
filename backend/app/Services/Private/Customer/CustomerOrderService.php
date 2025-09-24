@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Notification;
 
 class CustomerOrderService
 {
-    private const PER_PAGE = 5;
+    private const int PER_PAGE = 5;
 
     public function getOrders(User $customer): LengthAwarePaginator
     {

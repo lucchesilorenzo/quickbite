@@ -30,7 +30,7 @@ class PartnerMenuCategoryService
 
     public function updateMenuCategoriesOrder(array $menuCategories): array
     {
-        return DB::transaction(function () use ($menuCategories) {
+        return DB::transaction(function () use ($menuCategories): array {
             foreach ($menuCategories as $menuCategory) {
                 $menuCategory->save();
             }

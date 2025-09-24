@@ -15,7 +15,7 @@ use Throwable;
 class CustomerRestaurantReviewController extends Controller
 {
     public function __construct(
-        private CustomerReviewService $customerReviewService
+        private readonly CustomerReviewService $customerReviewService
     ) {}
 
     /**
@@ -36,7 +36,7 @@ class CustomerRestaurantReviewController extends Controller
                 'review' => $review,
                 'message' => 'Review created successfully.',
             ], 201);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             return response()->json([
                 'message' => 'Restaurant not found.',
             ], 404);
@@ -44,7 +44,7 @@ class CustomerRestaurantReviewController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not create review.',
             ], 500);

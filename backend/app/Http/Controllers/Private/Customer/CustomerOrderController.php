@@ -17,7 +17,7 @@ use Throwable;
 class CustomerOrderController extends Controller
 {
     public function __construct(
-        private CustomerOrderService $customerOrderService
+        private readonly CustomerOrderService $customerOrderService
     ) {}
 
     /**
@@ -31,7 +31,7 @@ class CustomerOrderController extends Controller
             );
 
             return response()->json($orders, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get orders.',
             ], 500);
@@ -49,7 +49,7 @@ class CustomerOrderController extends Controller
             $order = $this->customerOrderService->getOrder($order);
 
             return response()->json($order, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get order.',
             ], 500);
@@ -71,7 +71,7 @@ class CustomerOrderController extends Controller
                 'order' => $order,
                 'message' => 'Order created successfully.',
             ], 201);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             return response()->json([
                 'message' => 'Restaurant not found.',
             ], 404);
@@ -79,7 +79,7 @@ class CustomerOrderController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not create order.',
             ], 500);

@@ -11,7 +11,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PartnerOfferService
 {
-    private const PER_PAGE = 6;
+    private const int PER_PAGE = 6;
 
     public function getOffers(Restaurant $restaurant): LengthAwarePaginator
     {

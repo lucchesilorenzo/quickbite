@@ -19,7 +19,7 @@ use Throwable;
 class PartnerRestaurantStatsController extends Controller
 {
     public function __construct(
-        private PartnerStatsService $partnerStatsService
+        private readonly PartnerStatsService $partnerStatsService
     ) {}
 
     /**
@@ -34,7 +34,7 @@ class PartnerRestaurantStatsController extends Controller
             $stats = $this->partnerStatsService->getDashboardStats($restaurant);
 
             return response()->json($stats, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get dashboard stats.',
             ], 500);
@@ -60,7 +60,7 @@ class PartnerRestaurantStatsController extends Controller
             );
 
             return response()->json($summary, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get KPI summary.',
             ], 500);
@@ -88,7 +88,7 @@ class PartnerRestaurantStatsController extends Controller
             );
 
             return response()->json($stats, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get restaurant stats.',
             ], 500);

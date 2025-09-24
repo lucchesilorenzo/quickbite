@@ -17,7 +17,7 @@ use Throwable;
 class PartnerOrderController extends Controller
 {
     public function __construct(
-        private PartnerOrderService $partnerOrderService
+        private readonly PartnerOrderService $partnerOrderService
     ) {}
 
     /**
@@ -31,7 +31,7 @@ class PartnerOrderController extends Controller
             $orders = $this->partnerOrderService->getOrders($restaurant);
 
             return response()->json($orders, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get orders.',
             ], 500);
@@ -61,7 +61,7 @@ class PartnerOrderController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update order status.',
             ], 500);

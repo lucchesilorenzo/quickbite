@@ -24,7 +24,7 @@ class IsAdult implements ValidationRule
     {
         try {
             $dob = Carbon::parse($value);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $fail('The :attribute must be a valid date.');
 
             return;

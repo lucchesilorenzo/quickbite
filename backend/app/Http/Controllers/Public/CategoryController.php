@@ -12,7 +12,7 @@ use Throwable;
 class CategoryController extends Controller
 {
     public function __construct(
-        private CategoryService $categoryService
+        private readonly CategoryService $categoryService
     ) {}
 
     /**
@@ -24,7 +24,7 @@ class CategoryController extends Controller
             $categories = $this->categoryService->getCategories();
 
             return response()->json($categories, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get categories.',
             ], 500);

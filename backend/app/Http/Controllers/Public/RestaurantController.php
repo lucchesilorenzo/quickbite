@@ -16,7 +16,7 @@ use Throwable;
 class RestaurantController extends Controller
 {
     public function __construct(
-        private RestaurantService $restaurantService
+        private readonly RestaurantService $restaurantService
     ) {}
 
     /**
@@ -30,7 +30,7 @@ class RestaurantController extends Controller
             );
 
             return response()->json($restaurants, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
             ], 500);
@@ -46,11 +46,11 @@ class RestaurantController extends Controller
             $restaurant = $this->restaurantService->getRestaurant($restaurantSlug);
 
             return response()->json($restaurant, 200);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             return response()->json([
                 'message' => 'Restaurant not found.',
             ], 404);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
             ], 500);
@@ -70,7 +70,7 @@ class RestaurantController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get restaurant logo.',
             ], 500);

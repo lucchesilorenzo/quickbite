@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { useEchoNotification } from "@laravel/echo-react";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -43,63 +45,68 @@ export default function PartnerRestaurantHeader() {
     await logoutPartner();
   }
 
-  useEchoNotification<NewOrderReceivedToBroadcast>(
-    `App.Models.User.${user?.id}`,
-    (notification) => {
-      notifications.show(
-        <NotificationToast
-          title={notification.title}
-          description={notification.description}
-        />,
-        {
-          severity: "info",
-        },
-      );
+  const { leave: leaveOrder } =
+    useEchoNotification<NewOrderReceivedToBroadcast>(
+      `App.Models.User.${user?.id}`,
+      (notification) => {
+        notifications.show(
+          <NotificationToast
+            title={notification.title}
+            description={notification.description}
+          />,
+          { severity: "info" },
+        );
 
-      queryClient.invalidateQueries({
-        queryKey: ["user-notifications", user?.id, 1],
-      });
-
-      if (pathname.includes("orders")) {
         queryClient.invalidateQueries({
-          queryKey: ["partner-orders", restaurant.id, 1],
+          queryKey: ["user-notifications", user?.id, 1],
         });
-      }
 
-      if (pathname.includes("dashboard")) {
+        if (pathname.includes("orders")) {
+          queryClient.invalidateQueries({
+            queryKey: ["partner-orders", restaurant.id, 1],
+          });
+        }
+
+        if (pathname.includes("dashboard")) {
+          queryClient.invalidateQueries({
+            queryKey: ["partner-dashboard-stats", restaurant.id],
+          });
+        }
+      },
+      "new-order-received",
+    );
+
+  const { leave: leaveReview } =
+    useEchoNotification<NewReviewReceivedToBroadcast>(
+      `App.Models.User.${user?.id}`,
+      (notification) => {
+        notifications.show(
+          <NotificationToast
+            title={notification.title}
+            description={notification.description}
+          />,
+          { severity: "info" },
+        );
+
         queryClient.invalidateQueries({
-          queryKey: ["partner-dashboard-stats", restaurant.id],
+          queryKey: ["user-notifications", user?.id, 1],
         });
-      }
-    },
-    "new-order-received",
-  );
 
-  useEchoNotification<NewReviewReceivedToBroadcast>(
-    `App.Models.User.${user?.id}`,
-    (notification) => {
-      notifications.show(
-        <NotificationToast
-          title={notification.title}
-          description={notification.description}
-        />,
-        {
-          severity: "info",
-        },
-      );
+        if (pathname.includes("reviews") || pathname.includes("dashboard")) {
+          queryClient.invalidateQueries({
+            queryKey: ["partner-reviews", restaurant.id, 1],
+          });
+        }
+      },
+      "new-review-received",
+    );
 
-      queryClient.invalidateQueries({
-        queryKey: ["user-notifications", user?.id, 1],
-      });
+  useEffect(() => {
+    if (!user?.id) return;
 
-      if (pathname.includes("reviews") || pathname.includes("dashboard")) {
-        queryClient.invalidateQueries({
-          queryKey: ["partner-reviews", restaurant.id, 1],
-        });
-      }
-    },
-    "new-review-received",
-  );
+    leaveOrder();
+    leaveReview();
+  }, [user?.id, leaveOrder, leaveReview]);
 
   return (
     <AppBar position="relative" color="inherit" elevation={3}>

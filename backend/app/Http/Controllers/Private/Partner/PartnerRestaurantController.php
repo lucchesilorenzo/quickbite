@@ -19,7 +19,7 @@ use Throwable;
 class PartnerRestaurantController extends Controller
 {
     public function __construct(
-        private PartnerRestaurantService $partnerRestaurantService,
+        private readonly PartnerRestaurantService $partnerRestaurantService,
     ) {}
 
     /**
@@ -33,7 +33,7 @@ class PartnerRestaurantController extends Controller
             );
 
             return response()->json($restaurants, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get restaurants.',
             ], 500);
@@ -51,7 +51,7 @@ class PartnerRestaurantController extends Controller
             $restaurant = $this->partnerRestaurantService->getRestaurant($restaurant);
 
             return response()->json($restaurant, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get restaurant.',
             ], 500);
@@ -77,7 +77,7 @@ class PartnerRestaurantController extends Controller
                 'restaurant' => $restaurant,
                 'message' => 'Restaurant status updated successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update restaurant status.',
             ], 500);
@@ -103,7 +103,7 @@ class PartnerRestaurantController extends Controller
                 'restaurant' => $restaurant,
                 'message' => 'Restaurant fees updated successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update restaurant fees.',
             ], 500);
@@ -129,7 +129,7 @@ class PartnerRestaurantController extends Controller
                 'restaurant' => $restaurant,
                 'message' => 'Restaurant delivery times updated successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update restaurant delivery times.',
             ], 500);
@@ -164,7 +164,7 @@ class PartnerRestaurantController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update restaurant info.',
             ], 500);

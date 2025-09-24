@@ -18,7 +18,7 @@ use Throwable;
 class PartnerRestaurantOfferController extends Controller
 {
     public function __construct(
-        private PartnerOfferService $partnerOfferService
+        private readonly PartnerOfferService $partnerOfferService
     ) {}
 
     /**
@@ -32,7 +32,7 @@ class PartnerRestaurantOfferController extends Controller
             $offers = $this->partnerOfferService->getOffers($restaurant);
 
             return response()->json($offers, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get offers.',
             ], 500);
@@ -62,7 +62,7 @@ class PartnerRestaurantOfferController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not create offer.',
             ], 500);
@@ -94,7 +94,7 @@ class PartnerRestaurantOfferController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update offer.',
             ], 500);
@@ -114,7 +114,7 @@ class PartnerRestaurantOfferController extends Controller
             return response()->json([
                 'message' => 'Offer deleted successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not delete offer.',
             ], 500);

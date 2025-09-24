@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class PartnerMenuItemService
 {
     public function __construct(
-        private ImageService $imageService
+        private readonly ImageService $imageService
     ) {}
 
     public function createMenuItem(
@@ -22,7 +22,7 @@ class PartnerMenuItemService
         ?UploadedFile $image,
     ): MenuItem {
         // Handle image upload if provided
-        if ($image) {
+        if ($image instanceof UploadedFile) {
             $this->imageService->create($image, 'restaurants/menu-items');
         }
 
@@ -42,7 +42,7 @@ class PartnerMenuItemService
         MenuItem $menuItem,
         ?UploadedFile $image,
     ): MenuItem {
-        if ($image) {
+        if ($image instanceof UploadedFile) {
             $data['image'] = $this->imageService->update(
                 $menuItem->image,
                 $image,
@@ -58,7 +58,7 @@ class PartnerMenuItemService
 
     public function updateMenuItemsOrder(array $menuItems): array
     {
-        return DB::transaction(function () use ($menuItems) {
+        return DB::transaction(function () use ($menuItems): array {
             foreach ($menuItems as $menuItem) {
                 $menuItem->save();
             }

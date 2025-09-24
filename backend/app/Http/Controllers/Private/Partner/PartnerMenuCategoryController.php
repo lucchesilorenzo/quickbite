@@ -20,7 +20,7 @@ use Throwable;
 class PartnerMenuCategoryController extends Controller
 {
     public function __construct(
-        private PartnerMenuCategoryService $partnerMenuCategoryService
+        private readonly PartnerMenuCategoryService $partnerMenuCategoryService
     ) {}
 
     /**
@@ -46,7 +46,7 @@ class PartnerMenuCategoryController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not create menu category.',
             ], 500);
@@ -79,11 +79,11 @@ class PartnerMenuCategoryController extends Controller
                 'menu_categories' => $updatedMenuCategories,
                 'message' => 'Order updated successfully.',
             ], 200);
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             return response()->json([
                 'message' => 'Menu category not found.',
             ], 404);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update menu categories.',
             ], 500);
@@ -109,7 +109,7 @@ class PartnerMenuCategoryController extends Controller
                 'menu_category' => $menuCategory,
                 'message' => 'Menu category updated successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update menu category.',
             ], 500);
@@ -129,7 +129,7 @@ class PartnerMenuCategoryController extends Controller
             return response()->json([
                 'message' => 'Menu category deleted successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not delete menu category.',
             ], 500);
