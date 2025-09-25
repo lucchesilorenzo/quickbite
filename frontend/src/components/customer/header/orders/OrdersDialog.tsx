@@ -16,6 +16,7 @@ import OrdersList from "./OrdersList";
 
 import Spinner from "@/components/common/Spinner";
 import { useGetCustomerOrders } from "@/hooks/react-query/private/customers/orders/useGetCustomerOrders";
+import { customerOrdersDefaults } from "@/lib/query-defaults";
 
 type OrdersDialogProps = {
   openOrdersDialog: boolean;
@@ -25,11 +26,10 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
 
-  const { data: ordersWithPagination, isLoading: isLoadingOrders } =
-    useGetCustomerOrders(page);
-
-  const orders = ordersWithPagination?.data || [];
-  const totalPages = ordersWithPagination?.last_page || 1;
+  const {
+    data: ordersWithPagination = customerOrdersDefaults,
+    isLoading: isLoadingOrders,
+  } = useGetCustomerOrders(page);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
@@ -77,12 +77,12 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
       <DialogContent sx={{ p: 0 }}>
         {isLoadingOrders ? (
           <Spinner />
-        ) : !orders.length ? (
+        ) : !ordersWithPagination.data.length ? (
           <EmptyOrders />
         ) : (
           <OrdersList
-            orders={orders}
-            totalPages={totalPages}
+            orders={ordersWithPagination.data}
+            totalPages={ordersWithPagination.last_page}
             page={page}
             setPage={setPage}
           />
