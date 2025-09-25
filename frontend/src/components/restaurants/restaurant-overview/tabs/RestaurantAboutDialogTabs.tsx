@@ -32,8 +32,8 @@ export default function RestaurantAboutDialogTabs() {
     const params = new URLSearchParams(searchParams);
     params.set("tab", newValue);
 
-    if (newValue !== "reviews") params.delete("reviewsPage");
-    if (newValue !== "offers") params.delete("offersPage");
+    if (newValue !== "reviews") params.delete("reviews_page");
+    if (newValue !== "offers") params.delete("offers_page");
 
     setSearchParams(params, { replace: true });
   }
@@ -45,8 +45,8 @@ export default function RestaurantAboutDialogTabs() {
     setTabToOpen(tab);
 
     const params = new URLSearchParams(searchParams);
-    if (tab !== "reviews") params.delete("reviewsPage");
-    if (tab !== "offers") params.delete("offersPage");
+    if (tab !== "reviews") params.delete("reviews_page");
+    if (tab !== "offers") params.delete("offers_page");
 
     setSearchParams(params, { replace: true });
   }, [searchParams, setSearchParams, setTabToOpen]);

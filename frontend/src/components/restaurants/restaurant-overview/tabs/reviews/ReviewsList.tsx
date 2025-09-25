@@ -19,7 +19,7 @@ export default function ReviewsList() {
 
       <Box sx={{ alignSelf: "center" }}>
         <CustomPagination
-          context="reviewsPage"
+          context="reviews_page"
           page={page}
           totalPages={totalPages}
           setPage={setPage}

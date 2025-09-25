@@ -31,7 +31,7 @@ export default function OrdersList({
 
         <Box sx={{ alignSelf: "center" }}>
           <CustomPagination
-            context="ordersPage"
+            context="orders_page"
             page={page}
             totalPages={totalPages}
             setPage={setPage}

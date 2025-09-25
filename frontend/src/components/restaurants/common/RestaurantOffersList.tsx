@@ -31,7 +31,7 @@ export default function RestaurantOffersList({
       {showPagination && (
         <Box sx={{ alignSelf: "center" }}>
           <CustomPagination
-            context="offersPage"
+            context="offers_page"
             page={page}
             totalPages={totalPages}
             setPage={setPage}

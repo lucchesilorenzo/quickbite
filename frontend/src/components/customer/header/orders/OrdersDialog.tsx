@@ -35,14 +35,14 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
 
   function handleCloseDialog() {
     setSearchParams(
-      { ...Object.fromEntries(searchParams), dialog: "main", ordersPage: [] },
+      { ...Object.fromEntries(searchParams), dialog: "main", orders_page: [] },
       { replace: true },
     );
   }
 
   function handleGoBack() {
     setSearchParams(
-      { ...Object.fromEntries(searchParams), dialog: "main", ordersPage: [] },
+      { ...Object.fromEntries(searchParams), dialog: "main", orders_page: [] },
       { replace: true },
     );
   }
