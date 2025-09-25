@@ -19,15 +19,9 @@ import { useGetCustomerOrders } from "@/hooks/react-query/private/customers/orde
 
 type OrdersDialogProps = {
   openOrdersDialog: boolean;
-  setOpenOrdersDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenHeaderCustomerDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function OrdersDialog({
-  openOrdersDialog,
-  setOpenOrdersDialog,
-  setOpenHeaderCustomerDialog,
-}: OrdersDialogProps) {
+export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
 
@@ -41,32 +35,16 @@ export default function OrdersDialog({
 
   function handleCloseDialog() {
     setSearchParams(
-      {
-        ...Object.fromEntries(searchParams),
-        dialog: [],
-        ordersPage: [],
-      },
-      {
-        replace: true,
-      },
+      { ...Object.fromEntries(searchParams), dialog: "main", ordersPage: [] },
+      { replace: true },
     );
-    setOpenHeaderCustomerDialog(false);
-    setOpenOrdersDialog(false);
   }
 
   function handleGoBack() {
     setSearchParams(
-      {
-        ...Object.fromEntries(searchParams),
-        dialog: [],
-        ordersPage: [],
-      },
-      {
-        replace: true,
-      },
+      { ...Object.fromEntries(searchParams), dialog: "main", ordersPage: [] },
+      { replace: true },
     );
-    setOpenHeaderCustomerDialog(true);
-    setOpenOrdersDialog(false);
   }
 
   return (
@@ -100,10 +78,7 @@ export default function OrdersDialog({
         {isLoadingOrders ? (
           <Spinner />
         ) : !orders.length ? (
-          <EmptyOrders
-            setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
-            setOpenOrdersDialog={setOpenOrdersDialog}
-          />
+          <EmptyOrders />
         ) : (
           <OrdersList
             orders={orders}

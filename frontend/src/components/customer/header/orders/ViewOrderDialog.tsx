@@ -9,10 +9,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import ViewOrderFeesAndDiscounts from "../../../common/view-order-dialog/ViewOrderFeesAndDiscounts";
-import ViewOrderItemsList from "../../../common/view-order-dialog/ViewOrderItemsList";
-import ViewOrderReceipt from "../../../common/view-order-dialog/ViewOrderReceipt";
-
+import ViewOrderFeesAndDiscounts from "@/components/common/view-order-dialog/ViewOrderFeesAndDiscounts";
+import ViewOrderItemsList from "@/components/common/view-order-dialog/ViewOrderItemsList";
+import ViewOrderReceipt from "@/components/common/view-order-dialog/ViewOrderReceipt";
 import { Order } from "@/types/order-types";
 
 type ViewOrderDialogProps = {

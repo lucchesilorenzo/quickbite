@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -38,87 +38,60 @@ export default function HeaderDialogCustomer({
   customer,
 }: HeaderDialogCustomerProps) {
   const { emptyCarts } = useMultiCart();
-
   const { mutateAsync: logoutCustomer } = useLogoutCustomer();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [openHeaderCustomerDialog, setOpenHeaderCustomerDialog] =
-    useState(false);
-  const [openOrdersDialog, setOpenOrdersDialog] = useState(false);
-  const [openPersonalInfoDialog, setOpenPersonalInfoDialog] = useState(false);
+
+  const dialog = searchParams.get("dialog");
+
+  const openHeaderDialog = dialog === "main";
+  const openOrdersDialog = dialog === "orders";
+  const openPersonalInfoDialog = dialog === "personal-info";
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
-  useEffect(() => {
-    if (searchParams.get("dialog") === "orders") {
-      setOpenOrdersDialog(true);
-    } else if (searchParams.get("dialog") === "personal-info") {
-      setOpenPersonalInfoDialog(true);
-    }
-  }, [searchParams]);
-
   async function handleLogoutCustomer() {
-    setOpenHeaderCustomerDialog(false);
-
     await logoutCustomer();
-
-    // Clear local state
     emptyCarts();
+    handleCloseDialog();
   }
 
-  function handlePersonalInfoDialog() {
+  function handleMainDialog() {
     setSearchParams(
-      {
-        ...Object.fromEntries(searchParams),
-        dialog: "personal-info",
-      },
-      {
-        replace: true,
-      },
+      { ...Object.fromEntries(searchParams), dialog: "main" },
+      { replace: true },
     );
-    setOpenHeaderCustomerDialog(false);
-    setOpenPersonalInfoDialog(true);
   }
 
   function handleOrdersDialog() {
     setSearchParams(
-      {
-        ...Object.fromEntries(searchParams),
-        dialog: "orders",
-      },
-      {
-        replace: true,
-      },
+      { ...Object.fromEntries(searchParams), dialog: "orders" },
+      { replace: true },
     );
-    setOpenHeaderCustomerDialog(false);
-    setOpenOrdersDialog(true);
+  }
+
+  function handlePersonalInfoDialog() {
+    setSearchParams(
+      { ...Object.fromEntries(searchParams), dialog: "personal-info" },
+      { replace: true },
+    );
   }
 
   function handleCloseDialog() {
     setSearchParams(
-      {
-        ...Object.fromEntries(searchParams),
-        dialog: [],
-      },
-      {
-        replace: true,
-      },
+      { ...Object.fromEntries(searchParams), dialog: [] },
+      { replace: true },
     );
-    setOpenHeaderCustomerDialog(false);
   }
 
   return (
     <>
-      <IconButton
-        color="inherit"
-        aria-label="menu"
-        onClick={() => setOpenHeaderCustomerDialog(true)}
-      >
+      <IconButton color="inherit" aria-label="menu" onClick={handleMainDialog}>
         <MenuIcon />
       </IconButton>
 
       <Dialog
-        open={openHeaderCustomerDialog}
+        open={openHeaderDialog}
         onClose={handleCloseDialog}
         fullWidth={!isMobile}
         fullScreen={isMobile}
@@ -179,7 +152,7 @@ export default function HeaderDialogCustomer({
                   <ListItemButton
                     component={Link}
                     to={option.href}
-                    onClick={() => setOpenHeaderCustomerDialog(false)}
+                    onClick={handleCloseDialog}
                   >
                     <ListItemIcon sx={{ color: grey[900] }}>
                       <option.icon />
@@ -204,17 +177,8 @@ export default function HeaderDialogCustomer({
         </Stack>
       </Dialog>
 
-      <OrdersDialog
-        openOrdersDialog={openOrdersDialog}
-        setOpenOrdersDialog={setOpenOrdersDialog}
-        setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
-      />
-
-      <PersonalInfoDialog
-        openPersonalInfoDialog={openPersonalInfoDialog}
-        setOpenPersonalInfoDialog={setOpenPersonalInfoDialog}
-        setOpenHeaderCustomerDialog={setOpenHeaderCustomerDialog}
-      />
+      <OrdersDialog openOrdersDialog={openOrdersDialog} />
+      <PersonalInfoDialog openPersonalInfoDialog={openPersonalInfoDialog} />
     </>
   );
 }
