@@ -27,10 +27,10 @@ export default function CustomPagination({
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    const pageParam = Number(searchParams.get(context));
+    const pageParam = Number(searchParams.get(context)) || 1;
 
     if (pageParam <= totalPages) {
-      setPage(pageParam || 1);
+      setPage(pageParam);
     }
   }, [searchParams, totalPages, context, setPage]);
 
