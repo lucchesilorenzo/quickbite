@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Public;
 
+use App\Enums\RestaurantSortBy;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GetRestaurantsRequest extends FormRequest
 {
@@ -27,9 +29,9 @@ class GetRestaurantsRequest extends FormRequest
             'lat' => ['required', 'numeric'],
             'lon' => ['required', 'numeric'],
             'filter' => ['array'],
-            'sort_by' => ['nullable', 'string', 'in:review_rating,distance,minimum_order_value,delivery_time,delivery_fee'],
-            'mov' => ['nullable', 'string', 'in:1000,1500'],
-            'q' => ['nullable', 'string'],
+            'sort_by' => ['sometimes', Rule::enum(RestaurantSortBy::class)],
+            'mov' => ['sometimes', 'string', 'in:1000,1500'],
+            'q' => ['sometimes', 'string'],
         ];
     }
 }
