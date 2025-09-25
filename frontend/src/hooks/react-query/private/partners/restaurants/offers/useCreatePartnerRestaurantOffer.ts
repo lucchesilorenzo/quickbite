@@ -13,7 +13,7 @@ export function useCreatePartnerRestaurantOffer(restaurantId: string) {
       postData(`/partner/restaurants/${restaurantId}/offers`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-offer", restaurantId],
+        queryKey: ["partner-offers", restaurantId],
       });
 
       notifications.show(response.message, {
