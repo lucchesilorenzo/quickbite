@@ -15,6 +15,7 @@ type AuthContext = {
   userNotifications: UserNotificationWithUnreadCount;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  resetUser: () => void;
 };
 
 export const AuthContext = createContext<AuthContext | null>(null);
@@ -29,6 +30,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     isLoading: isLoadingUserNotifications,
   } = useGetUserNotifications(user?.id, page);
 
+  function resetUser() {
+    setUser(null);
+  }
+
   useEffect(() => {
     if (!isLoadingUser) {
       setUser(!isError ? data : null);
@@ -40,7 +45,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, userNotifications, page, setPage }}>
+    <AuthContext.Provider
+      value={{ user, userNotifications, page, setPage, resetUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

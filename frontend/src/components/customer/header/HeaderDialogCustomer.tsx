@@ -51,9 +51,9 @@ export default function HeaderDialogCustomer({
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   async function handleLogoutCustomer() {
+    handleCloseDialog();
     await logoutCustomer();
     emptyCarts();
-    handleCloseDialog();
   }
 
   function handleMainDialog() {
