@@ -17,10 +17,13 @@ class PartnerOrderService
 {
     private const int PER_PAGE = 5;
 
-    public function getOrders(Restaurant $restaurant): LengthAwarePaginator
+    public function getOrders(array $data, Restaurant $restaurant): LengthAwarePaginator
     {
+        $status = $data['status'] ?? null;
+
         return $restaurant->orders()
             ->with(['orderItems', 'restaurant'])
+            ->when($status, fn ($query) => $query->where('status', $status))
             ->orderByDesc('created_at')
             ->paginate(self::PER_PAGE);
     }

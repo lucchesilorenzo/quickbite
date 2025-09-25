@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Exceptions\Private\Partner\PartnerNoAvailableRidersException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Private\Partner\Order\GetOrdersRequest;
 use App\Http\Requests\Private\Partner\Order\UpdateOrderStatus;
 use App\Models\Order;
 use App\Models\Restaurant;
@@ -23,12 +24,17 @@ class PartnerOrderController extends Controller
     /**
      * Get restaurant's orders.
      */
-    public function getOrders(Restaurant $restaurant): JsonResponse
-    {
+    public function getOrders(
+        GetOrdersRequest $request,
+        Restaurant $restaurant
+    ): JsonResponse {
         Gate::authorize('viewRestaurantOrders', $restaurant);
 
         try {
-            $orders = $this->partnerOrderService->getOrders($restaurant);
+            $orders = $this->partnerOrderService->getOrders(
+                $request->validated(),
+                $restaurant
+            );
 
             return response()->json($orders, 200);
         } catch (Throwable) {
