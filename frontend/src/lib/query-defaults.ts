@@ -81,3 +81,5 @@ export const customerOrdersDefaults = {
   to: null,
   total: 0,
 };
+
+export const partnerOrdersDefaults = customerOrdersDefaults;
