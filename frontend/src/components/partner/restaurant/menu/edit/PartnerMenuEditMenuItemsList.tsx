@@ -20,6 +20,7 @@ import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
 import { useUpdatePartnerRestaurantMenuItemsOrder } from "@/hooks/react-query/private/partners/restaurants/menu/items/useUpdatePartnerRestaurantMenuItemsOrder";
 import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partners/restaurants/menu/useGetPartnerRestaurantMenu";
+import { partnerMenuDefaults } from "@/lib/query-defaults";
 
 export default function PartnerMenuEditMenuItemsList() {
   const { restaurant } = usePartnerRestaurant();
@@ -33,7 +34,7 @@ export default function PartnerMenuEditMenuItemsList() {
   );
 
   const {
-    data: menuCategoriesWithMenuItemsPagination,
+    data: menuCategoriesWithMenuItemsPagination = partnerMenuDefaults,
     isLoading: isLoadingMenuCategories,
   } = useGetPartnerRestaurantMenu(restaurant.id, page);
 
@@ -45,22 +46,19 @@ export default function PartnerMenuEditMenuItemsList() {
     [updateRestaurantMenuItemsOrder],
   );
 
-  const selectedMenuCategory = menuCategoriesWithMenuItemsPagination?.find(
+  const selectedMenuCategory = menuCategoriesWithMenuItemsPagination.find(
     (c) => c.id === selectedMenuCategoryId,
   );
 
-  const menuItems = selectedMenuCategory?.menu_items.data || [];
-  const totalPages = selectedMenuCategory?.menu_items.last_page || 1;
+  const menuItems = selectedMenuCategory?.menu_items.data;
 
-  const [items, setItems] = useState(menuItems);
+  const [items, setItems] = useState(menuItems || []);
 
   useEffect(() => {
-    if (JSON.stringify(items) !== JSON.stringify(menuItems)) {
-      setItems(menuItems);
-    }
+    if (!menuItems) return;
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [menuItems]);
+    setItems(menuItems);
+  }, [menuItems, items]);
 
   if (isLoadingMenuCategories) return <Spinner />;
 
@@ -104,7 +102,7 @@ export default function PartnerMenuEditMenuItemsList() {
           <Box sx={{ alignSelf: "center" }}>
             <CustomPagination
               page={page}
-              totalPages={totalPages}
+              totalPages={selectedMenuCategory?.menu_items.last_page}
               menuCategoryId={selectedMenuCategoryId}
               setPage={setPage}
             />

@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import MenuItemQuantityInCartBadge from "../../common/menu-category-navigation/MenuItemQuantityInCartBadge";
 import MenuItemAddButton from "../common/MenuItemAddButton";
-import MenuItemQuantityInCartBadge from "../common/MenuItemQuantityInCartBadge";
 import MenuItemDialog from "./MenuItemDialog";
 
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";

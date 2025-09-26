@@ -10,7 +10,7 @@ type CustomPaginationProps = {
   totalPages: number;
   status?: OrderStatusWithAll;
   menuCategoryId?: string;
-  context?: "ordersPage" | "reviewsPage" | "offersPage" | "page";
+  context?: "orders_page" | "reviews_page" | "offers_page" | "page";
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -27,10 +27,10 @@ export default function CustomPagination({
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    const pageParam = Number(searchParams.get(context));
+    const pageParam = Number(searchParams.get(context)) || 1;
 
     if (pageParam <= totalPages) {
-      setPage(pageParam || 1);
+      setPage(pageParam);
     }
   }, [searchParams, totalPages, context, setPage]);
 

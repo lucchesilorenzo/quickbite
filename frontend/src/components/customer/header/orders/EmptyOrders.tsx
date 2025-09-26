@@ -1,17 +1,18 @@
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
-type EmptyOrdersProps = {
-  setOpenHeaderCustomerDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenOrdersDialog: React.Dispatch<React.SetStateAction<boolean>>;
-};
+export default function EmptyOrders() {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-export default function EmptyOrders({
-  setOpenHeaderCustomerDialog,
-  setOpenOrdersDialog,
-}: EmptyOrdersProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  function handleCloseDialog() {
+    setSearchParams(
+      { ...Object.fromEntries(searchParams), dialog: [] },
+      { replace: true },
+    );
+  }
 
   return (
     <Stack
@@ -43,10 +44,7 @@ export default function EmptyOrders({
       <Button
         component={Link}
         to="/"
-        onClick={() => {
-          setOpenHeaderCustomerDialog(false);
-          setOpenOrdersDialog(false);
-        }}
+        onClick={handleCloseDialog}
         variant="outlined"
         color="inherit"
         sx={{ border: "1px solid #dbd9d7", fontWeight: 700 }}

@@ -18,12 +18,15 @@ import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantMenuCategoriesOrder } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategoriesOrder";
 import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partners/restaurants/menu/useGetPartnerRestaurantMenu";
+import { partnerMenuDefaults } from "@/lib/query-defaults";
 
 export default function PartnerMenuCategoriesList() {
   const { restaurant } = usePartnerRestaurant();
 
-  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
-    useGetPartnerRestaurantMenu(restaurant.id);
+  const {
+    data: menuCategories = partnerMenuDefaults,
+    isLoading: isLoadingMenuCategories,
+  } = useGetPartnerRestaurantMenu(restaurant.id);
 
   const { mutateAsync: updateRestaurantMenuCategoriesOrder } =
     useUpdatePartnerRestaurantMenuCategoriesOrder(restaurant.id);
@@ -41,11 +44,7 @@ export default function PartnerMenuCategoriesList() {
   );
 
   useEffect(() => {
-    if (JSON.stringify(items) !== JSON.stringify(menuCategories)) {
-      setItems(menuCategories);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setItems(menuCategories);
   }, [menuCategories]);
 
   async function handleMenuCategorySort({ active, over }: DragEndEvent) {

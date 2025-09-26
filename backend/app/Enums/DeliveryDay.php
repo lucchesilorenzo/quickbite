@@ -19,6 +19,8 @@ enum DeliveryDay: string
      */
     public static function values(): array
     {
-        return collect(self::cases())->pluck('value')->toArray();
+        return collect(self::cases())
+            ->pluck('value')
+            ->toArray();
     }
 }

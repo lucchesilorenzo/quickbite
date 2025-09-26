@@ -5,10 +5,10 @@ import { IconButton } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import MenuCategoryNavigationDialog from "@/components/common/menu-category-navigation/MenuCategoryNavigationDialog";
-import { MenuCategory } from "@/types";
+import { MenuCategory, PartnerMenu } from "@/types";
 
 type ShowMoreMenuCategoriesButtonProps = {
-  menuCategories: MenuCategory[];
+  menuCategories: MenuCategory[] | PartnerMenu[];
   onSlideClick: (menuCategoryId: string) => void;
 };
 

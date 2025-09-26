@@ -29,8 +29,8 @@ export default function RestaurantAboutDialog({
       {
         ...Object.fromEntries(searchParams),
         tab: [],
-        reviewsPage: [],
-        offersPage: [],
+        reviews_page: [],
+        offers_page: [],
       },
       {
         replace: true,

@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { format } from "date-fns";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import AddReviewDialog from "./AddReviewDialog";
 import ViewOrderDialog from "./ViewOrderDialog";
@@ -28,8 +28,7 @@ export default function OrderItem({ order }: OrderItemProps) {
   const { user } = useAuth();
   const { pathname } = useLocation();
 
-  const navigate = useNavigate();
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const [openViewOrderDialog, setOpenViewOrderDialog] = useState(false);
   const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
 
@@ -40,7 +39,18 @@ export default function OrderItem({ order }: OrderItemProps) {
   const isOnRestaurantPage =
     pathname === `/restaurants/${order.restaurant.slug}`;
 
+  const navigate = useNavigate();
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
+  function handleOrderAgain() {
+    if (isOnRestaurantPage) {
+      setSearchParams({ ...Object.fromEntries(searchParams), dialog: [] });
+      return;
+    }
+
+    navigate(`/restaurants/${order.restaurant.slug}`);
+  }
 
   return (
     <Card variant="outlined" sx={{ p: 1 }}>
@@ -49,7 +59,7 @@ export default function OrderItem({ order }: OrderItemProps) {
         spacing={2}
         sx={{ justifyContent: "space-between", alignItems: "center" }}
       >
-        <Stack direction="row" spacing={2} sx={{ alignItems: "" }}>
+        <Stack direction="row" spacing={2}>
           <Box
             component="img"
             src={`${env.VITE_BASE_URL}${order.restaurant.logo}`}
@@ -111,13 +121,7 @@ export default function OrderItem({ order }: OrderItemProps) {
           </Button>
 
           <Button
-            onClick={() => {
-              if (isOnRestaurantPage) {
-                navigate(0);
-              } else {
-                navigate(`/restaurants/${order.restaurant.slug}`);
-              }
-            }}
+            onClick={handleOrderAgain}
             variant="contained"
             color="primary"
           >

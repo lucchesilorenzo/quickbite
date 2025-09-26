@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Public;
+namespace App\Http\Requests\Private\Partner\Order;
 
-use App\Enums\RestaurantSortBy;
+use App\Enums\OrderStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class GetRestaurantsRequest extends FormRequest
+class GetOrdersRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,7 @@ class GetRestaurantsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lat' => ['required', 'numeric'],
-            'lon' => ['required', 'numeric'],
-            'filter' => ['array'],
-            'sort_by' => ['sometimes', Rule::enum(RestaurantSortBy::class)],
-            'mov' => ['sometimes', 'string', 'in:1000,1500'],
-            'q' => ['sometimes', 'string'],
+            'status' => ['sometimes', Rule::enum(OrderStatus::class)],
         ];
     }
 }
