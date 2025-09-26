@@ -7,7 +7,6 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import {
   AppBar,
   Badge,
-  Button,
   IconButton,
   Stack,
   Toolbar,
@@ -19,6 +18,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Link, useLocation } from "react-router-dom";
 
+import PartnerProfileMenu from "../restaurants/PartnerProfileMenu";
 import PartnerNavigation from "./PartnerNavigation";
 
 import NotificationToast from "@/components/common/NotificationToast";
@@ -134,7 +134,7 @@ export default function PartnerRestaurantHeader() {
 
         <Stack
           direction="row"
-          spacing={isMobile ? 1 : 4}
+          spacing={isMobile ? 1 : 2}
           sx={{ alignItems: "center" }}
         >
           <Tooltip title="Notifications">
@@ -155,14 +155,7 @@ export default function PartnerRestaurantHeader() {
               <LogoutOutlinedIcon />
             </IconButton>
           ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{ fontWeight: 700 }}
-              onClick={handleLogoutPartner}
-            >
-              Log out
-            </Button>
+            <PartnerProfileMenu />
           )}
         </Stack>
       </Toolbar>

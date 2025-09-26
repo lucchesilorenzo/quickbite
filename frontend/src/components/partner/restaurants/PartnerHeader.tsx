@@ -2,7 +2,6 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import {
   AppBar,
-  Button,
   IconButton,
   Stack,
   Toolbar,
@@ -10,6 +9,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+
+import PartnerProfileMenu from "./PartnerProfileMenu";
 
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
 
@@ -49,14 +50,7 @@ export default function PartnerHeader() {
             <LogoutOutlinedIcon />
           </IconButton>
         ) : (
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ fontWeight: 700 }}
-            onClick={handleLogoutPartner}
-          >
-            Log out
-          </Button>
+          <PartnerProfileMenu />
         )}
       </Toolbar>
     </AppBar>
