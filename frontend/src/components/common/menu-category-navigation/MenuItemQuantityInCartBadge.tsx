@@ -3,12 +3,12 @@ import { grey } from "@mui/material/colors";
 
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
-import { MenuCategory, MenuItem } from "@/types";
+import { MenuCategory, MenuItem, PartnerMenu } from "@/types";
 
 type MenuItemQuantityInCartBadgeProps = {
   type: "from-list" | "from-search";
   menuItem?: MenuItem;
-  menuCategory?: MenuCategory;
+  menuCategory?: MenuCategory | PartnerMenu;
 };
 
 export default function MenuItemQuantityInCartBadge({
@@ -24,7 +24,7 @@ export default function MenuItemQuantityInCartBadge({
 
   const menuCategoryQuantity =
     menuCategory &&
-    menuCategory.menu_items.reduce((acc, item) => {
+    (menuCategory.menu_items as MenuItem[]).reduce((acc, item) => {
       const quantity = getItem(restaurant.id, item.id)?.quantity ?? 0;
       return acc + quantity;
     }, 0);
