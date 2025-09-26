@@ -551,3 +551,12 @@ export const paymentMethodOptions: {
   { value: "all", label: "All payment methods" },
   { value: "cash", label: "Cash" },
 ];
+
+export const colors = [
+  "primary.main",
+  "secondary.main",
+  "success.main",
+  "error.main",
+  "warning.main",
+  "info.main",
+];
