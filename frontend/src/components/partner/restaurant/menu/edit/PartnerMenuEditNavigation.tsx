@@ -16,14 +16,17 @@ import MenuCategoryNavigationSlide from "@/components/common/menu-category-navig
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
 import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partners/restaurants/menu/useGetPartnerRestaurantMenu";
+import { partnerMenuDefaults } from "@/lib/query-defaults";
 
 export default function PartnerMenuEditNavigation() {
   const { restaurant } = usePartnerRestaurant();
   const { selectedMenuCategoryId, setSelectedMenuCategoryId } =
     usePartnerRestaurantMenu();
 
-  const { data: menuCategories = [], isLoading: isLoadingMenuCategories } =
-    useGetPartnerRestaurantMenu(restaurant.id);
+  const {
+    data: menuCategories = partnerMenuDefaults,
+    isLoading: isLoadingMenuCategories,
+  } = useGetPartnerRestaurantMenu(restaurant.id);
 
   const swiperRef = useRef<SwiperClass>(null);
 

@@ -5,14 +5,14 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategory";
-import { MenuCategory } from "@/types";
+import { PartnerMenu } from "@/types";
 import {
   TPartnerRestaurantMenuCategoriesFormSchema,
   partnerRestaurantMenuCategoriesFormSchema,
 } from "@/validations/partner-restaurant-menu-validations";
 
 type PartnerMenuCategoriesEditMenuCategoryFormProps = {
-  menuCategory: MenuCategory;
+  menuCategory: PartnerMenu;
   setOpenEditMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

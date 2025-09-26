@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { MenuCategory } from "@/types";
+import { MenuCategory, PartnerMenu } from "@/types";
 
 type MenuCategoryNavigationSlideProps = {
-  menuCategory: MenuCategory;
+  menuCategory: MenuCategory | PartnerMenu;
   selectedMenuCategoryId: string;
   onSlideClick: (id: string) => void;
 };

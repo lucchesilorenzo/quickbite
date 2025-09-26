@@ -8,14 +8,14 @@ import {
   Typography,
 } from "@mui/material";
 
-import MenuItemQuantityInCartBadge from "../../restaurants/common/MenuItemQuantityInCartBadge";
+import MenuItemQuantityInCartBadge from "./MenuItemQuantityInCartBadge";
 
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { isCustomer } from "@/lib/utils";
-import { MenuCategory } from "@/types";
+import { MenuCategory, PartnerMenu } from "@/types";
 
 type MenuCategoryNavigationItemProps = {
-  menuCategory: MenuCategory;
+  menuCategory: MenuCategory | PartnerMenu;
   isLast: boolean;
   setOpenMenuCategoryNavigationDialog: React.Dispatch<
     React.SetStateAction<boolean>

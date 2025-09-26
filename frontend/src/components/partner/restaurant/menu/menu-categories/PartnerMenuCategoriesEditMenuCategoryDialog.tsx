@@ -10,10 +10,10 @@ import {
 
 import PartnerMenuCategoriesEditMenuCategoryForm from "./PartnerMenuCategoriesEditMenuCategoryForm";
 
-import { MenuCategory } from "@/types";
+import { PartnerMenu } from "@/types";
 
 type PartnerMenuCategoriesEditMenuCategoryDialogProps = {
-  menuCategory: MenuCategory;
+  menuCategory: PartnerMenu;
   openEditMenuCategoryDialog: boolean;
   setOpenEditMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

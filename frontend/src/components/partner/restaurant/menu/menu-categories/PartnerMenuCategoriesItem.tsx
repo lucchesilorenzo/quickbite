@@ -9,10 +9,10 @@ import { grey } from "@mui/material/colors";
 import PartnerMenuCategoriesDeleteMenuCategoryDialog from "./PartnerMenuCategoriesDeleteMenuCategoryDialog";
 import PartnerMenuCategoriesEditMenuCategoryDialog from "./PartnerMenuCategoriesEditMenuCategoryDialog";
 
-import { MenuCategory } from "@/types";
+import { PartnerMenu } from "@/types";
 
 type PartnerMenuCategoriesItemProps = {
-  menuCategory: MenuCategory;
+  menuCategory: PartnerMenu;
 };
 
 export default function PartnerMenuCategoriesItem({

@@ -13,16 +13,16 @@ import {
 
 import MenuCategoryNavigationItem from "./MenuCategoryNavigationItem";
 
-import { MenuCategory } from "@/types";
+import { MenuCategory, PartnerMenu } from "@/types";
 
 type MenuCategoryNavigationDialogProps = {
-  menuCategories: MenuCategory[];
+  menuCategories: MenuCategory[] | PartnerMenu[];
   openMenuCategoryNavigationDialog: boolean;
+  title?: string;
   setOpenMenuCategoryNavigationDialog: React.Dispatch<
     React.SetStateAction<boolean>
   >;
   onSlideClick: (menuCategoryId: string) => void;
-  title?: string;
 };
 
 export default function MenuCategoryNavigationDialog({

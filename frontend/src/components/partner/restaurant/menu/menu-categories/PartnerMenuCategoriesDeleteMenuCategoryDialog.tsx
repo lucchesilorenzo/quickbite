@@ -12,10 +12,10 @@ import {
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 import { useDeletePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useDeletePartnerRestaurantMenuCategory";
-import { MenuCategory } from "@/types";
+import { PartnerMenu } from "@/types";
 
 type PartnerMenuCategoriesDeleteMenuCategoryDialogProps = {
-  menuCategory: MenuCategory;
+  menuCategory: PartnerMenu;
   openDeleteMenuCategoryDialog: boolean;
   setOpenDeleteMenuCategoryDialog: React.Dispatch<
     React.SetStateAction<boolean>
