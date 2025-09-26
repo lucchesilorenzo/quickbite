@@ -83,3 +83,18 @@ export const customerOrdersDefaults = {
 };
 
 export const partnerOrdersDefaults = customerOrdersDefaults;
+
+const partnerMenuItemsDefaults = customerOrdersDefaults;
+
+export const partnerMenuDefaults = [
+  {
+    id: "",
+    restaurant_id: "",
+    name: "",
+    description: "",
+    order: 0,
+    created_at: "",
+    updated_at: "",
+    menu_items: partnerMenuItemsDefaults,
+  },
+];
