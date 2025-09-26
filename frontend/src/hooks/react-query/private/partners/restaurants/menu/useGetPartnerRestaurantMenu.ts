@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { PartnerMenuWithPagination } from "@/types";
+import { PartnerMenu } from "@/types";
 
 export function useGetPartnerRestaurantMenu(
   restaurantId: string,
@@ -9,7 +9,7 @@ export function useGetPartnerRestaurantMenu(
 ) {
   return useQuery({
     queryKey: ["partner-menu", restaurantId, page],
-    queryFn: (): Promise<PartnerMenuWithPagination[]> =>
+    queryFn: (): Promise<PartnerMenu[]> =>
       fetchData(`/partner/restaurants/${restaurantId}/menu?page=${page}`),
   });
 }
