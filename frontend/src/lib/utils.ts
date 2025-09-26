@@ -7,7 +7,7 @@ import {
   subDays,
 } from "date-fns";
 
-import { orderStatuses, partnerStatusTransitions } from "./data";
+import { colors, orderStatuses, partnerStatusTransitions } from "./data";
 
 import {
   Cart,
@@ -98,6 +98,13 @@ export function generateSlug(text: string) {
     .trim()
     .replace(/\s+/g, "-")
     .replace(/[^\w-]+/g, "");
+}
+
+export function getColorByName(name?: string) {
+  if (!name) return colors[0];
+
+  const index = name.charCodeAt(0) % colors.length;
+  return colors[index];
 }
 
 export function getDisabledOrderStatuses(currentStatus: OrderStatus) {
