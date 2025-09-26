@@ -83,7 +83,7 @@ export default function PartnerMenuEditMenuItemsList() {
 
   if (!menuItems || !menuItems.length) {
     return (
-      <Typography variant="body2" sx={{ textAlign: "center", mt: 4 }}>
+      <Typography variant="body1" sx={{ textAlign: "center", mt: 4 }}>
         {selectedMenuCategoryId
           ? "No menu items found. A menu category must have at least one menu item."
           : "Select a menu category."}
