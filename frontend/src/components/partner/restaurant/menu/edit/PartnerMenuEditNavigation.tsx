@@ -156,10 +156,12 @@ export default function PartnerMenuEditNavigation() {
 
       {selectedMenuCategoryId && <PartnerMenuEditAddMenuItemButton />}
 
-      <ShowMoreMenuCategoriesButton
-        menuCategories={menuCategories}
-        onSlideClick={handleSlideClick}
-      />
+      {menuCategories.length > 0 && (
+        <ShowMoreMenuCategoriesButton
+          menuCategories={menuCategories}
+          onSlideClick={handleSlideClick}
+        />
+      )}
     </Stack>
   );
 }
