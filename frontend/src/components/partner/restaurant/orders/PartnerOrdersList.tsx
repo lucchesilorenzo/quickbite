@@ -46,7 +46,9 @@ export default function PartnerOrdersList() {
 
   return (
     <Stack spacing={2} sx={{ my: 3 }}>
-      <PartnerOrdersFilters setPage={setPage} />
+      {ordersWithPagination.data.length > 0 && (
+        <PartnerOrdersFilters setPage={setPage} />
+      )}
 
       {!ordersWithPagination.data.length ? (
         <Typography variant="body1" sx={{ textAlign: "center" }}>
