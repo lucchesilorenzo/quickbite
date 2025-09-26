@@ -27,7 +27,7 @@ export type Menu = MenuCategory & {
   menu_items: MenuItem[];
 };
 
-export type PartnerMenuWithPagination = MenuCategory & {
+export type PartnerMenu = Omit<MenuCategory, "menu_items"> & {
   menu_items: PartnerMenuItemWithPagination;
 };
 
