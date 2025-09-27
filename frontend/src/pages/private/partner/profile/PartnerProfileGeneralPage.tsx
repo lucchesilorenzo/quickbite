@@ -8,6 +8,7 @@ import PartnerProfileGeneralAddressCard from "@/components/partner/profile/gener
 import PartnerProfileGeneralPersonalInfoCard from "@/components/partner/profile/general/PartnerProfileGeneralPersonalInfoCard";
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import { useAuth } from "@/hooks/contexts/useAuth";
+import { useUpdatePartnerProfileGeneralInformation } from "@/hooks/react-query/private/partners/profile/useUpdatePartnerProfileGeneralInformation";
 import {
   TPartnerProfileGeneralFormSchema,
   partnerProfileGeneralFormSchema,
@@ -19,6 +20,10 @@ export default function PartnerProfileGeneralPage() {
   }, []);
 
   const { user } = useAuth();
+  const {
+    mutateAsync: updatePartnerProfileGeneralInformation,
+    isPending: isUpdating,
+  } = useUpdatePartnerProfileGeneralInformation();
 
   const methods = useForm({
     resolver: zodResolver(partnerProfileGeneralFormSchema),
@@ -42,6 +47,7 @@ export default function PartnerProfileGeneralPage() {
 
   async function onSubmit(data: TPartnerProfileGeneralFormSchema) {
     console.log(data);
+    await updatePartnerProfileGeneralInformation(data);
   }
 
   return (
@@ -65,8 +71,8 @@ export default function PartnerProfileGeneralPage() {
           <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
             <Button
               type="submit"
-              disabled={isSubmitting}
-              loading={isSubmitting}
+              disabled={isSubmitting || isUpdating}
+              loading={isSubmitting || isUpdating}
               loadingIndicator="Saving..."
               variant="contained"
               sx={{
