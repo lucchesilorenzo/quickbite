@@ -6,6 +6,7 @@ use App\Http\Controllers\Private\Partner\PartnerAuthController;
 use App\Http\Controllers\Private\Partner\PartnerMenuCategoryController;
 use App\Http\Controllers\Private\Partner\PartnerMenuItemController;
 use App\Http\Controllers\Private\Partner\PartnerOrderController;
+use App\Http\Controllers\Private\Partner\PartnerProfileController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantMenuController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantOfferController;
@@ -20,6 +21,13 @@ Route::prefix('partner')->group(function () {
         Route::post('/login', [PartnerAuthController::class, 'login']);
         Route::post('/logout', [PartnerAuthController::class, 'logout'])->middleware(['auth:sanctum', 'role:partner']);
     });
+
+    // === PROFILE MANAGEMENT ===
+    Route::prefix('profile')
+        ->middleware(['auth:sanctum', 'role:partner'])
+        ->group(function () {
+            Route::patch('/general', [PartnerProfileController::class, 'updateProfileGeneralInformation']);
+        });
 
     // === RESTAURANTS ===
     Route::prefix('restaurants')->middleware(['auth:sanctum', 'role:partner'])->group(function () {
