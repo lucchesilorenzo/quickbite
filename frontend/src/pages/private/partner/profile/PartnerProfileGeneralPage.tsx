@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
+import PartnerProfileGeneralAddressCard from "@/components/partner/profile/general/PartnerProfileGeneralAddressCard";
 import PartnerProfileGeneralPersonalInfoCard from "@/components/partner/profile/general/PartnerProfileGeneralPersonalInfoCard";
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import { useAuth } from "@/hooks/contexts/useAuth";
@@ -34,7 +35,10 @@ export default function PartnerProfileGeneralPage() {
     },
   });
 
-  const { handleSubmit } = methods;
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
 
   async function onSubmit(data: TPartnerProfileGeneralFormSchema) {
     console.log(data);
@@ -48,14 +52,33 @@ export default function PartnerProfileGeneralPage() {
           description="Manage your general information of your profile"
         />
 
-        <Box
+        <Stack
           component="form"
+          spacing={2}
           onSubmit={handleSubmit(onSubmit)}
           autoComplete="off"
           noValidate
         >
           <PartnerProfileGeneralPersonalInfoCard />
-        </Box>
+          <PartnerProfileGeneralAddressCard />
+
+          <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              loading={isSubmitting}
+              loadingIndicator="Saving..."
+              variant="contained"
+              sx={{
+                bgcolor: "#212121",
+                color: "white",
+                "&:hover": { bgcolor: "#333333" },
+              }}
+            >
+              Save changes
+            </Button>
+          </Stack>
+        </Stack>
       </FormProvider>
     </Box>
   );

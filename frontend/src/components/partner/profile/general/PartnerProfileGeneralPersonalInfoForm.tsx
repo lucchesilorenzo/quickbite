@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
@@ -10,7 +10,7 @@ import { TPartnerProfileGeneralFormSchema } from "@/validations/partner-profile-
 export default function PartnerProfileGeneralPersonalInfoForm() {
   const {
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useFormContext<TPartnerProfileGeneralFormSchema>();
 
   return (
@@ -113,21 +113,6 @@ export default function PartnerProfileGeneralPersonalInfoForm() {
           />
         )}
       />
-
-      <Button
-        type="submit"
-        disabled={isSubmitting}
-        loading={isSubmitting}
-        loadingIndicator="Submitting..."
-        variant="contained"
-        sx={{
-          bgcolor: "#212121",
-          color: "white",
-          "&:hover": { bgcolor: "#333333" },
-        }}
-      >
-        Save
-      </Button>
     </Stack>
   );
 }
