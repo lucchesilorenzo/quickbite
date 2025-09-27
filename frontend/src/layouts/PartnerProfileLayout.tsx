@@ -10,7 +10,7 @@ export default function PartnerProfileLayout() {
     <Stack sx={{ minHeight: "100vh", bgcolor: grey[100] }}>
       <PartnerHeader />
 
-      <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
+      <Container component="main" maxWidth="md" sx={{ my: 3 }}>
         <Grid container>
           <Grid size={4} sx={{ borderRight: 1, borderColor: "divider", pr: 4 }}>
             <PartnerProfileSidebar />
