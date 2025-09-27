@@ -2,8 +2,8 @@ import { Container, Grid, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Outlet } from "react-router-dom";
 
+import PartnerProfileSidebar from "@/components/partner/profile/PartnerProfileSidebar";
 import PartnerHeader from "@/components/partner/restaurants/PartnerHeader";
-import PartnerProfileSidebar from "@/components/partner/restaurants/PartnerProfileSidebar";
 
 export default function PartnerProfileLayout() {
   return (

@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import PartnerProfileMenu from "./PartnerProfileMenu";
+import PartnerProfileMenu from "../profile/PartnerProfileMenu";
 
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
 

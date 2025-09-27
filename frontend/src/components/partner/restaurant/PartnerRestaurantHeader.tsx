@@ -18,7 +18,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Link, useLocation } from "react-router-dom";
 
-import PartnerProfileMenu from "../restaurants/PartnerProfileMenu";
+import PartnerProfileMenu from "../profile/PartnerProfileMenu";
 import PartnerNavigation from "./PartnerNavigation";
 
 import NotificationToast from "@/components/common/NotificationToast";
