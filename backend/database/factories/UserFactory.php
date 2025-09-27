@@ -40,6 +40,7 @@ class UserFactory extends Factory
             'building_number' => fake()->buildingNumber(),
             'postcode' => fake()->postcode(),
             'city' => fake()->city(),
+            'state' => fake()->state(),
             'country' => 'Italy',
             'driving_licence' => null,
             'is_approved' => true,

@@ -38,6 +38,7 @@ class User extends Authenticatable
         'building_number',
         'postcode',
         'city',
+        'state',
         'country',
         'driving_licence',
         'is_approved',
