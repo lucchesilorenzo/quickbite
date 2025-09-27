@@ -45,7 +45,7 @@ class RestaurantFactory extends Factory
             'full_address' => 'Via Santa Maria, 2, 56126 Pisa',
             'latitude' => fake()->randomFloat(6, 43.7050, 43.7120),
             'longitude' => fake()->randomFloat(6, 10.4000, 10.4100),
-            'phone_number' => '+39 ' . fake()->numerify('###') . ' ' . fake()->numerify('###') . ' ' . fake()->numerify('####'),
+            'phone_number' => '+39 ' . '3' . fake()->numerify('##') . ' ' . fake()->numerify('###') . ' ' . fake()->numerify('####'),
             'email' => fake()->unique()->safeEmail(),
             'vat_id' => fake()->numerify('##########'),
             'min_amount' => fake()->randomElement([10, 15, 20]),
