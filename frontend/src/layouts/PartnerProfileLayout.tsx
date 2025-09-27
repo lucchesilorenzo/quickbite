@@ -12,11 +12,11 @@ export default function PartnerProfileLayout() {
 
       <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
         <Grid container>
-          <Grid size={4} sx={{ borderRight: 1, borderColor: "divider", pr: 2 }}>
+          <Grid size={4} sx={{ borderRight: 1, borderColor: "divider", pr: 4 }}>
             <PartnerProfileSidebar />
           </Grid>
 
-          <Grid size={8} sx={{ pl: 2 }}>
+          <Grid size={8} sx={{ pl: 4 }}>
             <Outlet />
           </Grid>
         </Grid>
