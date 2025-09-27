@@ -14,8 +14,10 @@ import PartnerRestaurantSettingsFeesPage from "./private/partner/PartnerRestaura
 import PartnerRestaurantSettingsInfoPage from "./private/partner/PartnerRestaurantSettingsInfoPage";
 import PartnerRestaurantSettingsPage from "./private/partner/PartnerRestaurantSettingsPage";
 import PartnerRestaurantStatsPage from "./private/partner/PartnerRestaurantStatsPage";
+import PartnerProfileGeneralPage from "./private/partner/profile/PartnerProfileGeneralPage";
 
 import PartnerLayout from "@/layouts/PartnerLayout";
+import PartnerProfileLayout from "@/layouts/PartnerProfileLayout";
 import PartnerRestaurantLayout from "@/layouts/PartnerRestaurantLayout";
 import PartnerRestaurantSettingsDeliveryTimesPage from "@/pages/private/partner/PartnerRestaurantSettingsDeliveryTimesPage";
 import PartnerRestaurantsPage from "@/pages/private/partner/PartnerRestaurantsPage";
@@ -29,6 +31,13 @@ export const PartnerRoutes = [
     <Route element={<PartnerLayout />}>
       <Route index element={<Navigate to="restaurants" replace />} />
       <Route path="restaurants" element={<PartnerRestaurantsPage />} />
+    </Route>
+
+    <Route element={<PartnerProfileLayout />}>
+      <Route path="profile">
+        <Route index element={<Navigate to="general" replace />} />
+        <Route path="general" element={<PartnerProfileGeneralPage />} />
+      </Route>
     </Route>
 
     <Route
