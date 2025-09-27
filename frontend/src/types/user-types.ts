@@ -11,6 +11,7 @@ export type User = {
   building_number: string | null;
   postcode: string | null;
   city: string | null;
+  state: string | null;
   country: string | null;
   driving_licence: string | null;
   roles: {
