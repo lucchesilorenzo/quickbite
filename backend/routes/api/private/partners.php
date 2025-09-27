@@ -30,47 +30,49 @@ Route::prefix('partner')->group(function () {
         });
 
     // === RESTAURANTS ===
-    Route::prefix('restaurants')->middleware(['auth:sanctum', 'role:partner'])->group(function () {
-        Route::get('/', [PartnerRestaurantController::class, 'getRestaurants']);
-        Route::get('/{restaurant}', [PartnerRestaurantController::class, 'getRestaurant']);
+    Route::prefix('restaurants')
+        ->middleware(['auth:sanctum', 'role:partner'])
+        ->group(function () {
+            Route::get('/', [PartnerRestaurantController::class, 'getRestaurants']);
+            Route::get('/{restaurant}', [PartnerRestaurantController::class, 'getRestaurant']);
 
-        // Settings & Info
-        Route::post('/{restaurant}/info', [PartnerRestaurantController::class, 'updateRestaurantInfo']);
-        Route::patch('/{restaurant}/status', [PartnerRestaurantController::class, 'updateRestaurantStatus']);
-        Route::patch('/{restaurant}/settings/fees', [PartnerRestaurantController::class, 'updateRestaurantFees']);
-        Route::patch('/{restaurant}/settings/delivery-times', [PartnerRestaurantController::class, 'updateRestaurantDeliveryTimes']);
+            // Settings & Info
+            Route::post('/{restaurant}/info', [PartnerRestaurantController::class, 'updateRestaurantInfo']);
+            Route::patch('/{restaurant}/status', [PartnerRestaurantController::class, 'updateRestaurantStatus']);
+            Route::patch('/{restaurant}/settings/fees', [PartnerRestaurantController::class, 'updateRestaurantFees']);
+            Route::patch('/{restaurant}/settings/delivery-times', [PartnerRestaurantController::class, 'updateRestaurantDeliveryTimes']);
 
-        // Offers
-        Route::get('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'getRestaurantOffers']);
-        Route::post('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'createRestaurantOffer']);
-        Route::patch('/{restaurant}/offers/{offer}', [PartnerRestaurantOfferController::class, 'updateRestaurantOffer']);
-        Route::delete('/offers/{offer}', [PartnerRestaurantOfferController::class, 'deleteRestaurantOffer']);
+            // Offers
+            Route::get('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'getRestaurantOffers']);
+            Route::post('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'createRestaurantOffer']);
+            Route::patch('/{restaurant}/offers/{offer}', [PartnerRestaurantOfferController::class, 'updateRestaurantOffer']);
+            Route::delete('/offers/{offer}', [PartnerRestaurantOfferController::class, 'deleteRestaurantOffer']);
 
-        // Reviews
-        Route::get('/{restaurant}/reviews', [PartnerRestaurantReviewController::class, 'getRestaurantReviews']);
+            // Reviews
+            Route::get('/{restaurant}/reviews', [PartnerRestaurantReviewController::class, 'getRestaurantReviews']);
 
-        // Menu
-        Route::get('/{restaurant}/menu', [PartnerRestaurantMenuController::class, 'getRestaurantMenu']);
+            // Menu
+            Route::get('/{restaurant}/menu', [PartnerRestaurantMenuController::class, 'getRestaurantMenu']);
 
-        // Menu Categories
-        Route::post('/{restaurant}/menu/categories', [PartnerMenuCategoryController::class, 'createRestaurantMenuCategory']);
-        Route::patch('/menu/categories/order', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategoriesOrder']);
-        Route::patch('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategory']);
-        Route::delete('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'deleteRestaurantMenuCategory']);
+            // Menu Categories
+            Route::post('/{restaurant}/menu/categories', [PartnerMenuCategoryController::class, 'createRestaurantMenuCategory']);
+            Route::patch('/menu/categories/order', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategoriesOrder']);
+            Route::patch('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'updateRestaurantMenuCategory']);
+            Route::delete('/menu/categories/{menuCategory}', [PartnerMenuCategoryController::class, 'deleteRestaurantMenuCategory']);
 
-        // Menu Items
-        Route::post('/menu/categories/{menuCategory}/items', [PartnerMenuItemController::class, 'createRestaurantMenuItem']);
-        Route::post('/menu/items/{menuItem}', [PartnerMenuItemController::class, 'updateRestaurantMenuItem']);
-        Route::patch('/menu/items/order', [PartnerMenuItemController::class, 'updateRestaurantMenuItemsOrder']);
-        Route::delete('/menu/items/{menuItem}', [PartnerMenuItemController::class, 'deleteRestaurantMenuItem']);
+            // Menu Items
+            Route::post('/menu/categories/{menuCategory}/items', [PartnerMenuItemController::class, 'createRestaurantMenuItem']);
+            Route::post('/menu/items/{menuItem}', [PartnerMenuItemController::class, 'updateRestaurantMenuItem']);
+            Route::patch('/menu/items/order', [PartnerMenuItemController::class, 'updateRestaurantMenuItemsOrder']);
+            Route::delete('/menu/items/{menuItem}', [PartnerMenuItemController::class, 'deleteRestaurantMenuItem']);
 
-        // Orders
-        Route::get('/{restaurant}/orders', [PartnerOrderController::class, 'getOrders']);
-        Route::patch('/orders/{order}/status', [PartnerOrderController::class, 'updateOrderStatus']);
+            // Orders
+            Route::get('/{restaurant}/orders', [PartnerOrderController::class, 'getOrders']);
+            Route::patch('/orders/{order}/status', [PartnerOrderController::class, 'updateOrderStatus']);
 
-        // Stats
-        Route::get('/{restaurant}/stats/dashboard', [PartnerRestaurantStatsController::class, 'getRestaurantDashboardStats']);
-        Route::get('/{restaurant}/stats/kpis', [PartnerRestaurantStatsController::class, 'getRestaurantKpiSummary']);
-        Route::get('/{restaurant}/stats', [PartnerRestaurantStatsController::class, 'getRestaurantStats']);
-    });
+            // Stats
+            Route::get('/{restaurant}/stats/dashboard', [PartnerRestaurantStatsController::class, 'getRestaurantDashboardStats']);
+            Route::get('/{restaurant}/stats/kpis', [PartnerRestaurantStatsController::class, 'getRestaurantKpiSummary']);
+            Route::get('/{restaurant}/stats', [PartnerRestaurantStatsController::class, 'getRestaurantStats']);
+        });
 });
