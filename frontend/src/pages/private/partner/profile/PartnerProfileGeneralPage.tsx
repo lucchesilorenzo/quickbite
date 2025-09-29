@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
 import PartnerProfileGeneralAddressCard from "@/components/partner/profile/general/PartnerProfileGeneralAddressCard";
@@ -51,41 +51,39 @@ export default function PartnerProfileGeneralPage() {
   }
 
   return (
-    <Box>
-      <FormProvider {...methods}>
-        <PartnerHeadingBlock
-          title="General information"
-          description="Manage your general information of your profile"
-        />
+    <FormProvider {...methods}>
+      <PartnerHeadingBlock
+        title="General information"
+        description="Manage your general information of your profile"
+      />
 
-        <Stack
-          component="form"
-          spacing={2}
-          onSubmit={handleSubmit(onSubmit)}
-          autoComplete="off"
-          noValidate
-        >
-          <PartnerProfileGeneralPersonalInfoCard />
-          <PartnerProfileGeneralAddressCard />
+      <Stack
+        component="form"
+        spacing={2}
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
+        noValidate
+      >
+        <PartnerProfileGeneralPersonalInfoCard />
+        <PartnerProfileGeneralAddressCard />
 
-          <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
-            <Button
-              type="submit"
-              disabled={isSubmitting || isUpdating}
-              loading={isSubmitting || isUpdating}
-              loadingIndicator="Saving..."
-              variant="contained"
-              sx={{
-                bgcolor: "#212121",
-                color: "white",
-                "&:hover": { bgcolor: "#333333" },
-              }}
-            >
-              Save changes
-            </Button>
-          </Stack>
+        <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
+          <Button
+            type="submit"
+            disabled={isSubmitting || isUpdating}
+            loading={isSubmitting || isUpdating}
+            loadingIndicator="Saving..."
+            variant="contained"
+            sx={{
+              bgcolor: "#212121",
+              color: "white",
+              "&:hover": { bgcolor: "#333333" },
+            }}
+          >
+            Save changes
+          </Button>
         </Stack>
-      </FormProvider>
-    </Box>
+      </Stack>
+    </FormProvider>
   );
 }
