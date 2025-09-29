@@ -7,6 +7,7 @@ namespace App\Services\Private\Partner;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\User;
 use App\Services\Shared\LocationService;
+use Illuminate\Support\Facades\DB;
 
 class PartnerProfileService
 {
@@ -25,5 +26,19 @@ class PartnerProfileService
         $user->update($data);
 
         return $user;
+    }
+
+    public function updateProfileNotifications(array $data, User $user): User
+    {
+        return DB::transaction(function () use ($data, $user) {
+            foreach ($data as $type => $enabled) {
+                $user->notificationPreferences()->updateOrCreate(
+                    ['type' => $type],
+                    ['enabled' => $enabled]
+                );
+            }
+
+            return $user->load('notificationPreferences');
+        });
     }
 }
