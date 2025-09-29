@@ -38,7 +38,13 @@ class PartnerAuthController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
-        } catch (Throwable) {
+        } catch (Throwable $e) {
+            if ($e->getCode() === '23505') {
+                return response()->json([
+                    'message' => 'User already exists.',
+                ], 409);
+            }
+
             return response()->json([
                 'message' => 'Could not register partner.',
             ], 500);
