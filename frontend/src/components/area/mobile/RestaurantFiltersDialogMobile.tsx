@@ -39,6 +39,7 @@ export default function RestaurantFiltersDialogMobile() {
       >
         <Badge
           variant={isThereAnyFilter ? "dot" : "standard"}
+          max={20}
           sx={{
             "& .MuiBadge-badge": {
               backgroundColor: grey[900],

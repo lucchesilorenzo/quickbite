@@ -35,6 +35,7 @@ export default function MenuItemQuantityInCartBadge({
     <Badge
       badgeContent={badgeContent}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      max={20}
       sx={{
         position: "absolute",
         top: type === "from-list" ? 6 : 26,

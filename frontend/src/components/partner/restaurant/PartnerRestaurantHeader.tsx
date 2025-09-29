@@ -143,6 +143,7 @@ export default function PartnerRestaurantHeader() {
                 <Badge
                   badgeContent={userNotifications.unread_count}
                   color="error"
+                  max={20}
                 >
                   <NotificationsIcon color="action" />
                 </Badge>

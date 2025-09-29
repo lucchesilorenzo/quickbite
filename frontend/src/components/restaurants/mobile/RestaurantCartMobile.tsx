@@ -55,6 +55,7 @@ export default function RestaurantCartMobile() {
           <Badge
             badgeContent={totalItems(restaurant.id)}
             anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            max={20}
             sx={{
               "& .MuiBadge-badge": {
                 backgroundColor: grey[900],
