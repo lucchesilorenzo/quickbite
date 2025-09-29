@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Enums\NotificationPreference;
 use App\Models\RestaurantReview;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,6 +29,15 @@ class NewReviewReceived extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
+        $isPreferenceEnabled = $notifiable->notificationPreferences()
+            ->where('type', NotificationPreference::NEW_REVIEW->value)
+            ->where('enabled', true)
+            ->exists();
+
+        if (! $isPreferenceEnabled) {
+            return [];
+        }
+
         return ['database', 'broadcast'];
     }
 

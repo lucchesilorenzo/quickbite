@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Enums\NotificationPreference;
 use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,6 +30,15 @@ class NewOrderReceived extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
+        $isPreferenceEnabled = $notifiable->notificationPreferences()
+            ->where('type', NotificationPreference::NEW_ORDER->value)
+            ->where('enabled', true)
+            ->exists();
+
+        if (! $isPreferenceEnabled) {
+            return [];
+        }
+
         return ['database', 'broadcast'];
     }
 
