@@ -27,6 +27,7 @@ Route::prefix('partner')->group(function () {
         ->middleware(['auth:sanctum', 'role:partner'])
         ->group(function () {
             Route::patch('/general', [PartnerProfileController::class, 'updateProfileGeneralInformation']);
+            Route::patch('/notifications', [PartnerProfileController::class, 'updateProfileNotifications']);
         });
 
     // === RESTAURANTS ===
