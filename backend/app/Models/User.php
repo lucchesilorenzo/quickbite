@@ -65,6 +65,16 @@ class User extends Authenticatable
             ->withPivot(['role', 'contract_start', 'contract_end', 'is_active']);
     }
 
+    /**
+     * Get the user's notification preferences.
+     *
+     * @return HasMany<NotificationPreference, $this>
+     */
+    public function notificationPreferences(): HasMany
+    {
+        return $this->hasMany(NotificationPreference::class);
+    }
+
     // === CUSTOMER ===
 
     /**
