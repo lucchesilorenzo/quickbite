@@ -2,23 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Private;
+namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Services\Private\NotificationService;
+use App\Models\Restaurant;
+use App\Services\Private\Partner\PartnerNotificationService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class NotificationController extends Controller
+class PartnerNotificationController extends Controller
 {
     public function __construct(
-        private readonly NotificationService $notificationService
+        private readonly PartnerNotificationService $partnerNotificationService,
     ) {}
 
-    public function getNotifications(): JsonResponse
+    public function getNotifications(Restaurant $restaurant): JsonResponse
     {
         try {
-            $notifications = $this->notificationService->getNotifications(
+            $notifications = $this->partnerNotificationService->getNotifications(
+                $restaurant,
                 auth()->user()
             );
 
@@ -30,10 +32,11 @@ class NotificationController extends Controller
         }
     }
 
-    public function markNotificationsAsRead(): JsonResponse
+    public function markNotificationsAsRead(Restaurant $restaurant): JsonResponse
     {
         try {
-            $this->notificationService->markNotificationsAsRead(
+            $this->partnerNotificationService->markNotificationsAsRead(
+                $restaurant,
                 auth()->user()
             );
 
