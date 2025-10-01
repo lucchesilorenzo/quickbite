@@ -18,7 +18,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->enum('type', NotificationPreference::values());
-            $table->boolean('enabled')->default(true);
+            $table->boolean('enabled');
             $table->timestamps();
         });
     }
