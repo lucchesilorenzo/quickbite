@@ -4,17 +4,17 @@ import { Button, Stack } from "@mui/material";
 
 import PartnerNotificationsMarkAsReadDialog from "./PartnerNotificationsMarkAsReadDialog";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
 
 export default function PartnerNotificationsActionBar() {
-  const { userNotifications } = useAuth();
+  const { partnerNotifications } = usePartnerRestaurant();
 
   const [openMarkUserNotificationsAsRead, setOpenMarkUserNotificationsAsRead] =
     useState(false);
 
   return (
     <Stack direction="row">
-      {userNotifications.unread_count > 0 && (
+      {partnerNotifications.unread_count > 0 && (
         <Button
           sx={{ ml: "auto" }}
           onClick={() => setOpenMarkUserNotificationsAsRead(true)}

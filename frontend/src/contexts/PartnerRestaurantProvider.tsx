@@ -1,17 +1,27 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
+import { useAuth } from "@/hooks/contexts/useAuth";
+import { useGetPartnerNotifications } from "@/hooks/react-query/private/partners/notifications/useGetPartnerNotifications";
 import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurant";
-import { PartnerRestaurantDetail } from "@/types";
+import { userNotificationDefaults } from "@/lib/query-defaults";
+import {
+  PartnerRestaurantDetail,
+  UserNotificationWithUnreadCount,
+} from "@/types";
 
 type PartnerRestaurantProviderProps = {
   children: React.ReactNode;
+  restaurantId?: string;
 };
 
 type PartnerRestaurantContext = {
   restaurant: PartnerRestaurantDetail;
+  partnerNotifications: UserNotificationWithUnreadCount;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const PartnerRestaurantContext =
@@ -19,8 +29,16 @@ export const PartnerRestaurantContext =
 
 export default function PartnerRestaurantProvider({
   children,
+  restaurantId,
 }: PartnerRestaurantProviderProps) {
-  const { restaurantId } = useParams();
+  const { user } = useAuth();
+
+  const [page, setPage] = useState(1);
+
+  const {
+    data: partnerNotifications = userNotificationDefaults,
+    isLoading: isLoadingPartnerNotifications,
+  } = useGetPartnerNotifications({ userId: user?.id, restaurantId, page });
 
   const {
     data: restaurant,
@@ -28,11 +46,13 @@ export default function PartnerRestaurantProvider({
     isError,
   } = useGetPartnerRestaurant(restaurantId);
 
-  if (isLoading) return <FullPageSpinner />;
+  if (isLoading || isLoadingPartnerNotifications) return <FullPageSpinner />;
   if (isError || !restaurant) return <Navigate to="*" />;
 
   return (
-    <PartnerRestaurantContext.Provider value={{ restaurant }}>
+    <PartnerRestaurantContext.Provider
+      value={{ restaurant, partnerNotifications, page, setPage }}
+    >
       {children}
     </PartnerRestaurantContext.Provider>
   );
