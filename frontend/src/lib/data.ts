@@ -1,10 +1,17 @@
+import BarChartIcon from "@mui/icons-material/BarChart";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import HotelClassIcon from "@mui/icons-material/HotelClass";
 import LocalActivityIcon from "@mui/icons-material/LocalActivity";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
+import RateReviewIcon from "@mui/icons-material/RateReview";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import RoomServiceIcon from "@mui/icons-material/RoomService";
+import SettingsIcon from "@mui/icons-material/Settings";
 import StarRateIcon from "@mui/icons-material/StarRate";
 
 import {
@@ -65,20 +72,42 @@ export const routes = [
   },
 ];
 
-export const partnerRoutes = (restaurantId?: string) => [
+export const partnerRestaurantRoutes = (restaurantId?: string) => [
   {
     href: `/partner/restaurants/${restaurantId}/dashboard`,
     label: "Dashboard",
+    icon: DashboardIcon,
   },
   {
     href: `/partner/restaurants/${restaurantId}/settings`,
     label: "Settings",
+    icon: SettingsIcon,
   },
-  { href: `/partner/restaurants/${restaurantId}/menu`, label: "Menu" },
-  { href: `/partner/restaurants/${restaurantId}/orders`, label: "Orders" },
-  { href: `/partner/restaurants/${restaurantId}/offers`, label: "Offers" },
-  { href: `/partner/restaurants/${restaurantId}/reviews`, label: "Reviews" },
-  { href: `/partner/restaurants/${restaurantId}/stats`, label: "Stats" },
+  {
+    href: `/partner/restaurants/${restaurantId}/menu`,
+    label: "Menu",
+    icon: RestaurantMenuIcon,
+  },
+  {
+    href: `/partner/restaurants/${restaurantId}/orders`,
+    label: "Orders",
+    icon: ReceiptLongIcon,
+  },
+  {
+    href: `/partner/restaurants/${restaurantId}/offers`,
+    label: "Offers",
+    icon: LocalOfferIcon,
+  },
+  {
+    href: `/partner/restaurants/${restaurantId}/reviews`,
+    label: "Reviews",
+    icon: RateReviewIcon,
+  },
+  {
+    href: `/partner/restaurants/${restaurantId}/stats`,
+    label: "Stats",
+    icon: BarChartIcon,
+  },
 ];
 
 export const headerDialogOptions = [
