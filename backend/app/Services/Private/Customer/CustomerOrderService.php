@@ -11,7 +11,6 @@ use App\Models\User;
 use App\Notifications\NewOrderReceived;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
 
 class CustomerOrderService
 {
@@ -65,7 +64,9 @@ class CustomerOrderService
                 'total' => $data['total'],
             ]);
 
-            Notification::send($restaurant->partners, new NewOrderReceived($order));
+            foreach ($restaurant->partners as $partner) {
+                $partner->notify(new NewOrderReceived($order, $partner));
+            }
 
             foreach ($data['order_items'] as $item) {
                 $order->orderItems()->create([

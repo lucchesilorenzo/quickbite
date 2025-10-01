@@ -6,6 +6,8 @@ namespace App\Notifications;
 
 use App\Enums\NotificationPreference;
 use App\Models\Order;
+use App\Models\User;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -20,7 +22,8 @@ class NewOrderReceived extends Notification implements ShouldQueue
      * Create a new notification instance.
      */
     public function __construct(
-        public Order $order
+        public Order $order,
+        public User $partner
     ) {}
 
     /**
@@ -30,16 +33,18 @@ class NewOrderReceived extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        $isPreferenceEnabled = $notifiable->notificationPreferences()
+        return ['database', 'broadcast'];
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(object $notifiable, string $channel): bool
+    {
+        return $notifiable->notificationPreferences()
             ->where('type', NotificationPreference::NEW_ORDER->value)
             ->where('enabled', true)
             ->exists();
-
-        if (! $isPreferenceEnabled) {
-            return [];
-        }
-
-        return ['database', 'broadcast'];
     }
 
     /**
@@ -58,6 +63,7 @@ class NewOrderReceived extends Notification implements ShouldQueue
             ),
             'meta' => [
                 'order_id' => $this->order->id,
+                'restaurant_id' => $this->order->restaurant_id,
                 'order_code' => $this->order->order_code,
                 'first_name' => $this->order->first_name,
                 'last_name' => $this->order->last_name,
@@ -88,6 +94,16 @@ class NewOrderReceived extends Notification implements ShouldQueue
      */
     public function broadcastType(): string
     {
-        return 'new-order-received';
+        return 'new.order.received';
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     */
+    public function broadcastOn(): array
+    {
+        return [
+            new PrivateChannel("App.Models.User.{$this->partner->id}.Restaurant.{$this->order->restaurant_id}"),
+        ];
     }
 }
