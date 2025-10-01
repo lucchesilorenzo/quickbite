@@ -1,4 +1,3 @@
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import {
@@ -14,45 +13,44 @@ import {
 import { Link } from "react-router-dom";
 
 import PartnerProfileMenu from "../profile/PartnerProfileMenu";
-import PartnerNavigation from "./PartnerNavigation";
+import PartnerRestaurantDrawer from "./PartnerRestaurantDrawer";
+import PartnerRestaurantNavigation from "./PartnerRestaurantNavigation";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
 
 export default function PartnerRestaurantHeader() {
   const { partnerNotifications } = usePartnerRestaurant();
   const { restaurant } = usePartnerRestaurant();
-  const { mutateAsync: logoutPartner } = useLogoutPartner();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
-  async function handleLogoutPartner() {
-    await logoutPartner();
-  }
 
   return (
     <AppBar position="relative" color="inherit" elevation={3}>
       <Toolbar sx={{ justifyContent: "space-between", gap: 1 }}>
-        <Stack
-          direction="row"
-          spacing={1}
-          component={Link}
-          to="/"
-          sx={{ alignItems: "center", textDecoration: "none" }}
-        >
-          <RestaurantMenuIcon color="primary" />
+        <Stack direction="row" spacing={1}>
+          {isMobile && <PartnerRestaurantDrawer />}
 
-          <Typography
-            variant="h6"
-            component="span"
-            color="primary"
-            sx={{ display: { xs: "none", md: "block" } }}
+          <Stack
+            direction="row"
+            spacing={1}
+            component={Link}
+            to="/"
+            sx={{ alignItems: "center", textDecoration: "none" }}
           >
-            QuickBite
-          </Typography>
+            <RestaurantMenuIcon color="primary" />
+
+            <Typography
+              variant="h6"
+              component="span"
+              color="primary"
+              sx={{ display: { xs: "none", md: "block" } }}
+            >
+              QuickBite
+            </Typography>
+          </Stack>
         </Stack>
 
-        <PartnerNavigation />
+        {!isMobile && <PartnerRestaurantNavigation />}
 
         <Stack
           direction="row"
@@ -73,13 +71,7 @@ export default function PartnerRestaurantHeader() {
             </Link>
           </Tooltip>
 
-          {isMobile ? (
-            <IconButton color="primary" onClick={handleLogoutPartner}>
-              <LogoutOutlinedIcon />
-            </IconButton>
-          ) : (
-            <PartnerProfileMenu />
-          )}
+          <PartnerProfileMenu />
         </Stack>
       </Toolbar>
     </AppBar>
