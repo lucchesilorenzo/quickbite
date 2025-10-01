@@ -3,25 +3,28 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { postData } from "@/lib/api-client";
 
-export function useMarkUserNotificationsAsRead() {
+export function useMarkPartnerNotificationsAsRead(restaurantId: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: () => postData("/auth/notifications/mark-as-read"),
+    mutationFn: () =>
+      postData(
+        `/partner/restaurants/${restaurantId}/notifications/mark-as-read`,
+      ),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["user-notifications"],
+        queryKey: ["partner-notifications", restaurantId],
       });
 
       notifications.show(response.message, {
-        key: "mark-notifications-as-read-success",
+        key: "mark-partner-notifications-as-read-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "mark-notifications-as-read-error",
+        key: "mark-partner-notifications-as-read-error",
         severity: "error",
       });
     },
