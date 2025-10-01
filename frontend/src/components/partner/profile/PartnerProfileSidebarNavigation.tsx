@@ -23,7 +23,13 @@ const partnerProfileRoutes = [
   },
 ];
 
-export default function PartnerProfileSidebarNavigation() {
+type PartnerProfileSidebarNavigationProps = {
+  setOpenDrawer?: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function PartnerProfileSidebarNavigation({
+  setOpenDrawer,
+}: PartnerProfileSidebarNavigationProps) {
   const { pathname } = useLocation();
 
   return (
@@ -34,13 +40,14 @@ export default function PartnerProfileSidebarNavigation() {
             component={Link}
             to={route.href}
             selected={pathname === route.href}
+            onClick={() => setOpenDrawer?.(false)}
             sx={{
               "&.Mui-selected": { bgcolor: grey[200] },
               "&.Mui-selected:hover": { bgcolor: grey[200] },
             }}
           >
             <ListItemIcon>
-              <route.icon fontSize="small" />
+              <route.icon />
             </ListItemIcon>
 
             <ListItemText primary={route.label} />
