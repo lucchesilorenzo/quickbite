@@ -46,7 +46,6 @@ export default function PartnerProfileGeneralPage() {
   } = methods;
 
   async function onSubmit(data: TPartnerProfileGeneralFormSchema) {
-    console.log(data);
     await updatePartnerProfileGeneralInformation(data);
   }
 
