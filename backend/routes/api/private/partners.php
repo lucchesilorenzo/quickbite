@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Private\Partner\PartnerAuthController;
 use App\Http\Controllers\Private\Partner\PartnerMenuCategoryController;
 use App\Http\Controllers\Private\Partner\PartnerMenuItemController;
+use App\Http\Controllers\Private\Partner\PartnerNotificationController;
 use App\Http\Controllers\Private\Partner\PartnerOrderController;
 use App\Http\Controllers\Private\Partner\PartnerProfileController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantController;
@@ -36,6 +37,10 @@ Route::prefix('partner')->group(function () {
         ->group(function () {
             Route::get('/', [PartnerRestaurantController::class, 'getRestaurants']);
             Route::get('/{restaurant}', [PartnerRestaurantController::class, 'getRestaurant']);
+
+            // Notifications
+            Route::get('/{restaurant}/notifications', [PartnerNotificationController::class, 'getNotifications']);
+            Route::post('/{restaurant}/notifications/mark-as-read', [PartnerNotificationController::class, 'markNotificationsAsRead']);
 
             // Settings & Info
             Route::post('/{restaurant}/info', [PartnerRestaurantController::class, 'updateRestaurantInfo']);
