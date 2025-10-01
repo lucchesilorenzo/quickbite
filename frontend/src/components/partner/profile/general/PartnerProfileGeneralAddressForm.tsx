@@ -1,4 +1,4 @@
-import { Stack, TextField } from "@mui/material";
+import { Stack, TextField, useMediaQuery } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
@@ -10,9 +10,11 @@ export default function PartnerProfileGeneralAddressForm() {
     formState: { errors },
   } = useFormContext<TPartnerProfileGeneralFormSchema>();
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   return (
     <Stack spacing={4} sx={{ mt: 4 }}>
-      <Stack direction="row" spacing={2}>
+      <Stack direction={isMobile ? "column" : "row"} spacing={isMobile ? 4 : 2}>
         <Controller
           name="street_address"
           control={control}
@@ -62,7 +64,7 @@ export default function PartnerProfileGeneralAddressForm() {
         />
       </Stack>
 
-      <Stack direction="row" spacing={2}>
+      <Stack direction={isMobile ? "column" : "row"} spacing={isMobile ? 4 : 2}>
         <Controller
           name="postcode"
           control={control}

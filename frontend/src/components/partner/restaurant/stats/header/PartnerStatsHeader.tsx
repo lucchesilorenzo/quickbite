@@ -4,13 +4,13 @@ import PartnerStatsHeaderLeft from "./left/PartnerStatsHeaderLeft";
 import PartnerStatsHeaderRight from "./right/PartnerStatsHeaderRight";
 
 export default function PartnerStatsHeader() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   return (
     <Stack
       direction={isMobile ? "column" : "row"}
       spacing={isMobile ? 2 : 0}
-      sx={{ justifyContent: { sm: "space-between" } }}
+      sx={{ justifyContent: "space-between" }}
     >
       <PartnerStatsHeaderLeft />
       <PartnerStatsHeaderRight />

@@ -1,4 +1,4 @@
-import { Stack, TextField } from "@mui/material";
+import { Stack, TextField, useMediaQuery } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
@@ -13,9 +13,11 @@ export default function PartnerProfileGeneralPersonalInfoForm() {
     formState: { errors },
   } = useFormContext<TPartnerProfileGeneralFormSchema>();
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   return (
     <Stack spacing={4} sx={{ mt: 4 }}>
-      <Stack direction="row" spacing={2}>
+      <Stack direction={isMobile ? "column" : "row"} spacing={isMobile ? 4 : 2}>
         <Controller
           name="first_name"
           control={control}

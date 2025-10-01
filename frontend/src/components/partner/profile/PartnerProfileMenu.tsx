@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -19,6 +19,8 @@ export default function PartnerProfileMenu() {
   const { mutateAsync: logoutPartner } = useLogoutPartner();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setAnchorEl(e.currentTarget);
@@ -61,7 +63,10 @@ export default function PartnerProfileMenu() {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+
+          <Typography variant={isMobile ? "body2" : "body1"}>
+            Settings
+          </Typography>
         </MenuItem>
 
         <Divider />
@@ -70,7 +75,8 @@ export default function PartnerProfileMenu() {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+
+          <Typography variant={isMobile ? "body2" : "body1"}>Logout</Typography>
         </MenuItem>
       </Menu>
     </Box>

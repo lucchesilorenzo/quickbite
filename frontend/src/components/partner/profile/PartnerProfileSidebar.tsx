@@ -9,7 +9,6 @@ export default function PartnerProfileSidebar() {
       <PartnerHeadingBlock
         title="Profile settings"
         description="Update your profile information"
-        backButton
       />
 
       <PartnerProfileSidebarNavigation />
