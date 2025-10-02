@@ -46,7 +46,11 @@ export default function PartnerSettingsFeesFormDeliverySection() {
         )}
       />
 
-      <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={2}
+        sx={{ alignItems: "center" }}
+      >
         <Controller
           name="delivery_time_min"
           control={control}
@@ -79,7 +83,12 @@ export default function PartnerSettingsFeesFormDeliverySection() {
           )}
         />
 
-        <Typography variant="body1">-</Typography>
+        <Typography
+          variant="body1"
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
+          -
+        </Typography>
 
         <Controller
           name="delivery_time_max"

@@ -17,7 +17,7 @@ export default function PartnerSettingsFeesFormOtherFeesSection() {
     <Stack spacing={2}>
       <Typography variant="h6">Other fees</Typography>
 
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
         <Controller
           name="service_fee"
           control={control}
