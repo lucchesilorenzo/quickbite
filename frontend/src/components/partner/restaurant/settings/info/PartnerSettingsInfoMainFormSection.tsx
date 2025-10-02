@@ -219,7 +219,6 @@ export default function PartnerSettingsInfoMainFormSection() {
             )}
             renderInput={(params) => (
               <TextField
-                {...field}
                 {...params}
                 required
                 label="Categories"
