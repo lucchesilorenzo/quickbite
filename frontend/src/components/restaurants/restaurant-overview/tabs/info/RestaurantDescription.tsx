@@ -5,9 +5,9 @@ import { grey } from "@mui/material/colors";
 import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 
 export default function RestaurantDescription() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const { restaurant } = useSingleRestaurant();
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Box sx={{ mb: 2 }}>
