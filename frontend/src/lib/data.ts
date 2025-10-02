@@ -44,7 +44,6 @@ export const emptyRestaurant = {
   longitude: 0,
   phone_number: "",
   email: "",
-  vat_id: null,
   min_amount: 0,
   delivery_fee: 0,
   service_fee: 0,

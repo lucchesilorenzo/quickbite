@@ -37,7 +37,6 @@ class Restaurant extends Model
         'longitude',
         'phone_number',
         'email',
-        'vat_id',
         'min_amount',
         'delivery_fee',
         'service_fee',

@@ -26,7 +26,6 @@ export type RestaurantBase = {
   longitude: number;
   phone_number: string;
   email: string;
-  vat_id: string | null;
   min_amount: number;
   delivery_fee: number;
   service_fee: number;

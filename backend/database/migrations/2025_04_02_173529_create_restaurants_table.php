@@ -37,7 +37,6 @@ return new class extends Migration
 
             $table->string('phone_number')->nullable()->unique();
             $table->string('email')->nullable()->unique();
-            $table->string('vat_id')->nullable()->unique();
             $table->decimal('min_amount')->default(0);
 
             $table->decimal('delivery_fee')->default(0);

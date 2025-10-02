@@ -47,7 +47,6 @@ class RestaurantFactory extends Factory
             'longitude' => fake()->randomFloat(6, 10.4000, 10.4100),
             'phone_number' => '+39 ' . '3' . fake()->numerify('##') . ' ' . fake()->numerify('###') . ' ' . fake()->numerify('####'),
             'email' => fake()->unique()->safeEmail(),
-            'vat_id' => fake()->numerify('##########'),
             'min_amount' => fake()->randomElement([10, 15, 20]),
             'delivery_fee' => fake()->randomElement([0, 2.99, 4.99]),
             'service_fee' => fake()->randomElement([0, 0.30, 0.50, 0.75, 1.00]),
