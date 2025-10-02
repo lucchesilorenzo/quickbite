@@ -26,11 +26,11 @@ export default function PartnerRestaurantSettingsFeesPage() {
   const methods = useForm({
     resolver: zodResolver(partnerRestaurantSettingsFeesFormSchema),
     defaultValues: {
-      delivery_fee: restaurant.delivery_fee || "",
+      delivery_fee: restaurant.delivery_fee,
       delivery_time_min: restaurant.delivery_time_min || "",
       delivery_time_max: restaurant.delivery_time_max || "",
-      service_fee: restaurant.service_fee || "",
-      min_amount: restaurant.min_amount || "",
+      service_fee: restaurant.service_fee,
+      min_amount: restaurant.min_amount,
     },
   });
 

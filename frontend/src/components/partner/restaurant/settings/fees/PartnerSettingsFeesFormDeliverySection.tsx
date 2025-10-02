@@ -57,9 +57,9 @@ export default function PartnerSettingsFeesFormDeliverySection() {
           render={({ field }) => (
             <TextField
               {...field}
+              required
               variant="filled"
               autoComplete="off"
-              required
               label="Min delivery time"
               error={!!errors.delivery_time_min}
               helperText={
@@ -96,9 +96,9 @@ export default function PartnerSettingsFeesFormDeliverySection() {
           render={({ field }) => (
             <TextField
               {...field}
+              required
               variant="filled"
               autoComplete="off"
-              required
               label="Max delivery time"
               error={!!errors.delivery_time_max}
               helperText={
