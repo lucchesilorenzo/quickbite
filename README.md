@@ -35,6 +35,7 @@
 
 ### 🍽️ Partner
 
+- Update profile settings and notification preferences.
 - Manage restaurant profile and settings.
 - Dashboard with quick stats and reviews.
 - Update contact info, delivery times, and fees.
@@ -43,7 +44,7 @@
 - View and update order history and statuses.
 - Access customer reviews and overall ratings.
 - Gain insights with detailed analytics.
-- Receive real-time notifications for new orders and updates.
+- Receive real-time notifications for new orders and reviews.
 
 ### 🛵 Rider (coming soon)
 
@@ -186,7 +187,7 @@ REVERB_SCHEME=http
    ```bash
    cd .. && npm start
    ```
-   
+
 The frontend will be running at [http://localhost:5173](http://localhost:5173).
 
 ## Installation with Docker
@@ -210,7 +211,7 @@ The frontend will be running at [http://localhost:5173](http://localhost:5173).
    ```bash
    docker compose exec api php artisan migrate --seed
    ```
-     
+
 The frontend will be running at [http://localhost:5173](http://localhost:5173).
 
 ## 📊 Data Models and Relationships
