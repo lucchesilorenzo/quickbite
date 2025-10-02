@@ -11,8 +11,8 @@ import {
 
 import PersonalInfoDialog from "./PersonalInfoDialog";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
-import { useCustomerCheckout } from "@/hooks/contexts/useCustomerCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 
 export default function PersonalInfoItem() {
   const { user } = useAuth();

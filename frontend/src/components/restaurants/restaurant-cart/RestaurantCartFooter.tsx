@@ -14,10 +14,10 @@ import { useNavigate } from "react-router-dom";
 import ServiceFeeDialog from "../../common/ServiceFeeDialog";
 import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,

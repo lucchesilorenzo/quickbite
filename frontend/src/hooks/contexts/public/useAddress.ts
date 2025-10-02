@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { AddressContext } from "@/contexts/AddressProvider";
+import { AddressContext } from "@/contexts/public/AddressProvider";
 
 export function useAddress() {
   const context = useContext(AddressContext);

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CategoryFiltersContext } from "@/contexts/CategoryFiltersProvider";
+import { CategoryFiltersContext } from "@/contexts/public/CategoryFiltersProvider";
 
 export function useCategoryFilters() {
   const context = useContext(CategoryFiltersContext);

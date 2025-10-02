@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import PartnerProfileNotificationsCard from "@/components/partner/profile/notifications/PartnerProfileNotificationsCard";
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdatePartnerProfileNotifications } from "@/hooks/react-query/private/partners/profile/useUpdatePartnerProfileNotifications";
 import { NotificationType } from "@/types";
 import {

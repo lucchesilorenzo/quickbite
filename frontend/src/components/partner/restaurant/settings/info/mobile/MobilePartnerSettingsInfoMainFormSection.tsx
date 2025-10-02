@@ -18,7 +18,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import PreviewImageDialog from "@/components/partner/restaurant/settings/info/PreviewImageDialog";
-import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/usePartnerRestaurantSettingsInfo";
+import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsInfo";
 import env from "@/lib/env";
 import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
 

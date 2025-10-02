@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useGetPartnerNotifications } from "@/hooks/react-query/private/partners/notifications/useGetPartnerNotifications";
 import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurant";
 import { userNotificationDefaults } from "@/lib/query-defaults";

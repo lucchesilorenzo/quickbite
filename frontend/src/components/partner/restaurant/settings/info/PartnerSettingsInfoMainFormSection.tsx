@@ -23,8 +23,8 @@ import PreviewImageDialog from "./PreviewImageDialog";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
-import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
-import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/usePartnerRestaurantSettingsInfo";
+import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsInfo";
+import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
 import env from "@/lib/env";
 import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
 

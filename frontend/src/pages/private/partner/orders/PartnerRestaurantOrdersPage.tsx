@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import PartnerOrdersList from "@/components/partner/restaurant/orders/PartnerOrdersList";
-import PartnerRestaurantOrdersProvider from "@/contexts/PartnerRestaurantOrdersProvider";
+import PartnerRestaurantOrdersProvider from "@/contexts/private/partner/PartnerRestaurantOrdersProvider";
 
 export default function PartnerRestaurantOrdersPage() {
   useEffect(() => {

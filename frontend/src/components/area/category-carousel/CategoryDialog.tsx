@@ -20,7 +20,7 @@ import { grey } from "@mui/material/colors";
 
 import CategoryDialogItem from "./CategoryDialogItem";
 
-import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
+import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
 import { CategoryWithSelected } from "@/types";
 
 type CategoryDialogProps = {

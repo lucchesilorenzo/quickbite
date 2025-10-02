@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { PartnerRestaurantOrdersContext } from "@/contexts/PartnerRestaurantOrdersProvider";
+import { PartnerRestaurantOrdersContext } from "@/contexts/private/partner/PartnerRestaurantOrdersProvider";
 
 export function usePartnerRestaurantOrders() {
   const context = useContext(PartnerRestaurantOrdersContext);

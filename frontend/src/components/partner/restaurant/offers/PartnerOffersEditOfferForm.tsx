@@ -12,7 +12,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/offers/useUpdatePartnerRestaurantOffer";
 import { discountRates } from "@/lib/data";
 import { Offer } from "@/types";

@@ -9,8 +9,8 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 
 import NotificationToast from "@/components/common/NotificationToast";
 import PartnerRestaurantHeader from "@/components/partner/restaurant/PartnerRestaurantHeader";
-import PartnerRestaurantProvider from "@/contexts/PartnerRestaurantProvider";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import PartnerRestaurantProvider from "@/contexts/private/partner/PartnerRestaurantProvider";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import {
   NewOrderReceivedToBroadcast,
   NewReviewReceivedToBroadcast,

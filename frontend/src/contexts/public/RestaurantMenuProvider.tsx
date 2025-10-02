@@ -1,6 +1,6 @@
 import { createContext, useRef, useState } from "react";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { useGetRestaurantMenu } from "@/hooks/react-query/public/restaurants/useGetRestaurantMenu";
 import { Menu } from "@/types";
 

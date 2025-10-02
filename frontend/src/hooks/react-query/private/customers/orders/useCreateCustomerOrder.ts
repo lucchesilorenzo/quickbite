@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { useCustomerCheckout } from "@/hooks/contexts/useCustomerCheckout";
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { postData } from "@/lib/api-client";
 import { CreateOrder } from "@/types/order-types";
 

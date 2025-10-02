@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 import RestaurantAboutDialog from "./RestaurantAboutDialog";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { restaurantTabs } from "@/lib/data";
 import { RestaurantTab } from "@/types";
 

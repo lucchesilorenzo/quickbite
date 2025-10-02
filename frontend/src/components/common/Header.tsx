@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import HeaderDialogCustomer from "../customer/header/HeaderDialogCustomer";
 import HeaderDialog from "./HeaderDialog";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { isCustomer } from "@/lib/utils";
 
 export default function Header() {

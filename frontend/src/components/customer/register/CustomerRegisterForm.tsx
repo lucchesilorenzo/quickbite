@@ -17,7 +17,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useRegisterCustomer } from "@/hooks/react-query/private/customers/auth/useRegisterCustomer";
 import { useCreateOrUpdateCustomerCarts } from "@/hooks/react-query/private/customers/carts/useCreateOrUpdateCustomerCarts";
 import { calculatePasswordStrength } from "@/lib/utils";

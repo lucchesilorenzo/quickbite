@@ -4,7 +4,7 @@ import RestaurantOffersList from "../common/RestaurantOffersList";
 import RestaurantHeader from "./RestaurantHeader";
 import RestaurantHeaderRow from "./RestaurantHeaderRow";
 
-import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
+import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
 
 export default function RestaurantOverviewDesktop() {
   const { offersData } = useRestaurantOffer();

@@ -4,7 +4,7 @@ import RatingDisplay from "./RatingDisplay";
 import ReviewsList from "./ReviewsList";
 
 import Spinner from "@/components/common/Spinner";
-import { useRestaurantReview } from "@/hooks/contexts/useRestaurantReview";
+import { useRestaurantReview } from "@/hooks/contexts/public/useRestaurantReview";
 
 export default function ReviewsTab() {
   const { isLoadingReviews } = useRestaurantReview();

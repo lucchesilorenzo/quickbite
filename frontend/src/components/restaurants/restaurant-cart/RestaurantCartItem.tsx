@@ -15,8 +15,8 @@ import { grey } from "@mui/material/colors";
 
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 import { CartItem } from "@/types";
 

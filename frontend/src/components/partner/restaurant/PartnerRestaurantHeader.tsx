@@ -16,7 +16,7 @@ import PartnerProfileMenu from "../profile/PartnerProfileMenu";
 import PartnerRestaurantDrawer from "./PartnerRestaurantDrawer";
 import PartnerRestaurantNavigation from "./PartnerRestaurantNavigation";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 
 export default function PartnerRestaurantHeader() {
   const { partnerNotifications } = usePartnerRestaurant();

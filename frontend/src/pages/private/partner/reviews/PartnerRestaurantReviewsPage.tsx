@@ -5,7 +5,7 @@ import { Container } from "@mui/material";
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import DesktopReviewsLayout from "@/components/partner/restaurant/reviews/layouts/DesktopReviewsLayout";
 import MobileReviewsLayout from "@/components/partner/restaurant/reviews/layouts/MobileReviewsLayout";
-import PartnerRestaurantReviewsProvider from "@/contexts/PartnerRestaurantReviewsProvider";
+import PartnerRestaurantReviewsProvider from "@/contexts/private/partner/PartnerRestaurantReviewsProvider";
 
 export default function PartnerRestaurantReviewsPage() {
   useEffect(() => {

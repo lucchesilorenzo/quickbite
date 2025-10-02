@@ -11,8 +11,8 @@ import {
 import { blueGrey, grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
-import { useRestaurantReview } from "@/hooks/contexts/useRestaurantReview";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useRestaurantReview } from "@/hooks/contexts/public/useRestaurantReview";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 
 export default function RatingDisplay() {
   const { restaurant } = useSingleRestaurant();

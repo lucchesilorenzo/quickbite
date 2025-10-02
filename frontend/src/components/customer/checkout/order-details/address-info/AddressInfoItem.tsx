@@ -11,8 +11,8 @@ import {
 
 import AddressInfoDialog from "./AddressInfoDialog";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
-import { useCustomerCheckout } from "@/hooks/contexts/useCustomerCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 
 export default function AddressInfoItem() {
   const { user } = useAuth();

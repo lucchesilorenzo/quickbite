@@ -10,7 +10,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useLogoutPartner } from "@/hooks/react-query/private/partners/auth/useLogoutPartner";
 import { getColorByName } from "@/lib/utils";
 

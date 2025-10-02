@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
 import { offersDefaults } from "@/lib/query-defaults";
 import { OfferWithPagination } from "@/types";

@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 import RestaurantCard from "./restaurant-card/RestaurantCard";
 
 import SimpleHeadingWithDialog from "@/components/common/SimpleHeadingWithDialog";
-import { useRestaurant } from "@/hooks/contexts/useRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantList() {
   const {

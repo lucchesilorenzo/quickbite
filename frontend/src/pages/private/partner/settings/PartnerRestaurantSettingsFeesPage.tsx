@@ -6,8 +6,8 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import DesktopSettingsFeesLayout from "@/components/partner/restaurant/settings/fees/layouts/DesktopSettingsFeesLayout";
 import MobileSettingsFeesLayout from "@/components/partner/restaurant/settings/fees/layouts/MobileSettingsFeesLayout";
-import PartnerRestaurantSettingsFeesProvider from "@/contexts/PartnerRestaurantSettingsFeesProvider";
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import PartnerRestaurantSettingsFeesProvider from "@/contexts/private/partner/PartnerRestaurantSettingsFeesProvider";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partners/restaurants/settings/fees/useUpdatePartnerRestaurantSettingsFees";
 import {
   TPartnerRestaurantSettingsFeesFormSchema,

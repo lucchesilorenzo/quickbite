@@ -6,8 +6,8 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import DesktopSettingsInfoLayout from "@/components/partner/restaurant/settings/info/layouts/DesktopSettingsInfoLayout";
 import MobileSettingsInfoLayout from "@/components/partner/restaurant/settings/info/layouts/MobileSettingsInfoLayout";
-import PartnerRestaurantSettingsInfoProvider from "@/contexts/PartnerRestaurantSettingsInfoProvider";
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import PartnerRestaurantSettingsInfoProvider from "@/contexts/private/partner/PartnerRestaurantSettingsInfoProvider";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantInfo } from "@/hooks/react-query/private/partners/restaurants/settings/info/useUpdatePartnerRestaurantInfo";
 import {
   TPartnerRestaurantSettingsInfoFormSchema,

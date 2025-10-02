@@ -25,7 +25,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import PersonalInfoDialog from "./PersonalInfoDialog";
 import OrdersDialog from "./orders/OrdersDialog";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useLogoutCustomer } from "@/hooks/react-query/private/customers/auth/useLogoutCustomer";
 import { headerDialogCustomerOptions } from "@/lib/data";
 import { User } from "@/types";

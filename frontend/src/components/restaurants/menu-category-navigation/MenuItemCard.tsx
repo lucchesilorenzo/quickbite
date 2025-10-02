@@ -14,8 +14,8 @@ import MenuItemQuantityInCartBadge from "../../common/menu-category-navigation/M
 import MenuItemAddButton from "../common/MenuItemAddButton";
 import MenuItemDialog from "./MenuItemDialog";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
 import { MenuItem } from "@/types";

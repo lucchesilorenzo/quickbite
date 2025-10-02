@@ -1,8 +1,8 @@
-import AddressProvider from "@/contexts/AddressProvider";
-import AuthProvider from "@/contexts/AuthProvider";
-import CategoryFiltersProvider from "@/contexts/CategoryFiltersProvider";
-import MultiCartProvider from "@/contexts/MultiCartProvider";
-import RestaurantProvider from "@/contexts/RestaurantProvider";
+import AddressProvider from "@/contexts/public/AddressProvider";
+import AuthProvider from "@/contexts/public/AuthProvider";
+import CategoryFiltersProvider from "@/contexts/public/CategoryFiltersProvider";
+import MultiCartProvider from "@/contexts/public/MultiCartProvider";
+import RestaurantProvider from "@/contexts/public/RestaurantProvider";
 
 type ProvidersProps = {
   children: React.ReactNode;

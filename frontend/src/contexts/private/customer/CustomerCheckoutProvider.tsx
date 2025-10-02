@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useGetCustomerCart } from "@/hooks/react-query/private/customers/carts/useGetCustomerCart";
 import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
 import { offersDefaults } from "@/lib/query-defaults";

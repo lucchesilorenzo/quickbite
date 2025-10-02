@@ -13,7 +13,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import EditLocationDialog from "@/components/common/LocationEditDialog";
-import { useAddress } from "@/hooks/contexts/useAddress";
+import { useAddress } from "@/hooks/contexts/public/useAddress";
 import env from "@/lib/env";
 import { generateSlug } from "@/lib/utils";
 import { Address } from "@/types";

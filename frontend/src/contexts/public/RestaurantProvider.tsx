@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
-import { useAddress } from "@/hooks/contexts/useAddress";
+import { useAddress } from "@/hooks/contexts/public/useAddress";
 import { useGetRestaurants } from "@/hooks/react-query/public/restaurants/useGetRestaurants";
 import { partnerRestaurantsDefaults } from "@/lib/query-defaults";
 import {

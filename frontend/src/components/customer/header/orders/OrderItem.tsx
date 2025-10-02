@@ -15,7 +15,7 @@ import AddReviewDialog from "./AddReviewDialog";
 import ViewOrderDialog from "./ViewOrderDialog";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
 import { Order } from "@/types/order-types";

@@ -6,9 +6,9 @@ import { grey } from "@mui/material/colors";
 
 import RestaurantCartDialogMobile from "./RestaurantCartDialogMobile";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,

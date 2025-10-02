@@ -3,7 +3,7 @@ import { Box, useScrollTrigger } from "@mui/material";
 import MenuCategoryNavigation from "../menu-category-navigation/MenuCategoryNavigation";
 import MenuCategoryNavigationSearch from "../menu-category-navigation/MenuCategoryNavigationSearch";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 
 export default function MenuCategoryNavigationSectionMobile() {
   const { searchTerm } = useSingleRestaurant();

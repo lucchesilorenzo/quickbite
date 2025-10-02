@@ -4,10 +4,10 @@ import { Outlet } from "react-router-dom";
 import RestaurantFooter from "@/components/restaurants/RestaurantFooter";
 import RestaurantHeader from "@/components/restaurants/RestaurantHeader";
 import RestaurantNavigateToTopFloatingButton from "@/components/restaurants/RestaurantNavigateToTopFloatingButton";
-import RestaurantMenuProvider from "@/contexts/RestaurantMenuProvider";
-import RestaurantOffersProvider from "@/contexts/RestaurantOffersProvider";
-import RestaurantReviewsProvider from "@/contexts/RestaurantReviewsProvider";
-import SingleRestaurantProvider from "@/contexts/SingleRestaurantProvider";
+import RestaurantMenuProvider from "@/contexts/public/RestaurantMenuProvider";
+import RestaurantOffersProvider from "@/contexts/public/RestaurantOffersProvider";
+import RestaurantReviewsProvider from "@/contexts/public/RestaurantReviewsProvider";
+import SingleRestaurantProvider from "@/contexts/public/SingleRestaurantProvider";
 
 export default function RestaurantLayout() {
   return (

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { MultiCartContext } from "@/contexts/MultiCartProvider";
+import { MultiCartContext } from "@/contexts/public/MultiCartProvider";
 
 export function useMultiCart() {
   const context = useContext(MultiCartContext);

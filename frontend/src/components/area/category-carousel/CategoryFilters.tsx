@@ -10,7 +10,7 @@ import CategoryDialog from "./CategoryDialog";
 import CategoryFilterSkeleton from "./CategoryFilterSkeleton";
 import CuisineFilterSlide from "./CategoryFilterSlide";
 
-import { useCategoryFilters } from "@/hooks/contexts/useCategoryFilters";
+import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
 
 export default function CategoryFilters() {
   const { visibleCategories, allCategories, isLoadingCategories } =

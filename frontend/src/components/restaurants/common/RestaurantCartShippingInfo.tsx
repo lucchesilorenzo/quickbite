@@ -1,7 +1,7 @@
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { getRestaurantOpeningTime } from "@/lib/utils";
 
 export default function RestaurantCartShippingInfo() {

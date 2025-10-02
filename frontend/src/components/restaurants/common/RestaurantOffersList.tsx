@@ -3,7 +3,7 @@ import { Box, Grid, Stack } from "@mui/material";
 import RestaurantOfferButton from "./RestaurantOfferButton";
 
 import CustomPagination from "@/components/common/CustomPagination";
-import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
+import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
 
 type RestaurantOffersListProps = {
   showPagination?: boolean;

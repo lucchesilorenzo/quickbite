@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 
 import PartnerStatsHeader from "@/components/partner/restaurant/stats/header/PartnerStatsHeader";
 import PartnerStatsOverview from "@/components/partner/restaurant/stats/overview/PartnerStatsOverview";
-import PartnerRestaurantStatsProvider from "@/contexts/PartnerRestaurantStatsProvider";
+import PartnerRestaurantStatsProvider from "@/contexts/private/partner/PartnerRestaurantStatsProvider";
 
 export default function PartnerRestaurantStatsPage() {
   useEffect(() => {

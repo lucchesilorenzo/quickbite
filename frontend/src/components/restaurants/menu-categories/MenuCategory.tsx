@@ -2,7 +2,7 @@ import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import MenuItemRow from "./MenuItemRow";
 
-import { useRestaurantMenu } from "@/hooks/contexts/useRestaurantMenu";
+import { useRestaurantMenu } from "@/hooks/contexts/public/useRestaurantMenu";
 import { Menu } from "@/types";
 
 type MenuCategoryProps = {

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { RestaurantOffersContext } from "@/contexts/RestaurantOffersProvider";
+import { RestaurantOffersContext } from "@/contexts/public/RestaurantOffersProvider";
 
 export function useRestaurantOffer() {
   const context = useContext(RestaurantOffersContext);

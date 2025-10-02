@@ -3,7 +3,7 @@ import PartnerStatsDetailsLostRevenue from "./lost-revenue/PartnerStatsDetailsLo
 import PartnerStatsDetailsRejectedOrders from "./rejected-orders/PartnerStatsDetailsRejectedOrders";
 import PartnerStatsDetailsRevenue from "./revenue/PartnerStatsDetailsRevenue";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
+import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
 
 export default function PartnerStatsDetails() {
   const { activeKpi } = usePartnerRestaurantStats();

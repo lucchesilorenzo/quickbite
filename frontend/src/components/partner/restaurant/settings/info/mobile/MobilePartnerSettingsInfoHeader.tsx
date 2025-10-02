@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 
 import PartnerHeadingBlock from "../../../common/PartnerHeadingBlock";
 
-import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/usePartnerRestaurantSettingsInfo";
+import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsInfo";
 import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
 export default function MobilePartnerSettingsInfoHeader() {
