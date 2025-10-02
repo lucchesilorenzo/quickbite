@@ -1,27 +1,27 @@
 import { Navigate, Route } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
-import ParterRestaurantDashboardPage from "./private/partner/PartnerRestaurantDashboardPage";
-import PartnerRestaurantMenuCategoriesPage from "./private/partner/PartnerRestaurantMenuCategoriesPage";
-import PartnerRestaurantMenuEditPage from "./private/partner/PartnerRestaurantMenuEditPage";
-import PartnerRestaurantMenuPage from "./private/partner/PartnerRestaurantMenuPage";
-import PartnerRestaurantNotificationsPage from "./private/partner/PartnerRestaurantNotificationsPage";
-import PartnerRestaurantOffersPage from "./private/partner/PartnerRestaurantOffersPage";
-import PartnerRestaurantOrdersPage from "./private/partner/PartnerRestaurantOrdersPage";
-import PartnerRestaurantReviewsPage from "./private/partner/PartnerRestaurantReviewsPage";
-import PartnerRestaurantSettingsDeliveryTimesEditPage from "./private/partner/PartnerRestaurantSettingsDeliveryTimesEditPage";
-import PartnerRestaurantSettingsFeesPage from "./private/partner/PartnerRestaurantSettingsFeesPage";
-import PartnerRestaurantSettingsInfoPage from "./private/partner/PartnerRestaurantSettingsInfoPage";
-import PartnerRestaurantSettingsPage from "./private/partner/PartnerRestaurantSettingsPage";
-import PartnerRestaurantStatsPage from "./private/partner/PartnerRestaurantStatsPage";
+import ParterRestaurantDashboardPage from "./private/partner/dashboard/PartnerRestaurantDashboardPage";
+import PartnerRestaurantMenuCategoriesPage from "./private/partner/menu/PartnerRestaurantMenuCategoriesPage";
+import PartnerRestaurantMenuEditPage from "./private/partner/menu/PartnerRestaurantMenuEditPage";
+import PartnerRestaurantMenuPage from "./private/partner/menu/PartnerRestaurantMenuPage";
+import PartnerRestaurantNotificationsPage from "./private/partner/notifications/PartnerRestaurantNotificationsPage";
+import PartnerRestaurantOffersPage from "./private/partner/offers/PartnerRestaurantOffersPage";
+import PartnerRestaurantOrdersPage from "./private/partner/orders/PartnerRestaurantOrdersPage";
 import PartnerProfileGeneralPage from "./private/partner/profile/PartnerProfileGeneralPage";
 import PartnerProfileNotificationsPage from "./private/partner/profile/PartnerProfileNotificationsPage";
+import PartnerRestaurantReviewsPage from "./private/partner/reviews/PartnerRestaurantReviewsPage";
+import PartnerRestaurantSettingsDeliveryTimesEditPage from "./private/partner/settings/PartnerRestaurantSettingsDeliveryTimesEditPage";
+import PartnerRestaurantSettingsFeesPage from "./private/partner/settings/PartnerRestaurantSettingsFeesPage";
+import PartnerRestaurantSettingsInfoPage from "./private/partner/settings/PartnerRestaurantSettingsInfoPage";
+import PartnerRestaurantSettingsPage from "./private/partner/settings/PartnerRestaurantSettingsPage";
+import PartnerRestaurantStatsPage from "./private/partner/stats/PartnerRestaurantStatsPage";
 
 import PartnerLayout from "@/layouts/PartnerLayout";
 import PartnerProfileLayout from "@/layouts/PartnerProfileLayout";
 import PartnerRestaurantLayout from "@/layouts/PartnerRestaurantLayout";
-import PartnerRestaurantSettingsDeliveryTimesPage from "@/pages/private/partner/PartnerRestaurantSettingsDeliveryTimesPage";
 import PartnerRestaurantsPage from "@/pages/private/partner/PartnerRestaurantsPage";
+import PartnerRestaurantSettingsDeliveryTimesPage from "@/pages/private/partner/settings/PartnerRestaurantSettingsDeliveryTimesPage";
 import { Role } from "@/types";
 
 export const PartnerRoutes = [
