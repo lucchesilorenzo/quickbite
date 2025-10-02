@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/useAuth";
-import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/useCustomerCheckout";
 import {
   TCheckoutPersonalInfoFormSchema,
   checkoutPersonalInfoFormSchema,
@@ -19,7 +19,7 @@ export default function PersonalInfoForm({
   setOpenPersonalInfoDialog,
 }: PersonalInfoFormProps) {
   const { user } = useAuth();
-  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCustomerCheckout();
 
   const {
     handleSubmit,

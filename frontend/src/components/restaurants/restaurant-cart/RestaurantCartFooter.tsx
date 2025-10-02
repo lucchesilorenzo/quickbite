@@ -33,13 +33,14 @@ export default function RestaurantCartFooter() {
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const offers = offersData?.data || [];
-
   const subtotal = cartTotal(restaurant.id);
 
   const isDeliveryFeeFree = restaurant.delivery_fee === 0;
 
-  const bestOffer = getBestRestaurantOfferGivenSubtotal(offers, subtotal);
+  const bestOffer = getBestRestaurantOfferGivenSubtotal(
+    offersData.data,
+    subtotal,
+  );
 
   const discount = subtotal * (bestOffer?.discount_rate || 0);
 

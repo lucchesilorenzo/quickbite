@@ -1,8 +1,8 @@
 import { Route } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
-import CheckoutPage from "./private/customer/CheckoutPage";
 import CheckoutSuccessPage from "./private/customer/CheckoutSuccessPage";
+import CustomerCheckoutPage from "./private/customer/CustomerCheckoutPage";
 
 import CheckoutLayout from "@/layouts/CheckoutLayout";
 import { Role } from "@/types";
@@ -13,7 +13,7 @@ export const CustomerRoutes = [
       path="checkout/:cartId"
       element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
     >
-      <Route index element={<CheckoutPage />} />
+      <Route index element={<CustomerCheckoutPage />} />
     </Route>
     ,
     <Route

@@ -14,9 +14,9 @@ export default function RestaurantOffersList({
 }: RestaurantOffersListProps) {
   const { offersData, page, setPage } = useRestaurantOffer();
 
-  const offers = offersData?.data || [];
-  const totalPages = offersData?.last_page || 1;
-  const displayedOffers = showPagination ? offers : offers.slice(0, 2);
+  const displayedOffers = showPagination
+    ? offersData.data
+    : offersData.data.slice(0, 2);
 
   return (
     <Stack spacing={4} sx={{ mb: 2 }}>
@@ -33,7 +33,7 @@ export default function RestaurantOffersList({
           <CustomPagination
             context="offers_page"
             page={page}
-            totalPages={totalPages}
+            totalPages={offersData.last_page}
             setPage={setPage}
           />
         </Box>

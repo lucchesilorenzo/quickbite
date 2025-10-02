@@ -84,6 +84,8 @@ export const customerOrdersDefaults = {
 
 export const partnerOrdersDefaults = customerOrdersDefaults;
 
+export const offersDefaults = customerOrdersDefaults;
+
 const partnerMenuItemsDefaults = customerOrdersDefaults;
 
 export const partnerMenuDefaults = [

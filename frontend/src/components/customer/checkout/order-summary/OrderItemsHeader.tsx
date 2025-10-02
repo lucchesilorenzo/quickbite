@@ -1,10 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/useCustomerCheckout";
 import env from "@/lib/env";
 
 export default function OrderItemsHeader() {
-  const { cart } = useCheckout();
+  const { cart } = useCustomerCheckout();
 
   return (
     <Stack

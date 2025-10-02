@@ -22,8 +22,6 @@ export default function RestaurantAboutDialogTabs() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const offers = offersData?.data || [];
-
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   function handleChange(_e: React.SyntheticEvent, newValue: RestaurantTab) {
@@ -65,7 +63,7 @@ export default function RestaurantAboutDialogTabs() {
       >
         <Tab label="Reviews" value="reviews" />
         <Tab label="Info" value="info" />
-        {offers?.length > 0 && <Tab label="Offers" value="offers" />}
+        {offersData.data.length > 0 && <Tab label="Offers" value="offers" />}
       </TabList>
 
       <TabPanel

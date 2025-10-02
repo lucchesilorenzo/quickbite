@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
 import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
+import { offersDefaults } from "@/lib/query-defaults";
 import { OfferWithPagination } from "@/types";
 
 type RestaurantOffersProviderProps = {
@@ -9,7 +10,7 @@ type RestaurantOffersProviderProps = {
 };
 
 type RestaurantOffersContext = {
-  offersData?: OfferWithPagination;
+  offersData: OfferWithPagination;
   page: number;
   isLoadingOffers: boolean;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -25,7 +26,7 @@ export default function RestaurantOffersProvider({
 
   const [page, setPage] = useState(1);
 
-  const { data: offersData, isLoading: isLoadingOffers } =
+  const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
     useGetRestaurantOffers(restaurant.id, page);
 
   return (

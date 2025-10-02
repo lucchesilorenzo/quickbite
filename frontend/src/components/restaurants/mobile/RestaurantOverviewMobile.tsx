@@ -9,8 +9,6 @@ import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
 export default function RestaurantOverviewMobile() {
   const { offersData } = useRestaurantOffer();
 
-  const offers = offersData?.data || [];
-
   return (
     <Box
       component="section"
@@ -18,7 +16,7 @@ export default function RestaurantOverviewMobile() {
     >
       <RestaurantHeader />
       <RestaurantHeaderRow />
-      {offers.length > 0 && <RestaurantOffersList />}
+      {offersData.data.length > 0 && <RestaurantOffersList />}
     </Box>
   );
 }

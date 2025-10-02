@@ -2,17 +2,17 @@ import { useEffect } from "react";
 
 import DesktopCheckoutLayout from "@/components/customer/checkout/layouts/DesktopCheckoutLayout";
 import MobileCheckoutLayout from "@/components/customer/checkout/layouts/MobileCheckoutLayout";
-import CheckoutProvider from "@/contexts/CheckoutProvider";
+import CustomerCheckoutProvider from "@/contexts/CustomerCheckoutProvider";
 
-export default function CheckoutPage() {
+export default function CustomerCheckoutPage() {
   useEffect(() => {
     document.title = "Checkout | QuickBite";
   }, []);
 
   return (
-    <CheckoutProvider>
+    <CustomerCheckoutProvider>
       <DesktopCheckoutLayout />
       <MobileCheckoutLayout />
-    </CheckoutProvider>
+    </CustomerCheckoutProvider>
   );
 }

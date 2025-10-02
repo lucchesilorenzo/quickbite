@@ -6,7 +6,7 @@ import { grey } from "@mui/material/colors";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/useCustomerCheckout";
 import {
   TCheckoutPaymentMethodFormSchema,
   checkoutPaymentMethodFormSchema,
@@ -29,7 +29,7 @@ type PaymentMethodFormProps = {
 export default function PaymentMethodForm({
   setOpenPaymentMethodDialog,
 }: PaymentMethodFormProps) {
-  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCustomerCheckout();
 
   const {
     handleSubmit,

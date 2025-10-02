@@ -6,31 +6,35 @@ import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/useAuth";
 import { useGetCustomerCart } from "@/hooks/react-query/private/customers/carts/useGetCustomerCart";
 import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
+import { offersDefaults } from "@/lib/query-defaults";
 import { CheckoutData, OfferWithPagination, RestaurantCart } from "@/types";
 
-type CheckoutProviderProps = {
+type CustomerCheckoutProviderProps = {
   children: React.ReactNode;
 };
 
-type CheckoutContext = {
+type CustomerCheckoutContext = {
   cart: RestaurantCart;
   checkoutData: CheckoutData;
   restaurantId: string;
-  offersData?: OfferWithPagination;
+  offersData: OfferWithPagination;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
   emptyCheckoutData: (restaurantId: string) => void;
 };
 
-export const CheckoutContext = createContext<CheckoutContext | null>(null);
+export const CustomerCheckoutContext =
+  createContext<CustomerCheckoutContext | null>(null);
 
-export default function CheckoutProvider({ children }: CheckoutProviderProps) {
+export default function CustomerCheckoutProvider({
+  children,
+}: CustomerCheckoutProviderProps) {
   const { cartId } = useParams();
   const { user } = useAuth();
 
   const { data: cart, isLoading: isCartLoading } = useGetCustomerCart(cartId);
   const restaurantId = cart?.restaurant.id;
 
-  const { data: offersData, isLoading: isLoadingOffers } =
+  const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
     useGetRestaurantOffers(restaurantId!);
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
@@ -89,7 +93,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   }
 
   return (
-    <CheckoutContext.Provider
+    <CustomerCheckoutContext.Provider
       value={{
         cart,
         checkoutData,
@@ -100,6 +104,6 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
       }}
     >
       {children}
-    </CheckoutContext.Provider>
+    </CustomerCheckoutContext.Provider>
   );
 }

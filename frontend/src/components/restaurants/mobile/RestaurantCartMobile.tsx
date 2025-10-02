@@ -22,11 +22,12 @@ export default function RestaurantCartMobile() {
   const [openRestaurantCartDialogMobile, setOpenRestaurantCartDialogMobile] =
     useState(false);
 
-  const offers = offersData?.data || [];
-
   const subtotal = cartTotal(restaurant.id);
 
-  const bestOffer = getBestRestaurantOfferGivenSubtotal(offers, subtotal);
+  const bestOffer = getBestRestaurantOfferGivenSubtotal(
+    offersData.data,
+    subtotal,
+  );
 
   const discount = subtotal * (bestOffer?.discount_rate || 0);
 

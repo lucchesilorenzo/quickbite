@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/useCustomerCheckout";
 import { useMultiCart } from "@/hooks/contexts/useMultiCart";
 import { postData } from "@/lib/api-client";
 import { CreateOrder } from "@/types/order-types";
@@ -9,7 +9,7 @@ import { CreateOrder } from "@/types/order-types";
 export function useCreateCustomerOrder(restaurantId: string) {
   const queryClient = useQueryClient();
   const { emptyCart } = useMultiCart();
-  const { emptyCheckoutData } = useCheckout();
+  const { emptyCheckoutData } = useCustomerCheckout();
 
   const notifications = useNotifications();
 
