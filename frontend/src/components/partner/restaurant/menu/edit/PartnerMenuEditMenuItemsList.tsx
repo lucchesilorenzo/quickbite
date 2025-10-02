@@ -16,8 +16,8 @@ import PartnerMenuEditMenuItem from "./PartnerMenuEditMenuItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurantMenu } from "@/hooks/contexts/private/partner/usePartnerRestaurantMenu";
 import { useUpdatePartnerRestaurantMenuItemsOrder } from "@/hooks/react-query/private/partners/restaurants/menu/items/useUpdatePartnerRestaurantMenuItemsOrder";
 import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partners/restaurants/menu/useGetPartnerRestaurantMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";
@@ -83,7 +83,7 @@ export default function PartnerMenuEditMenuItemsList() {
 
   if (!menuItems || !menuItems.length) {
     return (
-      <Typography variant="body2" sx={{ textAlign: "center", mt: 4 }}>
+      <Typography variant="body1" sx={{ textAlign: "center", mt: 4 }}>
         {selectedMenuCategoryId
           ? "No menu items found. A menu category must have at least one menu item."
           : "Select a menu category."}

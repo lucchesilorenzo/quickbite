@@ -4,7 +4,7 @@ import { Box, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
-import { useRestaurant } from "@/hooks/contexts/useRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantOfferFilters() {
   const { offerCounts } = useRestaurant();

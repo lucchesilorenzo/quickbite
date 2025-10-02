@@ -10,7 +10,7 @@ import {
 
 import MenuItemQuantityInCartBadge from "./MenuItemQuantityInCartBadge";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { isCustomer } from "@/lib/utils";
 import { MenuCategory, PartnerMenu } from "@/types";
 

@@ -13,7 +13,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
 import {
   TCheckoutDeliveryTimeFormSchema,
   checkoutDeliveryTimeFormSchema,
@@ -28,7 +28,7 @@ type DeliveryTimeFormProps = {
 export default function DeliveryTimeForm({
   setOpenDeliveryTimeDialog,
 }: DeliveryTimeFormProps) {
-  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCustomerCheckout();
 
   const {
     handleSubmit,

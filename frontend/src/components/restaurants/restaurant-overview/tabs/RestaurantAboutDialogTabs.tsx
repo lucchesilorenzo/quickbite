@@ -11,8 +11,8 @@ import InfoTab from "./info/InfoTab";
 import OffersPanel from "./offers/OffersPanel";
 import ReviewsTab from "./reviews/ReviewsTab";
 
-import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { restaurantTabs } from "@/lib/data";
 import { RestaurantTab } from "@/types";
 
@@ -21,8 +21,6 @@ export default function RestaurantAboutDialogTabs() {
   const { offersData } = useRestaurantOffer();
 
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const offers = offersData?.data || [];
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -65,7 +63,7 @@ export default function RestaurantAboutDialogTabs() {
       >
         <Tab label="Reviews" value="reviews" />
         <Tab label="Info" value="info" />
-        {offers?.length > 0 && <Tab label="Offers" value="offers" />}
+        {offersData.data.length > 0 && <Tab label="Offers" value="offers" />}
       </TabList>
 
       <TabPanel

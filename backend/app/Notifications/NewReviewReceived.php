@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Enums\NotificationPreference;
 use App\Models\RestaurantReview;
+use App\Models\User;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -18,7 +21,8 @@ class NewReviewReceived extends Notification implements ShouldQueue
      * Create a new notification instance.
      */
     public function __construct(
-        public RestaurantReview $review
+        public RestaurantReview $review,
+        public User $partner
     ) {}
 
     /**
@@ -29,6 +33,17 @@ class NewReviewReceived extends Notification implements ShouldQueue
     public function via(object $notifiable): array
     {
         return ['database', 'broadcast'];
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(object $notifiable, string $channel): bool
+    {
+        return $notifiable->notificationPreferences()
+            ->where('type', NotificationPreference::NEW_REVIEW->value)
+            ->where('enabled', true)
+            ->exists();
     }
 
     /**
@@ -43,6 +58,7 @@ class NewReviewReceived extends Notification implements ShouldQueue
             'description' => "Review from {$this->review->customer->first_name} {$this->review->customer->last_name} - {$this->review->rating} stars",
             'meta' => [
                 'review_id' => $this->review->id,
+                'restaurant_id' => $this->review->restaurant_id,
                 'first_name' => $this->review->customer->first_name,
                 'last_name' => $this->review->customer->last_name,
                 'created_at' => $this->review->created_at,
@@ -67,6 +83,16 @@ class NewReviewReceived extends Notification implements ShouldQueue
      */
     public function broadcastType(): string
     {
-        return 'new-review-received';
+        return 'new.review.received';
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     */
+    public function broadcastOn(): array
+    {
+        return [
+            new PrivateChannel("App.Models.User.{$this->partner->id}.Restaurant.{$this->review->restaurant_id}"),
+        ];
     }
 }

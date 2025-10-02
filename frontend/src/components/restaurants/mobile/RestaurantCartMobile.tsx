@@ -6,9 +6,9 @@ import { grey } from "@mui/material/colors";
 
 import RestaurantCartDialogMobile from "./RestaurantCartDialogMobile";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,
@@ -22,11 +22,12 @@ export default function RestaurantCartMobile() {
   const [openRestaurantCartDialogMobile, setOpenRestaurantCartDialogMobile] =
     useState(false);
 
-  const offers = offersData?.data || [];
-
   const subtotal = cartTotal(restaurant.id);
 
-  const bestOffer = getBestRestaurantOfferGivenSubtotal(offers, subtotal);
+  const bestOffer = getBestRestaurantOfferGivenSubtotal(
+    offersData.data,
+    subtotal,
+  );
 
   const discount = subtotal * (bestOffer?.discount_rate || 0);
 
@@ -55,6 +56,7 @@ export default function RestaurantCartMobile() {
           <Badge
             badgeContent={totalItems(restaurant.id)}
             anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            max={20}
             sx={{
               "& .MuiBadge-badge": {
                 backgroundColor: grey[900],

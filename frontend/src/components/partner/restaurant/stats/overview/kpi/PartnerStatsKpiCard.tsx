@@ -11,7 +11,7 @@ import {
 import { grey } from "@mui/material/colors";
 import { useSearchParams } from "react-router-dom";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
+import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
 import { Kpi } from "@/types";
 
 type PartnerStatsKpiCardProps = {

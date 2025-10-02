@@ -19,8 +19,8 @@ import LocationSearchDialog from "./location-search/LocationSearchDialog";
 import RestaurantSearchContainerMobile from "./mobile/RestaurantSearchContainerMobile";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
-import { useAddress } from "@/hooks/contexts/useAddress";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAddress } from "@/hooks/contexts/public/useAddress";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { isCustomer } from "@/lib/utils";
 
 export default function AreaHeader() {

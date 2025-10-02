@@ -11,12 +11,12 @@ import {
 
 import PersonalInfoDialog from "./PersonalInfoDialog";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
-import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 
 export default function PersonalInfoItem() {
   const { user } = useAuth();
-  const { checkoutData, restaurantId } = useCheckout();
+  const { checkoutData, restaurantId } = useCustomerCheckout();
 
   const [openPersonalInfoDialog, setOpenPersonalInfoDialog] = useState(false);
 

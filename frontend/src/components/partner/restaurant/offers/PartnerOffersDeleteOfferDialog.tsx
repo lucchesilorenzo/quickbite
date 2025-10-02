@@ -10,7 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useDeletePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/offers/useDeletePartnerRestaurantOffer";
 import { Offer } from "@/types";
 

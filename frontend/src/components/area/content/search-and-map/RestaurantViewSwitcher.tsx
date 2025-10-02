@@ -6,7 +6,7 @@ import { Box, IconButton } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useSearchParams } from "react-router-dom";
 
-import { useRestaurant } from "@/hooks/contexts/useRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantViewSwitcher() {
   const { viewMap, setViewMap } = useRestaurant();

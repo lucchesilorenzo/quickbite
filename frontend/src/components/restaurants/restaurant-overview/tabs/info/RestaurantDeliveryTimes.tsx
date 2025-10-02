@@ -2,7 +2,7 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { capitalize } from "@/lib/utils";
 
 export default function RestaurantDeliveryTimes() {

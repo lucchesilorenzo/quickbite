@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 import { Offer } from "@/types";
 

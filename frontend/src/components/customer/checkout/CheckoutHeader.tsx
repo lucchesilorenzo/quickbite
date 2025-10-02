@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import HeaderDialogCustomer from "../header/HeaderDialogCustomer";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { isCustomer } from "@/lib/utils";
 
 export default function CheckoutHeader() {

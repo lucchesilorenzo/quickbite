@@ -6,8 +6,8 @@ import RestaurantClosedDialog from "../common/RestaurantClosedDialog";
 import RestaurantCartMobile from "../mobile/RestaurantCartMobile";
 import RestaurantDetailsMobile from "../mobile/RestaurantDetailsMobile";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 
 export default function MobileRestaurantLayout() {
   const {

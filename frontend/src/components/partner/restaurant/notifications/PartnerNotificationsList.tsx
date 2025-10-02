@@ -3,20 +3,20 @@ import { Box, Stack, Typography } from "@mui/material";
 import PartnerNotificationsItem from "./PartnerNotificationsItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 
 export default function PartnerNotificationsList() {
-  const { userNotifications, page, setPage } = useAuth();
+  const { partnerNotifications, page, setPage } = usePartnerRestaurant();
 
   return (
     <Stack spacing={2} sx={{ my: 3 }}>
-      {!userNotifications.notifications.data.length ? (
+      {!partnerNotifications.notifications.data.length ? (
         <Typography variant="body1" sx={{ textAlign: "center" }}>
           No notifications yet.
         </Typography>
       ) : (
         <Stack spacing={2}>
-          {userNotifications.notifications.data.map((notification) => (
+          {partnerNotifications.notifications.data.map((notification) => (
             <PartnerNotificationsItem
               key={notification.id}
               notification={notification}
@@ -26,7 +26,7 @@ export default function PartnerNotificationsList() {
           <Box sx={{ alignSelf: "center" }}>
             <CustomPagination
               page={page}
-              totalPages={userNotifications.notifications.last_page}
+              totalPages={partnerNotifications.notifications.last_page}
               setPage={setPage}
             />
           </Box>

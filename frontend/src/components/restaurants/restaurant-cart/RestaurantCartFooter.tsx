@@ -14,10 +14,10 @@ import { useNavigate } from "react-router-dom";
 import ServiceFeeDialog from "../../common/ServiceFeeDialog";
 import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 
-import { useAuth } from "@/hooks/contexts/useAuth";
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,
@@ -33,13 +33,14 @@ export default function RestaurantCartFooter() {
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const offers = offersData?.data || [];
-
   const subtotal = cartTotal(restaurant.id);
 
   const isDeliveryFeeFree = restaurant.delivery_fee === 0;
 
-  const bestOffer = getBestRestaurantOfferGivenSubtotal(offers, subtotal);
+  const bestOffer = getBestRestaurantOfferGivenSubtotal(
+    offersData.data,
+    subtotal,
+  );
 
   const discount = subtotal * (bestOffer?.discount_rate || 0);
 

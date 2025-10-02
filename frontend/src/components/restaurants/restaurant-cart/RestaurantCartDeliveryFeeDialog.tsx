@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 type RestaurantCartDeliveryFeeDialogProps = {

@@ -4,12 +4,10 @@ import RestaurantOffersList from "../common/RestaurantOffersList";
 import RestaurantHeader from "./RestaurantHeader";
 import RestaurantHeaderRow from "./RestaurantHeaderRow";
 
-import { useRestaurantOffer } from "@/hooks/contexts/useRestaurantOffer";
+import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
 
 export default function RestaurantOverviewDesktop() {
   const { offersData } = useRestaurantOffer();
-
-  const offers = offersData?.data || [];
 
   return (
     <Container
@@ -19,7 +17,7 @@ export default function RestaurantOverviewDesktop() {
     >
       <RestaurantHeader />
       <RestaurantHeaderRow />
-      {offers.length > 0 && <RestaurantOffersList />}
+      {offersData.data.length > 0 && <RestaurantOffersList />}
     </Container>
   );
 }

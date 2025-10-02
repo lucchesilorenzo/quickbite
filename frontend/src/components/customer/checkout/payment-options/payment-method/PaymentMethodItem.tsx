@@ -15,10 +15,10 @@ import { yellow } from "@mui/material/colors";
 
 import PaymentMethodDialog from "./PaymentMethodDialog";
 
-import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
 
 export default function PaymentMethodItem() {
-  const { checkoutData, restaurantId } = useCheckout();
+  const { checkoutData, restaurantId } = useCustomerCheckout();
 
   const [openPaymentMethodDialog, setOpenPaymentMethodDialog] = useState(false);
 

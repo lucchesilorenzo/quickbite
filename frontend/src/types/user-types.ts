@@ -11,6 +11,7 @@ export type User = {
   building_number: string | null;
   postcode: string | null;
   city: string | null;
+  state: string | null;
   country: string | null;
   driving_licence: string | null;
   roles: {
@@ -25,9 +26,19 @@ export type User = {
       role_id: string;
     };
   }[];
+  notification_preferences: {
+    id: string;
+    user_id: string;
+    type: NotificationType;
+    enabled: boolean;
+    created_at: string;
+    updated_at: string;
+  }[];
   created_at: string;
   updated_at: string;
 };
+
+export type NotificationType = "new_order" | "new_review";
 
 export enum Role {
   CUSTOMER = "customer",

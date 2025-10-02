@@ -74,7 +74,11 @@ export default function PartnerOrdersItem({ order }: PartnerOrdersItemProps) {
           </Box>
         </Stack>
 
-        <Stack spacing={2}>
+        <Stack
+          direction={isMobile ? "row" : "column"}
+          spacing={2}
+          sx={{ justifyContent: isMobile ? "space-between" : "" }}
+        >
           <Button
             aria-label={`View details for order ${order.order_code}`}
             variant="contained"
@@ -86,7 +90,6 @@ export default function PartnerOrdersItem({ order }: PartnerOrdersItemProps) {
           </Button>
 
           <UpdateOrderStatusButton order={order} />
-          <Stack />
         </Stack>
 
         <PartnerOrdersItemViewOrderDialog

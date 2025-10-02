@@ -8,8 +8,8 @@ import PartnerOrdersItem from "./PartnerOrdersItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { usePartnerRestaurantOrders } from "@/hooks/contexts/usePartnerRestaurantOrders";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurantOrders } from "@/hooks/contexts/private/partner/usePartnerRestaurantOrders";
 import { useGetPartnerRestaurantOrders } from "@/hooks/react-query/private/partners/restaurants/orders/useGetPartnerRestaurantOrders";
 import { orderStatuses } from "@/lib/data";
 import { partnerOrdersDefaults } from "@/lib/query-defaults";
@@ -46,7 +46,9 @@ export default function PartnerOrdersList() {
 
   return (
     <Stack spacing={2} sx={{ my: 3 }}>
-      <PartnerOrdersFilters setPage={setPage} />
+      {ordersWithPagination.data.length > 0 && (
+        <PartnerOrdersFilters setPage={setPage} />
+      )}
 
       {!ordersWithPagination.data.length ? (
         <Typography variant="body1" sx={{ textAlign: "center" }}>

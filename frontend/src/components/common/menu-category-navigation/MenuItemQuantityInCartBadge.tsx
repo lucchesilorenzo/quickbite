@@ -1,8 +1,8 @@
 import { Badge } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { MenuCategory, MenuItem, PartnerMenu } from "@/types";
 
 type MenuItemQuantityInCartBadgeProps = {
@@ -35,6 +35,7 @@ export default function MenuItemQuantityInCartBadge({
     <Badge
       badgeContent={badgeContent}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      max={20}
       sx={{
         position: "absolute",
         top: type === "from-list" ? 6 : 26,

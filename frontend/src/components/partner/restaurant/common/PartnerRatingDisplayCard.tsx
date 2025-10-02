@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { usePartnerRestaurantReviews } from "@/hooks/contexts/usePartnerRestaurantReviews";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurantReviews } from "@/hooks/contexts/private/partner/usePartnerRestaurantReviews";
 
 type PartnerRatingDisplayCardProps = {
   type: "dashboard" | "reviews";

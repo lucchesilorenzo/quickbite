@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Box, Fab, Fade, useMediaQuery, useScrollTrigger } from "@mui/material";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 
 export default function RetaurantNavigateToTopFloatingButton() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));

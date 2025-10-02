@@ -1,7 +1,7 @@
 import { Cancel, CheckCircle } from "@mui/icons-material";
 import { Card, Chip, Stack, Typography } from "@mui/material";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 
 export default function PartnerStatsHeaderRightStatusCard() {
   const { restaurant } = usePartnerRestaurant();

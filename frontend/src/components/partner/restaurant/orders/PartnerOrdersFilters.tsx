@@ -1,7 +1,7 @@
 import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import { usePartnerRestaurantOrders } from "@/hooks/contexts/usePartnerRestaurantOrders";
+import { usePartnerRestaurantOrders } from "@/hooks/contexts/private/partner/usePartnerRestaurantOrders";
 import { orderStatuses } from "@/lib/data";
 import { OrderStatusWithAll } from "@/types/order-types";
 

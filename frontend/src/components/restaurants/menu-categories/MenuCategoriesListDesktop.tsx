@@ -5,7 +5,7 @@ import RestaurantInfo from "../RestaurantInfo";
 import MenuCategory from "./MenuCategory";
 
 import Spinner from "@/components/common/Spinner";
-import { useRestaurantMenu } from "@/hooks/contexts/useRestaurantMenu";
+import { useRestaurantMenu } from "@/hooks/contexts/public/useRestaurantMenu";
 
 export default function MenuCategoriesListDesktop() {
   const { menuData, isLoadingMenu } = useRestaurantMenu();

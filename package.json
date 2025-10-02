@@ -7,7 +7,7 @@
     "frontend": "cd frontend && npm run dev",
     "backend": "cd backend && php artisan serve",
     "queue": "cd backend && php artisan queue:listen --tries=1",
-    "reverb": "cd backend && php artisan reverb:start",
+    "reverb": "cd backend && php artisan reverb:start --debug",
     "logs": "cd backend && php artisan pail --timeout=0",
     "install-all": "cd frontend && npm install && cd ../backend && npm install && composer install"
   },

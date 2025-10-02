@@ -13,8 +13,8 @@ import RestaurantCartSpinner from "../common/RestaurantCartSpinner";
 import RestaurantCartFooter from "../restaurant-cart/RestaurantCartFooter";
 import RestaurantCartList from "../restaurant-cart/RestaurantCartList";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 
 type RestaurantCartDialogMobileProps = {
   openRestaurantCartDialogMobile: boolean;

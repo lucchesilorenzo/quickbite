@@ -5,7 +5,7 @@ import RestaurantList from "./list/RestaurantList";
 import RestaurantSearchContainer from "./search-and-map/RestaurantSearchContainer";
 import RestaurantMap from "./search-and-map/restaurant-map/RestaurantMap";
 
-import { useRestaurant } from "@/hooks/contexts/useRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 type RestaurantMainProps = {
   isLoading: boolean;

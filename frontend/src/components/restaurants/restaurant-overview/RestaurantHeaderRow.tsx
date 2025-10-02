@@ -8,8 +8,8 @@ import { IconButton, Link, Stack, Typography } from "@mui/material";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import Spinner from "@/components/common/Spinner";
-import { useRestaurantReview } from "@/hooks/contexts/useRestaurantReview";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useRestaurantReview } from "@/hooks/contexts/public/useRestaurantReview";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantHeaderRow() {

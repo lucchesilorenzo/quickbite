@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
+import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
 import { paymentMethodOptions } from "@/lib/data";
 import { PaymentMethodFilter } from "@/types";
 

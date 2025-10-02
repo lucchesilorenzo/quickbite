@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
-import { useCheckout } from "@/hooks/contexts/useCheckout";
+import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
 import { useDeleteCustomerCart } from "@/hooks/react-query/private/customers/carts/useDeleteCustomerCart";
 import { useCreateCustomerOrder } from "@/hooks/react-query/private/customers/orders/useCreateCustomerOrder";
 import {
@@ -25,7 +25,8 @@ import {
 import { CreateOrder } from "@/types/order-types";
 
 export default function CheckoutOrderFooter() {
-  const { cart, checkoutData, restaurantId, offersData } = useCheckout();
+  const { cart, checkoutData, restaurantId, offersData } =
+    useCustomerCheckout();
 
   const { mutateAsync: createOrder } = useCreateCustomerOrder(restaurantId);
   const { mutateAsync: deleteCart } = useDeleteCustomerCart(cart.id);
@@ -36,10 +37,8 @@ export default function CheckoutOrderFooter() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  const offers = offersData?.data || [];
-
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offers,
+    offersData.data,
     cart.cart_total,
   );
 

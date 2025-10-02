@@ -18,8 +18,8 @@ import MenuItemAddButton from "../common/MenuItemAddButton";
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils";
 import type { MenuItem } from "@/types";

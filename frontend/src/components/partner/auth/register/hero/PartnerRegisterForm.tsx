@@ -209,7 +209,7 @@ export default function PartnerRegisterForm() {
                 required
                 autoComplete="off"
                 label="State"
-                placeholder="eg. Tuscany"
+                placeholder="eg. Lazio"
                 error={!!errors.state}
                 helperText={
                   errors.state?.message && (

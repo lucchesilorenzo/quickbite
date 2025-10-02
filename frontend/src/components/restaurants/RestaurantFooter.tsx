@@ -10,8 +10,8 @@ import {
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
-import { useMultiCart } from "@/hooks/contexts/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { footerLinks } from "@/lib/data";
 
 export default function RestaurantFooter() {

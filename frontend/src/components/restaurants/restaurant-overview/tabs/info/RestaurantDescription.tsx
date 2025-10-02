@@ -2,7 +2,7 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useSingleRestaurant } from "@/hooks/contexts/useSingleRestaurant";
+import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 
 export default function RestaurantDescription() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));

@@ -10,8 +10,6 @@ class AuthService
 {
     public function me(User $user): User
     {
-        $user->getRoleNames();
-
-        return $user;
+        return $user->load('notificationPreferences', 'roles');
     }
 }

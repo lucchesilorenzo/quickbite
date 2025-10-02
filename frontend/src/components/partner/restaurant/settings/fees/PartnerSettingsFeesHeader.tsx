@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 
 import PartnerHeadingBlock from "../../common/PartnerHeadingBlock";
 
-import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/usePartnerRestaurantSettingsFees";
+import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsFees";
 import { TPartnerRestaurantSettingsFeesFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
 export default function PartnerSettingsFeesHeader() {

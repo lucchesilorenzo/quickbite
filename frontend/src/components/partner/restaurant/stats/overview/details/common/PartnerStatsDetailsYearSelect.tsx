@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
+import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
 
 export default function PartnerStatsDetailsYearSelect() {
   const { statsData, isLoadingStats, activeKpi, range, year, setYear } =

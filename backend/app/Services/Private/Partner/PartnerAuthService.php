@@ -98,11 +98,11 @@ class PartnerAuthService
 
     private function setupDeliveryDays(Restaurant $restaurant): void
     {
-        $deliveryDays = collect(DeliveryDay::values())->map(fn ($day, $i): array => [
+        $deliveryDays = collect(DeliveryDay::values())->map(fn ($day, $index): array => [
             'day' => $day,
             'start_time' => null,
             'end_time' => null,
-            'order' => $i,
+            'order' => $index,
         ]);
 
         $restaurant->deliveryDays()->createMany($deliveryDays);

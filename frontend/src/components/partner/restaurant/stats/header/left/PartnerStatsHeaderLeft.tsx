@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import PartnerHeadingBlock from "../../../common/PartnerHeadingBlock";
 import PartnerStatsRangeSelect from "./PartnerStatsRangeSelect";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/usePartnerRestaurantStats";
+import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
 import { getComputedRangeLabel } from "@/lib/utils";
 
 export default function PartnerStatsHeaderLeft() {

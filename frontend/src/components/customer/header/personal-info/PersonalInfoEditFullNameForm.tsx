@@ -3,7 +3,7 @@ import { Button, Stack, TextField, useMediaQuery } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useAuth } from "@/hooks/contexts/useAuth";
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerProfile";
 import { isCustomer } from "@/lib/utils";
 import {

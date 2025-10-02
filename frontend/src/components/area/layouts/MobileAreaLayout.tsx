@@ -4,7 +4,7 @@ import NoRestaurantsOrLoading from "../common/NoRestaurantsOrLoading";
 import RestaurantMap from "../content/search-and-map/restaurant-map/RestaurantMap";
 import RestaurantListMobile from "../mobile/RestaurantListMobile";
 
-import { useRestaurant } from "@/hooks/contexts/useRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 type MobileAreaLayoutProps = {
   isLoading: boolean;

@@ -13,8 +13,8 @@ import PartnerMenuEditAddMenuItemButton from "./PartnerMenuEditAddMenuItemButton
 
 import Spinner from "@/components/common/Spinner";
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
-import { usePartnerRestaurantMenu } from "@/hooks/contexts/usePartnerRestaurantMenu";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurantMenu } from "@/hooks/contexts/private/partner/usePartnerRestaurantMenu";
 import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partners/restaurants/menu/useGetPartnerRestaurantMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";
 
@@ -156,10 +156,12 @@ export default function PartnerMenuEditNavigation() {
 
       {selectedMenuCategoryId && <PartnerMenuEditAddMenuItemButton />}
 
-      <ShowMoreMenuCategoriesButton
-        menuCategories={menuCategories}
-        onSlideClick={handleSlideClick}
-      />
+      {menuCategories.length > 0 && (
+        <ShowMoreMenuCategoriesButton
+          menuCategories={menuCategories}
+          onSlideClick={handleSlideClick}
+        />
+      )}
     </Stack>
   );
 }

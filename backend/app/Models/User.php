@@ -38,6 +38,7 @@ class User extends Authenticatable
         'building_number',
         'postcode',
         'city',
+        'state',
         'country',
         'driving_licence',
         'is_approved',
@@ -62,6 +63,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Restaurant::class)
             ->withPivot(['role', 'contract_start', 'contract_end', 'is_active']);
+    }
+
+    /**
+     * Get the user's notification preferences.
+     *
+     * @return HasMany<NotificationPreference, $this>
+     */
+    public function notificationPreferences(): HasMany
+    {
+        return $this->hasMany(NotificationPreference::class);
     }
 
     // === CUSTOMER ===

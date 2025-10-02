@@ -18,28 +18,36 @@ Route::prefix('customer')->group(function () {
     });
 
     // === RESTAURANTS ===
-    Route::prefix('restaurants')->middleware(['auth:sanctum', 'role:customer'])->group(function () {
-        Route::post('/{restaurantSlug}/reviews', [CustomerRestaurantReviewController::class, 'createCustomerReview']);
-    });
+    Route::prefix('restaurants')
+        ->middleware(['auth:sanctum', 'role:customer'])
+        ->group(function () {
+            Route::post('/{restaurantSlug}/reviews', [CustomerRestaurantReviewController::class, 'createCustomerReview']);
+        });
 
     // === PROFILE MANAGEMENT ===
-    Route::prefix('profile')->middleware(['auth:sanctum', 'role:customer'])->group(function () {
-        Route::patch('/', [CustomerProfileController::class, 'updateCustomerProfile']);
-    });
+    Route::prefix('profile')
+        ->middleware(['auth:sanctum', 'role:customer'])
+        ->group(function () {
+            Route::patch('/', [CustomerProfileController::class, 'updateCustomerProfile']);
+        });
 
     // === CARTS MANAGEMENT ===
-    Route::prefix('carts')->middleware(['auth:sanctum', 'role:customer'])->group(function () {
-        Route::get('/', [CustomerCartController::class, 'getCarts']);
-        Route::get('/{cart}', [CustomerCartController::class, 'getCart']);
-        Route::post('/bulk', [CustomerCartController::class, 'createOrUpdateCarts']);
-        Route::post('/', [CustomerCartController::class, 'createOrUpdateCart']);
-        Route::delete('/{cart}', [CustomerCartController::class, 'deleteCart']);
-    });
+    Route::prefix('carts')
+        ->middleware(['auth:sanctum', 'role:customer'])
+        ->group(function () {
+            Route::get('/', [CustomerCartController::class, 'getCarts']);
+            Route::get('/{cart}', [CustomerCartController::class, 'getCart']);
+            Route::post('/bulk', [CustomerCartController::class, 'createOrUpdateCarts']);
+            Route::post('/', [CustomerCartController::class, 'createOrUpdateCart']);
+            Route::delete('/{cart}', [CustomerCartController::class, 'deleteCart']);
+        });
 
     // === ORDERS MANAGEMENT ===
-    Route::prefix('orders')->middleware(['auth:sanctum', 'role:customer'])->group(function () {
-        Route::get('/', [CustomerOrderController::class, 'getOrders']);
-        Route::get('/{order}', [CustomerOrderController::class, 'getOrder']);
-        Route::post('/', [CustomerOrderController::class, 'createOrder']);
-    });
+    Route::prefix('orders')
+        ->middleware(['auth:sanctum', 'role:customer'])
+        ->group(function () {
+            Route::get('/', [CustomerOrderController::class, 'getOrders']);
+            Route::get('/{order}', [CustomerOrderController::class, 'getOrder']);
+            Route::post('/', [CustomerOrderController::class, 'createOrder']);
+        });
 });

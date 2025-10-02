@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 
 export default function PartnerDashboardWelcome() {
   const { restaurant } = usePartnerRestaurant();

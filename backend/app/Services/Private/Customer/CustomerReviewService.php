@@ -9,7 +9,6 @@ use App\Models\Restaurant;
 use App\Models\RestaurantReview;
 use App\Models\User;
 use App\Notifications\NewReviewReceived;
-use Illuminate\Support\Facades\Notification;
 
 class CustomerReviewService
 {
@@ -18,8 +17,7 @@ class CustomerReviewService
         array $data,
         string $restaurantSlug
     ): RestaurantReview {
-        $restaurant = Restaurant::where('slug', $restaurantSlug)
-            ->firstOrFail();
+        $restaurant = Restaurant::where('slug', $restaurantSlug)->firstOrFail();
 
         // Check if customer has already reviewed this order
         $alreadyReviewed = $restaurant->reviews()
@@ -39,7 +37,9 @@ class CustomerReviewService
             'rating' => $data['rating'],
         ]);
 
-        Notification::send($restaurant->partners, new NewReviewReceived($review));
+        foreach ($restaurant->partners as $partner) {
+            $partner->notify(new NewReviewReceived($review, $partner));
+        }
 
         return $review;
     }

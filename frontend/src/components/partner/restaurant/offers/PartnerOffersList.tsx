@@ -6,7 +6,7 @@ import PartnerOffersItem from "./PartnerOffersItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
-import { usePartnerRestaurant } from "@/hooks/contexts/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useGetPartnerRestaurantOffers } from "@/hooks/react-query/private/partners/restaurants/offers/useGetPartnerRestaurantOffers";
 
 export default function PartnerOffersList() {
