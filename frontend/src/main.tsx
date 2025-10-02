@@ -39,6 +39,13 @@ const theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiPickersTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+        },
+      },
+    },
     MuiSelect: {
       styleOverrides: {
         root: {
