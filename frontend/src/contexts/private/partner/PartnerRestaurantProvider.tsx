@@ -6,7 +6,7 @@ import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useGetPartnerNotifications } from "@/hooks/react-query/private/partners/notifications/useGetPartnerNotifications";
 import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurant";
-import { userNotificationDefaults } from "@/lib/query-defaults";
+import { userNotificationsDefaults } from "@/lib/query-defaults";
 import {
   PartnerRestaurantDetail,
   UserNotificationWithUnreadCount,
@@ -36,7 +36,7 @@ export default function PartnerRestaurantProvider({
   const [page, setPage] = useState(1);
 
   const {
-    data: partnerNotifications = userNotificationDefaults,
+    data: partnerNotifications = userNotificationsDefaults,
     isLoading: isLoadingPartnerNotifications,
   } = useGetPartnerNotifications({ userId: user?.id, restaurantId, page });
 

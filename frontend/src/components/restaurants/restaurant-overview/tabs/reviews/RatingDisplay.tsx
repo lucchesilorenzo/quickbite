@@ -37,7 +37,7 @@ export default function RatingDisplay() {
           variant={isMobile ? "h4" : "h3"}
           sx={{ color: "white", fontWeight: 700 }}
         >
-          {reviewsData?.avg_rating?.toLocaleString("it-IT", {
+          {reviewsData.avg_rating?.toLocaleString("it-IT", {
             maximumFractionDigits: 1,
           }) || "N/A"}
         </Typography>
@@ -46,14 +46,14 @@ export default function RatingDisplay() {
 
         <Stack spacing={1}>
           <Rating
-            value={reviewsData?.avg_rating || 0}
+            value={reviewsData.avg_rating}
             icon={<StarIcon color="primary" />}
             emptyIcon={<StarBorderIcon color="primary" />}
             readOnly
           />
 
           <Typography component="div" variant="caption" sx={{ color: "white" }}>
-            out of {reviewsData?.count} reviews
+            out of {reviewsData.count} reviews
           </Typography>
 
           <Typography component="div" variant="caption" sx={{ color: "white" }}>

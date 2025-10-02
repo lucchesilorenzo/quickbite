@@ -1,3 +1,3 @@
-export * from "./guest";
+export * from "./public";
 export * from "./customer";
 export * from "./partner";

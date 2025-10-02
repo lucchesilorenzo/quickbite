@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 import { useGetRestaurantReviews } from "@/hooks/react-query/public/restaurants/useGetRestaurantReviews";
+import { reviewsDefaults } from "@/lib/query-defaults";
 import { ReviewStats } from "@/types/review-types";
 
 type RestaurantReviewsProviderProps = {
@@ -9,7 +10,7 @@ type RestaurantReviewsProviderProps = {
 };
 
 type RestaurantReviewsContext = {
-  reviewsData?: ReviewStats;
+  reviewsData: ReviewStats;
   page: number;
   isLoadingReviews: boolean;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -25,7 +26,7 @@ export default function RestaurantReviewsProvider({
 
   const [page, setPage] = useState(1);
 
-  const { data: reviewsData, isLoading: isLoadingReviews } =
+  const { data: reviewsData = reviewsDefaults, isLoading: isLoadingReviews } =
     useGetRestaurantReviews(restaurant.id, page);
 
   return (
