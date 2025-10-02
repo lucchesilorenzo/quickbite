@@ -8,7 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useGetCustomerOrder } from "@/hooks/react-query/private/customers/orders/useGetCustomerOrder";
 
-export default function CheckoutSuccessPage() {
+export default function CustomerCheckoutSuccessPage() {
   useEffect(() => {
     document.title = "Checkout success | QuickBite";
   }, []);
