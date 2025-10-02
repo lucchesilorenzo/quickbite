@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Footer from "@/components/common/Footer";
 import CheckoutHeader from "@/components/customer/checkout/CheckoutHeader";
 
-export default function CheckoutLayout() {
+export default function CustomerCheckoutLayout() {
   const { pathname } = useLocation();
 
   return (

@@ -4,11 +4,11 @@ import ProtectedRoute from "./ProtectedRoute";
 import CustomerCheckoutPage from "./private/customer/CustomerCheckoutPage";
 import CustomerCheckoutSuccessPage from "./private/customer/CustomerCheckoutSuccessPage";
 
-import CheckoutLayout from "@/layouts/CheckoutLayout";
+import CustomerCheckoutLayout from "@/layouts/private/customer/CustomerCheckoutLayout";
 import { Role } from "@/types";
 
 export const CustomerRoutes = [
-  <Route path="/" element={<CheckoutLayout />}>
+  <Route path="/" element={<CustomerCheckoutLayout />}>
     <Route
       path="checkout/:cartId"
       element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}

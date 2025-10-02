@@ -17,9 +17,9 @@ import PartnerRestaurantSettingsInfoPage from "./private/partner/settings/Partne
 import PartnerRestaurantSettingsPage from "./private/partner/settings/PartnerRestaurantSettingsPage";
 import PartnerRestaurantStatsPage from "./private/partner/stats/PartnerRestaurantStatsPage";
 
-import PartnerLayout from "@/layouts/PartnerLayout";
-import PartnerProfileLayout from "@/layouts/PartnerProfileLayout";
-import PartnerRestaurantLayout from "@/layouts/PartnerRestaurantLayout";
+import PartnerLayout from "@/layouts/private/partner/PartnerLayout";
+import PartnerProfileLayout from "@/layouts/private/partner/PartnerProfileLayout";
+import PartnerRestaurantLayout from "@/layouts/private/partner/PartnerRestaurantLayout";
 import PartnerRestaurantsPage from "@/pages/private/partner/PartnerRestaurantsPage";
 import PartnerRestaurantSettingsDeliveryTimesPage from "@/pages/private/partner/settings/PartnerRestaurantSettingsDeliveryTimesPage";
 import { Role } from "@/types";
