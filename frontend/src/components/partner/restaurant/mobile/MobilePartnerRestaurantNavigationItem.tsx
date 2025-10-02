@@ -8,7 +8,7 @@ import {
 import { grey } from "@mui/material/colors";
 import { Link, useLocation } from "react-router-dom";
 
-type PartnerRestaurantNavigationItemMobileProps = {
+type MobilePartnerRestaurantNavigationItemProps = {
   route: {
     href: string;
     label: string;
@@ -17,10 +17,10 @@ type PartnerRestaurantNavigationItemMobileProps = {
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function PartnerRestaurantNavigationItemMobile({
+export default function MobilePartnerRestaurantNavigationItem({
   route,
   setOpenDrawer,
-}: PartnerRestaurantNavigationItemMobileProps) {
+}: MobilePartnerRestaurantNavigationItemProps) {
   const { pathname } = useLocation();
 
   return (
