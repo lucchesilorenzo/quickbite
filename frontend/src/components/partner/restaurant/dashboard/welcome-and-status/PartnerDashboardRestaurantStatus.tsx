@@ -8,6 +8,7 @@ import { useUpdatePartnerRestaurantStatus } from "@/hooks/react-query/private/pa
 
 export default function PartnerDashboardRestaurantStatus() {
   const { restaurant } = usePartnerRestaurant();
+
   const { mutateAsync: updatePartnerRestaurantStatus } =
     useUpdatePartnerRestaurantStatus(restaurant.id);
 
@@ -22,7 +23,7 @@ export default function PartnerDashboardRestaurantStatus() {
   }
 
   return (
-    <Card variant="outlined" sx={{ width: 200, p: 2 }}>
+    <Card variant="outlined" sx={{ width: { xs: 1, sm: 200 }, p: 2 }}>
       <Stack
         direction="row"
         sx={{ justifyContent: "space-between", alignItems: "center" }}
