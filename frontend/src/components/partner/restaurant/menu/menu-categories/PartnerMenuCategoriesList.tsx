@@ -70,7 +70,7 @@ export default function PartnerMenuCategoriesList() {
 
   if (!menuCategories.length) {
     return (
-      <Typography variant="body1" sx={{ textAlign: "center" }}>
+      <Typography variant="body1" sx={{ textAlign: "center", mt: 3 }}>
         Start adding your menu categories here.
       </Typography>
     );

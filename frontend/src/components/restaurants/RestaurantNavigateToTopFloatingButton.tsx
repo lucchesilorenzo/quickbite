@@ -7,8 +7,6 @@ import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
 
 export default function RetaurantNavigateToTopFloatingButton() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const { restaurant } = useSingleRestaurant();
   const { isEmpty } = useMultiCart();
 
@@ -16,6 +14,8 @@ export default function RetaurantNavigateToTopFloatingButton() {
     disableHysteresis: true,
     threshold: 100,
   });
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);

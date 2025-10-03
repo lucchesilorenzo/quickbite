@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import DesktopCheckoutLayout from "@/components/customer/checkout/layouts/DesktopCheckoutLayout";
-import MobileCheckoutLayout from "@/components/customer/checkout/layouts/MobileCheckoutLayout";
+import CustomerCheckoutLayoutDesktop from "@/components/customer/checkout/layouts/CustomerCheckoutLayoutDesktop";
+import CustomerCheckoutLayoutMobile from "@/components/customer/checkout/layouts/CustomerCheckoutLayoutMobile";
 import CustomerCheckoutProvider from "@/contexts/private/customer/CustomerCheckoutProvider";
 
 export default function CustomerCheckoutPage() {
@@ -11,8 +11,8 @@ export default function CustomerCheckoutPage() {
 
   return (
     <CustomerCheckoutProvider>
-      <DesktopCheckoutLayout />
-      <MobileCheckoutLayout />
+      <CustomerCheckoutLayoutDesktop />
+      <CustomerCheckoutLayoutMobile />
     </CustomerCheckoutProvider>
   );
 }

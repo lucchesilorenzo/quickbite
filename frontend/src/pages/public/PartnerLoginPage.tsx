@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import DesktopPartnerLoginLayout from "@/components/partner/auth/login/layouts/DesktopPartnerLoginLayout";
-import MobilePartnerLoginLayout from "@/components/partner/auth/login/layouts/MobilePartnerLoginLayout";
+import PartnerLoginLayoutDesktop from "@/components/partner/auth/login/layouts/PartnerLoginLayoutDesktop";
+import PartnerLoginLayoutMobile from "@/components/partner/auth/login/layouts/PartnerLoginLayoutMobile";
 
 export default function PartnerLoginPage() {
   useEffect(() => {
@@ -10,8 +10,8 @@ export default function PartnerLoginPage() {
 
   return (
     <>
-      <DesktopPartnerLoginLayout />
-      <MobilePartnerLoginLayout />
+      <PartnerLoginLayoutDesktop />
+      <PartnerLoginLayoutMobile />
     </>
   );
 }

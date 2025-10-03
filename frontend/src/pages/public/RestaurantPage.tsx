@@ -1,11 +1,11 @@
-import DesktopRestaurantLayout from "@/components/restaurants/layouts/DesktopRestaurantLayout";
-import MobileRestaurantLayout from "@/components/restaurants/layouts/MobileRestaurantLayout";
+import RestaurantLayoutDesktop from "@/components/restaurants/layouts/RestaurantLayoutDesktop";
+import RestaurantLayoutMobile from "@/components/restaurants/layouts/RestaurantLayoutMobile";
 
 export default function RestaurantPage() {
   return (
     <>
-      <DesktopRestaurantLayout />
-      <MobileRestaurantLayout />
+      <RestaurantLayoutDesktop />
+      <RestaurantLayoutMobile />
     </>
   );
 }

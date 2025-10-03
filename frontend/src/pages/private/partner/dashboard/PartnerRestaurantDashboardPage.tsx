@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import DesktopDashboardLayout from "@/components/partner/restaurant/dashboard/layouts/DesktopDashboardLayout";
-import MobileDashboardLayout from "@/components/partner/restaurant/dashboard/layouts/MobileDashboardLayout";
+import DashboardLayoutDesktop from "@/components/partner/restaurant/dashboard/layouts/DashboardLayoutDesktop";
+import DashboardLayoutMobile from "@/components/partner/restaurant/dashboard/layouts/DashboardLayoutMobile";
 import PartnerRestaurantReviewsProvider from "@/contexts/private/partner/PartnerRestaurantReviewsProvider";
 
 export default function ParterRestaurantDashboardPage() {
@@ -11,8 +11,8 @@ export default function ParterRestaurantDashboardPage() {
 
   return (
     <PartnerRestaurantReviewsProvider>
-      <DesktopDashboardLayout />
-      <MobileDashboardLayout />
+      <DashboardLayoutDesktop />
+      <DashboardLayoutMobile />
     </PartnerRestaurantReviewsProvider>
   );
 }

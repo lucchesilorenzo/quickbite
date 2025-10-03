@@ -4,8 +4,8 @@ import { Container } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
-import DesktopAreaLayout from "@/components/area/layouts/DesktopAreaLayout";
-import MobileAreaLayout from "@/components/area/layouts/MobileAreaLayout";
+import AreaLayoutDesktop from "@/components/area/layouts/AreaLayoutDesktop";
+import AreaLayoutMobile from "@/components/area/layouts/AreaLayoutMobile";
 import { useAddress } from "@/hooks/contexts/public/useAddress";
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import env from "@/lib/env";
@@ -57,11 +57,11 @@ export default function AreaPage() {
       disableGutters
       sx={{ p: isMapViewMobile ? 0 : 3 }}
     >
-      <DesktopAreaLayout
+      <AreaLayoutDesktop
         isLoading={isRestaurantsLoading}
         hasNoResults={hasNoResults}
       />
-      <MobileAreaLayout
+      <AreaLayoutMobile
         isLoading={isRestaurantsLoading}
         hasNoResults={hasNoResults}
       />

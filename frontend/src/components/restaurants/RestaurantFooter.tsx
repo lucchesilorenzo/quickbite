@@ -15,10 +15,10 @@ import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant
 import { footerLinks } from "@/lib/data";
 
 export default function RestaurantFooter() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
-
   const { restaurant } = useSingleRestaurant();
   const { isEmpty } = useMultiCart();
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   return (
     <Stack
