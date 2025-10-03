@@ -58,13 +58,15 @@ export default function RestaurantHeaderRow() {
             }) || "N/A"}
           </Typography>
 
-          <Typography component="span" variant="body2" color="textPrimary">
-            ({reviewsData.count})
-          </Typography>
+          {reviewsData.count > 0 && (
+            <Typography component="span" variant="body2" color="textPrimary">
+              ({reviewsData.count})
+            </Typography>
+          )}
         </Link>
       </Stack>
 
-      {restaurant.min_amount && (
+      {restaurant.min_amount > 0 && (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <Typography component="span">&bull;</Typography>
 
