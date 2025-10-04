@@ -90,7 +90,6 @@ class PartnerAuthService
             'postcode' => $data['postcode'],
             'city' => $data['city'],
             'state' => $data['state'],
-            'full_address' => "{$data['street_address']} {$data['building_number']}, {$data['postcode']} {$data['city']}, {$data['state']}",
             'latitude' => $locationData['lat'],
             'longitude' => $locationData['lon'],
         ]);

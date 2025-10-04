@@ -32,7 +32,6 @@ class Restaurant extends Model
         'state',
         'postcode',
         'country',
-        'full_address',
         'latitude',
         'longitude',
         'phone_number',
@@ -56,6 +55,7 @@ class Restaurant extends Model
     ];
 
     protected $appends = [
+        'full_address',
         'is_open',
     ];
 
@@ -168,6 +168,16 @@ class Restaurant extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Get the full address attribute.
+     */
+    protected function fullAddress(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => "{$this->street_address} {$this->building_number}, {$this->postcode} {$this->city}, {$this->state}"
+        );
     }
 
     /**

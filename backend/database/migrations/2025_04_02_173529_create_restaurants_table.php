@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('postcode');
             $table->string('country')->default('Italy');
 
-            $table->string('full_address')->nullable();
             $table->float('latitude');
             $table->float('longitude');
 
