@@ -37,8 +37,6 @@ class RestaurantFactory extends Factory
             'street_address' => 'Via Santa Maria',
             'building_number' => '2',
             'postcode' => '56126',
-            'neighbourhood' => 'Pisa',
-            'county' => 'Pisa',
             'city' => 'Pisa',
             'state' => 'Tuscany',
             'country' => 'Italy',

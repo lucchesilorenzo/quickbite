@@ -21,14 +21,9 @@ return new class extends Migration
 
             $table->string('street_address');
             $table->string('building_number');
-            $table->string('road')->nullable();
-            $table->string('neighbourhood')->nullable();
-            $table->string('suburb')->nullable();
-            $table->string('island')->nullable();
-            $table->string('city')->nullable();
-            $table->string('county')->nullable();
-            $table->string('state');
             $table->string('postcode');
+            $table->string('city');
+            $table->string('state');
             $table->string('country')->default('Italy');
 
             $table->float('latitude');
