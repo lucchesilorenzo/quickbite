@@ -12,14 +12,9 @@ export type RestaurantBase = {
   description: string | null;
   street_address: string;
   building_number: string;
-  road: string | null;
-  neighbourhood: string | null;
-  suburb: string | null;
-  island: string | null;
-  city: string | null;
-  county: string | null;
-  state: string | null;
   postcode: string;
+  city: string;
+  state: string;
   country: string;
   full_address: string;
   latitude: number;
