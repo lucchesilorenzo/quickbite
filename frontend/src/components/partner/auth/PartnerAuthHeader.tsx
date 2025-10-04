@@ -13,7 +13,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import PartnerRegisterFormDialog from "./register/PartnerRegisterFormDialog";
 
-export default function PartnerRegisterHeader() {
+export default function PartnerAuthHeader() {
   const [openPartnerRegisterFormDialog, setOpenPartnerRegisterFormDialog] =
     useState(false);
 

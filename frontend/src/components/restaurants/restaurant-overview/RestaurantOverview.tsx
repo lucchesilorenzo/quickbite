@@ -1,5 +1,5 @@
-import RestaurantOverviewMobile from "../mobile/RestaurantOverviewMobile";
 import RestaurantOverviewDesktop from "./RestaurantOverviewDesktop";
+import RestaurantOverviewMobile from "./mobile/RestaurantOverviewMobile";
 
 export default function RestaurantOverview() {
   return (

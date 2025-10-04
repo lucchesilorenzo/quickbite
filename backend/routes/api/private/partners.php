@@ -43,8 +43,9 @@ Route::prefix('partner')->group(function () {
             Route::post('/{restaurant}/notifications/mark-as-read', [PartnerNotificationController::class, 'markNotificationsAsRead']);
 
             // Settings & Info
-            Route::post('/{restaurant}/info', [PartnerRestaurantController::class, 'updateRestaurantInfo']);
             Route::patch('/{restaurant}/status', [PartnerRestaurantController::class, 'updateRestaurantStatus']);
+            Route::patch('{restaurant}/approved', [PartnerRestaurantController::class, 'updateRestaurantApprovedStatus']);
+            Route::post('/{restaurant}/info', [PartnerRestaurantController::class, 'updateRestaurantInfo']);
             Route::patch('/{restaurant}/settings/fees', [PartnerRestaurantController::class, 'updateRestaurantFees']);
             Route::patch('/{restaurant}/settings/delivery-times', [PartnerRestaurantController::class, 'updateRestaurantDeliveryTimes']);
 

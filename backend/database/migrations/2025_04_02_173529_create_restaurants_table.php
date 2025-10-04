@@ -21,23 +21,16 @@ return new class extends Migration
 
             $table->string('street_address');
             $table->string('building_number');
-            $table->string('road')->nullable();
-            $table->string('neighbourhood')->nullable();
-            $table->string('suburb')->nullable();
-            $table->string('island')->nullable();
-            $table->string('city')->nullable();
-            $table->string('county')->nullable();
-            $table->string('state');
             $table->string('postcode');
+            $table->string('city');
+            $table->string('state');
             $table->string('country')->default('Italy');
 
-            $table->string('full_address')->nullable();
             $table->float('latitude');
             $table->float('longitude');
 
             $table->string('phone_number')->nullable()->unique();
             $table->string('email')->nullable()->unique();
-            $table->string('vat_id')->nullable()->unique();
             $table->decimal('min_amount')->default(0);
 
             $table->decimal('delivery_fee')->default(0);

@@ -4,7 +4,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Box, Drawer, IconButton, List } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-import MobilePartnerRestaurantNavigationItem from "./mobile/MobilePartnerRestaurantNavigationItem";
+import PartnerRestaurantNavigationItemMobile from "./mobile/PartnerRestaurantNavigationItemMobile";
 
 import { partnerRestaurantRoutes } from "@/lib/data";
 
@@ -21,7 +21,8 @@ export default function PartnerRestaurantDrawer() {
       <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
         <List dense sx={{ width: 200 }}>
           {partnerRestaurantRoutes(restaurantId).map((route) => (
-            <MobilePartnerRestaurantNavigationItem
+            <PartnerRestaurantNavigationItemMobile
+              key={route.href}
               route={route}
               setOpenDrawer={setOpenDrawer}
             />

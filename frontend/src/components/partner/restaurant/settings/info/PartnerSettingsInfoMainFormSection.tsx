@@ -125,16 +125,20 @@ export default function PartnerSettingsInfoMainFormSection() {
         )}
       />
 
-      <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={2}
+        sx={{ alignItems: "center" }}
+      >
         <Controller
           name="email"
           control={control}
           render={({ field }) => (
             <TextField
               {...field}
+              required
               variant="filled"
               autoComplete="off"
-              required
               label="Email address"
               error={!!errors.email}
               helperText={
@@ -159,6 +163,7 @@ export default function PartnerSettingsInfoMainFormSection() {
           render={({ field }) => (
             <MuiTelInput
               {...field}
+              required
               variant="filled"
               label="Phone number"
               defaultCountry="IT"
@@ -214,8 +219,8 @@ export default function PartnerSettingsInfoMainFormSection() {
             )}
             renderInput={(params) => (
               <TextField
-                {...field}
                 {...params}
+                required
                 label="Categories"
                 placeholder="Select categories"
                 variant="filled"
@@ -231,7 +236,7 @@ export default function PartnerSettingsInfoMainFormSection() {
         )}
       />
 
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
         <Stack direction="row" spacing={1}>
           <Controller
             name="logo"
@@ -243,6 +248,7 @@ export default function PartnerSettingsInfoMainFormSection() {
                 tabIndex={-1}
                 startIcon={<CloudUploadIcon />}
                 disabled={!editMode}
+                sx={{ flex: 1 }}
               >
                 Upload logo
                 <VisuallyHiddenInput
@@ -266,7 +272,11 @@ export default function PartnerSettingsInfoMainFormSection() {
           </Tooltip>
         </Stack>
 
-        <Divider orientation="vertical" flexItem />
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{ display: { xs: "none", sm: "block" } }}
+        />
 
         <Stack direction="row" spacing={1}>
           <Controller
@@ -279,6 +289,7 @@ export default function PartnerSettingsInfoMainFormSection() {
                 tabIndex={-1}
                 startIcon={<CloudUploadIcon />}
                 disabled={!editMode}
+                sx={{ flex: 1 }}
               >
                 Upload cover
                 <VisuallyHiddenInput

@@ -1,5 +1,5 @@
 import CustomerLoginFormCardDesktop from "./CustomerLoginFormCardDesktop";
-import CustomerLoginFormCardMobile from "./CustomerLoginFormCardMobile";
+import CustomerLoginFormCardMobile from "./mobile/CustomerLoginFormCardMobile";
 
 export default function CustomerLoginFormCard() {
   return (

@@ -13,6 +13,13 @@ export default function PartnerStatsDetailsYearSelect() {
   const { statsData, isLoadingStats, activeKpi, range, year, setYear } =
     usePartnerRestaurantStats();
 
+  const currentYear = new Date().getFullYear();
+
+  const availableYears =
+    statsData.filters.years.length > 0
+      ? statsData.filters.years
+      : [currentYear];
+
   function handleYearChange(e: SelectChangeEvent<number>) {
     setYear((prev) => ({ ...prev, [activeKpi]: e.target.value }));
   }
@@ -37,8 +44,8 @@ export default function PartnerStatsDetailsYearSelect() {
             },
           }}
         >
-          {statsData.filters.years.map((year, index) => (
-            <MenuItem key={index} value={year}>
+          {availableYears.map((year) => (
+            <MenuItem key={year} value={year}>
               {year}
             </MenuItem>
           ))}

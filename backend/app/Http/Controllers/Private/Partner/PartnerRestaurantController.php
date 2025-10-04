@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
+use App\Exceptions\Private\Partner\PartnerRestaurantApprovalException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantDeliveryTimesRequest;
@@ -80,6 +81,31 @@ class PartnerRestaurantController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update restaurant status.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Update a partner's restaurant approved status.
+     */
+    public function updateRestaurantApprovedStatus(Restaurant $restaurant): JsonResponse
+    {
+        Gate::authorize('update', $restaurant);
+
+        try {
+            $restaurant = $this->partnerRestaurantService->updateApprovedStatus(
+                $restaurant
+            );
+
+            return response()->json([
+                'restaurant' => $restaurant,
+                'message' => 'Restaurant approved status updated successfully.',
+            ], 200);
+        } catch (PartnerRestaurantApprovalException $e) {
+            return response()->json([], $e->getCode());
+        } catch (Throwable) {
+            return response()->json([
+                'message' => 'Could not update restaurant approved status.',
             ], 500);
         }
     }

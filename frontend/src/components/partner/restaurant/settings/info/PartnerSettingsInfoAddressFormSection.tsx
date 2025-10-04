@@ -17,7 +17,7 @@ export default function PartnerSettingsInfoAddressFormSection() {
     <Stack spacing={2}>
       <Typography variant="h6">Address info</Typography>
 
-      <Stack spacing={2} direction="row">
+      <Stack spacing={2} direction={{ xs: "column", sm: "row" }}>
         <Controller
           name="street_address"
           control={control}
@@ -79,7 +79,7 @@ export default function PartnerSettingsInfoAddressFormSection() {
         />
       </Stack>
 
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
         <Controller
           name="postcode"
           control={control}

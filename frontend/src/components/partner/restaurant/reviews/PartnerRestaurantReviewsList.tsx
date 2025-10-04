@@ -8,8 +8,6 @@ import { usePartnerRestaurantReviews } from "@/hooks/contexts/private/partner/us
 export default function PartnerRestaurantReviewsList() {
   const { reviewsData, page, setPage } = usePartnerRestaurantReviews();
 
-  const totalPages = reviewsData.reviews.last_page || 1;
-
   if (!reviewsData.count) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center" }}>
@@ -27,7 +25,7 @@ export default function PartnerRestaurantReviewsList() {
       <Box sx={{ alignSelf: "center" }}>
         <CustomPagination
           page={page}
-          totalPages={totalPages}
+          totalPages={reviewsData.reviews.last_page}
           setPage={setPage}
         />
       </Box>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
+use App\Exceptions\Private\Partner\PartnerRestaurantApprovalException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
@@ -34,6 +35,29 @@ class PartnerRestaurantService
     {
         $restaurant->update([
             'force_close' => $data['force_close'],
+        ]);
+
+        return $this->loadRestaurantRelations($restaurant);
+    }
+
+    public function updateApprovedStatus(Restaurant $restaurant): Restaurant
+    {
+        $isValid = $restaurant->delivery_time_min !== null &&
+            $restaurant->delivery_time_max !== null &&
+            $restaurant->phone_number !== null &&
+            $restaurant->email !== null &&
+            $restaurant->logo !== null &&
+            $restaurant->cover !== null &&
+            $restaurant->categories()->exists() &&
+            $restaurant->deliveryDays()->exists() &&
+            $restaurant->menuCategories()->whereHas('menuItems')->exists();
+
+        if (! $isValid) {
+            throw new PartnerRestaurantApprovalException;
+        }
+
+        $restaurant->update([
+            'is_approved' => true,
         ]);
 
         return $this->loadRestaurantRelations($restaurant);

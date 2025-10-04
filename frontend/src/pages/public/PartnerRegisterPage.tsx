@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import DesktopPartnerRegisterLayout from "@/components/partner/auth/register/layouts/DesktopPartnerRegisterLayout";
-import MobilePartnerRegisterLayout from "@/components/partner/auth/register/layouts/MobilePartnerRegisterLayout";
+import PartnerRegisterLayoutDesktop from "@/components/partner/auth/register/layouts/PartnerRegisterLayoutDesktop";
+import PartnerRegisterLayoutMobile from "@/components/partner/auth/register/layouts/PartnerRegisterLayoutMobile";
 
 export default function PartnerRegisterPage() {
   useEffect(() => {
@@ -10,8 +10,8 @@ export default function PartnerRegisterPage() {
 
   return (
     <>
-      <DesktopPartnerRegisterLayout />
-      <MobilePartnerRegisterLayout />
+      <PartnerRegisterLayoutDesktop />
+      <PartnerRegisterLayoutMobile />
     </>
   );
 }

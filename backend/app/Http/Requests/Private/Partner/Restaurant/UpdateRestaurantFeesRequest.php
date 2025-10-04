@@ -24,11 +24,11 @@ class UpdateRestaurantFeesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'delivery_fee' => ['required', 'numeric'],
-            'delivery_time_min' => ['required', 'numeric', 'lte:delivery_time_max'],
-            'delivery_time_max' => ['required', 'numeric'],
-            'service_fee' => ['required', 'numeric'],
-            'min_amount' => ['required', 'numeric'],
+            'delivery_fee' => ['sometimes', 'numeric', 'min:0'],
+            'delivery_time_min' => ['required', 'numeric', 'min:1', 'lte:delivery_time_max'],
+            'delivery_time_max' => ['required', 'numeric', 'min:1', 'gte:delivery_time_min'],
+            'service_fee' => ['sometimes', 'numeric', 'min:0'],
+            'min_amount' => ['sometimes', 'numeric', 'min:0'],
         ];
     }
 }

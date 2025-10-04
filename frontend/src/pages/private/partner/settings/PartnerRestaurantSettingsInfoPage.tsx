@@ -4,8 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import DesktopSettingsInfoLayout from "@/components/partner/restaurant/settings/info/layouts/DesktopSettingsInfoLayout";
-import MobileSettingsInfoLayout from "@/components/partner/restaurant/settings/info/layouts/MobileSettingsInfoLayout";
+import PartnerRestaurantSettingsInfoContainer from "@/components/partner/restaurant/settings/info/PartnerRestaurantSettingsInfoContainer";
 import PartnerRestaurantSettingsInfoProvider from "@/contexts/private/partner/PartnerRestaurantSettingsInfoProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantInfo } from "@/hooks/react-query/private/partners/restaurants/settings/info/useUpdatePartnerRestaurantInfo";
@@ -83,8 +82,7 @@ export default function PartnerRestaurantSettingsInfoPage() {
             autoComplete="off"
             noValidate
           >
-            <DesktopSettingsInfoLayout />
-            <MobileSettingsInfoLayout />
+            <PartnerRestaurantSettingsInfoContainer />
           </Box>
         </Container>
       </PartnerRestaurantSettingsInfoProvider>

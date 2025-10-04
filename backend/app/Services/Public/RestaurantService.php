@@ -193,7 +193,9 @@ class RestaurantService
 
     private function buildMeta(Builder $baseQuery, int $total): array
     {
-        $movCounts = ['all' => $baseQuery->count()];
+        $movCounts = [
+            'all' => $baseQuery->count(),
+        ];
 
         foreach (self::MOV_THRESHOLDS as $key => $value) {
             $movCounts[$key] = (clone $baseQuery)->where('min_amount', '<=', $value)->count();

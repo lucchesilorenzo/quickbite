@@ -90,7 +90,6 @@ class PartnerAuthService
             'postcode' => $data['postcode'],
             'city' => $data['city'],
             'state' => $data['state'],
-            'full_address' => "{$data['street_address']} {$data['building_number']}, {$data['postcode']} {$data['city']}, {$data['state']}",
             'latitude' => $locationData['lat'],
             'longitude' => $locationData['lon'],
         ]);
@@ -98,12 +97,13 @@ class PartnerAuthService
 
     private function setupDeliveryDays(Restaurant $restaurant): void
     {
-        $deliveryDays = collect(DeliveryDay::values())->map(fn ($day, $index): array => [
-            'day' => $day,
-            'start_time' => null,
-            'end_time' => null,
-            'order' => $index,
-        ]);
+        $deliveryDays = collect(DeliveryDay::values())
+            ->map(fn ($day, $index): array => [
+                'day' => $day,
+                'start_time' => null,
+                'end_time' => null,
+                'order' => $index,
+            ]);
 
         $restaurant->deliveryDays()->createMany($deliveryDays);
     }

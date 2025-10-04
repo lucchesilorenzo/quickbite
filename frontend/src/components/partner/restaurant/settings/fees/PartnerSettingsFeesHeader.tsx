@@ -25,8 +25,12 @@ export default function PartnerSettingsFeesHeader() {
 
   return (
     <Stack
-      direction="row"
-      sx={{ justifyContent: "space-between", alignItems: "center" }}
+      direction={{ xs: "column", sm: "row" }}
+      sx={{
+        justifyContent: { sm: "space-between" },
+        alignItems: { sm: "center" },
+        mb: { xs: 2, sm: 0 },
+      }}
     >
       <PartnerHeadingBlock
         title="Fees"

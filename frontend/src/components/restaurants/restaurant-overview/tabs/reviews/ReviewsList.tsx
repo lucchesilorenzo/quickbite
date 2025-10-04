@@ -8,12 +8,9 @@ import { useRestaurantReview } from "@/hooks/contexts/public/useRestaurantReview
 export default function ReviewsList() {
   const { reviewsData, page, setPage } = useRestaurantReview();
 
-  const reviews = reviewsData?.reviews.data || [];
-  const totalPages = reviewsData?.reviews.last_page || 1;
-
   return (
     <Stack spacing={1} component="ul" sx={{ listStyle: "none", px: 2 }}>
-      {reviews.map((review) => (
+      {reviewsData.reviews.data.map((review) => (
         <Review key={review.id} review={review} />
       ))}
 
@@ -21,7 +18,7 @@ export default function ReviewsList() {
         <CustomPagination
           context="reviews_page"
           page={page}
-          totalPages={totalPages}
+          totalPages={reviewsData.reviews.last_page}
           setPage={setPage}
         />
       </Box>

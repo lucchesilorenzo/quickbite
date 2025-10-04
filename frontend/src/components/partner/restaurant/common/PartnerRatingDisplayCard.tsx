@@ -44,7 +44,7 @@ export default function PartnerRatingDisplayCard({
               </Typography>
 
               <Rating
-                value={reviewsData.avg_rating || 0}
+                value={reviewsData.avg_rating}
                 icon={<StarIcon color="primary" fontSize="large" />}
                 emptyIcon={<StarBorderIcon color="primary" fontSize="large" />}
                 readOnly

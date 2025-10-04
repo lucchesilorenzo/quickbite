@@ -4,8 +4,7 @@ import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 
-import PartnerHeadingBlock from "../../common/PartnerHeadingBlock";
-
+import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsInfo";
 import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
 
@@ -25,8 +24,12 @@ export default function PartnerSettingsInfoHeader() {
 
   return (
     <Stack
-      direction="row"
-      sx={{ justifyContent: "space-between", alignItems: "center" }}
+      direction={{ xs: "column", sm: "row" }}
+      sx={{
+        justifyContent: { sm: "space-between" },
+        alignItems: { sm: "center" },
+        mb: { xs: 2, sm: 0 },
+      }}
     >
       <PartnerHeadingBlock
         title="Restaurant info"

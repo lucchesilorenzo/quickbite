@@ -4,8 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import DesktopSettingsFeesLayout from "@/components/partner/restaurant/settings/fees/layouts/DesktopSettingsFeesLayout";
-import MobileSettingsFeesLayout from "@/components/partner/restaurant/settings/fees/layouts/MobileSettingsFeesLayout";
+import PartnerSettingsFeesContainer from "@/components/partner/restaurant/settings/fees/PartnerSettingsFeesContainer";
 import PartnerRestaurantSettingsFeesProvider from "@/contexts/private/partner/PartnerRestaurantSettingsFeesProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partners/restaurants/settings/fees/useUpdatePartnerRestaurantSettingsFees";
@@ -27,11 +26,11 @@ export default function PartnerRestaurantSettingsFeesPage() {
   const methods = useForm({
     resolver: zodResolver(partnerRestaurantSettingsFeesFormSchema),
     defaultValues: {
-      delivery_fee: restaurant.delivery_fee || "",
+      delivery_fee: restaurant.delivery_fee,
       delivery_time_min: restaurant.delivery_time_min || "",
       delivery_time_max: restaurant.delivery_time_max || "",
-      service_fee: restaurant.service_fee || "",
-      min_amount: restaurant.min_amount || "",
+      service_fee: restaurant.service_fee,
+      min_amount: restaurant.min_amount,
     },
   });
 
@@ -51,8 +50,7 @@ export default function PartnerRestaurantSettingsFeesPage() {
             autoComplete="off"
             noValidate
           >
-            <DesktopSettingsFeesLayout />
-            <MobileSettingsFeesLayout />
+            <PartnerSettingsFeesContainer />
           </Box>
         </Container>
       </PartnerRestaurantSettingsFeesProvider>
