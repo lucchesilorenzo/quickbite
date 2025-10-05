@@ -18,7 +18,7 @@ export type Order = {
   postcode: string;
   city: string;
   delivery_time: string;
-  notes?: string;
+  notes: string | null;
   payment_method: string;
   order_items: OrderItem[];
   subtotal: number;
@@ -87,19 +87,13 @@ export type AddressInfo = Pick<
   "street_address" | "building_number" | "postcode" | "city"
 >;
 
-export type DeliveryTime = Pick<Order, "delivery_time">;
-
-export type OrderNotes = Pick<Order, "notes">;
-
-export type PaymentMethod = Pick<Order, "payment_method">;
-
 export type CheckoutData = {
   [restaurantId: string]: {
     personal_info: PersonalInfo;
     address_info: AddressInfo;
-    delivery_time: DeliveryTime | null;
-    order_notes: OrderNotes | null;
-    payment_method: PaymentMethod | null;
+    delivery_time: string | null;
+    notes: string | null;
+    payment_method: string | null;
   };
 };
 
