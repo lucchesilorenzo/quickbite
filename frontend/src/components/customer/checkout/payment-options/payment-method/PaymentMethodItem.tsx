@@ -51,8 +51,7 @@ export default function PaymentMethodItem() {
             </ListItemIcon>
           </Stack>
 
-          {checkoutData[restaurantId].payment_method?.payment_method ===
-            "cash" && (
+          {checkoutData[restaurantId].payment_method === "cash" && (
             <Box sx={{ bgcolor: yellow[100], p: 2, borderRadius: 3, my: 1 }}>
               <Typography variant="body1">
                 You will pay the exact amount in cash to the delivery person. If

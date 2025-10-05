@@ -19,7 +19,10 @@ import {
   checkoutDeliveryTimeFormSchema,
 } from "@/validations/checkout-validations";
 
-const deliveryTimes = [{ label: "As soon as possible", value: "asap" }];
+const deliveryScheduleOptions = [
+  { label: "As soon as possible", value: "asap" },
+  { label: "Schedule for later", value: "schedule" },
+];
 
 type DeliveryTimeFormProps = {
   setOpenDeliveryTimeDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,8 +40,7 @@ export default function DeliveryTimeForm({
   } = useForm({
     resolver: zodResolver(checkoutDeliveryTimeFormSchema),
     defaultValues: {
-      delivery_time:
-        checkoutData[restaurantId].delivery_time?.delivery_time || "",
+      delivery_time: checkoutData[restaurantId].delivery_time || "",
     },
   });
 
@@ -47,7 +49,7 @@ export default function DeliveryTimeForm({
       ...prev,
       [restaurantId]: {
         ...prev[restaurantId],
-        delivery_time: data,
+        ...data,
       },
     }));
     setOpenDeliveryTimeDialog(false);
@@ -67,7 +69,7 @@ export default function DeliveryTimeForm({
         render={({ field }) => {
           return (
             <List disablePadding>
-              {deliveryTimes.map((option, index) => (
+              {deliveryScheduleOptions.map((option, index) => (
                 <Box key={option.value}>
                   <ListItem disablePadding disableGutters>
                     <ListItemButton
@@ -92,7 +94,7 @@ export default function DeliveryTimeForm({
                     </ListItemButton>
                   </ListItem>
 
-                  {index !== deliveryTimes.length - 1 && <Divider />}
+                  {index !== deliveryScheduleOptions.length - 1 && <Divider />}
                 </Box>
               ))}
 
@@ -104,7 +106,7 @@ export default function DeliveryTimeForm({
         }}
       />
 
-      <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+      <Stack direction="row" sx={{ justifyContent: "flex-end", p: 2 }}>
         <Button
           type="submit"
           disabled={isSubmitting}
@@ -114,7 +116,7 @@ export default function DeliveryTimeForm({
         >
           Save
         </Button>
-      </Box>
+      </Stack>
     </Stack>
   );
 }

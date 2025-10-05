@@ -31,7 +31,7 @@ export default function CustomerCheckoutProvider({
   const { cartId } = useParams();
   const { user } = useAuth();
 
-  const { data: cart, isLoading: isCartLoading } = useGetCustomerCart(cartId);
+  const { data: cart, isLoading: isLoadingCart } = useGetCustomerCart(cartId);
   const restaurantId = cart?.restaurant.id;
 
   const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
@@ -65,7 +65,7 @@ export default function CustomerCheckoutProvider({
             city: user?.city || "",
           },
           delivery_time: null,
-          order_notes: null,
+          notes: null,
           payment_method: null,
         },
       };
@@ -88,7 +88,7 @@ export default function CustomerCheckoutProvider({
     });
   }
 
-  if (isCartLoading || isLoadingOffers || !isCheckoutReady) {
+  if (isLoadingCart || isLoadingOffers || !isCheckoutReady) {
     return <FullPageSpinner />;
   }
 

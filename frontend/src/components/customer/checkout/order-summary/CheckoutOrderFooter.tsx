@@ -80,12 +80,12 @@ export default function CheckoutOrderFooter() {
       return;
     }
 
-    const order: CreateOrder = {
+    const order = {
       ...checkoutData[restaurantId].personal_info,
       ...checkoutData[restaurantId].address_info,
-      ...checkoutData[restaurantId].delivery_time,
-      ...checkoutData[restaurantId].order_notes,
-      ...checkoutData[restaurantId].payment_method,
+      payment_method: checkoutData[restaurantId].payment_method,
+      delivery_time: checkoutData[restaurantId].delivery_time,
+      notes: checkoutData[restaurantId].notes,
       restaurant_id: cart.restaurant.id,
       order_items: cart.items.map((i) => ({
         menu_item_id: i.id,
@@ -99,7 +99,7 @@ export default function CheckoutOrderFooter() {
       discount_rate: bestOffer?.discount_rate || 0,
       discount,
       total,
-    };
+    } satisfies CreateOrder;
 
     const { order: newOrder } = await createOrder(order);
     await deleteCart();

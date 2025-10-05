@@ -25,7 +25,7 @@ export default function OrderNotesForm({
   } = useForm({
     resolver: zodResolver(checkoutOrderNotesFormSchema),
     defaultValues: {
-      notes: checkoutData[restaurantId].order_notes?.notes || "",
+      notes: checkoutData[restaurantId].notes || "",
     },
   });
 
@@ -34,7 +34,7 @@ export default function OrderNotesForm({
       ...prev,
       [restaurantId]: {
         ...prev[restaurantId],
-        order_notes: data,
+        ...data,
       },
     }));
     setOpenOrderNotesDialog(false);

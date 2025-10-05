@@ -38,8 +38,7 @@ export default function PaymentMethodForm({
   } = useForm({
     resolver: zodResolver(checkoutPaymentMethodFormSchema),
     defaultValues: {
-      payment_method:
-        checkoutData[restaurantId].payment_method?.payment_method || "",
+      payment_method: checkoutData[restaurantId].payment_method || "",
     },
   });
 
@@ -48,7 +47,7 @@ export default function PaymentMethodForm({
       ...prev,
       [restaurantId]: {
         ...prev[restaurantId],
-        payment_method: data,
+        ...data,
       },
     }));
     setOpenPaymentMethodDialog(false);
