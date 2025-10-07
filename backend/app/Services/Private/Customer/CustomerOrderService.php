@@ -36,7 +36,7 @@ class CustomerOrderService
         return DB::transaction(function () use ($customer, $data) {
             $restaurant = Restaurant::findOrFail($data['restaurant_id']);
 
-            if (! $restaurant->calculateIsOpen() || $data['subtotal'] < $restaurant->min_amount) {
+            if (! $restaurant->is_open || $data['subtotal'] < $restaurant->min_amount) {
                 throw new CustomerRestaurantNotAvailableException;
             }
 
@@ -51,9 +51,7 @@ class CustomerOrderService
                 'building_number' => $data['building_number'],
                 'postcode' => $data['postcode'],
                 'city' => $data['city'],
-                'delivery_time' => $data['delivery_time'] === 'asap'
-                    ? now()->format('H:i:s')
-                    : $data['delivery_time'],
+                'delivery_time' => $data['delivery_time'],
                 'notes' => $data['notes'] ?? null,
                 'payment_method' => $data['payment_method'],
                 'subtotal' => $data['subtotal'],
