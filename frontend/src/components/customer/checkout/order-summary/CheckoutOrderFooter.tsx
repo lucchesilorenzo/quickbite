@@ -53,24 +53,26 @@ export default function CheckoutOrderFooter() {
     discount;
 
   async function handleOrderCheckout() {
+    const restaurantCheckoutData = checkoutData[restaurantId];
+
     const isPersonalInfoValid =
-      checkoutData[restaurantId].personal_info &&
-      checkoutData[restaurantId].personal_info.first_name.trim() &&
-      checkoutData[restaurantId].personal_info.last_name.trim() &&
-      checkoutData[restaurantId].personal_info.phone_number.trim();
+      restaurantCheckoutData.personal_info &&
+      restaurantCheckoutData.personal_info.first_name.trim() &&
+      restaurantCheckoutData.personal_info.last_name.trim() &&
+      restaurantCheckoutData.personal_info.phone_number.trim();
 
     const isAddressValid =
-      checkoutData[restaurantId].address_info &&
-      checkoutData[restaurantId].address_info.street_address.trim() &&
-      checkoutData[restaurantId].address_info.building_number.trim() &&
-      checkoutData[restaurantId].address_info.postcode.trim() &&
-      checkoutData[restaurantId].address_info.city.trim();
+      restaurantCheckoutData.address_info &&
+      restaurantCheckoutData.address_info.street_address.trim() &&
+      restaurantCheckoutData.address_info.building_number.trim() &&
+      restaurantCheckoutData.address_info.postcode.trim() &&
+      restaurantCheckoutData.address_info.city.trim();
 
     if (
       !isPersonalInfoValid ||
       !isAddressValid ||
-      !checkoutData[restaurantId].delivery_time ||
-      !checkoutData[restaurantId].payment_method
+      !restaurantCheckoutData.delivery_time ||
+      !restaurantCheckoutData.payment_method
     ) {
       notifications.show("Please fill in all the required fields.", {
         key: "checkout-error",
@@ -81,11 +83,14 @@ export default function CheckoutOrderFooter() {
     }
 
     const order = {
-      ...checkoutData[restaurantId].personal_info,
-      ...checkoutData[restaurantId].address_info,
-      payment_method: checkoutData[restaurantId].payment_method,
-      delivery_time: checkoutData[restaurantId].delivery_time,
-      notes: checkoutData[restaurantId].notes,
+      ...restaurantCheckoutData.personal_info,
+      ...restaurantCheckoutData.address_info,
+      payment_method: restaurantCheckoutData.payment_method,
+      delivery_time:
+        restaurantCheckoutData.delivery_time.type === "asap"
+          ? restaurantCheckoutData.delivery_time.type
+          : restaurantCheckoutData.delivery_time.value,
+      notes: restaurantCheckoutData.notes,
       restaurant_id: cart.restaurant.id,
       order_items: cart.items.map((i) => ({
         menu_item_id: i.id,
