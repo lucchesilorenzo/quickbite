@@ -24,7 +24,7 @@ class CustomerProfileController extends Controller
         CustomerUpdatePersonalInfoRequest $request
     ): JsonResponse {
         try {
-            $customer = $this->customerProfileService->updateProfile(
+            $customer = $this->customerProfileService->updatePersonalInfo(
                 auth()->user(),
                 $request->validated()
             );
