@@ -20,6 +20,18 @@ class CustomerCreateOrderRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'delivery_time' => $this->input('delivery_time') === 'asap'
+                ? now()->toIso8601String()
+                : $this->input('delivery_time'),
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -35,7 +47,7 @@ class CustomerCreateOrderRequest extends FormRequest
             'building_number' => ['required', 'string', 'min:1', 'max:50'],
             'postcode' => ['required', 'string', 'min:1', 'max:50'],
             'city' => ['required', 'string', 'min:1', 'max:50'],
-            'delivery_time' => ['required', 'string', 'min:1', 'max:5'],
+            'delivery_time' => ['required', 'date', 'after_or_equal:now'],
             'notes' => ['nullable', 'string', 'max:160'],
             'payment_method' => ['required', Rule::enum(PaymentMethod::class)],
             'subtotal' => ['required', 'numeric', 'min:0'],
