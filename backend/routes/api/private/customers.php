@@ -28,7 +28,8 @@ Route::prefix('customer')->group(function () {
     Route::prefix('profile')
         ->middleware(['auth:sanctum', 'role:customer'])
         ->group(function () {
-            Route::patch('/', [CustomerProfileController::class, 'updateCustomerProfile']);
+            Route::patch('/personal-info', [CustomerProfileController::class, 'updatePersonalInfo']);
+            Route::patch('/address-info', [CustomerProfileController::class, 'updateAddressInfo']);
         });
 
     // === CARTS MANAGEMENT ===

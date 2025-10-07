@@ -79,6 +79,7 @@ export default function CustomerCheckoutProvider({
             building_number: user?.building_number || "",
             postcode: user?.postcode || "",
             city: user?.city || "",
+            state: user?.state || "",
           },
           delivery_time: {
             type: null,

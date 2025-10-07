@@ -17,6 +17,8 @@ export type Order = {
   building_number: string;
   postcode: string;
   city: string;
+  state: string;
+  country: string;
   delivery_time: string;
   notes: string | null;
   payment_method: string;
@@ -73,6 +75,7 @@ export type CreateOrder = Omit<
   | "user_id"
   | "order_items"
   | "restaurant"
+  | "country"
 > & {
   order_items: CreateOrderItem[];
 };
@@ -84,7 +87,7 @@ export type PersonalInfo = Pick<
 
 export type AddressInfo = Pick<
   Order,
-  "street_address" | "building_number" | "postcode" | "city"
+  "street_address" | "building_number" | "postcode" | "city" | "state"
 >;
 
 export type CheckoutData = {

@@ -91,7 +91,7 @@ export default function OrderItem({ order }: OrderItemProps) {
 
               <Typography variant="body2" gutterBottom>
                 {order.street_address} {order.building_number}, {order.postcode}{" "}
-                {order.city}
+                {order.city}, {order.state}
               </Typography>
             </Stack>
 

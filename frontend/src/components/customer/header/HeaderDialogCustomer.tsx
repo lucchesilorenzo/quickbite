@@ -120,7 +120,7 @@ export default function HeaderDialogCustomer({
                   },
                 }}
               >
-                View personal details
+                View profile
               </Typography>
             </Box>
 

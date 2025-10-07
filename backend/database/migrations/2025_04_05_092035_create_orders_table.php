@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('building_number');
             $table->string('postcode');
             $table->string('city');
+            $table->string('state');
             $table->string('country')->default('Italy');
             $table->timestamp('delivery_time');
             $table->string('notes', 160)->nullable();

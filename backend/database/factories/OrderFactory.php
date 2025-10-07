@@ -33,6 +33,7 @@ class OrderFactory extends Factory
             'building_number' => fake()->buildingNumber(),
             'postcode' => fake()->postcode(),
             'city' => fake()->city(),
+            'state' => fake()->state(),
             'country' => 'Italy',
             'delivery_time' => fake()->iso8601(),
             'notes' => fake()->optional()->text(100),

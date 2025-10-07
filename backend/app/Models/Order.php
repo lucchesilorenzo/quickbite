@@ -26,6 +26,7 @@ class Order extends Model
         'building_number',
         'postcode',
         'city',
+        'state',
         'country',
         'delivery_time',
         'notes',

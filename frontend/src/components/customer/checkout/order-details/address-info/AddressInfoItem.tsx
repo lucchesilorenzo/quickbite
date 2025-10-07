@@ -13,6 +13,7 @@ import AddressInfoDialog from "./AddressInfoDialog";
 
 import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { formatAddress } from "@/lib/utils";
 
 export default function AddressInfoItem() {
   const { user } = useAuth();
@@ -20,23 +21,10 @@ export default function AddressInfoItem() {
 
   const [openAddressInfoDialog, setOpenAddressInfoDialog] = useState(false);
 
-  const hasUserAddress =
-    user?.street_address &&
-    user?.building_number &&
-    user?.postcode &&
-    user?.city;
-
-  const hasAddressInfo =
-    checkoutData[restaurantId].address_info?.street_address &&
-    checkoutData[restaurantId].address_info?.building_number &&
-    checkoutData[restaurantId].address_info?.postcode &&
-    checkoutData[restaurantId].address_info?.city;
-
-  const text = hasAddressInfo
-    ? `${checkoutData[restaurantId].address_info!.street_address} ${checkoutData[restaurantId].address_info!.building_number}, ${checkoutData[restaurantId].address_info!.postcode} ${checkoutData[restaurantId].address_info!.city}`
-    : hasUserAddress
-      ? `${user!.street_address} ${user!.building_number}, ${user!.postcode} ${user!.city}`
-      : "Complete address is required";
+  const address =
+    formatAddress(checkoutData[restaurantId].address_info) ||
+    formatAddress(user) ||
+    "Complete address is required";
 
   return (
     <>
@@ -48,7 +36,9 @@ export default function AddressInfoItem() {
           <ListItemIcon>
             <FmdGoodOutlinedIcon color="primary" />
           </ListItemIcon>
-          <ListItemText primary={text} />
+
+          <ListItemText primary={address} />
+
           <ListItemIcon sx={{ justifyContent: "flex-end" }}>
             <ArrowForwardIosIcon color="inherit" />
           </ListItemIcon>

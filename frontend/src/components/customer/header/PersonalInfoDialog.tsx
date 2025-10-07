@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import PersonalInfoEditContainer from "./personal-info/PersonalInfoEditContainer";
+import ProfileEditContainer from "./profile/ProfileEditContainer";
 
 type PersonalInfoDialogProps = {
   openPersonalInfoDialog: boolean;
@@ -44,7 +44,7 @@ export default function PersonalInfoDialog({
       fullScreen={isMobile}
       disableRestoreFocus
     >
-      <Stack spacing={2} sx={{ p: 4 }}>
+      <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" spacing={2}>
           <IconButton
             color="inherit"
@@ -60,12 +60,12 @@ export default function PersonalInfoDialog({
             variant={isMobile ? "h6" : "h5"}
             sx={{ p: 0, fontWeight: 700 }}
           >
-            Personal info
+            Edit profile
           </DialogTitle>
         </Stack>
 
         <DialogContent sx={{ p: 1 }}>
-          <PersonalInfoEditContainer />
+          <ProfileEditContainer />
         </DialogContent>
       </Stack>
     </Dialog>

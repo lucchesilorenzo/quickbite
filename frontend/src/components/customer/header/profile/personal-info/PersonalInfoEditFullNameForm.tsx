@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerProfile";
+import { useUpdateCustomerPersonalInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerPersonalInfo";
 import { isCustomer } from "@/lib/utils";
 import {
   TPersonalInfoEditFullNameFormSchema,
@@ -13,7 +13,8 @@ import {
 
 export default function PersonalInfoEditFullNameForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerProfile } = useUpdateCustomerProfile();
+  const { mutateAsync: updateCustomerFullName } =
+    useUpdateCustomerPersonalInfo();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -30,7 +31,7 @@ export default function PersonalInfoEditFullNameForm() {
   });
 
   async function onSubmit(data: TPersonalInfoEditFullNameFormSchema) {
-    await updateCustomerProfile(data);
+    await updateCustomerFullName(data);
   }
 
   return (
