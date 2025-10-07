@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Customer;
 
+use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Profile\CustomerUpdateAddressInfoRequest;
 use App\Http\Requests\Private\Customer\Profile\CustomerUpdatePersonalInfoRequest;
@@ -47,7 +48,7 @@ class CustomerProfileController extends Controller
         CustomerUpdateAddressInfoRequest $request
     ): JsonResponse {
         try {
-            $customer = $this->customerProfileService->updateProfile(
+            $customer = $this->customerProfileService->updateAddressInfo(
                 auth()->user(),
                 $request->validated()
             );
@@ -56,6 +57,10 @@ class CustomerProfileController extends Controller
                 'customer' => $customer,
                 'message' => 'Address information updated successfully.',
             ], 200);
+        } catch (LocationNotFoundException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update address information.',
