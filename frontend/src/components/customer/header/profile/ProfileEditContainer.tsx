@@ -6,7 +6,7 @@ import PersonalInfoEditEmailForm from "./personal-info/PersonalInfoEditEmailForm
 import PersonalInfoEditFullNameForm from "./personal-info/PersonalInfoEditFullNameForm";
 import PersonalInfoEditPhoneNumberForm from "./personal-info/PersonalInfoPhoneNumberForm";
 
-export default function PersonalDetailsEditContainer() {
+export default function ProfileEditContainer() {
   return (
     <Stack spacing={4}>
       <Typography variant="h6">Personal info</Typography>

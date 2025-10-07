@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import PersonalDetailsEditContainer from "./personal-details/PersonalDetailsEditContainer";
+import ProfileEditContainer from "./profile/ProfileEditContainer";
 
 type PersonalInfoDialogProps = {
   openPersonalInfoDialog: boolean;
@@ -65,7 +65,7 @@ export default function PersonalInfoDialog({
         </Stack>
 
         <DialogContent sx={{ p: 1 }}>
-          <PersonalDetailsEditContainer />
+          <ProfileEditContainer />
         </DialogContent>
       </Stack>
     </Dialog>
