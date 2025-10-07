@@ -5,9 +5,15 @@ import { useParams } from "react-router-dom";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useGetCustomerCart } from "@/hooks/react-query/private/customers/carts/useGetCustomerCart";
+import { useGetRestaurantDeliverySlots } from "@/hooks/react-query/public/restaurants/useGetRestaurantDeliverySlots";
 import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
-import { offersDefaults } from "@/lib/query-defaults";
-import { CheckoutData, OfferWithPagination, RestaurantCart } from "@/types";
+import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
+import {
+  CheckoutData,
+  DeliverySlots,
+  OfferWithPagination,
+  RestaurantCart,
+} from "@/types";
 
 type CustomerCheckoutProviderProps = {
   children: React.ReactNode;
@@ -18,6 +24,9 @@ type CustomerCheckoutContext = {
   checkoutData: CheckoutData;
   restaurantId: string;
   offersData: OfferWithPagination;
+  deliverySlots: DeliverySlots;
+  isLoadingDeliverySlots: boolean;
+  setFetchDeliverySlots: React.Dispatch<React.SetStateAction<boolean>>;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
   emptyCheckoutData: (restaurantId: string) => void;
 };
@@ -31,11 +40,18 @@ export default function CustomerCheckoutProvider({
   const { cartId } = useParams();
   const { user } = useAuth();
 
+  const [fetchDeliverySlots, setFetchDeliverySlots] = useState(false);
+
   const { data: cart, isLoading: isLoadingCart } = useGetCustomerCart(cartId);
   const restaurantId = cart?.restaurant.id;
 
   const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
     useGetRestaurantOffers(restaurantId!);
+
+  const {
+    data: deliverySlots = deliverySlotsDefaults,
+    isLoading: isLoadingDeliverySlots,
+  } = useGetRestaurantDeliverySlots(restaurantId!, fetchDeliverySlots);
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
     const stored = localStorage.getItem("checkout_data_by_restaurant");
@@ -64,7 +80,10 @@ export default function CustomerCheckoutProvider({
             postcode: user?.postcode || "",
             city: user?.city || "",
           },
-          delivery_time: null,
+          delivery_time: {
+            type: null,
+            value: "",
+          },
           notes: null,
           payment_method: null,
         },
@@ -99,6 +118,9 @@ export default function CustomerCheckoutProvider({
         checkoutData,
         restaurantId,
         offersData,
+        deliverySlots,
+        isLoadingDeliverySlots,
+        setFetchDeliverySlots,
         setCheckoutData,
         emptyCheckoutData,
       }}
