@@ -27,6 +27,20 @@ export function formatCurrency(price: number) {
   }).format(price);
 }
 
+export function formatAddress(address?: Partial<User | null>) {
+  if (
+    !address?.street_address ||
+    !address?.building_number ||
+    !address?.postcode ||
+    !address?.city ||
+    !address?.state
+  ) {
+    return null;
+  }
+
+  return `${address.street_address} ${address.building_number}, ${address.postcode} ${address.city}, ${address.state}`;
+}
+
 export function capitalize(text: string) {
   return text[0].toUpperCase() + text.slice(1).toLowerCase();
 }
