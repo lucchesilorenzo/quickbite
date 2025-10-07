@@ -7,7 +7,7 @@ export * from "./review-types";
 export * from "./order-types";
 export * from "./menu-types";
 export * from "./offer-types";
-export * from "./delivery-day-types";
+export * from "./delivery-types";
 export * from "./stat-types";
 export * from "./notification-types";
 export * from "./pagination-types";

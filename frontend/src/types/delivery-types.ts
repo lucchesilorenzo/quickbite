@@ -14,3 +14,8 @@ export type DeliveryDay = {
   created_at: string;
   updated_at: string;
 };
+
+export type DeliverySlots = {
+  is_asap_available: boolean;
+  delivery_slots: string[];
+};
