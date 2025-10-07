@@ -1,33 +1,35 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack } from "@mui/material";
+import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerProfile";
+import { useUpdateCustomerPersonalInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerPersonalInfo";
 import { isCustomer } from "@/lib/utils";
 import {
-  TAddressInfoEditStreetAddressFormSchema,
-  addressInfoEditStreetAddressFormSchema,
+  TPersonalInfoEditPhoneNumberFormSchema,
+  personalInfoEditPhoneNumberFormSchema,
 } from "@/validations/personal-info-validations";
 
-export default function AddressInfoEditStreetAddressForm() {
+export default function PersonalInfoEditPhoneNumberForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerProfile } = useUpdateCustomerProfile();
+  const { mutateAsync: updateCustomerPhoneNumber } =
+    useUpdateCustomerPersonalInfo();
 
   const {
     handleSubmit,
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(addressInfoEditStreetAddressFormSchema),
+    resolver: zodResolver(personalInfoEditPhoneNumberFormSchema),
     defaultValues: {
-      street_address: isCustomer(user) ? (user.street_address ?? "") : "",
+      phone_number: isCustomer(user) ? user.phone_number : "",
     },
   });
 
-  async function onSubmit(data: TAddressInfoEditStreetAddressFormSchema) {
-    await updateCustomerProfile(data);
+  async function onSubmit(data: TPersonalInfoEditPhoneNumberFormSchema) {
+    await updateCustomerPhoneNumber(data);
   }
 
   return (
@@ -39,22 +41,23 @@ export default function AddressInfoEditStreetAddressForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Controller
-        name="street_address"
+        name="phone_number"
         control={control}
         render={({ field }) => (
-          <TextField
+          <MuiTelInput
             {...field}
-            autoComplete="off"
             required
-            label="Street address"
-            error={!!errors.street_address}
+            label="Phone number"
+            defaultCountry="IT"
+            onlyCountries={["IT"]}
+            forceCallingCode
+            disableDropdown
+            error={!!errors.phone_number}
             helperText={
-              errors.street_address?.message && (
-                <FormHelperTextError message={errors.street_address.message} />
+              errors.phone_number?.message && (
+                <FormHelperTextError message={errors.phone_number.message} />
               )
             }
-            fullWidth
-            sx={{ minWidth: 150 }}
           />
         )}
       />
@@ -67,7 +70,7 @@ export default function AddressInfoEditStreetAddressForm() {
           loadingIndicator="Editing..."
           variant="contained"
         >
-          Edit street address
+          Edit phone number
         </Button>
       )}
     </Stack>

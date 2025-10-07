@@ -4,30 +4,30 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerProfile";
+import { useUpdateCustomerPersonalInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerPersonalInfo";
 import { isCustomer } from "@/lib/utils";
 import {
-  TAddressInfoEditCityFormSchema,
-  addressInfoEditCityFormSchema,
+  TPersonalInfoEditEmailFormSchema,
+  personalInfoEditEmailFormSchema,
 } from "@/validations/personal-info-validations";
 
-export default function AddressInfoEditCityForm() {
+export default function PersonalInfoEditEmailForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerProfile } = useUpdateCustomerProfile();
+  const { mutateAsync: updateCustomerEmail } = useUpdateCustomerPersonalInfo();
 
   const {
     handleSubmit,
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(addressInfoEditCityFormSchema),
+    resolver: zodResolver(personalInfoEditEmailFormSchema),
     defaultValues: {
-      city: isCustomer(user) ? (user.city ?? "") : "",
+      email: isCustomer(user) ? user.email : "",
     },
   });
 
-  async function onSubmit(data: TAddressInfoEditCityFormSchema) {
-    await updateCustomerProfile(data);
+  async function onSubmit(data: TPersonalInfoEditEmailFormSchema) {
+    await updateCustomerEmail(data);
   }
 
   return (
@@ -39,18 +39,19 @@ export default function AddressInfoEditCityForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Controller
-        name="city"
+        name="email"
         control={control}
         render={({ field }) => (
           <TextField
             {...field}
+            type="email"
             autoComplete="off"
             required
-            label="City"
-            error={!!errors.city}
+            label="Email address"
+            error={!!errors.email}
             helperText={
-              errors.city?.message && (
-                <FormHelperTextError message={errors.city.message} />
+              errors.email?.message && (
+                <FormHelperTextError message={errors.email.message} />
               )
             }
             fullWidth
@@ -67,7 +68,7 @@ export default function AddressInfoEditCityForm() {
           loadingIndicator="Editing..."
           variant="contained"
         >
-          Edit city
+          Edit email
         </Button>
       )}
     </Stack>

@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerProfile } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerProfile";
+import { useUpdateCustomerPersonalInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerPersonalInfo";
 import { isCustomer } from "@/lib/utils";
 import {
   TPersonalInfoEditDateOfBirthFormSchema,
@@ -15,7 +15,8 @@ import {
 
 export default function PersonalInfoEditDateOfBirthForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerProfile } = useUpdateCustomerProfile();
+  const { mutateAsync: updateCustomerDateOfBirth } =
+    useUpdateCustomerPersonalInfo();
 
   const {
     handleSubmit,
@@ -29,7 +30,7 @@ export default function PersonalInfoEditDateOfBirthForm() {
   });
 
   async function onSubmit(data: TPersonalInfoEditDateOfBirthFormSchema) {
-    await updateCustomerProfile(data);
+    await updateCustomerDateOfBirth(data);
   }
 
   return (
