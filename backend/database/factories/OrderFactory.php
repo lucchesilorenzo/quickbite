@@ -34,7 +34,7 @@ class OrderFactory extends Factory
             'postcode' => fake()->postcode(),
             'city' => fake()->city(),
             'country' => 'Italy',
-            'delivery_time' => fake()->time('H:i'),
+            'delivery_time' => fake()->iso8601(),
             'notes' => fake()->optional()->text(100),
             'payment_method' => fake()->randomElement(['cash']),
             'subtotal' => fake()->randomFloat(2, 10, 100),

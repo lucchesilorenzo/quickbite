@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('postcode');
             $table->string('city');
             $table->string('country')->default('Italy');
-            $table->time('delivery_time');
+            $table->timestamp('delivery_time');
             $table->string('notes', 160)->nullable();
             $table->enum('payment_method', PaymentMethod::values());
             $table->decimal('subtotal');
