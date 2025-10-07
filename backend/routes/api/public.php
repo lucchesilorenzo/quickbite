@@ -14,17 +14,13 @@ Route::prefix('restaurants')->group(function () {
     Route::get('/', [RestaurantController::class, 'getRestaurants']);
     Route::get('/{restaurantSlug}', [RestaurantController::class, 'getRestaurant']);
 
-    // Reviews
-    Route::get('/{restaurant}/reviews', [RestaurantReviewController::class, 'getRestaurantReviews']);
-
-    // Offers
-    Route::get('/{restaurant}/offers', [RestaurantOfferController::class, 'getRestaurantOffers']);
-
-    // Menu
-    Route::get('/{restaurant}/menu', [RestaurantMenuController::class, 'getRestaurantMenu']);
-
-    // Logo
-    Route::get('/{restaurant}/base64-logo', [RestaurantController::class, 'getBase64Logo']);
+    Route::prefix('{restaurant}')->group(function () {
+        Route::get('/delivery-slots', [RestaurantController::class, 'getRestaurantDeliverySlots']);
+        Route::get('/reviews', [RestaurantReviewController::class, 'getRestaurantReviews']);
+        Route::get('/offers', [RestaurantOfferController::class, 'getRestaurantOffers']);
+        Route::get('/menu', [RestaurantMenuController::class, 'getRestaurantMenu']);
+        Route::get('/base64-logo', [RestaurantController::class, 'getBase64Logo']);
+    });
 });
 
 // === CATEGORIES ===
