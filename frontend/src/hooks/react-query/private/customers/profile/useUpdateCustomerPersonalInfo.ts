@@ -4,23 +4,23 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { updateData } from "@/lib/api-client";
 import { PersonalInfoField } from "@/validations/personal-info-validations";
 
-export function useUpdateCustomerProfile() {
+export function useUpdateCustomerPersonalInfo() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
     mutationFn: (data: PersonalInfoField) =>
-      updateData("/customer/profile", data),
+      updateData("/customer/profile/personal-info", data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       notifications.show(response.message, {
-        key: "update-customer-profile-success",
+        key: "update-customer-personal-info-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-customer-profile-error",
+        key: "update-customer-personal-info-error",
         severity: "error",
       });
     },
