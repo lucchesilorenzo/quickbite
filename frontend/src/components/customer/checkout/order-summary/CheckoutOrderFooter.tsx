@@ -66,7 +66,8 @@ export default function CheckoutOrderFooter() {
       restaurantCheckoutData.address_info.street_address.trim() &&
       restaurantCheckoutData.address_info.building_number.trim() &&
       restaurantCheckoutData.address_info.postcode.trim() &&
-      restaurantCheckoutData.address_info.city.trim();
+      restaurantCheckoutData.address_info.city.trim() &&
+      restaurantCheckoutData.address_info.state.trim();
 
     if (
       !isPersonalInfoValid ||
