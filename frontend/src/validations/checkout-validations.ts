@@ -48,13 +48,20 @@ export const checkoutAddressInfoFormSchema = z.object({
     .max(50, "City is too long."),
 });
 
-export const checkoutDeliveryTimeFormSchema = z.object({
-  delivery_time: z
-    .string()
-    .trim()
-    .min(1, "Please fill out your delivery time.")
-    .max(5, "Delivery time is too long."),
-});
+export const checkoutDeliveryTimeFormSchema = z
+  .object({
+    delivery_type: z.enum(["asap", "schedule"]).or(z.null()),
+    delivery_time: z.string(),
+  })
+  .refine(
+    (data) =>
+      data.delivery_type === "asap" ||
+      (data.delivery_type === "schedule" && data.delivery_time),
+    {
+      message: "Please select a delivery time.",
+      path: ["delivery_time"],
+    },
+  );
 
 export const checkoutOrderNotesFormSchema = z.object({
   notes: z.string().trim().max(160, "Order notes is too long."),
