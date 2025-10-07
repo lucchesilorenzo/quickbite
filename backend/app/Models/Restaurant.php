@@ -12,6 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property-read string $full_address
+ * @property-read bool $is_open
+ */
 class Restaurant extends Model
 {
     /** @use HasFactory<\Database\Factories\RestaurantFactory> */

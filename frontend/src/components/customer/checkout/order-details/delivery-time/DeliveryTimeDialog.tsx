@@ -9,6 +9,9 @@ import {
 
 import DeliveryTimeForm from "./DeliveryTimeForm";
 
+import Spinner from "@/components/common/Spinner";
+import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+
 type DeliveryTimeDialogProps = {
   openDeliveryTimeDialog: boolean;
   setOpenDeliveryTimeDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +21,8 @@ export default function DeliveryTimeDialog({
   openDeliveryTimeDialog,
   setOpenDeliveryTimeDialog,
 }: DeliveryTimeDialogProps) {
+  const { isLoadingDeliverySlots } = useCustomerCheckout();
+
   return (
     <Dialog
       open={openDeliveryTimeDialog}
@@ -42,9 +47,13 @@ export default function DeliveryTimeDialog({
         </Stack>
 
         <DialogContent sx={{ p: 0 }}>
-          <DeliveryTimeForm
-            setOpenDeliveryTimeDialog={setOpenDeliveryTimeDialog}
-          />
+          {!isLoadingDeliverySlots ? (
+            <DeliveryTimeForm
+              setOpenDeliveryTimeDialog={setOpenDeliveryTimeDialog}
+            />
+          ) : (
+            <Spinner />
+          )}
         </DialogContent>
       </Stack>
     </Dialog>

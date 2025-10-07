@@ -1,15 +1,21 @@
+import { useEffect } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
   Button,
   Divider,
+  FormControl,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
+  MenuItem,
   Radio,
+  Select,
   Stack,
 } from "@mui/material";
+import { format } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
@@ -19,8 +25,6 @@ import {
   checkoutDeliveryTimeFormSchema,
 } from "@/validations/checkout-validations";
 
-const deliveryTimes = [{ label: "As soon as possible", value: "asap" }];
-
 type DeliveryTimeFormProps = {
   setOpenDeliveryTimeDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -28,26 +32,45 @@ type DeliveryTimeFormProps = {
 export default function DeliveryTimeForm({
   setOpenDeliveryTimeDialog,
 }: DeliveryTimeFormProps) {
-  const { checkoutData, restaurantId, setCheckoutData } = useCustomerCheckout();
+  const { checkoutData, restaurantId, deliverySlots, setCheckoutData } =
+    useCustomerCheckout();
 
   const {
     handleSubmit,
     control,
     formState: { isSubmitting, errors },
-  } = useForm({
+    watch,
+    setValue,
+  } = useForm<TCheckoutDeliveryTimeFormSchema>({
     resolver: zodResolver(checkoutDeliveryTimeFormSchema),
     defaultValues: {
-      delivery_time:
-        checkoutData[restaurantId].delivery_time?.delivery_time || "",
+      delivery_type: checkoutData[restaurantId].delivery_time.type,
+      delivery_time: checkoutData[restaurantId].delivery_time.value,
     },
   });
+
+  const deliveryType = watch("delivery_type");
+  const deliveryTime = watch("delivery_time");
+
+  useEffect(() => {
+    if (deliveryType === "schedule") {
+      const slots = deliverySlots.delivery_slots;
+
+      if (slots.length > 0 && !slots.includes(deliveryTime)) {
+        setValue("delivery_time", slots[0]);
+      }
+    }
+  }, [deliverySlots.delivery_slots, deliveryTime, deliveryType, setValue]);
 
   function onSubmit(data: TCheckoutDeliveryTimeFormSchema) {
     setCheckoutData((prev) => ({
       ...prev,
       [restaurantId]: {
         ...prev[restaurantId],
-        delivery_time: data,
+        delivery_time: {
+          type: data.delivery_type,
+          value: data.delivery_time,
+        },
       },
     }));
     setOpenDeliveryTimeDialog(false);
@@ -62,59 +85,96 @@ export default function DeliveryTimeForm({
       onSubmit={handleSubmit(onSubmit)}
     >
       <Controller
-        name="delivery_time"
+        name="delivery_type"
         control={control}
-        render={({ field }) => {
-          return (
-            <List disablePadding>
-              {deliveryTimes.map((option, index) => (
-                <Box key={option.value}>
-                  <ListItem disablePadding disableGutters>
-                    <ListItemButton
-                      sx={{ px: 3 }}
-                      onClick={() => field.onChange(option.value)}
-                    >
-                      <ListItemText
-                        primary={option.label}
-                        sx={{
-                          "& .MuiListItemText-primary": {
-                            fontWeight:
-                              field.value === option.value ? 500 : 400,
+        render={({ field }) => (
+          <List disablePadding>
+            <ListItem disablePadding disableGutters>
+              <ListItemButton
+                sx={{ px: 3 }}
+                onClick={() => field.onChange("asap")}
+                disabled={!deliverySlots.is_asap_available}
+              >
+                <ListItemText primary="As soon as possible" />
+                <Radio checked={field.value === "asap"} />
+              </ListItemButton>
+            </ListItem>
+
+            <Divider />
+
+            <ListItem disablePadding disableGutters>
+              <ListItemButton
+                sx={{ px: 3 }}
+                onClick={() => {
+                  if (deliverySlots.delivery_slots.length > 0) {
+                    field.onChange("schedule");
+                    setValue("delivery_time", deliverySlots.delivery_slots[0]);
+                  }
+                }}
+                disabled={!deliverySlots.delivery_slots.length}
+              >
+                <ListItemText primary="Schedule for later" />
+                <Radio checked={field.value === "schedule"} />
+              </ListItemButton>
+            </ListItem>
+
+            {deliveryType === "schedule" &&
+              deliverySlots.delivery_slots.length > 0 && (
+                <Controller
+                  name="delivery_time"
+                  control={control}
+                  render={({ field }) => (
+                    <FormControl fullWidth sx={{ px: 3, mt: 2 }}>
+                      <Select
+                        value={
+                          deliverySlots.delivery_slots.includes(field.value)
+                            ? field.value
+                            : deliverySlots.delivery_slots[0]
+                        }
+                        onChange={field.onChange}
+                        MenuProps={{
+                          PaperProps: {
+                            style: {
+                              maxHeight: 200,
+                            },
                           },
                         }}
-                      />
+                      >
+                        {deliverySlots.delivery_slots.map((slot) => (
+                          <MenuItem key={slot} value={slot}>
+                            {format(new Date(slot), "HH:mm")}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  )}
+                />
+              )}
 
-                      <Radio
-                        checked={field.value === option.value}
-                        value={option.value}
-                        onChange={() => field.onChange(option.value)}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-
-                  {index !== deliveryTimes.length - 1 && <Divider />}
-                </Box>
-              ))}
-
+            <Box sx={{ p: 1 }}>
               {errors.delivery_time?.message && (
                 <FormHelperTextError message={errors.delivery_time.message} />
               )}
-            </List>
-          );
-        }}
+            </Box>
+          </List>
+        )}
       />
 
-      <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+      <Stack direction="row" sx={{ justifyContent: "flex-end", p: 2 }}>
         <Button
           type="submit"
-          disabled={isSubmitting}
+          disabled={
+            isSubmitting ||
+            (!deliverySlots.is_asap_available &&
+              !deliverySlots.delivery_slots.length)
+          }
           loading={isSubmitting}
           loadingIndicator="Saving..."
           variant="contained"
         >
           Save
         </Button>
-      </Box>
+      </Stack>
     </Stack>
   );
 }

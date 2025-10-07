@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
+import { format } from "date-fns";
 
 import { formatCurrency } from "@/lib/utils";
 import { Order, PartnerOrder } from "@/types/order-types";
@@ -87,7 +88,8 @@ export default function OrderReceiptToPDF({
           </Text>
 
           <Text>
-            Order date: {new Date(order.created_at).toLocaleDateString("it-IT")}
+            Delivery time:{" "}
+            {format(new Date(order.delivery_time), "dd/MM/yyyy, HH:mm")}
           </Text>
 
           <View style={{ flexDirection: "row", gap: 2 }}>
