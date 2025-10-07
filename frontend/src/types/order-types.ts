@@ -91,7 +91,10 @@ export type CheckoutData = {
   [restaurantId: string]: {
     personal_info: PersonalInfo;
     address_info: AddressInfo;
-    delivery_time: string | null;
+    delivery_time: {
+      type: "asap" | "schedule" | null;
+      value: string;
+    };
     notes: string | null;
     payment_method: string | null;
   };
