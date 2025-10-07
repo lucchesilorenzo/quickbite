@@ -46,6 +46,11 @@ export const checkoutAddressInfoFormSchema = z.object({
     .trim()
     .min(1, "Please fill out your city.")
     .max(50, "City is too long."),
+  state: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your state.")
+    .max(50, "State is too long."),
 });
 
 export const checkoutDeliveryTimeFormSchema = z
