@@ -35,6 +35,7 @@ class CustomerCreateOrderRequest extends FormRequest
             'building_number' => ['required', 'string', 'min:1', 'max:50'],
             'postcode' => ['required', 'string', 'min:1', 'max:50'],
             'city' => ['required', 'string', 'min:1', 'max:50'],
+            'state' => ['required', 'string', 'min:1', 'max:50'],
             'delivery_time' => ['required', 'date', 'after_or_equal:now'],
             'notes' => ['nullable', 'string', 'max:160'],
             'payment_method' => ['required', Rule::enum(PaymentMethod::class)],
