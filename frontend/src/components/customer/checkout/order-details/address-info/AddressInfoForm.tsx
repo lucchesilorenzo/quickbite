@@ -40,6 +40,7 @@ export default function AddressInfoForm({
         user?.postcode ||
         "",
       city: checkoutData[restaurantId].address_info.city || user?.city || "",
+      state: checkoutData[restaurantId].address_info.state || user?.state || "",
     },
   });
 
@@ -62,7 +63,7 @@ export default function AddressInfoForm({
       spacing={4}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 4, sm: 2 }}>
         <Controller
           name="street_address"
           control={control}
@@ -109,7 +110,7 @@ export default function AddressInfoForm({
         />
       </Stack>
 
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 4, sm: 2 }}>
         <Controller
           name="postcode"
           control={control}
@@ -142,6 +143,26 @@ export default function AddressInfoForm({
               helperText={
                 errors.city?.message && (
                   <FormHelperTextError message={errors.city.message} />
+                )
+              }
+              fullWidth
+              sx={{ minWidth: 150 }}
+            />
+          )}
+        />
+
+        <Controller
+          name="state"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              required
+              label="State"
+              error={!!errors.state}
+              helperText={
+                errors.state?.message && (
+                  <FormHelperTextError message={errors.state.message} />
                 )
               }
               fullWidth
