@@ -6,6 +6,7 @@ namespace App\Services\Public;
 
 use App\Exceptions\Public\RestaurantLogoNotFoundException;
 use App\Models\Restaurant;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
@@ -110,6 +111,35 @@ class RestaurantService
             ->firstOrFail();
     }
 
+    public function getDeliverySlots(Restaurant $restaurant): array
+    {
+        $currentDeliveryDay = $restaurant->deliveryDays()
+            ->where('day', mb_strtoupper(now()->format('l')))
+            ->firstOrFail();
+
+        $interval = 5;
+        $startTime = $this->roundUpToNextInterval(now());
+        $endTime = Carbon::parse($currentDeliveryDay->end_time);
+
+        $deliverySlots = [];
+
+        while ($startTime->lessThanOrEqualTo($endTime)) {
+            $deliverySlots[] = $startTime->toIso8601String();
+
+            $startTime->addMinutes($interval)->second(0);
+        }
+
+        $startTimeDay = today()->setTimeFromTimeString($currentDeliveryDay->start_time);
+        $endTimeDay = today()->setTimeFromTimeString($currentDeliveryDay->end_time);
+
+        $isAsapAvailable = $restaurant->is_open && now()->between($startTimeDay, $endTimeDay);
+
+        return [
+            'is_asap_available' => $isAsapAvailable,
+            'delivery_slots' => $deliverySlots,
+        ];
+    }
+
     public function getBase64Logo(Restaurant $restaurant): array
     {
         if (! $restaurant->logo) {
@@ -210,5 +240,17 @@ class RestaurantService
             'mov_counts' => $movCounts,
             'offer_counts' => $offerCounts,
         ];
+    }
+
+    private function roundUpToNextInterval(Carbon $currentTime, int $intervalMinutes = 5): Carbon
+    {
+        $minutes = $currentTime->minute;
+        $remainder = $minutes % $intervalMinutes;
+
+        if ($remainder > 0) {
+            return $currentTime->addMinutes($intervalMinutes - $remainder)->second(0);
+        }
+
+        return $currentTime;
     }
 }
