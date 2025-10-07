@@ -46,36 +46,32 @@ export const personalInfoEditDateOfBirthFormSchema = z.object({
     }),
 });
 
-export const addressInfoEditStreetAddressFormSchema = z.object({
+export const addressInfoEditFormSchema = z.object({
   street_address: z
     .string()
     .trim()
     .min(1, "Please fill out your street address.")
     .max(50, "Street address is too long."),
-});
-
-export const addressInfoEditBuildingNumberFormSchema = z.object({
   building_number: z
     .string()
     .trim()
     .min(1, "Please fill out your building number.")
     .max(50, "Building number is too long."),
-});
-
-export const addressInfoEditPostcodeFormSchema = z.object({
   postcode: z
     .string()
     .trim()
     .min(1, "Please fill out your postcode.")
     .max(50, "Postcode is too long."),
-});
-
-export const addressInfoEditCityFormSchema = z.object({
   city: z
     .string()
     .trim()
     .min(1, "Please fill out your city.")
     .max(50, "City is too long."),
+  state: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your state.")
+    .max(50, "State is too long."),
 });
 
 export type TPersonalInfoEditFullNameFormSchema = z.infer<
@@ -94,28 +90,12 @@ export type TPersonalInfoEditDateOfBirthFormSchema = z.infer<
   typeof personalInfoEditDateOfBirthFormSchema
 >;
 
-export type TAddressInfoEditStreetAddressFormSchema = z.infer<
-  typeof addressInfoEditStreetAddressFormSchema
->;
-
-export type TAddressInfoEditBuildingNumberFormSchema = z.infer<
-  typeof addressInfoEditBuildingNumberFormSchema
->;
-
-export type TAddressInfoEditPostcodeFormSchema = z.infer<
-  typeof addressInfoEditPostcodeFormSchema
->;
-
-export type TAddressInfoEditCityFormSchema = z.infer<
-  typeof addressInfoEditCityFormSchema
->;
-
 export type PersonalInfoField =
   | TPersonalInfoEditFullNameFormSchema
   | TPersonalInfoEditEmailFormSchema
   | TPersonalInfoEditPhoneNumberFormSchema
-  | TPersonalInfoEditDateOfBirthFormSchema
-  | TAddressInfoEditStreetAddressFormSchema
-  | TAddressInfoEditBuildingNumberFormSchema
-  | TAddressInfoEditPostcodeFormSchema
-  | TAddressInfoEditCityFormSchema;
+  | TPersonalInfoEditDateOfBirthFormSchema;
+
+export type TAddressInfoEditFormSchema = z.infer<
+  typeof addressInfoEditFormSchema
+>;
