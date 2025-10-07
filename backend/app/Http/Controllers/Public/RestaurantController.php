@@ -58,6 +58,26 @@ class RestaurantController extends Controller
     }
 
     /**
+     * Get restaurant's delivery slots.
+     */
+    public function getRestaurantDeliverySlots(Restaurant $restaurant): JsonResponse
+    {
+        try {
+            $deliverySlots = $this->restaurantService->getDeliverySlots($restaurant);
+
+            return response()->json($deliverySlots, 200);
+        } catch (ModelNotFoundException) {
+            return response()->json([
+                'message' => 'Delivery day not found.',
+            ], 404);
+        } catch (Throwable) {
+            return response()->json([
+                'message' => 'Could not get delivery slots.',
+            ], 500);
+        }
+    }
+
+    /**
      * Get a restaurant logo as base64.
      */
     public function getBase64Logo(Restaurant $restaurant): JsonResponse
