@@ -5,16 +5,22 @@ declare(strict_types=1);
 namespace App\Services\Private\Customer;
 
 use App\Exceptions\Private\Customer\CustomerRestaurantNotAvailableException;
+use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Notifications\NewOrderReceived;
+use App\Services\Shared\LocationService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class CustomerOrderService
 {
     private const int PER_PAGE = 5;
+
+    public function __construct(
+        private readonly LocationService $locationService
+    ) {}
 
     public function getOrders(User $customer): LengthAwarePaginator
     {
@@ -40,6 +46,12 @@ class CustomerOrderService
                 throw new CustomerRestaurantNotAvailableException;
             }
 
+            $locationData = $this->locationService->getLocationData($data);
+
+            if ($locationData === null) {
+                throw new LocationNotFoundException;
+            }
+
             $order = Order::create([
                 'user_id' => $customer->id,
                 'restaurant_id' => $data['restaurant_id'],
@@ -51,6 +63,7 @@ class CustomerOrderService
                 'building_number' => $data['building_number'],
                 'postcode' => $data['postcode'],
                 'city' => $data['city'],
+                'state' => $data['state'],
                 'delivery_time' => $data['delivery_time'],
                 'notes' => $data['notes'] ?? null,
                 'payment_method' => $data['payment_method'],
