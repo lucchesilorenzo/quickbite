@@ -40,7 +40,6 @@ export default function OrderItem({ order }: OrderItemProps) {
     pathname === `/restaurants/${order.restaurant.slug}`;
 
   const navigate = useNavigate();
-
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   function handleOrderAgain() {
@@ -132,14 +131,14 @@ export default function OrderItem({ order }: OrderItemProps) {
 
       <ViewOrderDialog
         openViewOrderDialog={openViewOrderDialog}
-        setOpenViewOrderDialog={setOpenViewOrderDialog}
         order={order}
+        setOpenViewOrderDialog={setOpenViewOrderDialog}
       />
 
       <AddReviewDialog
+        order={order}
         openAddReviewDialog={openAddReviewDialog}
         setOpenAddReviewDialog={setOpenAddReviewDialog}
-        order={order}
       />
     </Card>
   );
