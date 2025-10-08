@@ -3,7 +3,7 @@ import z from "zod";
 
 import { discountRates } from "@/lib/data";
 
-const partnerRestaurantSettingsFeesFormDeliverySectionSchema = z.object({
+const restaurantSettingsFeesFormDeliverySectionSchema = z.object({
   delivery_fee: z.coerce.number({
     error: (issue) =>
       issue.input === undefined
@@ -28,7 +28,7 @@ const partnerRestaurantSettingsFeesFormDeliverySectionSchema = z.object({
     .positive("Maximum delivery time must be a positive number."),
 });
 
-const partnerRestaurantSettingsFeesFormDeliveryOtherFeesSchema = z.object({
+const restaurantSettingsFeesFormDeliveryOtherFeesSchema = z.object({
   service_fee: z.coerce.number({
     error: (issue) =>
       issue.input === undefined
@@ -43,10 +43,10 @@ const partnerRestaurantSettingsFeesFormDeliveryOtherFeesSchema = z.object({
   }),
 });
 
-export const partnerRestaurantSettingsFeesFormSchema = z
+export const restaurantSettingsFeesFormSchema = z
   .object({
-    ...partnerRestaurantSettingsFeesFormDeliverySectionSchema.shape,
-    ...partnerRestaurantSettingsFeesFormDeliveryOtherFeesSchema.shape,
+    ...restaurantSettingsFeesFormDeliverySectionSchema.shape,
+    ...restaurantSettingsFeesFormDeliveryOtherFeesSchema.shape,
   })
   .refine((data) => data.delivery_time_min <= data.delivery_time_max, {
     message:
@@ -54,7 +54,7 @@ export const partnerRestaurantSettingsFeesFormSchema = z
     path: ["delivery_time_min"],
   });
 
-export const partnerRestaurantSettingsDeliveryTimesFormSchema = z.object({
+export const restaurantSettingsDeliveryTimesFormSchema = z.object({
   delivery_days: z.array(
     z
       .object({
@@ -86,7 +86,7 @@ export const partnerRestaurantSettingsDeliveryTimesFormSchema = z.object({
   ),
 });
 
-export function partnerRestaurantSettingsOffersFormSchema(minAmount: number) {
+export function restaurantSettingsOffersFormSchema(minAmount: number) {
   return z
     .object({
       discount_rate: z.union([
@@ -113,7 +113,7 @@ export function partnerRestaurantSettingsOffersFormSchema(minAmount: number) {
     });
 }
 
-export const partnerRestaurantSettingsInfoFormSchema = z.object({
+export const restaurantSettingsInfoFormSchema = z.object({
   name: z
     .string()
     .trim()
@@ -166,18 +166,18 @@ export const partnerRestaurantSettingsInfoFormSchema = z.object({
   cover: z.union([z.string(), z.instanceof(FileList)]).nullable(),
 });
 
-export type TPartnerRestaurantSettingsFeesFormSchema = z.infer<
-  typeof partnerRestaurantSettingsFeesFormSchema
+export type TRestaurantSettingsFeesFormSchema = z.infer<
+  typeof restaurantSettingsFeesFormSchema
 >;
 
-export type TPartnerRestaurantSettingsDeliveryTimesFormSchema = z.infer<
-  typeof partnerRestaurantSettingsDeliveryTimesFormSchema
+export type TRestaurantSettingsDeliveryTimesFormSchema = z.infer<
+  typeof restaurantSettingsDeliveryTimesFormSchema
 >;
 
-export type TPartnerRestaurantSettingsOffersFormSchema = z.infer<
-  ReturnType<typeof partnerRestaurantSettingsOffersFormSchema>
+export type TRestaurantSettingsOffersFormSchema = z.infer<
+  ReturnType<typeof restaurantSettingsOffersFormSchema>
 >;
 
-export type TPartnerRestaurantSettingsInfoFormSchema = z.infer<
-  typeof partnerRestaurantSettingsInfoFormSchema
+export type TRestaurantSettingsInfoFormSchema = z.infer<
+  typeof restaurantSettingsInfoFormSchema
 >;

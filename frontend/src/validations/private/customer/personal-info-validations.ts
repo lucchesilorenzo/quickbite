@@ -90,7 +90,7 @@ export type TPersonalInfoEditDateOfBirthFormSchema = z.infer<
   typeof personalInfoEditDateOfBirthFormSchema
 >;
 
-export type PersonalInfoField =
+export type TPersonalInfoField =
   | TPersonalInfoEditFullNameFormSchema
   | TPersonalInfoEditEmailFormSchema
   | TPersonalInfoEditPhoneNumberFormSchema

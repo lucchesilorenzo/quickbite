@@ -3,7 +3,7 @@ import z from "zod";
 
 import { isAdult } from "@/lib/utils";
 
-export const partnerRegisterFormSchema = z
+export const registerFormSchema = z
   .object({
     business_name: z
       .string()
@@ -154,13 +154,11 @@ export const partnerRegisterFormSchema = z
     path: ["password_confirmation"],
   });
 
-export const partnerLoginFormSchema = z.object({
+export const loginFormSchema = z.object({
   email: z.email({ error: "Please enter a valid email address." }),
   password: z.string().min(1, "Please fill out your password."),
 });
 
-export type TPartnerRegisterFormSchema = z.infer<
-  typeof partnerRegisterFormSchema
->;
+export type TRegisterFormSchema = z.infer<typeof registerFormSchema>;
 
-export type TPartnerLoginFormSchema = z.infer<typeof partnerLoginFormSchema>;
+export type TLoginFormSchema = z.infer<typeof loginFormSchema>;

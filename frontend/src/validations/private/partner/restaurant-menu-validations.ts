@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const partnerRestaurantMenuCategoriesFormSchema = z.object({
+export const restaurantMenuCategoriesFormSchema = z.object({
   name: z
     .string()
     .trim()
@@ -9,7 +9,7 @@ export const partnerRestaurantMenuCategoriesFormSchema = z.object({
   description: z.string().trim().max(200, "Description is too long."),
 });
 
-export const partnerRestaurantAddMenuItemFormSchema = z.object({
+export const restaurantAddMenuItemFormSchema = z.object({
   name: z
     .string()
     .trim()
@@ -28,19 +28,19 @@ export const partnerRestaurantAddMenuItemFormSchema = z.object({
   image: z.union([z.string(), z.instanceof(FileList)]).nullable(),
 });
 
-export const partnerRestaurantMenuEditMenuItemFormSchema = z.object({
-  ...partnerRestaurantAddMenuItemFormSchema.shape,
+export const restaurantMenuEditMenuItemFormSchema = z.object({
+  ...restaurantAddMenuItemFormSchema.shape,
   is_available: z.boolean(),
 });
 
-export type TPartnerRestaurantMenuCategoriesFormSchema = z.infer<
-  typeof partnerRestaurantMenuCategoriesFormSchema
+export type TRestaurantMenuCategoriesFormSchema = z.infer<
+  typeof restaurantMenuCategoriesFormSchema
 >;
 
-export type TPartnerRestaurantAddMenuItemFormSchema = z.infer<
-  typeof partnerRestaurantAddMenuItemFormSchema
+export type TRestaurantAddMenuItemFormSchema = z.infer<
+  typeof restaurantAddMenuItemFormSchema
 >;
 
-export type TPartnerRestaurantMenuEditMenuItemFormSchema = z.infer<
-  typeof partnerRestaurantMenuEditMenuItemFormSchema
+export type TRestaurantMenuEditMenuItemFormSchema = z.infer<
+  typeof restaurantMenuEditMenuItemFormSchema
 >;

@@ -3,7 +3,7 @@ import z from "zod";
 
 import { isAdult } from "@/lib/utils";
 
-export const partnerProfileGeneralFormSchema = z.object({
+export const profileGeneralFormSchema = z.object({
   first_name: z
     .string()
     .trim()
@@ -59,6 +59,6 @@ export const partnerProfileGeneralFormSchema = z.object({
     .max(50, "State is too long."),
 });
 
-export type TPartnerProfileGeneralFormSchema = z.infer<
-  typeof partnerProfileGeneralFormSchema
+export type TProfileGeneralFormSchema = z.infer<
+  typeof profileGeneralFormSchema
 >;
