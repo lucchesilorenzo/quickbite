@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import PartnerProfileNotificationsCard from "@/components/partner/profile/notifications/PartnerProfileNotificationsCard";
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
+import ProfileNotificationsCard from "@/components/partner/profile/notifications/ProfileNotificationsCard";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdatePartnerProfileNotifications } from "@/hooks/react-query/private/partner/profile/useUpdatePartnerProfileNotifications";
 import { NotificationType } from "@/types";
@@ -48,7 +48,7 @@ export default function PartnerProfileNotificationsPage() {
 
   return (
     <FormProvider {...methods}>
-      <PartnerHeadingBlock
+      <HeadingBlock
         title="Notifications"
         description="Manage your notifications preferences"
       />
@@ -60,7 +60,7 @@ export default function PartnerProfileNotificationsPage() {
         autoComplete="off"
         noValidate
       >
-        <PartnerProfileNotificationsCard />
+        <ProfileNotificationsCard />
 
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button

@@ -8,7 +8,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 
 import NotificationToast from "@/components/common/NotificationToast";
-import PartnerRestaurantHeader from "@/components/partner/restaurant/PartnerRestaurantHeader";
+import RestaurantHeader from "@/components/partner/restaurant/RestaurantHeader";
 import PartnerRestaurantProvider from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import {
@@ -92,7 +92,7 @@ export default function PartnerRestaurantLayout() {
   return (
     <PartnerRestaurantProvider restaurantId={restaurantId}>
       <Stack sx={{ minHeight: "100vh", bgcolor: grey[100] }}>
-        <PartnerRestaurantHeader />
+        <RestaurantHeader />
 
         <Outlet />
       </Stack>

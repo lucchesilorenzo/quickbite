@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import PartnerDashboardLayout from "@/components/partner/restaurant/dashboard/layouts/PartnerDashboardLayout";
+import DashboardLayout from "@/components/partner/restaurant/dashboard/layouts/DashboardLayout";
 import PartnerRestaurantReviewsProvider from "@/contexts/private/partner/PartnerRestaurantReviewsProvider";
 
 export default function ParterRestaurantDashboardPage() {
@@ -10,7 +10,7 @@ export default function ParterRestaurantDashboardPage() {
 
   return (
     <PartnerRestaurantReviewsProvider>
-      <PartnerDashboardLayout />
+      <DashboardLayout />
     </PartnerRestaurantReviewsProvider>
   );
 }

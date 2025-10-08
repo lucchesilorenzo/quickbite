@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import PartnerSettingsFeesContainer from "@/components/partner/restaurant/settings/fees/PartnerSettingsFeesContainer";
+import FeesContainer from "@/components/partner/restaurant/settings/fees/FeesContainer";
 import PartnerRestaurantSettingsFeesProvider from "@/contexts/private/partner/PartnerRestaurantSettingsFeesProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partner/restaurants/settings/fees/useUpdatePartnerRestaurantSettingsFees";
@@ -50,7 +50,7 @@ export default function PartnerRestaurantSettingsFeesPage() {
             autoComplete="off"
             noValidate
           >
-            <PartnerSettingsFeesContainer />
+            <FeesContainer />
           </Box>
         </Container>
       </PartnerRestaurantSettingsFeesProvider>

@@ -2,9 +2,9 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerMenuEditMenuItemsList from "@/components/partner/restaurant/menu/edit/PartnerMenuEditMenuItemsList";
-import PartnerMenuEditNavigation from "@/components/partner/restaurant/menu/edit/PartnerMenuEditNavigation";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
+import MenuEditMenuItemsList from "@/components/partner/restaurant/menu/edit/MenuEditMenuItemsList";
+import MenuEditNavigation from "@/components/partner/restaurant/menu/edit/MenuEditNavigation";
 import PartnerRestaurantMenuProvider from "@/contexts/private/partner/PartnerRestaurantMenuProvider";
 
 export default function PartnerRestaurantMenuEditPage() {
@@ -15,12 +15,12 @@ export default function PartnerRestaurantMenuEditPage() {
   return (
     <PartnerRestaurantMenuProvider>
       <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-        <PartnerHeadingBlock
+        <HeadingBlock
           title="Menu items"
           description="Review each menu category and manage your menu items: add new ones, edit existing items, or delete those you no longer need"
         />
-        <PartnerMenuEditNavigation />
-        <PartnerMenuEditMenuItemsList />
+        <MenuEditNavigation />
+        <MenuEditMenuItemsList />
       </Container>
     </PartnerRestaurantMenuProvider>
   );

@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerStatsHeader from "@/components/partner/restaurant/stats/header/PartnerStatsHeader";
-import PartnerStatsOverview from "@/components/partner/restaurant/stats/overview/PartnerStatsOverview";
+import StatsHeader from "@/components/partner/restaurant/stats/header/StatsHeader";
+import StatsOverview from "@/components/partner/restaurant/stats/overview/StatsOverview";
 import PartnerRestaurantStatsProvider from "@/contexts/private/partner/PartnerRestaurantStatsProvider";
 
 export default function PartnerRestaurantStatsPage() {
@@ -14,8 +14,8 @@ export default function PartnerRestaurantStatsPage() {
   return (
     <PartnerRestaurantStatsProvider>
       <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-        <PartnerStatsHeader />
-        <PartnerStatsOverview />
+        <StatsHeader />
+        <StatsOverview />
       </Container>
     </PartnerRestaurantStatsProvider>
   );

@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerMenuMainCards from "@/components/partner/restaurant/menu/PartnerMenuMainCards";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
+import MenuMainCards from "@/components/partner/restaurant/menu/MenuMainCards";
 
 export default function PartnerRestaurantMenuPage() {
   useEffect(() => {
@@ -12,8 +12,8 @@ export default function PartnerRestaurantMenuPage() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-      <PartnerHeadingBlock title="Menu" />
-      <PartnerMenuMainCards />
+      <HeadingBlock title="Menu" />
+      <MenuMainCards />
     </Container>
   );
 }

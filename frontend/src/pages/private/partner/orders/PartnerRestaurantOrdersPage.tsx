@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerOrdersList from "@/components/partner/restaurant/orders/PartnerOrdersList";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
+import OrdersList from "@/components/partner/restaurant/orders/OrdersList";
 import PartnerRestaurantOrdersProvider from "@/contexts/private/partner/PartnerRestaurantOrdersProvider";
 
 export default function PartnerRestaurantOrdersPage() {
@@ -14,8 +14,8 @@ export default function PartnerRestaurantOrdersPage() {
   return (
     <PartnerRestaurantOrdersProvider>
       <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-        <PartnerHeadingBlock title="Orders" />
-        <PartnerOrdersList />
+        <HeadingBlock title="Orders" />
+        <OrdersList />
       </Container>
     </PartnerRestaurantOrdersProvider>
   );

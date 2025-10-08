@@ -1,0 +1,24 @@
+import { Box } from "@mui/material";
+
+import HeadingBlock from "../../../common/HeadingBlock";
+import StatsRangeSelect from "./StatsRangeSelect";
+
+import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
+import { getComputedRangeLabel } from "@/lib/utils";
+
+export default function StatsHeaderLeft() {
+  const { range } = usePartnerRestaurantStats();
+
+  const computedRange = getComputedRangeLabel(range);
+
+  return (
+    <Box>
+      <HeadingBlock
+        title="Stats"
+        description={`Display data in real time ${computedRange}`}
+      />
+
+      <StatsRangeSelect />
+    </Box>
+  );
+}

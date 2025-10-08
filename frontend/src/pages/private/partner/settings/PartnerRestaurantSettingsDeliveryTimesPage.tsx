@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerSettingsDeliveryTimesTabs from "@/components/partner/restaurant/settings/delivery-times/PartnerSettingsDeliveryTimesTabs";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
+import DeliveryTimesTabs from "@/components/partner/restaurant/settings/delivery-times/DeliveryTimesTabs";
 
 export default function PartnerRestaurantSettingsDeliveryTimesPage() {
   useEffect(() => {
@@ -12,12 +12,12 @@ export default function PartnerRestaurantSettingsDeliveryTimesPage() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 4 }}>
-      <PartnerHeadingBlock
+      <HeadingBlock
         title="Delivery times"
         description="These are the delivery times for which you will receive orders"
         backButton
       />
-      <PartnerSettingsDeliveryTimesTabs />
+      <DeliveryTimesTabs />
     </Container>
   );
 }

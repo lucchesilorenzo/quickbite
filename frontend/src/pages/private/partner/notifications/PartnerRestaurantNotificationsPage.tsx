@@ -2,9 +2,9 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerNotificationsActionBar from "@/components/partner/restaurant/notifications/PartnerNotificationsActionBar";
-import PartnerNotificationsList from "@/components/partner/restaurant/notifications/PartnerNotificationsList";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
+import NotificationsActionBar from "@/components/partner/restaurant/notifications/NotificationsActionBar";
+import NotificationsList from "@/components/partner/restaurant/notifications/NotificationsList";
 
 export default function PartnerRestaurantNotificationsPage() {
   useEffect(() => {
@@ -13,13 +13,13 @@ export default function PartnerRestaurantNotificationsPage() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-      <PartnerHeadingBlock
+      <HeadingBlock
         title="Notifications"
         description="View and manage your notifications"
       />
 
-      <PartnerNotificationsActionBar />
-      <PartnerNotificationsList />
+      <NotificationsActionBar />
+      <NotificationsList />
     </Container>
   );
 }

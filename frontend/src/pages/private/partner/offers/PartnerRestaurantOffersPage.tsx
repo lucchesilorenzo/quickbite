@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerOffersWrapper from "@/components/partner/restaurant/offers/PartnerOffersWrapper";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
+import OffersContainer from "@/components/partner/restaurant/offers/OffersContainer";
 
 export default function PartnerRestaurantOffersPage() {
   useEffect(() => {
@@ -12,11 +12,11 @@ export default function PartnerRestaurantOffersPage() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-      <PartnerHeadingBlock
+      <HeadingBlock
         title="Offers"
         description="Create and manage your offers"
       />
-      <PartnerOffersWrapper />
+      <OffersContainer />
     </Container>
   );
 }

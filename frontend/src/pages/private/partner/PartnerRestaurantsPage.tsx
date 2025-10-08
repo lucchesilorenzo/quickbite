@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { Container } from "@mui/material";
 
 import Spinner from "@/components/common/Spinner";
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerRestaurantsSelection from "@/components/partner/restaurants/PartnerRestaurantsSelection";
-import PartnerRestaurantsWelcome from "@/components/partner/restaurants/PartnerRestaurantsWelcome";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
+import RestaurantsSelection from "@/components/partner/restaurants/RestaurantsSelection";
+import RestaurantsWelcome from "@/components/partner/restaurants/RestaurantsWelcome";
 import { useGetPartnerRestaurants } from "@/hooks/react-query/private/partner/restaurants/restaurant/useGetPartnerRestaurants";
 
 export default function PartnerRestaurantsPage() {
@@ -17,13 +17,13 @@ export default function PartnerRestaurantsPage() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-      <PartnerRestaurantsWelcome />
-      <PartnerHeadingBlock title="🍔 Choose your restaurant" />
+      <RestaurantsWelcome />
+      <HeadingBlock title="🍔 Choose your restaurant" />
 
       {isLoading ? (
         <Spinner />
       ) : (
-        <PartnerRestaurantsSelection restaurants={restaurants} />
+        <RestaurantsSelection restaurants={restaurants} />
       )}
     </Container>
   );

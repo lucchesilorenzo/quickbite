@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerReviewsLayout from "@/components/partner/restaurant/reviews/layouts/PartnerReviewsLayout";
+import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
+import ReviewsLayout from "@/components/partner/restaurant/reviews/layouts/ReviewsLayout";
 import PartnerRestaurantReviewsProvider from "@/contexts/private/partner/PartnerRestaurantReviewsProvider";
 
 export default function PartnerRestaurantReviewsPage() {
@@ -14,8 +14,8 @@ export default function PartnerRestaurantReviewsPage() {
   return (
     <PartnerRestaurantReviewsProvider>
       <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-        <PartnerHeadingBlock title="Ratings and reviews" />
-        <PartnerReviewsLayout />
+        <HeadingBlock title="Ratings and reviews" />
+        <ReviewsLayout />
       </Container>
     </PartnerRestaurantReviewsProvider>
   );
