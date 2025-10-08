@@ -19,11 +19,11 @@ import { format } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import {
   TCheckoutDeliveryTimeFormSchema,
   checkoutDeliveryTimeFormSchema,
-} from "@/validations/checkout-validations";
+} from "@/validations/private/customer/checkout-validations";
 
 type DeliveryTimeFormProps = {
   setOpenDeliveryTimeDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,7 +33,7 @@ export default function DeliveryTimeForm({
   setOpenDeliveryTimeDialog,
 }: DeliveryTimeFormProps) {
   const { checkoutData, restaurantId, deliverySlots, setCheckoutData } =
-    useCustomerCheckout();
+    useCheckout();
 
   const {
     handleSubmit,

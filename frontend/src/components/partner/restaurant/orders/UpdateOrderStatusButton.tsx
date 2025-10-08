@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from "@mui/material";
 
-import { useUpdatePartnerRestaurantOrderStatus } from "@/hooks/react-query/private/partners/restaurants/orders/useUpdatePartnerRestaurantOrderStatus";
+import { useUpdatePartnerRestaurantOrderStatus } from "@/hooks/react-query/private/partner/restaurants/orders/useUpdatePartnerRestaurantOrderStatus";
 import { orderStatuses } from "@/lib/data";
 import { getDisabledOrderStatuses } from "@/lib/utils";
 import { Order, OrderStatus } from "@/types/order-types";

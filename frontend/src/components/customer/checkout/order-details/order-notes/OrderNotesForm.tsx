@@ -3,11 +3,11 @@ import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import {
   TCheckoutOrderNotesFormSchema,
   checkoutOrderNotesFormSchema,
-} from "@/validations/checkout-validations";
+} from "@/validations/private/customer/checkout-validations";
 
 type OrderNotesFormProps = {
   setOpenOrderNotesDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,7 +16,7 @@ type OrderNotesFormProps = {
 export default function OrderNotesForm({
   setOpenOrderNotesDialog,
 }: OrderNotesFormProps) {
-  const { checkoutData, restaurantId, setCheckoutData } = useCustomerCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,

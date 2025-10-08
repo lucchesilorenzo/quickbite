@@ -7,11 +7,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import PartnerRestaurantSettingsInfoContainer from "@/components/partner/restaurant/settings/info/PartnerRestaurantSettingsInfoContainer";
 import PartnerRestaurantSettingsInfoProvider from "@/contexts/private/partner/PartnerRestaurantSettingsInfoProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantInfo } from "@/hooks/react-query/private/partners/restaurants/settings/info/useUpdatePartnerRestaurantInfo";
+import { useUpdatePartnerRestaurantInfo } from "@/hooks/react-query/private/partner/restaurants/settings/info/useUpdatePartnerRestaurantInfo";
 import {
-  TPartnerRestaurantSettingsInfoFormSchema,
-  partnerRestaurantSettingsInfoFormSchema,
-} from "@/validations/partner-restaurant-settings-validations";
+  TRestaurantSettingsInfoFormSchema,
+  restaurantSettingsInfoFormSchema,
+} from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function PartnerRestaurantSettingsInfoPage() {
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function PartnerRestaurantSettingsInfoPage() {
     useUpdatePartnerRestaurantInfo(restaurant.id);
 
   const methods = useForm({
-    resolver: zodResolver(partnerRestaurantSettingsInfoFormSchema),
+    resolver: zodResolver(restaurantSettingsInfoFormSchema),
     defaultValues: {
       name: restaurant.name || "",
       description: restaurant.description || "",
@@ -43,7 +43,7 @@ export default function PartnerRestaurantSettingsInfoPage() {
 
   const { handleSubmit } = methods;
 
-  async function onSubmit(data: TPartnerRestaurantSettingsInfoFormSchema) {
+  async function onSubmit(data: TRestaurantSettingsInfoFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);

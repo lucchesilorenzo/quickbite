@@ -3,8 +3,8 @@ import { createContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useGetPartnerRestaurantKpiSummary } from "@/hooks/react-query/private/partners/restaurants/stats/useGetPartnerRestaurantKpiSummary";
-import { useGetPartnerRestaurantStats } from "@/hooks/react-query/private/partners/restaurants/stats/useGetPartnerRestaurantStats";
+import { useGetPartnerRestaurantKpiSummary } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantKpiSummary";
+import { useGetPartnerRestaurantStats } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantStats";
 import { kpiKeys, statRanges } from "@/lib/data";
 import {
   partnerRestaurantKpiSummaryDefaults,

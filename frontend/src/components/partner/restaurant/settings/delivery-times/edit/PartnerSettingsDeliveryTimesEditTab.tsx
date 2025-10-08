@@ -15,12 +15,12 @@ import { Controller, useForm } from "react-hook-form";
 import AntSwitch from "@/components/common/AntSwitch";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantSettingsDeliveryTimes } from "@/hooks/react-query/private/partners/restaurants/settings/delivery-times/useUpdatePartnerRestaurantSettingsDeliveryTimes";
+import { useUpdatePartnerRestaurantSettingsDeliveryTimes } from "@/hooks/react-query/private/partner/restaurants/settings/delivery-times/useUpdatePartnerRestaurantSettingsDeliveryTimes";
 import { capitalize } from "@/lib/utils";
 import {
-  TPartnerRestaurantSettingsDeliveryTimesFormSchema,
-  partnerRestaurantSettingsDeliveryTimesFormSchema,
-} from "@/validations/partner-restaurant-settings-validations";
+  TRestaurantSettingsDeliveryTimesFormSchema,
+  restaurantSettingsDeliveryTimesFormSchema,
+} from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function PartnerSettingsDeliveryTimesEditTab() {
   const { restaurant } = usePartnerRestaurant();
@@ -37,8 +37,8 @@ export default function PartnerSettingsDeliveryTimesEditTab() {
     setValue,
     formState: { isSubmitting, errors },
     clearErrors,
-  } = useForm<TPartnerRestaurantSettingsDeliveryTimesFormSchema>({
-    resolver: zodResolver(partnerRestaurantSettingsDeliveryTimesFormSchema),
+  } = useForm<TRestaurantSettingsDeliveryTimesFormSchema>({
+    resolver: zodResolver(restaurantSettingsDeliveryTimesFormSchema),
     defaultValues: {
       delivery_days: restaurant.delivery_days.map((d) => ({
         day: d.day,
@@ -66,9 +66,7 @@ export default function PartnerSettingsDeliveryTimesEditTab() {
     }
   }
 
-  async function onSubmit(
-    data: TPartnerRestaurantSettingsDeliveryTimesFormSchema,
-  ) {
+  async function onSubmit(data: TRestaurantSettingsDeliveryTimesFormSchema) {
     const normalized = {
       delivery_days: data.delivery_days.map((d) => ({
         day: d.day,

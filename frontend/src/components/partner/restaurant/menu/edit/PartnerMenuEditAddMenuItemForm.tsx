@@ -7,11 +7,11 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { usePartnerRestaurantMenu } from "@/hooks/contexts/private/partner/usePartnerRestaurantMenu";
-import { useCreatePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partners/restaurants/menu/items/useCreatePartnerRestaurantMenuItem";
+import { useCreatePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useCreatePartnerRestaurantMenuItem";
 import {
-  TPartnerRestaurantAddMenuItemFormSchema,
-  partnerRestaurantAddMenuItemFormSchema,
-} from "@/validations/partner-restaurant-menu-validations";
+  TRestaurantAddMenuItemFormSchema,
+  restaurantAddMenuItemFormSchema,
+} from "@/validations/private/partner/restaurant-menu-validations";
 
 type PartnerMenuEditAddMenuItemFormProps = {
   setOpenAddMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,7 +31,7 @@ export default function PartnerMenuEditAddMenuItemForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(partnerRestaurantAddMenuItemFormSchema),
+    resolver: zodResolver(restaurantAddMenuItemFormSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -40,7 +40,7 @@ export default function PartnerMenuEditAddMenuItemForm({
     },
   });
 
-  async function onSubmit(data: TPartnerRestaurantAddMenuItemFormSchema) {
+  async function onSubmit(data: TRestaurantAddMenuItemFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);

@@ -3,7 +3,7 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import HeaderDialogCustomer from "../customer/header/HeaderDialogCustomer";
+import HeaderDialogCustomer from "../customer/header/CustomerHeaderDialog";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/hooks/contexts/public/useAuth";

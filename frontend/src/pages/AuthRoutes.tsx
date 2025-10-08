@@ -6,14 +6,14 @@ import CustomerRegisterPage from "./public/CustomerRegisterPage";
 import PartnerLoginPage from "./public/PartnerLoginPage";
 import PartnerRegisterPage from "./public/PartnerRegisterPage";
 
-import CustomerAuthLayout from "@/layouts/private/customer/CustomerAuthLayout";
+import AuthLayout from "@/layouts/private/customer/AuthLayout";
 import PartnerAuthLayout from "@/layouts/private/partner/PartnerAuthLayout";
 import { Role } from "@/types";
 
 const AUTH_BLOCKED_ROLES = [Role.CUSTOMER, Role.PARTNER, Role.RIDER];
 
 export const AuthRoutes = [
-  <Route path="/" element={<CustomerAuthLayout />}>
+  <Route path="/" element={<AuthLayout />}>
     <Route
       path="customer/auth"
       element={<BlockRoleRoute blockedRoles={AUTH_BLOCKED_ROLES} />}

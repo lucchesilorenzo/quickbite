@@ -4,11 +4,11 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import OrderItemsDialog from "./OrderItemsDialog";
 
-import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import env from "@/lib/env";
 
 export default function CheckoutOrderOverview() {
-  const { cart } = useCustomerCheckout();
+  const { cart } = useCheckout();
 
   const [openOrderItemsDialog, setOpenOrderItemsDialog] = useState(false);
 

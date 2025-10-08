@@ -4,16 +4,15 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerPersonalInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerPersonalInfo";
-import { isCustomer } from "@/lib/utils";
+import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
   TPersonalInfoEditEmailFormSchema,
   personalInfoEditEmailFormSchema,
-} from "@/validations/personal-info-validations";
+} from "@/validations/private/customer/personal-info-validations";
 
 export default function PersonalInfoEditEmailForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerEmail } = useUpdateCustomerPersonalInfo();
+  const { mutateAsync: updateCustomerEmail } = useUpdatePersonalInfo();
 
   const {
     handleSubmit,
@@ -22,7 +21,7 @@ export default function PersonalInfoEditEmailForm() {
   } = useForm({
     resolver: zodResolver(personalInfoEditEmailFormSchema),
     defaultValues: {
-      email: isCustomer(user) ? user.email : "",
+      email: user?.email || "",
     },
   });
 

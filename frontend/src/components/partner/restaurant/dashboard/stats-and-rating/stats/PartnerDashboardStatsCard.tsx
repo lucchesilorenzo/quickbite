@@ -4,7 +4,7 @@ import PartnerDashboardStatsCardItem from "./PartnerDashboardStatsCardItem";
 
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useGetPartnerRestaurantDashboardStats } from "@/hooks/react-query/private/partners/restaurants/stats/useGetPartnerRestaurantDashboardStats";
+import { useGetPartnerRestaurantDashboardStats } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantDashboardStats";
 import { partnerRestaurantDashboardStatsDefaults } from "@/lib/query-defaults";
 
 export default function PartnerDashboardStatsCard() {

@@ -11,13 +11,13 @@ import {
 
 import AddressInfoDialog from "./AddressInfoDialog";
 
-import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { formatAddress } from "@/lib/utils";
 
 export default function AddressInfoItem() {
   const { user } = useAuth();
-  const { checkoutData, restaurantId } = useCustomerCheckout();
+  const { checkoutData, restaurantId } = useCheckout();
 
   const [openAddressInfoDialog, setOpenAddressInfoDialog] = useState(false);
 

@@ -4,12 +4,12 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategory";
+import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategory";
 import { PartnerMenu } from "@/types";
 import {
-  TPartnerRestaurantMenuCategoriesFormSchema,
-  partnerRestaurantMenuCategoriesFormSchema,
-} from "@/validations/partner-restaurant-menu-validations";
+  TRestaurantMenuCategoriesFormSchema,
+  restaurantMenuCategoriesFormSchema,
+} from "@/validations/private/partner/restaurant-menu-validations";
 
 type PartnerMenuCategoriesEditMenuCategoryFormProps = {
   menuCategory: PartnerMenu;
@@ -30,14 +30,14 @@ export default function PartnerMenuCategoriesEditMenuCategoryForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(partnerRestaurantMenuCategoriesFormSchema),
+    resolver: zodResolver(restaurantMenuCategoriesFormSchema),
     defaultValues: {
       name: menuCategory.name || "",
       description: menuCategory.description || "",
     },
   });
 
-  async function onSubmit(data: TPartnerRestaurantMenuCategoriesFormSchema) {
+  async function onSubmit(data: TRestaurantMenuCategoriesFormSchema) {
     await updatePartnerRestaurantMenuCategory(data);
     setOpenEditMenuCategoryDialog(false);
   }

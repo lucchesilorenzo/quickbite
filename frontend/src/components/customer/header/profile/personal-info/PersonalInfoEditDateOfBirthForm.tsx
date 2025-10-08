@@ -6,17 +6,15 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerPersonalInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerPersonalInfo";
-import { isCustomer } from "@/lib/utils";
+import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
   TPersonalInfoEditDateOfBirthFormSchema,
   personalInfoEditDateOfBirthFormSchema,
-} from "@/validations/personal-info-validations";
+} from "@/validations/private/customer/personal-info-validations";
 
 export default function PersonalInfoEditDateOfBirthForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerDateOfBirth } =
-    useUpdateCustomerPersonalInfo();
+  const { mutateAsync: updateCustomerDateOfBirth } = useUpdatePersonalInfo();
 
   const {
     handleSubmit,
@@ -25,7 +23,7 @@ export default function PersonalInfoEditDateOfBirthForm() {
   } = useForm({
     resolver: zodResolver(personalInfoEditDateOfBirthFormSchema),
     defaultValues: {
-      date_of_birth: isCustomer(user) ? user.date_of_birth : "",
+      date_of_birth: user?.date_of_birth || "",
     },
   });
 

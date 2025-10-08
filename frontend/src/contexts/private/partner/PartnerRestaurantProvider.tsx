@@ -4,8 +4,8 @@ import { Navigate } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useGetPartnerNotifications } from "@/hooks/react-query/private/partners/notifications/useGetPartnerNotifications";
-import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurant";
+import { useGetPartnerNotifications } from "@/hooks/react-query/private/partner/notifications/useGetPartnerNotifications";
+import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partner/restaurants/restaurant/useGetPartnerRestaurant";
 import { userNotificationsDefaults } from "@/lib/query-defaults";
 import {
   PartnerRestaurantDetail,

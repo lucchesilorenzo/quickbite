@@ -10,7 +10,7 @@ import {
 import DeliveryTimeForm from "./DeliveryTimeForm";
 
 import Spinner from "@/components/common/Spinner";
-import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 
 type DeliveryTimeDialogProps = {
   openDeliveryTimeDialog: boolean;
@@ -21,7 +21,7 @@ export default function DeliveryTimeDialog({
   openDeliveryTimeDialog,
   setOpenDeliveryTimeDialog,
 }: DeliveryTimeDialogProps) {
-  const { isLoadingDeliverySlots } = useCustomerCheckout();
+  const { isLoadingDeliverySlots } = useCheckout();
 
   return (
     <Dialog

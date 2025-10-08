@@ -7,14 +7,14 @@ import { useFormContext } from "react-hook-form";
 import PartnerHeadingBlock from "../../common/PartnerHeadingBlock";
 
 import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsFees";
-import { TPartnerRestaurantSettingsFeesFormSchema } from "@/validations/partner-restaurant-settings-validations";
+import { TRestaurantSettingsFeesFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function PartnerSettingsFeesHeader() {
   const { editMode, setEditMode } = usePartnerRestaurantSettingsFees();
 
   const {
     formState: { isSubmitting },
-  } = useFormContext<TPartnerRestaurantSettingsFeesFormSchema>();
+  } = useFormContext<TRestaurantSettingsFeesFormSchema>();
 
   function handleEditMode(e: React.MouseEvent<HTMLButtonElement>) {
     if (!editMode) {

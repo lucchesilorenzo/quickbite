@@ -3,7 +3,7 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import { AppBar, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-import HeaderDialogCustomer from "../header/HeaderDialogCustomer";
+import CustomerHeaderDialog from "../header/CustomerHeaderDialog";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
@@ -47,7 +47,7 @@ export default function CheckoutHeader() {
         {!isCustomer(user) ? (
           <HeaderDialog />
         ) : (
-          <HeaderDialogCustomer customer={user} />
+          <CustomerHeaderDialog customer={user} />
         )}
       </Toolbar>
     </AppBar>

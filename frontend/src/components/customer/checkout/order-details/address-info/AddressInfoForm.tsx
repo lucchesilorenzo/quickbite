@@ -3,12 +3,12 @@ import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import {
   TCheckoutAddressInfoFormSchema,
   checkoutAddressInfoFormSchema,
-} from "@/validations/checkout-validations";
+} from "@/validations/private/customer/checkout-validations";
 
 type AddressInfoFormProps = {
   setOpenAddressInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ export default function AddressInfoForm({
   setOpenAddressInfoDialog,
 }: AddressInfoFormProps) {
   const { user } = useAuth();
-  const { checkoutData, restaurantId, setCheckoutData } = useCustomerCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,

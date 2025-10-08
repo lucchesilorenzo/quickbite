@@ -6,11 +6,11 @@ import { grey } from "@mui/material/colors";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import {
   TCheckoutPaymentMethodFormSchema,
   checkoutPaymentMethodFormSchema,
-} from "@/validations/checkout-validations";
+} from "@/validations/private/customer/checkout-validations";
 
 const paymentMethodOptions = [
   {
@@ -29,7 +29,7 @@ type PaymentMethodFormProps = {
 export default function PaymentMethodForm({
   setOpenPaymentMethodDialog,
 }: PaymentMethodFormProps) {
-  const { checkoutData, restaurantId, setCheckoutData } = useCustomerCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,

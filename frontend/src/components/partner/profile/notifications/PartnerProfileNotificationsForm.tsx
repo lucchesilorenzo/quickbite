@@ -3,7 +3,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { Fragment } from "react/jsx-runtime";
 
 import AntSwitch from "@/components/common/AntSwitch";
-import { TPartnerProfileNotificationsFormSchema } from "@/validations/partner-profile-notifications-validations";
+import { TProfileNotificationsFormSchema } from "@/validations/private/partner/profile-notifications-validations";
 
 const partnerProfileNotificationsPreferences = [
   {
@@ -19,7 +19,7 @@ const partnerProfileNotificationsPreferences = [
 ] as const;
 
 export default function PartnerProfileNotificationsForm() {
-  const { control } = useFormContext<TPartnerProfileNotificationsFormSchema>();
+  const { control } = useFormContext<TProfileNotificationsFormSchema>();
 
   return (
     <Stack spacing={2} sx={{ mt: 4 }}>

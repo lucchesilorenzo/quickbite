@@ -6,14 +6,14 @@ import { useFormContext } from "react-hook-form";
 
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsInfo";
-import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
+import { TRestaurantSettingsInfoFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function PartnerSettingsInfoHeader() {
   const { editMode, setEditMode } = usePartnerRestaurantSettingsInfo();
 
   const {
     formState: { isSubmitting },
-  } = useFormContext<TPartnerRestaurantSettingsInfoFormSchema>();
+  } = useFormContext<TRestaurantSettingsInfoFormSchema>();
 
   function handleEditMode(e: React.MouseEvent<HTMLButtonElement>) {
     if (!editMode) {

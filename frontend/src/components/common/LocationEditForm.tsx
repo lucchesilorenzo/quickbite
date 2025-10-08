@@ -13,8 +13,8 @@ import { generateSlug } from "@/lib/utils";
 import { Address } from "@/types";
 import {
   TLocationEditFormSchema,
-  locationEditForm,
-} from "@/validations/location-validations";
+  locationEditFormSchema,
+} from "@/validations/public/location-validations";
 
 type LocationEditFormProps = {
   onCloseDialogs: () => void;
@@ -30,7 +30,7 @@ export default function LocationEditForm({
     register,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(locationEditForm),
+    resolver: zodResolver(locationEditFormSchema),
     defaultValues: {
       house_number: undefined,
     },

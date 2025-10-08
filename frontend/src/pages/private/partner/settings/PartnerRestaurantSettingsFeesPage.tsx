@@ -7,11 +7,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import PartnerSettingsFeesContainer from "@/components/partner/restaurant/settings/fees/PartnerSettingsFeesContainer";
 import PartnerRestaurantSettingsFeesProvider from "@/contexts/private/partner/PartnerRestaurantSettingsFeesProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partners/restaurants/settings/fees/useUpdatePartnerRestaurantSettingsFees";
+import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partner/restaurants/settings/fees/useUpdatePartnerRestaurantSettingsFees";
 import {
-  TPartnerRestaurantSettingsFeesFormSchema,
-  partnerRestaurantSettingsFeesFormSchema,
-} from "@/validations/partner-restaurant-settings-validations";
+  TRestaurantSettingsFeesFormSchema,
+  restaurantSettingsFeesFormSchema,
+} from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function PartnerRestaurantSettingsFeesPage() {
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function PartnerRestaurantSettingsFeesPage() {
     useUpdatePartnerRestaurantSettingsFees(restaurant.id);
 
   const methods = useForm({
-    resolver: zodResolver(partnerRestaurantSettingsFeesFormSchema),
+    resolver: zodResolver(restaurantSettingsFeesFormSchema),
     defaultValues: {
       delivery_fee: restaurant.delivery_fee,
       delivery_time_min: restaurant.delivery_time_min || "",
@@ -36,7 +36,7 @@ export default function PartnerRestaurantSettingsFeesPage() {
 
   const { handleSubmit } = methods;
 
-  async function onSubmit(data: TPartnerRestaurantSettingsFeesFormSchema) {
+  async function onSubmit(data: TRestaurantSettingsFeesFormSchema) {
     await updatePartnerRestaurantSettingsFees(data);
   }
 

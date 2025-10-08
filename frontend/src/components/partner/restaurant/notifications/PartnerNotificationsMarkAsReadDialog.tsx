@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useMarkPartnerNotificationsAsRead } from "@/hooks/react-query/private/partners/notifications/useMarkPartnerNotificationsAsRead";
+import { useMarkPartnerNotificationsAsRead } from "@/hooks/react-query/private/partner/notifications/useMarkPartnerNotificationsAsRead";
 
 type PartnerNotificationsMarkAsReadDialogProps = {
   openMarkUserNotificationsAsRead: boolean;

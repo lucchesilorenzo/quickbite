@@ -13,12 +13,12 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useCreatePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/offers/useCreatePartnerRestaurantOffer";
+import { useCreatePartnerRestaurantOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useCreatePartnerRestaurantOffer";
 import { discountRates } from "@/lib/data";
 import {
-  TPartnerRestaurantSettingsOffersFormSchema,
-  partnerRestaurantSettingsOffersFormSchema,
-} from "@/validations/partner-restaurant-settings-validations";
+  TRestaurantSettingsOffersFormSchema,
+  restaurantSettingsOffersFormSchema,
+} from "@/validations/private/partner/restaurant-settings-validations";
 
 type PartnerOffersAddOfferFormProps = {
   setOpenAddOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,7 +37,7 @@ export default function PartnerOffersAddOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      partnerRestaurantSettingsOffersFormSchema(restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurant.min_amount),
     ),
     defaultValues: {
       discount_rate: "",
@@ -45,7 +45,7 @@ export default function PartnerOffersAddOfferForm({
     },
   });
 
-  async function onSubmit(data: TPartnerRestaurantSettingsOffersFormSchema) {
+  async function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
     await createPartnerRestaurantOffer(data);
     setOpenAddOfferDialog(false);
   }

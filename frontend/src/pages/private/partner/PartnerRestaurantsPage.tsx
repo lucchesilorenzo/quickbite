@@ -6,7 +6,7 @@ import Spinner from "@/components/common/Spinner";
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import PartnerRestaurantsSelection from "@/components/partner/restaurants/PartnerRestaurantsSelection";
 import PartnerRestaurantsWelcome from "@/components/partner/restaurants/PartnerRestaurantsWelcome";
-import { useGetPartnerRestaurants } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurants";
+import { useGetPartnerRestaurants } from "@/hooks/react-query/private/partner/restaurants/restaurant/useGetPartnerRestaurants";
 
 export default function PartnerRestaurantsPage() {
   const { data: restaurants = [], isLoading } = useGetPartnerRestaurants();

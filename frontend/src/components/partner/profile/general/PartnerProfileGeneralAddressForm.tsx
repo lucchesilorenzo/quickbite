@@ -2,13 +2,13 @@ import { Stack, TextField, useMediaQuery } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { TPartnerProfileGeneralFormSchema } from "@/validations/partner-profile-general-validations";
+import { TProfileGeneralFormSchema } from "@/validations/private/partner/profile-general-validations";
 
 export default function PartnerProfileGeneralAddressForm() {
   const {
     control,
     formState: { errors },
-  } = useFormContext<TPartnerProfileGeneralFormSchema>();
+  } = useFormContext<TProfileGeneralFormSchema>();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 

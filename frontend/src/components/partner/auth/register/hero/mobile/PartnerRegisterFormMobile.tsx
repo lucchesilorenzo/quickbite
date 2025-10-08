@@ -20,12 +20,12 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
-import { useRegisterPartner } from "@/hooks/react-query/private/partners/auth/useRegisterPartner";
+import { useRegisterPartner } from "@/hooks/react-query/private/partner/auth/useRegisterPartner";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
-  TPartnerRegisterFormSchema,
-  partnerRegisterFormSchema,
-} from "@/validations/partner-auth-validations";
+  TRegisterFormSchema,
+  registerFormSchema,
+} from "@/validations/private/partner/auth-validations";
 
 export default function PartnerRegisterFormMobile() {
   const { mutateAsync: registerPartner, isPending: isRegisterPending } =
@@ -37,7 +37,7 @@ export default function PartnerRegisterFormMobile() {
     formState: { isSubmitting, errors },
     watch,
   } = useForm({
-    resolver: zodResolver(partnerRegisterFormSchema),
+    resolver: zodResolver(registerFormSchema),
     defaultValues: {
       business_name: "",
       street_address: "",
@@ -62,7 +62,7 @@ export default function PartnerRegisterFormMobile() {
   const password = watch("password");
   const strength = calculatePasswordStrength(password);
 
-  async function onSubmit(data: TPartnerRegisterFormSchema) {
+  async function onSubmit(data: TRegisterFormSchema) {
     await registerPartner(data);
   }
 

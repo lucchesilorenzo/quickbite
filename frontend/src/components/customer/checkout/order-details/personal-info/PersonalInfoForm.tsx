@@ -4,12 +4,12 @@ import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCustomerCheckout } from "@/hooks/contexts/private/customer/useCustomerCheckout";
+import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import {
   TCheckoutPersonalInfoFormSchema,
   checkoutPersonalInfoFormSchema,
-} from "@/validations/checkout-validations";
+} from "@/validations/private/customer/checkout-validations";
 
 type PersonalInfoFormProps = {
   setOpenPersonalInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,7 +19,7 @@ export default function PersonalInfoForm({
   setOpenPersonalInfoDialog,
 }: PersonalInfoFormProps) {
   const { user } = useAuth();
-  const { checkoutData, restaurantId, setCheckoutData } = useCustomerCheckout();
+  const { checkoutData, restaurantId, setCheckoutData } = useCheckout();
 
   const {
     handleSubmit,

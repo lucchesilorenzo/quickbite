@@ -4,17 +4,15 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerPersonalInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerPersonalInfo";
-import { isCustomer } from "@/lib/utils";
+import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
   TPersonalInfoEditFullNameFormSchema,
   personalInfoEditFullNameFormSchema,
-} from "@/validations/personal-info-validations";
+} from "@/validations/private/customer/personal-info-validations";
 
 export default function PersonalInfoEditFullNameForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerFullName } =
-    useUpdateCustomerPersonalInfo();
+  const { mutateAsync: updateCustomerFullName } = useUpdatePersonalInfo();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -25,8 +23,8 @@ export default function PersonalInfoEditFullNameForm() {
   } = useForm({
     resolver: zodResolver(personalInfoEditFullNameFormSchema),
     defaultValues: {
-      first_name: isCustomer(user) ? user.first_name : "",
-      last_name: isCustomer(user) ? user.last_name : "",
+      first_name: user?.first_name || "",
+      last_name: user?.last_name || "",
     },
   });
 

@@ -117,7 +117,7 @@ export const headerDialogOptions = [
   },
 ];
 
-export const headerDialogCustomerOptions = [
+export const customerHeaderDialogOptions = [
   {
     href: "/become-a-rider",
     label: "Become a rider",

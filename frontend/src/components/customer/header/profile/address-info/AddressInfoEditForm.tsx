@@ -4,17 +4,15 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerAddressInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerAddressInfo";
-import { isCustomer } from "@/lib/utils";
+import { useUpdateAddressInfo } from "@/hooks/react-query/private/customer/profile/useUpdateAddressInfo";
 import {
   TAddressInfoEditFormSchema,
   addressInfoEditFormSchema,
-} from "@/validations/personal-info-validations";
+} from "@/validations/private/customer/personal-info-validations";
 
 export default function AddressInfoEditForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerAddressInfo } =
-    useUpdateCustomerAddressInfo();
+  const { mutateAsync: updateCustomerAddressInfo } = useUpdateAddressInfo();
 
   const {
     handleSubmit,
@@ -23,11 +21,11 @@ export default function AddressInfoEditForm() {
   } = useForm({
     resolver: zodResolver(addressInfoEditFormSchema),
     defaultValues: {
-      street_address: isCustomer(user) ? (user.street_address ?? "") : "",
-      building_number: isCustomer(user) ? (user.building_number ?? "") : "",
-      postcode: isCustomer(user) ? (user.postcode ?? "") : "",
-      city: isCustomer(user) ? (user.city ?? "") : "",
-      state: isCustomer(user) ? (user.state ?? "") : "",
+      street_address: user?.street_address || "",
+      building_number: user?.building_number || "",
+      postcode: user?.postcode || "",
+      city: user?.city || "",
+      state: user?.state || "",
     },
   });
 

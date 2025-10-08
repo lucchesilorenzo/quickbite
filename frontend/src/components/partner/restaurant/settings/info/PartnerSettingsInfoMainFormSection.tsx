@@ -26,7 +26,7 @@ import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsInfo";
 import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
 import env from "@/lib/env";
-import { TPartnerRestaurantSettingsInfoFormSchema } from "@/validations/partner-restaurant-settings-validations";
+import { TRestaurantSettingsInfoFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function PartnerSettingsInfoMainFormSection() {
   const { allCategories } = useCategoryFilters();
@@ -36,7 +36,7 @@ export default function PartnerSettingsInfoMainFormSection() {
     control,
     watch,
     formState: { errors },
-  } = useFormContext<TPartnerRestaurantSettingsInfoFormSchema>();
+  } = useFormContext<TRestaurantSettingsInfoFormSchema>();
 
   const [openPreviewImageDialog, setOpenPreviewImageDialog] = useState(false);
   const [previewImageFile, setPreviewImageFile] = useState<

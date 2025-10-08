@@ -7,12 +7,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import PartnerProfileNotificationsCard from "@/components/partner/profile/notifications/PartnerProfileNotificationsCard";
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdatePartnerProfileNotifications } from "@/hooks/react-query/private/partners/profile/useUpdatePartnerProfileNotifications";
+import { useUpdatePartnerProfileNotifications } from "@/hooks/react-query/private/partner/profile/useUpdatePartnerProfileNotifications";
 import { NotificationType } from "@/types";
 import {
-  TPartnerProfileNotificationsFormSchema,
-  partnerProfileNotificationsFormSchema,
-} from "@/validations/partner-profile-notifications-validations";
+  TProfileNotificationsFormSchema,
+  profileNotificationsFormSchema,
+} from "@/validations/private/partner/profile-notifications-validations";
 
 export default function PartnerProfileNotificationsPage() {
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function PartnerProfileNotificationsPage() {
   );
 
   const methods = useForm({
-    resolver: zodResolver(partnerProfileNotificationsFormSchema),
+    resolver: zodResolver(profileNotificationsFormSchema),
     defaultValues,
   });
 
@@ -42,7 +42,7 @@ export default function PartnerProfileNotificationsPage() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: TPartnerProfileNotificationsFormSchema) {
+  async function onSubmit(data: TProfileNotificationsFormSchema) {
     await updatePartnerProfileNotifications(data);
   }
 

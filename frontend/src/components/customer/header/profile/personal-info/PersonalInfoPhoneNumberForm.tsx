@@ -5,17 +5,15 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdateCustomerPersonalInfo } from "@/hooks/react-query/private/customers/profile/useUpdateCustomerPersonalInfo";
-import { isCustomer } from "@/lib/utils";
+import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
   TPersonalInfoEditPhoneNumberFormSchema,
   personalInfoEditPhoneNumberFormSchema,
-} from "@/validations/personal-info-validations";
+} from "@/validations/private/customer/personal-info-validations";
 
 export default function PersonalInfoEditPhoneNumberForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerPhoneNumber } =
-    useUpdateCustomerPersonalInfo();
+  const { mutateAsync: updateCustomerPhoneNumber } = useUpdatePersonalInfo();
 
   const {
     handleSubmit,
@@ -24,7 +22,7 @@ export default function PersonalInfoEditPhoneNumberForm() {
   } = useForm({
     resolver: zodResolver(personalInfoEditPhoneNumberFormSchema),
     defaultValues: {
-      phone_number: isCustomer(user) ? user.phone_number : "",
+      phone_number: user?.phone_number || "",
     },
   });
 

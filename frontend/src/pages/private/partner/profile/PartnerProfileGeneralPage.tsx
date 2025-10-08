@@ -8,11 +8,11 @@ import PartnerProfileGeneralAddressCard from "@/components/partner/profile/gener
 import PartnerProfileGeneralPersonalInfoCard from "@/components/partner/profile/general/PartnerProfileGeneralPersonalInfoCard";
 import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdatePartnerProfileGeneralInformation } from "@/hooks/react-query/private/partners/profile/useUpdatePartnerProfileGeneralInformation";
+import { useUpdatePartnerProfileGeneralInformation } from "@/hooks/react-query/private/partner/profile/useUpdatePartnerProfileGeneralInformation";
 import {
-  TPartnerProfileGeneralFormSchema,
-  partnerProfileGeneralFormSchema,
-} from "@/validations/partner-profile-general-validations";
+  TProfileGeneralFormSchema,
+  profileGeneralFormSchema,
+} from "@/validations/private/partner/profile-general-validations";
 
 export default function PartnerProfileGeneralPage() {
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function PartnerProfileGeneralPage() {
   } = useUpdatePartnerProfileGeneralInformation();
 
   const methods = useForm({
-    resolver: zodResolver(partnerProfileGeneralFormSchema),
+    resolver: zodResolver(profileGeneralFormSchema),
     defaultValues: {
       first_name: user?.first_name || "",
       last_name: user?.last_name || "",
@@ -45,7 +45,7 @@ export default function PartnerProfileGeneralPage() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: TPartnerProfileGeneralFormSchema) {
+  async function onSubmit(data: TProfileGeneralFormSchema) {
     await updatePartnerProfileGeneralInformation(data);
   }
 

@@ -4,11 +4,11 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useCreatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partners/restaurants/menu/categories/useCreatePartnerRestaurantMenuCategory";
+import { useCreatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useCreatePartnerRestaurantMenuCategory";
 import {
-  TPartnerRestaurantMenuCategoriesFormSchema,
-  partnerRestaurantMenuCategoriesFormSchema,
-} from "@/validations/partner-restaurant-menu-validations";
+  TRestaurantMenuCategoriesFormSchema,
+  restaurantMenuCategoriesFormSchema,
+} from "@/validations/private/partner/restaurant-menu-validations";
 
 type PartnerMenuCategoriesAddMenuCategoryFormProps = {
   setOpenAddMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,14 +27,14 @@ export default function PartnerMenuCategoriesAddMenuCategoryForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(partnerRestaurantMenuCategoriesFormSchema),
+    resolver: zodResolver(restaurantMenuCategoriesFormSchema),
     defaultValues: {
       name: "",
       description: "",
     },
   });
 
-  async function onSubmit(data: TPartnerRestaurantMenuCategoriesFormSchema) {
+  async function onSubmit(data: TRestaurantMenuCategoriesFormSchema) {
     await createPartnerRestaurantMenuCategory(data);
     setOpenAddMenuCategoryDialog(false);
   }

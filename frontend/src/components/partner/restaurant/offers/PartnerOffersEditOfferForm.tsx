@@ -13,13 +13,13 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantOffer } from "@/hooks/react-query/private/partners/restaurants/offers/useUpdatePartnerRestaurantOffer";
+import { useUpdatePartnerRestaurantOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useUpdatePartnerRestaurantOffer";
 import { discountRates } from "@/lib/data";
 import { Offer } from "@/types";
 import {
-  TPartnerRestaurantSettingsOffersFormSchema,
-  partnerRestaurantSettingsOffersFormSchema,
-} from "@/validations/partner-restaurant-settings-validations";
+  TRestaurantSettingsOffersFormSchema,
+  restaurantSettingsOffersFormSchema,
+} from "@/validations/private/partner/restaurant-settings-validations";
 
 type PartnerOffersEditOfferFormProps = {
   offer: Offer;
@@ -40,7 +40,7 @@ export default function PartnerOffersEditOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      partnerRestaurantSettingsOffersFormSchema(restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurant.min_amount),
     ),
     defaultValues: {
       discount_rate: offer.discount_rate,
@@ -48,7 +48,7 @@ export default function PartnerOffersEditOfferForm({
     },
   });
 
-  async function onSubmit(data: TPartnerRestaurantSettingsOffersFormSchema) {
+  async function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
     await updatePartnerRestaurantOffer(data);
     setOpenEditOfferDialog(false);
   }

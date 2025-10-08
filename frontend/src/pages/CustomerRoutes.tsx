@@ -1,26 +1,26 @@
 import { Route } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
-import CustomerCheckoutPage from "./private/customer/CustomerCheckoutPage";
-import CustomerCheckoutSuccessPage from "./private/customer/CustomerCheckoutSuccessPage";
+import CheckoutPage from "./private/customer/CheckoutPage";
+import CheckoutSuccessPage from "./private/customer/CheckoutSuccessPage";
 
-import CustomerCheckoutLayout from "@/layouts/private/customer/CustomerCheckoutLayout";
+import CheckoutLayout from "@/layouts/private/customer/CheckoutLayout";
 import { Role } from "@/types";
 
 export const CustomerRoutes = [
-  <Route path="/" element={<CustomerCheckoutLayout />}>
+  <Route path="/" element={<CheckoutLayout />}>
     <Route
       path="checkout/:cartId"
       element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
     >
-      <Route index element={<CustomerCheckoutPage />} />
+      <Route index element={<CheckoutPage />} />
     </Route>
     ,
     <Route
       path="checkout/:orderId/success"
       element={<ProtectedRoute allowedRoles={[Role.CUSTOMER]} />}
     >
-      <Route index element={<CustomerCheckoutSuccessPage />} />
+      <Route index element={<CheckoutSuccessPage />} />
     </Route>
   </Route>,
 ];

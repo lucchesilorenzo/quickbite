@@ -13,11 +13,11 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useLoginPartner } from "@/hooks/react-query/private/partners/auth/useLoginPartner";
+import { useLoginPartner } from "@/hooks/react-query/private/partner/auth/useLoginPartner";
 import {
-  TPartnerLoginFormSchema,
-  partnerLoginFormSchema,
-} from "@/validations/partner-auth-validations";
+  TLoginFormSchema,
+  loginFormSchema,
+} from "@/validations/private/partner/auth-validations";
 
 export default function PartnerLoginForm() {
   const { mutateAsync: loginPartner } = useLoginPartner();
@@ -27,7 +27,7 @@ export default function PartnerLoginForm() {
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(partnerLoginFormSchema),
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -36,7 +36,7 @@ export default function PartnerLoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  async function onSubmit(data: TPartnerLoginFormSchema) {
+  async function onSubmit(data: TLoginFormSchema) {
     await loginPartner(data);
   }
 

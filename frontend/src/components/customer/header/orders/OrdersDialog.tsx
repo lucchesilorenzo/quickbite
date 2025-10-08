@@ -15,7 +15,7 @@ import EmptyOrders from "./EmptyOrders";
 import OrdersList from "./OrdersList";
 
 import Spinner from "@/components/common/Spinner";
-import { useGetCustomerOrders } from "@/hooks/react-query/private/customers/orders/useGetCustomerOrders";
+import { useGetOrders } from "@/hooks/react-query/private/customer/orders/useGetOrders";
 import { customerOrdersDefaults } from "@/lib/query-defaults";
 
 type OrdersDialogProps = {
@@ -29,7 +29,7 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
   const {
     data: ordersWithPagination = customerOrdersDefaults,
     isLoading: isLoadingOrders,
-  } = useGetCustomerOrders(page);
+  } = useGetOrders(page);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 

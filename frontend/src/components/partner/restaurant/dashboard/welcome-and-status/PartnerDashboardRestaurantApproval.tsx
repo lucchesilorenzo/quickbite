@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantApprovedStatus } from "@/hooks/react-query/private/partners/restaurants/restaurant/useUpdatePartnerRestaurantApprovedStatus";
+import { useUpdatePartnerRestaurantApprovedStatus } from "@/hooks/react-query/private/partner/restaurants/restaurant/useUpdatePartnerRestaurantApprovedStatus";
 
 export default function PartnerDashboardRestaurantApproval() {
   const { restaurant } = usePartnerRestaurant();
