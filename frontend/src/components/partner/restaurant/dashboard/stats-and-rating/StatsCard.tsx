@@ -1,13 +1,13 @@
 import { Card, Grid } from "@mui/material";
 
-import DashboardStatsCardItem from "./DashboardStatsCardItem";
+import StatsCardItem from "./StatsCardItem";
 
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useGetPartnerRestaurantDashboardStats } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantDashboardStats";
 import { partnerRestaurantDashboardStatsDefaults } from "@/lib/query-defaults";
 
-export default function DashboardStatsCard() {
+export default function StatsCard() {
   const { restaurant } = usePartnerRestaurant();
 
   const {
@@ -28,7 +28,7 @@ export default function DashboardStatsCard() {
     <Card variant="outlined" sx={{ p: 2 }}>
       <Grid container spacing={2}>
         {computedStats.map((stat) => (
-          <DashboardStatsCardItem key={stat.title} stat={stat} />
+          <StatsCardItem key={stat.title} stat={stat} />
         ))}
       </Grid>
     </Card>

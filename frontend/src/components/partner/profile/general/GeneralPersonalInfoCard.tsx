@@ -2,9 +2,9 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { Card } from "@mui/material";
 
 import CardHeading from "../common/CardHeading";
-import ProfileGeneralPersonalInfoForm from "./ProfileGeneralPersonalInfoForm";
+import GeneralPersonalInfoForm from "./GeneralPersonalInfoForm";
 
-export default function ProfileGeneralPersonalInfoCard() {
+export default function GeneralPersonalInfoCard() {
   return (
     <Card variant="outlined" sx={{ p: 2 }}>
       <CardHeading
@@ -13,7 +13,7 @@ export default function ProfileGeneralPersonalInfoCard() {
         icon={AccountCircleOutlinedIcon}
       />
 
-      <ProfileGeneralPersonalInfoForm />
+      <GeneralPersonalInfoForm />
     </Card>
   );
 }

@@ -2,9 +2,9 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import { Card } from "@mui/material";
 
 import CardHeading from "../common/CardHeading";
-import ProfileNotificationsForm from "./ProfileNotificationsForm";
+import NotificationsForm from "./NotificationsForm";
 
-export default function ProfileNotificationsCard() {
+export default function NotificationsCard() {
   return (
     <Card variant="outlined" sx={{ p: 2 }}>
       <CardHeading
@@ -13,7 +13,7 @@ export default function ProfileNotificationsCard() {
         icon={NotificationsOutlinedIcon}
       />
 
-      <ProfileNotificationsForm />
+      <NotificationsForm />
     </Card>
   );
 }

@@ -13,13 +13,13 @@ import {
   restaurantAddMenuItemFormSchema,
 } from "@/validations/private/partner/restaurant-menu-validations";
 
-type MenuEditAddMenuItemFormProps = {
+type AddMenuItemFormProps = {
   setOpenAddMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function MenuEditAddMenuItemForm({
+export default function AddMenuItemForm({
   setOpenAddMenuItemDialog,
-}: MenuEditAddMenuItemFormProps) {
+}: AddMenuItemFormProps) {
   const { restaurant } = usePartnerRestaurant();
   const { selectedMenuCategoryId } = usePartnerRestaurantMenu();
 

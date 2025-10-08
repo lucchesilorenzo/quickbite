@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 
-export default function DashboardStatsTitle() {
+export default function StatsTitle() {
   const { restaurant } = usePartnerRestaurant();
 
   return (

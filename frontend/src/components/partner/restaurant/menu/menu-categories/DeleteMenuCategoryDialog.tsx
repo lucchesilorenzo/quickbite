@@ -14,7 +14,7 @@ import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartne
 import { useDeletePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useDeletePartnerRestaurantMenuCategory";
 import { PartnerMenu } from "@/types";
 
-type MenuCategoriesDeleteMenuCategoryDialogProps = {
+type DeleteMenuCategoryDialogProps = {
   menuCategory: PartnerMenu;
   openDeleteMenuCategoryDialog: boolean;
   setOpenDeleteMenuCategoryDialog: React.Dispatch<
@@ -22,11 +22,11 @@ type MenuCategoriesDeleteMenuCategoryDialogProps = {
   >;
 };
 
-export default function MenuCategoriesDeleteMenuCategoryDialog({
+export default function DeleteMenuCategoryDialog({
   menuCategory,
   openDeleteMenuCategoryDialog,
   setOpenDeleteMenuCategoryDialog,
-}: MenuCategoriesDeleteMenuCategoryDialogProps) {
+}: DeleteMenuCategoryDialogProps) {
   const { restaurant } = usePartnerRestaurant();
 
   const {

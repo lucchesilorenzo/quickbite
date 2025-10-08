@@ -2,9 +2,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { Card } from "@mui/material";
 
 import CardHeading from "../common/CardHeading";
-import ProfileGeneralAddressForm from "./ProfileGeneralAddressForm";
+import GeneralAddressForm from "./GeneralAddressForm";
 
-export default function ProfileGeneralAddressCard() {
+export default function GeneralAddressCard() {
   return (
     <Card variant="outlined" sx={{ p: 2 }}>
       <CardHeading
@@ -13,7 +13,7 @@ export default function ProfileGeneralAddressCard() {
         icon={HomeOutlinedIcon}
       />
 
-      <ProfileGeneralAddressForm />
+      <GeneralAddressForm />
     </Card>
   );
 }

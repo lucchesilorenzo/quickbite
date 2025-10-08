@@ -1,12 +1,12 @@
 import { Stack } from "@mui/material";
 
-import DashboardRestaurantApproval from "./DashboardRestaurantApproval";
-import DashboardRestaurantStatus from "./DashboardRestaurantStatus";
-import DashboardWelcome from "./DashboardWelcome";
+import RestaurantApprovalButton from "./RestaurantApprovalButton";
+import RestaurantStatusSwitch from "./RestaurantStatusSwitch";
+import RestaurantWelcome from "./RestaurantWelcome";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 
-export default function DashboardWelcomeAndStatus() {
+export default function WelcomeAndStatusSection() {
   const { restaurant } = usePartnerRestaurant();
 
   return (
@@ -20,11 +20,11 @@ export default function DashboardWelcomeAndStatus() {
         mb: { sm: 3 },
       }}
     >
-      <DashboardWelcome />
+      <RestaurantWelcome />
 
       <Stack spacing={2} sx={{ alignItems: { sm: "center" } }}>
-        <DashboardRestaurantStatus />
-        {!restaurant.is_approved && <DashboardRestaurantApproval />}
+        <RestaurantStatusSwitch />
+        {!restaurant.is_approved && <RestaurantApprovalButton />}
       </Stack>
     </Stack>
   );

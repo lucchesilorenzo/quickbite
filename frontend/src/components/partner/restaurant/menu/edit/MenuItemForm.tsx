@@ -22,15 +22,15 @@ import {
   restaurantMenuEditMenuItemFormSchema,
 } from "@/validations/private/partner/restaurant-menu-validations";
 
-type MenuEditMenuItemFormProps = {
+type MenuItemFormProps = {
   menuItem: MenuItem;
   setOpenEditMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function MenuEditMenuItemForm({
+export default function MenuItemForm({
   menuItem,
   setOpenEditMenuItemDialog,
-}: MenuEditMenuItemFormProps) {
+}: MenuItemFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
   const { mutateAsync: updatePartnerRestaurantMenuItem } =

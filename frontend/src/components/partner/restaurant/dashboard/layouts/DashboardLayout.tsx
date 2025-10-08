@@ -1,8 +1,8 @@
 import { Container, Stack } from "@mui/material";
 
-import DashboardStatsAndRating from "../stats-and-rating/DashboardStatsAndRating";
-import DashboardStatsTitle from "../stats-and-rating/stats/DashboardStatsTitle";
-import DashboardWelcomeAndStatus from "../welcome-and-status/DashboardWelcomeAndStatus";
+import StatsAndRatingSection from "../stats-and-rating/StatsAndRatingSection";
+import StatsTitle from "../stats-and-rating/StatsTitle";
+import WelcomeAndStatusSection from "../welcome-and-status/WelcomeAndStatusSection";
 
 export default function DashboardLayout() {
   return (
@@ -12,9 +12,9 @@ export default function DashboardLayout() {
         maxWidth="md"
         sx={{ display: { xs: "none", sm: "block" }, mt: 4 }}
       >
-        <DashboardWelcomeAndStatus />
-        <DashboardStatsTitle />
-        <DashboardStatsAndRating />
+        <WelcomeAndStatusSection />
+        <StatsTitle />
+        <StatsAndRatingSection />
       </Container>
 
       <Stack
@@ -22,9 +22,9 @@ export default function DashboardLayout() {
         spacing={2}
         sx={{ display: { xs: "block", sm: "none" }, mt: 3, p: 2 }}
       >
-        <DashboardWelcomeAndStatus />
-        <DashboardStatsTitle />
-        <DashboardStatsAndRating />
+        <WelcomeAndStatusSection />
+        <StatsTitle />
+        <StatsAndRatingSection />
       </Stack>
     </>
   );

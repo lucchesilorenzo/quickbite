@@ -12,7 +12,7 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Stack, Typography, debounce } from "@mui/material";
 
-import MenuEditMenuItem from "./MenuEditMenuItem";
+import MenuItem from "./MenuItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
@@ -22,7 +22,7 @@ import { useUpdatePartnerRestaurantMenuItemsOrder } from "@/hooks/react-query/pr
 import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetPartnerRestaurantMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";
 
-export default function MenuEditMenuItemsList() {
+export default function MenuItemsList() {
   const { restaurant } = usePartnerRestaurant();
   const { selectedMenuCategoryId } = usePartnerRestaurantMenu();
 
@@ -96,7 +96,7 @@ export default function MenuEditMenuItemsList() {
       <SortableContext items={items}>
         <Stack spacing={2} sx={{ my: 3 }}>
           {items.map((menuItem) => (
-            <MenuEditMenuItem key={menuItem.id} menuItem={menuItem} />
+            <MenuItem key={menuItem.id} menuItem={menuItem} />
           ))}
 
           <Box sx={{ alignSelf: "center" }}>

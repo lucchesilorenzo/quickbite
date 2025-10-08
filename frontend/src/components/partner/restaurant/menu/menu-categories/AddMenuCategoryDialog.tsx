@@ -12,9 +12,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import MenuCategoriesAddMenuCategoryForm from "./MenuCategoriesAddMenuCategoryForm";
+import AddMenuCategoryForm from "./AddMenuCategoryForm";
 
-export default function MenuCategoriesAddMenuCategoryDialog() {
+export default function AddMenuCategoryDialog() {
   const [openAddMenuCategoryDialog, setOpenAddMenuCategoryDialog] =
     useState(false);
 
@@ -55,7 +55,7 @@ export default function MenuCategoriesAddMenuCategoryDialog() {
           </Stack>
 
           <DialogContent sx={{ p: 1 }}>
-            <MenuCategoriesAddMenuCategoryForm
+            <AddMenuCategoryForm
               setOpenAddMenuCategoryDialog={setOpenAddMenuCategoryDialog}
             />
           </DialogContent>

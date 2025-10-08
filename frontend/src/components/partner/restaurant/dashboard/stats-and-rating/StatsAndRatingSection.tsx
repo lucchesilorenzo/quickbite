@@ -1,9 +1,9 @@
 import { Grid, Stack } from "@mui/material";
 
 import RatingDisplayCard from "../../common/RatingDisplayCard";
-import DashboardStatsCard from "./stats/DashboardStatsCard";
+import StatsCard from "./StatsCard";
 
-export default function DashboardStatsAndRating() {
+export default function StatsAndRatingSection() {
   return (
     <>
       <Grid
@@ -13,7 +13,7 @@ export default function DashboardStatsAndRating() {
         sx={{ display: { xs: "none", sm: "flex" } }}
       >
         <Grid size={7}>
-          <DashboardStatsCard />
+          <StatsCard />
         </Grid>
 
         <Grid size={5}>
@@ -26,7 +26,7 @@ export default function DashboardStatsAndRating() {
         spacing={2}
         sx={{ display: { xs: "block", sm: "none" } }}
       >
-        <DashboardStatsCard />
+        <StatsCard />
         <RatingDisplayCard type="dashboard" />
       </Stack>
     </>

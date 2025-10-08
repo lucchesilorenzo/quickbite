@@ -4,9 +4,9 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { IconButton } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import MenuEditAddMenuItemDialog from "./MenuEditAddMenuItemDialog";
+import AddMenuItemDialog from "./AddMenuItemDialog";
 
-export default function MenuEditAddMenuItemButton() {
+export default function AddMenuItemButton() {
   const [openAddMenuItemDialog, setOpenAddMenuItemDialog] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ export default function MenuEditAddMenuItemButton() {
         <AddOutlinedIcon fontSize="small" />
       </IconButton>
 
-      <MenuEditAddMenuItemDialog
+      <AddMenuItemDialog
         openAddMenuItemDialog={openAddMenuItemDialog}
         setOpenAddMenuItemDialog={setOpenAddMenuItemDialog}
       />

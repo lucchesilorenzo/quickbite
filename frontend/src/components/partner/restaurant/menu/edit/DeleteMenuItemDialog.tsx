@@ -14,17 +14,17 @@ import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartne
 import { useDeletePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useDeletePartnerRestaurantMenuItem";
 import { MenuItem } from "@/types";
 
-type MenuEditDeleteMenuItemDialogProps = {
+type DeleteMenuItemDialogProps = {
   menuItem: MenuItem;
   openDeleteMenuItemDialog: boolean;
   setOpenDeleteMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function MenuEditDeleteMenuItemDialog({
+export default function DeleteMenuItemDialog({
   menuItem,
   openDeleteMenuItemDialog,
   setOpenDeleteMenuItemDialog,
-}: MenuEditDeleteMenuItemDialogProps) {
+}: DeleteMenuItemDialogProps) {
   const { restaurant } = usePartnerRestaurant();
 
   const {

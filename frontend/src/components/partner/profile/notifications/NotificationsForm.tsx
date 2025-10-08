@@ -5,7 +5,7 @@ import { Fragment } from "react/jsx-runtime";
 import AntSwitch from "@/components/common/AntSwitch";
 import { TProfileNotificationsFormSchema } from "@/validations/private/partner/profile-notifications-validations";
 
-const profileNotificationPreferences = [
+const notificationPreferences = [
   {
     value: "new_order",
     title: "New orders",
@@ -18,12 +18,12 @@ const profileNotificationPreferences = [
   },
 ] as const;
 
-export default function ProfileNotificationsForm() {
+export default function NotificationsForm() {
   const { control } = useFormContext<TProfileNotificationsFormSchema>();
 
   return (
     <Stack spacing={2} sx={{ mt: 4 }}>
-      {profileNotificationPreferences.map((preference, index) => (
+      {notificationPreferences.map((preference, index) => (
         <Fragment key={preference.value}>
           <Stack
             direction="row"
@@ -51,7 +51,7 @@ export default function ProfileNotificationsForm() {
             />
           </Stack>
 
-          {profileNotificationPreferences.length - 1 !== index && <Divider />}
+          {notificationPreferences.length - 1 !== index && <Divider />}
         </Fragment>
       ))}
     </Stack>

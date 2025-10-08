@@ -16,18 +16,18 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import MenuEditDeleteMenuItemDialog from "./MenuEditDeleteMenuItemDialog";
-import MenuEditMenuItemDialog from "./MenuEditMenuItemDialog";
+import DeleteMenuItemDialog from "./DeleteMenuItemDialog";
+import EditMenuItemDialog from "./EditMenuItemDialog";
 
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils";
-import { MenuItem } from "@/types";
+import { MenuItem as TMenuItem } from "@/types";
 
-type MenuEditMenuItem = {
-  menuItem: MenuItem;
+type MenuItemProps = {
+  menuItem: TMenuItem;
 };
 
-export default function MenuEditMenuItem({ menuItem }: MenuEditMenuItem) {
+export default function MenuItem({ menuItem }: MenuItemProps) {
   const [openEditMenuItemDialog, setOpenEditMenuItemDialog] = useState(false);
   const [openDeleteMenuItemDialog, setOpenDeleteMenuItemDialog] =
     useState(false);
@@ -151,13 +151,13 @@ export default function MenuEditMenuItem({ menuItem }: MenuEditMenuItem) {
           </Box>
         </Card>
 
-        <MenuEditMenuItemDialog
+        <EditMenuItemDialog
           menuItem={menuItem}
           openEditMenuItemDialog={openEditMenuItemDialog}
           setOpenEditMenuItemDialog={setOpenEditMenuItemDialog}
         />
 
-        <MenuEditDeleteMenuItemDialog
+        <DeleteMenuItemDialog
           menuItem={menuItem}
           openDeleteMenuItemDialog={openDeleteMenuItemDialog}
           setOpenDeleteMenuItemDialog={setOpenDeleteMenuItemDialog}

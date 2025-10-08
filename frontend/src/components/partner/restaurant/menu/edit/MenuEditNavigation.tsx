@@ -9,7 +9,7 @@ import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
 import ShowMoreMenuCategoriesButton from "../../../../common/menu-category-navigation/ShowMoreMenuCategoriesButton";
-import MenuEditAddMenuItemButton from "./MenuEditAddMenuItemButton";
+import AddMenuItemButton from "./AddMenuItemButton";
 
 import Spinner from "@/components/common/Spinner";
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
@@ -154,7 +154,7 @@ export default function MenuEditNavigation() {
         </IconButton>
       </Fade>
 
-      {selectedMenuCategoryId && <MenuEditAddMenuItemButton />}
+      {selectedMenuCategoryId && <AddMenuItemButton />}
 
       {menuCategories.length > 0 && (
         <ShowMoreMenuCategoriesButton

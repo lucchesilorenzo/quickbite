@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import ProfileGeneralAddressCard from "@/components/partner/profile/general/ProfileGeneralAddressCard";
-import ProfileGeneralPersonalInfoCard from "@/components/partner/profile/general/ProfileGeneralPersonalInfoCard";
+import GeneralAddressCard from "@/components/partner/profile/general/GeneralAddressCard";
+import GeneralPersonalInfoCard from "@/components/partner/profile/general/GeneralPersonalInfoCard";
 import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdatePartnerProfileGeneralInformation } from "@/hooks/react-query/private/partner/profile/useUpdatePartnerProfileGeneralInformation";
@@ -63,8 +63,8 @@ export default function PartnerProfileGeneralPage() {
         autoComplete="off"
         noValidate
       >
-        <ProfileGeneralPersonalInfoCard />
-        <ProfileGeneralAddressCard />
+        <GeneralPersonalInfoCard />
+        <GeneralAddressCard />
 
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button

@@ -2,7 +2,7 @@ import { Grid, Stack, Typography } from "@mui/material";
 
 import { formatCurrency } from "@/lib/utils";
 
-type DashboardStatsCardItemProps = {
+type StatsCardItemProps = {
   stat: {
     title: string;
     value: number;
@@ -10,9 +10,7 @@ type DashboardStatsCardItemProps = {
   };
 };
 
-export default function DashboardStatsCardItem({
-  stat,
-}: DashboardStatsCardItemProps) {
+export default function StatsCardItem({ stat }: StatsCardItemProps) {
   const computedValue = stat.currency
     ? formatCurrency(stat.value)
     : new Intl.NumberFormat("it-IT").format(stat.value);

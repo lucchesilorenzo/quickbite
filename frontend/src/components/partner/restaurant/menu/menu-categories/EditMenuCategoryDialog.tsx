@@ -8,23 +8,27 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import MenuEditAddMenuItemForm from "./MenuEditAddMenuItemForm";
+import EditMenuCategoryForm from "./EditMenuCategoryForm";
 
-type MenuEditAddMenuItemDialogProps = {
-  openAddMenuItemDialog: boolean;
-  setOpenAddMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
+import { PartnerMenu } from "@/types";
+
+type EditMenuCategoryDialogProps = {
+  menuCategory: PartnerMenu;
+  openEditMenuCategoryDialog: boolean;
+  setOpenEditMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function MenuEditAddMenuItemDialog({
-  openAddMenuItemDialog,
-  setOpenAddMenuItemDialog,
-}: MenuEditAddMenuItemDialogProps) {
+export default function EditMenuCategoryDialog({
+  menuCategory,
+  openEditMenuCategoryDialog,
+  setOpenEditMenuCategoryDialog,
+}: EditMenuCategoryDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Dialog
-      open={openAddMenuItemDialog}
-      onClose={() => setOpenAddMenuItemDialog(false)}
+      open={openEditMenuCategoryDialog}
+      onClose={() => setOpenEditMenuCategoryDialog(false)}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -32,13 +36,13 @@ export default function MenuEditAddMenuItemDialog({
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
           <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
-            Add menu item
+            Edit menu category
           </DialogTitle>
 
           <IconButton
             color="inherit"
             aria-label="close"
-            onClick={() => setOpenAddMenuItemDialog(false)}
+            onClick={() => setOpenEditMenuCategoryDialog(false)}
             sx={{ p: 0 }}
           >
             <CloseIcon />
@@ -46,8 +50,9 @@ export default function MenuEditAddMenuItemDialog({
         </Stack>
 
         <DialogContent sx={{ p: 1 }}>
-          <MenuEditAddMenuItemForm
-            setOpenAddMenuItemDialog={setOpenAddMenuItemDialog}
+          <EditMenuCategoryForm
+            menuCategory={menuCategory}
+            setOpenEditMenuCategoryDialog={setOpenEditMenuCategoryDialog}
           />
         </DialogContent>
       </Stack>

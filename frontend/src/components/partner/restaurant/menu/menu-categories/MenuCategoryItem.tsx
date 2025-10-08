@@ -6,18 +6,18 @@ import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { Chip, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import MenuCategoriesDeleteMenuCategoryDialog from "./MenuCategoriesDeleteMenuCategoryDialog";
-import MenuCategoriesEditMenuCategoryDialog from "./MenuCategoriesEditMenuCategoryDialog";
+import DeleteMenuCategoryDialog from "./DeleteMenuCategoryDialog";
+import EditMenuCategoryDialog from "./EditMenuCategoryDialog";
 
 import { PartnerMenu } from "@/types";
 
-type MenuCategoriesItemProps = {
+type MenuCategoryItemProps = {
   menuCategory: PartnerMenu;
 };
 
-export default function MenuCategoriesItem({
+export default function MenuCategoryItem({
   menuCategory,
-}: MenuCategoriesItemProps) {
+}: MenuCategoryItemProps) {
   const [openEditMenuCategoryDialog, setOpenEditMenuCategoryDialog] =
     useState(false);
   const [openDeleteMenuCategoryDialog, setOpenDeleteMenuCategoryDialog] =
@@ -55,13 +55,13 @@ export default function MenuCategoriesItem({
         onDelete={() => setOpenDeleteMenuCategoryDialog(true)}
       />
 
-      <MenuCategoriesEditMenuCategoryDialog
+      <EditMenuCategoryDialog
         menuCategory={menuCategory}
         openEditMenuCategoryDialog={openEditMenuCategoryDialog}
         setOpenEditMenuCategoryDialog={setOpenEditMenuCategoryDialog}
       />
 
-      <MenuCategoriesDeleteMenuCategoryDialog
+      <DeleteMenuCategoryDialog
         menuCategory={menuCategory}
         openDeleteMenuCategoryDialog={openDeleteMenuCategoryDialog}
         setOpenDeleteMenuCategoryDialog={setOpenDeleteMenuCategoryDialog}

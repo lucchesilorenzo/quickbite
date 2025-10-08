@@ -6,7 +6,7 @@ import AntSwitch from "@/components/common/AntSwitch";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantStatus } from "@/hooks/react-query/private/partner/restaurants/restaurant/useUpdatePartnerRestaurantStatus";
 
-export default function DashboardRestaurantStatus() {
+export default function RestaurantStatusSwitch() {
   const { restaurant } = usePartnerRestaurant();
 
   const { mutateAsync: updatePartnerRestaurantStatus } =

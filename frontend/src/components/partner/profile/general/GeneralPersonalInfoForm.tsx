@@ -7,7 +7,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { TProfileGeneralFormSchema } from "@/validations/private/partner/profile-general-validations";
 
-export default function ProfileGeneralPersonalInfoForm() {
+export default function GeneralPersonalInfoForm() {
   const {
     control,
     formState: { errors },

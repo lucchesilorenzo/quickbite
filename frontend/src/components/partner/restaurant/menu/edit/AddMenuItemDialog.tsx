@@ -8,27 +8,23 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import MenuEditMenuItemForm from "./MenuEditMenuItemForm";
+import AddMenuItemForm from "./AddMenuItemForm";
 
-import { MenuItem } from "@/types";
-
-type MenuEditMenuItemDialogProps = {
-  menuItem: MenuItem;
-  openEditMenuItemDialog: boolean;
-  setOpenEditMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
+type AddMenuItemDialogProps = {
+  openAddMenuItemDialog: boolean;
+  setOpenAddMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function MenuEditMenuItemDialog({
-  menuItem,
-  openEditMenuItemDialog,
-  setOpenEditMenuItemDialog,
-}: MenuEditMenuItemDialogProps) {
+export default function AddMenuItemDialog({
+  openAddMenuItemDialog,
+  setOpenAddMenuItemDialog,
+}: AddMenuItemDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Dialog
-      open={openEditMenuItemDialog}
-      onClose={() => setOpenEditMenuItemDialog(false)}
+      open={openAddMenuItemDialog}
+      onClose={() => setOpenAddMenuItemDialog(false)}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -36,13 +32,13 @@ export default function MenuEditMenuItemDialog({
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
           <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
-            Edit menu item
+            Add menu item
           </DialogTitle>
 
           <IconButton
             color="inherit"
             aria-label="close"
-            onClick={() => setOpenEditMenuItemDialog(false)}
+            onClick={() => setOpenAddMenuItemDialog(false)}
             sx={{ p: 0 }}
           >
             <CloseIcon />
@@ -50,9 +46,8 @@ export default function MenuEditMenuItemDialog({
         </Stack>
 
         <DialogContent sx={{ p: 1 }}>
-          <MenuEditMenuItemForm
-            menuItem={menuItem}
-            setOpenEditMenuItemDialog={setOpenEditMenuItemDialog}
+          <AddMenuItemForm
+            setOpenAddMenuItemDialog={setOpenAddMenuItemDialog}
           />
         </DialogContent>
       </Stack>

@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantApprovedStatus } from "@/hooks/react-query/private/partner/restaurants/restaurant/useUpdatePartnerRestaurantApprovedStatus";
 
-export default function DashboardRestaurantApproval() {
+export default function RestaurantApprovalButton() {
   const { restaurant } = usePartnerRestaurant();
 
   const {

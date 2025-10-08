@@ -12,7 +12,7 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Grid, Typography, debounce } from "@mui/material";
 
-import MenuCategoriesItem from "./MenuCategoriesItem";
+import MenuCategoryItem from "./MenuCategoryItem";
 
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
@@ -88,7 +88,7 @@ export default function MenuCategoriesList() {
           <Grid container spacing={1}>
             {items.map((menuCategory) => (
               <Grid key={menuCategory.id} size={{ xs: 6, sm: 4 }}>
-                <MenuCategoriesItem
+                <MenuCategoryItem
                   key={menuCategory.id}
                   menuCategory={menuCategory}
                 />

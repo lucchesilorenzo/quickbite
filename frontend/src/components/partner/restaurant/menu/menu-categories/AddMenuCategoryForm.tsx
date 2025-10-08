@@ -4,26 +4,23 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategory";
-import { PartnerMenu } from "@/types";
+import { useCreatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useCreatePartnerRestaurantMenuCategory";
 import {
   TRestaurantMenuCategoriesFormSchema,
   restaurantMenuCategoriesFormSchema,
 } from "@/validations/private/partner/restaurant-menu-validations";
 
-type MenuCategoriesEditMenuCategoryFormProps = {
-  menuCategory: PartnerMenu;
-  setOpenEditMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
+type AddMenuCategoryFormProps = {
+  setOpenAddMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function MenuCategoriesEditMenuCategoryForm({
-  menuCategory,
-  setOpenEditMenuCategoryDialog,
-}: MenuCategoriesEditMenuCategoryFormProps) {
+export default function AddMenuCategoryForm({
+  setOpenAddMenuCategoryDialog,
+}: AddMenuCategoryFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: updatePartnerRestaurantMenuCategory } =
-    useUpdatePartnerRestaurantMenuCategory(restaurant.id, menuCategory.id);
+  const { mutateAsync: createPartnerRestaurantMenuCategory } =
+    useCreatePartnerRestaurantMenuCategory(restaurant.id);
 
   const {
     handleSubmit,
@@ -32,14 +29,14 @@ export default function MenuCategoriesEditMenuCategoryForm({
   } = useForm({
     resolver: zodResolver(restaurantMenuCategoriesFormSchema),
     defaultValues: {
-      name: menuCategory.name || "",
-      description: menuCategory.description || "",
+      name: "",
+      description: "",
     },
   });
 
   async function onSubmit(data: TRestaurantMenuCategoriesFormSchema) {
-    await updatePartnerRestaurantMenuCategory(data);
-    setOpenEditMenuCategoryDialog(false);
+    await createPartnerRestaurantMenuCategory(data);
+    setOpenAddMenuCategoryDialog(false);
   }
 
   return (

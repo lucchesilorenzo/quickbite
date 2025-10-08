@@ -25,6 +25,7 @@ export default function NotificationsMarkAsReadDialog({
   setOpenMarkUserNotificationsAsRead,
 }: NotificationsMarkAsReadDialogProps) {
   const { restaurant } = usePartnerRestaurant();
+
   const { mutateAsync: markUserNotificationsAsRead, isPending: isMarking } =
     useMarkPartnerNotificationsAsRead(restaurant.id);
 

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import ProfileNotificationsCard from "@/components/partner/profile/notifications/ProfileNotificationsCard";
+import NotificationsCard from "@/components/partner/profile/notifications/NotificationsCard";
 import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdatePartnerProfileNotifications } from "@/hooks/react-query/private/partner/profile/useUpdatePartnerProfileNotifications";
@@ -60,7 +60,7 @@ export default function PartnerProfileNotificationsPage() {
         autoComplete="off"
         noValidate
       >
-        <ProfileNotificationsCard />
+        <NotificationsCard />
 
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button
