@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import ClearFiltersButton from "../common/ClearFiltersButton";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 type RestaurantHeadingContainerMobileProps = {
   isThereAnyFilter: boolean;
@@ -18,7 +18,7 @@ export default function RestaurantHeadingContainerMobile({
 }: RestaurantHeadingContainerMobileProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { movCounts } = useRestaurant();
+  const { movCounts } = useRestaurants();
 
   const currentViewType = searchParams.getAll("view_type");
 

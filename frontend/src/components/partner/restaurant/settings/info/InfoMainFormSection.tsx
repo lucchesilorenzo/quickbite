@@ -23,14 +23,14 @@ import PreviewImageDialog from "./PreviewImageDialog";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
-import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsInfo";
+import { usePartnerInfo } from "@/hooks/contexts/private/partner/usePartnerInfo";
 import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
 import env from "@/lib/env";
 import { TRestaurantSettingsInfoFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function InfoMainFormSection() {
   const { allCategories } = useCategoryFilters();
-  const { editMode } = usePartnerRestaurantSettingsInfo();
+  const { editMode } = usePartnerInfo();
 
   const {
     control,

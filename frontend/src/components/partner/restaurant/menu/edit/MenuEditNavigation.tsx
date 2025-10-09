@@ -13,15 +13,15 @@ import AddMenuItemButton from "./AddMenuItemButton";
 
 import Spinner from "@/components/common/Spinner";
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
+import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { usePartnerRestaurantMenu } from "@/hooks/contexts/private/partner/usePartnerRestaurantMenu";
 import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetPartnerRestaurantMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";
 
 export default function MenuEditNavigation() {
   const { restaurant } = usePartnerRestaurant();
   const { selectedMenuCategoryId, setSelectedMenuCategoryId } =
-    usePartnerRestaurantMenu();
+    usePartnerMenu();
 
   const {
     data: menuCategories = partnerMenuDefaults,

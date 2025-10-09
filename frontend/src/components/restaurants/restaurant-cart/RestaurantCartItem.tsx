@@ -16,7 +16,7 @@ import { grey } from "@mui/material/colors";
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { formatCurrency } from "@/lib/utils";
 import { CartItem } from "@/types";
 
@@ -29,7 +29,7 @@ export default function RestaurantCartItem({
   item,
   index,
 }: RestaurantCartItemProps) {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const {
     isCartUpdating,
     totalUniqueItems,

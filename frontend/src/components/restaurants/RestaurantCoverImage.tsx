@@ -1,10 +1,10 @@
 import { Box, Container } from "@mui/material";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import env from "@/lib/env";
 
 export default function RestaurantCoverImage() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
 
   return (
     <Box

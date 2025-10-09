@@ -2,7 +2,7 @@ import { Badge } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { MenuCategory, MenuItem, PartnerMenu } from "@/types";
 
 type MenuItemQuantityInCartBadgeProps = {
@@ -16,7 +16,7 @@ export default function MenuItemQuantityInCartBadge({
   menuItem,
   menuCategory,
 }: MenuItemQuantityInCartBadgeProps) {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { getItem } = useMultiCart();
 
   const menuItemQuantity =

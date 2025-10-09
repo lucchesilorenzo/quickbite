@@ -7,11 +7,11 @@ import { reviewsDefaults } from "@/lib/query-defaults";
 import { OrderStatusWithAll } from "@/types/order-types";
 import { ReviewStats } from "@/types/review-types";
 
-type PartnerRestaurantReviewsProviderProps = {
+type PartnerReviewsProviderProps = {
   children: React.ReactNode;
 };
 
-type PartnerRestaurantReviewsContext = {
+type PartnerReviewsContext = {
   status: OrderStatusWithAll;
   reviewsData: ReviewStats;
   page: number;
@@ -19,12 +19,12 @@ type PartnerRestaurantReviewsContext = {
   setStatus: React.Dispatch<React.SetStateAction<OrderStatusWithAll>>;
 };
 
-export const PartnerRestaurantReviewsContext =
-  createContext<PartnerRestaurantReviewsContext | null>(null);
+export const PartnerReviewsContext =
+  createContext<PartnerReviewsContext | null>(null);
 
-export default function PartnerRestaurantReviewsProvider({
+export default function PartnerReviewsProvider({
   children,
-}: PartnerRestaurantReviewsProviderProps) {
+}: PartnerReviewsProviderProps) {
   const { restaurant } = usePartnerRestaurant();
 
   const [page, setPage] = useState(1);
@@ -36,10 +36,10 @@ export default function PartnerRestaurantReviewsProvider({
   if (isLoadingReviews) return <Spinner />;
 
   return (
-    <PartnerRestaurantReviewsContext.Provider
+    <PartnerReviewsContext.Provider
       value={{ status, reviewsData, page, setPage, setStatus }}
     >
       {children}
-    </PartnerRestaurantReviewsContext.Provider>
+    </PartnerReviewsContext.Provider>
   );
 }

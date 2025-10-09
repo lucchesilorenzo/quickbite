@@ -5,7 +5,7 @@ import RestaurantList from "./list/RestaurantList";
 import RestaurantSearchContainer from "./search-and-map/RestaurantSearchContainer";
 import RestaurantMap from "./search-and-map/restaurant-map/RestaurantMap";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 type RestaurantMainProps = {
   isLoading: boolean;
@@ -16,7 +16,7 @@ export default function RestaurantMain({
   isLoading,
   hasNoResults,
 }: RestaurantMainProps) {
-  const { viewMap } = useRestaurant();
+  const { viewMap } = useRestaurants();
 
   // Render the correct content
   function renderRestaurantContent() {

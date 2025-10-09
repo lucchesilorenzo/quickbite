@@ -1,27 +1,28 @@
 import { createContext, useState } from "react";
 
-type PartnerRestaurantMenuProviderProps = {
+type PartnerMenuProviderProps = {
   children: React.ReactNode;
 };
 
-type PartnerRestaurantMenuContext = {
+type PartnerMenuContext = {
   selectedMenuCategoryId: string;
   setSelectedMenuCategoryId: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const PartnerRestaurantMenuContext =
-  createContext<PartnerRestaurantMenuContext | null>(null);
+export const PartnerMenuContext = createContext<PartnerMenuContext | null>(
+  null,
+);
 
-export default function PartnerRestaurantMenuProvider({
+export default function PartnerMenuProvider({
   children,
-}: PartnerRestaurantMenuProviderProps) {
+}: PartnerMenuProviderProps) {
   const [selectedMenuCategoryId, setSelectedMenuCategoryId] = useState("");
 
   return (
-    <PartnerRestaurantMenuContext.Provider
+    <PartnerMenuContext.Provider
       value={{ selectedMenuCategoryId, setSelectedMenuCategoryId }}
     >
       {children}
-    </PartnerRestaurantMenuContext.Provider>
+    </PartnerMenuContext.Provider>
   );
 }

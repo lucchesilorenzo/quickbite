@@ -8,15 +8,15 @@ import OrdersFilters from "./OrdersFilters";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
+import { usePartnerOrders } from "@/hooks/contexts/private/partner/usePartnerOrders";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { usePartnerRestaurantOrders } from "@/hooks/contexts/private/partner/usePartnerRestaurantOrders";
 import { useGetPartnerRestaurantOrders } from "@/hooks/react-query/private/partner/restaurants/orders/useGetPartnerRestaurantOrders";
 import { orderStatuses } from "@/lib/data";
 import { partnerOrdersDefaults } from "@/lib/query-defaults";
 
 export default function OrdersList() {
   const { restaurant } = usePartnerRestaurant();
-  const { status, setStatus } = usePartnerRestaurantOrders();
+  const { status, setStatus } = usePartnerOrders();
 
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(1);

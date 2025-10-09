@@ -16,8 +16,8 @@ import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useOffers } from "@/hooks/contexts/public/useOffers";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,
@@ -26,8 +26,8 @@ import {
 
 export default function RestaurantCartFooter() {
   const { user } = useAuth();
-  const { restaurant } = useSingleRestaurant();
-  const { offersData } = useRestaurantOffer();
+  const { restaurant } = useRestaurant();
+  const { offersData } = useOffers();
   const { getCart, cartTotal, isCartUpdating } = useMultiCart();
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);

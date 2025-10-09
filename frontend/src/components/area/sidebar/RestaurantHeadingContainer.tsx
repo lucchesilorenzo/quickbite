@@ -4,13 +4,13 @@ import { useSearchParams } from "react-router-dom";
 import ClearFiltersButton from "../common/ClearFiltersButton";
 
 import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 export default function RestaurantHeadingContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { allCategories } = useCategoryFilters();
-  const { movCounts } = useRestaurant();
+  const { movCounts } = useRestaurants();
 
   const currentFilters = searchParams.getAll("filter");
   const nonCategoryFilters = currentFilters.filter(

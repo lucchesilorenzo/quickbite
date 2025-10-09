@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { getRestaurantOpeningTime } from "@/lib/utils";
 
 type RestaurantClosedDialogProps = {
@@ -24,7 +24,7 @@ export default function RestaurantClosedDialog({
   openRestaurantClosedDialog,
   setOpenRestaurantClosedDialog,
 }: RestaurantClosedDialogProps) {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
 
   const openingTime = getRestaurantOpeningTime(restaurant);
 

@@ -11,14 +11,14 @@ import InfoTab from "./info/InfoTab";
 import OffersPanel from "./offers/OffersPanel";
 import ReviewsTab from "./reviews/ReviewsTab";
 
-import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useOffers } from "@/hooks/contexts/public/useOffers";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { restaurantTabs } from "@/lib/data";
 import { RestaurantTab } from "@/types";
 
 export default function RestaurantAboutDialogTabs() {
-  const { tabToOpen, setTabToOpen } = useSingleRestaurant();
-  const { offersData } = useRestaurantOffer();
+  const { tabToOpen, setTabToOpen } = useRestaurant();
+  const { offersData } = useOffers();
 
   const [searchParams, setSearchParams] = useSearchParams();
 

@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { formatCurrency } from "@/lib/utils";
 import { Offer } from "@/types";
 
@@ -12,7 +12,7 @@ type RestaurantOfferButtonProps = {
 export default function RestaurantOfferButton({
   offer,
 }: RestaurantOfferButtonProps) {
-  const { setOpenRestaurantAboutDialog, setTabToOpen } = useSingleRestaurant();
+  const { setOpenRestaurantAboutDialog, setTabToOpen } = useRestaurant();
 
   function handleOpenAboutDialogAndOffersTab() {
     setOpenRestaurantAboutDialog(true);

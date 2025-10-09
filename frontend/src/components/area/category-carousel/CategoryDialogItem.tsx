@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 
 import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 import { CategoryWithSelected } from "@/types";
 
 type CategoryDialogItemProps = {
@@ -18,7 +18,7 @@ export default function CategoryDialogItem({
   category,
 }: CategoryDialogItemProps) {
   const { handleStatusChange } = useCategoryFilters();
-  const { restaurantsData } = useRestaurant();
+  const { restaurantsData } = useRestaurants();
 
   const restaurantsPerCategory = restaurantsData.reduce((acc, r) => {
     return acc + r.categories.filter((c) => c.name === category.name).length;

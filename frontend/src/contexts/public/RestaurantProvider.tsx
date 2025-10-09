@@ -1,47 +1,28 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-import { useMediaQuery } from "@mui/material";
-import {
-  FetchNextPageOptions,
-  InfiniteData,
-  InfiniteQueryObserverResult,
-} from "@tanstack/react-query";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import { useAddress } from "@/hooks/contexts/public/useAddress";
-import { useGetRestaurants } from "@/hooks/react-query/public/restaurants/useGetRestaurants";
-import { partnerRestaurantsDefaults } from "@/lib/query-defaults";
-import {
-  RestaurantListItem,
-  RestaurantMeta,
-  RestaurantSearchOption,
-  RestaurantWithPagination,
-} from "@/types";
+import Spinner from "@/components/common/Spinner";
+import { useGetRestaurant } from "@/hooks/react-query/public/restaurants/useGetRestaurant";
+import ErrorPage from "@/pages/public/ErrorPage";
+import { RestaurantTab, SingleRestaurantDetail } from "@/types";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;
 };
 
 type RestaurantContext = {
-  restaurantsData: RestaurantListItem[];
-  isRestaurantsLoading: boolean;
-  restaurantsError: Error | null;
-  viewMap: boolean;
-  isMapViewMobile: boolean;
-  selectedOption: RestaurantSearchOption | string | null;
-  movCounts: RestaurantMeta["mov_counts"];
-  offerCounts: RestaurantMeta["offer_counts"];
-  totalRestaurants: number;
-  isFetchingNextPage: boolean;
-  setViewMap: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedOption: React.Dispatch<
-    React.SetStateAction<RestaurantSearchOption | string | null>
-  >;
-  fetchNextPage: (
-    options?: FetchNextPageOptions,
-  ) => Promise<
-    InfiniteQueryObserverResult<InfiniteData<RestaurantWithPagination>>
-  >;
+  restaurant: SingleRestaurantDetail;
+  openRestaurantAboutDialog: boolean;
+  searchTerm: string;
+  tabToOpen: RestaurantTab;
+  scrollToDeliveryFee: boolean;
+  openRestaurantClosedDialog: boolean;
+  setOpenRestaurantClosedDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setScrollToDeliveryFee: React.Dispatch<React.SetStateAction<boolean>>;
+  setTabToOpen: React.Dispatch<React.SetStateAction<RestaurantTab>>;
+  setOpenRestaurantAboutDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const RestaurantContext = createContext<RestaurantContext | null>(null);
@@ -49,60 +30,48 @@ export const RestaurantContext = createContext<RestaurantContext | null>(null);
 export default function RestaurantProvider({
   children,
 }: RestaurantProviderProps) {
-  const { currentAddress } = useAddress();
-
-  const [searchParams] = useSearchParams();
-  const [viewMap, setViewMap] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<
-    RestaurantSearchOption | string | null
-  >(null);
-
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-  const isMapViewMobile = isMobile && viewMap;
-
-  const filters = searchParams.getAll("filter");
-  const sortBy = searchParams.get("sort_by");
-  const mov = searchParams.get("mov");
-  const search = searchParams.get("q");
+  const { restaurantSlug } = useParams();
 
   const {
-    data: restaurants = partnerRestaurantsDefaults,
-    isLoading: isRestaurantsLoading,
-    error: restaurantsError,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useGetRestaurants({
-    lat: currentAddress?.lat,
-    lon: currentAddress?.lon,
-    filters,
-    sortBy,
-    mov,
-    search,
-  });
+    data: restaurant,
+    isLoading: isRestaurantLoading,
+    error: restaurantError,
+  } = useGetRestaurant(restaurantSlug);
 
-  const restaurantsData = restaurants.pages.flatMap(
-    (page) => page.restaurants.data,
-  );
-  const totalRestaurants = restaurants.pages[0].meta.total;
-  const movCounts = restaurants.pages[0].meta.mov_counts;
-  const offerCounts = restaurants.pages[0].meta.offer_counts;
+  const [openRestaurantClosedDialog, setOpenRestaurantClosedDialog] =
+    useState(false);
+  const [openRestaurantAboutDialog, setOpenRestaurantAboutDialog] =
+    useState(false);
+  const [scrollToDeliveryFee, setScrollToDeliveryFee] = useState(false);
+  const [tabToOpen, setTabToOpen] = useState<RestaurantTab>("info");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    if (restaurant?.name && restaurant?.city) {
+      document.title = `${restaurant.name} restaurant menu in ${restaurant.city} - Order from QuickBite`;
+    }
+  }, [restaurant?.name, restaurant?.city]);
+
+  if (isRestaurantLoading) return <Spinner />;
+
+  if (!restaurant || restaurantError) {
+    return <ErrorPage error={restaurantError} />;
+  }
 
   return (
     <RestaurantContext.Provider
       value={{
-        restaurantsData,
-        movCounts,
-        offerCounts,
-        isRestaurantsLoading,
-        restaurantsError,
-        viewMap,
-        isMapViewMobile,
-        selectedOption,
-        isFetchingNextPage,
-        totalRestaurants,
-        setViewMap,
-        setSelectedOption,
-        fetchNextPage,
+        restaurant,
+        openRestaurantAboutDialog,
+        searchTerm,
+        tabToOpen,
+        scrollToDeliveryFee,
+        openRestaurantClosedDialog,
+        setOpenRestaurantClosedDialog,
+        setScrollToDeliveryFee,
+        setTabToOpen,
+        setOpenRestaurantAboutDialog,
+        setSearchTerm,
       }}
     >
       {children}

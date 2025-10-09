@@ -19,7 +19,7 @@ import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils";
 import type { MenuItem } from "@/types";
@@ -30,7 +30,7 @@ type MenuItemRowProps = {
 };
 
 export default function MenuItemRow({ menuItem, isLast }: MenuItemRowProps) {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { inCart } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);

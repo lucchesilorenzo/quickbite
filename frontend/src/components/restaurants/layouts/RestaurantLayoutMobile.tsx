@@ -7,14 +7,14 @@ import RestaurantDetailsMobile from "../mobile/RestaurantDetailsMobile";
 import RestaurantCartMobile from "../restaurant-cart/mobile/RestaurantCartMobile";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantLayoutMobile() {
   const {
     restaurant,
     openRestaurantClosedDialog,
     setOpenRestaurantClosedDialog,
-  } = useSingleRestaurant();
+  } = useRestaurant();
   const { isEmpty } = useMultiCart();
 
   useEffect(() => {

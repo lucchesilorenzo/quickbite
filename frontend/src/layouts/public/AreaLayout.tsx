@@ -4,10 +4,10 @@ import { Outlet } from "react-router-dom";
 import AreaHeader from "@/components/area/AreaHeader";
 import Footer from "@/components/common/Footer";
 import NavigateToTopFloatingButton from "@/components/common/NavigateToTopFloatingButton";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 export default function AreaLayout() {
-  const { isMapViewMobile } = useRestaurant();
+  const { isMapViewMobile } = useRestaurants();
 
   return (
     <Stack sx={{ minHeight: "100vh" }}>

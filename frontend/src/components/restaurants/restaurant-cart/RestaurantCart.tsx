@@ -10,10 +10,10 @@ import RestaurantCartFooter from "./RestaurantCartFooter";
 import RestaurantCartList from "./RestaurantCartList";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantCart() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { isEmpty, cartTotal, isCartUpdating } = useMultiCart();
 
   const [topOffset, setTopOffset] = useState(0);

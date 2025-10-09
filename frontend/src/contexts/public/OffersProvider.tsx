@@ -1,28 +1,25 @@
 import { createContext, useState } from "react";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
 import { offersDefaults } from "@/lib/query-defaults";
 import { OfferWithPagination } from "@/types";
 
-type RestaurantOffersProviderProps = {
+type OffersProviderProps = {
   children: React.ReactNode;
 };
 
-type RestaurantOffersContext = {
+type OffersContext = {
   offersData: OfferWithPagination;
   page: number;
   isLoadingOffers: boolean;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const RestaurantOffersContext =
-  createContext<RestaurantOffersContext | null>(null);
+export const OffersContext = createContext<OffersContext | null>(null);
 
-export default function RestaurantOffersProvider({
-  children,
-}: RestaurantOffersProviderProps) {
-  const { restaurant } = useSingleRestaurant();
+export default function OffersProvider({ children }: OffersProviderProps) {
+  const { restaurant } = useRestaurant();
 
   const [page, setPage] = useState(1);
 
@@ -30,10 +27,10 @@ export default function RestaurantOffersProvider({
     useGetRestaurantOffers(restaurant.id, page);
 
   return (
-    <RestaurantOffersContext.Provider
+    <OffersContext.Provider
       value={{ offersData, page, isLoadingOffers, setPage }}
     >
       {children}
-    </RestaurantOffersContext.Provider>
+    </OffersContext.Provider>
   );
 }

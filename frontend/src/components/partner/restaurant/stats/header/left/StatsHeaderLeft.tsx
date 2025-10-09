@@ -3,11 +3,11 @@ import { Box } from "@mui/material";
 import HeadingBlock from "../../../common/HeadingBlock";
 import StatsRangeSelect from "./StatsRangeSelect";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
+import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
 import { getComputedRangeLabel } from "@/lib/utils";
 
 export default function StatsHeaderLeft() {
-  const { range } = usePartnerRestaurantStats();
+  const { range } = usePartnerStats();
 
   const computedRange = getComputedRangeLabel(range);
 

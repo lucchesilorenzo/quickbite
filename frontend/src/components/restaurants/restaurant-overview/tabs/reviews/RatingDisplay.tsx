@@ -11,12 +11,12 @@ import {
 import { blueGrey, grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
-import { useRestaurantReview } from "@/hooks/contexts/public/useRestaurantReview";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useReviews } from "@/hooks/contexts/public/useReviews";
 
 export default function RatingDisplay() {
-  const { restaurant } = useSingleRestaurant();
-  const { reviewsData } = useRestaurantReview();
+  const { restaurant } = useRestaurant();
+  const { reviewsData } = useReviews();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

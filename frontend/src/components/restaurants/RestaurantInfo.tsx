@@ -7,10 +7,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantInfo() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

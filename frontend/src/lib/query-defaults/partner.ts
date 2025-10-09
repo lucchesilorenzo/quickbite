@@ -1,6 +1,6 @@
 import { baseOffsetPaginationDefaults } from "./shared";
 
-export const partnerRestaurantsDefaults = {
+export const restaurantsDefaults = {
   pageParams: [],
   pages: [
     {

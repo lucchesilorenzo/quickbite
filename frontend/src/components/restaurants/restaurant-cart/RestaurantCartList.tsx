@@ -3,10 +3,10 @@ import { Box } from "@mui/material";
 import RestaurantCartItem from "./RestaurantCartItem";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantCartList() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { getItems } = useMultiCart();
 
   const items = getItems(restaurant.id);

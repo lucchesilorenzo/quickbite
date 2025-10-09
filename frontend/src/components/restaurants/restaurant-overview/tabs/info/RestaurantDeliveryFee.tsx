@@ -4,12 +4,12 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantDeliveryFee() {
   const { restaurant, scrollToDeliveryFee, setScrollToDeliveryFee } =
-    useSingleRestaurant();
+    useRestaurant();
 
   const deliveryFeeRef = useRef<HTMLDivElement | null>(null);
 

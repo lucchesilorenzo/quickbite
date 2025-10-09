@@ -7,19 +7,19 @@ import { useSearchParams } from "react-router-dom";
 
 import RestaurantAboutDialog from "./RestaurantAboutDialog";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { restaurantTabs } from "@/lib/data";
 import { RestaurantTab } from "@/types";
 
 export default function RestaurantHeader() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const {
     restaurant,
     openRestaurantAboutDialog,
     setOpenRestaurantAboutDialog,
     setTabToOpen,
-  } = useSingleRestaurant();
+  } = useRestaurant();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

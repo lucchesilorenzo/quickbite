@@ -5,7 +5,7 @@ import { Box, Container } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
 import FeesContainer from "@/components/partner/restaurant/settings/fees/FeesContainer";
-import PartnerRestaurantSettingsFeesProvider from "@/contexts/private/partner/PartnerRestaurantSettingsFeesProvider";
+import PartnerRestaurantSettingsFeesProvider from "@/contexts/private/partner/PartnerFeesProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partner/restaurants/settings/fees/useUpdatePartnerRestaurantSettingsFees";
 import {

@@ -13,7 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { MenuItem } from "@/types";
 
 type MenuItemInfoDialogProps = {
@@ -33,7 +33,7 @@ export default function MenuItemInfoDialog({
 }: MenuItemInfoDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
 
   if (type === "from-search") {
     return (

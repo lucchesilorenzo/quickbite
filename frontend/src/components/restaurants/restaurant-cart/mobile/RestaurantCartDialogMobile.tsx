@@ -14,7 +14,7 @@ import RestaurantCartFooter from "../RestaurantCartFooter";
 import RestaurantCartList from "../RestaurantCartList";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 type RestaurantCartDialogMobileProps = {
   openRestaurantCartDialogMobile: boolean;
@@ -27,7 +27,7 @@ export default function RestaurantCartDialogMobile({
   openRestaurantCartDialogMobile,
   setOpenRestaurantCartDialogMobile,
 }: RestaurantCartDialogMobileProps) {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { cartTotal, isEmpty, isCartUpdating } = useMultiCart();
 
   const subtotal = cartTotal(restaurant.id);

@@ -1,11 +1,11 @@
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { getRestaurantOpeningTime } from "@/lib/utils";
 
 export default function RestaurantCartShippingInfo() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
 
   const isSameDeliveryTime =
     restaurant.delivery_time_min === restaurant.delivery_time_max;

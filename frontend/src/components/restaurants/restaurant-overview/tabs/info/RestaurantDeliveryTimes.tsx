@@ -2,13 +2,13 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { capitalize } from "@/lib/utils";
 
 export default function RestaurantDeliveryTimes() {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const { restaurant } = useRestaurant();
 
-  const { restaurant } = useSingleRestaurant();
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Box sx={{ mb: 2 }}>

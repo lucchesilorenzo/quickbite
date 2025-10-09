@@ -19,14 +19,14 @@ import ZoomGestureHandling from "./ZoomGestureHandling";
 
 import RestaurantCardMobile from "@/components/area/mobile/RestaurantCardMobile";
 import { useAddress } from "@/hooks/contexts/public/useAddress";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 export default function RestaurantMap() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedPosition, setSelectedPosition] = useState<LatLngTuple | null>(
     null,
   );
-  const { restaurantsData } = useRestaurant();
+  const { restaurantsData } = useRestaurants();
   const { currentAddress } = useAddress();
 
   const latitude = Number(currentAddress?.lat);

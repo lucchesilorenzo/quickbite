@@ -11,11 +11,11 @@ import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { footerLinks } from "@/lib/data";
 
 export default function RestaurantFooter() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { isEmpty } = useMultiCart();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));

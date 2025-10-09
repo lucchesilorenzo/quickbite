@@ -1,6 +1,6 @@
 import { LineChart } from "@mui/x-charts";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
+import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
 import { formatCurrency } from "@/lib/utils";
 
 type StatsDetailsLineChartProps = {
@@ -14,7 +14,7 @@ export default function StatsDetailsLineChart({
   lineId,
   lineLabel,
 }: StatsDetailsLineChartProps) {
-  const { statsData, range, isLoadingStats } = usePartnerRestaurantStats();
+  const { statsData, range, isLoadingStats } = usePartnerStats();
 
   const label = range === "all" ? "Month" : "Day of the month";
 

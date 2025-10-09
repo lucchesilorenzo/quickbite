@@ -2,7 +2,7 @@ import AddressProvider from "@/contexts/public/AddressProvider";
 import AuthProvider from "@/contexts/public/AuthProvider";
 import CategoryFiltersProvider from "@/contexts/public/CategoryFiltersProvider";
 import MultiCartProvider from "@/contexts/public/MultiCartProvider";
-import RestaurantProvider from "@/contexts/public/RestaurantProvider";
+import RestaurantProvider from "@/contexts/public/RestaurantsProvider";
 
 type ProvidersProps = {
   children: React.ReactNode;

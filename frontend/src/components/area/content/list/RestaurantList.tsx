@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 import RestaurantCard from "./restaurant-card/RestaurantCard";
 
 import SimpleHeadingWithDialog from "@/components/common/SimpleHeadingWithDialog";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 export default function RestaurantList() {
   const {
@@ -14,7 +14,7 @@ export default function RestaurantList() {
     totalRestaurants,
     isFetchingNextPage,
     fetchNextPage,
-  } = useRestaurant();
+  } = useRestaurants();
 
   const { ref, inView } = useInView();
 

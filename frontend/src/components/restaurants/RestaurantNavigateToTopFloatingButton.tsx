@@ -4,10 +4,10 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Box, Fab, Fade, useMediaQuery, useScrollTrigger } from "@mui/material";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RetaurantNavigateToTopFloatingButton() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { isEmpty } = useMultiCart();
 
   const trigger = useScrollTrigger({

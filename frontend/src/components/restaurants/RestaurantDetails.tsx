@@ -5,10 +5,10 @@ import MenuCategoriesList from "./menu-categories/MenuCategoriesList";
 import MenuCategoryNavigationSection from "./menu-category-navigation/MenuCategoryNavigationSection";
 import RestaurantOverview from "./restaurant-overview/RestaurantOverview";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantDetails() {
-  const { searchTerm } = useSingleRestaurant();
+  const { searchTerm } = useRestaurant();
 
   return (
     <Box component="section">

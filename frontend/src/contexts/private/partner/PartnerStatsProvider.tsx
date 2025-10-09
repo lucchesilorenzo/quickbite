@@ -18,11 +18,11 @@ import {
   StatsWithFilters,
 } from "@/types";
 
-type PartnerRestaurantStatsProviderProps = {
+type PartnerStatsProviderProps = {
   children: React.ReactNode;
 };
 
-type PartnerRestaurantStatsContext = {
+type PartnerStatsContext = {
   range: StatRange;
   activeKpi: Kpi;
   paymentMethod: PaymentMethodFilter;
@@ -37,12 +37,13 @@ type PartnerRestaurantStatsContext = {
   setYear: React.Dispatch<React.SetStateAction<Record<Kpi, number>>>;
 };
 
-export const PartnerRestaurantStatsContext =
-  createContext<PartnerRestaurantStatsContext | null>(null);
+export const PartnerStatsContext = createContext<PartnerStatsContext | null>(
+  null,
+);
 
-export default function PartnerRestaurantStatsProvider({
+export default function PartnerStatsProvider({
   children,
-}: PartnerRestaurantStatsProviderProps) {
+}: PartnerStatsProviderProps) {
   const { restaurant } = usePartnerRestaurant();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -103,7 +104,7 @@ export default function PartnerRestaurantStatsProvider({
   }, [searchParams, setSearchParams]);
 
   return (
-    <PartnerRestaurantStatsContext.Provider
+    <PartnerStatsContext.Provider
       value={{
         range,
         activeKpi,
@@ -120,6 +121,6 @@ export default function PartnerRestaurantStatsProvider({
       }}
     >
       {children}
-    </PartnerRestaurantStatsContext.Provider>
+    </PartnerStatsContext.Provider>
   );
 }

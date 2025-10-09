@@ -7,11 +7,11 @@ import {
   Typography,
 } from "@mui/material";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
+import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
 
 export default function StatsDetailsYearSelect() {
   const { statsData, isLoadingStats, activeKpi, range, year, setYear } =
-    usePartnerRestaurantStats();
+    usePartnerStats();
 
   const currentYear = new Date().getFullYear();
 

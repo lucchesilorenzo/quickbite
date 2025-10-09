@@ -5,11 +5,11 @@ import { Button, Stack } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 
 import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
-import { usePartnerRestaurantSettingsInfo } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsInfo";
+import { usePartnerInfo } from "@/hooks/contexts/private/partner/usePartnerInfo";
 import { TRestaurantSettingsInfoFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function InfoHeader() {
-  const { editMode, setEditMode } = usePartnerRestaurantSettingsInfo();
+  const { editMode, setEditMode } = usePartnerInfo();
 
   const {
     formState: { isSubmitting },

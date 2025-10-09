@@ -8,8 +8,8 @@ import { IconButton, Link, Stack, Typography } from "@mui/material";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import Spinner from "@/components/common/Spinner";
-import { useRestaurantReview } from "@/hooks/contexts/public/useRestaurantReview";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useReviews } from "@/hooks/contexts/public/useReviews";
 import { formatCurrency } from "@/lib/utils";
 
 export default function RestaurantHeaderRow() {
@@ -18,8 +18,8 @@ export default function RestaurantHeaderRow() {
     setOpenRestaurantAboutDialog,
     setTabToOpen,
     setScrollToDeliveryFee,
-  } = useSingleRestaurant();
-  const { reviewsData, isLoadingReviews } = useRestaurantReview();
+  } = useRestaurant();
+  const { reviewsData, isLoadingReviews } = useReviews();
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 

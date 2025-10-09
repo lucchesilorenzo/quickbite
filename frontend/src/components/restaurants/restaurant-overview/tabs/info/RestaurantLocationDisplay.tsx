@@ -3,10 +3,10 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
 import RestaurantLocationInfo from "./RestaurantLocationInfo";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantLocationDisplay() {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
 
   const customShopIcon = new Icon({
     iconUrl: "/shop-pin.png",

@@ -10,10 +10,10 @@ import {
 import { useSearchParams } from "react-router-dom";
 
 import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 export default function RestaurantMinimumOrderRadioFilters() {
-  const { movCounts } = useRestaurant();
+  const { movCounts } = useRestaurants();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState("all");

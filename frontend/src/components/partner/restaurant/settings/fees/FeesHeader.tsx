@@ -6,11 +6,11 @@ import { useFormContext } from "react-hook-form";
 
 import HeadingBlock from "../../common/HeadingBlock";
 
-import { usePartnerRestaurantSettingsFees } from "@/hooks/contexts/private/partner/usePartnerRestaurantSettingsFees";
+import { usePartnerFees } from "@/hooks/contexts/private/partner/usePartnerFees";
 import { TRestaurantSettingsFeesFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function FeesHeader() {
-  const { editMode, setEditMode } = usePartnerRestaurantSettingsFees();
+  const { editMode, setEditMode } = usePartnerFees();
 
   const {
     formState: { isSubmitting },

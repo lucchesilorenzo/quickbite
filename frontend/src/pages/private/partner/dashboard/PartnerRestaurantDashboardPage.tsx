@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import DashboardLayout from "@/components/partner/restaurant/dashboard/layouts/DashboardLayout";
-import PartnerRestaurantReviewsProvider from "@/contexts/private/partner/PartnerRestaurantReviewsProvider";
+import PartnerRestaurantReviewsProvider from "@/contexts/private/partner/PartnerReviewsProvider";
 
 export default function ParterRestaurantDashboardPage() {
   useEffect(() => {

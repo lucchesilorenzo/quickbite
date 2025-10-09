@@ -2,7 +2,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 
 import BarLabel from "./BarLabel";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
+import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
 
 type StatsDetailsBarChartProps = {
   barPrimaryColor: string;
@@ -17,7 +17,7 @@ export default function StatsDetailsBarChart({
   barId,
   barLabel,
 }: StatsDetailsBarChartProps) {
-  const { statsData, range, isLoadingStats } = usePartnerRestaurantStats();
+  const { statsData, range, isLoadingStats } = usePartnerStats();
 
   const label = range === "all" ? "Month" : "Day of the month";
 

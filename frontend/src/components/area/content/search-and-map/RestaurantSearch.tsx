@@ -8,7 +8,7 @@ import parse from "autosuggest-highlight/parse";
 import { useSearchParams } from "react-router-dom";
 
 import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 import { RestaurantSearchOption } from "@/types";
 
 export default function RestaurantSearch() {
@@ -17,7 +17,7 @@ export default function RestaurantSearch() {
 
   const { allCategories } = useCategoryFilters();
   const { restaurantsData, selectedOption, setSelectedOption } =
-    useRestaurant();
+    useRestaurants();
 
   const restaurantSearchOptions = [
     ...restaurantsData.map((r) => ({

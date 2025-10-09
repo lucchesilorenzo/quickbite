@@ -2,7 +2,7 @@ import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import MenuItemRow from "./MenuItemRow";
 
-import { useRestaurantMenu } from "@/hooks/contexts/public/useRestaurantMenu";
+import { useMenu } from "@/hooks/contexts/public/useMenu";
 import { Menu } from "@/types";
 
 type MenuCategoryProps = {
@@ -10,7 +10,7 @@ type MenuCategoryProps = {
 };
 
 export default function MenuCategory({ menuCategory }: MenuCategoryProps) {
-  const { menuCategoryRefs } = useRestaurantMenu();
+  const { menuCategoryRefs } = useMenu();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

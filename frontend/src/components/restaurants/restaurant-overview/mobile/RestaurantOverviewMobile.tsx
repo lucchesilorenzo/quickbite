@@ -4,10 +4,10 @@ import RestaurantOffersList from "../../common/RestaurantOffersList";
 import RestaurantHeader from "../RestaurantHeader";
 import RestaurantHeaderRow from "../RestaurantHeaderRow";
 
-import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
+import { useOffers } from "@/hooks/contexts/public/useOffers";
 
 export default function RestaurantOverviewMobile() {
-  const { offersData } = useRestaurantOffer();
+  const { offersData } = useOffers();
 
   return (
     <Box

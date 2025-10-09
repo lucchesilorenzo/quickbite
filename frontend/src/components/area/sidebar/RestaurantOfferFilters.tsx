@@ -4,10 +4,10 @@ import { Box, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 export default function RestaurantOfferFilters() {
-  const { offerCounts } = useRestaurant();
+  const { offerCounts } = useRestaurants();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [checked, setChecked] = useState<Record<string, boolean>>({

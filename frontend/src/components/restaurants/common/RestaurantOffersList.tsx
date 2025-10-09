@@ -3,7 +3,7 @@ import { Box, Grid, Stack } from "@mui/material";
 import RestaurantOfferButton from "./RestaurantOfferButton";
 
 import CustomPagination from "@/components/common/CustomPagination";
-import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
+import { useOffers } from "@/hooks/contexts/public/useOffers";
 
 type RestaurantOffersListProps = {
   showPagination?: boolean;
@@ -12,7 +12,7 @@ type RestaurantOffersListProps = {
 export default function RestaurantOffersList({
   showPagination = false,
 }: RestaurantOffersListProps) {
-  const { offersData, page, setPage } = useRestaurantOffer();
+  const { offersData, page, setPage } = useOffers();
 
   const displayedOffers = showPagination
     ? offersData.data

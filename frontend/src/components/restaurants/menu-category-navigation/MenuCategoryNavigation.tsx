@@ -10,10 +10,10 @@ import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import MenuCategoryNavigationSlide from "../../common/menu-category-navigation/MenuCategoryNavigationSlide";
 
 import ShowMoreMenuCategoriesButton from "@/components/common/menu-category-navigation/ShowMoreMenuCategoriesButton";
-import { useRestaurantMenu } from "@/hooks/contexts/public/useRestaurantMenu";
+import { useMenu } from "@/hooks/contexts/public/useMenu";
 
 export default function MenuCategoryNavigation() {
-  const { menuData, menuCategoryRefs } = useRestaurantMenu();
+  const { menuData, menuCategoryRefs } = useMenu();
 
   const swiperRef = useRef<SwiperClass>(null);
 

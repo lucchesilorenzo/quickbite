@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { usePartnerRestaurantReviews } from "@/hooks/contexts/private/partner/usePartnerRestaurantReviews";
+import { usePartnerReviews } from "@/hooks/contexts/private/partner/usePartnerReviews";
 
 type RatingDisplayCardProps = {
   type: "dashboard" | "reviews";
@@ -20,7 +20,7 @@ type RatingDisplayCardProps = {
 
 export default function RatingDisplayCard({ type }: RatingDisplayCardProps) {
   const { restaurant } = usePartnerRestaurant();
-  const { reviewsData } = usePartnerRestaurantReviews();
+  const { reviewsData } = usePartnerReviews();
 
   return (
     <Card variant="outlined">

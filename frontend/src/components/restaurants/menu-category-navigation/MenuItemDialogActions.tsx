@@ -13,7 +13,7 @@ import {
 import { grey } from "@mui/material/colors";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { formatCurrency } from "@/lib/utils";
 import { MenuItem } from "@/types";
 
@@ -26,7 +26,7 @@ export default function MenuItemDialogActions({
   menuItem,
   setOpenMenuItemDialog,
 }: MenuItemDialogActionsProps) {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { addItem } = useMultiCart();
 
   const [menuItemQuantity, setMenuItemQuantity] = useState(1);

@@ -1,15 +1,17 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Typography, useMediaQuery } from "@mui/material";
 import {
+  Box,
   Dialog,
   DialogContent,
   DialogTitle,
   IconButton,
   Stack,
+  Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { formatCurrency } from "@/lib/utils";
 
 type RestaurantCartDeliveryFeeDialogProps = {
@@ -21,7 +23,7 @@ export default function RestaurantCartDeliveryFeeDialog({
   openDeliveryFeeDialog,
   setOpenDeliveryFeeDialog,
 }: RestaurantCartDeliveryFeeDialogProps) {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
   const isDeliveryFeeFree = restaurant.delivery_fee === 0;

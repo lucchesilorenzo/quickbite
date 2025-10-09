@@ -3,10 +3,10 @@ import { Box, useScrollTrigger } from "@mui/material";
 import MenuCategoryNavigation from "../MenuCategoryNavigation";
 import MenuCategoryNavigationSearch from "../MenuCategoryNavigationSearch";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function MenuCategoryNavigationSectionMobile() {
-  const { searchTerm } = useSingleRestaurant();
+  const { searchTerm } = useRestaurant();
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 800,

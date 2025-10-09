@@ -6,12 +6,12 @@ import {
   Typography,
 } from "@mui/material";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
+import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
 import { paymentMethodOptions } from "@/lib/data";
 import { PaymentMethodFilter } from "@/types";
 
 export default function AcceptedOrdersPaymentSelect() {
-  const { paymentMethod, setPaymentMethod } = usePartnerRestaurantStats();
+  const { paymentMethod, setPaymentMethod } = usePartnerStats();
 
   function handlePaymentChange(e: SelectChangeEvent<PaymentMethodFilter>) {
     setPaymentMethod(e.target.value);

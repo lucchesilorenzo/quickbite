@@ -16,15 +16,15 @@ import MenuItem from "./MenuItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
+import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { usePartnerRestaurantMenu } from "@/hooks/contexts/private/partner/usePartnerRestaurantMenu";
 import { useUpdatePartnerRestaurantMenuItemsOrder } from "@/hooks/react-query/private/partner/restaurants/menu/items/useUpdatePartnerRestaurantMenuItemsOrder";
 import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetPartnerRestaurantMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";
 
 export default function MenuItemsList() {
   const { restaurant } = usePartnerRestaurant();
-  const { selectedMenuCategoryId } = usePartnerRestaurantMenu();
+  const { selectedMenuCategoryId } = usePartnerMenu();
 
   const [page, setPage] = useState(1);
   const sensors = useSensors(

@@ -7,16 +7,16 @@ import { grey } from "@mui/material/colors";
 import RestaurantCartDialogMobile from "./RestaurantCartDialogMobile";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useRestaurantOffer } from "@/hooks/contexts/public/useRestaurantOffer";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useOffers } from "@/hooks/contexts/public/useOffers";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import {
   formatCurrency,
   getBestRestaurantOfferGivenSubtotal,
 } from "@/lib/utils";
 
 export default function RestaurantCartMobile() {
-  const { restaurant } = useSingleRestaurant();
-  const { offersData } = useRestaurantOffer();
+  const { restaurant } = useRestaurant();
+  const { offersData } = useOffers();
   const { cartTotal, totalItems } = useMultiCart();
 
   const [openRestaurantCartDialogMobile, setOpenRestaurantCartDialogMobile] =

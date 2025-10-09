@@ -6,14 +6,14 @@ import RestaurantDetails from "../RestaurantDetails";
 import RestaurantClosedDialog from "../common/RestaurantClosedDialog";
 import RestaurantCart from "../restaurant-cart/RestaurantCart";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function RestaurantLayoutDesktop() {
   const {
     restaurant,
     openRestaurantClosedDialog,
     setOpenRestaurantClosedDialog,
-  } = useSingleRestaurant();
+  } = useRestaurant();
 
   useEffect(() => {
     if (!restaurant.is_open) {

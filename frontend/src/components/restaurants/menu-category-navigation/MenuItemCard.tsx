@@ -15,7 +15,7 @@ import MenuItemAddButton from "../common/MenuItemAddButton";
 import MenuItemDialog from "./MenuItemDialog";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils";
 import { MenuItem } from "@/types";
@@ -25,7 +25,7 @@ type MenuItemCardProps = {
 };
 
 export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
-  const { restaurant } = useSingleRestaurant();
+  const { restaurant } = useRestaurant();
   const { inCart } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);

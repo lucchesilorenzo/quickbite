@@ -14,12 +14,12 @@ import { grey } from "@mui/material/colors";
 import MenuItemsEmpty from "./MenuItemsEmpty";
 import MenuItemsList from "./MenuItemsList";
 
-import { useRestaurantMenu } from "@/hooks/contexts/public/useRestaurantMenu";
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useMenu } from "@/hooks/contexts/public/useMenu";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 
 export default function MenuCategoryNavigationSearch() {
-  const { restaurant, searchTerm, setSearchTerm } = useSingleRestaurant();
-  const { menuData } = useRestaurantMenu();
+  const { restaurant, searchTerm, setSearchTerm } = useRestaurant();
+  const { menuData } = useMenu();
 
   const menuItems = menuData.flatMap((menuCategory) => menuCategory.menu_items);
 

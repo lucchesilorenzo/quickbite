@@ -5,8 +5,8 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
+import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { usePartnerRestaurantMenu } from "@/hooks/contexts/private/partner/usePartnerRestaurantMenu";
 import { useCreatePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useCreatePartnerRestaurantMenuItem";
 import {
   TRestaurantAddMenuItemFormSchema,
@@ -21,7 +21,7 @@ export default function AddMenuItemForm({
   setOpenAddMenuItemDialog,
 }: AddMenuItemFormProps) {
   const { restaurant } = usePartnerRestaurant();
-  const { selectedMenuCategoryId } = usePartnerRestaurantMenu();
+  const { selectedMenuCategoryId } = usePartnerMenu();
 
   const { mutateAsync: createPartnerRestaurantMenuItem } =
     useCreatePartnerRestaurantMenuItem(restaurant.id, selectedMenuCategoryId);

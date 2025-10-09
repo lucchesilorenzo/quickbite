@@ -3,10 +3,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import ReviewItem from "./ReviewItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
-import { usePartnerRestaurantReviews } from "@/hooks/contexts/private/partner/usePartnerRestaurantReviews";
+import { usePartnerReviews } from "@/hooks/contexts/private/partner/usePartnerReviews";
 
 export default function ReviewsList() {
-  const { reviewsData, page, setPage } = usePartnerRestaurantReviews();
+  const { reviewsData, page, setPage } = usePartnerReviews();
 
   if (!reviewsData.count) {
     return (

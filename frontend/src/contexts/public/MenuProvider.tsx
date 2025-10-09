@@ -1,14 +1,14 @@
 import { createContext, useRef, useState } from "react";
 
-import { useSingleRestaurant } from "@/hooks/contexts/public/useSingleRestaurant";
+import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { useGetRestaurantMenu } from "@/hooks/react-query/public/restaurants/useGetRestaurantMenu";
 import { Menu } from "@/types";
 
-type RestaurantMenuProviderProps = {
+type MenuProviderProps = {
   children: React.ReactNode;
 };
 
-type RestaurantMenuContext = {
+type MenuContext = {
   menuData: Menu[];
   page: number;
   isLoadingMenu: boolean;
@@ -16,13 +16,10 @@ type RestaurantMenuContext = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const RestaurantMenuContext =
-  createContext<RestaurantMenuContext | null>(null);
+export const MenuContext = createContext<MenuContext | null>(null);
 
-export default function RestaurantMenuProvider({
-  children,
-}: RestaurantMenuProviderProps) {
-  const { restaurant } = useSingleRestaurant();
+export default function MenuProvider({ children }: MenuProviderProps) {
+  const { restaurant } = useRestaurant();
 
   const [page, setPage] = useState(1);
   const menuCategoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -31,10 +28,10 @@ export default function RestaurantMenuProvider({
     useGetRestaurantMenu(restaurant.id, page);
 
   return (
-    <RestaurantMenuContext.Provider
+    <MenuContext.Provider
       value={{ menuData, page, isLoadingMenu, menuCategoryRefs, setPage }}
     >
       {children}
-    </RestaurantMenuContext.Provider>
+    </MenuContext.Provider>
   );
 }

@@ -11,7 +11,7 @@ import {
 import { grey } from "@mui/material/colors";
 import { useSearchParams } from "react-router-dom";
 
-import { usePartnerRestaurantStats } from "@/hooks/contexts/private/partner/usePartnerRestaurantStats";
+import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
 import { Kpi } from "@/types";
 
 type StatsKpiCardProps = {
@@ -32,7 +32,7 @@ export default function StatsKpiCard({
   isActive,
   isLast,
 }: StatsKpiCardProps) {
-  const { isLoadingKpiSummary, setActiveKpi } = usePartnerRestaurantStats();
+  const { isLoadingKpiSummary, setActiveKpi } = usePartnerStats();
 
   const [searchParams, setSearchParams] = useSearchParams();
 

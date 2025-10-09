@@ -5,7 +5,7 @@ import { Container } from "@mui/material";
 import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
 import MenuEditNavigation from "@/components/partner/restaurant/menu/edit/MenuEditNavigation";
 import MenuItemsList from "@/components/partner/restaurant/menu/edit/MenuItemsList";
-import PartnerRestaurantMenuProvider from "@/contexts/private/partner/PartnerRestaurantMenuProvider";
+import PartnerRestaurantMenuProvider from "@/contexts/private/partner/PartnerMenuProvider";
 
 export default function PartnerRestaurantMenuEditPage() {
   useEffect(() => {
