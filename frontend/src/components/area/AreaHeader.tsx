@@ -16,7 +16,7 @@ import CustomerHeaderDialog from "../customer/header/CustomerHeaderDialog";
 import CategoryFilters from "./category-carousel/CategoryFilters";
 import LocationSearchButton from "./location-search/LocationSearchButton";
 import LocationSearchDialog from "./location-search/LocationSearchDialog";
-import RestaurantSearchContainerMobile from "./mobile/RestaurantSearchContainerMobile";
+import RestaurantSearchContainerMobile from "./search-bar/mobile/RestaurantSearchContainerMobile";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAddress } from "@/hooks/contexts/public/useAddress";
@@ -76,11 +76,7 @@ export default function AreaHeader() {
             />
           )}
 
-          {!isCustomer(user) ? (
-            <HeaderDialog />
-          ) : (
-            <CustomerHeaderDialog customer={user} />
-          )}
+          {isCustomer(user) ? <CustomerHeaderDialog /> : <HeaderDialog />}
         </Toolbar>
       )}
 

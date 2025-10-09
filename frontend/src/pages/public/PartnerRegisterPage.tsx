@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 
-import RegisterLayoutDesktop from "@/components/partner/auth/register/layouts/RegisterLayoutDesktop";
-import RegisterLayoutMobile from "@/components/partner/auth/register/layouts/RegisterLayoutMobile";
+import { Box } from "@mui/material";
+
+import RegisterFormCard from "@/components/partner/auth/register/hero/RegisterFormCard";
+import RegisterHero from "@/components/partner/auth/register/hero/RegisterHero";
+import RegisterHeroMobile from "@/components/partner/auth/register/hero/mobile/RegisterHeroMobile";
 
 export default function PartnerRegisterPage() {
   useEffect(() => {
@@ -10,8 +13,14 @@ export default function PartnerRegisterPage() {
 
   return (
     <>
-      <RegisterLayoutDesktop />
-      <RegisterLayoutMobile />
+      <Box component="main" sx={{ display: { xs: "none", lg: "block" } }}>
+        <RegisterHero />
+      </Box>
+
+      <Box component="main" sx={{ display: { xs: "block", lg: "none" } }}>
+        <RegisterHeroMobile />
+        <RegisterFormCard />
+      </Box>
     </>
   );
 }

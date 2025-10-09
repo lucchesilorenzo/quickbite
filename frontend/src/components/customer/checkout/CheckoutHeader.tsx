@@ -44,11 +44,7 @@ export default function CheckoutHeader() {
           Checkout
         </Typography>
 
-        {!isCustomer(user) ? (
-          <HeaderDialog />
-        ) : (
-          <CustomerHeaderDialog customer={user} />
-        )}
+        {isCustomer(user) ? <CustomerHeaderDialog /> : <HeaderDialog />}
       </Toolbar>
     </AppBar>
   );

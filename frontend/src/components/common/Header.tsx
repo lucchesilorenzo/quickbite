@@ -7,7 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
 
-import HeaderDialogCustomer from "../customer/header/CustomerHeaderDialog";
+import CustomerHeaderDialog from "../customer/header/CustomerHeaderDialog";
 import HeaderDialog from "./HeaderDialog";
 
 import { useAuth } from "@/hooks/contexts/public/useAuth";
@@ -44,11 +44,7 @@ export default function Header() {
           </Typography>
         </Stack>
 
-        {!isCustomer(user) ? (
-          <HeaderDialog />
-        ) : (
-          <HeaderDialogCustomer customer={user} />
-        )}
+        {isCustomer(user) ? <CustomerHeaderDialog /> : <HeaderDialog />}
       </Toolbar>
     </AppBar>
   );

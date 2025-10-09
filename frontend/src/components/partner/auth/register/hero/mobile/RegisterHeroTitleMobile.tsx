@@ -4,7 +4,7 @@ export default function RegisterHeroTitleMobile() {
   return (
     <Box
       sx={{
-        maxWidth: 400,
+        maxWidth: 300,
         position: "absolute",
         top: { xs: 40, sm: 60 },
         left: { xs: 16, sm: 24 },

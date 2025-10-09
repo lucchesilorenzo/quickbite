@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-import RestaurantFooter from "@/components/restaurants/RestaurantFooter";
-import RestaurantHeader from "@/components/restaurants/RestaurantHeader";
-import RestaurantNavigateToTopFloatingButton from "@/components/restaurants/RestaurantNavigateToTopFloatingButton";
+import RestaurantFooter from "@/components/restaurant/RestaurantFooter";
+import RestaurantHeader from "@/components/restaurant/RestaurantHeader";
+import RestaurantNavigateToTopFloatingButton from "@/components/restaurant/RestaurantNavigateToTopFloatingButton";
 import RestaurantMenuProvider from "@/contexts/public/MenuProvider";
 import RestaurantOffersProvider from "@/contexts/public/OffersProvider";
 import SingleRestaurantProvider from "@/contexts/public/RestaurantProvider";

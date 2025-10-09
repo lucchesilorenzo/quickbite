@@ -1,12 +1,14 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import RegisterForm from "./RegisterForm";
 
 export default function RegisterFormCard() {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
-    <Paper elevation={3} sx={{ p: 3, width: "600px" }}>
-      <Typography variant="h5" sx={{ fontWeight: 700 }}>
+    <Paper elevation={3} sx={{ p: 3, width: { lg: 600 } }}>
+      <Typography variant={isMobile ? "h6" : "h5"} sx={{ fontWeight: 700 }}>
         Grow your orders, your customers and your brand
       </Typography>
 

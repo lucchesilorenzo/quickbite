@@ -105,7 +105,10 @@ export default function RegisterForm() {
           )}
         />
 
-        <Stack direction="row" spacing={2}>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 4, sm: 2 }}
+        >
           <Controller
             name="street_address"
             control={control}
@@ -155,7 +158,10 @@ export default function RegisterForm() {
           />
         </Stack>
 
-        <Stack direction="row" spacing={2}>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 4, sm: 2 }}
+        >
           <Controller
             name="postcode"
             control={control}
@@ -224,12 +230,18 @@ export default function RegisterForm() {
         </Stack>
       </Stack>
 
-      <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-        <PersonIcon />
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={1}
+        sx={{ alignItems: { sm: "center" }, py: 1 }}
+      >
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <PersonIcon />
 
-        <Typography variant="body2" sx={{ fontWeight: 700 }}>
-          Owner info
-        </Typography>
+          <Typography variant="body2" sx={{ fontWeight: 700 }}>
+            Owner info
+          </Typography>
+        </Stack>
 
         <Typography variant="body2">
           Details of the legal owner of the business
@@ -237,7 +249,10 @@ export default function RegisterForm() {
       </Stack>
 
       <Stack spacing={4}>
-        <Stack direction="row" spacing={2}>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 4, sm: 2 }}
+        >
           <Controller
             name="first_name"
             control={control}
@@ -282,7 +297,10 @@ export default function RegisterForm() {
           />
         </Stack>
 
-        <Stack direction="row" spacing={2}>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 4, sm: 2 }}
+        >
           <Controller
             name="email"
             control={control}

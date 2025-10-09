@@ -7,10 +7,10 @@ import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
 import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
 export default function RestaurantHeadingContainer() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const { allCategories } = useCategoryFilters();
   const { movCounts } = useRestaurants();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const currentFilters = searchParams.getAll("filter");
   const nonCategoryFilters = currentFilters.filter(

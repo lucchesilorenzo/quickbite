@@ -12,7 +12,6 @@ export default function HowToOrder() {
       sx={{ py: 10, justifyContent: "center", alignItems: "center" }}
     >
       <SectionHeader title="How to order" subtitle="It's as easy as this." />
-
       <OrderSteps />
     </Stack>
   );

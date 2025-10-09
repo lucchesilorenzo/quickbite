@@ -9,8 +9,8 @@ import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu"
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useCreatePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useCreatePartnerRestaurantMenuItem";
 import {
-  TRestaurantAddMenuItemFormSchema,
-  restaurantAddMenuItemFormSchema,
+  TAddMenuItemFormSchema,
+  addMenuItemFormSchema,
 } from "@/validations/private/partner/menu-validations";
 
 type AddMenuItemFormProps = {
@@ -31,7 +31,7 @@ export default function AddMenuItemForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(restaurantAddMenuItemFormSchema),
+    resolver: zodResolver(addMenuItemFormSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -40,7 +40,7 @@ export default function AddMenuItemForm({
     },
   });
 
-  async function onSubmit(data: TRestaurantAddMenuItemFormSchema) {
+  async function onSubmit(data: TAddMenuItemFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);

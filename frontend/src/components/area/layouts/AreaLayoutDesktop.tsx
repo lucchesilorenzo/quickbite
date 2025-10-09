@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 
-import RestaurantMain from "../content/RestaurantMain";
+import RestaurantMain from "../restaurants/RestaurantMain";
 import RestaurantSidebar from "../sidebar/RestaurantSidebar";
 
 type AreaLayoutDesktopProps = {

@@ -12,7 +12,6 @@ export default function WhyChooseUs() {
       sx={{ py: 10, justifyContent: "center", alignItems: "center" }}
     >
       <SectionHeader title="QuickBite" subtitle="Your time." />
-
       <WhyChooseUsFeatures />
     </Stack>
   );

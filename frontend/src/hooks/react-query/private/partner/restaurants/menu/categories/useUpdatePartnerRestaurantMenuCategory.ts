@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import { TRestaurantMenuCategoriesFormSchema } from "@/validations/private/partner/menu-validations";
+import { TEditMenuCategoryFormSchema } from "@/validations/private/partner/menu-validations";
 
 export function useUpdatePartnerRestaurantMenuCategory(
   restaurantId: string,
@@ -12,7 +12,7 @@ export function useUpdatePartnerRestaurantMenuCategory(
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: TRestaurantMenuCategoriesFormSchema) =>
+    mutationFn: (data: TEditMenuCategoryFormSchema) =>
       updateData(
         `/partner/restaurants/menu/categories/${menuCategoryId}`,
         data,

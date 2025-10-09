@@ -7,8 +7,8 @@ import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartne
 import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategory";
 import { PartnerMenu } from "@/types";
 import {
-  TRestaurantMenuCategoriesFormSchema,
-  restaurantMenuCategoriesFormSchema,
+  TEditMenuCategoryFormSchema,
+  editMenuCategoryFormSchema,
 } from "@/validations/private/partner/menu-validations";
 
 type EditMenuCategoryFormProps = {
@@ -30,14 +30,14 @@ export default function EditMenuCategoryForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(restaurantMenuCategoriesFormSchema),
+    resolver: zodResolver(editMenuCategoryFormSchema),
     defaultValues: {
       name: menuCategory.name || "",
       description: menuCategory.description || "",
     },
   });
 
-  async function onSubmit(data: TRestaurantMenuCategoriesFormSchema) {
+  async function onSubmit(data: TEditMenuCategoryFormSchema) {
     await updatePartnerRestaurantMenuCategory(data);
     setOpenEditMenuCategoryDialog(false);
   }

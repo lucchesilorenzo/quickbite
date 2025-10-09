@@ -6,8 +6,8 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useCreatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useCreatePartnerRestaurantMenuCategory";
 import {
-  TRestaurantMenuCategoriesFormSchema,
-  restaurantMenuCategoriesFormSchema,
+  TAddMenuCategoryFormSchema,
+  addMenuCategoryFormSchema,
 } from "@/validations/private/partner/menu-validations";
 
 type AddMenuCategoryFormProps = {
@@ -27,14 +27,14 @@ export default function AddMenuCategoryForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(restaurantMenuCategoriesFormSchema),
+    resolver: zodResolver(addMenuCategoryFormSchema),
     defaultValues: {
       name: "",
       description: "",
     },
   });
 
-  async function onSubmit(data: TRestaurantMenuCategoriesFormSchema) {
+  async function onSubmit(data: TAddMenuCategoryFormSchema) {
     await createPartnerRestaurantMenuCategory(data);
     setOpenAddMenuCategoryDialog(false);
   }

@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
 
 import NoRestaurantsOrLoading from "../common/NoRestaurantsOrLoading";
-import RestaurantMap from "../content/search-and-map/restaurant-map/RestaurantMap";
-import RestaurantListMobile from "../mobile/RestaurantListMobile";
+import RestaurantsList from "../restaurants/RestaurantsList";
+import RestaurantMap from "../search-bar/restaurant-map/RestaurantMap";
 
 import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
 
@@ -21,7 +21,7 @@ export default function AreaLayoutMobile({
   function renderRestaurantContent() {
     if (isLoading) return <NoRestaurantsOrLoading type="isLoading" />;
     if (hasNoResults) return <NoRestaurantsOrLoading type="noRestaurants" />;
-    return viewMap ? <RestaurantMap /> : <RestaurantListMobile />;
+    return viewMap ? <RestaurantMap /> : <RestaurantsList />;
   }
 
   return (

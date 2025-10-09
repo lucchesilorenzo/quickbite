@@ -25,18 +25,13 @@ import { Link, useSearchParams } from "react-router-dom";
 import PersonalInfoDialog from "./PersonalInfoDialog";
 import OrdersDialog from "./orders/OrdersDialog";
 
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useLogout } from "@/hooks/react-query/private/customer/auth/useLogout";
 import { customerHeaderDialogOptions } from "@/lib/data";
-import { User } from "@/types";
 
-type CustomerHeaderDialogProps = {
-  customer: User;
-};
-
-export default function CustomerHeaderDialog({
-  customer,
-}: CustomerHeaderDialogProps) {
+export default function CustomerHeaderDialog() {
+  const { user } = useAuth();
   const { emptyCarts } = useMultiCart();
   const { mutateAsync: logoutCustomer } = useLogout();
 
@@ -101,7 +96,7 @@ export default function CustomerHeaderDialog({
           <Stack direction="row" sx={{ justifyContent: "space-between" }}>
             <Box>
               <DialogTitle sx={{ p: 0, fontWeight: 700 }} gutterBottom>
-                {customer.first_name} {customer.last_name}
+                {user?.first_name} {user?.last_name}
               </DialogTitle>
 
               <Typography

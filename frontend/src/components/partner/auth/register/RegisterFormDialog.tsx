@@ -7,6 +7,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -21,12 +22,15 @@ export default function RegisterFormDialog({
   openRegisterFormDialog,
   setOpenRegisterFormDialog,
 }: RegisterFormDialogProps) {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
     <Dialog
       open={openRegisterFormDialog}
       onClose={() => setOpenRegisterFormDialog(false)}
       disableRestoreFocus
-      maxWidth="lg"
+      fullWidth={!isMobile}
+      fullScreen={isMobile}
     >
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>

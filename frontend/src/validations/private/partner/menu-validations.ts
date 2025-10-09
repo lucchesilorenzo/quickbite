@@ -9,6 +9,10 @@ export const addMenuCategoryFormSchema = z.object({
   description: z.string().trim().max(200, "Description is too long."),
 });
 
+export const editMenuCategoryFormSchema = z.object({
+  ...addMenuCategoryFormSchema.shape,
+});
+
 export const addMenuItemFormSchema = z.object({
   name: z
     .string()
@@ -35,6 +39,10 @@ export const editMenuItemFormSchema = z.object({
 
 export type TAddMenuCategoryFormSchema = z.infer<
   typeof addMenuCategoryFormSchema
+>;
+
+export type TEditMenuCategoryFormSchema = z.infer<
+  typeof editMenuCategoryFormSchema
 >;
 
 export type TAddMenuItemFormSchema = z.infer<typeof addMenuItemFormSchema>;
