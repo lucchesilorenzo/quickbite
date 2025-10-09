@@ -9,7 +9,7 @@ import { PartnerMenu } from "@/types";
 import {
   TRestaurantMenuCategoriesFormSchema,
   restaurantMenuCategoriesFormSchema,
-} from "@/validations/private/partner/restaurant-menu-validations";
+} from "@/validations/private/partner/menu-validations";
 
 type EditMenuCategoryFormProps = {
   menuCategory: PartnerMenu;

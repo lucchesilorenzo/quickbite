@@ -8,8 +8,8 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCreateReview } from "@/hooks/react-query/private/customer/reviews/useCreateReview";
 import { Order } from "@/types/order-types";
 import {
-  TReviewFormSchema,
-  reviewFormSchema,
+  TAddReviewFormSchema,
+  addReviewFormSchema,
 } from "@/validations/private/customer/review-validations";
 
 type AddReviewFormProps = {
@@ -28,14 +28,14 @@ export default function AddReviewForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(reviewFormSchema),
+    resolver: zodResolver(addReviewFormSchema),
     defaultValues: {
       comment: "",
       rating: 0,
     },
   });
 
-  async function onSubmit(data: TReviewFormSchema) {
+  async function onSubmit(data: TAddReviewFormSchema) {
     await createReview({ ...data, order_id: order.id });
     setOpenAddReviewDialog(false);
   }

@@ -12,17 +12,17 @@ import env from "@/lib/env";
 import { generateSlug } from "@/lib/utils";
 import { Address } from "@/types";
 import {
-  TLocationEditFormSchema,
-  locationEditFormSchema,
+  TEditLocationFormSchema,
+  editLocationFormSchema,
 } from "@/validations/public/location-validations";
 
-type LocationEditFormProps = {
+type EditLocationFormProps = {
   onCloseDialogs: () => void;
 };
 
-export default function LocationEditForm({
+export default function EditLocationForm({
   onCloseDialogs,
-}: LocationEditFormProps) {
+}: EditLocationFormProps) {
   const { currentAddress, setCurrentAddress } = useAddress();
 
   const {
@@ -30,7 +30,7 @@ export default function LocationEditForm({
     register,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(locationEditFormSchema),
+    resolver: zodResolver(editLocationFormSchema),
     defaultValues: {
       house_number: undefined,
     },
@@ -39,7 +39,7 @@ export default function LocationEditForm({
   const navigate = useNavigate();
   const notifications = useNotifications();
 
-  async function onSubmit(data: TLocationEditFormSchema) {
+  async function onSubmit(data: TEditLocationFormSchema) {
     onCloseDialogs();
 
     if (!currentAddress) return;

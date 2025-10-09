@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const restaurantMenuCategoriesFormSchema = z.object({
+export const addMenuCategoryFormSchema = z.object({
   name: z
     .string()
     .trim()
@@ -9,7 +9,7 @@ export const restaurantMenuCategoriesFormSchema = z.object({
   description: z.string().trim().max(200, "Description is too long."),
 });
 
-export const restaurantAddMenuItemFormSchema = z.object({
+export const addMenuItemFormSchema = z.object({
   name: z
     .string()
     .trim()
@@ -28,19 +28,15 @@ export const restaurantAddMenuItemFormSchema = z.object({
   image: z.union([z.string(), z.instanceof(FileList)]).nullable(),
 });
 
-export const restaurantMenuEditMenuItemFormSchema = z.object({
-  ...restaurantAddMenuItemFormSchema.shape,
+export const editMenuItemFormSchema = z.object({
+  ...addMenuItemFormSchema.shape,
   is_available: z.boolean(),
 });
 
-export type TRestaurantMenuCategoriesFormSchema = z.infer<
-  typeof restaurantMenuCategoriesFormSchema
+export type TAddMenuCategoryFormSchema = z.infer<
+  typeof addMenuCategoryFormSchema
 >;
 
-export type TRestaurantAddMenuItemFormSchema = z.infer<
-  typeof restaurantAddMenuItemFormSchema
->;
+export type TAddMenuItemFormSchema = z.infer<typeof addMenuItemFormSchema>;
 
-export type TRestaurantMenuEditMenuItemFormSchema = z.infer<
-  typeof restaurantMenuEditMenuItemFormSchema
->;
+export type TEditMenuItemFormSchema = z.infer<typeof editMenuItemFormSchema>;

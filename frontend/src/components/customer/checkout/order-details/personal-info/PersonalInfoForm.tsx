@@ -7,8 +7,8 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import {
-  TCheckoutPersonalInfoFormSchema,
-  checkoutPersonalInfoFormSchema,
+  TPersonalInfoFormSchema,
+  personalInfoFormSchema,
 } from "@/validations/private/customer/checkout-validations";
 
 type PersonalInfoFormProps = {
@@ -26,7 +26,7 @@ export default function PersonalInfoForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(checkoutPersonalInfoFormSchema),
+    resolver: zodResolver(personalInfoFormSchema),
     defaultValues: {
       first_name:
         checkoutData[restaurantId].personal_info?.first_name ||
@@ -43,7 +43,7 @@ export default function PersonalInfoForm({
     },
   });
 
-  function onSubmit(data: TCheckoutPersonalInfoFormSchema) {
+  function onSubmit(data: TPersonalInfoFormSchema) {
     setCheckoutData((prev) => ({
       ...prev,
       [restaurantId]: {

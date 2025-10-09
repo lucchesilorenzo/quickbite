@@ -8,7 +8,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import MenuItemForm from "./MenuItemForm";
+import EditMenuItemForm from "./EditMenuItemForm";
 
 import { MenuItem } from "@/types";
 
@@ -50,7 +50,7 @@ export default function EditMenuItemDialog({
         </Stack>
 
         <DialogContent sx={{ p: 1 }}>
-          <MenuItemForm
+          <EditMenuItemForm
             menuItem={menuItem}
             setOpenEditMenuItemDialog={setOpenEditMenuItemDialog}
           />

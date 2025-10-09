@@ -18,19 +18,19 @@ import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartne
 import { useUpdatePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useUpdatePartnerRestaurantMenuItem";
 import { MenuItem } from "@/types";
 import {
-  TRestaurantMenuEditMenuItemFormSchema,
-  restaurantMenuEditMenuItemFormSchema,
-} from "@/validations/private/partner/restaurant-menu-validations";
+  TEditMenuItemFormSchema,
+  editMenuItemFormSchema,
+} from "@/validations/private/partner/menu-validations";
 
-type MenuItemFormProps = {
+type EditMenuItemFormProps = {
   menuItem: MenuItem;
   setOpenEditMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function MenuItemForm({
+export default function EditMenuItemForm({
   menuItem,
   setOpenEditMenuItemDialog,
-}: MenuItemFormProps) {
+}: EditMenuItemFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
   const { mutateAsync: updatePartnerRestaurantMenuItem } =
@@ -41,7 +41,7 @@ export default function MenuItemForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(restaurantMenuEditMenuItemFormSchema),
+    resolver: zodResolver(editMenuItemFormSchema),
     defaultValues: {
       name: menuItem.name,
       description: menuItem.description || "",
@@ -51,7 +51,7 @@ export default function MenuItemForm({
     },
   });
 
-  async function onSubmit(data: TRestaurantMenuEditMenuItemFormSchema) {
+  async function onSubmit(data: TEditMenuItemFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);

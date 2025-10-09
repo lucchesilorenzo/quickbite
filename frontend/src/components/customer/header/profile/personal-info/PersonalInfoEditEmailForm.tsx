@@ -6,9 +6,9 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
-  TPersonalInfoEditEmailFormSchema,
-  personalInfoEditEmailFormSchema,
-} from "@/validations/private/customer/personal-info-validations";
+  TEditEmailFormSchema,
+  editEmailFormSchema,
+} from "@/validations/private/customer/profile-validations";
 
 export default function PersonalInfoEditEmailForm() {
   const { user } = useAuth();
@@ -19,13 +19,13 @@ export default function PersonalInfoEditEmailForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(personalInfoEditEmailFormSchema),
+    resolver: zodResolver(editEmailFormSchema),
     defaultValues: {
       email: user?.email || "",
     },
   });
 
-  async function onSubmit(data: TPersonalInfoEditEmailFormSchema) {
+  async function onSubmit(data: TEditEmailFormSchema) {
     await updateCustomerEmail(data);
   }
 

@@ -8,7 +8,7 @@ import { useCreatePartnerRestaurantMenuCategory } from "@/hooks/react-query/priv
 import {
   TRestaurantMenuCategoriesFormSchema,
   restaurantMenuCategoriesFormSchema,
-} from "@/validations/private/partner/restaurant-menu-validations";
+} from "@/validations/private/partner/menu-validations";
 
 type AddMenuCategoryFormProps = {
   setOpenAddMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;

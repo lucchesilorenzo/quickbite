@@ -11,7 +11,7 @@ import { useCreatePartnerRestaurantMenuItem } from "@/hooks/react-query/private/
 import {
   TRestaurantAddMenuItemFormSchema,
   restaurantAddMenuItemFormSchema,
-} from "@/validations/private/partner/restaurant-menu-validations";
+} from "@/validations/private/partner/menu-validations";
 
 type AddMenuItemFormProps = {
   setOpenAddMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;

@@ -11,26 +11,26 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import LocationEditForm from "./LocationEditForm";
+import EditLocationForm from "./EditLocationForm";
 
 import { useAddress } from "@/hooks/contexts/public/useAddress";
 
-type LocationEditDialogProps = {
-  openLocationEditDialog: boolean;
+type EditLocationDialog = {
+  openEditLocationDialog: boolean;
   onCloseDialogs: () => void;
 };
 
-export default function LocationEditDialog({
-  openLocationEditDialog,
+export default function EditLocationDialog({
+  openEditLocationDialog,
   onCloseDialogs,
-}: LocationEditDialogProps) {
+}: EditLocationDialog) {
   const { currentAddress } = useAddress();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   return (
     <Dialog
-      open={openLocationEditDialog}
+      open={openEditLocationDialog}
       onClose={onCloseDialogs}
       fullWidth={!isMobile}
       fullScreen={isMobile}
@@ -65,7 +65,7 @@ export default function LocationEditDialog({
               </Box>
             </DialogContentText>
 
-            <LocationEditForm onCloseDialogs={onCloseDialogs} />
+            <EditLocationForm onCloseDialogs={onCloseDialogs} />
           </Stack>
         </DialogContent>
       </Stack>

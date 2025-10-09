@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import { TAddressInfoEditFormSchema } from "@/validations/private/customer/personal-info-validations";
+import { TEditAddressFormSchema } from "@/validations/private/customer/profile-validations";
 
 export function useUpdateAddressInfo() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: TAddressInfoEditFormSchema) =>
+    mutationFn: (data: TEditAddressFormSchema) =>
       updateData("/customer/profile/address-info", data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });

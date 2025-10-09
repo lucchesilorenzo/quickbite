@@ -8,9 +8,9 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
-  TPersonalInfoEditDateOfBirthFormSchema,
-  personalInfoEditDateOfBirthFormSchema,
-} from "@/validations/private/customer/personal-info-validations";
+  TEditDateOfBirthFormSchema,
+  editDateOfBirthFormSchema,
+} from "@/validations/private/customer/profile-validations";
 
 export default function PersonalInfoEditDateOfBirthForm() {
   const { user } = useAuth();
@@ -21,13 +21,13 @@ export default function PersonalInfoEditDateOfBirthForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(personalInfoEditDateOfBirthFormSchema),
+    resolver: zodResolver(editDateOfBirthFormSchema),
     defaultValues: {
       date_of_birth: user?.date_of_birth || "",
     },
   });
 
-  async function onSubmit(data: TPersonalInfoEditDateOfBirthFormSchema) {
+  async function onSubmit(data: TEditDateOfBirthFormSchema) {
     await updateCustomerDateOfBirth(data);
   }
 

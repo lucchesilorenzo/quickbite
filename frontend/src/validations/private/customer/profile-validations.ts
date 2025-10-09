@@ -3,7 +3,7 @@ import z from "zod";
 
 import { isAdult } from "@/lib/utils";
 
-export const personalInfoEditFullNameFormSchema = z.object({
+export const editFullNameFormSchema = z.object({
   first_name: z
     .string()
     .trim()
@@ -16,13 +16,13 @@ export const personalInfoEditFullNameFormSchema = z.object({
     .max(50, "Last name is too long."),
 });
 
-export const personalInfoEditEmailFormSchema = z.object({
+export const editEmailFormSchema = z.object({
   email: z
     .email({ error: "Please enter a valid email address." })
     .min(1, "Email is required."),
 });
 
-export const personalInfoEditPhoneNumberFormSchema = z.object({
+export const editPhoneNumberFormSchema = z.object({
   phone_number: z
     .string()
     .trim()
@@ -36,7 +36,7 @@ export const personalInfoEditPhoneNumberFormSchema = z.object({
     ),
 });
 
-export const personalInfoEditDateOfBirthFormSchema = z.object({
+export const editDateOfBirthFormSchema = z.object({
   date_of_birth: z
     .string()
     .trim()
@@ -46,7 +46,7 @@ export const personalInfoEditDateOfBirthFormSchema = z.object({
     }),
 });
 
-export const addressInfoEditFormSchema = z.object({
+export const editAddressFormSchema = z.object({
   street_address: z
     .string()
     .trim()
@@ -74,28 +74,22 @@ export const addressInfoEditFormSchema = z.object({
     .max(50, "State is too long."),
 });
 
-export type TPersonalInfoEditFullNameFormSchema = z.infer<
-  typeof personalInfoEditFullNameFormSchema
+export type TEditFullNameFormSchema = z.infer<typeof editFullNameFormSchema>;
+
+export type TEditEmailFormSchema = z.infer<typeof editEmailFormSchema>;
+
+export type TEditPhoneNumberFormSchema = z.infer<
+  typeof editPhoneNumberFormSchema
 >;
 
-export type TPersonalInfoEditEmailFormSchema = z.infer<
-  typeof personalInfoEditEmailFormSchema
+export type TEditDateOfBirthFormSchema = z.infer<
+  typeof editDateOfBirthFormSchema
 >;
 
-export type TPersonalInfoEditPhoneNumberFormSchema = z.infer<
-  typeof personalInfoEditPhoneNumberFormSchema
->;
-
-export type TPersonalInfoEditDateOfBirthFormSchema = z.infer<
-  typeof personalInfoEditDateOfBirthFormSchema
->;
+export type TEditAddressFormSchema = z.infer<typeof editAddressFormSchema>;
 
 export type TPersonalInfoField =
-  | TPersonalInfoEditFullNameFormSchema
-  | TPersonalInfoEditEmailFormSchema
-  | TPersonalInfoEditPhoneNumberFormSchema
-  | TPersonalInfoEditDateOfBirthFormSchema;
-
-export type TAddressInfoEditFormSchema = z.infer<
-  typeof addressInfoEditFormSchema
->;
+  | TEditFullNameFormSchema
+  | TEditEmailFormSchema
+  | TEditPhoneNumberFormSchema
+  | TEditDateOfBirthFormSchema;

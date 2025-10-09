@@ -6,9 +6,9 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
-  TPersonalInfoEditFullNameFormSchema,
-  personalInfoEditFullNameFormSchema,
-} from "@/validations/private/customer/personal-info-validations";
+  TEditFullNameFormSchema,
+  editFullNameFormSchema,
+} from "@/validations/private/customer/profile-validations";
 
 export default function PersonalInfoEditFullNameForm() {
   const { user } = useAuth();
@@ -21,14 +21,14 @@ export default function PersonalInfoEditFullNameForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(personalInfoEditFullNameFormSchema),
+    resolver: zodResolver(editFullNameFormSchema),
     defaultValues: {
       first_name: user?.first_name || "",
       last_name: user?.last_name || "",
     },
   });
 
-  async function onSubmit(data: TPersonalInfoEditFullNameFormSchema) {
+  async function onSubmit(data: TEditFullNameFormSchema) {
     await updateCustomerFullName(data);
   }
 

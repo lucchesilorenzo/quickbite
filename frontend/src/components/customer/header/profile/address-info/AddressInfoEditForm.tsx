@@ -6,9 +6,9 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdateAddressInfo } from "@/hooks/react-query/private/customer/profile/useUpdateAddressInfo";
 import {
-  TAddressInfoEditFormSchema,
-  addressInfoEditFormSchema,
-} from "@/validations/private/customer/personal-info-validations";
+  TEditAddressFormSchema,
+  editAddressFormSchema,
+} from "@/validations/private/customer/profile-validations";
 
 export default function AddressInfoEditForm() {
   const { user } = useAuth();
@@ -19,7 +19,7 @@ export default function AddressInfoEditForm() {
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(addressInfoEditFormSchema),
+    resolver: zodResolver(editAddressFormSchema),
     defaultValues: {
       street_address: user?.street_address || "",
       building_number: user?.building_number || "",
@@ -29,7 +29,7 @@ export default function AddressInfoEditForm() {
     },
   });
 
-  async function onSubmit(data: TAddressInfoEditFormSchema) {
+  async function onSubmit(data: TEditAddressFormSchema) {
     await updateCustomerAddressInfo(data);
   }
 

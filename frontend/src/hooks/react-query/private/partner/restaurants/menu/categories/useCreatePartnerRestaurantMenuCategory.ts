@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { postData } from "@/lib/api-client";
-import { TRestaurantMenuCategoriesFormSchema } from "@/validations/private/partner/restaurant-menu-validations";
+import { TRestaurantMenuCategoriesFormSchema } from "@/validations/private/partner/menu-validations";
 
 export function useCreatePartnerRestaurantMenuCategory(restaurantId: string) {
   const queryClient = useQueryClient();

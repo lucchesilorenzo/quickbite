@@ -12,7 +12,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import LocationEditDialog from "@/components/common/LocationEditDialog";
+import EditLocationDialog from "@/components/common/EditLocationDialog";
 import { useAddress } from "@/hooks/contexts/public/useAddress";
 import env from "@/lib/env";
 import { generateSlug } from "@/lib/utils";
@@ -30,7 +30,7 @@ export default function LocationSearchArea({
   const { setCurrentAddress } = useAddress();
 
   const [addresses, setAddresses] = useState<Address[]>([]);
-  const [openLocationEditDialog, setOpenLocationEditDialog] = useState(false);
+  const [openEditLocationDialog, setOpenEditLocationDialog] = useState(false);
 
   const notifications = useNotifications();
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ export default function LocationSearchArea({
       );
 
       if (!selectedAddress.address.house_number) {
-        setOpenLocationEditDialog(true);
+        setOpenEditLocationDialog(true);
       }
     }
   }
@@ -96,7 +96,7 @@ export default function LocationSearchArea({
         );
 
         if (!data.address.house_number) {
-          setOpenLocationEditDialog(true);
+          setOpenEditLocationDialog(true);
           return;
         }
       } catch {
@@ -111,10 +111,10 @@ export default function LocationSearchArea({
   return (
     <Box>
       {openLocationSearchDialog && (
-        <LocationEditDialog
-          openLocationEditDialog={openLocationEditDialog}
+        <EditLocationDialog
+          openEditLocationDialog={openEditLocationDialog}
           onCloseDialogs={() => {
-            setOpenLocationEditDialog(false);
+            setOpenEditLocationDialog(false);
             setOpenLocationSearchDialog(false);
           }}
         />

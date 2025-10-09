@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { postData } from "@/lib/api-client";
-import { TReviewFormSchema } from "@/validations/private/customer/review-validations";
+import { TAddReviewFormSchema } from "@/validations/private/customer/review-validations";
 
 export function useCreateReview(restaurantSlug: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: TReviewFormSchema & { order_id: string }) =>
+    mutationFn: (data: TAddReviewFormSchema & { order_id: string }) =>
       postData(`/customer/restaurants/${restaurantSlug}/reviews`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["restaurants"] });

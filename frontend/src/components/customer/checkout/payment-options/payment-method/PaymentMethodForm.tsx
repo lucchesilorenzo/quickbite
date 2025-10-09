@@ -8,8 +8,8 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import {
-  TCheckoutPaymentMethodFormSchema,
-  checkoutPaymentMethodFormSchema,
+  TPaymentMethodFormSchema,
+  paymentMethodFormSchema,
 } from "@/validations/private/customer/checkout-validations";
 
 const paymentMethodOptions = [
@@ -36,13 +36,13 @@ export default function PaymentMethodForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(checkoutPaymentMethodFormSchema),
+    resolver: zodResolver(paymentMethodFormSchema),
     defaultValues: {
       payment_method: checkoutData[restaurantId].payment_method || "",
     },
   });
 
-  function onSubmit(data: TCheckoutPaymentMethodFormSchema) {
+  function onSubmit(data: TPaymentMethodFormSchema) {
     setCheckoutData((prev) => ({
       ...prev,
       [restaurantId]: {

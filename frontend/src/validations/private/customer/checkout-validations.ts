@@ -1,7 +1,7 @@
 import { matchIsValidTel } from "mui-tel-input";
 import z from "zod";
 
-export const checkoutPersonalInfoFormSchema = z.object({
+export const personalInfoFormSchema = z.object({
   first_name: z
     .string()
     .trim()
@@ -25,7 +25,7 @@ export const checkoutPersonalInfoFormSchema = z.object({
     ),
 });
 
-export const checkoutAddressInfoFormSchema = z.object({
+export const addressInfoFormSchema = z.object({
   street_address: z
     .string()
     .trim()
@@ -53,7 +53,7 @@ export const checkoutAddressInfoFormSchema = z.object({
     .max(50, "State is too long."),
 });
 
-export const checkoutDeliveryTimeFormSchema = z
+export const deliveryTimeFormSchema = z
   .object({
     delivery_type: z.enum(["asap", "schedule"]).or(z.null()),
     delivery_time: z.string(),
@@ -68,11 +68,11 @@ export const checkoutDeliveryTimeFormSchema = z
     },
   );
 
-export const checkoutOrderNotesFormSchema = z.object({
+export const orderNotesFormSchema = z.object({
   notes: z.string().trim().max(160, "Order notes is too long."),
 });
 
-export const checkoutPaymentMethodFormSchema = z.object({
+export const paymentMethodFormSchema = z.object({
   payment_method: z
     .string()
     .trim()
@@ -80,22 +80,12 @@ export const checkoutPaymentMethodFormSchema = z.object({
     .max(50, "Payment method is too long."),
 });
 
-export type TCheckoutPersonalInfoFormSchema = z.infer<
-  typeof checkoutPersonalInfoFormSchema
->;
+export type TPersonalInfoFormSchema = z.infer<typeof personalInfoFormSchema>;
 
-export type TCheckoutAddressInfoFormSchema = z.infer<
-  typeof checkoutAddressInfoFormSchema
->;
+export type TAddressInfoFormSchema = z.infer<typeof addressInfoFormSchema>;
 
-export type TCheckoutDeliveryTimeFormSchema = z.infer<
-  typeof checkoutDeliveryTimeFormSchema
->;
+export type TDeliveryTimeFormSchema = z.infer<typeof deliveryTimeFormSchema>;
 
-export type TCheckoutOrderNotesFormSchema = z.infer<
-  typeof checkoutOrderNotesFormSchema
->;
+export type TOrderNotesFormSchema = z.infer<typeof orderNotesFormSchema>;
 
-export type TCheckoutPaymentMethodFormSchema = z.infer<
-  typeof checkoutPaymentMethodFormSchema
->;
+export type TPaymentMethodFormSchema = z.infer<typeof paymentMethodFormSchema>;

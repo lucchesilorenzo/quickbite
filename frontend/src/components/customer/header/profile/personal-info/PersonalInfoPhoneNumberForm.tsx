@@ -7,9 +7,9 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
-  TPersonalInfoEditPhoneNumberFormSchema,
-  personalInfoEditPhoneNumberFormSchema,
-} from "@/validations/private/customer/personal-info-validations";
+  TEditPhoneNumberFormSchema,
+  editPhoneNumberFormSchema,
+} from "@/validations/private/customer/profile-validations";
 
 export default function PersonalInfoEditPhoneNumberForm() {
   const { user } = useAuth();
@@ -20,13 +20,13 @@ export default function PersonalInfoEditPhoneNumberForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(personalInfoEditPhoneNumberFormSchema),
+    resolver: zodResolver(editPhoneNumberFormSchema),
     defaultValues: {
       phone_number: user?.phone_number || "",
     },
   });
 
-  async function onSubmit(data: TPersonalInfoEditPhoneNumberFormSchema) {
+  async function onSubmit(data: TEditPhoneNumberFormSchema) {
     await updateCustomerPhoneNumber(data);
   }
 

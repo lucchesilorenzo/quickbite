@@ -6,8 +6,8 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import {
-  TCheckoutAddressInfoFormSchema,
-  checkoutAddressInfoFormSchema,
+  TAddressInfoFormSchema,
+  addressInfoFormSchema,
 } from "@/validations/private/customer/checkout-validations";
 
 type AddressInfoFormProps = {
@@ -25,7 +25,7 @@ export default function AddressInfoForm({
     control,
     formState: { isSubmitting, errors },
   } = useForm({
-    resolver: zodResolver(checkoutAddressInfoFormSchema),
+    resolver: zodResolver(addressInfoFormSchema),
     defaultValues: {
       street_address:
         checkoutData[restaurantId].address_info.street_address ||
@@ -44,7 +44,7 @@ export default function AddressInfoForm({
     },
   });
 
-  function onSubmit(data: TCheckoutAddressInfoFormSchema) {
+  function onSubmit(data: TAddressInfoFormSchema) {
     setCheckoutData((prev) => ({
       ...prev,
       [restaurantId]: {
