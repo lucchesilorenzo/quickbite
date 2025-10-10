@@ -15,7 +15,7 @@ import Spinner from "@/components/common/Spinner";
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
 import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetPartnerRestaurantMenu";
+import { useGetMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";
 
 export default function MenuEditNavigation() {
@@ -26,7 +26,7 @@ export default function MenuEditNavigation() {
   const {
     data: menuCategories = partnerMenuDefaults,
     isLoading: isLoadingMenuCategories,
-  } = useGetPartnerRestaurantMenu(restaurant.id);
+  } = useGetMenu(restaurant.id);
 
   const swiperRef = useRef<SwiperClass>(null);
 

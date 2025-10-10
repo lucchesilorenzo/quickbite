@@ -2,28 +2,28 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import { TRestaurantSettingsFeesFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
+import { MenuItem } from "@/types";
 
-export function useUpdatePartnerRestaurantSettingsFees(restaurantId: string) {
+export function useUpdateMenuItemsOrder(restaurantId: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: TRestaurantSettingsFeesFormSchema) =>
-      updateData(`/partner/restaurants/${restaurantId}/settings/fees`, data),
+    mutationFn: (data: MenuItem[]) =>
+      updateData(`/partner/restaurants/menu/items/order`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-menu", restaurantId],
       });
 
       notifications.show(response.message, {
-        key: "update-restaurant-fees-success",
+        key: "partner-update-menu-items-order-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-restaurant-fees-error",
+        key: "partner-update-menu-items-order-error",
         severity: "error",
       });
     },

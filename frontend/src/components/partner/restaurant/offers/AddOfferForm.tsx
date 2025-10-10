@@ -13,7 +13,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useCreatePartnerRestaurantOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useCreatePartnerRestaurantOffer";
+import { useCreateOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useCreateOffer";
 import { discountRates } from "@/lib/data";
 import {
   TRestaurantSettingsOffersFormSchema,
@@ -29,8 +29,9 @@ export default function AddOfferForm({
 }: AddOfferFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: createPartnerRestaurantOffer, isPending: isAdding } =
-    useCreatePartnerRestaurantOffer(restaurant.id);
+  const { mutateAsync: createOffer, isPending: isAdding } = useCreateOffer(
+    restaurant.id,
+  );
 
   const {
     handleSubmit,
@@ -47,7 +48,7 @@ export default function AddOfferForm({
   });
 
   async function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    await createPartnerRestaurantOffer(data);
+    await createOffer(data);
     setOpenAddOfferDialog(false);
   }
 

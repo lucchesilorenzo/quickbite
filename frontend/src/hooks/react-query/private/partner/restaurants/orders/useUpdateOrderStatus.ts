@@ -1,31 +1,29 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { postData } from "@/lib/api-client";
+import { updateData } from "@/lib/api-client";
+import { PartnerOrderStatus } from "@/types/order-types";
 
-export function useUpdatePartnerRestaurantMenuItem(
-  restaurantId: string,
-  menuItemId: string,
-) {
+export function useUpdateOrderStatus(orderId: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: FormData) =>
-      postData(`/partner/restaurants/menu/items/${menuItemId}`, data),
+    mutationFn: (data: { status: PartnerOrderStatus }) =>
+      updateData(`/partner/restaurants/orders/${orderId}/status`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-menu", restaurantId],
+        queryKey: ["partner-orders"],
       });
 
       notifications.show(response.message, {
-        key: "update-restaurant-menu-item-success",
+        key: "partner-update-order-status-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-restaurant-menu-item-error",
+        key: "partner-update-order-status-error",
         severity: "error",
       });
     },

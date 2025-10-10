@@ -23,6 +23,8 @@ export const partnerRestaurantStatsDefaults = {
 
 export const partnerOrdersDefaults = baseOffsetPaginationDefaults;
 
+export const partnerOffersDefaults = baseOffsetPaginationDefaults;
+
 const partnerMenuItemsDefaults = baseOffsetPaginationDefaults;
 
 export const partnerMenuDefaults = [

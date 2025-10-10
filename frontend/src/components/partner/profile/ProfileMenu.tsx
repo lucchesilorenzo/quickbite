@@ -11,12 +11,13 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useLogoutPartner } from "@/hooks/react-query/private/partner/auth/useLogoutPartner";
+import { useLogout } from "@/hooks/react-query/private/partner/auth/useLogout";
 import { getColorByName } from "@/lib/utils";
 
 export default function ProfileMenu() {
   const { user } = useAuth();
-  const { mutateAsync: logoutPartner } = useLogoutPartner();
+
+  const { mutateAsync: logoutPartner } = useLogout();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 

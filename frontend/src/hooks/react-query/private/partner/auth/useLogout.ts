@@ -2,24 +2,27 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { postData } from "@/lib/api-client";
-import { TLoginFormSchema } from "@/validations/private/partner/auth-validations";
 
-export function useLoginPartner() {
+export function useLogout() {
+  const { resetUser } = useAuth();
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (data: TLoginFormSchema) =>
-      postData("/partner/auth/login", data),
+    mutationFn: () => postData("/partner/auth/logout"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate("/partner/restaurants");
+      localStorage.removeItem("token");
+
+      navigate("/partner/auth/login");
+      resetUser();
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "login-partner-error",
+        key: "partner-logout-error",
         severity: "error",
       });
     },

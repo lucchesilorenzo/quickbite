@@ -8,7 +8,7 @@ import GeneralAddressCard from "@/components/partner/profile/general/GeneralAddr
 import GeneralPersonalInfoCard from "@/components/partner/profile/general/GeneralPersonalInfoCard";
 import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdatePartnerProfileGeneralInformation } from "@/hooks/react-query/private/partner/profile/useUpdatePartnerProfileGeneralInformation";
+import { useUpdateProfileGeneralInformation } from "@/hooks/react-query/private/partner/profile/useUpdateProfileGeneralInformation";
 import {
   TProfileGeneralFormSchema,
   profileGeneralFormSchema,
@@ -23,7 +23,7 @@ export default function PartnerProfileGeneralPage() {
   const {
     mutateAsync: updatePartnerProfileGeneralInformation,
     isPending: isUpdating,
-  } = useUpdatePartnerProfileGeneralInformation();
+  } = useUpdateProfileGeneralInformation();
 
   const methods = useForm({
     resolver: zodResolver(profileGeneralFormSchema),

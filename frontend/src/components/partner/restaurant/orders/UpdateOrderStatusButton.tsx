@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from "@mui/material";
 
-import { useUpdatePartnerRestaurantOrderStatus } from "@/hooks/react-query/private/partner/restaurants/orders/useUpdatePartnerRestaurantOrderStatus";
+import { useUpdateOrderStatus } from "@/hooks/react-query/private/partner/restaurants/orders/useUpdateOrderStatus";
 import { orderStatuses } from "@/lib/data";
 import { getDisabledOrderStatuses } from "@/lib/utils";
 import { Order, OrderStatus } from "@/types/order-types";
@@ -27,17 +27,15 @@ export default function UpdateOrderStatusButton({
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [status, setStatus] = useState(order.status);
 
-  const {
-    mutateAsync: updatePartnerRestaurantOrderStatus,
-    isPending: isOrderStatusUpdating,
-  } = useUpdatePartnerRestaurantOrderStatus(order.id);
+  const { mutateAsync: updateOrderStatus, isPending: isOrderStatusUpdating } =
+    useUpdateOrderStatus(order.id);
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setAnchorEl(e.currentTarget);
   }
 
   async function handleConfirm() {
-    await updatePartnerRestaurantOrderStatus({ status });
+    await updateOrderStatus({ status });
     setAnchorEl(null);
   }
 

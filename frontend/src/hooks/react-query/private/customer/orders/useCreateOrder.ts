@@ -22,7 +22,7 @@ export function useCreateOrder(restaurantId: string) {
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "create-customer-order-error",
+        key: "customer-create-order-error",
         severity: "error",
       });
     },

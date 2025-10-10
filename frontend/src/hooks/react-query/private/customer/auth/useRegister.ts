@@ -19,7 +19,7 @@ export function useRegister() {
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "register-customer-error",
+        key: "customer-register-error",
         severity: "error",
       });
     },

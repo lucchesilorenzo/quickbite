@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useMarkPartnerNotificationsAsRead } from "@/hooks/react-query/private/partner/notifications/useMarkPartnerNotificationsAsRead";
+import { useMarkNotificationsAsRead } from "@/hooks/react-query/private/partner/notifications/useMarkNotificationsAsRead";
 
 type NotificationsMarkAsReadDialogProps = {
   openMarkUserNotificationsAsRead: boolean;
@@ -27,7 +27,7 @@ export default function NotificationsMarkAsReadDialog({
   const { restaurant } = usePartnerRestaurant();
 
   const { mutateAsync: markUserNotificationsAsRead, isPending: isMarking } =
-    useMarkPartnerNotificationsAsRead(restaurant.id);
+    useMarkNotificationsAsRead(restaurant.id);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

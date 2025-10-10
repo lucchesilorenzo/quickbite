@@ -10,7 +10,7 @@ import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
 import { usePartnerOrders } from "@/hooks/contexts/private/partner/usePartnerOrders";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useGetPartnerRestaurantOrders } from "@/hooks/react-query/private/partner/restaurants/orders/useGetPartnerRestaurantOrders";
+import { useGetOrders } from "@/hooks/react-query/private/partner/restaurants/orders/useGetOrders";
 import { orderStatuses } from "@/lib/data";
 import { partnerOrdersDefaults } from "@/lib/query-defaults";
 
@@ -24,7 +24,7 @@ export default function OrdersList() {
   const {
     data: ordersData = partnerOrdersDefaults,
     isLoading: isLoadingOrders,
-  } = useGetPartnerRestaurantOrders({
+  } = useGetOrders({
     restaurantId: restaurant.id,
     status,
     page,

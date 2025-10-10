@@ -4,8 +4,8 @@ import { Navigate } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useGetPartnerNotifications } from "@/hooks/react-query/private/partner/notifications/useGetPartnerNotifications";
-import { useGetPartnerRestaurant } from "@/hooks/react-query/private/partner/restaurants/restaurant/useGetPartnerRestaurant";
+import { useGetNotifications } from "@/hooks/react-query/private/partner/notifications/useGetNotifications";
+import { useGetRestaurant } from "@/hooks/react-query/private/partner/restaurants/restaurant/useGetRestaurant";
 import { userNotificationsDefaults } from "@/lib/query-defaults";
 import {
   PartnerRestaurantDetail,
@@ -38,13 +38,13 @@ export default function PartnerRestaurantProvider({
   const {
     data: partnerNotifications = userNotificationsDefaults,
     isLoading: isLoadingPartnerNotifications,
-  } = useGetPartnerNotifications({ userId: user?.id, restaurantId, page });
+  } = useGetNotifications({ userId: user?.id, restaurantId, page });
 
   const {
     data: restaurant,
     isLoading,
     isError,
-  } = useGetPartnerRestaurant(restaurantId);
+  } = useGetRestaurant(restaurantId);
 
   if (isLoading || isLoadingPartnerNotifications) return <FullPageSpinner />;
   if (isError || !restaurant) return <Navigate to="*" />;

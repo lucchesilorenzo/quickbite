@@ -15,7 +15,7 @@ import AntSwitch from "@/components/common/AntSwitch";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useUpdatePartnerRestaurantMenuItem";
+import { useUpdateMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useUpdateMenuItem";
 import { MenuItem } from "@/types";
 import {
   TEditMenuItemFormSchema,
@@ -33,8 +33,10 @@ export default function EditMenuItemForm({
 }: EditMenuItemFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: updatePartnerRestaurantMenuItem } =
-    useUpdatePartnerRestaurantMenuItem(restaurant.id, menuItem.id);
+  const { mutateAsync: updateMenuItem } = useUpdateMenuItem(
+    restaurant.id,
+    menuItem.id,
+  );
 
   const {
     handleSubmit,
@@ -60,7 +62,7 @@ export default function EditMenuItemForm({
     if (data.image) formData.append("image", data.image[0]);
     formData.append("is_available", data.is_available ? "1" : "0");
 
-    await updatePartnerRestaurantMenuItem(formData);
+    await updateMenuItem(formData);
     setOpenEditMenuItemDialog(false);
   }
 

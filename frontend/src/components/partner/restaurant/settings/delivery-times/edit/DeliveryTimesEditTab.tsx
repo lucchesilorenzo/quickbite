@@ -15,7 +15,7 @@ import { Controller, useForm } from "react-hook-form";
 import AntSwitch from "@/components/common/AntSwitch";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantSettingsDeliveryTimes } from "@/hooks/react-query/private/partner/restaurants/settings/delivery-times/useUpdatePartnerRestaurantSettingsDeliveryTimes";
+import { useUpdateDeliveryTimes } from "@/hooks/react-query/private/partner/restaurants/settings/useUpdateDeliveryTimes";
 import { capitalize } from "@/lib/utils";
 import {
   TRestaurantSettingsDeliveryTimesFormSchema,
@@ -25,10 +25,8 @@ import {
 export default function DeliveryTimesEditTab() {
   const { restaurant } = usePartnerRestaurant();
 
-  const {
-    mutateAsync: updatePartnerRestaurantSettingsDeliveryTimes,
-    isPending: isUpdating,
-  } = useUpdatePartnerRestaurantSettingsDeliveryTimes(restaurant.id);
+  const { mutateAsync: updateDeliveryTimes, isPending: isUpdating } =
+    useUpdateDeliveryTimes(restaurant.id);
 
   const {
     handleSubmit,
@@ -75,7 +73,7 @@ export default function DeliveryTimesEditTab() {
       })),
     };
 
-    await updatePartnerRestaurantSettingsDeliveryTimes(normalized);
+    await updateDeliveryTimes(normalized);
   }
 
   return (

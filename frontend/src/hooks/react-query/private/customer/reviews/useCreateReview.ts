@@ -17,13 +17,13 @@ export function useCreateReview(restaurantSlug: string) {
       queryClient.invalidateQueries({ queryKey: ["customer-orders"] });
 
       notifications.show(response.message, {
-        key: "create-customer-review-success",
+        key: "customer-create-review-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "create-customer-review-error",
+        key: "customer-create-review-error",
         severity: "error",
       });
     },

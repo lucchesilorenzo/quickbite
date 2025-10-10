@@ -2,28 +2,27 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import { TProfileGeneralFormSchema } from "@/validations/private/partner/profile-general-validations";
 
-export function useUpdatePartnerProfileGeneralInformation() {
+export function useUpdateRestaurantApprovedStatus(restaurantId: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: TProfileGeneralFormSchema) =>
-      updateData("/partner/profile/general", data),
+    mutationFn: () =>
+      updateData(`/partner/restaurants/${restaurantId}/approved`),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["auth"],
+        queryKey: ["partner-restaurant", restaurantId],
       });
 
       notifications.show(response.message, {
-        key: "update-partner-profile-general-information-success",
+        key: "partner-update-restaurant-approved-status-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-partner-profile-general-information-error",
+        key: "partner-update-restaurant-approved-status-error",
         severity: "error",
       });
     },

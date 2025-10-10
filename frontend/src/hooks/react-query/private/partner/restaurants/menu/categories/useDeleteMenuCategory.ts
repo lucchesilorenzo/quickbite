@@ -1,28 +1,31 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { deleteData } from "@/lib/api-client";
 
-export function useUpdatePartnerRestaurantApprovedStatus(restaurantId: string) {
+export function useDeleteMenuCategory(
+  restaurantId: string,
+  menuCategoryId: string,
+) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
     mutationFn: () =>
-      updateData(`/partner/restaurants/${restaurantId}/approved`),
+      deleteData(`/partner/restaurants/menu/categories/${menuCategoryId}`),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-menu", restaurantId],
       });
 
       notifications.show(response.message, {
-        key: "update-restaurant-approved-status-success",
+        key: "partner-delete-menu-category-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-restaurant-approved-status-error",
+        key: "partner-delete-menu-category-error",
         severity: "error",
       });
     },

@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useGetPartnerRestaurantReviews } from "@/hooks/react-query/private/partner/restaurants/reviews/useGetPartnerRestaurantReviews";
+import { useGetReviews } from "@/hooks/react-query/private/partner/restaurants/reviews/useGetReviews";
 import { reviewsDefaults } from "@/lib/query-defaults";
 import { OrderStatusWithAll } from "@/types/order-types";
 import { ReviewStats } from "@/types/review-types";
@@ -31,7 +31,7 @@ export default function PartnerReviewsProvider({
   const [status, setStatus] = useState<OrderStatusWithAll>("all");
 
   const { data: reviewsData = reviewsDefaults, isLoading: isLoadingReviews } =
-    useGetPartnerRestaurantReviews(restaurant.id, page);
+    useGetReviews(restaurant.id, page);
 
   if (isLoadingReviews) return <Spinner />;
 

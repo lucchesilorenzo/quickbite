@@ -13,7 +13,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useUpdatePartnerRestaurantOffer";
+import { useUpdateOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useUpdateOffer";
 import { discountRates } from "@/lib/data";
 import { Offer } from "@/types";
 import {
@@ -31,8 +31,8 @@ export default function EditOfferForm({
   setOpenEditOfferDialog,
 }: EditOfferFormProps) {
   const { restaurant } = usePartnerRestaurant();
-  const { mutateAsync: updatePartnerRestaurantOffer } =
-    useUpdatePartnerRestaurantOffer(restaurant.id, offer.id);
+
+  const { mutateAsync: updateOffer } = useUpdateOffer(restaurant.id, offer.id);
 
   const {
     handleSubmit,
@@ -49,7 +49,7 @@ export default function EditOfferForm({
   });
 
   async function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    await updatePartnerRestaurantOffer(data);
+    await updateOffer(data);
     setOpenEditOfferDialog(false);
   }
 

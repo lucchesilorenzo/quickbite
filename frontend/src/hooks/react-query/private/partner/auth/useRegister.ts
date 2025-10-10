@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { postData } from "@/lib/api-client";
 import { TRegisterFormSchema } from "@/validations/private/partner/auth-validations";
 
-export function useRegisterPartner() {
+export function useRegister() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export function useRegisterPartner() {
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "register-partner-error",
+        key: "partner-register-error",
         severity: "error",
       });
     },

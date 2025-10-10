@@ -1,34 +1,29 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { postData } from "@/lib/api-client";
+import { updateData } from "@/lib/api-client";
+import { TProfileGeneralFormSchema } from "@/validations/private/partner/profile-general-validations";
 
-export function useCreatePartnerRestaurantMenuItem(
-  restaurantId: string,
-  menuCategoryId: string,
-) {
+export function useUpdateProfileGeneralInformation() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: FormData) =>
-      postData(
-        `/partner/restaurants/menu/categories/${menuCategoryId}/items`,
-        data,
-      ),
+    mutationFn: (data: TProfileGeneralFormSchema) =>
+      updateData("/partner/profile/general", data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-menu", restaurantId],
+        queryKey: ["auth"],
       });
 
       notifications.show(response.message, {
-        key: "create-restaurant-menu-item-success",
+        key: "partner-profile-general-update-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "create-restaurant-menu-item-error",
+        key: "partner-profile-general-update-error",
         severity: "error",
       });
     },

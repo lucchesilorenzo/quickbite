@@ -16,7 +16,7 @@ export function useCreateOrUpdateCarts() {
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "create-or-update-customer-carts-error",
+        key: "customer-create-or-update-carts-error",
         severity: "error",
       });
     },

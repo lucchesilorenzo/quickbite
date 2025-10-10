@@ -3,17 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/lib/api-client";
 import { OrderStatusWithAll, OrderWithPagination } from "@/types/order-types";
 
-type GetPartnerRestaurantOrdersProps = {
+type GetOrders = {
   restaurantId: string;
   status: OrderStatusWithAll;
   page: number;
 };
 
-export function useGetPartnerRestaurantOrders({
-  restaurantId,
-  status,
-  page = 1,
-}: GetPartnerRestaurantOrdersProps) {
+export function useGetOrders({ restaurantId, status, page = 1 }: GetOrders) {
   return useQuery({
     queryKey: ["partner-orders", restaurantId, status, page],
     queryFn: (): Promise<OrderWithPagination> => {

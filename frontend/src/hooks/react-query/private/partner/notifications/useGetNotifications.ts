@@ -3,17 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/lib/api-client";
 import { UserNotificationWithUnreadCount } from "@/types";
 
-type GetPartnerNotificationsProps = {
+type GetNotificationsProps = {
   userId?: string;
   restaurantId?: string;
   page: number;
 };
 
-export function useGetPartnerNotifications({
+export function useGetNotifications({
   userId,
   restaurantId,
   page = 1,
-}: GetPartnerNotificationsProps) {
+}: GetNotificationsProps) {
   return useQuery({
     queryKey: ["partner-notifications", restaurantId, page],
     queryFn: (): Promise<UserNotificationWithUnreadCount> =>

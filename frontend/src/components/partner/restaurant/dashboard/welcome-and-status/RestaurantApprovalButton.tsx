@@ -1,18 +1,16 @@
 import { Button } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantApprovedStatus } from "@/hooks/react-query/private/partner/restaurants/restaurant/useUpdatePartnerRestaurantApprovedStatus";
+import { useUpdateRestaurantApprovedStatus } from "@/hooks/react-query/private/partner/restaurants/restaurant/useUpdateRestaurantApprovedStatus";
 
 export default function RestaurantApprovalButton() {
   const { restaurant } = usePartnerRestaurant();
 
-  const {
-    mutateAsync: updatePartnerRestaurantApprovedStatus,
-    isPending: isUpdating,
-  } = useUpdatePartnerRestaurantApprovedStatus(restaurant.id);
+  const { mutateAsync: updateRestaurantApprovedStatus, isPending: isUpdating } =
+    useUpdateRestaurantApprovedStatus(restaurant.id);
 
-  async function handleApproveRestaurant() {
-    await updatePartnerRestaurantApprovedStatus();
+  async function handleRestaurantApproval() {
+    await updateRestaurantApprovedStatus();
   }
 
   return (
@@ -21,7 +19,7 @@ export default function RestaurantApprovalButton() {
       disabled={isUpdating}
       loading={isUpdating}
       loadingIndicator="Checking..."
-      onClick={handleApproveRestaurant}
+      onClick={handleRestaurantApproval}
     >
       Approve restaurant
     </Button>

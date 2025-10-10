@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import NotificationsCard from "@/components/partner/profile/notifications/NotificationsCard";
 import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdatePartnerProfileNotifications } from "@/hooks/react-query/private/partner/profile/useUpdatePartnerProfileNotifications";
+import { useUpdateProfileNotifications } from "@/hooks/react-query/private/partner/profile/useUpdateProfileNotifications";
 import { NotificationType } from "@/types";
 import {
   TProfileNotificationsFormSchema,
@@ -22,7 +22,7 @@ export default function PartnerProfileNotificationsPage() {
   const { user } = useAuth();
 
   const { mutateAsync: updatePartnerProfileNotifications } =
-    useUpdatePartnerProfileNotifications();
+    useUpdateProfileNotifications();
 
   const defaultValues = user?.notification_preferences.reduce(
     (acc, pref) => {

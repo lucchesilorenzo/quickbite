@@ -23,7 +23,7 @@ export function useLogout() {
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "logout-customer-error",
+        key: "customer-logout-error",
         severity: "error",
       });
     },

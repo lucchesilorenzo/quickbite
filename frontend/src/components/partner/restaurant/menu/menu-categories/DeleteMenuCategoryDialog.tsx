@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useDeletePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useDeletePartnerRestaurantMenuCategory";
+import { useDeleteMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useDeleteMenuCategory";
 import { PartnerMenu } from "@/types";
 
 type DeleteMenuCategoryDialogProps = {
@@ -32,7 +32,7 @@ export default function DeleteMenuCategoryDialog({
   const {
     mutateAsync: deletePartnerRestaurantMenuCategory,
     isPending: isDeleting,
-  } = useDeletePartnerRestaurantMenuCategory(restaurant.id, menuCategory.id);
+  } = useDeleteMenuCategory(restaurant.id, menuCategory.id);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

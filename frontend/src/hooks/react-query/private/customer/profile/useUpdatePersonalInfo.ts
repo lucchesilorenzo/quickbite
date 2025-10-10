@@ -14,13 +14,13 @@ export function useUpdatePersonalInfo() {
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       notifications.show(response.message, {
-        key: "update-customer-personal-info-success",
+        key: "customer-update-personal-info-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-customer-personal-info-error",
+        key: "customer-update-personal-info-error",
         severity: "error",
       });
     },

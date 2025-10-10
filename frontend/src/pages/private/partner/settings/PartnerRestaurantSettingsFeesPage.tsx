@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import FeesContainer from "@/components/partner/restaurant/settings/fees/FeesContainer";
 import PartnerRestaurantSettingsFeesProvider from "@/contexts/private/partner/PartnerFeesProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantSettingsFees } from "@/hooks/react-query/private/partner/restaurants/settings/fees/useUpdatePartnerRestaurantSettingsFees";
+import { useUpdateFees } from "@/hooks/react-query/private/partner/restaurants/settings/useUpdateFees";
 import {
   TRestaurantSettingsFeesFormSchema,
   restaurantSettingsFeesFormSchema,
@@ -20,8 +20,7 @@ export default function PartnerRestaurantSettingsFeesPage() {
 
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: updatePartnerRestaurantSettingsFees } =
-    useUpdatePartnerRestaurantSettingsFees(restaurant.id);
+  const { mutateAsync: updateFees } = useUpdateFees(restaurant.id);
 
   const methods = useForm({
     resolver: zodResolver(restaurantSettingsFeesFormSchema),
@@ -37,7 +36,7 @@ export default function PartnerRestaurantSettingsFeesPage() {
   const { handleSubmit } = methods;
 
   async function onSubmit(data: TRestaurantSettingsFeesFormSchema) {
-    await updatePartnerRestaurantSettingsFees(data);
+    await updateFees(data);
   }
 
   return (

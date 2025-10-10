@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategory";
+import { useUpdateMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useUpdateMenuCategory";
 import { PartnerMenu } from "@/types";
 import {
   TEditMenuCategoryFormSchema,
@@ -22,8 +22,10 @@ export default function EditMenuCategoryForm({
 }: EditMenuCategoryFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: updatePartnerRestaurantMenuCategory } =
-    useUpdatePartnerRestaurantMenuCategory(restaurant.id, menuCategory.id);
+  const { mutateAsync: updateMenuCategory } = useUpdateMenuCategory(
+    restaurant.id,
+    menuCategory.id,
+  );
 
   const {
     handleSubmit,
@@ -38,7 +40,7 @@ export default function EditMenuCategoryForm({
   });
 
   async function onSubmit(data: TEditMenuCategoryFormSchema) {
-    await updatePartnerRestaurantMenuCategory(data);
+    await updateMenuCategory(data);
     setOpenEditMenuCategoryDialog(false);
   }
 

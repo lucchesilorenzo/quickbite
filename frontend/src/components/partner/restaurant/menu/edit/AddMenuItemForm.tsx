@@ -7,7 +7,7 @@ import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useCreatePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useCreatePartnerRestaurantMenuItem";
+import { useCreateMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useCreateMenuItem";
 import {
   TAddMenuItemFormSchema,
   addMenuItemFormSchema,
@@ -23,8 +23,10 @@ export default function AddMenuItemForm({
   const { restaurant } = usePartnerRestaurant();
   const { selectedMenuCategoryId } = usePartnerMenu();
 
-  const { mutateAsync: createPartnerRestaurantMenuItem } =
-    useCreatePartnerRestaurantMenuItem(restaurant.id, selectedMenuCategoryId);
+  const { mutateAsync: createMenuItem } = useCreateMenuItem(
+    restaurant.id,
+    selectedMenuCategoryId,
+  );
 
   const {
     handleSubmit,
@@ -48,7 +50,7 @@ export default function AddMenuItemForm({
     formData.append("price", String(data.price));
     if (data.image) formData.append("image", data.image[0]);
 
-    await createPartnerRestaurantMenuItem(formData);
+    await createMenuItem(formData);
     setOpenAddMenuItemDialog(false);
   }
 

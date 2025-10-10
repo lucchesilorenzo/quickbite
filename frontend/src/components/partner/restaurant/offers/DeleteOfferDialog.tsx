@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useDeletePartnerRestaurantOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useDeletePartnerRestaurantOffer";
+import { useDeleteOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useDeleteOffer";
 import { Offer } from "@/types";
 
 type DeleteOfferDialogProps = {
@@ -27,13 +27,15 @@ export default function DeleteOfferDialog({
 }: DeleteOfferDialogProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: deletePartnerRestaurantOffer, isPending: isDeleting } =
-    useDeletePartnerRestaurantOffer(restaurant.id, offer.id);
+  const { mutateAsync: deleteOffer, isPending: isDeleting } = useDeleteOffer(
+    restaurant.id,
+    offer.id,
+  );
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   async function handleDeleteOffer() {
-    await deletePartnerRestaurantOffer();
+    await deleteOffer();
     setOpenDeleteOfferDialog(false);
   }
 

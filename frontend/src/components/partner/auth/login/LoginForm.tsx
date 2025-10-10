@@ -13,14 +13,14 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useLoginPartner } from "@/hooks/react-query/private/partner/auth/useLoginPartner";
+import { useLogin } from "@/hooks/react-query/private/partner/auth/useLogin";
 import {
   TLoginFormSchema,
   loginFormSchema,
 } from "@/validations/private/partner/auth-validations";
 
 export default function LoginForm() {
-  const { mutateAsync: loginPartner } = useLoginPartner();
+  const { mutateAsync: loginPartner } = useLogin();
 
   const {
     handleSubmit,

@@ -3,7 +3,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
 
-type UpdatePartnerRestaurantSettingsDeliveryTimes = {
+type UpdateDeliveryTimes = {
   delivery_days: {
     day: string;
     start_time: string | null;
@@ -11,14 +11,12 @@ type UpdatePartnerRestaurantSettingsDeliveryTimes = {
   }[];
 };
 
-export function useUpdatePartnerRestaurantSettingsDeliveryTimes(
-  restaurantId: string,
-) {
+export function useUpdateDeliveryTimes(restaurantId: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: (data: UpdatePartnerRestaurantSettingsDeliveryTimes) =>
+    mutationFn: (data: UpdateDeliveryTimes) =>
       updateData(
         `/partner/restaurants/${restaurantId}/settings/delivery-times`,
         data,
@@ -29,13 +27,13 @@ export function useUpdatePartnerRestaurantSettingsDeliveryTimes(
       });
 
       notifications.show(response.message, {
-        key: "update-restaurant-delivery-times-success",
+        key: "partner-update-delivery-times-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-restaurant-delivery-times-error",
+        key: "partner-update-delivery-times-error",
         severity: "error",
       });
     },

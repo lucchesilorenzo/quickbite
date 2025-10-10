@@ -4,13 +4,14 @@ import { Card, Stack, Typography } from "@mui/material";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantStatus } from "@/hooks/react-query/private/partner/restaurants/restaurant/useUpdatePartnerRestaurantStatus";
+import { useUpdateRestaurantStatus } from "@/hooks/react-query/private/partner/restaurants/restaurant/useUpdateRestaurantStatus";
 
 export default function RestaurantStatusSwitch() {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: updatePartnerRestaurantStatus } =
-    useUpdatePartnerRestaurantStatus(restaurant.id);
+  const { mutateAsync: updateRestaurantStatus } = useUpdateRestaurantStatus(
+    restaurant.id,
+  );
 
   const [restaurantStatus, setRestaurantStatus] = useState(restaurant.is_open);
 
@@ -18,7 +19,7 @@ export default function RestaurantStatusSwitch() {
     e: React.ChangeEvent<HTMLInputElement>,
   ) {
     setRestaurantStatus(e.target.checked);
-    await updatePartnerRestaurantStatus({ force_close: !e.target.checked });
+    await updateRestaurantStatus({ force_close: !e.target.checked });
   }
 
   return (

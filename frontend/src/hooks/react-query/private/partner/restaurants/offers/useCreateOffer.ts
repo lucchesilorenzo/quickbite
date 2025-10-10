@@ -1,31 +1,29 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { deleteData } from "@/lib/api-client";
+import { postData } from "@/lib/api-client";
+import { TRestaurantSettingsOffersFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
-export function useDeletePartnerRestaurantMenuCategory(
-  restaurantId: string,
-  menuCategoryId: string,
-) {
+export function useCreateOffer(restaurantId: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation({
-    mutationFn: () =>
-      deleteData(`/partner/restaurants/menu/categories/${menuCategoryId}`),
+    mutationFn: (data: TRestaurantSettingsOffersFormSchema) =>
+      postData(`/partner/restaurants/${restaurantId}/offers`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-menu", restaurantId],
+        queryKey: ["partner-offers", restaurantId],
       });
 
       notifications.show(response.message, {
-        key: "delete-restaurant-menu-categories-success",
+        key: "partner-create-offer-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "delete-restaurant-menu-categories-error",
+        key: "partner-create-offer-error",
         severity: "error",
       });
     },

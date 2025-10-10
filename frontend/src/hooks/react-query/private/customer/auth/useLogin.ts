@@ -19,7 +19,7 @@ export function useLogin() {
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "login-customer-error",
+        key: "customer-login-error",
         severity: "error",
       });
     },

@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useCreatePartnerRestaurantMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useCreatePartnerRestaurantMenuCategory";
+import { useCreateMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useCreateMenuCategory";
 import {
   TAddMenuCategoryFormSchema,
   addMenuCategoryFormSchema,
@@ -19,8 +19,9 @@ export default function AddMenuCategoryForm({
 }: AddMenuCategoryFormProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: createPartnerRestaurantMenuCategory } =
-    useCreatePartnerRestaurantMenuCategory(restaurant.id);
+  const { mutateAsync: createMenuCategory } = useCreateMenuCategory(
+    restaurant.id,
+  );
 
   const {
     handleSubmit,
@@ -35,7 +36,7 @@ export default function AddMenuCategoryForm({
   });
 
   async function onSubmit(data: TAddMenuCategoryFormSchema) {
-    await createPartnerRestaurantMenuCategory(data);
+    await createMenuCategory(data);
     setOpenAddMenuCategoryDialog(false);
   }
 

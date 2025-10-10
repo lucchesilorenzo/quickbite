@@ -16,8 +16,8 @@ import MenuCategoryItem from "./MenuCategoryItem";
 
 import Spinner from "@/components/common/Spinner";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantMenuCategoriesOrder } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useUpdatePartnerRestaurantMenuCategoriesOrder";
-import { useGetPartnerRestaurantMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetPartnerRestaurantMenu";
+import { useUpdateMenuCategoriesOrder } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useUpdateMenuCategoriesOrder";
+import { useGetMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";
 
 export default function MenuCategoriesList() {
@@ -26,14 +26,14 @@ export default function MenuCategoriesList() {
   const {
     data: menuCategories = partnerMenuDefaults,
     isLoading: isLoadingMenuCategories,
-  } = useGetPartnerRestaurantMenu(restaurant.id);
+  } = useGetMenu(restaurant.id);
 
-  const { mutateAsync: updateRestaurantMenuCategoriesOrder } =
-    useUpdatePartnerRestaurantMenuCategoriesOrder(restaurant.id);
+  const { mutateAsync: updateMenuCategoriesOrder } =
+    useUpdateMenuCategoriesOrder(restaurant.id);
 
   const debounceUpdateRestaurantMenuCategoriesOrder = useMemo(
-    () => debounce(updateRestaurantMenuCategoriesOrder, 500),
-    [updateRestaurantMenuCategoriesOrder],
+    () => debounce(updateMenuCategoriesOrder, 500),
+    [updateMenuCategoriesOrder],
   );
 
   const [items, setItems] = useState(menuCategories);

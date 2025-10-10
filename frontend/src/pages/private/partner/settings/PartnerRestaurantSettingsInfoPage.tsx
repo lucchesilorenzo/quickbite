@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import InfoContainer from "@/components/partner/restaurant/settings/info/InfoContainer";
 import PartnerRestaurantSettingsInfoProvider from "@/contexts/private/partner/PartnerInfoProvider";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useUpdatePartnerRestaurantInfo } from "@/hooks/react-query/private/partner/restaurants/settings/info/useUpdatePartnerRestaurantInfo";
+import { useUpdateInfo } from "@/hooks/react-query/private/partner/restaurants/settings/useUpdateInfo";
 import {
   TRestaurantSettingsInfoFormSchema,
   restaurantSettingsInfoFormSchema,
@@ -20,8 +20,7 @@ export default function PartnerRestaurantSettingsInfoPage() {
 
   const { restaurant } = usePartnerRestaurant();
 
-  const { mutateAsync: updatePartnerRestaurantInfo } =
-    useUpdatePartnerRestaurantInfo(restaurant.id);
+  const { mutateAsync: updateInfo } = useUpdateInfo(restaurant.id);
 
   const methods = useForm({
     resolver: zodResolver(restaurantSettingsInfoFormSchema),
@@ -69,7 +68,7 @@ export default function PartnerRestaurantSettingsInfoPage() {
       formData.append("cover", data.cover);
     }
 
-    await updatePartnerRestaurantInfo(formData);
+    await updateInfo(formData);
   }
 
   return (

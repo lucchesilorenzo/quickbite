@@ -14,7 +14,7 @@ export function useDeleteCart(cartId?: string) {
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "delete-customer-cart-error",
+        key: "customer-delete-cart-error",
         severity: "error",
       });
     },

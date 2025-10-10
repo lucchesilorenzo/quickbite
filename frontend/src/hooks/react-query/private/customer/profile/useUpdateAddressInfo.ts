@@ -20,7 +20,7 @@ export function useUpdateAddressInfo() {
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-customer-address-info-error",
+        key: "customer-update-address-info-error",
         severity: "error",
       });
     },

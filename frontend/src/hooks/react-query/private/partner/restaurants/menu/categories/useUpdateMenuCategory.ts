@@ -4,7 +4,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { updateData } from "@/lib/api-client";
 import { TEditMenuCategoryFormSchema } from "@/validations/private/partner/menu-validations";
 
-export function useUpdatePartnerRestaurantMenuCategory(
+export function useUpdateMenuCategory(
   restaurantId: string,
   menuCategoryId: string,
 ) {
@@ -23,13 +23,13 @@ export function useUpdatePartnerRestaurantMenuCategory(
       });
 
       notifications.show(response.message, {
-        key: "update-restaurant-menu-category-success",
+        key: "partner-update-menu-category-success",
         severity: "success",
       });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "update-restaurant-menu-category-error",
+        key: "partner-update-menu-category-error",
         severity: "error",
       });
     },

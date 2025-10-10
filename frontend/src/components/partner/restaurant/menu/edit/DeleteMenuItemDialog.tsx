@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useDeletePartnerRestaurantMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useDeletePartnerRestaurantMenuItem";
+import { useDeleteMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useDeleteMenuItem";
 import { MenuItem } from "@/types";
 
 type DeleteMenuItemDialogProps = {
@@ -27,12 +27,15 @@ export default function DeleteMenuItemDialog({
 }: DeleteMenuItemDialogProps) {
   const { restaurant } = usePartnerRestaurant();
 
-  const {
-    mutateAsync: deletePartnerRestaurantMenuItem,
-    isPending: isDeleting,
-  } = useDeletePartnerRestaurantMenuItem(restaurant.id, menuItem.id);
+  const { mutateAsync: deleteMenuItem, isPending: isDeleting } =
+    useDeleteMenuItem(restaurant.id, menuItem.id);
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
+  async function handleDeleteMenuItem() {
+    await deleteMenuItem();
+    setOpenDeleteMenuItemDialog(false);
+  }
 
   return (
     <Dialog
@@ -68,7 +71,7 @@ export default function DeleteMenuItemDialog({
           </Button>
 
           <Button
-            onClick={async () => await deletePartnerRestaurantMenuItem()}
+            onClick={handleDeleteMenuItem}
             disabled={isDeleting}
             loading={isDeleting}
             loadingIndicator="Deleting..."

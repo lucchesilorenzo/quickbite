@@ -20,7 +20,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
-import { useRegisterPartner } from "@/hooks/react-query/private/partner/auth/useRegisterPartner";
+import { useRegister } from "@/hooks/react-query/private/partner/auth/useRegister";
 import { calculatePasswordStrength } from "@/lib/utils";
 import {
   TRegisterFormSchema,
@@ -29,7 +29,7 @@ import {
 
 export default function RegisterForm() {
   const { mutateAsync: registerPartner, isPending: isRegistering } =
-    useRegisterPartner();
+    useRegister();
 
   const {
     handleSubmit,
