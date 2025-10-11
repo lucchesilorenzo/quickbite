@@ -13,7 +13,7 @@ import AddressInfoDialog from "./AddressInfoDialog";
 
 import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { formatAddress } from "@/lib/utils";
+import { formatAddress } from "@/lib/utils/formatting";
 
 export default function AddressInfoItem() {
   const { user } = useAuth();

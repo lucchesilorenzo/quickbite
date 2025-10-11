@@ -3,7 +3,7 @@ import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
-import { capitalize } from "@/lib/utils";
+import { capitalize } from "@/lib/utils/formatting";
 
 export default function RestaurantDeliveryTimes() {
   const { restaurant } = useRestaurant();

@@ -18,10 +18,8 @@ import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
 import { useDeleteCart } from "@/hooks/react-query/private/customer/carts/useDeleteCart";
 import { useCreateOrder } from "@/hooks/react-query/private/customer/orders/useCreateOrder";
-import {
-  formatCurrency,
-  getBestRestaurantOfferGivenSubtotal,
-} from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
+import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 import { CreateOrder } from "@/types/order-types";
 
 export default function CheckoutOrderFooter() {

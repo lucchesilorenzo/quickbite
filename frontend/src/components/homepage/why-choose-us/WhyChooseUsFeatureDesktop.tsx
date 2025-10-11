@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { whyChooseUsFeatures } from "@/lib/data";
+import { whyChooseUsFeatures } from "@/lib/constants/marketing";
 
 export default function WhyChooseUsFeatureDesktop() {
   return (

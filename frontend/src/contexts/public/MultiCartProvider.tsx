@@ -3,8 +3,9 @@ import { createContext, useEffect, useState } from "react";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useCreateOrUpdateCart } from "@/hooks/react-query/private/customer/carts/useCreateOrUpdateCart";
 import { useGetCarts } from "@/hooks/react-query/private/customer/carts/useGetCarts";
-import { emptyRestaurant } from "@/lib/data";
-import { addRestaurantIdAsKey, isCustomer } from "@/lib/utils";
+import { emptyRestaurant } from "@/lib/constants/restaurants";
+import { isCustomer } from "@/lib/utils/auth";
+import { addRestaurantIdAsKey } from "@/lib/utils/restaurants";
 import { MenuItem, SingleRestaurantDetail } from "@/types";
 import { Cart, CartItem, RestaurantCart } from "@/types/cart-types";
 

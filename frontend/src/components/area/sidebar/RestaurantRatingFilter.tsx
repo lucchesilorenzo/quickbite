@@ -5,7 +5,13 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Rating, Stack, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import { ratings } from "@/lib/data";
+const ratings: Record<number, string> = {
+  1: "one_star",
+  2: "two_stars",
+  3: "three_stars",
+  4: "four_stars",
+  5: "five_stars",
+};
 
 export default function RestaurantRatingFilter() {
   const [searchParams, setSearchParams] = useSearchParams();

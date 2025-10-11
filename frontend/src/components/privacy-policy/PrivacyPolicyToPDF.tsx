@@ -1,6 +1,6 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 
-import { privacyPolicy } from "@/lib/data";
+import { privacyPolicy } from "@/lib/constants/content";
 
 const styles = StyleSheet.create({
   page: {

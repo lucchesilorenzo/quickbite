@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-import { orderSteps } from "@/lib/data";
+import { orderSteps } from "@/lib/constants/marketing";
 
 export default function OrderStepsDesktop() {
   return (

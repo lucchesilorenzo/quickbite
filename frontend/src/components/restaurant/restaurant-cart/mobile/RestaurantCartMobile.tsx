@@ -9,10 +9,8 @@ import RestaurantCartDialogMobile from "./RestaurantCartDialogMobile";
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useOffers } from "@/hooks/contexts/public/useOffers";
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
-import {
-  formatCurrency,
-  getBestRestaurantOfferGivenSubtotal,
-} from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
+import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 
 export default function RestaurantCartMobile() {
   const { restaurant } = useRestaurant();

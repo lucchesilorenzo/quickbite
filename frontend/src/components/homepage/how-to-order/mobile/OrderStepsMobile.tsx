@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import OrderStepsSlideMobile from "./OrderStepsSlideMobile";
 
-import { orderSteps } from "@/lib/data";
+import { orderSteps } from "@/lib/constants/marketing";
 
 export default function OrderStepsMobile() {
   return (

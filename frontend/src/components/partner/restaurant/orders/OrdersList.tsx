@@ -11,7 +11,7 @@ import Spinner from "@/components/common/Spinner";
 import { usePartnerOrders } from "@/hooks/contexts/private/partner/usePartnerOrders";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useGetOrders } from "@/hooks/react-query/private/partner/restaurants/orders/useGetOrders";
-import { orderStatuses } from "@/lib/data";
+import { orderStatuses } from "@/lib/constants/orders";
 import { partnerOrdersDefaults } from "@/lib/query-defaults";
 
 export default function OrdersList() {

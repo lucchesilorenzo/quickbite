@@ -1,6 +1,6 @@
 import { Alert, Container, Typography } from "@mui/material";
 
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 
 type RestaurantCartMOVNotReachedAlertProps = {
   amountToReachMOV: number;

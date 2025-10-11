@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useLogout } from "@/hooks/react-query/private/partner/auth/useLogout";
-import { getColorByName } from "@/lib/utils";
+import { getColorByName } from "@/lib/utils/colors";
 
 export default function ProfileMenu() {
   const { user } = useAuth();

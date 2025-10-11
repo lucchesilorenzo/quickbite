@@ -17,7 +17,7 @@ import ViewOrderDialog from "./ViewOrderDialog";
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import env from "@/lib/env";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 import { Order } from "@/types/order-types";
 
 type OrderItemProps = {

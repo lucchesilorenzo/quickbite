@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import { howDoILeaveAReviewSections } from "@/lib/data";
+import { howDoILeaveAReviewSections } from "@/lib/constants/content";
 
 export default function Sections() {
   return (

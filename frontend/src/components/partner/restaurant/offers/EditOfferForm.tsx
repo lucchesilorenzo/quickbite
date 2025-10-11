@@ -14,7 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useUpdateOffer } from "@/hooks/react-query/private/partner/restaurants/offers/useUpdateOffer";
-import { discountRates } from "@/lib/data";
+import { discountRates } from "@/lib/constants/offers";
 import { Offer } from "@/types";
 import {
   TRestaurantSettingsOffersFormSchema,

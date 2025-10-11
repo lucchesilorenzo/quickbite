@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
 import env from "@/lib/env";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 import { RestaurantListItem } from "@/types";
 
 type RestaurantCardImageProps = {

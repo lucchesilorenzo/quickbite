@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useGetPartnerRestaurantKpiSummary } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantKpiSummary";
 import { useGetPartnerRestaurantStats } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantStats";
-import { kpiKeys, statRanges } from "@/lib/data";
+import { statRanges } from "@/lib/constants/stats";
 import {
   partnerRestaurantKpiSummaryDefaults,
   partnerRestaurantStatsDefaults,
@@ -40,6 +40,13 @@ type PartnerStatsContext = {
 export const PartnerStatsContext = createContext<PartnerStatsContext | null>(
   null,
 );
+
+const kpiKeys: Kpi[] = [
+  "accepted_orders",
+  "revenue",
+  "rejected_orders",
+  "lost_revenue",
+];
 
 export default function PartnerStatsProvider({
   children,

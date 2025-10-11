@@ -2,7 +2,7 @@ import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
-import { getRestaurantOpeningTime } from "@/lib/utils";
+import { getRestaurantOpeningTime } from "@/lib/utils/restaurants";
 
 export default function RestaurantCartShippingInfo() {
   const { restaurant } = useRestaurant();

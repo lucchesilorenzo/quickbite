@@ -8,7 +8,7 @@ import {
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
 
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 import { Order, PartnerOrder } from "@/types/order-types";
 
 type OrderReceiptToPDFProps = {

@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 
 import { useUpdateOrderStatus } from "@/hooks/react-query/private/partner/restaurants/orders/useUpdateOrderStatus";
-import { orderStatuses } from "@/lib/data";
-import { getDisabledOrderStatuses } from "@/lib/utils";
+import { orderStatuses } from "@/lib/constants/orders";
+import { getDisabledOrderStatuses } from "@/lib/utils/orders";
 import { Order, OrderStatus } from "@/types/order-types";
 
 type UpdateOrderStatusButtonProps = {

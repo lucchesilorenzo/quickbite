@@ -19,7 +19,7 @@ import MenuItemDialogActions from "./MenuItemDialogActions";
 import MenuItemInfoDialog from "./MenuItemInfoDialog";
 
 import env from "@/lib/env";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 import { MenuItem } from "@/types";
 
 type MenuItemDialogProps = {

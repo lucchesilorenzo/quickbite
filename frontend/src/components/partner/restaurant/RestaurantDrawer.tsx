@@ -6,10 +6,11 @@ import { useParams } from "react-router-dom";
 
 import RestaurantNavigationItemMobile from "./mobile/RestaurantNavigationItemMobile";
 
-import { partnerRestaurantRoutes } from "@/lib/data";
+import { partnerRestaurantRoutes } from "@/lib/constants/navigation";
 
 export default function RestaurantDrawer() {
   const { restaurantId } = useParams();
+
   const [openDrawer, setOpenDrawer] = useState(false);
 
   return (

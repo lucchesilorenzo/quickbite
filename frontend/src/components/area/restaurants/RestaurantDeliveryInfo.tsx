@@ -4,7 +4,7 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 import { RestaurantListItem } from "@/types";
 
 type RestaurantDeliveryInfoProps = {

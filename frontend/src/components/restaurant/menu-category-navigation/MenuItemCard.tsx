@@ -17,7 +17,7 @@ import MenuItemDialog from "./MenuItemDialog";
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import env from "@/lib/env";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 import { MenuItem } from "@/types";
 
 type MenuItemCardProps = {

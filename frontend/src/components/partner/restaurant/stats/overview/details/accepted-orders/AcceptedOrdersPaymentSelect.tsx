@@ -7,8 +7,15 @@ import {
 } from "@mui/material";
 
 import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
-import { paymentMethodOptions } from "@/lib/data";
 import { PaymentMethodFilter } from "@/types";
+
+export const paymentMethodOptions: {
+  value: PaymentMethodFilter;
+  label: string;
+}[] = [
+  { value: "all", label: "All payment methods" },
+  { value: "cash", label: "Cash" },
+];
 
 export default function AcceptedOrdersPaymentSelect() {
   const { paymentMethod, setPaymentMethod } = usePartnerStats();

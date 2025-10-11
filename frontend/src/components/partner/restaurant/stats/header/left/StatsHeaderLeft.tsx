@@ -4,7 +4,7 @@ import HeadingBlock from "../../../common/HeadingBlock";
 import StatsRangeSelect from "./StatsRangeSelect";
 
 import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
-import { getComputedRangeLabel } from "@/lib/utils";
+import { getComputedRangeLabel } from "@/lib/utils/stats";
 
 export default function StatsHeaderLeft() {
   const { range } = usePartnerStats();

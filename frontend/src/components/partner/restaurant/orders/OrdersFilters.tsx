@@ -2,7 +2,7 @@ import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import { usePartnerOrders } from "@/hooks/contexts/private/partner/usePartnerOrders";
-import { orderStatuses } from "@/lib/data";
+import { orderStatuses } from "@/lib/constants/orders";
 import { OrderStatusWithAll } from "@/types/order-types";
 
 type OrdersFiltersProps = {

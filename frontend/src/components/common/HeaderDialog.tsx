@@ -1,7 +1,9 @@
 import { useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
+import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
+import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import {
   List,
   ListItem,
@@ -18,7 +20,18 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 
-import { headerDialogOptions } from "@/lib/data";
+const headerDialogOptions = [
+  {
+    href: "/become-a-rider",
+    label: "Become a rider",
+    icon: DeliveryDiningOutlinedIcon,
+  },
+  {
+    href: "/partner/auth/register",
+    label: "Become a partner",
+    icon: RestaurantOutlinedIcon,
+  },
+];
 
 export default function HeaderDialog() {
   const [openHeaderDialog, setOpenHeaderDialog] = useState(false);

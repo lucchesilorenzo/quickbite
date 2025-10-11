@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
-import { footerLinks } from "@/lib/data";
+import { footerLinks } from "@/lib/constants/navigation";
 
 export default function RestaurantFooter() {
   const { restaurant } = useRestaurant();

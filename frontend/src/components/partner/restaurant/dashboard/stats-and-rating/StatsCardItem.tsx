@@ -1,6 +1,6 @@
 import { Grid, Stack, Typography } from "@mui/material";
 
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 
 type StatsCardItemProps = {
   stat: {

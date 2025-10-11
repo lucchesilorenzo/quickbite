@@ -1,7 +1,7 @@
 import { Tab, Tabs } from "@mui/material";
 import { Link, useLocation, useParams } from "react-router-dom";
 
-import { partnerRestaurantRoutes } from "@/lib/data";
+import { partnerRestaurantRoutes } from "@/lib/constants/navigation";
 
 export default function RestaurantNavigation() {
   const { restaurantId } = useParams();

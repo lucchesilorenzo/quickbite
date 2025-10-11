@@ -12,7 +12,7 @@ import {
 import { grey } from "@mui/material/colors";
 
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 
 type RestaurantCartDeliveryFeeDialogProps = {
   openDeliveryFeeDialog: boolean;

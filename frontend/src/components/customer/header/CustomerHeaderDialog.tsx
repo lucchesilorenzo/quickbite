@@ -1,8 +1,10 @@
 import { Fragment } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
+import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import {
   Box,
@@ -28,7 +30,21 @@ import OrdersDialog from "./orders/OrdersDialog";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useLogout } from "@/hooks/react-query/private/customer/auth/useLogout";
-import { customerHeaderDialogOptions } from "@/lib/data";
+
+const customerHeaderDialogOptions = [
+  {
+    href: "/become-a-rider",
+    label: "Become a rider",
+    icon: DeliveryDiningOutlinedIcon,
+    divider: false,
+  },
+  {
+    href: "/become-a-partner",
+    label: "Become a partner",
+    icon: RestaurantOutlinedIcon,
+    divider: true,
+  },
+];
 
 export default function CustomerHeaderDialog() {
   const { user } = useAuth();

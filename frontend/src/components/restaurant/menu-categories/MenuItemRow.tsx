@@ -21,7 +21,7 @@ import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import env from "@/lib/env";
-import { formatCurrency, truncateWords } from "@/lib/utils";
+import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
 import type { MenuItem } from "@/types";
 
 type MenuItemRowProps = {

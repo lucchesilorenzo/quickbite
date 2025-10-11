@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import { privacyPolicy } from "@/lib/data";
+import { privacyPolicy } from "@/lib/constants/content";
 
 export default function Paragraphs() {
   return (

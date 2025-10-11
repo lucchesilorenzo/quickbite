@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import { termsOfService } from "@/lib/data";
+import { termsOfService } from "@/lib/constants/content";
 
 export default function Terms() {
   return (

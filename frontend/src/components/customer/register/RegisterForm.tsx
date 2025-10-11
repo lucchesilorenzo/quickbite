@@ -20,7 +20,7 @@ import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndic
 import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
 import { useRegister } from "@/hooks/react-query/private/customer/auth/useRegister";
 import { useCreateOrUpdateCarts } from "@/hooks/react-query/private/customer/carts/useCreateOrUpdateCarts";
-import { calculatePasswordStrength } from "@/lib/utils";
+import { calculatePasswordStrength } from "@/lib/utils/validation";
 import {
   TRegisterFormSchema,
   registerFormSchema,

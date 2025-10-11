@@ -7,7 +7,7 @@ import CustomerHeaderDialog from "../header/CustomerHeaderDialog";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { isCustomer } from "@/lib/utils";
+import { isCustomer } from "@/lib/utils/auth";
 
 export default function CheckoutHeader() {
   const { user } = useAuth();

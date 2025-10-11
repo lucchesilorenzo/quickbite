@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import StatsKpiCard from "./StatsKpiCard";
 
 import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 import { Kpi } from "@/types";
 
 export default function StatsKpiCards() {

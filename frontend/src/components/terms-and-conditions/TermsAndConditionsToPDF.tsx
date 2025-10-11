@@ -1,6 +1,6 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 
-import { termsOfService } from "@/lib/data";
+import { termsOfService } from "@/lib/constants/content";
 
 const styles = StyleSheet.create({
   page: {

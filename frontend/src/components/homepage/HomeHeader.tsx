@@ -1,5 +1,7 @@
+import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
+import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -7,8 +9,20 @@ import CustomerHeaderDialog from "../customer/header/CustomerHeaderDialog";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { routes } from "@/lib/data";
-import { isCustomer } from "@/lib/utils";
+import { isCustomer } from "@/lib/utils/auth";
+
+const routes = [
+  {
+    href: "/become-a-rider",
+    label: "Become a rider",
+    icon: DeliveryDiningOutlinedIcon,
+  },
+  {
+    href: "/partner/auth/register",
+    label: "Become a partner",
+    icon: RestaurantOutlinedIcon,
+  },
+];
 
 export default function HomeHeader() {
   const { user } = useAuth();

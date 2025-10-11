@@ -1,7 +1,7 @@
 import { matchIsValidTel } from "mui-tel-input";
 import z from "zod";
 
-import { discountRates } from "@/lib/data";
+import { discountRates } from "@/lib/constants/offers";
 
 const restaurantSettingsFeesFormDeliverySectionSchema = z.object({
   delivery_fee: z.coerce.number({

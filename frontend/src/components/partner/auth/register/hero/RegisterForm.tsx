@@ -21,7 +21,7 @@ import { Controller, useForm } from "react-hook-form";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
 import { useRegister } from "@/hooks/react-query/private/partner/auth/useRegister";
-import { calculatePasswordStrength } from "@/lib/utils";
+import { calculatePasswordStrength } from "@/lib/utils/validation";
 import {
   TRegisterFormSchema,
   registerFormSchema,

@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { hasRole } from "@/lib/utils";
+import { hasRole } from "@/lib/utils/auth";
 import { Role } from "@/types";
 
 type ProtectedRouteProps = {

@@ -10,7 +10,7 @@ import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import Spinner from "@/components/common/Spinner";
 import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
 import { useReviews } from "@/hooks/contexts/public/useReviews";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function RestaurantHeaderRow() {
   const {

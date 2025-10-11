@@ -20,7 +20,7 @@ import DeleteMenuItemDialog from "./DeleteMenuItemDialog";
 import EditMenuItemDialog from "./EditMenuItemDialog";
 
 import env from "@/lib/env";
-import { formatCurrency, truncateWords } from "@/lib/utils";
+import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
 import { MenuItem as TMenuItem } from "@/types";
 
 type MenuItemProps = {
