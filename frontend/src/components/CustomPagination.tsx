@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
 import { Pagination, useMediaQuery } from "@mui/material";
+import { OrderStatusWithAll } from "@private/types/order-types";
 import { useSearchParams } from "react-router-dom";
-
-import { OrderStatusWithAll } from "@/types";
 
 type CustomPaginationProps = {
   page: number;

@@ -20,7 +20,7 @@ import { Controller, useForm } from "react-hook-form";
 import AntSwitch from "@/components/AntSwitch";
 import { FormHelperTextError } from "@/components/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/VisuallyHiddenInput";
-import { MenuItem } from "@/types";
+import { MenuItem } from "@/types/menu-types";
 
 type EditMenuItemFormProps = {
   menuItem: MenuItem;

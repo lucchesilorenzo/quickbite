@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { MenuItem } from "@/types";
+import { MenuItem } from "@/types/menu-types";
 
 type MenuItemInfoDialogProps = {
   type: "from-list" | "from-search";

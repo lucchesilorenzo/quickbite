@@ -12,7 +12,7 @@ import {
   TProfileNotificationsFormSchema,
   profileNotificationsFormSchema,
 } from "@/features/private/partner/validations/profile-notifications-validations";
-import { NotificationType } from "@/types";
+import { NotificationType } from "@/types/user-types";
 
 export default function PartnerProfileNotificationsPage() {
   useEffect(() => {

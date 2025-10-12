@@ -1,4 +1,4 @@
-import { Role, User } from "@/types";
+import { Role, User } from "@/types/user-types";
 
 export function hasRole(user: User | null | undefined, role: Role) {
   return !!user?.roles.some((r) => r.name === role);

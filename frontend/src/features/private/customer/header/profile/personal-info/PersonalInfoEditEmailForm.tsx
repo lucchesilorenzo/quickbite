@@ -1,14 +1,14 @@
+import { useUpdatePersonalInfo } from "@customer/hooks/profile/useUpdatePersonalInfo";
+import {
+  TEditEmailFormSchema,
+  editEmailFormSchema,
+} from "@customer/validations/profile-validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
-import { useUpdatePersonalInfo } from "@/features/private/customer/hooks/profile/useUpdatePersonalInfo";
-import {
-  TEditEmailFormSchema,
-  editEmailFormSchema,
-} from "@/features/private/customer/validations/profile-validations";
 
 export default function PersonalInfoEditEmailForm() {
   const { user } = useAuth();

@@ -17,7 +17,7 @@ import {
   RestaurantMeta,
   RestaurantSearchOption,
   RestaurantWithPagination,
-} from "@/types";
+} from "@/types/restaurant-types";
 
 type RestaurantsProviderProps = {
   children: React.ReactNode;

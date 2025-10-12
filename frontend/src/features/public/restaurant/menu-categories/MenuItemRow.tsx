@@ -22,7 +22,7 @@ import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
-import type { MenuItem } from "@/types";
+import { MenuItem } from "@/types/menu-types";
 
 type MenuItemRowProps = {
   menuItem: MenuItem;

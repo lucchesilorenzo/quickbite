@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 import { useUpdateOrderStatus } from "@partner/hooks/restaurants/orders/useUpdateOrderStatus";
 import { getDisabledOrderStatuses } from "@partner/lib/utils/orders";
+import { Order, OrderStatus } from "@private/types/order-types";
 
 import { orderStatuses } from "@/lib/constants/orders";
-import { Order, OrderStatus } from "@/types/order-types";
 
 type UpdateOrderStatusButtonProps = {
   order: Order;

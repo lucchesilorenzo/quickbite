@@ -9,6 +9,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { Order } from "@private/types/order-types";
 import { format } from "date-fns";
 
 import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
@@ -16,7 +17,6 @@ import ViewOrderDialog from "./ViewOrderDialog";
 
 import OrderStatusBadge from "@/components/OrderStatusBadge";
 import { formatCurrency } from "@/lib/utils/formatting";
-import { Order } from "@/types/order-types";
 
 type OrderItemProps = {
   order: Order;

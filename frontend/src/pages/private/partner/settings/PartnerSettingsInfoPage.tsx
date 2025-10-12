@@ -2,16 +2,15 @@ import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
-
-import PartnerRestaurantSettingsInfoProvider from "@/features/private/partner/contexts/PartnerInfoProvider";
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useUpdateInfo } from "@/features/private/partner/hooks/restaurants/settings/useUpdateInfo";
-import InfoContainer from "@/features/private/partner/restaurant/settings/info/InfoContainer";
+import PartnerRestaurantSettingsInfoProvider from "@partner/contexts/PartnerInfoProvider";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useUpdateInfo } from "@partner/hooks/restaurants/settings/useUpdateInfo";
+import InfoContainer from "@partner/restaurant/settings/info/InfoContainer";
 import {
   TRestaurantSettingsInfoFormSchema,
   restaurantSettingsInfoFormSchema,
-} from "@/features/private/partner/validations/restaurant-settings-validations";
+} from "@partner/validations/restaurant-settings-validations";
+import { FormProvider, useForm } from "react-hook-form";
 
 export default function PartnerSettingsInfoPage() {
   useEffect(() => {

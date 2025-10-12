@@ -1,4 +1,5 @@
-import { Order } from "./order-types";
+import { Order } from "@private/types/order-types";
+
 import { BaseOffsetPagination } from "./pagination-types";
 import { User } from "./user-types";
 

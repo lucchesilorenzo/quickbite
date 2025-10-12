@@ -3,7 +3,7 @@ import { createContext, useContext, useRef, useState } from "react";
 import { useRestaurant } from "./RestaurantProvider";
 
 import { useGetRestaurantMenu } from "@/hooks/restaurants/useGetRestaurantMenu";
-import { Menu } from "@/types";
+import { Menu } from "@/types/menu-types";
 
 type MenuProviderProps = {
   children: React.ReactNode;

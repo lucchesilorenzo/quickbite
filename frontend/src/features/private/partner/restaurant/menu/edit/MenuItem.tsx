@@ -21,10 +21,10 @@ import EditMenuItemDialog from "./EditMenuItemDialog";
 
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
-import { MenuItem as TMenuItem } from "@/types";
+import { type MenuItem } from "@/types/menu-types";
 
 type MenuItemProps = {
-  menuItem: TMenuItem;
+  menuItem: MenuItem;
 };
 
 export default function MenuItem({ menuItem }: MenuItemProps) {

@@ -3,6 +3,11 @@ import { useEffect } from "react";
 import { useEchoNotification } from "@laravel/echo-react";
 import { Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import RestaurantHeader from "@partner/restaurant/RestaurantHeader";
+import {
+  NewOrderReceivedToBroadcast,
+  NewReviewReceivedToBroadcast,
+} from "@partner/types/notification-types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";
@@ -10,11 +15,6 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import NotificationToast from "@/components/NotificationToast";
 import { useAuth } from "@/contexts/AuthProvider";
 import PartnerRestaurantProvider from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import RestaurantHeader from "@/features/private/partner/restaurant/RestaurantHeader";
-import {
-  NewOrderReceivedToBroadcast,
-  NewReviewReceivedToBroadcast,
-} from "@/types";
 
 export default function PartnerRestaurantLayout() {
   const { user } = useAuth();

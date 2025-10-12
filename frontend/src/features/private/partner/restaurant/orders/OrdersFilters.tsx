@@ -1,9 +1,9 @@
 import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { usePartnerOrders } from "@partner/contexts/PartnerOrdersProvider";
+import { OrderStatusWithAll } from "@private/types/order-types";
 import { useSearchParams } from "react-router-dom";
 
 import { orderStatuses } from "@/lib/constants/orders";
-import { OrderStatusWithAll } from "@/types/order-types";
 
 type OrdersFiltersProps = {
   setPage: React.Dispatch<React.SetStateAction<number>>;

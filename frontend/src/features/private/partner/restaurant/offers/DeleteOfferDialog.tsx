@@ -12,7 +12,7 @@ import {
 import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useDeleteOffer } from "@partner/hooks/restaurants/offers/useDeleteOffer";
 
-import { Offer } from "@/types";
+import { Offer } from "@/types/offer-types";
 
 type DeleteOfferDialogProps = {
   offer: Offer;

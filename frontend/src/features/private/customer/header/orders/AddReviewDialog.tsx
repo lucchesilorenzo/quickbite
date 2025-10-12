@@ -7,21 +7,20 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { Order } from "@private/types/order-types";
 
 import AddReviewForm from "./AddReviewForm";
 
-import { Order } from "@/types/order-types";
-
 type AddReviewDialogProps = {
+  order: Order;
   openAddReviewDialog: boolean;
   setOpenAddReviewDialog: React.Dispatch<React.SetStateAction<boolean>>;
-  order: Order;
 };
 
 export default function AddReviewDialog({
+  order,
   openAddReviewDialog,
   setOpenAddReviewDialog,
-  order,
 }: AddReviewDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

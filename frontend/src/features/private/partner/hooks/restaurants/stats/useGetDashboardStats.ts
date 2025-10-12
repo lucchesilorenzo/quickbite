@@ -1,7 +1,7 @@
+import { DashboardStats } from "@partner/types/stat-types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { DashboardStats } from "@/types";
 
 export function useGetDashboardStats(restaurantId: string) {
   return useQuery({

@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { useGetCategories } from "@/hooks/categories/useGetCategories";
-import { Category, CategoryWithSelected } from "@/types";
+import { Category, CategoryWithSelected } from "@/types/category-types";
 
 type CategoryFiltersProviderProps = {
   children: React.ReactNode;

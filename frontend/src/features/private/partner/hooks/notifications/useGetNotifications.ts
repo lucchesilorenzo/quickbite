@@ -1,7 +1,7 @@
+import { UserNotificationWithUnreadCount } from "@partner/types/notification-types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { UserNotificationWithUnreadCount } from "@/types";
 
 type GetNotificationsProps = {
   userId?: string;

@@ -16,7 +16,7 @@ import EditLocationDialog from "@/components/EditLocationDialog";
 import { useAddress } from "@/contexts/AddressProvider";
 import env from "@/lib/env";
 import { generateSlug } from "@/lib/utils/formatting";
-import { Address } from "@/types";
+import { Address } from "@/types/address-types";
 
 type LocationSearchAreaProps = {
   openLocationSearchDialog: boolean;

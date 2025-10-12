@@ -7,8 +7,9 @@ import { useGetCarts } from "@/features/private/customer/hooks/carts/useGetCarts
 import { emptyRestaurant } from "@/lib/constants/restaurants";
 import { isCustomer } from "@/lib/utils/auth";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants";
-import { MenuItem, SingleRestaurantDetail } from "@/types";
 import { Cart, CartItem, RestaurantCart } from "@/types/cart-types";
+import { MenuItem } from "@/types/menu-types";
+import { SingleRestaurantDetail } from "@/types/restaurant-types";
 
 type MultiCartProviderProps = {
   children: React.ReactNode;

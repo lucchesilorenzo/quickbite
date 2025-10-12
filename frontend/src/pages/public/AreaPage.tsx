@@ -9,7 +9,7 @@ import { useRestaurants } from "@/contexts/RestaurantsProvider";
 import AreaLayoutDesktop from "@/features/public/area/layouts/AreaLayoutDesktop";
 import AreaLayoutMobile from "@/features/public/area/layouts/AreaLayoutMobile";
 import env from "@/lib/env";
-import { Address } from "@/types";
+import { Address } from "@/types/address-types";
 
 export default function AreaPage() {
   const [searchParams] = useSearchParams();

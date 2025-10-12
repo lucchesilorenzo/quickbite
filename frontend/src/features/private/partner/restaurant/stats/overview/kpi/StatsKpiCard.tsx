@@ -10,9 +10,8 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
+import { Kpi } from "@partner/types/stat-types";
 import { useSearchParams } from "react-router-dom";
-
-import { Kpi } from "@/types";
 
 type StatsKpiCardProps = {
   card: {

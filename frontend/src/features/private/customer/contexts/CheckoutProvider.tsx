@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+import { CheckoutData } from "@customer/types/order-types";
 import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/FullPageSpinner";
@@ -8,12 +9,9 @@ import { useGetCart } from "@/features/private/customer/hooks/carts/useGetCart";
 import { useGetRestaurantDeliverySlots } from "@/hooks/restaurants/useGetRestaurantDeliverySlots";
 import { useGetRestaurantOffers } from "@/hooks/restaurants/useGetRestaurantOffers";
 import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
-import {
-  CheckoutData,
-  DeliverySlots,
-  OfferWithPagination,
-  RestaurantCart,
-} from "@/types";
+import { RestaurantCart } from "@/types/cart-types";
+import { DeliverySlots } from "@/types/delivery-types";
+import { OfferWithPagination } from "@/types/offer-types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;

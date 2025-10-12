@@ -1,7 +1,8 @@
+import { OrderStatus } from "@private/types/order-types";
+
 import { statusTransitions } from "../constants/orders";
 
 import { orderStatuses } from "@/lib/constants/orders";
-import { OrderStatus } from "@/types";
 
 export function getDisabledOrderStatuses(currentStatus: OrderStatus) {
   return Object.keys(orderStatuses).filter(

@@ -1,7 +1,7 @@
+import { PartnerRestaurantDetail } from "@partner/types/restaurant-types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { PartnerRestaurantDetail } from "@/types";
 
 export function useGetRestaurant(restaurantId?: string) {
   return useQuery({

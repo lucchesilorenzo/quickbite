@@ -1,7 +1,7 @@
+import { PartnerMenu } from "@partner/types/menu-types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { PartnerMenu } from "@/types";
 
 export function useGetMenu(restaurantId: string, page: number = 1) {
   return useQuery({

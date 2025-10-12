@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 
+import { useLogout } from "@customer/hooks/auth/useLogout";
 import CloseIcon from "@mui/icons-material/Close";
 import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -29,7 +30,6 @@ import OrdersDialog from "./orders/OrdersDialog";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
-import { useLogout } from "@/features/private/customer/hooks/auth/useLogout";
 
 const customerHeaderDialogOptions = [
   {

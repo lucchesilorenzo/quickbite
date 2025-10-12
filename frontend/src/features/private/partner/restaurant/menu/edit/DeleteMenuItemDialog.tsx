@@ -12,7 +12,7 @@ import {
 import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useDeleteMenuItem } from "@partner/hooks/restaurants/menu/items/useDeleteMenuItem";
 
-import { MenuItem } from "@/types";
+import { MenuItem } from "@/types/menu-types";
 
 type DeleteMenuItemDialogProps = {
   menuItem: MenuItem;

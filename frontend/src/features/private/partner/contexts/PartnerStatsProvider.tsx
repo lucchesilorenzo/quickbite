@@ -3,18 +3,17 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useGetKpiSummary } from "@partner/hooks/restaurants/stats/useGetKpiSummary";
 import { useGetStats } from "@partner/hooks/restaurants/stats/useGetStats";
 import { statRanges } from "@partner/lib/constants/stats";
-import { useSearchParams } from "react-router-dom";
-
-import { kpiSummaryDefaults, statsDefaults } from "../lib/query-defaults";
-import { usePartnerRestaurant } from "./PartnerRestaurantProvider";
-
 import {
   Kpi,
   KpiSummary,
   PaymentMethodFilter,
   StatRange,
   StatsWithFilters,
-} from "@/types";
+} from "@partner/types/stat-types";
+import { useSearchParams } from "react-router-dom";
+
+import { kpiSummaryDefaults, statsDefaults } from "../lib/query-defaults";
+import { usePartnerRestaurant } from "./PartnerRestaurantProvider";
 
 type PartnerStatsProviderProps = {
   children: React.ReactNode;

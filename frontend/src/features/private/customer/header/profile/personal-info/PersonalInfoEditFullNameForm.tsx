@@ -1,14 +1,14 @@
+import { useUpdatePersonalInfo } from "@customer/hooks/profile/useUpdatePersonalInfo";
+import {
+  TEditFullNameFormSchema,
+  editFullNameFormSchema,
+} from "@customer/validations/profile-validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField, useMediaQuery } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
-import { useUpdatePersonalInfo } from "@/features/private/customer/hooks/profile/useUpdatePersonalInfo";
-import {
-  TEditFullNameFormSchema,
-  editFullNameFormSchema,
-} from "@/features/private/customer/validations/profile-validations";
 
 export default function PersonalInfoEditFullNameForm() {
   const { user } = useAuth();

@@ -5,7 +5,7 @@ import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import { formatCurrency } from "@/lib/utils/formatting";
-import { RestaurantListItem } from "@/types";
+import { RestaurantListItem } from "@/types/restaurant-types";
 
 type RestaurantDeliveryInfoProps = {
   restaurant: RestaurantListItem;

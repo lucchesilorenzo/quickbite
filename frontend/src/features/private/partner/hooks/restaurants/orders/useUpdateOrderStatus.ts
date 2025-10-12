@@ -1,8 +1,8 @@
+import { PartnerOrderStatus } from "@partner/types/order-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import { PartnerOrderStatus } from "@/types/order-types";
 
 export function useUpdateOrderStatus(orderId: string) {
   const queryClient = useQueryClient();

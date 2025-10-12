@@ -1,3 +1,5 @@
+import { PartnerOrder } from "@partner/types/order-types";
+import { Order } from "@private/types/order-types";
 import {
   Document,
   Image,
@@ -9,7 +11,6 @@ import {
 import { format } from "date-fns";
 
 import { formatCurrency } from "@/lib/utils/formatting";
-import { Order, PartnerOrder } from "@/types/order-types";
 
 type OrderReceiptToPDFProps = {
   order: Order | PartnerOrder;

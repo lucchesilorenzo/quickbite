@@ -19,7 +19,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
-import { Offer } from "@/types";
+import { Offer } from "@/types/offer-types";
 
 type EditOfferFormProps = {
   offer: Offer;

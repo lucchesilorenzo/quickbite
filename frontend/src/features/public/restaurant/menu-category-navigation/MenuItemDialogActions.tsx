@@ -15,7 +15,7 @@ import { grey } from "@mui/material/colors";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
-import { MenuItem } from "@/types";
+import { MenuItem } from "@/types/menu-types";
 
 type MenuItemDialogActionsProps = {
   menuItem: MenuItem;

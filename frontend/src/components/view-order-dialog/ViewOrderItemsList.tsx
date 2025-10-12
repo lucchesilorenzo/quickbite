@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
+import { PartnerOrder } from "@partner/types/order-types";
+import { Order } from "@private/types/order-types";
 
 import ViewOrderItem from "./ViewOrderItem";
-
-import { Order, PartnerOrder } from "@/types/order-types";
 
 type ViewOrderItemsListProps = {
   order: Order | PartnerOrder;

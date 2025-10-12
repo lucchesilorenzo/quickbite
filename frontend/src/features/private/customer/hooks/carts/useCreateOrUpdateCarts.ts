@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { postData } from "@/lib/api-client";
-import { RestaurantCart } from "@/types";
+import { RestaurantCart } from "@/types/cart-types";
 
 export function useCreateOrUpdateCarts() {
   const queryClient = useQueryClient();

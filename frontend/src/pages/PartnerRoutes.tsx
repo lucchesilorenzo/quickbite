@@ -22,7 +22,7 @@ import PartnerLayout from "@/layouts/private/partner/PartnerLayout";
 import PartnerProfileLayout from "@/layouts/private/partner/PartnerProfileLayout";
 import PartnerRestaurantLayout from "@/layouts/private/partner/PartnerRestaurantLayout";
 import PartnerRestaurantsPage from "@/pages/private/partner/PartnerRestaurantsPage";
-import { Role } from "@/types";
+import { Role } from "@/types/user-types";
 
 export const PartnerRoutes = [
   <Route

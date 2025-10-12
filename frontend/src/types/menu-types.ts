@@ -1,5 +1,3 @@
-import { BaseOffsetPagination } from "./pagination-types";
-
 export type MenuCategory = {
   id: string;
   restaurant_id: string;
@@ -25,12 +23,4 @@ export type MenuItem = {
 
 export type Menu = MenuCategory & {
   menu_items: MenuItem[];
-};
-
-export type PartnerMenu = Omit<MenuCategory, "menu_items"> & {
-  menu_items: PartnerMenuItemWithPagination;
-};
-
-export type PartnerMenuItemWithPagination = BaseOffsetPagination & {
-  data: MenuItem[];
 };

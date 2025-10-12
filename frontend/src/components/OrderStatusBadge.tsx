@@ -1,7 +1,8 @@
 import { Chip } from "@mui/material";
+import { PartnerOrder } from "@partner/types/order-types";
+import { Order } from "@private/types/order-types";
 
 import { orderStatuses } from "@/lib/constants/orders";
-import { Order, PartnerOrder } from "@/types/order-types";
 
 type OrderStatusBadgeProps = {
   order: Order | PartnerOrder;

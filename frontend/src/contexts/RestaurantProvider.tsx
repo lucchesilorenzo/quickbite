@@ -5,7 +5,10 @@ import { useParams } from "react-router-dom";
 import Spinner from "@/components/Spinner";
 import { useGetRestaurant } from "@/hooks/restaurants/useGetRestaurant";
 import ErrorPage from "@/pages/public/ErrorPage";
-import { RestaurantTab, SingleRestaurantDetail } from "@/types";
+import {
+  RestaurantTab,
+  SingleRestaurantDetail,
+} from "@/types/restaurant-types";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;

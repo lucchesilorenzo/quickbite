@@ -5,7 +5,7 @@ import { Box, Button, Fade, Stack, Typography } from "@mui/material";
 
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
 import env from "@/lib/env";
-import { CategoryWithSelected } from "@/types";
+import { CategoryWithSelected } from "@/types/category-types";
 
 type CategoryFilterSlideProps = {
   category: CategoryWithSelected;

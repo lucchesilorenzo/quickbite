@@ -1,4 +1,4 @@
-import { User } from "@/types";
+import { User } from "@/types/user-types";
 
 export function generateSlug(text: string) {
   return text

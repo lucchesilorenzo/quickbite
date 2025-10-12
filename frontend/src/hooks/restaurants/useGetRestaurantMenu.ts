@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { Menu } from "@/types";
+import { Menu } from "@/types/menu-types";
 
 export function useGetRestaurantMenu(restaurantId: string, page: number = 1) {
   return useQuery({

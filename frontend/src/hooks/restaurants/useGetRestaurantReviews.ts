@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { ReviewStats } from "@/types";
+import { ReviewStats } from "@/types/review-types";
 
 export function useGetRestaurantReviews(
   restaurantId: string,

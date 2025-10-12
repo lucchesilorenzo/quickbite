@@ -1,7 +1,11 @@
+import {
+  KpiSummary,
+  PaymentMethodFilter,
+  StatRange,
+} from "@partner/types/stat-types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { KpiSummary, PaymentMethodFilter, StatRange } from "@/types";
 
 type GetKpiSummary = {
   restaurantId: string;

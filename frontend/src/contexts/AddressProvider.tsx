@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-import { Address } from "@/types";
+import { Address } from "@/types/address-types";
 
 type AddressProviderProps = {
   children: React.ReactNode;

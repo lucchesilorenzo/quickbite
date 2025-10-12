@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
-import { RestaurantSearchOption } from "@/types";
+import { RestaurantSearchOption } from "@/types/restaurant-types";
 
 export default function RestaurantSearch() {
   const { allCategories } = useCategoryFilters();

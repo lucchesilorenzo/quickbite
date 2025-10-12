@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { useDeleteCart } from "@customer/hooks/carts/useDeleteCart";
 import { useCreateOrder } from "@customer/hooks/orders/useCreateOrder";
+import { CreateOrder } from "@customer/types/order-types";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
   Box,
@@ -20,7 +21,6 @@ import DeliveryFeeDialog from "./DeliveryFeeDialog";
 import ServiceFeeDialog from "@/components/ServiceFeeDialog";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
-import { CreateOrder } from "@/types/order-types";
 
 export default function CheckoutOrderFooter() {
   const { cart, checkoutData, restaurantId, offersData } = useCheckout();

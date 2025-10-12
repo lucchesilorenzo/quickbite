@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import FullPageSpinner from "@/components/FullPageSpinner";
 import { useAuthMe } from "@/features/private/hooks/auth/useAuthMe";
-import { User } from "@/types";
+import { User } from "@/types/user-types";
 
 type AuthProviderProps = {
   children: React.ReactNode;

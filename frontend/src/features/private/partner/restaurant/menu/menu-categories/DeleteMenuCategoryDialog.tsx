@@ -11,8 +11,7 @@ import {
 } from "@mui/material";
 import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useDeleteMenuCategory } from "@partner/hooks/restaurants/menu/categories/useDeleteMenuCategory";
-
-import { PartnerMenu } from "@/types";
+import { PartnerMenu } from "@partner/types/menu-types";
 
 type DeleteMenuCategoryDialogProps = {
   menuCategory: PartnerMenu;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { useGetOrders } from "@customer/hooks/orders/useGetOrders";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {
   Dialog,
@@ -16,7 +17,6 @@ import EmptyOrders from "./EmptyOrders";
 import OrdersList from "./OrdersList";
 
 import Spinner from "@/components/Spinner";
-import { useGetOrders } from "@/features/private/customer/hooks/orders/useGetOrders";
 
 type OrdersDialogProps = {
   openOrdersDialog: boolean;

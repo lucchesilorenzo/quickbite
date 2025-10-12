@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useUpdateMenuCategory } from "@partner/hooks/restaurants/menu/categories/useUpdateMenuCategory";
+import { PartnerMenu } from "@partner/types/menu-types";
 import {
   TEditMenuCategoryFormSchema,
   editMenuCategoryFormSchema,
@@ -9,7 +10,6 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
-import { PartnerMenu } from "@/types";
 
 type EditMenuCategoryFormProps = {
   menuCategory: PartnerMenu;

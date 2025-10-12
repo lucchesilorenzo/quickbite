@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { Order } from "@private/types/order-types";
 
 import OrderItem from "./OrderItem";
 
 import CustomPagination from "@/components/CustomPagination";
-import { Order } from "@/types/order-types";
 
 type OrdersListProps = {
   orders: Order[];
