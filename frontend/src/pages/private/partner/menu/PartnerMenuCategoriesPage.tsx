@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
+import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
 import AddMenuCategoryDialog from "@/features/private/partner/restaurant/menu/menu-categories/AddMenuCategoryDialog";
 import MenuCategoriesList from "@/features/private/partner/restaurant/menu/menu-categories/MenuCategoriesList";
 

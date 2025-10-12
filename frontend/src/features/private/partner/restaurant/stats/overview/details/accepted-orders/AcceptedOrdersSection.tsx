@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 
-import StatsDetailsBarChart from "../common/StatsDetailsBarChart";
-import StatsDetailsHeader from "../common/StatsDetailsHeader";
+import StatsDetailsBarChart from "../components/StatsDetailsBarChart";
+import StatsDetailsHeader from "../components/StatsDetailsHeader";
 
 export default function AcceptedOrdersSection() {
   return (

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Box, Grid } from "@mui/material";
 
 import RestaurantDetails from "../RestaurantDetails";
-import RestaurantClosedDialog from "../common/RestaurantClosedDialog";
+import RestaurantClosedDialog from "../components/RestaurantClosedDialog";
 import RestaurantCart from "../restaurant-cart/RestaurantCart";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";

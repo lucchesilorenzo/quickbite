@@ -1,8 +1,7 @@
 import { BarChart } from "@mui/x-charts/BarChart";
+import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
 
 import BarLabel from "./BarLabel";
-
-import { usePartnerStats } from "@/features/private/partner/contexts/PartnerStatsProvider";
 
 type StatsDetailsBarChartProps = {
   barPrimaryColor: string;

@@ -1,10 +1,10 @@
 import { useState } from "react";
 
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { Box, Stack, Typography } from "@mui/material";
 
 import OrderItemsDialog from "./OrderItemsDialog";
 
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
 import env from "@/lib/env";
 
 export default function CheckoutOrderOverview() {

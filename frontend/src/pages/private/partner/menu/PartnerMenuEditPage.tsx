@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
+import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
 import PartnerRestaurantMenuProvider from "@/features/private/partner/contexts/PartnerMenuProvider";
-import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
 import MenuEditNavigation from "@/features/private/partner/restaurant/menu/edit/MenuEditNavigation";
 import MenuItemsList from "@/features/private/partner/restaurant/menu/edit/MenuItemsList";
 

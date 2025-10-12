@@ -14,13 +14,13 @@ import {
   Typography,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useRegister } from "@partner/hooks/auth/useRegister";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/PasswordStrengthIndicator";
-import { useRegister } from "@/features/private/partner/hooks/auth/useRegister";
 import {
   TRegisterFormSchema,
   registerFormSchema,

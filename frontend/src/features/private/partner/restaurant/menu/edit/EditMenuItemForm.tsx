@@ -9,17 +9,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useUpdateMenuItem } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItem";
+import {
+  TEditMenuItemFormSchema,
+  editMenuItemFormSchema,
+} from "@partner/validations/menu-validations";
 import { Controller, useForm } from "react-hook-form";
 
 import AntSwitch from "@/components/AntSwitch";
 import { FormHelperTextError } from "@/components/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/VisuallyHiddenInput";
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useUpdateMenuItem } from "@/features/private/partner/hooks/restaurants/menu/items/useUpdateMenuItem";
-import {
-  TEditMenuItemFormSchema,
-  editMenuItemFormSchema,
-} from "@/features/private/partner/validations/menu-validations";
 import { MenuItem } from "@/types";
 
 type EditMenuItemFormProps = {

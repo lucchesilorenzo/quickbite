@@ -1,8 +1,8 @@
+import { TLoginFormSchema } from "@partner/validations/auth-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { TLoginFormSchema } from "@/features/private/partner/validations/auth-validations";
 import { postData } from "@/lib/api-client";
 
 export function useLogin() {

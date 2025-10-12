@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import {
@@ -12,7 +13,6 @@ import {
 import PersonalInfoDialog from "./PersonalInfoDialog";
 
 import { useAuth } from "@/contexts/AuthProvider";
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
 
 export default function PersonalInfoItem() {
   const { user } = useAuth();

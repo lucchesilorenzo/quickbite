@@ -10,14 +10,14 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-
-import { FormHelperTextError } from "@/components/FormHelperTextError";
-import { useLogin } from "@/features/private/partner/hooks/auth/useLogin";
+import { useLogin } from "@partner/hooks/auth/useLogin";
 import {
   TLoginFormSchema,
   loginFormSchema,
-} from "@/features/private/partner/validations/auth-validations";
+} from "@partner/validations/auth-validations";
+import { Controller, useForm } from "react-hook-form";
+
+import { FormHelperTextError } from "@/components/FormHelperTextError";
 
 export default function LoginForm() {
   const { mutateAsync: loginPartner } = useLogin();

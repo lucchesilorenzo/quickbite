@@ -10,13 +10,12 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { Link } from "react-router-dom";
 
 import ProfileMenu from "../profile/ProfileMenu";
 import RestaurantDrawer from "./RestaurantDrawer";
 import RestaurantNavigation from "./RestaurantNavigation";
-
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
 
 export default function RestaurantHeader() {
   const { partnerNotifications, restaurant } = usePartnerRestaurant();

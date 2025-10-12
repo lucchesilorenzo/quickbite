@@ -1,14 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-
-import { FormHelperTextError } from "@/components/FormHelperTextError";
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useCreateMenuCategory } from "@/features/private/partner/hooks/restaurants/menu/categories/useCreateMenuCategory";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useCreateMenuCategory } from "@partner/hooks/restaurants/menu/categories/useCreateMenuCategory";
 import {
   TAddMenuCategoryFormSchema,
   addMenuCategoryFormSchema,
-} from "@/features/private/partner/validations/menu-validations";
+} from "@partner/validations/menu-validations";
+import { Controller, useForm } from "react-hook-form";
+
+import { FormHelperTextError } from "@/components/FormHelperTextError";
 
 type AddMenuCategoryFormProps = {
   setOpenAddMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;

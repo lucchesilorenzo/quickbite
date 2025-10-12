@@ -1,9 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
+import { useGetReviews } from "@partner/hooks/restaurants/reviews/useGetReviews";
+
 import { usePartnerRestaurant } from "./PartnerRestaurantProvider";
 
 import Spinner from "@/components/Spinner";
-import { useGetReviews } from "@/features/private/partner/hooks/restaurants/reviews/useGetReviews";
 import { reviewsDefaults } from "@/lib/query-defaults";
 import { OrderStatusWithAll } from "@/types/order-types";
 import { ReviewStats } from "@/types/review-types";

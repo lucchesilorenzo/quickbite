@@ -2,11 +2,10 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import { usePartnerInfo } from "@partner/contexts/PartnerInfoProvider";
+import { TRestaurantSettingsInfoFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { useFormContext } from "react-hook-form";
-
-import { usePartnerInfo } from "@/features/private/partner/contexts/PartnerInfoProvider";
-import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
-import { TRestaurantSettingsInfoFormSchema } from "@/features/private/partner/validations/restaurant-settings-validations";
 
 export default function InfoHeader() {
   const { editMode, setEditMode } = usePartnerInfo();

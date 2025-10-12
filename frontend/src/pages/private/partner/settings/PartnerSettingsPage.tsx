@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
+import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
 import SettingsMainCards from "@/features/private/partner/restaurant/settings/SettingsMainCards";
 
 export default function PartnerSettingsPage() {

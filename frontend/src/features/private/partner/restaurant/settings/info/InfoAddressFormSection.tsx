@@ -1,9 +1,9 @@
 import { Stack, TextField, Typography } from "@mui/material";
+import { usePartnerInfo } from "@partner/contexts/PartnerInfoProvider";
+import { TRestaurantSettingsInfoFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
-import { usePartnerInfo } from "@/features/private/partner/contexts/PartnerInfoProvider";
-import { TRestaurantSettingsInfoFormSchema } from "@/features/private/partner/validations/restaurant-settings-validations";
 
 export default function InfoAddressFormSection() {
   const { editMode } = usePartnerInfo();

@@ -1,3 +1,4 @@
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Dialog,
@@ -10,7 +11,6 @@ import {
 import DeliveryTimeForm from "./DeliveryTimeForm";
 
 import Spinner from "@/components/Spinner";
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
 
 type DeliveryTimeDialogProps = {
   openDeliveryTimeDialog: boolean;

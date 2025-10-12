@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
+import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
 import NotificationsActionBar from "@/features/private/partner/restaurant/notifications/NotificationsActionBar";
 import NotificationsList from "@/features/private/partner/restaurant/notifications/NotificationsList";
 

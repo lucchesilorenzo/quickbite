@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import MenuItemAddButton from "../common/MenuItemAddButton";
+import MenuItemAddButton from "../components/MenuItemAddButton";
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 

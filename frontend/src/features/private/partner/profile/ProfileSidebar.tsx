@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-import HeadingBlock from "../restaurant/common/HeadingBlock";
+import HeadingBlock from "../components/HeadingBlock";
 import ProfileSidebarNavigation from "./ProfileSidebarNavigation";
 
 export default function ProfileSidebar() {

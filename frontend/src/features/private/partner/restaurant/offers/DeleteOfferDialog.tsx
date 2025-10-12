@@ -9,9 +9,9 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useDeleteOffer } from "@partner/hooks/restaurants/offers/useDeleteOffer";
 
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useDeleteOffer } from "@/features/private/partner/hooks/restaurants/offers/useDeleteOffer";
 import { Offer } from "@/types";
 
 type DeleteOfferDialogProps = {

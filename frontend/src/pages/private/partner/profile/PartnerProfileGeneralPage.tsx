@@ -5,10 +5,10 @@ import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { useAuth } from "@/contexts/AuthProvider";
+import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
 import { useUpdateProfileGeneralInformation } from "@/features/private/partner/hooks/profile/useUpdateProfileGeneralInformation";
 import GeneralAddressCard from "@/features/private/partner/profile/general/GeneralAddressCard";
 import GeneralPersonalInfoCard from "@/features/private/partner/profile/general/GeneralPersonalInfoCard";
-import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
 import {
   TProfileGeneralFormSchema,
   profileGeneralFormSchema,

@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
+import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
 import PartnerRestaurantReviewsProvider from "@/features/private/partner/contexts/PartnerReviewsProvider";
-import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
 import ReviewsLayout from "@/features/private/partner/restaurant/reviews/layouts/ReviewsLayout";
 
 export default function PartnerReviewsPage() {

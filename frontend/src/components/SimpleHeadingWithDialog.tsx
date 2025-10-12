@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { Link, useSearchParams } from "react-router-dom";
 
-import ClearFiltersButton from "@/features/public/area/common/ClearFiltersButton";
+import ClearFiltersButton from "@/features/public/area/components/ClearFiltersButton";
 
 type SimpleHeadingWithDialogProps = {
   headingText: string;

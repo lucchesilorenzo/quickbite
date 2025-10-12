@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import {
@@ -12,7 +13,6 @@ import {
 import AddressInfoDialog from "./AddressInfoDialog";
 
 import { useAuth } from "@/contexts/AuthProvider";
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
 import { formatAddress } from "@/lib/utils/formatting";
 
 export default function AddressInfoItem() {

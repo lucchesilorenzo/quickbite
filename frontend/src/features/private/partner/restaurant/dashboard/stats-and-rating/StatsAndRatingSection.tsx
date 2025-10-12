@@ -1,6 +1,6 @@
 import { Grid, Stack } from "@mui/material";
 
-import RatingDisplayCard from "../../common/RatingDisplayCard";
+import RatingDisplayCard from "../../components/RatingDisplayCard";
 import StatsCard from "./StatsCard";
 
 export default function StatsAndRatingSection() {

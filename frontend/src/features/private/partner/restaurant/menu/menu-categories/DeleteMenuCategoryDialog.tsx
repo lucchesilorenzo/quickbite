@@ -9,9 +9,9 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useDeleteMenuCategory } from "@partner/hooks/restaurants/menu/categories/useDeleteMenuCategory";
 
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useDeleteMenuCategory } from "@/features/private/partner/hooks/restaurants/menu/categories/useDeleteMenuCategory";
 import { PartnerMenu } from "@/types";
 
 type DeleteMenuCategoryDialogProps = {

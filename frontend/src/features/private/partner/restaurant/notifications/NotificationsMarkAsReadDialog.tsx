@@ -9,9 +9,8 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useMarkNotificationsAsRead } from "@/features/private/partner/hooks/notifications/useMarkNotificationsAsRead";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useMarkNotificationsAsRead } from "@partner/hooks/notifications/useMarkNotificationsAsRead";
 
 type NotificationsMarkAsReadDialogProps = {
   openMarkUserNotificationsAsRead: boolean;

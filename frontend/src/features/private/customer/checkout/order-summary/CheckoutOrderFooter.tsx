@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
+import { useDeleteCart } from "@customer/hooks/carts/useDeleteCart";
+import { useCreateOrder } from "@customer/hooks/orders/useCreateOrder";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
   Box,
@@ -15,9 +18,6 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/ServiceFeeDialog";
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
-import { useDeleteCart } from "@/features/private/customer/hooks/carts/useDeleteCart";
-import { useCreateOrder } from "@/features/private/customer/hooks/orders/useCreateOrder";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 import { CreateOrder } from "@/types/order-types";

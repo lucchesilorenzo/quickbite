@@ -1,7 +1,7 @@
 import { Box, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import RestaurantAvailability from "../common/RestaurantAvailability";
+import RestaurantAvailability from "../components/RestaurantAvailability";
 import RestaurantCardImage from "./RestaurantCardImage";
 import RestaurantCardText from "./RestaurantCardText";
 

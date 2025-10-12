@@ -1,17 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Box, Button, InputAdornment, Stack, TextField } from "@mui/material";
+import { usePartnerMenu } from "@partner/contexts/PartnerMenuProvider";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useCreateMenuItem } from "@partner/hooks/restaurants/menu/items/useCreateMenuItem";
+import {
+  TAddMenuItemFormSchema,
+  addMenuItemFormSchema,
+} from "@partner/validations/menu-validations";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/VisuallyHiddenInput";
-import { usePartnerMenu } from "@/features/private/partner/contexts/PartnerMenuProvider";
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useCreateMenuItem } from "@/features/private/partner/hooks/restaurants/menu/items/useCreateMenuItem";
-import {
-  TAddMenuItemFormSchema,
-  addMenuItemFormSchema,
-} from "@/features/private/partner/validations/menu-validations";
 
 type AddMenuItemFormProps = {
   setOpenAddMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;

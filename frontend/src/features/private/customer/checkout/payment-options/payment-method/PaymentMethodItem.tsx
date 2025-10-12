@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import PaymentIcon from "@mui/icons-material/Payment";
 import {
@@ -14,8 +15,6 @@ import {
 import { yellow } from "@mui/material/colors";
 
 import PaymentMethodDialog from "./PaymentMethodDialog";
-
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
 
 export default function PaymentMethodItem() {
   const { checkoutData, restaurantId } = useCheckout();

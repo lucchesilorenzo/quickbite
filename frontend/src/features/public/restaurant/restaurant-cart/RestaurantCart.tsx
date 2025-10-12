@@ -5,9 +5,9 @@ import { Paper, Typography } from "@mui/material";
 import EmptyRestaurantCart from "./EmptyRestaurantCart";
 import RestaurantCartFooter from "./RestaurantCartFooter";
 import RestaurantCartList from "./RestaurantCartList";
-import RestaurantCartMOVNotReachedAlert from "./common/RestaurantCartMOVNotReachedAlert";
-import RestaurantCartShippingInfo from "./common/RestaurantCartShippingInfo";
-import RestaurantCartSpinner from "./common/RestaurantCartSpinner";
+import RestaurantCartMOVNotReachedAlert from "./components/RestaurantCartMOVNotReachedAlert";
+import RestaurantCartShippingInfo from "./components/RestaurantCartShippingInfo";
+import RestaurantCartSpinner from "./components/RestaurantCartSpinner";
 
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";

@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 
 import NotificationItem from "./NotificationItem";
 
 import CustomPagination from "@/components/CustomPagination";
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
 
 export default function NotificationsList() {
   const { partnerNotifications, page, setPage } = usePartnerRestaurant();

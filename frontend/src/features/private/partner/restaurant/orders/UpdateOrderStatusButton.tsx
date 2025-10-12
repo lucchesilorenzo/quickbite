@@ -11,9 +11,9 @@ import {
   Stack,
   Tooltip,
 } from "@mui/material";
+import { useUpdateOrderStatus } from "@partner/hooks/restaurants/orders/useUpdateOrderStatus";
+import { getDisabledOrderStatuses } from "@partner/lib/utils/orders";
 
-import { useUpdateOrderStatus } from "@/features/private/partner/hooks/restaurants/orders/useUpdateOrderStatus";
-import { getDisabledOrderStatuses } from "@/features/private/partner/lib/utils/orders";
 import { orderStatuses } from "@/lib/constants/orders";
 import { Order, OrderStatus } from "@/types/order-types";
 

@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
-
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useUpdateRestaurantApprovedStatus } from "@/features/private/partner/hooks/restaurants/restaurant/useUpdateRestaurantApprovedStatus";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useUpdateRestaurantApprovedStatus } from "@partner/hooks/restaurants/restaurant/useUpdateRestaurantApprovedStatus";
 
 export default function RestaurantApprovalButton() {
   const { restaurant } = usePartnerRestaurant();

@@ -3,7 +3,7 @@ import { useState } from "react";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Box, Drawer, IconButton } from "@mui/material";
 
-import HeadingBlock from "../restaurant/common/HeadingBlock";
+import HeadingBlock from "../components/HeadingBlock";
 import PartnerProfileSidebarNavigation from "./ProfileSidebarNavigation";
 
 export default function ProfileDrawer() {

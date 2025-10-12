@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import ClearFiltersButton from "../common/ClearFiltersButton";
+import ClearFiltersButton from "../components/ClearFiltersButton";
 
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";

@@ -1,13 +1,13 @@
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
+import {
+  TOrderNotesFormSchema,
+  orderNotesFormSchema,
+} from "@customer/validations/checkout-validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
-import {
-  TOrderNotesFormSchema,
-  orderNotesFormSchema,
-} from "@/features/private/customer/validations/checkout-validations";
 
 type OrderNotesFormProps = {
   setOpenOrderNotesDialog: React.Dispatch<React.SetStateAction<boolean>>;

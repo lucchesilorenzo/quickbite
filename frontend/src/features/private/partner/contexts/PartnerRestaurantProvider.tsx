@@ -1,11 +1,11 @@
 import { createContext, useContext, useState } from "react";
 
+import { useGetNotifications } from "@partner/hooks/notifications/useGetNotifications";
+import { useGetRestaurant } from "@partner/hooks/restaurants/restaurant/useGetRestaurant";
 import { Navigate } from "react-router-dom";
 
 import FullPageSpinner from "@/components/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
-import { useGetNotifications } from "@/features/private/partner/hooks/notifications/useGetNotifications";
-import { useGetRestaurant } from "@/features/private/partner/hooks/restaurants/restaurant/useGetRestaurant";
 import { userNotificationsDefaults } from "@/lib/query-defaults";
 import {
   PartnerRestaurantDetail,

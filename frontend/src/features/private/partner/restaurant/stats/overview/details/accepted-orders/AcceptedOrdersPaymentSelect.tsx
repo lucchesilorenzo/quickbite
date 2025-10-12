@@ -5,8 +5,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
 
-import { usePartnerStats } from "@/features/private/partner/contexts/PartnerStatsProvider";
 import { PaymentMethodFilter } from "@/types";
 
 export const paymentMethodOptions: {

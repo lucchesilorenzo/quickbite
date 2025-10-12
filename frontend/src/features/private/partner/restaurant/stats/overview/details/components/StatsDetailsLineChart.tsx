@@ -1,6 +1,6 @@
 import { LineChart } from "@mui/x-charts";
+import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
 
-import { usePartnerStats } from "@/features/private/partner/contexts/PartnerStatsProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type StatsDetailsLineChartProps = {

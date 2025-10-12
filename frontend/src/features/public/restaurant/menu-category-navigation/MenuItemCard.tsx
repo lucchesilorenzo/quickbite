@@ -11,7 +11,7 @@ import {
 import { grey } from "@mui/material/colors";
 
 import MenuItemQuantityInCartBadge from "../../../../components/menu-category-navigation/MenuItemQuantityInCartBadge";
-import MenuItemAddButton from "../common/MenuItemAddButton";
+import MenuItemAddButton from "../components/MenuItemAddButton";
 import MenuItemDialog from "./MenuItemDialog";
 
 import { useMultiCart } from "@/contexts/MultiCartProvider";

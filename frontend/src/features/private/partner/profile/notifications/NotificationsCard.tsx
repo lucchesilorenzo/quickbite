@@ -1,7 +1,7 @@
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import { Card } from "@mui/material";
 
-import CardHeading from "../common/CardHeading";
+import CardHeading from "../components/CardHeading";
 import NotificationsForm from "./NotificationsForm";
 
 export default function NotificationsCard() {

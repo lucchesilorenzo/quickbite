@@ -1,10 +1,9 @@
 import { useState } from "react";
 
 import { Button, Stack } from "@mui/material";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 
 import NotificationsMarkAsReadDialog from "./NotificationsMarkAsReadDialog";
-
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
 
 export default function NotificationsActionBar() {
   const { partnerNotifications } = usePartnerRestaurant();

@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
 import {
@@ -12,8 +13,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 
 import DeliveryTimeDialog from "./DeliveryTimeDialog";
-
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
 
 export default function DeliveryTimeItem() {
   const { checkoutData, restaurantId, setFetchDeliverySlots } = useCheckout();

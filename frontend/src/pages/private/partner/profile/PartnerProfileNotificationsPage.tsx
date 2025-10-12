@@ -5,9 +5,9 @@ import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { useAuth } from "@/contexts/AuthProvider";
+import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
 import { useUpdateProfileNotifications } from "@/features/private/partner/hooks/profile/useUpdateProfileNotifications";
 import NotificationsCard from "@/features/private/partner/profile/notifications/NotificationsCard";
-import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
 import {
   TProfileNotificationsFormSchema,
   profileNotificationsFormSchema,

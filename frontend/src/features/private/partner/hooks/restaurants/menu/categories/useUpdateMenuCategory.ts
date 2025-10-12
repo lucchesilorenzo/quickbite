@@ -1,7 +1,7 @@
+import { TEditMenuCategoryFormSchema } from "@partner/validations/menu-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TEditMenuCategoryFormSchema } from "@/features/private/partner/validations/menu-validations";
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateMenuCategory(

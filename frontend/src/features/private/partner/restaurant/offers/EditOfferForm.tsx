@@ -9,16 +9,16 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-
-import { FormHelperTextError } from "@/components/FormHelperTextError";
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useUpdateOffer } from "@/features/private/partner/hooks/restaurants/offers/useUpdateOffer";
-import { discountRates } from "@/features/private/partner/lib/constants/offers";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useUpdateOffer } from "@partner/hooks/restaurants/offers/useUpdateOffer";
+import { discountRates } from "@partner/lib/constants/offers";
 import {
   TRestaurantSettingsOffersFormSchema,
   restaurantSettingsOffersFormSchema,
-} from "@/features/private/partner/validations/restaurant-settings-validations";
+} from "@partner/validations/restaurant-settings-validations";
+import { Controller, useForm } from "react-hook-form";
+
+import { FormHelperTextError } from "@/components/FormHelperTextError";
 import { Offer } from "@/types";
 
 type EditOfferFormProps = {

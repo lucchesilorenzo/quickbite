@@ -1,7 +1,7 @@
+import { TProfileGeneralFormSchema } from "@partner/validations/profile-general-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TProfileGeneralFormSchema } from "@/features/private/partner/validations/profile-general-validations";
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateProfileGeneralInformation() {

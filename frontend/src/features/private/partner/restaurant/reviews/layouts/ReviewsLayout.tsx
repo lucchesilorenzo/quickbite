@@ -1,6 +1,6 @@
 import { Box, Grid, Stack } from "@mui/material";
 
-import RatingDisplayCard from "../../common/RatingDisplayCard";
+import RatingDisplayCard from "../../components/RatingDisplayCard";
 import ReviewsList from "../ReviewsList";
 
 export default function ReviewsLayout() {

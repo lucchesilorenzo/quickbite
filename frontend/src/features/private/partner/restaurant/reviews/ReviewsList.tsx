@@ -1,9 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { usePartnerReviews } from "@partner/contexts/PartnerReviewsProvider";
 
 import ReviewItem from "./ReviewItem";
 
 import CustomPagination from "@/components/CustomPagination";
-import { usePartnerReviews } from "@/features/private/partner/contexts/PartnerReviewsProvider";
 
 export default function ReviewsList() {
   const { reviewsData, page, setPage } = usePartnerReviews();

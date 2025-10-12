@@ -11,16 +11,16 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Stack, Typography, debounce } from "@mui/material";
+import { usePartnerMenu } from "@partner/contexts/PartnerMenuProvider";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useUpdateMenuItemsOrder } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItemsOrder";
+import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
 import { menuDefaults } from "@partner/lib/query-defaults";
 
 import MenuItem from "./MenuItem";
 
 import CustomPagination from "@/components/CustomPagination";
 import Spinner from "@/components/Spinner";
-import { usePartnerMenu } from "@/features/private/partner/contexts/PartnerMenuProvider";
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useUpdateMenuItemsOrder } from "@/features/private/partner/hooks/restaurants/menu/items/useUpdateMenuItemsOrder";
-import { useGetMenu } from "@/features/private/partner/hooks/restaurants/menu/useGetMenu";
 
 export default function MenuItemsList() {
   const { restaurant } = usePartnerRestaurant();

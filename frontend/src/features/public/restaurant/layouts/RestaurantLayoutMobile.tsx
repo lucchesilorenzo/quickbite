@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Box } from "@mui/material";
 
-import RestaurantClosedDialog from "../common/RestaurantClosedDialog";
+import RestaurantClosedDialog from "../components/RestaurantClosedDialog";
 import RestaurantDetailsMobile from "../mobile/RestaurantDetailsMobile";
 import RestaurantCartMobile from "../restaurant-cart/mobile/RestaurantCartMobile";
 

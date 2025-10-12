@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-import RestaurantOffersList from "@/features/public/restaurant/common/RestaurantOffersList";
+import RestaurantOffersList from "@/features/public/restaurant/components/RestaurantOffersList";
 
 export default function OffersPanel() {
   return (

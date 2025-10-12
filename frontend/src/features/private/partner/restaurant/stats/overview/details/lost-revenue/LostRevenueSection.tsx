@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 
-import StatsDetailsHeader from "../common/StatsDetailsHeader";
-import StatsDetailsLineChart from "../common/StatsDetailsLineChart";
+import StatsDetailsHeader from "../components/StatsDetailsHeader";
+import StatsDetailsLineChart from "../components/StatsDetailsLineChart";
 
 export default function LostRevenueSection() {
   return (

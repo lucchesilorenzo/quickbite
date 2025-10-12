@@ -9,9 +9,9 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useDeleteMenuItem } from "@partner/hooks/restaurants/menu/items/useDeleteMenuItem";
 
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useDeleteMenuItem } from "@/features/private/partner/hooks/restaurants/menu/items/useDeleteMenuItem";
 import { MenuItem } from "@/types";
 
 type DeleteMenuItemDialogProps = {

@@ -1,6 +1,6 @@
 import { Box, Container } from "@mui/material";
 
-import RestaurantOffersList from "../common/RestaurantOffersList";
+import RestaurantOffersList from "../components/RestaurantOffersList";
 import RestaurantHeader from "./RestaurantHeader";
 import RestaurantHeaderRow from "./RestaurantHeaderRow";
 

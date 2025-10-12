@@ -1,6 +1,6 @@
+import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { Box, Stack, Typography } from "@mui/material";
 
-import { useCheckout } from "@/features/private/customer/contexts/CheckoutProvider";
 import env from "@/lib/env";
 
 export default function OrderItemsHeader() {
