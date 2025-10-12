@@ -2,9 +2,9 @@ import { useEffect } from "react";
 
 import { Box } from "@mui/material";
 
-import RegisterFormCard from "@/components/partner/auth/register/hero/RegisterFormCard";
-import RegisterHero from "@/components/partner/auth/register/hero/RegisterHero";
-import RegisterHeroMobile from "@/components/partner/auth/register/hero/mobile/RegisterHeroMobile";
+import RegisterFormCard from "@/features/private/partner/auth/register/hero/RegisterFormCard";
+import RegisterHero from "@/features/private/partner/auth/register/hero/RegisterHero";
+import RegisterHeroMobile from "@/features/private/partner/auth/register/hero/mobile/RegisterHeroMobile";
 
 export default function PartnerRegisterPage() {
   useEffect(() => {

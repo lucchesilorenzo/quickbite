@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import LoginFormCardDesktop from "@/components/customer/login/LoginFormCardDesktop";
-import LoginFormCardMobile from "@/components/customer/login/mobile/LoginFormCardMobile";
+import LoginFormCardDesktop from "@/features/private/customer/login/LoginFormCardDesktop";
+import LoginFormCardMobile from "@/features/private/customer/login/mobile/LoginFormCardMobile";
 
 export default function CustomerLoginPage() {
   useEffect(() => {

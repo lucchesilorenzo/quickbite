@@ -4,15 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import GeneralAddressCard from "@/components/partner/profile/general/GeneralAddressCard";
-import GeneralPersonalInfoCard from "@/components/partner/profile/general/GeneralPersonalInfoCard";
-import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
-import { useAuth } from "@/contexts/public/AuthProvider";
-import { useUpdateProfileGeneralInformation } from "@/hooks/react-query/private/partner/profile/useUpdateProfileGeneralInformation";
+import { useAuth } from "@/contexts/AuthProvider";
+import { useUpdateProfileGeneralInformation } from "@/features/private/partner/hooks/profile/useUpdateProfileGeneralInformation";
+import GeneralAddressCard from "@/features/private/partner/profile/general/GeneralAddressCard";
+import GeneralPersonalInfoCard from "@/features/private/partner/profile/general/GeneralPersonalInfoCard";
+import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
 import {
   TProfileGeneralFormSchema,
   profileGeneralFormSchema,
-} from "@/validations/private/partner/profile-general-validations";
+} from "@/features/private/partner/validations/profile-general-validations";
 
 export default function PartnerProfileGeneralPage() {
   useEffect(() => {

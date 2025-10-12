@@ -2,8 +2,8 @@ import { Box, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Outlet } from "react-router-dom";
 
-import Footer from "@/components/common/Footer";
-import Header from "@/components/common/Header";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 export default function CustomerAuthLayout() {
   return (

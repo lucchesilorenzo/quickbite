@@ -4,15 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import NotificationsCard from "@/components/partner/profile/notifications/NotificationsCard";
-import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
-import { useAuth } from "@/contexts/public/AuthProvider";
-import { useUpdateProfileNotifications } from "@/hooks/react-query/private/partner/profile/useUpdateProfileNotifications";
-import { NotificationType } from "@/types";
+import { useAuth } from "@/contexts/AuthProvider";
+import { useUpdateProfileNotifications } from "@/features/private/partner/hooks/profile/useUpdateProfileNotifications";
+import NotificationsCard from "@/features/private/partner/profile/notifications/NotificationsCard";
+import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
 import {
   TProfileNotificationsFormSchema,
   profileNotificationsFormSchema,
-} from "@/validations/private/partner/profile-notifications-validations";
+} from "@/features/private/partner/validations/profile-notifications-validations";
+import { NotificationType } from "@/types";
 
 export default function PartnerProfileNotificationsPage() {
   useEffect(() => {

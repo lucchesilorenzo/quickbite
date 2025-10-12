@@ -1,10 +1,10 @@
 import { Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-import AreaHeader from "@/components/area/AreaHeader";
-import Footer from "@/components/common/Footer";
-import NavigateToTopFloatingButton from "@/components/common/NavigateToTopFloatingButton";
-import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
+import Footer from "@/components/Footer";
+import NavigateToTopFloatingButton from "@/components/NavigateToTopFloatingButton";
+import { useRestaurants } from "@/contexts/RestaurantsProvider";
+import AreaHeader from "@/features/public/area/AreaHeader";
 
 export default function AreaLayout() {
   const { isMapViewMobile } = useRestaurants();

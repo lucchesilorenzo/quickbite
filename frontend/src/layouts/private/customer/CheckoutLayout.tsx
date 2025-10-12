@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
 import { Outlet, useLocation } from "react-router-dom";
 
-import Footer from "@/components/common/Footer";
-import CheckoutHeader from "@/components/customer/checkout/CheckoutHeader";
+import Footer from "@/components/Footer";
+import CheckoutHeader from "@/features/private/customer/checkout/CheckoutHeader";
 
 export default function CheckoutLayout() {
   const { pathname } = useLocation();

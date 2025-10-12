@@ -4,10 +4,10 @@ import { Container } from "@mui/material";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
-import AreaLayoutDesktop from "@/components/area/layouts/AreaLayoutDesktop";
-import AreaLayoutMobile from "@/components/area/layouts/AreaLayoutMobile";
-import { useAddress } from "@/contexts/public/AddressProvider";
-import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
+import { useAddress } from "@/contexts/AddressProvider";
+import { useRestaurants } from "@/contexts/RestaurantsProvider";
+import AreaLayoutDesktop from "@/features/public/area/layouts/AreaLayoutDesktop";
+import AreaLayoutMobile from "@/features/public/area/layouts/AreaLayoutMobile";
 import env from "@/lib/env";
 import { Address } from "@/types";
 

@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-import { useAuth } from "@/contexts/public/AuthProvider";
+import { useAuth } from "@/contexts/AuthProvider";
 import { hasRole } from "@/lib/utils/auth";
 import { Role } from "@/types";
 

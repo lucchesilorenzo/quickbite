@@ -2,11 +2,11 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 
-import Spinner from "@/components/common/Spinner";
-import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
-import RestaurantsSelection from "@/components/partner/restaurants/RestaurantsSelection";
-import RestaurantsWelcome from "@/components/partner/restaurants/RestaurantsWelcome";
-import { useGetRestaurants } from "@/hooks/react-query/private/partner/restaurants/restaurant/useGetRestaurants";
+import Spinner from "@/components/Spinner";
+import { useGetRestaurants } from "@/features/private/partner/hooks/restaurants/restaurant/useGetRestaurants";
+import HeadingBlock from "@/features/private/partner/restaurant/common/HeadingBlock";
+import RestaurantsSelection from "@/features/private/partner/restaurants/RestaurantsSelection";
+import RestaurantsWelcome from "@/features/private/partner/restaurants/RestaurantsWelcome";
 
 export default function PartnerRestaurantsPage() {
   const { data: restaurants = [], isLoading: isRestaurantsLoading } =

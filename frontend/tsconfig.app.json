@@ -24,7 +24,11 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@public/*": ["./src/features/public/*"],
+      "@private/*": ["./src/features/private/*"],
+      "@customer/*": ["./src/features/private/customer/*"],
+      "@partner/*": ["./src/features/private/partner/*"]
     }
   },
   "include": ["src"]

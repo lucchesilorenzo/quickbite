@@ -7,10 +7,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 
-import NotificationToast from "@/components/common/NotificationToast";
-import RestaurantHeader from "@/components/partner/restaurant/RestaurantHeader";
-import PartnerRestaurantProvider from "@/contexts/private/partner/PartnerRestaurantProvider";
-import { useAuth } from "@/contexts/public/AuthProvider";
+import NotificationToast from "@/components/NotificationToast";
+import { useAuth } from "@/contexts/AuthProvider";
+import PartnerRestaurantProvider from "@/features/private/partner/contexts/PartnerRestaurantProvider";
+import RestaurantHeader from "@/features/private/partner/restaurant/RestaurantHeader";
 import {
   NewOrderReceivedToBroadcast,
   NewReviewReceivedToBroadcast,

@@ -1,5 +1,3 @@
-import { OrderStatus } from "@/types";
-
 export const orderStatuses = {
   pending: { value: "pending", label: "Pending", color: "default" },
   accepted: { value: "accepted", label: "Accepted", color: "success" },
@@ -9,13 +7,3 @@ export const orderStatuses = {
   delivered: { value: "delivered", label: "Delivered", color: "success" },
   cancelled: { value: "cancelled", label: "Cancelled", color: "error" },
 } as const;
-
-export const partnerStatusTransitions: Record<OrderStatus, OrderStatus[]> = {
-  pending: ["accepted", "rejected"],
-  accepted: ["preparing"],
-  rejected: [],
-  preparing: [],
-  delivering: [],
-  delivered: [],
-  cancelled: [],
-};
