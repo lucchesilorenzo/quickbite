@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
+import { usePartnerStats } from "@/contexts/private/partner/PartnerStatsProvider";
 import { PaymentMethodFilter } from "@/types";
 
 export const paymentMethodOptions: {

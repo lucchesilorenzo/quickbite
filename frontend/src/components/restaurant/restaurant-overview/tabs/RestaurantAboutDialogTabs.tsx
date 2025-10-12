@@ -11,8 +11,8 @@ import InfoTab from "./info/InfoTab";
 import OffersPanel from "./offers/OffersPanel";
 import ReviewsTab from "./reviews/ReviewsTab";
 
-import { useOffers } from "@/hooks/contexts/public/useOffers";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useOffers } from "@/contexts/public/OffersProvider";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 import { restaurantTabs } from "@/lib/constants/restaurants";
 import { RestaurantTab } from "@/types";
 

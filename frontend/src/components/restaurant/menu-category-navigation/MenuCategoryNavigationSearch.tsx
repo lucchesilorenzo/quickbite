@@ -14,8 +14,8 @@ import { grey } from "@mui/material/colors";
 import MenuItemsEmpty from "./MenuItemsEmpty";
 import MenuItemsList from "./MenuItemsList";
 
-import { useMenu } from "@/hooks/contexts/public/useMenu";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useMenu } from "@/contexts/public/MenuProvider";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 
 export default function MenuCategoryNavigationSearch() {
   const { restaurant, searchTerm, setSearchTerm } = useRestaurant();

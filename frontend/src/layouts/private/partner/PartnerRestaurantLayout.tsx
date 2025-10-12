@@ -10,7 +10,7 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import NotificationToast from "@/components/common/NotificationToast";
 import RestaurantHeader from "@/components/partner/restaurant/RestaurantHeader";
 import PartnerRestaurantProvider from "@/contexts/private/partner/PartnerRestaurantProvider";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import {
   NewOrderReceivedToBroadcast,
   NewReviewReceivedToBroadcast,

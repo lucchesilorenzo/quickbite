@@ -8,8 +8,8 @@ import OrdersFilters from "./OrdersFilters";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
-import { usePartnerOrders } from "@/hooks/contexts/private/partner/usePartnerOrders";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerOrders } from "@/contexts/private/partner/PartnerOrdersProvider";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useGetOrders } from "@/hooks/react-query/private/partner/restaurants/orders/useGetOrders";
 import { orderStatuses } from "@/lib/constants/orders";
 import { partnerOrdersDefaults } from "@/lib/query-defaults";

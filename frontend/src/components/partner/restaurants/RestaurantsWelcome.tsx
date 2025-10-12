@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 
 export default function RestaurantsWelcome() {
   const { user } = useAuth();

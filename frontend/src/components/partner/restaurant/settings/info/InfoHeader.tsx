@@ -5,7 +5,7 @@ import { Button, Stack } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 
 import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
-import { usePartnerInfo } from "@/hooks/contexts/private/partner/usePartnerInfo";
+import { usePartnerInfo } from "@/contexts/private/partner/PartnerInfoProvider";
 import { TRestaurantSettingsInfoFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function InfoHeader() {

@@ -9,8 +9,8 @@ import RestaurantCartMOVNotReachedAlert from "./common/RestaurantCartMOVNotReach
 import RestaurantCartShippingInfo from "./common/RestaurantCartShippingInfo";
 import RestaurantCartSpinner from "./common/RestaurantCartSpinner";
 
-import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useMultiCart } from "@/contexts/public/MultiCartProvider";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 
 export default function RestaurantCart() {
   const { restaurant } = useRestaurant();

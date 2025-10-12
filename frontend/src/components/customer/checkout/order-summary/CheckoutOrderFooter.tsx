@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
-import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
+import { useCheckout } from "@/contexts/private/customer/CheckoutProvider";
 import { useDeleteCart } from "@/hooks/react-query/private/customer/carts/useDeleteCart";
 import { useCreateOrder } from "@/hooks/react-query/private/customer/orders/useCreateOrder";
 import { formatCurrency } from "@/lib/utils/formatting";

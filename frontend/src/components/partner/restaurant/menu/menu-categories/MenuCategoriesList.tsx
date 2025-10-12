@@ -15,7 +15,7 @@ import { Box, Grid, Typography, debounce } from "@mui/material";
 import MenuCategoryItem from "./MenuCategoryItem";
 
 import Spinner from "@/components/common/Spinner";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useUpdateMenuCategoriesOrder } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useUpdateMenuCategoriesOrder";
 import { useGetMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";

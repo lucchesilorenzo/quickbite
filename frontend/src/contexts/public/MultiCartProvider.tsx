@@ -1,6 +1,7 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "./AuthProvider";
+
 import { useCreateOrUpdateCart } from "@/hooks/react-query/private/customer/carts/useCreateOrUpdateCart";
 import { useGetCarts } from "@/hooks/react-query/private/customer/carts/useGetCarts";
 import { emptyRestaurant } from "@/lib/constants/restaurants";
@@ -52,7 +53,7 @@ const initialState: RestaurantCart = {
   cart_total: 0,
 };
 
-export const MultiCartContext = createContext<MultiCartContext | null>(null);
+const MultiCartContext = createContext<MultiCartContext | null>(null);
 
 export default function MultiCartProvider({
   children,
@@ -350,4 +351,14 @@ export default function MultiCartProvider({
       {children}
     </MultiCartContext.Provider>
   );
+}
+
+export function useMultiCart() {
+  const context = useContext(MultiCartContext);
+
+  if (!context) {
+    throw new Error("useMultiCart must be used within a MultiCartProvider.");
+  }
+
+  return context;
 }

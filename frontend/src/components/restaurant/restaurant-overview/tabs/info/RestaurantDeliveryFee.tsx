@@ -4,7 +4,7 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function RestaurantDeliveryFee() {

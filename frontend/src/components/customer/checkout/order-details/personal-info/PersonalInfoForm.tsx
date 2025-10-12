@@ -4,8 +4,8 @@ import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useCheckout } from "@/contexts/private/customer/CheckoutProvider";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import {
   TPersonalInfoFormSchema,
   personalInfoFormSchema,

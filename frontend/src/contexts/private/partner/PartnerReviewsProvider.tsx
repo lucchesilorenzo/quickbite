@@ -1,7 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+
+import { usePartnerRestaurant } from "./PartnerRestaurantProvider";
 
 import Spinner from "@/components/common/Spinner";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
 import { useGetReviews } from "@/hooks/react-query/private/partner/restaurants/reviews/useGetReviews";
 import { reviewsDefaults } from "@/lib/query-defaults";
 import { OrderStatusWithAll } from "@/types/order-types";
@@ -19,8 +20,7 @@ type PartnerReviewsContext = {
   setStatus: React.Dispatch<React.SetStateAction<OrderStatusWithAll>>;
 };
 
-export const PartnerReviewsContext =
-  createContext<PartnerReviewsContext | null>(null);
+const PartnerReviewsContext = createContext<PartnerReviewsContext | null>(null);
 
 export default function PartnerReviewsProvider({
   children,
@@ -42,4 +42,16 @@ export default function PartnerReviewsProvider({
       {children}
     </PartnerReviewsContext.Provider>
   );
+}
+
+export function usePartnerReviews() {
+  const context = useContext(PartnerReviewsContext);
+
+  if (!context) {
+    throw new Error(
+      "usePartnerReviews must be used within a PartnerReviewsProvider.",
+    );
+  }
+
+  return context;
 }

@@ -13,7 +13,7 @@ import { format } from "date-fns";
 
 import DeliveryTimeDialog from "./DeliveryTimeDialog";
 
-import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
+import { useCheckout } from "@/contexts/private/customer/CheckoutProvider";
 
 export default function DeliveryTimeItem() {
   const { checkoutData, restaurantId, setFetchDeliverySlots } = useCheckout();

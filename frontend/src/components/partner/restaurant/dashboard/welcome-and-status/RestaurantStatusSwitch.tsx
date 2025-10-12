@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, Stack, Typography } from "@mui/material";
 
 import AntSwitch from "@/components/common/AntSwitch";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useUpdateRestaurantStatus } from "@/hooks/react-query/private/partner/restaurants/restaurant/useUpdateRestaurantStatus";
 
 export default function RestaurantStatusSwitch() {

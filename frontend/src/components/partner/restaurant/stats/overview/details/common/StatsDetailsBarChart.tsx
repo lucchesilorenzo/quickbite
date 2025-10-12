@@ -2,7 +2,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 
 import BarLabel from "./BarLabel";
 
-import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
+import { usePartnerStats } from "@/contexts/private/partner/PartnerStatsProvider";
 
 type StatsDetailsBarChartProps = {
   barPrimaryColor: string;

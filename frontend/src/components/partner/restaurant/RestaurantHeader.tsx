@@ -16,11 +16,10 @@ import ProfileMenu from "../profile/ProfileMenu";
 import RestaurantDrawer from "./RestaurantDrawer";
 import RestaurantNavigation from "./RestaurantNavigation";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 
 export default function RestaurantHeader() {
-  const { partnerNotifications } = usePartnerRestaurant();
-  const { restaurant } = usePartnerRestaurant();
+  const { partnerNotifications, restaurant } = usePartnerRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

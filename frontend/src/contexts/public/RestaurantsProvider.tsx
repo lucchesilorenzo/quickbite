@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 import { useMediaQuery } from "@mui/material";
 import {
@@ -8,7 +8,8 @@ import {
 } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
-import { useAddress } from "@/hooks/contexts/public/useAddress";
+import { useAddress } from "./AddressProvider";
+
 import { useGetRestaurants } from "@/hooks/react-query/public/restaurants/useGetRestaurants";
 import { restaurantsDefaults } from "@/lib/query-defaults";
 import {
@@ -44,9 +45,7 @@ type RestaurantsContext = {
   >;
 };
 
-export const RestaurantsContext = createContext<RestaurantsContext | null>(
-  null,
-);
+const RestaurantsContext = createContext<RestaurantsContext | null>(null);
 
 export default function RestaurantsProvider({
   children,
@@ -110,4 +109,16 @@ export default function RestaurantsProvider({
       {children}
     </RestaurantsContext.Provider>
   );
+}
+
+export function useRestaurants() {
+  const context = useContext(RestaurantsContext);
+
+  if (!context) {
+    throw new Error(
+      "useRestaurants must be used within a RestaurantsProvider.",
+    );
+  }
+
+  return context;
 }

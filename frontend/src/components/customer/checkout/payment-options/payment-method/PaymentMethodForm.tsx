@@ -6,7 +6,7 @@ import { grey } from "@mui/material/colors";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
+import { useCheckout } from "@/contexts/private/customer/CheckoutProvider";
 import {
   TPaymentMethodFormSchema,
   paymentMethodFormSchema,

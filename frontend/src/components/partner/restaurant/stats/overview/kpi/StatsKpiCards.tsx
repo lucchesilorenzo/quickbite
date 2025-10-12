@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 
 import StatsKpiCard from "./StatsKpiCard";
 
-import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
+import { usePartnerStats } from "@/contexts/private/partner/PartnerStatsProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { Kpi } from "@/types";
 

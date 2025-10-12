@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import FeesContainer from "@/components/partner/restaurant/settings/fees/FeesContainer";
 import PartnerRestaurantSettingsFeesProvider from "@/contexts/private/partner/PartnerFeesProvider";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useUpdateFees } from "@/hooks/react-query/private/partner/restaurants/settings/useUpdateFees";
 import {
   TRestaurantSettingsFeesFormSchema,

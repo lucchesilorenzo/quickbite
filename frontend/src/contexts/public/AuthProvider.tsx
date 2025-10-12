@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuthMe } from "@/hooks/react-query/private/auth/useAuthMe";
@@ -13,7 +13,7 @@ type AuthContext = {
   resetUser: () => void;
 };
 
-export const AuthContext = createContext<AuthContext | null>(null);
+const AuthContext = createContext<AuthContext | null>(null);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null | undefined>();
@@ -39,4 +39,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       {children}
     </AuthContext.Provider>
   );
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("useAuth must be used within a AuthProvider.");
+  }
+
+  return context;
 }

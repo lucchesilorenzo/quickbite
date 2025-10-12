@@ -1,6 +1,7 @@
-import { createContext, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "./RestaurantProvider";
+
 import { useGetRestaurantMenu } from "@/hooks/react-query/public/restaurants/useGetRestaurantMenu";
 import { Menu } from "@/types";
 
@@ -16,7 +17,7 @@ type MenuContext = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const MenuContext = createContext<MenuContext | null>(null);
+const MenuContext = createContext<MenuContext | null>(null);
 
 export default function MenuProvider({ children }: MenuProviderProps) {
   const { restaurant } = useRestaurant();
@@ -34,4 +35,14 @@ export default function MenuProvider({ children }: MenuProviderProps) {
       {children}
     </MenuContext.Provider>
   );
+}
+
+export function useMenu() {
+  const context = useContext(MenuContext);
+
+  if (!context) {
+    throw new Error("useMenu must be used within a MenuProvider.");
+  }
+
+  return context;
 }

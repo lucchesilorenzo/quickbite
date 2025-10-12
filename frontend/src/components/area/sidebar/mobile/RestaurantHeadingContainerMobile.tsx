@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import ClearFiltersButton from "../../common/ClearFiltersButton";
 
-import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
+import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
 
 type RestaurantHeadingContainerMobileProps = {
   isThereAnyFilter: boolean;

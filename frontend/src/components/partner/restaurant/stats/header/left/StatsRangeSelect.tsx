@@ -1,7 +1,7 @@
 import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
+import { usePartnerStats } from "@/contexts/private/partner/PartnerStatsProvider";
 import { statRanges } from "@/lib/constants/stats";
 import { StatRange } from "@/types";
 

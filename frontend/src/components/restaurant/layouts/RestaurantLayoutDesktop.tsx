@@ -6,7 +6,7 @@ import RestaurantDetails from "../RestaurantDetails";
 import RestaurantClosedDialog from "../common/RestaurantClosedDialog";
 import RestaurantCart from "../restaurant-cart/RestaurantCart";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 
 export default function RestaurantLayoutDesktop() {
   const {

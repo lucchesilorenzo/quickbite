@@ -15,7 +15,7 @@ import AddReviewDialog from "./AddReviewDialog";
 import ViewOrderDialog from "./ViewOrderDialog";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { Order } from "@/types/order-types";
@@ -32,15 +32,15 @@ export default function OrderItem({ order }: OrderItemProps) {
   const [openViewOrderDialog, setOpenViewOrderDialog] = useState(false);
   const [openAddReviewDialog, setOpenAddReviewDialog] = useState(false);
 
+  const navigate = useNavigate();
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   const hasCustomerReviewed = order.restaurant.reviews.some(
     (review) => review.user_id === user?.id && review.order_id === order.id,
   );
 
   const isOnRestaurantPage =
     pathname === `/restaurants/${order.restaurant.slug}`;
-
-  const navigate = useNavigate();
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   function handleOrderAgain() {
     if (isOnRestaurantPage) {

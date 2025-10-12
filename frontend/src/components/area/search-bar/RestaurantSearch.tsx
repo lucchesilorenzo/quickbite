@@ -7,8 +7,8 @@ import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import { useSearchParams } from "react-router-dom";
 
-import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
-import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
+import { useCategoryFilters } from "@/contexts/public/CategoryFiltersProvider";
+import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
 import { RestaurantSearchOption } from "@/types";
 
 export default function RestaurantSearch() {

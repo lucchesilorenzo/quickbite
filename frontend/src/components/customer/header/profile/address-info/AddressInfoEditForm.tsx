@@ -3,7 +3,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import { useUpdateAddressInfo } from "@/hooks/react-query/private/customer/profile/useUpdateAddressInfo";
 import {
   TEditAddressFormSchema,
@@ -12,6 +12,7 @@ import {
 
 export default function AddressInfoEditForm() {
   const { user } = useAuth();
+
   const { mutateAsync: updateCustomerAddressInfo } = useUpdateAddressInfo();
 
   const {

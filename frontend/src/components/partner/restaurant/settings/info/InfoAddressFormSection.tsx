@@ -2,7 +2,7 @@ import { Stack, TextField, Typography } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { usePartnerInfo } from "@/hooks/contexts/private/partner/usePartnerInfo";
+import { usePartnerInfo } from "@/contexts/private/partner/PartnerInfoProvider";
 import { TRestaurantSettingsInfoFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function InfoAddressFormSection() {

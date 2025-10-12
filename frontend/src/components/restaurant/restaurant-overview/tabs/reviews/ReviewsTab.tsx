@@ -4,7 +4,7 @@ import RatingDisplay from "./RatingDisplay";
 import ReviewsList from "./ReviewsList";
 
 import Spinner from "@/components/common/Spinner";
-import { useReviews } from "@/hooks/contexts/public/useReviews";
+import { useReviews } from "@/contexts/public/ReviewsProvider";
 
 export default function ReviewsTab() {
   const { isLoadingReviews } = useReviews();

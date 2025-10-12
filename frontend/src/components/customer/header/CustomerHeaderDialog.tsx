@@ -27,8 +27,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import PersonalInfoDialog from "./PersonalInfoDialog";
 import OrdersDialog from "./orders/OrdersDialog";
 
-import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
+import { useAuth } from "@/contexts/public/AuthProvider";
+import { useMultiCart } from "@/contexts/public/MultiCartProvider";
 import { useLogout } from "@/hooks/react-query/private/customer/auth/useLogout";
 
 const customerHeaderDialogOptions = [
@@ -49,6 +49,7 @@ const customerHeaderDialogOptions = [
 export default function CustomerHeaderDialog() {
   const { user } = useAuth();
   const { emptyCarts } = useMultiCart();
+
   const { mutateAsync: logoutCustomer } = useLogout();
 
   const [searchParams, setSearchParams] = useSearchParams();

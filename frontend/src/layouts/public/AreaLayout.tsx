@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import AreaHeader from "@/components/area/AreaHeader";
 import Footer from "@/components/common/Footer";
 import NavigateToTopFloatingButton from "@/components/common/NavigateToTopFloatingButton";
-import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
+import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
 
 export default function AreaLayout() {
   const { isMapViewMobile } = useRestaurants();

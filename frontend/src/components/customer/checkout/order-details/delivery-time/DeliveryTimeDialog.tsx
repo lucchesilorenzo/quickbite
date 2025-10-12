@@ -10,7 +10,7 @@ import {
 import DeliveryTimeForm from "./DeliveryTimeForm";
 
 import Spinner from "@/components/common/Spinner";
-import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
+import { useCheckout } from "@/contexts/private/customer/CheckoutProvider";
 
 type DeliveryTimeDialogProps = {
   openDeliveryTimeDialog: boolean;

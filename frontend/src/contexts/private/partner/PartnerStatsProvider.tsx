@@ -1,10 +1,11 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { useSearchParams } from "react-router-dom";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useGetPartnerRestaurantKpiSummary } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantKpiSummary";
-import { useGetPartnerRestaurantStats } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantStats";
+import { usePartnerRestaurant } from "./PartnerRestaurantProvider";
+
+import { useGetKpiSummary } from "@/hooks/react-query/private/partner/restaurants/stats/useGetKpiSummary";
+import { useGetStats } from "@/hooks/react-query/private/partner/restaurants/stats/useGetStats";
 import { statRanges } from "@/lib/constants/stats";
 import {
   partnerRestaurantKpiSummaryDefaults,
@@ -37,9 +38,7 @@ type PartnerStatsContext = {
   setYear: React.Dispatch<React.SetStateAction<Record<Kpi, number>>>;
 };
 
-export const PartnerStatsContext = createContext<PartnerStatsContext | null>(
-  null,
-);
+const PartnerStatsContext = createContext<PartnerStatsContext | null>(null);
 
 const kpiKeys: Kpi[] = [
   "accepted_orders",
@@ -68,7 +67,7 @@ export default function PartnerStatsProvider({
   const {
     data: kpiSummary = partnerRestaurantKpiSummaryDefaults,
     isLoading: isLoadingKpiSummary,
-  } = useGetPartnerRestaurantKpiSummary({
+  } = useGetKpiSummary({
     restaurantId: restaurant.id,
     range,
     paymentMethod,
@@ -78,7 +77,7 @@ export default function PartnerStatsProvider({
   const {
     data: statsData = partnerRestaurantStatsDefaults,
     isLoading: isLoadingStats,
-  } = useGetPartnerRestaurantStats({
+  } = useGetStats({
     restaurantId: restaurant.id,
     kpi: activeKpi,
     range,
@@ -130,4 +129,16 @@ export default function PartnerStatsProvider({
       {children}
     </PartnerStatsContext.Provider>
   );
+}
+
+export function usePartnerStats() {
+  const context = useContext(PartnerStatsContext);
+
+  if (!context) {
+    throw new Error(
+      "usePartnerStats must be used within a PartnerStatsProvider.",
+    );
+  }
+
+  return context;
 }

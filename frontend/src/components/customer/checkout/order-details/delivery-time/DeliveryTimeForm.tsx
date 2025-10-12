@@ -19,7 +19,7 @@ import { format } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
+import { useCheckout } from "@/contexts/private/customer/CheckoutProvider";
 import {
   TDeliveryTimeFormSchema,
   deliveryTimeFormSchema,

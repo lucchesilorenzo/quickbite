@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 type PartnerMenuProviderProps = {
   children: React.ReactNode;
@@ -9,9 +9,7 @@ type PartnerMenuContext = {
   setSelectedMenuCategoryId: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const PartnerMenuContext = createContext<PartnerMenuContext | null>(
-  null,
-);
+const PartnerMenuContext = createContext<PartnerMenuContext | null>(null);
 
 export default function PartnerMenuProvider({
   children,
@@ -25,4 +23,16 @@ export default function PartnerMenuProvider({
       {children}
     </PartnerMenuContext.Provider>
   );
+}
+
+export function usePartnerMenu() {
+  const context = useContext(PartnerMenuContext);
+
+  if (!context) {
+    throw new Error(
+      "usePartnerMenu must be used within a PartnerMenuProvider.",
+    );
+  }
+
+  return context;
 }

@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Box, Fab, Fade, useMediaQuery, useScrollTrigger } from "@mui/material";
 
-import { useMultiCart } from "@/hooks/contexts/public/useMultiCart";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useMultiCart } from "@/contexts/public/MultiCartProvider";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 
 export default function RetaurantNavigateToTopFloatingButton() {
   const { restaurant } = useRestaurant();

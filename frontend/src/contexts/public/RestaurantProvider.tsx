@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -25,7 +25,7 @@ type RestaurantContext = {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const RestaurantContext = createContext<RestaurantContext | null>(null);
+const RestaurantContext = createContext<RestaurantContext | null>(null);
 
 export default function RestaurantProvider({
   children,
@@ -77,4 +77,14 @@ export default function RestaurantProvider({
       {children}
     </RestaurantContext.Provider>
   );
+}
+
+export function useRestaurant() {
+  const context = useContext(RestaurantContext);
+
+  if (!context) {
+    throw new Error("useRestaurant must be used within a RestaurantProvider.");
+  }
+
+  return context;
 }

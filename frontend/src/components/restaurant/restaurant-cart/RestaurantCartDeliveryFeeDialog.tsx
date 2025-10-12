@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type RestaurantCartDeliveryFeeDialogProps = {

@@ -3,7 +3,7 @@ import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useCreateMenuCategory } from "@/hooks/react-query/private/partner/restaurants/menu/categories/useCreateMenuCategory";
 import {
   TAddMenuCategoryFormSchema,

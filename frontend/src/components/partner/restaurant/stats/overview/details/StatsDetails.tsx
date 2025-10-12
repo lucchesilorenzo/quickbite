@@ -3,7 +3,7 @@ import LostRevenueSection from "./lost-revenue/LostRevenueSection";
 import RejectedOrdersSection from "./rejected-orders/RejectedOrdersSection";
 import RevenueSection from "./revenue/RevenueSection";
 
-import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
+import { usePartnerStats } from "@/contexts/private/partner/PartnerStatsProvider";
 
 export default function StatsDetails() {
   const { activeKpi } = usePartnerStats();

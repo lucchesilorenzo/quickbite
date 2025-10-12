@@ -14,7 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 import AntSwitch from "@/components/common/AntSwitch";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useUpdateMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useUpdateMenuItem";
 import { MenuItem } from "@/types";
 import {

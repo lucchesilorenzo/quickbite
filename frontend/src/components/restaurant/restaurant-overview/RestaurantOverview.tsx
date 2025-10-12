@@ -4,7 +4,7 @@ import RestaurantOffersList from "../common/RestaurantOffersList";
 import RestaurantHeader from "./RestaurantHeader";
 import RestaurantHeaderRow from "./RestaurantHeaderRow";
 
-import { useOffers } from "@/hooks/contexts/public/useOffers";
+import { useOffers } from "@/contexts/public/OffersProvider";
 
 export default function RestaurantOverview() {
   const { offersData } = useOffers();

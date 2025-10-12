@@ -16,8 +16,8 @@ import MenuItem from "./MenuItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
-import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerMenu } from "@/contexts/private/partner/PartnerMenuProvider";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useUpdateMenuItemsOrder } from "@/hooks/react-query/private/partner/restaurants/menu/items/useUpdateMenuItemsOrder";
 import { useGetMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";

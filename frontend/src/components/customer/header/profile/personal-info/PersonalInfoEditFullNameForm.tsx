@@ -3,7 +3,7 @@ import { Button, Stack, TextField, useMediaQuery } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
   TEditFullNameFormSchema,
@@ -12,6 +12,7 @@ import {
 
 export default function PersonalInfoEditFullNameForm() {
   const { user } = useAuth();
+
   const { mutateAsync: updateCustomerFullName } = useUpdatePersonalInfo();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));

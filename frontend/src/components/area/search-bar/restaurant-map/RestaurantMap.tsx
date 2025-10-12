@@ -18,8 +18,8 @@ import ClickResetHandler from "./ClickResetHandler";
 import ZoomGestureHandling from "./ZoomGestureHandling";
 
 import RestaurantCardMobile from "@/components/area/restaurants/mobile/RestaurantCardMobile";
-import { useAddress } from "@/hooks/contexts/public/useAddress";
-import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
+import { useAddress } from "@/contexts/public/AddressProvider";
+import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
 
 export default function RestaurantMap() {
   const { restaurantsData } = useRestaurants();

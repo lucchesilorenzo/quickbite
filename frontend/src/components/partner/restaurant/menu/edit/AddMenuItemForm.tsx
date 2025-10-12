@@ -5,8 +5,8 @@ import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
-import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerMenu } from "@/contexts/private/partner/PartnerMenuProvider";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useCreateMenuItem } from "@/hooks/react-query/private/partner/restaurants/menu/items/useCreateMenuItem";
 import {
   TAddMenuItemFormSchema,

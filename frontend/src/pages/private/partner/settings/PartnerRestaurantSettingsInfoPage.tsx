@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import InfoContainer from "@/components/partner/restaurant/settings/info/InfoContainer";
 import PartnerRestaurantSettingsInfoProvider from "@/contexts/private/partner/PartnerInfoProvider";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useUpdateInfo } from "@/hooks/react-query/private/partner/restaurants/settings/useUpdateInfo";
 import {
   TRestaurantSettingsInfoFormSchema,

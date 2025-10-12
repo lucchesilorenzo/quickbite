@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "./RestaurantProvider";
+
 import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
 import { offersDefaults } from "@/lib/query-defaults";
 import { OfferWithPagination } from "@/types";
@@ -16,7 +17,7 @@ type OffersContext = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const OffersContext = createContext<OffersContext | null>(null);
+const OffersContext = createContext<OffersContext | null>(null);
 
 export default function OffersProvider({ children }: OffersProviderProps) {
   const { restaurant } = useRestaurant();
@@ -33,4 +34,14 @@ export default function OffersProvider({ children }: OffersProviderProps) {
       {children}
     </OffersContext.Provider>
   );
+}
+
+export function useOffers() {
+  const context = useContext(OffersContext);
+
+  if (!context) {
+    throw new Error("useOffers must be used within a OffersProvider.");
+  }
+
+  return context;
 }

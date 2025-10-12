@@ -3,7 +3,7 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
 import RestaurantLocationInfo from "./RestaurantLocationInfo";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 
 export default function RestaurantLocationDisplay() {
   const { restaurant } = useRestaurant();

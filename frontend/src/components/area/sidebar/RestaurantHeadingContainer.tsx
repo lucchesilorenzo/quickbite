@@ -3,8 +3,8 @@ import { useSearchParams } from "react-router-dom";
 
 import ClearFiltersButton from "../common/ClearFiltersButton";
 
-import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
-import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
+import { useCategoryFilters } from "@/contexts/public/CategoryFiltersProvider";
+import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
 
 export default function RestaurantHeadingContainer() {
   const { allCategories } = useCategoryFilters();

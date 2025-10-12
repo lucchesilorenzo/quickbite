@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { useSearchParams } from "react-router-dom";
 
@@ -18,8 +18,9 @@ type CategoryFiltersContext = {
   handleStatusChange: (category: CategoryWithSelected) => void;
 };
 
-export const CategoryFiltersContext =
-  createContext<CategoryFiltersContext | null>(null);
+const CategoryFiltersContext = createContext<CategoryFiltersContext | null>(
+  null,
+);
 
 export default function CategoryFiltersProvider({
   children,
@@ -99,4 +100,16 @@ export default function CategoryFiltersProvider({
       {children}
     </CategoryFiltersContext.Provider>
   );
+}
+
+export function useCategoryFilters() {
+  const context = useContext(CategoryFiltersContext);
+
+  if (!context) {
+    throw new Error(
+      "useCategoryFilters must be used within a CategoryFiltersProvider.",
+    );
+  }
+
+  return context;
 }

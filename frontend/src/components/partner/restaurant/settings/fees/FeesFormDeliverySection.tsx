@@ -2,7 +2,7 @@ import { InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { usePartnerFees } from "@/hooks/contexts/private/partner/usePartnerFees";
+import { usePartnerFees } from "@/contexts/private/partner/PartnerFeesProvider";
 import { TRestaurantSettingsFeesFormSchema } from "@/validations/private/partner/restaurant-settings-validations";
 
 export default function FeesFormDeliverySection() {

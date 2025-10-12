@@ -1,6 +1,6 @@
 import { Box, Container } from "@mui/material";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 import env from "@/lib/env";
 
 export default function RestaurantCoverImage() {

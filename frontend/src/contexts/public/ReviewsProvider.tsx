@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "./RestaurantProvider";
+
 import { useGetRestaurantReviews } from "@/hooks/react-query/public/restaurants/useGetRestaurantReviews";
 import { reviewsDefaults } from "@/lib/query-defaults";
 import { ReviewStats } from "@/types/review-types";
@@ -16,7 +17,7 @@ type ReviewsContext = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const ReviewsContext = createContext<ReviewsContext | null>(null);
+const ReviewsContext = createContext<ReviewsContext | null>(null);
 
 export default function ReviewsProvider({ children }: ReviewsProviderProps) {
   const { restaurant } = useRestaurant();
@@ -33,4 +34,14 @@ export default function ReviewsProvider({ children }: ReviewsProviderProps) {
       {children}
     </ReviewsContext.Provider>
   );
+}
+
+export function useReviews() {
+  const context = useContext(ReviewsContext);
+
+  if (!context) {
+    throw new Error("useReviews must be used within a ReviewsProvider.");
+  }
+
+  return context;
 }

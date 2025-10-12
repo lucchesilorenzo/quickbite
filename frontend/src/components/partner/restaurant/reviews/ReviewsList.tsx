@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import ReviewItem from "./ReviewItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
-import { usePartnerReviews } from "@/hooks/contexts/private/partner/usePartnerReviews";
+import { usePartnerReviews } from "@/contexts/private/partner/PartnerReviewsProvider";
 
 export default function ReviewsList() {
   const { reviewsData, page, setPage } = usePartnerReviews();

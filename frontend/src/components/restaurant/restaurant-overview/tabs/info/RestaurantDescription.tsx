@@ -2,7 +2,7 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 
 export default function RestaurantDescription() {
   const { restaurant } = useRestaurant();

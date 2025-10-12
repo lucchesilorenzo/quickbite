@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 import { getRestaurantOpeningTime } from "@/lib/utils/restaurants";
 
 type RestaurantClosedDialogProps = {

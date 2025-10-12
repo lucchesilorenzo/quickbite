@@ -4,7 +4,7 @@ import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
   TEditPhoneNumberFormSchema,
@@ -13,6 +13,7 @@ import {
 
 export default function PersonalInfoEditPhoneNumberForm() {
   const { user } = useAuth();
+
   const { mutateAsync: updateCustomerPhoneNumber } = useUpdatePersonalInfo();
 
   const {

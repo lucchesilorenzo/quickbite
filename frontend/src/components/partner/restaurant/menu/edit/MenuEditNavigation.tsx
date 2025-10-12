@@ -13,8 +13,8 @@ import AddMenuItemButton from "./AddMenuItemButton";
 
 import Spinner from "@/components/common/Spinner";
 import MenuCategoryNavigationSlide from "@/components/common/menu-category-navigation/MenuCategoryNavigationSlide";
-import { usePartnerMenu } from "@/hooks/contexts/private/partner/usePartnerMenu";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerMenu } from "@/contexts/private/partner/PartnerMenuProvider";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useGetMenu } from "@/hooks/react-query/private/partner/restaurants/menu/useGetMenu";
 import { partnerMenuDefaults } from "@/lib/query-defaults";
 

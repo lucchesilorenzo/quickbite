@@ -4,7 +4,7 @@ import { Stack } from "@mui/material";
 
 import MainCard from "../common/MainCard";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 
 export default function MenuMainCards() {
   const { restaurant } = usePartnerRestaurant();

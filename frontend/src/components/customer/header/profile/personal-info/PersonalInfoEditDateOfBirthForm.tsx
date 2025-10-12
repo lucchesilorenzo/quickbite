@@ -5,7 +5,7 @@ import { format, parseISO } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import { useUpdatePersonalInfo } from "@/hooks/react-query/private/customer/profile/useUpdatePersonalInfo";
 import {
   TEditDateOfBirthFormSchema,
@@ -14,6 +14,7 @@ import {
 
 export default function PersonalInfoEditDateOfBirthForm() {
   const { user } = useAuth();
+
   const { mutateAsync: updateCustomerDateOfBirth } = useUpdatePersonalInfo();
 
   const {

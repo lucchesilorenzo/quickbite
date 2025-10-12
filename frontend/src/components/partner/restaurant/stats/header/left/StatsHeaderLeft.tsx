@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import HeadingBlock from "../../../common/HeadingBlock";
 import StatsRangeSelect from "./StatsRangeSelect";
 
-import { usePartnerStats } from "@/hooks/contexts/private/partner/usePartnerStats";
+import { usePartnerStats } from "@/contexts/private/partner/PartnerStatsProvider";
 import { getComputedRangeLabel } from "@/lib/utils/stats";
 
 export default function StatsHeaderLeft() {

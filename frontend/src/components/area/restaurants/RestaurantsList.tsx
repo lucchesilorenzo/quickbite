@@ -7,7 +7,7 @@ import RestaurantCard from "./RestaurantCard";
 import RestaurantCardMobile from "./mobile/RestaurantCardMobile";
 
 import SimpleHeadingWithDialog from "@/components/common/SimpleHeadingWithDialog";
-import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
+import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
 
 export default function RestaurantsList() {
   const {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Button, Fade, Stack, Typography } from "@mui/material";
 
-import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
+import { useCategoryFilters } from "@/contexts/public/CategoryFiltersProvider";
 import env from "@/lib/env";
 import { CategoryWithSelected } from "@/types";
 

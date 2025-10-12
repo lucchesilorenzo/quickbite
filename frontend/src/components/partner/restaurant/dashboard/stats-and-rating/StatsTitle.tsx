@@ -3,7 +3,7 @@ import { Link as MuiLink, Stack, Typography } from "@mui/material";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 
 export default function StatsTitle() {
   const { restaurant } = usePartnerRestaurant();

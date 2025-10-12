@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/lib/api-client";
 import { Kpi, PaymentMethodFilter, StatRange, StatsWithFilters } from "@/types";
 
-type GetPartnerRestaurantStats = {
+type GetStats = {
   restaurantId: string;
   kpi: Kpi;
   range: StatRange;
@@ -11,13 +11,13 @@ type GetPartnerRestaurantStats = {
   year: number;
 };
 
-export function useGetPartnerRestaurantStats({
+export function useGetStats({
   restaurantId,
   kpi,
   range,
   paymentMethod,
   year,
-}: GetPartnerRestaurantStats) {
+}: GetStats) {
   return useQuery({
     queryKey: ["partner-stats", restaurantId, kpi, range, paymentMethod, year],
     queryFn: (): Promise<StatsWithFilters> => {

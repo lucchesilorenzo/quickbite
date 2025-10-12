@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 
 import OrderItem from "./OrderItem";
 
-import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
+import { useCheckout } from "@/contexts/private/customer/CheckoutProvider";
 
 export default function OrderItemsList() {
   const { cart } = useCheckout();

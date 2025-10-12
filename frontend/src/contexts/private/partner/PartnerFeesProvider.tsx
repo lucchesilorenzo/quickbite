@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 type PartnerFeesProviderProps = {
   children: React.ReactNode;
@@ -9,9 +9,7 @@ type PartnerFeesContext = {
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const PartnerFeesContext = createContext<PartnerFeesContext | null>(
-  null,
-);
+const PartnerFeesContext = createContext<PartnerFeesContext | null>(null);
 
 export default function PartnerFeesProvider({
   children,
@@ -23,4 +21,16 @@ export default function PartnerFeesProvider({
       {children}
     </PartnerFeesContext.Provider>
   );
+}
+
+export function usePartnerFees() {
+  const context = useContext(PartnerFeesContext);
+
+  if (!context) {
+    throw new Error(
+      "usePartnerFees must be used within a PartnerFeesProvider.",
+    );
+  }
+
+  return context;
 }

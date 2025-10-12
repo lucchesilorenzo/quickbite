@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import GeneralAddressCard from "@/components/partner/profile/general/GeneralAddressCard";
 import GeneralPersonalInfoCard from "@/components/partner/profile/general/GeneralPersonalInfoCard";
 import HeadingBlock from "@/components/partner/restaurant/common/HeadingBlock";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import { useUpdateProfileGeneralInformation } from "@/hooks/react-query/private/partner/profile/useUpdateProfileGeneralInformation";
 import {
   TProfileGeneralFormSchema,

@@ -3,8 +3,8 @@ import { Card, Grid } from "@mui/material";
 import StatsCardItem from "./StatsCardItem";
 
 import Spinner from "@/components/common/Spinner";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
-import { useGetPartnerRestaurantDashboardStats } from "@/hooks/react-query/private/partner/restaurants/stats/useGetPartnerRestaurantDashboardStats";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
+import { useGetDashboardStats } from "@/hooks/react-query/private/partner/restaurants/stats/useGetDashboardStats";
 import { partnerRestaurantDashboardStatsDefaults } from "@/lib/query-defaults";
 
 export default function StatsCard() {
@@ -13,7 +13,7 @@ export default function StatsCard() {
   const {
     data: stats = partnerRestaurantDashboardStatsDefaults,
     isLoading: isLoadingStats,
-  } = useGetPartnerRestaurantDashboardStats(restaurant.id);
+  } = useGetDashboardStats(restaurant.id);
 
   const computedStats = [
     { title: "Today's earnings", value: stats.earnings_today, currency: true },

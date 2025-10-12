@@ -13,7 +13,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import EditLocationForm from "./EditLocationForm";
 
-import { useAddress } from "@/hooks/contexts/public/useAddress";
+import { useAddress } from "@/contexts/public/AddressProvider";
 
 type EditLocationDialog = {
   openEditLocationDialog: boolean;

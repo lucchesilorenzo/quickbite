@@ -1,9 +1,9 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import { useGetCart } from "@/hooks/react-query/private/customer/carts/useGetCart";
 import { useGetRestaurantDeliverySlots } from "@/hooks/react-query/public/restaurants/useGetRestaurantDeliverySlots";
 import { useGetRestaurantOffers } from "@/hooks/react-query/public/restaurants/useGetRestaurantOffers";
@@ -31,7 +31,7 @@ type CheckoutContext = {
   emptyCheckoutData: (restaurantId: string) => void;
 };
 
-export const CheckoutContext = createContext<CheckoutContext | null>(null);
+const CheckoutContext = createContext<CheckoutContext | null>(null);
 
 export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const { cartId } = useParams();
@@ -126,4 +126,14 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
       {children}
     </CheckoutContext.Provider>
   );
+}
+
+export function useCheckout() {
+  const context = useContext(CheckoutContext);
+
+  if (!context) {
+    throw new Error("useCheckout must be used within a CheckoutProvider.");
+  }
+
+  return context;
 }

@@ -6,8 +6,8 @@ import { useSearchParams } from "react-router-dom";
 
 import AreaLayoutDesktop from "@/components/area/layouts/AreaLayoutDesktop";
 import AreaLayoutMobile from "@/components/area/layouts/AreaLayoutMobile";
-import { useAddress } from "@/hooks/contexts/public/useAddress";
-import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
+import { useAddress } from "@/contexts/public/AddressProvider";
+import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
 import env from "@/lib/env";
 import { Address } from "@/types";
 

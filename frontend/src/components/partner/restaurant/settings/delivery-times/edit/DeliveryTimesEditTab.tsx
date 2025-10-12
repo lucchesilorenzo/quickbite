@@ -14,7 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import { FormHelperTextError } from "@/components/common/FormHelperTextError";
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useUpdateDeliveryTimes } from "@/hooks/react-query/private/partner/restaurants/settings/useUpdateDeliveryTimes";
 import { capitalize } from "@/lib/utils/formatting";
 import {

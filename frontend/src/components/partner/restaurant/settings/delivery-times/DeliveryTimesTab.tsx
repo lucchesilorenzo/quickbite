@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Button, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { capitalize } from "@/lib/utils/formatting";
 
 export default function DeliveryTimesTab() {

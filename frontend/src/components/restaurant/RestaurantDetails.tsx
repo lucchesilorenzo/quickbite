@@ -5,7 +5,7 @@ import MenuCategoriesList from "./menu-categories/MenuCategoriesList";
 import MenuCategoryNavigationSection from "./menu-category-navigation/MenuCategoryNavigationSection";
 import RestaurantOverview from "./restaurant-overview/RestaurantOverview";
 
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useRestaurant } from "@/contexts/public/RestaurantProvider";
 
 export default function RestaurantDetails() {
   const { searchTerm } = useRestaurant();

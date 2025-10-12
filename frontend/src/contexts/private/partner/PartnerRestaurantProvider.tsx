@@ -1,9 +1,9 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 import { Navigate } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
+import { useAuth } from "@/contexts/public/AuthProvider";
 import { useGetNotifications } from "@/hooks/react-query/private/partner/notifications/useGetNotifications";
 import { useGetRestaurant } from "@/hooks/react-query/private/partner/restaurants/restaurant/useGetRestaurant";
 import { userNotificationsDefaults } from "@/lib/query-defaults";
@@ -24,8 +24,9 @@ type PartnerRestaurantContext = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const PartnerRestaurantContext =
-  createContext<PartnerRestaurantContext | null>(null);
+const PartnerRestaurantContext = createContext<PartnerRestaurantContext | null>(
+  null,
+);
 
 export default function PartnerRestaurantProvider({
   children,
@@ -56,4 +57,16 @@ export default function PartnerRestaurantProvider({
       {children}
     </PartnerRestaurantContext.Provider>
   );
+}
+
+export function usePartnerRestaurant() {
+  const context = useContext(PartnerRestaurantContext);
+
+  if (!context) {
+    throw new Error(
+      "usePartnerRestaurant must be used within a PartnerRestaurantProvider.",
+    );
+  }
+
+  return context;
 }

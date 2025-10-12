@@ -4,7 +4,7 @@ import RestaurantApprovalButton from "./RestaurantApprovalButton";
 import RestaurantStatusSwitch from "./RestaurantStatusSwitch";
 import RestaurantWelcome from "./RestaurantWelcome";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 
 export default function WelcomeAndStatusSection() {
   const { restaurant } = usePartnerRestaurant();

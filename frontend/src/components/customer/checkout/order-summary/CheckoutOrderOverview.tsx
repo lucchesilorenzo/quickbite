@@ -4,7 +4,7 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import OrderItemsDialog from "./OrderItemsDialog";
 
-import { useCheckout } from "@/hooks/contexts/private/customer/useCheckout";
+import { useCheckout } from "@/contexts/private/customer/CheckoutProvider";
 import env from "@/lib/env";
 
 export default function CheckoutOrderOverview() {

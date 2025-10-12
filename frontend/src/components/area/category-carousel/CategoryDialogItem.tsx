@@ -6,8 +6,8 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useCategoryFilters } from "@/hooks/contexts/public/useCategoryFilters";
-import { useRestaurants } from "@/hooks/contexts/public/useRestaurants";
+import { useCategoryFilters } from "@/contexts/public/CategoryFiltersProvider";
+import { useRestaurants } from "@/contexts/public/RestaurantsProvider";
 import { CategoryWithSelected } from "@/types";
 
 type CategoryDialogItemProps = {

@@ -10,7 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { usePartnerRestaurant } from "@/hooks/contexts/private/partner/usePartnerRestaurant";
+import { usePartnerRestaurant } from "@/contexts/private/partner/PartnerRestaurantProvider";
 import { useMarkNotificationsAsRead } from "@/hooks/react-query/private/partner/notifications/useMarkNotificationsAsRead";
 
 type NotificationsMarkAsReadDialogProps = {
