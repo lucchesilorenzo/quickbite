@@ -16,10 +16,10 @@ export default function RestaurantDeliveryInfo({
 }: RestaurantDeliveryInfoProps) {
   const hasFreeDelivery = restaurant.delivery_fee === 0;
   const hasSameDeliveryTime =
-    restaurant.delivery_time_min === restaurant.delivery_time_max;
+    restaurant.min_delivery_time === restaurant.max_delivery_time;
   const deliveryTime = hasSameDeliveryTime
-    ? `${restaurant.delivery_time_min} min`
-    : `${restaurant.delivery_time_min}-${restaurant.delivery_time_max} min`;
+    ? `${restaurant.min_delivery_time} min`
+    : `${restaurant.min_delivery_time}-${restaurant.max_delivery_time} min`;
 
   return (
     <>

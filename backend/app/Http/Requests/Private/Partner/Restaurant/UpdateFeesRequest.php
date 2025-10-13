@@ -25,8 +25,8 @@ class UpdateFeesRequest extends FormRequest
     {
         return [
             'delivery_fee' => ['sometimes', 'numeric', 'min:0'],
-            'delivery_time_min' => ['required', 'numeric', 'min:1', 'lte:delivery_time_max'],
-            'delivery_time_max' => ['required', 'numeric', 'min:1', 'gte:delivery_time_min'],
+            'min_delivery_time' => ['required', 'numeric', 'min:1', 'lte:max_delivery_time'],
+            'max_delivery_time' => ['required', 'numeric', 'min:1', 'gte:min_delivery_time'],
             'service_fee' => ['sometimes', 'numeric', 'min:0'],
             'min_amount' => ['sometimes', 'numeric', 'min:0'],
         ];

@@ -42,8 +42,8 @@ class RestaurantService
 
     public function updateApprovedStatus(Restaurant $restaurant): Restaurant
     {
-        $isValid = $restaurant->delivery_time_min !== null &&
-            $restaurant->delivery_time_max !== null &&
+        $isValid = $restaurant->min_delivery_time !== null &&
+            $restaurant->max_delivery_time !== null &&
             $restaurant->phone_number !== null &&
             $restaurant->email !== null &&
             $restaurant->logo !== null &&

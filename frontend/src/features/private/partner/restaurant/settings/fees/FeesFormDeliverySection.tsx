@@ -52,7 +52,7 @@ export default function FeesFormDeliverySection() {
         sx={{ alignItems: "center" }}
       >
         <Controller
-          name="delivery_time_min"
+          name="min_delivery_time"
           control={control}
           render={({ field }) => (
             <TextField
@@ -61,11 +61,11 @@ export default function FeesFormDeliverySection() {
               variant="filled"
               autoComplete="off"
               label="Min delivery time"
-              error={!!errors.delivery_time_min}
+              error={!!errors.min_delivery_time}
               helperText={
-                errors.delivery_time_min?.message && (
+                errors.min_delivery_time?.message && (
                   <FormHelperTextError
-                    message={errors.delivery_time_min.message}
+                    message={errors.min_delivery_time.message}
                   />
                 )
               }
@@ -91,7 +91,7 @@ export default function FeesFormDeliverySection() {
         </Typography>
 
         <Controller
-          name="delivery_time_max"
+          name="max_delivery_time"
           control={control}
           render={({ field }) => (
             <TextField
@@ -100,11 +100,11 @@ export default function FeesFormDeliverySection() {
               variant="filled"
               autoComplete="off"
               label="Max delivery time"
-              error={!!errors.delivery_time_max}
+              error={!!errors.max_delivery_time}
               helperText={
-                errors.delivery_time_max?.message && (
+                errors.max_delivery_time?.message && (
                   <FormHelperTextError
-                    message={errors.delivery_time_max.message}
+                    message={errors.max_delivery_time.message}
                   />
                 )
               }
