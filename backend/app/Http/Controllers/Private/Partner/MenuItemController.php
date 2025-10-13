@@ -92,7 +92,7 @@ class MenuItemController extends Controller
             $menuItems = [];
 
             foreach ($data as $menuItemData) {
-                $menuItem = MenuItem::findOrFail($menuItemData['id']);
+                $menuItem = MenuItem::query()->findOrFail($menuItemData['id']);
 
                 Gate::authorize('update', $menuItem);
 

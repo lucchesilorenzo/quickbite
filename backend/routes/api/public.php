@@ -10,11 +10,11 @@ use App\Http\Controllers\Public\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 // === RESTAURANTS ===
-Route::prefix('restaurants')->group(function () {
+Route::prefix('restaurants')->group(function (): void {
     Route::get('/', [RestaurantController::class, 'getRestaurants']);
     Route::get('/{restaurantSlug}', [RestaurantController::class, 'getRestaurant']);
 
-    Route::prefix('{restaurant}')->group(function () {
+    Route::prefix('{restaurant}')->group(function (): void {
         Route::get('/delivery-slots', [RestaurantController::class, 'getDeliverySlots']);
         Route::get('/reviews', [ReviewController::class, 'getReviews']);
         Route::get('/offers', [OfferController::class, 'getOffers']);
@@ -24,6 +24,6 @@ Route::prefix('restaurants')->group(function () {
 });
 
 // === CATEGORIES ===
-Route::prefix('categories')->group(function () {
+Route::prefix('categories')->group(function (): void {
     Route::get('/', [CategoryController::class, 'getCategories']);
 });

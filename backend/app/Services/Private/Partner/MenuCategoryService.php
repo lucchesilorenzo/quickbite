@@ -51,7 +51,8 @@ class MenuCategoryService
         $menuCategory->delete();
 
         // Decrement menu categories order
-        MenuCategory::where('restaurant_id', $menuCategory->restaurant_id)
+        MenuCategory::query()
+            ->where('restaurant_id', $menuCategory->restaurant_id)
             ->where('order', '>', $menuCategory->order)
             ->decrement('order');
     }

@@ -23,8 +23,7 @@ class OrderService
 
         return $restaurant->orders()
             ->with(['orderItems', 'restaurant'])
-            ->when($status, fn ($query) => $query->where('status', $status))
-            ->orderByDesc('created_at')
+            ->when($status, fn ($query) => $query->where('status', $status))->latest()
             ->paginate(self::PER_PAGE);
     }
 
@@ -45,7 +44,7 @@ class OrderService
                     throw new NoAvailableRidersException;
                 }
 
-                Delivery::create([
+                Delivery::query()->create([
                     'order_id' => $order->id,
                     'rider_id' => $rider->id,
                     'rider_first_name' => $rider->first_name,

@@ -14,7 +14,7 @@ class AuthService
 {
     public function register(array $data): string
     {
-        $customer = User::create([
+        $customer = User::query()->create([
             ...$data,
             'password' => bcrypt($data['password']),
         ]);
@@ -26,7 +26,9 @@ class AuthService
 
     public function login(array $data): string
     {
-        $customer = User::where('email', $data['email'])->first();
+        $customer = User::query()
+            ->where('email', $data['email'])
+            ->first();
 
         if (! $customer || ! Hash::check($data['password'], $customer->password)) {
             throw new InvalidCredentialsException;

@@ -65,7 +65,7 @@ class MenuCategoryController extends Controller
             $menuCategories = [];
 
             foreach ($data as $menuCategoryData) {
-                $menuCategory = MenuCategory::findOrFail($menuCategoryData['id']);
+                $menuCategory = MenuCategory::query()->findOrFail($menuCategoryData['id']);
 
                 Gate::authorize('update', $menuCategory);
 

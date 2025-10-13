@@ -16,7 +16,7 @@ class OfferService
     public function getOffers(Restaurant $restaurant): LengthAwarePaginator
     {
         return $restaurant->offers()
-            ->orderBy('created_at')
+            ->oldest()
             ->paginate(self::PER_PAGE);
     }
 

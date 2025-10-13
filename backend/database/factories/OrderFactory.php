@@ -54,7 +54,7 @@ class OrderFactory extends Factory
      */
     public function configure(): self
     {
-        return $this->afterCreating(function (Order $order) {
+        return $this->afterCreating(function (Order $order): void {
             $this->assignOrderItemsToOrder($order);
         });
     }
@@ -64,10 +64,13 @@ class OrderFactory extends Factory
      */
     private function assignOrderItemsToOrder(Order $order): void
     {
-        $menuItems = MenuItem::inRandomOrder()->limit(rand(2, 4))->get();
+        $menuItems = MenuItem::query()
+            ->inRandomOrder()
+            ->limit(random_int(2, 4))
+            ->get();
 
         foreach ($menuItems as $menuItem) {
-            $quantity = rand(1, 3);
+            $quantity = random_int(1, 3);
 
             $order->orderItems()->create([
                 'menu_item_id' => $menuItem->id,

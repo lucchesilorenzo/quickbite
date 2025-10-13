@@ -26,7 +26,7 @@ class OrderService
     {
         return $customer->orders()
             ->with(['orderItems', 'restaurant.reviews.customer'])
-            ->orderByDesc('created_at')
+            ->latest()
             ->paginate(self::PER_PAGE);
     }
 
@@ -40,7 +40,7 @@ class OrderService
     public function createOrder(User $customer, array $data): Order
     {
         return DB::transaction(function () use ($customer, $data) {
-            $restaurant = Restaurant::findOrFail($data['restaurant_id']);
+            $restaurant = Restaurant::query()->findOrFail($data['restaurant_id']);
 
             if (! $restaurant->is_open || $data['subtotal'] < $restaurant->min_amount) {
                 throw new RestaurantNotAvailableException;
@@ -52,7 +52,7 @@ class OrderService
                 throw new LocationNotFoundException;
             }
 
-            $order = Order::create([
+            $order = Order::query()->create([
                 'user_id' => $customer->id,
                 'restaurant_id' => $data['restaurant_id'],
                 'order_code' => $this->generateOrderCode(),
@@ -101,7 +101,10 @@ class OrderService
     {
         do {
             $code = random_int(100000, 999999);
-        } while (Order::where('order_code', $code)->exists());
+        } while (Order::query()
+            ->where('order_code', $code)
+            ->exists()
+        );
 
         return $code;
     }

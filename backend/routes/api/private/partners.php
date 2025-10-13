@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Private\Partner\AuthController;
 use App\Http\Controllers\Private\Partner\MenuCategoryController;
+use App\Http\Controllers\Private\Partner\MenuController;
 use App\Http\Controllers\Private\Partner\MenuItemController;
 use App\Http\Controllers\Private\Partner\NotificationController;
+use App\Http\Controllers\Private\Partner\OfferController;
 use App\Http\Controllers\Private\Partner\OrderController;
 use App\Http\Controllers\Private\Partner\ProfileController;
 use App\Http\Controllers\Private\Partner\RestaurantController;
-use App\Http\Controllers\Private\Partner\RestaurantMenuController;
-use App\Http\Controllers\Private\Partner\RestaurantStatsController;
 use App\Http\Controllers\Private\Partner\ReviewController;
+use App\Http\Controllers\Private\Partner\StatsController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('partner')->group(function () {
+Route::prefix('partner')->group(function (): void {
     // === AUTH ===
-    Route::prefix('auth')->group(function () {
+    Route::prefix('auth')->group(function (): void {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'role:partner']);
@@ -25,7 +26,7 @@ Route::prefix('partner')->group(function () {
     // === PROFILE MANAGEMENT ===
     Route::prefix('profile')
         ->middleware(['auth:sanctum', 'role:partner'])
-        ->group(function () {
+        ->group(function (): void {
             Route::patch('/general', [ProfileController::class, 'updateProfileGeneralInformation']);
             Route::patch('/notifications', [ProfileController::class, 'updateProfileNotifications']);
         });
@@ -33,7 +34,7 @@ Route::prefix('partner')->group(function () {
     // === RESTAURANTS ===
     Route::prefix('restaurants')
         ->middleware(['auth:sanctum', 'role:partner'])
-        ->group(function () {
+        ->group(function (): void {
             Route::get('/', [RestaurantController::class, 'getRestaurants']);
             Route::get('/{restaurant}', [RestaurantController::class, 'getRestaurant']);
 
@@ -58,7 +59,7 @@ Route::prefix('partner')->group(function () {
             Route::get('/{restaurant}/reviews', [ReviewController::class, 'getReviews']);
 
             // Menu
-            Route::get('/{restaurant}/menu', [RestaurantMenuController::class, 'getMenu']);
+            Route::get('/{restaurant}/menu', [MenuController::class, 'getMenu']);
 
             // Menu Categories
             Route::post('/{restaurant}/menu/categories', [MenuCategoryController::class, 'createMenuCategory']);
@@ -77,8 +78,8 @@ Route::prefix('partner')->group(function () {
             Route::patch('/orders/{order}/status', [OrderController::class, 'updateOrderStatus']);
 
             // Stats
-            Route::get('/{restaurant}/stats/dashboard', [RestaurantStatsController::class, 'getDashboardStats']);
-            Route::get('/{restaurant}/stats/kpis', [RestaurantStatsController::class, 'getKpiSummary']);
-            Route::get('/{restaurant}/stats', [RestaurantStatsController::class, 'getStats']);
+            Route::get('/{restaurant}/stats/dashboard', [StatsController::class, 'getDashboardStats']);
+            Route::get('/{restaurant}/stats/kpis', [StatsController::class, 'getKpiSummary']);
+            Route::get('/{restaurant}/stats', [StatsController::class, 'getStats']);
         });
 });

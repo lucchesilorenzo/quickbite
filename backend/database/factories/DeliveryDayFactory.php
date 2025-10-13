@@ -22,7 +22,10 @@ class DeliveryDayFactory extends Factory
     public function definition(): array
     {
         return [
-            'restaurant_id' => Restaurant::inRandomOrder()->first()->id,
+            'restaurant_id' => Restaurant::query()
+                ->inRandomOrder()
+                ->first()
+                ->id,
             'day' => fake()->randomElement(DeliveryDay::values()),
             'start_time' => fake()->time('H:i'),
             'end_time' => fake()->time('H:i'),

@@ -7,6 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')
     ->middleware('auth:sanctum')
-    ->group(function () {
+    ->group(function (): void {
         Route::get('/me', [AuthController::class, 'me']);
     });

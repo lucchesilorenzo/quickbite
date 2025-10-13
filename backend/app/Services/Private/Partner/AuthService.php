@@ -46,7 +46,9 @@ class AuthService
 
     public function login(array $data): string
     {
-        $partner = User::where('email', $data['email'])->first();
+        $partner = User::query()
+            ->where('email', $data['email'])
+            ->first();
 
         if (! $partner || ! Hash::check($data['password'], $partner->password)) {
             throw new InvalidCredentialsException;
@@ -66,7 +68,7 @@ class AuthService
 
     private function createPartner(array $data): User
     {
-        $partner = User::create([
+        $partner = User::query()->create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
@@ -82,7 +84,7 @@ class AuthService
 
     private function createRestaurant(array $data, array $locationData): Restaurant
     {
-        return Restaurant::create([
+        return Restaurant::query()->create([
             'name' => $data['business_name'],
             'slug' => Str::slug($data['business_name'] . '-' . Str::orderedUuid()),
             'street_address' => $data['street_address'],

@@ -17,7 +17,9 @@ class ReviewService
         array $data,
         string $restaurantSlug
     ): Review {
-        $restaurant = Restaurant::where('slug', $restaurantSlug)->firstOrFail();
+        $restaurant = Restaurant::query()
+            ->where('slug', $restaurantSlug)
+            ->firstOrFail();
 
         // Check if customer has already reviewed this order
         $alreadyReviewed = $restaurant->reviews()

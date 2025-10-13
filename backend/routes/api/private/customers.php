@@ -9,9 +9,9 @@ use App\Http\Controllers\Private\Customer\ProfileController;
 use App\Http\Controllers\Private\Customer\ReviewController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('customer')->group(function () {
+Route::prefix('customer')->group(function (): void {
     // === AUTH ===
-    Route::prefix('auth')->group(function () {
+    Route::prefix('auth')->group(function (): void {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum', 'role:customer']);
@@ -20,14 +20,14 @@ Route::prefix('customer')->group(function () {
     // === RESTAURANTS ===
     Route::prefix('restaurants')
         ->middleware(['auth:sanctum', 'role:customer'])
-        ->group(function () {
+        ->group(function (): void {
             Route::post('/{restaurantSlug}/reviews', [ReviewController::class, 'createReview']);
         });
 
     // === PROFILE MANAGEMENT ===
     Route::prefix('profile')
         ->middleware(['auth:sanctum', 'role:customer'])
-        ->group(function () {
+        ->group(function (): void {
             Route::patch('/personal-info', [ProfileController::class, 'updatePersonalInfo']);
             Route::patch('/address-info', [ProfileController::class, 'updateAddressInfo']);
         });
@@ -35,7 +35,7 @@ Route::prefix('customer')->group(function () {
     // === CARTS MANAGEMENT ===
     Route::prefix('carts')
         ->middleware(['auth:sanctum', 'role:customer'])
-        ->group(function () {
+        ->group(function (): void {
             Route::get('/', [CartController::class, 'getCarts']);
             Route::get('/{cart}', [CartController::class, 'getCart']);
             Route::post('/bulk', [CartController::class, 'createOrUpdateCarts']);
@@ -46,7 +46,7 @@ Route::prefix('customer')->group(function () {
     // === ORDERS MANAGEMENT ===
     Route::prefix('orders')
         ->middleware(['auth:sanctum', 'role:customer'])
-        ->group(function () {
+        ->group(function (): void {
             Route::get('/', [OrderController::class, 'getOrders']);
             Route::get('/{order}', [OrderController::class, 'getOrder']);
             Route::post('/', [OrderController::class, 'createOrder']);

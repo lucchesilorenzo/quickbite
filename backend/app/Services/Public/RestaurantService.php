@@ -48,7 +48,8 @@ class RestaurantService
         $mov = $data['mov'] ?? null;
         $search = $data['q'] ?? null;
 
-        $query = Restaurant::select('*')
+        $query = Restaurant::query()
+            ->select('*')
             ->selectRaw(self::HAVERSINE . ' AS distance', [$lat, $lon, $lat])
             ->whereRaw(self::HAVERSINE . ' < ?', [$lat, $lon, $lat, self::RADIUS_KM])
             ->where('is_approved', true)
@@ -203,7 +204,9 @@ class RestaurantService
         }
 
         // Categories filter
-        $categories = Category::pluck('slug')->toArray();
+        $categories = Category::query()
+            ->pluck('slug')
+            ->toArray();
         $selectedCategories = array_values(array_intersect($categories, $filters));
 
         if (count($selectedCategories) > 0) {

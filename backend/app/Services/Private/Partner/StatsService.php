@@ -335,6 +335,6 @@ class StatsService
             ->unique()
             ->sortDesc()
             ->values()
-            ->toArray();
+            ->all();
     }
 }

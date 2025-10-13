@@ -30,7 +30,7 @@ class MenuItemService
         $menuItemOrder = $menuCategory->menuItems()->max('order');
         $data['order'] = $menuItemOrder === null ? 0 : $menuItemOrder + 1;
 
-        return MenuItem::create([
+        return MenuItem::query()->create([
             ...$data,
             'menu_category_id' => $menuCategory->id,
             'order' => $data['order'],
@@ -74,7 +74,8 @@ class MenuItemService
         $menuItem->delete();
 
         // Decrement menu items order
-        MenuItem::where('menu_category_id', $menuItem->menu_category_id)
+        MenuItem::query()
+            ->where('menu_category_id', $menuItem->menu_category_id)
             ->where('order', '>', $menuItem->order)
             ->decrement('order');
     }
