@@ -19,6 +19,7 @@
     },
     "require-dev": {
         "beyondcode/laravel-er-diagram-generator": "^5.0",
+        "driftingly/rector-laravel": "^2.1",
         "fakerphp/faker": "^1.24",
         "larastan/larastan": "^3.7",
         "laravel/pail": "^1.2",
