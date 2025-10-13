@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
-use App\Exceptions\Private\Partner\PartnerNoAvailableRidersException;
+use App\Exceptions\Private\Partner\NoAvailableRidersException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Order\GetOrdersRequest;
 use App\Http\Requests\Private\Partner\Order\UpdateOrderStatus;
@@ -63,7 +63,7 @@ class OrderController extends Controller
                 'order' => $order,
                 'message' => 'Order status updated successfully.',
             ], 200);
-        } catch (PartnerNoAvailableRidersException $e) {
+        } catch (NoAvailableRidersException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

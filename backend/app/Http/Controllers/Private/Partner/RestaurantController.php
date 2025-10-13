@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
-use App\Exceptions\Private\Partner\PartnerRestaurantApprovalException;
+use App\Exceptions\Private\Partner\RestaurantApprovalException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateDeliveryTimesRequest;
@@ -101,7 +101,7 @@ class RestaurantController extends Controller
                 'restaurant' => $restaurant,
                 'message' => 'Restaurant approved status updated successfully.',
             ], 200);
-        } catch (PartnerRestaurantApprovalException $e) {
+        } catch (RestaurantApprovalException $e) {
             return response()->json([], $e->getCode());
         } catch (Throwable) {
             return response()->json([

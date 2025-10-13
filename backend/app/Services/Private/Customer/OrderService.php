@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Customer;
 
-use App\Exceptions\Private\Customer\CustomerRestaurantNotAvailableException;
+use App\Exceptions\Private\Customer\RestaurantNotAvailableException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Order;
 use App\Models\Restaurant;
@@ -43,7 +43,7 @@ class OrderService
             $restaurant = Restaurant::findOrFail($data['restaurant_id']);
 
             if (! $restaurant->is_open || $data['subtotal'] < $restaurant->min_amount) {
-                throw new CustomerRestaurantNotAvailableException;
+                throw new RestaurantNotAvailableException;
             }
 
             $locationData = $this->locationService->getLocationData($data);

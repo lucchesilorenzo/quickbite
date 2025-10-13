@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Services\Private\Customer;
 
 use App\Enums\UserRole;
-use App\Exceptions\Private\Customer\CustomerInvalidCredentialsException;
-use App\Exceptions\Private\Customer\CustomerUnauthorizedException;
+use App\Exceptions\Private\Customer\UnauthorizedException;
+use App\Exceptions\Private\InvalidCredentialsException;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,11 +29,11 @@ class AuthService
         $customer = User::where('email', $data['email'])->first();
 
         if (! $customer || ! Hash::check($data['password'], $customer->password)) {
-            throw new CustomerInvalidCredentialsException;
+            throw new InvalidCredentialsException;
         }
 
         if (! $customer->hasRole(UserRole::CUSTOMER)) {
-            throw new CustomerUnauthorizedException;
+            throw new UnauthorizedException;
         }
 
         return $customer->createToken('customer_web_token')->plainTextToken;

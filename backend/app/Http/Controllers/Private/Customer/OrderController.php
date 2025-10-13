@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Customer;
 
-use App\Exceptions\Private\Customer\CustomerRestaurantNotAvailableException;
+use App\Exceptions\Private\Customer\RestaurantNotAvailableException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Order\CreateOrderRequest;
@@ -76,7 +76,7 @@ class OrderController extends Controller
             return response()->json([
                 'message' => 'Restaurant not found.',
             ], 404);
-        } catch (LocationNotFoundException|CustomerRestaurantNotAvailableException $e) {
+        } catch (LocationNotFoundException|RestaurantNotAvailableException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

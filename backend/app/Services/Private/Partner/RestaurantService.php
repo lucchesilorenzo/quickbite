@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
-use App\Exceptions\Private\Partner\PartnerRestaurantApprovalException;
+use App\Exceptions\Private\Partner\RestaurantApprovalException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
@@ -53,7 +53,7 @@ class RestaurantService
             $restaurant->menuCategories()->whereHas('menuItems')->exists();
 
         if (! $isValid) {
-            throw new PartnerRestaurantApprovalException;
+            throw new RestaurantApprovalException;
         }
 
         $restaurant->update([

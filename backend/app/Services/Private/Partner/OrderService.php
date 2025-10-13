@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Private\Partner;
 
 use App\Enums\OrderStatus;
-use App\Exceptions\Private\Partner\PartnerNoAvailableRidersException;
+use App\Exceptions\Private\Partner\NoAvailableRidersException;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Restaurant;
@@ -42,7 +42,7 @@ class OrderService
                 $rider = $this->findAvailableRider($order);
 
                 if (! $rider instanceof User) {
-                    throw new PartnerNoAvailableRidersException;
+                    throw new NoAvailableRidersException;
                 }
 
                 Delivery::create([

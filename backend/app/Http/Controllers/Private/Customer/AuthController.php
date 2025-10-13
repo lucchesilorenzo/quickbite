@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Customer;
 
-use App\Exceptions\Private\Customer\CustomerInvalidCredentialsException;
-use App\Exceptions\Private\Customer\CustomerUnauthorizedException;
+use App\Exceptions\Private\Customer\UnauthorizedException;
+use App\Exceptions\Private\InvalidCredentialsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Auth\LoginRequest;
 use App\Http\Requests\Private\Customer\Auth\RegisterRequest;
@@ -60,7 +60,7 @@ class AuthController extends Controller
                 'token' => $token,
                 'message' => 'Customer logged in successfully.',
             ], 200);
-        } catch (CustomerInvalidCredentialsException|CustomerUnauthorizedException $e) {
+        } catch (InvalidCredentialsException|UnauthorizedException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

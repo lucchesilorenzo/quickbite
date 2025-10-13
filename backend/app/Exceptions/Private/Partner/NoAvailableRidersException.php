@@ -6,11 +6,11 @@ namespace App\Exceptions\Private\Partner;
 
 use Exception;
 
-class PartnerOfferAlreadyExistsException extends Exception
+class NoAvailableRidersException extends Exception
 {
     public function __construct(
-        string $message = 'An offer with the same discount rate already exists.',
-        int $code = 422
+        string $message = 'All active riders are currently busy.',
+        int $code = 409
     ) {
         parent::__construct($message, $code);
     }

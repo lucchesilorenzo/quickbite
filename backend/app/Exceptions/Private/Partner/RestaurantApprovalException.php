@@ -6,11 +6,11 @@ namespace App\Exceptions\Private\Partner;
 
 use Exception;
 
-class PartnerInvalidCredentialsException extends Exception
+class RestaurantApprovalException extends Exception
 {
     public function __construct(
-        string $message = 'Invalid credentials.',
-        int $code = 401
+        string $message = 'Cannot approve restaurant: some required fields are missing.',
+        int $code = 422
     ) {
         parent::__construct($message, $code);
     }

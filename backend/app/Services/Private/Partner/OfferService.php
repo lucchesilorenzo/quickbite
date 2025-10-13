@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
-use App\Exceptions\Private\Partner\PartnerOfferAlreadyExistsException;
+use App\Exceptions\Private\Partner\OfferAlreadyExistsException;
 use App\Models\Offer;
 use App\Models\Restaurant;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -28,7 +28,7 @@ class OfferService
             ->exists();
 
         if ($doesOfferExist) {
-            throw new PartnerOfferAlreadyExistsException;
+            throw new OfferAlreadyExistsException;
         }
 
         // Create offer
@@ -46,7 +46,7 @@ class OfferService
             ->exists();
 
         if ($doesOfferExist) {
-            throw new PartnerOfferAlreadyExistsException;
+            throw new OfferAlreadyExistsException;
         }
 
         $offer->update($data);

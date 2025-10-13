@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
-use App\Exceptions\Private\Partner\PartnerOfferAlreadyExistsException;
+use App\Exceptions\Private\Partner\OfferAlreadyExistsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Offer\CreateOfferRequest;
 use App\Http\Requests\Private\Partner\Offer\UpdateOfferRequest;
@@ -58,7 +58,7 @@ class OfferController extends Controller
                 'offer' => $offer,
                 'message' => 'Offer created successfully.',
             ], 201);
-        } catch (PartnerOfferAlreadyExistsException $e) {
+        } catch (OfferAlreadyExistsException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());
@@ -90,7 +90,7 @@ class OfferController extends Controller
                 'offer' => $offer,
                 'message' => 'Offer updated successfully.',
             ], 200);
-        } catch (PartnerOfferAlreadyExistsException $e) {
+        } catch (OfferAlreadyExistsException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

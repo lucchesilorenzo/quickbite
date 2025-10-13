@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
-use App\Exceptions\Private\Partner\PartnerInvalidCredentialsException;
-use App\Exceptions\Private\Partner\PartnerUnauthorizedException;
+use App\Exceptions\Private\InvalidCredentialsException;
+use App\Exceptions\Private\Partner\UnauthorizedException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Auth\LoginRequest;
@@ -65,7 +65,7 @@ class AuthController extends Controller
                 'token' => $token,
                 'message' => 'Partner logged in successfully.',
             ], 200);
-        } catch (PartnerInvalidCredentialsException|PartnerUnauthorizedException $e) {
+        } catch (InvalidCredentialsException|UnauthorizedException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
             ], $e->getCode());

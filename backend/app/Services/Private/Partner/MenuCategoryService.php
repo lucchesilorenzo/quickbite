@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
-use App\Exceptions\Private\Partner\PartnerMenuCategoryOrderExceededException;
+use App\Exceptions\Private\Partner\MenuCategoryOrderExceededException;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +17,7 @@ class MenuCategoryService
         $menuCategoryOrder = $restaurant->menuCategories()->max('order');
 
         if ($menuCategoryOrder === 8) {
-            throw new PartnerMenuCategoryOrderExceededException;
+            throw new MenuCategoryOrderExceededException;
         }
 
         $data['order'] = $menuCategoryOrder === null ? 0 : $menuCategoryOrder + 1;

@@ -7,8 +7,8 @@ namespace App\Services\Private\Partner;
 use App\Enums\DeliveryDay;
 use App\Enums\RestaurantRole;
 use App\Enums\UserRole;
-use App\Exceptions\Private\Partner\PartnerInvalidCredentialsException;
-use App\Exceptions\Private\Partner\PartnerUnauthorizedException;
+use App\Exceptions\Private\InvalidCredentialsException;
+use App\Exceptions\Private\Partner\UnauthorizedException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
@@ -49,11 +49,11 @@ class AuthService
         $partner = User::where('email', $data['email'])->first();
 
         if (! $partner || ! Hash::check($data['password'], $partner->password)) {
-            throw new PartnerInvalidCredentialsException;
+            throw new InvalidCredentialsException;
         }
 
         if (! $partner->hasRole(UserRole::PARTNER)) {
-            throw new PartnerUnauthorizedException;
+            throw new UnauthorizedException;
         }
 
         return $partner->createToken('partner_web_token')->plainTextToken;

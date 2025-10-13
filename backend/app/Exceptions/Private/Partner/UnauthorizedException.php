@@ -6,7 +6,7 @@ namespace App\Exceptions\Private\Partner;
 
 use Exception;
 
-class PartnerUnauthorizedException extends Exception
+class UnauthorizedException extends Exception
 {
     public function __construct(
         string $message = 'You are not authorized to log in as a partner.',
