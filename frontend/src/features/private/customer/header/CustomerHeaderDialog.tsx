@@ -1,11 +1,7 @@
-import { Fragment } from "react";
-
 import { useLogout } from "@customer/hooks/auth/useLogout";
 import CloseIcon from "@mui/icons-material/Close";
-import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
-import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import {
   Box,
@@ -23,28 +19,13 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import PersonalInfoDialog from "./PersonalInfoDialog";
 import OrdersDialog from "./orders/OrdersDialog";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
-
-const customerHeaderDialogOptions = [
-  {
-    href: "/become-a-rider",
-    label: "Become a rider",
-    icon: DeliveryDiningOutlinedIcon,
-    divider: false,
-  },
-  {
-    href: "/become-a-partner",
-    label: "Become a partner",
-    icon: RestaurantOutlinedIcon,
-    divider: true,
-  },
-];
 
 export default function CustomerHeaderDialog() {
   const { user } = useAuth();
@@ -157,25 +138,6 @@ export default function CustomerHeaderDialog() {
             </ListItem>
 
             <Divider />
-
-            {customerHeaderDialogOptions.map((option) => (
-              <Fragment key={option.href}>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    component={Link}
-                    to={option.href}
-                    onClick={handleCloseDialog}
-                  >
-                    <ListItemIcon sx={{ color: grey[900] }}>
-                      <option.icon />
-                    </ListItemIcon>
-                    <ListItemText primary={option.label} />
-                  </ListItemButton>
-                </ListItem>
-
-                {option.divider && <Divider />}
-              </Fragment>
-            ))}
 
             <ListItem disablePadding>
               <ListItemButton onClick={handleLogoutCustomer}>
