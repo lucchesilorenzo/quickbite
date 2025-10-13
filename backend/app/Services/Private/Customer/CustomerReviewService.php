@@ -6,7 +6,7 @@ namespace App\Services\Private\Customer;
 
 use App\Exceptions\Private\Customer\CustomerAlreadyReviewedException;
 use App\Models\Restaurant;
-use App\Models\RestaurantReview;
+use App\Models\Review;
 use App\Models\User;
 use App\Notifications\NewReviewReceived;
 
@@ -16,7 +16,7 @@ class CustomerReviewService
         User $customer,
         array $data,
         string $restaurantSlug
-    ): RestaurantReview {
+    ): Review {
         $restaurant = Restaurant::where('slug', $restaurantSlug)->firstOrFail();
 
         // Check if customer has already reviewed this order
@@ -29,7 +29,7 @@ class CustomerReviewService
             throw new CustomerAlreadyReviewedException;
         }
 
-        /** @var RestaurantReview $review */
+        /** @var Review $review */
         $review = $restaurant->reviews()->create([
             'user_id' => $customer->id,
             'order_id' => $data['order_id'],

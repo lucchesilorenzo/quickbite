@@ -11,8 +11,8 @@ use App\Http\Controllers\Private\Partner\PartnerOrderController;
 use App\Http\Controllers\Private\Partner\PartnerProfileController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantMenuController;
-use App\Http\Controllers\Private\Partner\PartnerRestaurantReviewController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantStatsController;
+use App\Http\Controllers\Private\Partner\PartnerReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('partner')->group(function () {
@@ -56,7 +56,7 @@ Route::prefix('partner')->group(function () {
             Route::delete('/offers/{offer}', [PartnerOfferController::class, 'deleteOffer']);
 
             // Reviews
-            Route::get('/{restaurant}/reviews', [PartnerRestaurantReviewController::class, 'getRestaurantReviews']);
+            Route::get('/{restaurant}/reviews', [PartnerReviewController::class, 'getReviews']);
 
             // Menu
             Route::get('/{restaurant}/menu', [PartnerRestaurantMenuController::class, 'getRestaurantMenu']);

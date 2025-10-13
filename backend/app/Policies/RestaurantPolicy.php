@@ -22,7 +22,7 @@ class RestaurantPolicy
             : Response::deny('You are not authorized to view the orders.');
     }
 
-    public function viewRestaurantReviews(User $user, Restaurant $restaurant): Response
+    public function viewReviews(User $user, Restaurant $restaurant): Response
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()

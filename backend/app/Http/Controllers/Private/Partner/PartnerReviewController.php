@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class PartnerRestaurantReviewController extends Controller
+class PartnerReviewController extends Controller
 {
     public function __construct(
         private readonly PartnerReviewService $partnerReviewService
@@ -20,9 +20,9 @@ class PartnerRestaurantReviewController extends Controller
     /**
      * Get partner's restaurant reviews.
      */
-    public function getRestaurantReviews(Restaurant $restaurant): JsonResponse
+    public function getReviews(Restaurant $restaurant): JsonResponse
     {
-        Gate::authorize('viewRestaurantReviews', $restaurant);
+        Gate::authorize('viewReviews', $restaurant);
 
         try {
             $reviews = $this->partnerReviewService->getReviews($restaurant);

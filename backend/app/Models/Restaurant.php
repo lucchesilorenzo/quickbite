@@ -142,11 +142,11 @@ class Restaurant extends Model
     /**
      * Get the restaurant's reviews.
      *
-     * @return HasMany<RestaurantReview, $this>
+     * @return HasMany<Review, $this>
      */
     public function reviews(): HasMany
     {
-        return $this->hasMany(RestaurantReview::class);
+        return $this->hasMany(Review::class);
     }
 
     /**

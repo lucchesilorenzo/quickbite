@@ -10,9 +10,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RestaurantReview>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
  */
-class RestaurantReviewFactory extends Factory
+class ReviewFactory extends Factory
 {
     /**
      * Define the model's default state.

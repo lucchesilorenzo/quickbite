@@ -6,7 +6,7 @@ use App\Http\Controllers\Public\CategoryController;
 use App\Http\Controllers\Public\OfferController;
 use App\Http\Controllers\Public\RestaurantController;
 use App\Http\Controllers\Public\RestaurantMenuController;
-use App\Http\Controllers\Public\RestaurantReviewController;
+use App\Http\Controllers\Public\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 // === RESTAURANTS ===
@@ -16,7 +16,7 @@ Route::prefix('restaurants')->group(function () {
 
     Route::prefix('{restaurant}')->group(function () {
         Route::get('/delivery-slots', [RestaurantController::class, 'getRestaurantDeliverySlots']);
-        Route::get('/reviews', [RestaurantReviewController::class, 'getRestaurantReviews']);
+        Route::get('/reviews', [ReviewController::class, 'getReviews']);
         Route::get('/offers', [OfferController::class, 'getOffers']);
         Route::get('/menu', [RestaurantMenuController::class, 'getRestaurantMenu']);
         Route::get('/base64-logo', [RestaurantController::class, 'getBase64Logo']);

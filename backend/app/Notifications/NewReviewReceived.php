@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Notifications;
 
 use App\Enums\NotificationPreference;
-use App\Models\RestaurantReview;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
@@ -21,7 +21,7 @@ class NewReviewReceived extends Notification implements ShouldQueue
      * Create a new notification instance.
      */
     public function __construct(
-        public RestaurantReview $review,
+        public Review $review,
         public User $partner
     ) {}
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Private\Customer\CustomerAuthController;
 use App\Http\Controllers\Private\Customer\CustomerCartController;
 use App\Http\Controllers\Private\Customer\CustomerOrderController;
 use App\Http\Controllers\Private\Customer\CustomerProfileController;
-use App\Http\Controllers\Private\Customer\CustomerRestaurantReviewController;
+use App\Http\Controllers\Private\Customer\CustomerReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('customer')->group(function () {
@@ -21,7 +21,7 @@ Route::prefix('customer')->group(function () {
     Route::prefix('restaurants')
         ->middleware(['auth:sanctum', 'role:customer'])
         ->group(function () {
-            Route::post('/{restaurantSlug}/reviews', [CustomerRestaurantReviewController::class, 'createCustomerReview']);
+            Route::post('/{restaurantSlug}/reviews', [CustomerReviewController::class, 'createReview']);
         });
 
     // === PROFILE MANAGEMENT ===

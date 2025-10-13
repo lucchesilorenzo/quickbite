@@ -10,7 +10,7 @@ use App\Services\Public\ReviewService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class RestaurantReviewController extends Controller
+class ReviewController extends Controller
 {
     public function __construct(
         private readonly ReviewService $reviewService
@@ -19,7 +19,7 @@ class RestaurantReviewController extends Controller
     /**
      * Get restaurant's reviews.
      */
-    public function getRestaurantReviews(Restaurant $restaurant): JsonResponse
+    public function getReviews(Restaurant $restaurant): JsonResponse
     {
         try {
             $reviews = $this->reviewService->getReviews($restaurant);
