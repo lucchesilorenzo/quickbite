@@ -22,7 +22,7 @@ class PartnerRestaurantMenuController extends Controller
      */
     public function getRestaurantMenu(Restaurant $restaurant): JsonResponse
     {
-        Gate::authorize('viewRestaurantMenu', $restaurant);
+        Gate::authorize('viewPartnerMenu', $restaurant);
 
         try {
             $menu = $this->partnerMenuService->getMenu($restaurant);

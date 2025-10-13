@@ -46,7 +46,7 @@ class PartnerOfferController extends Controller
         CreateOfferRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('createOffer', $restaurant);
+        Gate::authorize('createPartnerOffer', $restaurant);
 
         try {
             $offer = $this->partnerOfferService->createOffer(

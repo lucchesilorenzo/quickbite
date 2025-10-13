@@ -15,7 +15,7 @@ class MenuCategoryPolicy
 
     // === PARTNER ===
 
-    public function createMenuItem(User $user, MenuCategory $menuCategory): Response
+    public function createPartnerMenuItem(User $user, MenuCategory $menuCategory): Response
     {
         return $this->isPartner($user, $menuCategory->restaurant)
             ? Response::allow()

@@ -22,7 +22,7 @@ class PartnerReviewController extends Controller
      */
     public function getReviews(Restaurant $restaurant): JsonResponse
     {
-        Gate::authorize('viewReviews', $restaurant);
+        Gate::authorize('viewPartnerReviews', $restaurant);
 
         try {
             $reviews = $this->partnerReviewService->getReviews($restaurant);

@@ -28,7 +28,7 @@ class PartnerRestaurantStatsController extends Controller
     public function getRestaurantDashboardStats(
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('viewRestaurantStats', $restaurant);
+        Gate::authorize('viewPartnerStats', $restaurant);
 
         try {
             $stats = $this->partnerStatsService->getDashboardStats($restaurant);
@@ -45,7 +45,7 @@ class PartnerRestaurantStatsController extends Controller
         GetRestaurantKpiSummaryRequest $request,
         Restaurant $restaurant
     ) {
-        Gate::authorize('viewRestaurantStats', $restaurant);
+        Gate::authorize('viewPartnerStats', $restaurant);
 
         try {
             $range = $request->enum('range', StatRange::class);
@@ -71,7 +71,7 @@ class PartnerRestaurantStatsController extends Controller
         GetRestaurantStatsRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('viewRestaurantStats', $restaurant);
+        Gate::authorize('viewPartnerStats', $restaurant);
 
         try {
             $kpi = $request->enum('kpi', Kpi::class);

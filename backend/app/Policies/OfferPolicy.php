@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Traits\HasRestaurantAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class RestaurantOfferPolicy
+class OfferPolicy
 {
     use HasRestaurantAuthorization;
 

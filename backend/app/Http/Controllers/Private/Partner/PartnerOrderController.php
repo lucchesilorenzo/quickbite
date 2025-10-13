@@ -28,7 +28,7 @@ class PartnerOrderController extends Controller
         GetOrdersRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('viewRestaurantOrders', $restaurant);
+        Gate::authorize('viewPartnerOrders', $restaurant);
 
         try {
             $orders = $this->partnerOrderService->getOrders(
