@@ -7,8 +7,8 @@ namespace Database\Factories;
 use App\Enums\RestaurantRole;
 use App\Enums\UserRole;
 use App\Models\Category;
+use App\Models\Offer;
 use App\Models\Restaurant;
-use App\Models\RestaurantOffer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
@@ -77,7 +77,7 @@ class RestaurantFactory extends Factory
 
         if ($offersCount > 0) {
             $restaurant->offers()->createMany(
-                RestaurantOffer::factory($offersCount)->make()->toArray()
+                Offer::factory($offersCount)->make()->toArray()
             );
         }
     }

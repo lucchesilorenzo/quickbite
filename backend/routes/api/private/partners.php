@@ -6,11 +6,11 @@ use App\Http\Controllers\Private\Partner\PartnerAuthController;
 use App\Http\Controllers\Private\Partner\PartnerMenuCategoryController;
 use App\Http\Controllers\Private\Partner\PartnerMenuItemController;
 use App\Http\Controllers\Private\Partner\PartnerNotificationController;
+use App\Http\Controllers\Private\Partner\PartnerOfferController;
 use App\Http\Controllers\Private\Partner\PartnerOrderController;
 use App\Http\Controllers\Private\Partner\PartnerProfileController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantMenuController;
-use App\Http\Controllers\Private\Partner\PartnerRestaurantOfferController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantReviewController;
 use App\Http\Controllers\Private\Partner\PartnerRestaurantStatsController;
 use Illuminate\Support\Facades\Route;
@@ -50,10 +50,10 @@ Route::prefix('partner')->group(function () {
             Route::patch('/{restaurant}/settings/delivery-times', [PartnerRestaurantController::class, 'updateRestaurantDeliveryTimes']);
 
             // Offers
-            Route::get('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'getRestaurantOffers']);
-            Route::post('/{restaurant}/offers', [PartnerRestaurantOfferController::class, 'createRestaurantOffer']);
-            Route::patch('/{restaurant}/offers/{offer}', [PartnerRestaurantOfferController::class, 'updateRestaurantOffer']);
-            Route::delete('/offers/{offer}', [PartnerRestaurantOfferController::class, 'deleteRestaurantOffer']);
+            Route::get('/{restaurant}/offers', [PartnerOfferController::class, 'getOffers']);
+            Route::post('/{restaurant}/offers', [PartnerOfferController::class, 'createOffer']);
+            Route::patch('/{restaurant}/offers/{offer}', [PartnerOfferController::class, 'updateOffer']);
+            Route::delete('/offers/{offer}', [PartnerOfferController::class, 'deleteOffer']);
 
             // Reviews
             Route::get('/{restaurant}/reviews', [PartnerRestaurantReviewController::class, 'getRestaurantReviews']);

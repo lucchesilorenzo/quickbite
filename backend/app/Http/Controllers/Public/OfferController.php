@@ -10,7 +10,7 @@ use App\Services\Public\OfferService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class RestaurantOfferController extends Controller
+class OfferController extends Controller
 {
     public function __construct(
         private readonly OfferService $offerService
@@ -19,7 +19,7 @@ class RestaurantOfferController extends Controller
     /**
      * Get restaurant's offers.
      */
-    public function getRestaurantOffers(Restaurant $restaurant): JsonResponse
+    public function getOffers(Restaurant $restaurant): JsonResponse
     {
         try {
             $offers = $this->offerService->getOffers($restaurant);

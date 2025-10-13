@@ -6,25 +6,25 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Exceptions\Private\Partner\PartnerOfferAlreadyExistsException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Partner\Offer\CreateRestaurantOfferRequest;
-use App\Http\Requests\Private\Partner\Offer\UpdateRestaurantOfferRequest;
+use App\Http\Requests\Private\Partner\Offer\CreateOfferRequest;
+use App\Http\Requests\Private\Partner\Offer\UpdateOfferRequest;
+use App\Models\Offer;
 use App\Models\Restaurant;
-use App\Models\RestaurantOffer;
 use App\Services\Private\Partner\PartnerOfferService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class PartnerRestaurantOfferController extends Controller
+class PartnerOfferController extends Controller
 {
     public function __construct(
         private readonly PartnerOfferService $partnerOfferService
     ) {}
 
     /**
-     * Get a partner's restaurant offers.
+     * Get a partner's offers.
      */
-    public function getRestaurantOffers(Restaurant $restaurant): JsonResponse
+    public function getOffers(Restaurant $restaurant): JsonResponse
     {
         Gate::authorize('viewPartnerRestaurant', $restaurant);
 
@@ -40,10 +40,10 @@ class PartnerRestaurantOfferController extends Controller
     }
 
     /**
-     * Create a partner's restaurant offer.
+     * Create a partner's offer.
      */
-    public function createRestaurantOffer(
-        CreateRestaurantOfferRequest $request,
+    public function createOffer(
+        CreateOfferRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('createOffer', $restaurant);
@@ -70,12 +70,12 @@ class PartnerRestaurantOfferController extends Controller
     }
 
     /**
-     * Update a partner's restaurant offer.
+     * Update a partner's offer.
      */
-    public function updateRestaurantOffer(
-        UpdateRestaurantOfferRequest $request,
+    public function updateOffer(
+        UpdateOfferRequest $request,
         Restaurant $restaurant,
-        RestaurantOffer $offer
+        Offer $offer
     ): JsonResponse {
         Gate::authorize('update', $offer);
 
@@ -102,9 +102,9 @@ class PartnerRestaurantOfferController extends Controller
     }
 
     /**
-     * Delete a partner's restaurant offer.
+     * Delete a partner's offer.
      */
-    public function deleteRestaurantOffer(RestaurantOffer $offer): JsonResponse
+    public function deleteOffer(Offer $offer): JsonResponse
     {
         Gate::authorize('delete', $offer);
 

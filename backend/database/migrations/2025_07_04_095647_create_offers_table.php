@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('restaurant_offers', function (Blueprint $table) {
+        Schema::create('offers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->decimal('discount_rate');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('restaurant_offers');
+        Schema::dropIfExists('offers');
     }
 };

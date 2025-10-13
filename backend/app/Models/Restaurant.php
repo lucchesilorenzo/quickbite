@@ -122,11 +122,11 @@ class Restaurant extends Model
     /**
      * Get the restaurant's offers.
      *
-     * @return HasMany<RestaurantOffer, $this>
+     * @return HasMany<Offer, $this>
      */
     public function offers(): HasMany
     {
-        return $this->hasMany(RestaurantOffer::class);
+        return $this->hasMany(Offer::class);
     }
 
     /**

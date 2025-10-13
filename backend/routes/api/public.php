@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Public\CategoryController;
+use App\Http\Controllers\Public\OfferController;
 use App\Http\Controllers\Public\RestaurantController;
 use App\Http\Controllers\Public\RestaurantMenuController;
-use App\Http\Controllers\Public\RestaurantOfferController;
 use App\Http\Controllers\Public\RestaurantReviewController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,7 @@ Route::prefix('restaurants')->group(function () {
     Route::prefix('{restaurant}')->group(function () {
         Route::get('/delivery-slots', [RestaurantController::class, 'getRestaurantDeliverySlots']);
         Route::get('/reviews', [RestaurantReviewController::class, 'getRestaurantReviews']);
-        Route::get('/offers', [RestaurantOfferController::class, 'getRestaurantOffers']);
+        Route::get('/offers', [OfferController::class, 'getOffers']);
         Route::get('/menu', [RestaurantMenuController::class, 'getRestaurantMenu']);
         Route::get('/base64-logo', [RestaurantController::class, 'getBase64Logo']);
     });

@@ -21,7 +21,7 @@
 | Permission       | `App\Models\Permission`       |
 | Restaurant       | `App\Models\Restaurant`       |
 | DeliveryDay      | `App\Models\DeliveryDay`      |
-| RestaurantOffer  | `App\Models\RestaurantOffer`  |
+| Offer            | `App\Models\Offer`            |
 | RestaurantReview | `App\Models\RestaurantReview` |
 | Role             | `App\Models\Role`             |
 | User             | `App\Models\User`             |
@@ -79,7 +79,7 @@
 - **BelongsToMany** `riders` (User)
 - **BelongsToMany** `categories`
 - **HasMany** `deliveryDays` (DeliveryDay) via `restaurant_id`
-- **HasMany** `offers` (RestaurantOffer) via `restaurant_id`
+- **HasMany** `offers` (Offer) via `restaurant_id`
 - **HasMany** `menuCategories` via `restaurant_id`
 - **HasMany** `reviews` (RestaurantReview) via `restaurant_id`
 - **HasMany** `carts` via `restaurant_id`
@@ -89,7 +89,7 @@
 
 - **BelongsTo** `restaurant` via `restaurant_id`
 
-#### RestaurantOffer
+#### Offer
 
 - **BelongsTo** `restaurant` via `restaurant_id`
 

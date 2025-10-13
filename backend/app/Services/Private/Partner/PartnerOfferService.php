@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Services\Private\Partner;
 
 use App\Exceptions\Private\Partner\PartnerOfferAlreadyExistsException;
+use App\Models\Offer;
 use App\Models\Restaurant;
-use App\Models\RestaurantOffer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PartnerOfferService
@@ -20,7 +20,7 @@ class PartnerOfferService
             ->paginate(self::PER_PAGE);
     }
 
-    public function createOffer(array $data, Restaurant $restaurant): RestaurantOffer
+    public function createOffer(array $data, Restaurant $restaurant): Offer
     {
         // Check if offer already exists
         $doesOfferExist = $restaurant->offers()
@@ -38,8 +38,8 @@ class PartnerOfferService
     public function updateOffer(
         array $data,
         Restaurant $restaurant,
-        RestaurantOffer $offer
-    ): RestaurantOffer {
+        Offer $offer
+    ): Offer {
         $doesOfferExist = $restaurant->offers()
             ->where('discount_rate', $data['discount_rate'])
             ->whereNot('id', $offer->id)
@@ -54,7 +54,7 @@ class PartnerOfferService
         return $offer;
     }
 
-    public function deleteOffer(RestaurantOffer $offer): void
+    public function deleteOffer(Offer $offer): void
     {
         $offer->delete();
     }
