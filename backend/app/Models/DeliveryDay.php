@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class RestaurantDeliveryDay extends Model
+class DeliveryDay extends Model
 {
     use HasFactory, HasUuids;
 

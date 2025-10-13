@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RestaurantDeliveryDay>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\DeliveryDay>
  */
-class RestaurantDeliveryDayFactory extends Factory
+class DeliveryDayFactory extends Factory
 {
     /**
      * Define the model's default state.

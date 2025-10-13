@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('restaurant_delivery_days', function (Blueprint $table) {
+        Schema::create('delivery_days', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->enum('day', DeliveryDay::values());
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('restaurant_delivery_days');
+        Schema::dropIfExists('delivery_days');
     }
 };

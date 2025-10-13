@@ -112,11 +112,11 @@ class Restaurant extends Model
     /**
      * Get the restaurant's delivery days.
      *
-     * @return HasMany<RestaurantDeliveryDay, $this>
+     * @return HasMany<DeliveryDay, $this>
      */
     public function deliveryDays(): HasMany
     {
-        return $this->hasMany(RestaurantDeliveryDay::class);
+        return $this->hasMany(DeliveryDay::class);
     }
 
     /**
