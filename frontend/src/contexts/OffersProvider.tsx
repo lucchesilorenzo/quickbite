@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 import { useRestaurant } from "./RestaurantProvider";
 
-import { useGetRestaurantOffers } from "@/hooks/restaurants/useGetRestaurantOffers";
+import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { offersDefaults } from "@/lib/query-defaults";
 import { OfferWithPagination } from "@/types/offer-types";
 
@@ -25,7 +25,7 @@ export default function OffersProvider({ children }: OffersProviderProps) {
   const [page, setPage] = useState(1);
 
   const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
-    useGetRestaurantOffers(restaurant.id, page);
+    useGetOffers(restaurant.id, page);
 
   return (
     <OffersContext.Provider

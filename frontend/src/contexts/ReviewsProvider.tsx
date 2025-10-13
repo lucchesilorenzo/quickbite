@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 import { useRestaurant } from "./RestaurantProvider";
 
-import { useGetRestaurantReviews } from "@/hooks/restaurants/useGetRestaurantReviews";
+import { useGetReviews } from "@/hooks/reviews/useGetReviews";
 import { reviewsDefaults } from "@/lib/query-defaults";
 import { ReviewStats } from "@/types/review-types";
 
@@ -25,7 +25,7 @@ export default function ReviewsProvider({ children }: ReviewsProviderProps) {
   const [page, setPage] = useState(1);
 
   const { data: reviewsData = reviewsDefaults, isLoading: isLoadingReviews } =
-    useGetRestaurantReviews(restaurant.id, page);
+    useGetReviews(restaurant.id, page);
 
   return (
     <ReviewsContext.Provider

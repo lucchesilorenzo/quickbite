@@ -6,8 +6,8 @@ import { useParams } from "react-router-dom";
 import FullPageSpinner from "@/components/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetCart } from "@/features/private/customer/hooks/carts/useGetCart";
-import { useGetRestaurantDeliverySlots } from "@/hooks/restaurants/useGetRestaurantDeliverySlots";
-import { useGetRestaurantOffers } from "@/hooks/restaurants/useGetRestaurantOffers";
+import { useGetOffers } from "@/hooks/offers/useGetOffers";
+import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
 import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
 import { RestaurantCart } from "@/types/cart-types";
 import { DeliverySlots } from "@/types/delivery-types";
@@ -41,12 +41,12 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const restaurantId = cart?.restaurant.id;
 
   const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
-    useGetRestaurantOffers(restaurantId!);
+    useGetOffers(restaurantId!);
 
   const {
     data: deliverySlots = deliverySlotsDefaults,
     isLoading: isLoadingDeliverySlots,
-  } = useGetRestaurantDeliverySlots(restaurantId!, fetchDeliverySlots);
+  } = useGetDeliverySlots(restaurantId!, fetchDeliverySlots);
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
     const stored = localStorage.getItem("checkout_data_by_restaurant");

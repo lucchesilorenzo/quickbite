@@ -2,7 +2,7 @@ import { createContext, useContext, useRef, useState } from "react";
 
 import { useRestaurant } from "./RestaurantProvider";
 
-import { useGetRestaurantMenu } from "@/hooks/restaurants/useGetRestaurantMenu";
+import { useGetMenu } from "@/hooks/menu/useGetMenu";
 import { Menu } from "@/types/menu-types";
 
 type MenuProviderProps = {
@@ -25,8 +25,10 @@ export default function MenuProvider({ children }: MenuProviderProps) {
   const [page, setPage] = useState(1);
   const menuCategoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const { data: menuData = [], isLoading: isLoadingMenu } =
-    useGetRestaurantMenu(restaurant.id, page);
+  const { data: menuData = [], isLoading: isLoadingMenu } = useGetMenu(
+    restaurant.id,
+    page,
+  );
 
   return (
     <MenuContext.Provider
