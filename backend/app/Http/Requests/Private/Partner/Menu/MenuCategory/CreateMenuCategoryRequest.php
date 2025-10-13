@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Private\Partner\Stats;
+namespace App\Http\Requests\Private\Partner\Menu\MenuCategory;
 
-use App\Enums\PaymentMethod;
-use App\Enums\StatRange;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class GetRestaurantKpiSummaryRequest extends FormRequest
+class CreateMenuCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +24,16 @@ class GetRestaurantKpiSummaryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $restaurantId = $this->route('restaurant')->id;
+
         return [
-            'range' => ['sometimes', Rule::enum(StatRange::class)],
-            'payment_method' => ['sometimes', Rule::enum(PaymentMethod::class)],
-            'year' => ['sometimes', 'integer', 'digits:4'],
+            'name' => [
+                'required',
+                'string',
+                'max:30',
+                Rule::unique('menu_categories')->where(fn ($q) => $q->where('restaurant_id', $restaurantId)),
+            ],
+            'description' => ['nullable', 'string', 'max:200'],
         ];
     }
 }

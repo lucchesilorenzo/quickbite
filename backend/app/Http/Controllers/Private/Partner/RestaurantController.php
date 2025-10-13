@@ -7,10 +7,10 @@ namespace App\Http\Controllers\Private\Partner;
 use App\Exceptions\Private\Partner\PartnerRestaurantApprovalException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantDeliveryTimesRequest;
-use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantFeesRequest;
-use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantInfoRequest;
-use App\Http\Requests\Private\Partner\Restaurant\UpdateRestaurantStatusRequest;
+use App\Http\Requests\Private\Partner\Restaurant\UpdateDeliveryTimesRequest;
+use App\Http\Requests\Private\Partner\Restaurant\UpdateFeesRequest;
+use App\Http\Requests\Private\Partner\Restaurant\UpdateInfoRequest;
+use App\Http\Requests\Private\Partner\Restaurant\UpdateStatusRequest;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\PartnerRestaurantService;
 use Illuminate\Http\JsonResponse;
@@ -63,7 +63,7 @@ class RestaurantController extends Controller
      * Update a partner's restaurant status.
      */
     public function updateStatus(
-        UpdateRestaurantStatusRequest $request,
+        UpdateStatusRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('update', $restaurant);
@@ -114,7 +114,7 @@ class RestaurantController extends Controller
      * Update a partner's restaurant fees.
      */
     public function updateFees(
-        UpdateRestaurantFeesRequest $request,
+        UpdateFeesRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('update', $restaurant);
@@ -140,7 +140,7 @@ class RestaurantController extends Controller
      * Update a partner's restaurant delivery times.
      */
     public function updateDeliveryTimes(
-        UpdateRestaurantDeliveryTimesRequest $request,
+        UpdateDeliveryTimesRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('update', $restaurant);
@@ -166,7 +166,7 @@ class RestaurantController extends Controller
      * Update a partner's restaurant info.
      */
     public function updateInfo(
-        UpdateRestaurantInfoRequest $request,
+        UpdateInfoRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('update', $restaurant);

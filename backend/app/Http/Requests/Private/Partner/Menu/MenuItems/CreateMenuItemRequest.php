@@ -7,7 +7,7 @@ namespace App\Http\Requests\Private\Partner\Menu\MenuItems;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRestaurantMenuItemRequest extends FormRequest
+class CreateMenuItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class UpdateRestaurantMenuItemRequest extends FormRequest
      */
     public function rules(): array
     {
-        $menuItem = $this->route('menuItem');
-        $menuItemId = $menuItem->id;
-        $menuCategoryId = $menuItem->menu_category_id;
+        $menuCategoryId = $this->route('menuCategory')->id;
 
         return [
             'name' => [
@@ -34,8 +32,7 @@ class UpdateRestaurantMenuItemRequest extends FormRequest
                 'string',
                 'max:30',
                 Rule::unique('menu_items')
-                    ->where(fn ($q) => $q->where('menu_category_id', $menuCategoryId))
-                    ->whereNot('id', $menuItemId),
+                    ->where(fn ($q) => $q->where('menu_category_id', $menuCategoryId)),
             ],
             'description' => ['nullable', 'string', 'max:200'],
             'price' => ['required', 'numeric', 'max:100'],
@@ -43,7 +40,6 @@ class UpdateRestaurantMenuItemRequest extends FormRequest
                 'nullable',
                 Rule::when(fn ($input) => request()->hasFile('image'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
-            'is_available' => ['required', 'boolean'],
         ];
     }
 }

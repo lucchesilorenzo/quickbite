@@ -6,7 +6,7 @@ namespace App\Http\Requests\Private\Partner\Restaurant;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRestaurantFeesRequest extends FormRequest
+class UpdateFeesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

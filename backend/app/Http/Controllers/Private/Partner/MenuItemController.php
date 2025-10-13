@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Partner\Menu\MenuItems\CreateRestaurantMenuItemRequest;
-use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateRestaurantMenuItemRequest;
-use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateRestaurantMenuItemsOrderRequest;
+use App\Http\Requests\Private\Partner\Menu\MenuItems\CreateMenuItemRequest;
+use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateMenuItemRequest;
+use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateMenuItemsOrderRequest;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Services\Private\Partner\PartnerMenuItemService;
@@ -26,7 +26,7 @@ class MenuItemController extends Controller
      * Create a partner's restaurant menu item.
      */
     public function createMenuItem(
-        CreateRestaurantMenuItemRequest $request,
+        CreateMenuItemRequest $request,
         MenuCategory $menuCategory
     ): JsonResponse {
         Gate::authorize('createPartnerMenuItem', $menuCategory);
@@ -55,7 +55,7 @@ class MenuItemController extends Controller
      * Update a partner's restaurant menu item.
      */
     public function updateMenuItem(
-        UpdateRestaurantMenuItemRequest $request,
+        UpdateMenuItemRequest $request,
         MenuItem $menuItem
     ): JsonResponse {
         Gate::authorize('update', $menuItem);
@@ -84,7 +84,7 @@ class MenuItemController extends Controller
      * Update a partner's restaurant menu items order.
      */
     public function updateMenuItemsOrder(
-        UpdateRestaurantMenuItemsOrderRequest $request
+        UpdateMenuItemsOrderRequest $request
     ): JsonResponse {
         $data = $request->validated();
 

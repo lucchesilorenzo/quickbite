@@ -6,9 +6,9 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Exceptions\Private\Partner\PartnerMenuCategoryOrderExceededException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Partner\Menu\MenuCategory\CreateRestaurantMenuCategoryRequest;
-use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateRestaurantMenuCategoriesOrderRequest;
-use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateRestaurantMenuCategoryRequest;
+use App\Http\Requests\Private\Partner\Menu\MenuCategory\CreateMenuCategoryRequest;
+use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateMenuCategoriesOrderRequest;
+use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateMenuCategoryRequest;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\PartnerMenuCategoryService;
@@ -27,7 +27,7 @@ class MenuCategoryController extends Controller
      * Create a partner's restaurant menu category.
      */
     public function createMenuCategory(
-        CreateRestaurantMenuCategoryRequest $request,
+        CreateMenuCategoryRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('createPartnerMenuCategory', $restaurant);
@@ -57,7 +57,7 @@ class MenuCategoryController extends Controller
      * Update a partner's restaurant menu categories order.
      */
     public function updateMenuCategoriesOrder(
-        UpdateRestaurantMenuCategoriesOrderRequest $request
+        UpdateMenuCategoriesOrderRequest $request
     ): JsonResponse {
         $data = $request->validated();
 
@@ -94,7 +94,7 @@ class MenuCategoryController extends Controller
      * Update a partner's restaurant menu category.
      */
     public function updateMenuCategory(
-        UpdateRestaurantMenuCategoryRequest $request,
+        UpdateMenuCategoryRequest $request,
         MenuCategory $menuCategory
     ): JsonResponse {
         Gate::authorize('update', $menuCategory);

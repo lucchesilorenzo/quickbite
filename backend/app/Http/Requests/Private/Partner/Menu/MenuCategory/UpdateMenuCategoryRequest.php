@@ -7,7 +7,7 @@ namespace App\Http\Requests\Private\Partner\Menu\MenuCategory;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CreateRestaurantMenuCategoryRequest extends FormRequest
+class UpdateMenuCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,18 @@ class CreateRestaurantMenuCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        $restaurantId = $this->route('restaurant')->id;
+        $menuCategory = $this->route('menuCategory');
+        $menuCategoryId = $this->route('menuCategory')->id;
+        $restaurantId = $menuCategory->restaurant_id;
 
         return [
             'name' => [
                 'required',
                 'string',
                 'max:30',
-                Rule::unique('menu_categories')->where(fn ($q) => $q->where('restaurant_id', $restaurantId)),
+                Rule::unique('menu_categories')
+                    ->where(fn ($q) => $q->where('restaurant_id', $restaurantId)
+                        ->whereNot('id', $menuCategoryId)),
             ],
             'description' => ['nullable', 'string', 'max:200'],
         ];

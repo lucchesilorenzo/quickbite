@@ -8,8 +8,8 @@ use App\Enums\Kpi;
 use App\Enums\PaymentMethod;
 use App\Enums\StatRange;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Partner\Stats\GetRestaurantKpiSummaryRequest;
-use App\Http\Requests\Private\Partner\Stats\GetRestaurantStatsRequest;
+use App\Http\Requests\Private\Partner\Stats\GetKpiSummaryRequest;
+use App\Http\Requests\Private\Partner\Stats\GetStatsRequest;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\PartnerStatsService;
 use Illuminate\Http\JsonResponse;
@@ -42,7 +42,7 @@ class StatsController extends Controller
     }
 
     public function getKpiSummary(
-        GetRestaurantKpiSummaryRequest $request,
+        GetKpiSummaryRequest $request,
         Restaurant $restaurant
     ) {
         Gate::authorize('viewPartnerStats', $restaurant);
@@ -68,7 +68,7 @@ class StatsController extends Controller
     }
 
     public function getStats(
-        GetRestaurantStatsRequest $request,
+        GetStatsRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('viewPartnerStats', $restaurant);

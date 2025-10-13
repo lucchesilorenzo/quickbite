@@ -2,11 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Private\Partner\Restaurant;
+namespace App\Http\Requests\Private\Partner\Stats;
 
+use App\Enums\Kpi;
+use App\Enums\PaymentMethod;
+use App\Enums\StatRange;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateRestaurantStatusRequest extends FormRequest
+class GetStatsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +28,10 @@ class UpdateRestaurantStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'force_close' => ['required', 'boolean'],
+            'kpi' => ['required', Rule::enum(Kpi::class)],
+            'range' => ['sometimes', Rule::enum(StatRange::class)],
+            'payment_method' => ['sometimes', Rule::enum(PaymentMethod::class)],
+            'year' => ['sometimes', 'integer', 'digits:4'],
         ];
     }
 }

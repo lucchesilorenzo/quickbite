@@ -8,8 +8,8 @@ use App\Exceptions\Private\Partner\PartnerInvalidCredentialsException;
 use App\Exceptions\Private\Partner\PartnerUnauthorizedException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Partner\Auth\PartnerLoginRequest;
-use App\Http\Requests\Private\Partner\Auth\PartnerRegisterRequest;
+use App\Http\Requests\Private\Partner\Auth\LoginRequest;
+use App\Http\Requests\Private\Partner\Auth\RegisterRequest;
 use App\Services\Private\Partner\PartnerAuthService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -23,7 +23,7 @@ class AuthController extends Controller
     /**
      * Register a new partner.
      */
-    public function register(PartnerRegisterRequest $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
         try {
             $token = $this->partnerAuthService->register(
@@ -54,7 +54,7 @@ class AuthController extends Controller
     /**
      * Login a partner.
      */
-    public function login(PartnerLoginRequest $request): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
         try {
             $token = $this->partnerAuthService->login(
