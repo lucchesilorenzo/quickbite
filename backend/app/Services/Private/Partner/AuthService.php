@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class PartnerAuthService
+class AuthService
 {
     public function __construct(
         private readonly LocationService $locationService,

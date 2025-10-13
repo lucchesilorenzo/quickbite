@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Stats\GetKpiSummaryRequest;
 use App\Http\Requests\Private\Partner\Stats\GetStatsRequest;
 use App\Models\Restaurant;
-use App\Services\Private\Partner\PartnerStatsService;
+use App\Services\Private\Partner\StatsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -19,7 +19,7 @@ use Throwable;
 class StatsController extends Controller
 {
     public function __construct(
-        private readonly PartnerStatsService $partnerStatsService
+        private readonly StatsService $statsService
     ) {}
 
     /**
@@ -31,7 +31,7 @@ class StatsController extends Controller
         Gate::authorize('viewPartnerStats', $restaurant);
 
         try {
-            $stats = $this->partnerStatsService->getDashboardStats($restaurant);
+            $stats = $this->statsService->getDashboardStats($restaurant);
 
             return response()->json($stats, 200);
         } catch (Throwable) {
@@ -52,7 +52,7 @@ class StatsController extends Controller
             $paymentMethod = $request->enum('payment_method', PaymentMethod::class);
             $year = (int) $request->query('year');
 
-            $summary = $this->partnerStatsService->getKpiSummary(
+            $summary = $this->statsService->getKpiSummary(
                 $restaurant,
                 $range,
                 $paymentMethod,
@@ -79,7 +79,7 @@ class StatsController extends Controller
             $paymentMethod = $request->enum('payment_method', PaymentMethod::class);
             $year = (int) $request->query('year', now()->year);
 
-            $stats = $this->partnerStatsService->getStats(
+            $stats = $this->statsService->getStats(
                 $restaurant,
                 $kpi,
                 $range,

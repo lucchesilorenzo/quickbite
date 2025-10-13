@@ -13,7 +13,7 @@ use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
-class PartnerOrderService
+class OrderService
 {
     private const int PER_PAGE = 5;
 

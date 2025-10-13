@@ -10,14 +10,14 @@ use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Auth\LoginRequest;
 use App\Http\Requests\Private\Partner\Auth\RegisterRequest;
-use App\Services\Private\Partner\PartnerAuthService;
+use App\Services\Private\Partner\AuthService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class AuthController extends Controller
 {
     public function __construct(
-        private readonly PartnerAuthService $partnerAuthService,
+        private readonly AuthService $authService,
     ) {}
 
     /**
@@ -26,7 +26,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
-            $token = $this->partnerAuthService->register(
+            $token = $this->authService->register(
                 $request->validated()
             );
 
@@ -57,7 +57,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         try {
-            $token = $this->partnerAuthService->login(
+            $token = $this->authService->login(
                 $request->validated()
             );
 
@@ -82,7 +82,7 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         try {
-            $this->partnerAuthService->logout(
+            $this->authService->logout(
                 auth()->user()
             );
 

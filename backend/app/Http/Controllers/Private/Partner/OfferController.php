@@ -10,7 +10,7 @@ use App\Http\Requests\Private\Partner\Offer\CreateOfferRequest;
 use App\Http\Requests\Private\Partner\Offer\UpdateOfferRequest;
 use App\Models\Offer;
 use App\Models\Restaurant;
-use App\Services\Private\Partner\PartnerOfferService;
+use App\Services\Private\Partner\OfferService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -18,7 +18,7 @@ use Throwable;
 class OfferController extends Controller
 {
     public function __construct(
-        private readonly PartnerOfferService $partnerOfferService
+        private readonly OfferService $offerService
     ) {}
 
     /**
@@ -29,7 +29,7 @@ class OfferController extends Controller
         Gate::authorize('viewPartnerRestaurant', $restaurant);
 
         try {
-            $offers = $this->partnerOfferService->getOffers($restaurant);
+            $offers = $this->offerService->getOffers($restaurant);
 
             return response()->json($offers, 200);
         } catch (Throwable) {
@@ -49,7 +49,7 @@ class OfferController extends Controller
         Gate::authorize('createPartnerOffer', $restaurant);
 
         try {
-            $offer = $this->partnerOfferService->createOffer(
+            $offer = $this->offerService->createOffer(
                 $request->validated(),
                 $restaurant,
             );
@@ -80,7 +80,7 @@ class OfferController extends Controller
         Gate::authorize('update', $offer);
 
         try {
-            $offer = $this->partnerOfferService->updateOffer(
+            $offer = $this->offerService->updateOffer(
                 $request->validated(),
                 $restaurant,
                 $offer
@@ -109,7 +109,7 @@ class OfferController extends Controller
         Gate::authorize('delete', $offer);
 
         try {
-            $this->partnerOfferService->deleteOffer($offer);
+            $this->offerService->deleteOffer($offer);
 
             return response()->json([
                 'message' => 'Offer deleted successfully.',

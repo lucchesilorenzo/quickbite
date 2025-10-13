@@ -9,7 +9,7 @@ use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\DB;
 
-class PartnerMenuCategoryService
+class MenuCategoryService
 {
     public function createMenuCategory(array $data, Restaurant $restaurant): MenuCategory
     {

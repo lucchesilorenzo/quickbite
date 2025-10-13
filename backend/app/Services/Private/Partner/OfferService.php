@@ -9,7 +9,7 @@ use App\Models\Offer;
 use App\Models\Restaurant;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class PartnerOfferService
+class OfferService
 {
     private const int PER_PAGE = 6;
 

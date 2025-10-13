@@ -8,21 +8,21 @@ use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Profile\UpdateProfileGeneralInformationRequest;
 use App\Http\Requests\Private\Partner\Profile\UpdateProfileNotificationsRequest;
-use App\Services\Private\Partner\PartnerProfileService;
+use App\Services\Private\Partner\ProfileService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class ProfileController extends Controller
 {
     public function __construct(
-        private readonly PartnerProfileService $partnerProfileService
+        private readonly ProfileService $profileService
     ) {}
 
     public function updateProfileGeneralInformation(
         UpdateProfileGeneralInformationRequest $request
     ): JsonResponse {
         try {
-            $user = $this->partnerProfileService->updateProfileGeneralInformation(
+            $user = $this->profileService->updateProfileGeneralInformation(
                 $request->validated(),
                 auth()->user()
             );
@@ -46,7 +46,7 @@ class ProfileController extends Controller
         UpdateProfileNotificationsRequest $request
     ): JsonResponse {
         try {
-            $user = $this->partnerProfileService->updateProfileNotifications(
+            $user = $this->profileService->updateProfileNotifications(
                 $request->validated(),
                 auth()->user()
             );

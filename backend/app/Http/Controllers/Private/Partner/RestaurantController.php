@@ -12,7 +12,7 @@ use App\Http\Requests\Private\Partner\Restaurant\UpdateFeesRequest;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateInfoRequest;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateStatusRequest;
 use App\Models\Restaurant;
-use App\Services\Private\Partner\PartnerRestaurantService;
+use App\Services\Private\Partner\RestaurantService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -20,7 +20,7 @@ use Throwable;
 class RestaurantController extends Controller
 {
     public function __construct(
-        private readonly PartnerRestaurantService $partnerRestaurantService,
+        private readonly RestaurantService $restaurantService,
     ) {}
 
     /**
@@ -29,7 +29,7 @@ class RestaurantController extends Controller
     public function getRestaurants(): JsonResponse
     {
         try {
-            $restaurants = $this->partnerRestaurantService->getRestaurants(
+            $restaurants = $this->restaurantService->getRestaurants(
                 auth()->user()
             );
 
@@ -49,7 +49,7 @@ class RestaurantController extends Controller
         Gate::authorize('viewPartnerRestaurant', $restaurant);
 
         try {
-            $restaurant = $this->partnerRestaurantService->getRestaurant($restaurant);
+            $restaurant = $this->restaurantService->getRestaurant($restaurant);
 
             return response()->json($restaurant, 200);
         } catch (Throwable) {
@@ -69,7 +69,7 @@ class RestaurantController extends Controller
         Gate::authorize('update', $restaurant);
 
         try {
-            $restaurant = $this->partnerRestaurantService->updateStatus(
+            $restaurant = $this->restaurantService->updateStatus(
                 $request->validated(),
                 $restaurant
             );
@@ -93,7 +93,7 @@ class RestaurantController extends Controller
         Gate::authorize('update', $restaurant);
 
         try {
-            $restaurant = $this->partnerRestaurantService->updateApprovedStatus(
+            $restaurant = $this->restaurantService->updateApprovedStatus(
                 $restaurant
             );
 
@@ -120,7 +120,7 @@ class RestaurantController extends Controller
         Gate::authorize('update', $restaurant);
 
         try {
-            $restaurant = $this->partnerRestaurantService->updateFees(
+            $restaurant = $this->restaurantService->updateFees(
                 $request->validated(),
                 $restaurant
             );
@@ -146,7 +146,7 @@ class RestaurantController extends Controller
         Gate::authorize('update', $restaurant);
 
         try {
-            $restaurant = $this->partnerRestaurantService->updateDeliveryTimes(
+            $restaurant = $this->restaurantService->updateDeliveryTimes(
                 $request->validated(),
                 $restaurant
             );
@@ -175,7 +175,7 @@ class RestaurantController extends Controller
             $logo = $request->hasFile('logo') ? $request->file('logo') : null;
             $cover = $request->hasFile('cover') ? $request->file('cover') : null;
 
-            $restaurant = $this->partnerRestaurantService->updateInfo(
+            $restaurant = $this->restaurantService->updateInfo(
                 $request->validated(),
                 $restaurant,
                 $logo,

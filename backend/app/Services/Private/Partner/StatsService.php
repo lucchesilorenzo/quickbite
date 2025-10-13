@@ -13,7 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class PartnerStatsService
+class StatsService
 {
     public function getDashboardStats(Restaurant $restaurant): array
     {

@@ -11,7 +11,7 @@ use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateMenuCategoriesOrde
 use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateMenuCategoryRequest;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
-use App\Services\Private\Partner\PartnerMenuCategoryService;
+use App\Services\Private\Partner\MenuCategoryService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -20,7 +20,7 @@ use Throwable;
 class MenuCategoryController extends Controller
 {
     public function __construct(
-        private readonly PartnerMenuCategoryService $partnerMenuCategoryService
+        private readonly MenuCategoryService $menuCategoryService
     ) {}
 
     /**
@@ -33,7 +33,7 @@ class MenuCategoryController extends Controller
         Gate::authorize('createPartnerMenuCategory', $restaurant);
 
         try {
-            $menuCategory = $this->partnerMenuCategoryService->createMenuCategory(
+            $menuCategory = $this->menuCategoryService->createMenuCategory(
                 $request->validated(),
                 $restaurant
             );
@@ -73,7 +73,7 @@ class MenuCategoryController extends Controller
                 $menuCategories[] = $menuCategory;
             }
 
-            $updatedMenuCategories = $this->partnerMenuCategoryService->updateMenuCategoriesOrder($menuCategories);
+            $updatedMenuCategories = $this->menuCategoryService->updateMenuCategoriesOrder($menuCategories);
 
             return response()->json([
                 'menu_categories' => $updatedMenuCategories,
@@ -100,7 +100,7 @@ class MenuCategoryController extends Controller
         Gate::authorize('update', $menuCategory);
 
         try {
-            $menuCategory = $this->partnerMenuCategoryService->updateMenuCategory(
+            $menuCategory = $this->menuCategoryService->updateMenuCategory(
                 $request->validated(),
                 $menuCategory
             );
@@ -124,7 +124,7 @@ class MenuCategoryController extends Controller
         Gate::authorize('delete', $menuCategory);
 
         try {
-            $this->partnerMenuCategoryService->deleteMenuCategory($menuCategory);
+            $this->menuCategoryService->deleteMenuCategory($menuCategory);
 
             return response()->json([
                 'message' => 'Menu category deleted successfully.',

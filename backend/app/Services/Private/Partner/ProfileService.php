@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Services\Shared\LocationService;
 use Illuminate\Support\Facades\DB;
 
-class PartnerProfileService
+class ProfileService
 {
     public function __construct(
         private readonly LocationService $locationService

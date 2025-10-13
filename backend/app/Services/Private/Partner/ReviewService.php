@@ -6,7 +6,7 @@ namespace App\Services\Private\Partner;
 
 use App\Models\Restaurant;
 
-class PartnerReviewService
+class ReviewService
 {
     private const int PER_PAGE = 5;
 

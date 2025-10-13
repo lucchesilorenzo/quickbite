@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
-use App\Services\Private\Partner\PartnerMenuService;
+use App\Services\Private\Partner\MenuService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -14,7 +14,7 @@ use Throwable;
 class MenuController extends Controller
 {
     public function __construct(
-        private readonly PartnerMenuService $partnerMenuService
+        private readonly MenuService $menuService
     ) {}
 
     /**
@@ -25,7 +25,7 @@ class MenuController extends Controller
         Gate::authorize('viewPartnerMenu', $restaurant);
 
         try {
-            $menu = $this->partnerMenuService->getMenu($restaurant);
+            $menu = $this->menuService->getMenu($restaurant);
 
             return response()->json($menu, 200);
         } catch (Throwable) {

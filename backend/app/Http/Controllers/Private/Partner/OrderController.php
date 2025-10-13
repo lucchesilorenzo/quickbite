@@ -10,7 +10,7 @@ use App\Http\Requests\Private\Partner\Order\GetOrdersRequest;
 use App\Http\Requests\Private\Partner\Order\UpdateOrderStatus;
 use App\Models\Order;
 use App\Models\Restaurant;
-use App\Services\Private\Partner\PartnerOrderService;
+use App\Services\Private\Partner\OrderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -18,7 +18,7 @@ use Throwable;
 class OrderController extends Controller
 {
     public function __construct(
-        private readonly PartnerOrderService $partnerOrderService
+        private readonly OrderService $orderService
     ) {}
 
     /**
@@ -31,7 +31,7 @@ class OrderController extends Controller
         Gate::authorize('viewPartnerOrders', $restaurant);
 
         try {
-            $orders = $this->partnerOrderService->getOrders(
+            $orders = $this->orderService->getOrders(
                 $request->validated(),
                 $restaurant
             );
@@ -54,7 +54,7 @@ class OrderController extends Controller
         Gate::authorize('updatePartnerOrder', $order);
 
         try {
-            $order = $this->partnerOrderService->updateOrderStatus(
+            $order = $this->orderService->updateOrderStatus(
                 $request->validated(),
                 $order
             );

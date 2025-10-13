@@ -10,7 +10,7 @@ use App\Services\Shared\ImageService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
-class PartnerMenuItemService
+class MenuItemService
 {
     public function __construct(
         private readonly ImageService $imageService

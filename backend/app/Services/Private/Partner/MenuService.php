@@ -8,7 +8,7 @@ use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use Illuminate\Support\Collection;
 
-class PartnerMenuService
+class MenuService
 {
     private const int PER_PAGE = 6;
 

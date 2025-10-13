@@ -7,7 +7,7 @@ namespace App\Services\Private\Partner;
 use App\Models\Restaurant;
 use App\Models\User;
 
-class PartnerNotificationService
+class NotificationService
 {
     private const int PER_PAGE = 5;
 

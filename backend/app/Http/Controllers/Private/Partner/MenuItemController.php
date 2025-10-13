@@ -10,7 +10,7 @@ use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateMenuItemRequest;
 use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateMenuItemsOrderRequest;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
-use App\Services\Private\Partner\PartnerMenuItemService;
+use App\Services\Private\Partner\MenuItemService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -19,7 +19,7 @@ use Throwable;
 class MenuItemController extends Controller
 {
     public function __construct(
-        private readonly PartnerMenuItemService $partnerMenuItemService
+        private readonly MenuItemService $menuItemService
     ) {}
 
     /**
@@ -34,7 +34,7 @@ class MenuItemController extends Controller
         try {
             $image = $request->hasFile('image') ? $request->file('image') : null;
 
-            $menuItem = $this->partnerMenuItemService->createMenuItem(
+            $menuItem = $this->menuItemService->createMenuItem(
                 $request->validated(),
                 $menuCategory,
                 $image
@@ -63,7 +63,7 @@ class MenuItemController extends Controller
         try {
             $image = $request->hasFile('image') ? $request->file('image') : null;
 
-            $menuItem = $this->partnerMenuItemService->updateMenuItem(
+            $menuItem = $this->menuItemService->updateMenuItem(
                 $request->validated(),
                 $menuItem,
                 $image,
@@ -100,7 +100,7 @@ class MenuItemController extends Controller
                 $menuItems[] = $menuItem;
             }
 
-            $updatedMenuItems = $this->partnerMenuItemService->updateMenuItemsOrder($menuItems);
+            $updatedMenuItems = $this->menuItemService->updateMenuItemsOrder($menuItems);
 
             return response()->json([
                 'menu_items' => $updatedMenuItems,
@@ -125,7 +125,7 @@ class MenuItemController extends Controller
         Gate::authorize('delete', $menuItem);
 
         try {
-            $this->partnerMenuItemService->deleteMenuItem($menuItem);
+            $this->menuItemService->deleteMenuItem($menuItem);
 
             return response()->json([
                 'message' => 'Menu item deleted successfully.',

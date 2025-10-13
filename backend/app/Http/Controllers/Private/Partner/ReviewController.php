@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
-use App\Services\Private\Partner\PartnerReviewService;
+use App\Services\Private\Partner\ReviewService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -14,7 +14,7 @@ use Throwable;
 class ReviewController extends Controller
 {
     public function __construct(
-        private readonly PartnerReviewService $partnerReviewService
+        private readonly ReviewService $reviewService
     ) {}
 
     /**
@@ -25,7 +25,7 @@ class ReviewController extends Controller
         Gate::authorize('viewPartnerReviews', $restaurant);
 
         try {
-            $reviews = $this->partnerReviewService->getReviews($restaurant);
+            $reviews = $this->reviewService->getReviews($restaurant);
 
             return response()->json($reviews, 200);
         } catch (Throwable) {
