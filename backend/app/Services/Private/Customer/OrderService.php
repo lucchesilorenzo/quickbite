@@ -14,7 +14,7 @@ use App\Services\Shared\LocationService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
-class CustomerOrderService
+class OrderService
 {
     private const int PER_PAGE = 5;
 

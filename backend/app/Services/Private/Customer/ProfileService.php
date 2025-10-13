@@ -8,7 +8,7 @@ use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\User;
 use App\Services\Shared\LocationService;
 
-class CustomerProfileService
+class ProfileService
 {
     public function __construct(
         private readonly LocationService $locationService

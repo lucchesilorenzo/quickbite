@@ -10,7 +10,7 @@ use App\Exceptions\Private\Customer\CustomerUnauthorizedException;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class CustomerAuthService
+class AuthService
 {
     public function register(array $data): string
     {

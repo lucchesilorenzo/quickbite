@@ -9,14 +9,14 @@ use App\Exceptions\Private\Customer\CustomerUnauthorizedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Auth\CustomerLoginRequest;
 use App\Http\Requests\Private\Customer\Auth\CustomerRegisterRequest;
-use App\Services\Private\Customer\CustomerAuthService;
+use App\Services\Private\Customer\AuthService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class AuthController extends Controller
 {
     public function __construct(
-        private readonly CustomerAuthService $customerAuthService
+        private readonly AuthService $authService
     ) {}
 
     /**
@@ -25,7 +25,7 @@ class AuthController extends Controller
     public function register(CustomerRegisterRequest $request): JsonResponse
     {
         try {
-            $token = $this->customerAuthService->register(
+            $token = $this->authService->register(
                 $request->validated()
             );
 
@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function login(CustomerLoginRequest $request): JsonResponse
     {
         try {
-            $token = $this->customerAuthService->login(
+            $token = $this->authService->login(
                 $request->validated()
             );
 
@@ -77,7 +77,7 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         try {
-            $this->customerAuthService->logout(
+            $this->authService->logout(
                 auth()->user()
             );
 

@@ -9,7 +9,7 @@ use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Order\CustomerCreateOrderRequest;
 use App\Models\Order;
-use App\Services\Private\Customer\CustomerOrderService;
+use App\Services\Private\Customer\OrderService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -18,7 +18,7 @@ use Throwable;
 class OrderController extends Controller
 {
     public function __construct(
-        private readonly CustomerOrderService $customerOrderService
+        private readonly OrderService $orderService
     ) {}
 
     /**
@@ -27,7 +27,7 @@ class OrderController extends Controller
     public function getOrders(): JsonResponse
     {
         try {
-            $orders = $this->customerOrderService->getOrders(
+            $orders = $this->orderService->getOrders(
                 auth()->user()
             );
 
@@ -47,7 +47,7 @@ class OrderController extends Controller
         Gate::authorize('view', $order);
 
         try {
-            $order = $this->customerOrderService->getOrder($order);
+            $order = $this->orderService->getOrder($order);
 
             return response()->json($order, 200);
         } catch (Throwable) {
@@ -63,7 +63,7 @@ class OrderController extends Controller
     public function createOrder(CustomerCreateOrderRequest $request): JsonResponse
     {
         try {
-            $order = $this->customerOrderService->createOrder(
+            $order = $this->orderService->createOrder(
                 auth()->user(),
                 $request->validated()
             );

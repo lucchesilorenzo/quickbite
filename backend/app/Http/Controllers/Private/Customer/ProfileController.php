@@ -8,14 +8,14 @@ use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Profile\CustomerUpdateAddressInfoRequest;
 use App\Http\Requests\Private\Customer\Profile\CustomerUpdatePersonalInfoRequest;
-use App\Services\Private\Customer\CustomerProfileService;
+use App\Services\Private\Customer\ProfileService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 class ProfileController extends Controller
 {
     public function __construct(
-        private readonly CustomerProfileService $customerProfileService
+        private readonly ProfileService $profileService
     ) {}
 
     /**
@@ -25,7 +25,7 @@ class ProfileController extends Controller
         CustomerUpdatePersonalInfoRequest $request
     ): JsonResponse {
         try {
-            $customer = $this->customerProfileService->updatePersonalInfo(
+            $customer = $this->profileService->updatePersonalInfo(
                 auth()->user(),
                 $request->validated()
             );
@@ -48,7 +48,7 @@ class ProfileController extends Controller
         CustomerUpdateAddressInfoRequest $request
     ): JsonResponse {
         try {
-            $customer = $this->customerProfileService->updateAddressInfo(
+            $customer = $this->profileService->updateAddressInfo(
                 auth()->user(),
                 $request->validated()
             );

@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Private\Customer;
 use App\Exceptions\Private\Customer\CustomerAlreadyReviewedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Review\CreateReviewRequest;
-use App\Services\Private\Customer\CustomerReviewService;
+use App\Services\Private\Customer\ReviewService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -15,7 +15,7 @@ use Throwable;
 class ReviewController extends Controller
 {
     public function __construct(
-        private readonly CustomerReviewService $customerReviewService
+        private readonly ReviewService $reviewService
     ) {}
 
     /**
@@ -26,7 +26,7 @@ class ReviewController extends Controller
         string $restaurantSlug
     ): JsonResponse {
         try {
-            $review = $this->customerReviewService->createReview(
+            $review = $this->reviewService->createReview(
                 auth()->user(),
                 $request->validated(),
                 $restaurantSlug,

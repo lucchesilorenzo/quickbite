@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class CustomerCartService
+class CartService
 {
     public function getCarts(User $customer): Collection
     {

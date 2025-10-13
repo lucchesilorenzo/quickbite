@@ -10,7 +10,7 @@ use App\Models\Review;
 use App\Models\User;
 use App\Notifications\NewReviewReceived;
 
-class CustomerReviewService
+class ReviewService
 {
     public function createReview(
         User $customer,

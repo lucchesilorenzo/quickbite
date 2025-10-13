@@ -9,7 +9,7 @@ use App\Http\Requests\Private\Customer\Cart\CustomerCreateOrUpdateCartRequest;
 use App\Http\Requests\Private\Customer\Cart\CustomerCreateOrUpdateCartsRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
-use App\Services\Private\Customer\CustomerCartService;
+use App\Services\Private\Customer\CartService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -17,7 +17,7 @@ use Throwable;
 class CartController extends Controller
 {
     public function __construct(
-        private readonly CustomerCartService $customerCartService
+        private readonly CartService $cartService
     ) {}
 
     /**
@@ -26,7 +26,7 @@ class CartController extends Controller
     public function getCarts(): JsonResponse
     {
         try {
-            $carts = $this->customerCartService->getCarts(
+            $carts = $this->cartService->getCarts(
                 auth()->user()
             );
 
@@ -48,7 +48,7 @@ class CartController extends Controller
         Gate::authorize('view', $cart);
 
         try {
-            $cart = $this->customerCartService->getCart($cart);
+            $cart = $this->cartService->getCart($cart);
 
             return new CartResource($cart)
                 ->response()
@@ -81,7 +81,7 @@ class CartController extends Controller
                 }
             }
 
-            $carts = $this->customerCartService->createOrUpdateCarts($user, $data);
+            $carts = $this->cartService->createOrUpdateCarts($user, $data);
 
             return CartResource::collection($carts)
                 ->additional([
@@ -115,7 +115,7 @@ class CartController extends Controller
                 Gate::authorize('update', $existingCart);
             }
 
-            $cart = $this->customerCartService->createOrUpdateCart($user, $data);
+            $cart = $this->cartService->createOrUpdateCart($user, $data);
 
             if (! $cart instanceof Cart) {
                 return response()->json([
@@ -146,7 +146,7 @@ class CartController extends Controller
         Gate::authorize('delete', $cart);
 
         try {
-            $this->customerCartService->deleteCart($cart);
+            $this->cartService->deleteCart($cart);
 
             return response()->json([
                 'message' => 'Cart deleted successfully.',
