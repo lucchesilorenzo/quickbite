@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Public;
 
 use App\Exceptions\Public\RestaurantLogoNotFoundException;
+use App\Models\Category;
 use App\Models\Restaurant;
 use Carbon\Carbon;
 use DB;
@@ -188,16 +189,26 @@ class RestaurantService
         }
 
         // Take first valid rating filter
-        $selectedInterval = array_values(array_intersect(array_keys(self::RATING_INTERVALS), $filters))[0] ?? null;
+        $selectedRatingInterval = array_values(array_intersect(array_keys(self::RATING_INTERVALS), $filters))[0] ?? null;
 
-        if ($selectedInterval !== null) {
+        if ($selectedRatingInterval !== null) {
             // Take rating interval
-            $range = self::RATING_INTERVALS[$selectedInterval];
+            $range = self::RATING_INTERVALS[$selectedRatingInterval];
 
             $query->whereHas('reviews', function ($q) use ($range): void {
                 $q->select(DB::raw(1))
                     ->groupBy('restaurant_id')
                     ->havingRaw('AVG(rating) BETWEEN ? AND ?', $range);
+            });
+        }
+
+        // Categories filter
+        $categories = Category::pluck('slug')->toArray();
+        $selectedCategories = array_values(array_intersect($categories, $filters));
+
+        if (count($selectedCategories) > 0) {
+            $query->whereHas('categories', function ($q) use ($selectedCategories): void {
+                $q->whereIn('slug', $selectedCategories);
             });
         }
 

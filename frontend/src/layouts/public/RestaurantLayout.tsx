@@ -1,31 +1,31 @@
 import { Stack } from "@mui/material";
+import RestaurantFooter from "@public/restaurant/RestaurantFooter";
+import RestaurantHeader from "@public/restaurant/RestaurantHeader";
+import RestaurantNavigateToTopFloatingButton from "@public/restaurant/RestaurantNavigateToTopFloatingButton";
 import { Outlet } from "react-router-dom";
 
-import RestaurantFooter from "@/components/restaurants/RestaurantFooter";
-import RestaurantHeader from "@/components/restaurants/RestaurantHeader";
-import RestaurantNavigateToTopFloatingButton from "@/components/restaurants/RestaurantNavigateToTopFloatingButton";
-import RestaurantMenuProvider from "@/contexts/public/RestaurantMenuProvider";
-import RestaurantOffersProvider from "@/contexts/public/RestaurantOffersProvider";
-import RestaurantReviewsProvider from "@/contexts/public/RestaurantReviewsProvider";
-import SingleRestaurantProvider from "@/contexts/public/SingleRestaurantProvider";
+import MenuProvider from "@/contexts/MenuProvider";
+import OffersProvider from "@/contexts/OffersProvider";
+import RestaurantProvider from "@/contexts/RestaurantProvider";
+import ReviewsProvider from "@/contexts/ReviewsProvider";
 
 export default function RestaurantLayout() {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
-      <SingleRestaurantProvider>
-        <RestaurantReviewsProvider>
-          <RestaurantOffersProvider>
-            <RestaurantMenuProvider>
+      <RestaurantProvider>
+        <ReviewsProvider>
+          <OffersProvider>
+            <MenuProvider>
               <RestaurantHeader />
 
               <Outlet />
 
               <RestaurantFooter />
               <RestaurantNavigateToTopFloatingButton />
-            </RestaurantMenuProvider>
-          </RestaurantOffersProvider>
-        </RestaurantReviewsProvider>
-      </SingleRestaurantProvider>
+            </MenuProvider>
+          </OffersProvider>
+        </ReviewsProvider>
+      </RestaurantProvider>
     </Stack>
   );
 }

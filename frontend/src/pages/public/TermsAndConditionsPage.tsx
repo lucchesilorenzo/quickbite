@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-
-import Breadcrumb from "@/components/terms-and-conditions/Breadcrumb";
-import SaveToPDFButton from "@/components/terms-and-conditions/SaveToPDFButton";
-import Terms from "@/components/terms-and-conditions/Terms";
-import TitleAndImportantLegalNotice from "@/components/terms-and-conditions/TitleAndImportantLegalNotice";
+import Breadcrumb from "@public/terms-and-conditions/Breadcrumb";
+import SaveToPDFButton from "@public/terms-and-conditions/SaveToPDFButton";
+import Terms from "@public/terms-and-conditions/Terms";
+import TitleAndImportantLegalNotice from "@public/terms-and-conditions/TitleAndImportantLegalNotice";
 
 export default function TermsAndConditionsPage() {
   useEffect(() => {

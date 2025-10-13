@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 
 import { Container } from "@mui/material";
+import AreaLayoutDesktop from "@public/area/layouts/AreaLayoutDesktop";
+import AreaLayoutMobile from "@public/area/layouts/AreaLayoutMobile";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
-import AreaLayoutDesktop from "@/components/area/layouts/AreaLayoutDesktop";
-import AreaLayoutMobile from "@/components/area/layouts/AreaLayoutMobile";
-import { useAddress } from "@/hooks/contexts/public/useAddress";
-import { useRestaurant } from "@/hooks/contexts/public/useRestaurant";
+import { useAddress } from "@/contexts/AddressProvider";
+import { useRestaurants } from "@/contexts/RestaurantsProvider";
 import env from "@/lib/env";
-import { Address } from "@/types";
+import { Address } from "@/types/address-types";
 
 export default function AreaPage() {
   const [searchParams] = useSearchParams();
@@ -20,7 +20,7 @@ export default function AreaPage() {
     isRestaurantsLoading,
     restaurantsError,
     isMapViewMobile,
-  } = useRestaurant();
+  } = useRestaurants();
   const { currentAddress, setCurrentAddress } = useAddress();
 
   const hasNoResults = !totalRestaurants || restaurantsError || addressError;

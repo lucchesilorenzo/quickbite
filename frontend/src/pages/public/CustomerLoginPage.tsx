@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
+import LoginFormCardDesktop from "@customer/login/LoginFormCardDesktop";
+import LoginFormCardMobile from "@customer/login/mobile/LoginFormCardMobile";
 import { Container } from "@mui/material";
-
-import CustomerLoginFormCard from "@/components/customer/login/CustomerLoginFormCard";
 
 export default function CustomerLoginPage() {
   useEffect(() => {
@@ -11,7 +11,8 @@ export default function CustomerLoginPage() {
 
   return (
     <Container component="main" maxWidth="sm" disableGutters>
-      <CustomerLoginFormCard />
+      <LoginFormCardDesktop />
+      <LoginFormCardMobile />
     </Container>
   );
 }

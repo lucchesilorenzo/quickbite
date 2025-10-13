@@ -2,15 +2,15 @@ import { Container, Grid, Stack, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Outlet } from "react-router-dom";
 
-import PartnerProfileSidebar from "@/components/partner/profile/PartnerProfileSidebar";
-import PartnerHeader from "@/components/partner/restaurants/PartnerHeader";
+import ProfileSidebar from "@/features/private/partner/profile/ProfileSidebar";
+import RestaurantsHeader from "@/features/private/partner/restaurants/RestaurantsHeader";
 
 export default function PartnerProfileLayout() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Stack sx={{ minHeight: "100vh", bgcolor: grey[100] }}>
-      <PartnerHeader />
+      <RestaurantsHeader />
 
       <Container component="main" maxWidth="md" sx={{ my: 3 }}>
         {!isMobile ? (
@@ -19,7 +19,7 @@ export default function PartnerProfileLayout() {
               size={4}
               sx={{ borderRight: 1, borderColor: "divider", pr: 4 }}
             >
-              <PartnerProfileSidebar />
+              <ProfileSidebar />
             </Grid>
 
             <Grid size={8} sx={{ pl: 4 }}>

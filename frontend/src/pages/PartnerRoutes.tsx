@@ -1,28 +1,28 @@
 import { Navigate, Route } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
-import ParterRestaurantDashboardPage from "./private/partner/dashboard/PartnerRestaurantDashboardPage";
-import PartnerRestaurantMenuCategoriesPage from "./private/partner/menu/PartnerRestaurantMenuCategoriesPage";
-import PartnerRestaurantMenuEditPage from "./private/partner/menu/PartnerRestaurantMenuEditPage";
-import PartnerRestaurantMenuPage from "./private/partner/menu/PartnerRestaurantMenuPage";
-import PartnerRestaurantNotificationsPage from "./private/partner/notifications/PartnerRestaurantNotificationsPage";
-import PartnerRestaurantOffersPage from "./private/partner/offers/PartnerRestaurantOffersPage";
-import PartnerRestaurantOrdersPage from "./private/partner/orders/PartnerRestaurantOrdersPage";
+import PartnerDashboardPage from "./private/partner/dashboard/PartnerDashboardPage";
+import PartnerMenuCategoriesPage from "./private/partner/menu/PartnerMenuCategoriesPage";
+import PartnerMenuEditPage from "./private/partner/menu/PartnerMenuEditPage";
+import PartnerMenuPage from "./private/partner/menu/PartnerMenuPage";
+import PartnerNotificationsPage from "./private/partner/notifications/PartnerNotificationsPage";
+import PartnerOffersPage from "./private/partner/offers/PartnerOffersPage";
+import PartnerOrdersPage from "./private/partner/orders/PartnerOrdersPage";
 import PartnerProfileGeneralPage from "./private/partner/profile/PartnerProfileGeneralPage";
 import PartnerProfileNotificationsPage from "./private/partner/profile/PartnerProfileNotificationsPage";
-import PartnerRestaurantReviewsPage from "./private/partner/reviews/PartnerRestaurantReviewsPage";
-import PartnerRestaurantSettingsDeliveryTimesEditPage from "./private/partner/settings/PartnerRestaurantSettingsDeliveryTimesEditPage";
-import PartnerRestaurantSettingsFeesPage from "./private/partner/settings/PartnerRestaurantSettingsFeesPage";
-import PartnerRestaurantSettingsInfoPage from "./private/partner/settings/PartnerRestaurantSettingsInfoPage";
-import PartnerRestaurantSettingsPage from "./private/partner/settings/PartnerRestaurantSettingsPage";
-import PartnerRestaurantStatsPage from "./private/partner/stats/PartnerRestaurantStatsPage";
+import PartnerReviewsPage from "./private/partner/reviews/PartnerReviewsPage";
+import PartnerSettingsDeliveryTimesEditPage from "./private/partner/settings/PartnerSettingsDeliveryTimesEditPage";
+import PartnerSettingsDeliveryTimesPage from "./private/partner/settings/PartnerSettingsDeliveryTimesPage";
+import PartnerSettingsFeesPage from "./private/partner/settings/PartnerSettingsFeesPage";
+import PartnerSettingsInfoPage from "./private/partner/settings/PartnerSettingsInfoPage";
+import PartnerSettingsPage from "./private/partner/settings/PartnerSettingsPage";
+import PartnerStatsPage from "./private/partner/stats/PartnerStatsPage";
 
 import PartnerLayout from "@/layouts/private/partner/PartnerLayout";
 import PartnerProfileLayout from "@/layouts/private/partner/PartnerProfileLayout";
 import PartnerRestaurantLayout from "@/layouts/private/partner/PartnerRestaurantLayout";
 import PartnerRestaurantsPage from "@/pages/private/partner/PartnerRestaurantsPage";
-import PartnerRestaurantSettingsDeliveryTimesPage from "@/pages/private/partner/settings/PartnerRestaurantSettingsDeliveryTimesPage";
-import { Role } from "@/types";
+import { Role } from "@/types/user-types";
 
 export const PartnerRoutes = [
   <Route
@@ -50,42 +50,33 @@ export const PartnerRoutes = [
       element={<PartnerRestaurantLayout />}
     >
       <Route index element={<Navigate to="dashboard" replace />} />
-      <Route path="dashboard" element={<ParterRestaurantDashboardPage />} />
+      <Route path="dashboard" element={<PartnerDashboardPage />} />
 
       <Route path="settings">
-        <Route index element={<PartnerRestaurantSettingsPage />} />
-        <Route path="fees" element={<PartnerRestaurantSettingsFeesPage />} />
+        <Route index element={<PartnerSettingsPage />} />
+        <Route path="fees" element={<PartnerSettingsFeesPage />} />
         <Route path="delivery-times">
-          <Route
-            index
-            element={<PartnerRestaurantSettingsDeliveryTimesPage />}
-          />
+          <Route index element={<PartnerSettingsDeliveryTimesPage />} />
           <Route
             path="edit"
-            element={<PartnerRestaurantSettingsDeliveryTimesEditPage />}
+            element={<PartnerSettingsDeliveryTimesEditPage />}
           />
         </Route>
-        <Route path="info" element={<PartnerRestaurantSettingsInfoPage />} />
+        <Route path="info" element={<PartnerSettingsInfoPage />} />
       </Route>
 
       <Route path="menu">
-        <Route index element={<PartnerRestaurantMenuPage />} />
-        <Route path="edit" element={<PartnerRestaurantMenuEditPage />} />
-        <Route
-          path="categories"
-          element={<PartnerRestaurantMenuCategoriesPage />}
-        />
+        <Route index element={<PartnerMenuPage />} />
+        <Route path="edit" element={<PartnerMenuEditPage />} />
+        <Route path="categories" element={<PartnerMenuCategoriesPage />} />
       </Route>
 
-      <Route path="orders" element={<PartnerRestaurantOrdersPage />} />
-      <Route path="offers" element={<PartnerRestaurantOffersPage />} />
-      <Route path="reviews" element={<PartnerRestaurantReviewsPage />} />
-      <Route path="stats" element={<PartnerRestaurantStatsPage />} />
+      <Route path="orders" element={<PartnerOrdersPage />} />
+      <Route path="offers" element={<PartnerOffersPage />} />
+      <Route path="reviews" element={<PartnerReviewsPage />} />
+      <Route path="stats" element={<PartnerStatsPage />} />
 
-      <Route
-        path="notifications"
-        element={<PartnerRestaurantNotificationsPage />}
-      />
+      <Route path="notifications" element={<PartnerNotificationsPage />} />
     </Route>
   </Route>,
 ];

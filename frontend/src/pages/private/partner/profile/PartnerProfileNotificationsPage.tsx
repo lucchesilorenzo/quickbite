@@ -4,15 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 
-import PartnerProfileNotificationsCard from "@/components/partner/profile/notifications/PartnerProfileNotificationsCard";
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdatePartnerProfileNotifications } from "@/hooks/react-query/private/partners/profile/useUpdatePartnerProfileNotifications";
-import { NotificationType } from "@/types";
+import { useAuth } from "@/contexts/AuthProvider";
+import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
+import { useUpdateProfileNotifications } from "@/features/private/partner/hooks/profile/useUpdateProfileNotifications";
+import NotificationsCard from "@/features/private/partner/profile/notifications/NotificationsCard";
 import {
-  TPartnerProfileNotificationsFormSchema,
-  partnerProfileNotificationsFormSchema,
-} from "@/validations/partner-profile-notifications-validations";
+  TProfileNotificationsFormSchema,
+  profileNotificationsFormSchema,
+} from "@/features/private/partner/validations/profile-notifications-validations";
+import { NotificationType } from "@/types/user-types";
 
 export default function PartnerProfileNotificationsPage() {
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function PartnerProfileNotificationsPage() {
   const { user } = useAuth();
 
   const { mutateAsync: updatePartnerProfileNotifications } =
-    useUpdatePartnerProfileNotifications();
+    useUpdateProfileNotifications();
 
   const defaultValues = user?.notification_preferences.reduce(
     (acc, pref) => {
@@ -33,7 +33,7 @@ export default function PartnerProfileNotificationsPage() {
   );
 
   const methods = useForm({
-    resolver: zodResolver(partnerProfileNotificationsFormSchema),
+    resolver: zodResolver(profileNotificationsFormSchema),
     defaultValues,
   });
 
@@ -42,13 +42,13 @@ export default function PartnerProfileNotificationsPage() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: TPartnerProfileNotificationsFormSchema) {
+  async function onSubmit(data: TProfileNotificationsFormSchema) {
     await updatePartnerProfileNotifications(data);
   }
 
   return (
     <FormProvider {...methods}>
-      <PartnerHeadingBlock
+      <HeadingBlock
         title="Notifications"
         description="Manage your notifications preferences"
       />
@@ -60,7 +60,7 @@ export default function PartnerProfileNotificationsPage() {
         autoComplete="off"
         noValidate
       >
-        <PartnerProfileNotificationsCard />
+        <NotificationsCard />
 
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button

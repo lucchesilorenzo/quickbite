@@ -45,12 +45,6 @@ export type RestaurantListItem = RestaurantBase & {
   menu_categories: MenuCategory[];
 };
 
-export type RestaurantDetail = RestaurantListItem & {
-  menu_categories: MenuCategory[];
-  created_at: string;
-  updated_at: string;
-};
-
 export type RestaurantWithPagination = {
   restaurants: BaseCursorPagination & {
     data: RestaurantListItem[];
@@ -70,6 +64,12 @@ export type RestaurantMeta = {
   };
 };
 
+export type RestaurantDetail = RestaurantListItem & {
+  menu_categories: MenuCategory[];
+  created_at: string;
+  updated_at: string;
+};
+
 export type SingleRestaurantDetail = RestaurantBase &
   Omit<
     RestaurantDetail,
@@ -87,17 +87,3 @@ export type RestaurantSearchOption = {
 };
 
 export type RestaurantTab = "reviews" | "info" | "offers";
-
-// === PARTNER ===
-
-export type PartnerRestaurantBase = RestaurantBase;
-
-export type PartnerRestaurantDetail = PartnerRestaurantBase &
-  Omit<
-    RestaurantDetail,
-    | "offers"
-    | "reviews"
-    | "reviews_avg_rating"
-    | "reviews_count"
-    | "menu_categories"
-  >;

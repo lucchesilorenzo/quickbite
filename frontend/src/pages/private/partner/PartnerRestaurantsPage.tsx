@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import { useGetRestaurants } from "@partner/hooks/restaurants/restaurant/useGetRestaurants";
+import RestaurantsSelection from "@partner/restaurants/RestaurantsSelection";
+import RestaurantsWelcome from "@partner/restaurants/RestaurantsWelcome";
 
-import Spinner from "@/components/common/Spinner";
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import PartnerRestaurantsSelection from "@/components/partner/restaurants/PartnerRestaurantsSelection";
-import PartnerRestaurantsWelcome from "@/components/partner/restaurants/PartnerRestaurantsWelcome";
-import { useGetPartnerRestaurants } from "@/hooks/react-query/private/partners/restaurants/restaurant/useGetPartnerRestaurants";
+import Spinner from "@/components/Spinner";
 
 export default function PartnerRestaurantsPage() {
-  const { data: restaurants = [], isLoading } = useGetPartnerRestaurants();
+  const { data: restaurants = [], isLoading: restaurantsLoading } =
+    useGetRestaurants();
 
   useEffect(() => {
     document.title = "Choose your restaurant | QuickBite";
@@ -17,13 +18,13 @@ export default function PartnerRestaurantsPage() {
 
   return (
     <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
-      <PartnerRestaurantsWelcome />
-      <PartnerHeadingBlock title="🍔 Choose your restaurant" />
+      <RestaurantsWelcome />
+      <HeadingBlock title="🍔 Choose your restaurant" />
 
-      {isLoading ? (
+      {restaurantsLoading ? (
         <Spinner />
       ) : (
-        <PartnerRestaurantsSelection restaurants={restaurants} />
+        <RestaurantsSelection restaurants={restaurants} />
       )}
     </Container>
   );

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
+import RegisterFormCardDesktop from "@customer/register/RegisterFormCardDesktop";
+import RegisterFormCardMobile from "@customer/register/mobile/RegisterFormCardMobile";
 import { Container } from "@mui/material";
-
-import CustomerRegisterFormCard from "@/components/customer/register/CustomerRegisterFormCard";
 
 export default function CustomerRegisterPage() {
   useEffect(() => {
@@ -11,7 +11,8 @@ export default function CustomerRegisterPage() {
 
   return (
     <Container component="main" maxWidth="sm" disableGutters>
-      <CustomerRegisterFormCard />
+      <RegisterFormCardDesktop />
+      <RegisterFormCardMobile />
     </Container>
   );
 }

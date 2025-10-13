@@ -3,18 +3,18 @@ import { useEffect } from "react";
 import { useEchoNotification } from "@laravel/echo-react";
 import { Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import RestaurantHeader from "@partner/restaurant/RestaurantHeader";
+import {
+  NewOrderReceivedToBroadcast,
+  NewReviewReceivedToBroadcast,
+} from "@partner/types/notification-types";
+import RestaurantProvider from "@private/partner/contexts/RestaurantProvider";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 
-import NotificationToast from "@/components/common/NotificationToast";
-import PartnerRestaurantHeader from "@/components/partner/restaurant/PartnerRestaurantHeader";
-import PartnerRestaurantProvider from "@/contexts/private/partner/PartnerRestaurantProvider";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
-import {
-  NewOrderReceivedToBroadcast,
-  NewReviewReceivedToBroadcast,
-} from "@/types";
+import NotificationToast from "@/components/NotificationToast";
+import { useAuth } from "@/contexts/AuthProvider";
 
 export default function PartnerRestaurantLayout() {
   const { user } = useAuth();
@@ -90,12 +90,12 @@ export default function PartnerRestaurantLayout() {
   }, [restaurantId, leaveOrder, leaveReview]);
 
   return (
-    <PartnerRestaurantProvider restaurantId={restaurantId}>
+    <RestaurantProvider restaurantId={restaurantId}>
       <Stack sx={{ minHeight: "100vh", bgcolor: grey[100] }}>
-        <PartnerRestaurantHeader />
+        <RestaurantHeader />
 
         <Outlet />
       </Stack>
-    </PartnerRestaurantProvider>
+    </RestaurantProvider>
   );
 }

@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-
-import Breadcrumb from "@/components/privacy-policy/Breadcrumb";
-import Paragraphs from "@/components/privacy-policy/Paragraphs";
-import SaveToPDFButton from "@/components/privacy-policy/SaveToPDFButton";
-import TitleAndEffectiveDate from "@/components/privacy-policy/TitleAndEffectiveDate";
+import Breadcrumb from "@public/privacy-policy/Breadcrumb";
+import Paragraphs from "@public/privacy-policy/Paragraphs";
+import SaveToPDFButton from "@public/privacy-policy/SaveToPDFButton";
+import TitleAndEffectiveDate from "@public/privacy-policy/TitleAndEffectiveDate";
 
 export default function PrivacyPolicyPage() {
   useEffect(() => {

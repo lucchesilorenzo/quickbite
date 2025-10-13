@@ -1,0 +1,327 @@
+export const termsOfService: {
+  title: string;
+  content: string[];
+}[] = [
+  {
+    title: "Eligibility",
+    content: [
+      "To use the Platform, you must be at least 18 years old or the age of majority in your jurisdiction. By using the Platform, you represent and warrant that you meet these requirements.",
+    ],
+  },
+  {
+    title: "User Accounts",
+    content: [
+      "You must create an account to place orders, become a restaurant partner, or register as a rider.",
+      "You agree to provide accurate and complete information and to keep your account credentials secure.",
+      "You are responsible for all activities that occur under your account.",
+    ],
+  },
+  {
+    title: "Orders and Payments",
+    content: [
+      "Orders placed through the Platform are binding.",
+      "You agree to pay all charges associated with your order, including delivery fees and taxes.",
+      "Payments are processed securely through third-party providers.",
+      "Once an order is confirmed, cancellations or refunds may not be guaranteed.",
+    ],
+  },
+  {
+    title: "Restaurant and Menu Information",
+    content: [
+      "Restaurants are responsible for the accuracy of their menus, prices, and availability.",
+      "We do not guarantee the quality, safety, or legality of the food or beverages offered by restaurants.",
+    ],
+  },
+  {
+    title: "Deliveries",
+    content: [
+      "Delivery times are estimates and may vary due to external conditions (e.g., weather, traffic).",
+      "It is your responsibility to ensure someone is available to receive the delivery.",
+      "In case of failed delivery attempts due to your unavailability, you may still be charged.",
+    ],
+  },
+  {
+    title: "Use of the Platform",
+    content: [
+      "Use the Platform only for lawful purposes.",
+      "Do not misuse or interfere with the Platform's functionality or security.",
+      "Do not submit false information or impersonate others.",
+    ],
+  },
+  {
+    title: "Termination",
+    content: [
+      "We reserve the right to suspend or terminate your access to the Platform at our sole discretion, with or without notice, for behavior that violates these Terms or is harmful to other users or the Platform.",
+    ],
+  },
+  {
+    title: "Intellectual Property",
+    content: [
+      "All content, trademarks, and technology used in the Platform are owned by us or our partners.",
+      "You may not reproduce, distribute, or exploit any part of the Platform without our prior written consent.",
+    ],
+  },
+  {
+    title: "Limitation of Liability",
+    content: [
+      "We are not liable for any indirect, incidental, or consequential damages.",
+      "We are not responsible for delays, failed deliveries, or errors caused by third parties (restaurants, riders, payment providers).",
+      "We are not liable for losses resulting from unauthorized account access.",
+    ],
+  },
+  {
+    title: "Privacy",
+    content: [
+      "Your personal information is handled in accordance with our Privacy Policy.",
+      "By using the Platform, you consent to such handling.",
+    ],
+  },
+  {
+    title: "Changes to Terms",
+    content: [
+      "We may update these Terms from time to time.",
+      "Continued use of the Platform constitutes your acceptance of the revised Terms.",
+    ],
+  },
+  {
+    title: "Contact",
+    content: [
+      "For questions or concerns, contact us at: support@quickbite.com.",
+    ],
+  },
+];
+
+export const privacyPolicy: {
+  title: string;
+  content: {
+    type: "paragraph" | "list";
+    text?: string;
+    items?: string[];
+  }[];
+}[] = [
+  {
+    title: "Introduction",
+    content: [
+      {
+        type: "paragraph",
+        text: "This Privacy Policy explains how we collect, use, and protect your personal data when you use our platform, including the mobile app and related services. We are committed to safeguarding your privacy and complying with applicable data protection laws.",
+      },
+    ],
+  },
+  {
+    title: "Who is responsible",
+    content: [
+      {
+        type: "paragraph",
+        text: "The data controller of your personal data is the entity operating the food delivery platform in your country. If you have any questions about this policy or wish to exercise your rights, please contact us using the details provided below.",
+      },
+    ],
+  },
+  {
+    title: "What data we collect",
+    content: [
+      {
+        type: "paragraph",
+        text: "We may collect the following types of personal data:",
+      },
+      {
+        type: "list",
+        items: [
+          "Account Information: name, email, phone number, address",
+          "Order Information: order details, payment information, delivery address",
+          "Device and Usage Data: IP address, browser, app usage, location (if enabled)",
+          "Communication Data: messages sent to restaurants/riders, customer support",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Why we collect your data",
+    content: [
+      {
+        type: "paragraph",
+        text: "We process your data to:",
+      },
+      {
+        type: "list",
+        items: [
+          "Provide and deliver our services",
+          "Communicate with you (e.g. order confirmations, support)",
+          "Improve our platform and services",
+          "Comply with legal obligations",
+          "Prevent fraud and misuse",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Legal basis for processing",
+    content: [
+      {
+        type: "paragraph",
+        text: "We process your personal data based on:",
+      },
+      {
+        type: "list",
+        items: [
+          "The performance of a contract (e.g. processing your order)",
+          "Your consent (e.g. marketing)",
+          "Compliance with legal obligations",
+          "Our legitimate interests (e.g. service improvement)",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Sharing your data",
+    content: [
+      {
+        type: "paragraph",
+        text: "We may share your personal data with:",
+      },
+      {
+        type: "list",
+        items: [
+          "Restaurants and riders to fulfill your orders",
+          "Payment service providers",
+          "Customer support partners",
+          "IT and hosting providers",
+          "Authorities when legally required",
+          "We never sell your personal data.",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Your privacy rights",
+    content: [
+      {
+        type: "paragraph",
+        text: "You have the right to:",
+      },
+      {
+        type: "list",
+        items: [
+          "Access your personal data",
+          "Correct or update your data",
+          "Request deletion of your data",
+          "Object to or restrict processing",
+          "Withdraw consent at any time",
+          "Receive a copy of your data (data portability)",
+          "Lodge a complaint with a data protection authority",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "To exercise your rights, please contact us using the form or contact details below. We may verify your identity before fulfilling your request.",
+      },
+    ],
+  },
+  {
+    title: "Security",
+    content: [
+      {
+        type: "paragraph",
+        text: "We implement appropriate technical and organizational measures to protect your data from unauthorized access, misuse, or loss. Only authorized personnel have access to your personal data.",
+      },
+    ],
+  },
+  {
+    title: "Contact us",
+    content: [
+      {
+        type: "paragraph",
+        text: "If you have questions or concerns about this Privacy Policy or our data practices, contact us at:",
+      },
+      {
+        type: "list",
+        items: [
+          "Email: privacy@quickbite.com",
+          "Address: QuickBite S.r.l.",
+          "Via Dante Alighieri, 23",
+          "50100 Florence",
+          "Italy",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Changes to this Policy",
+    content: [
+      {
+        type: "paragraph",
+        text: "We may update this Privacy Policy from time to time.",
+      },
+      {
+        type: "paragraph",
+        text: "The latest version will always be available on our website and app.",
+      },
+    ],
+  },
+];
+
+export const rankingSections = [
+  {
+    title: "Default Restaurant Listing",
+    description:
+      "Restaurants on our platform are currently displayed without a specific ranking algorithm. This means that all visible restaurants are shown in a neutral order by default. We do not prioritize restaurants based on popularity, distance, or performance. The initial list simply includes all available restaurants that can deliver to the selected location.",
+    points: [
+      "No bias towards new or popular restaurants",
+      "All listed restaurants are treated equally",
+      "Results are only updated when filters are applied",
+    ],
+  },
+  {
+    title: "Dynamic Filtering Experience",
+    description:
+      "Although we don't apply a fixed sorting algorithm, users can customize their browsing experience through interactive filters. When users select filters, the restaurant list dynamically updates to show only the restaurants that match the selected criteria.",
+    points: [
+      "Cuisine type (e.g., Pizza, Sushi, Indian, etc.)",
+      "Delivery time and availability",
+      "Opening hours and active restaurants",
+      "Delivery fees (if implemented)",
+    ],
+  },
+  {
+    title: "No Sponsored or Paid Listings",
+    description:
+      "At the moment, we do not support promoted or sponsored restaurants. All businesses have equal visibility on the platform and cannot pay to improve their position in the listings. This ensures a transparent and fair experience for all businesses and users.",
+    points: [
+      "No advertising-based ranking influence",
+      "Equal exposure for all approved restaurants",
+      "Future sponsorship opportunities may be evaluated based on fairness and transparency",
+    ],
+  },
+  {
+    title: "Upcoming Enhancements",
+    description:
+      "We are working on improving how restaurants are displayed and discovered. Our goal is to introduce features that enhance user experience while remaining fair to all partners. Planned improvements include smart sorting algorithms and indicators for new or top-rated restaurants.",
+    points: [
+      "Smart sorting based on distance, ratings, or delivery performance",
+      "Highlighting newly added restaurants to the platform",
+      "Personalized suggestions based on user preferences and past orders",
+    ],
+  },
+];
+
+export const howDoILeaveAReviewSections = [
+  {
+    title: "",
+    content: [
+      "To leave a review, simply log in to your QuickBite account and go to your order history. From there, select the relevant order, rate your experience out of five stars, and tell us all about it by writing a review.",
+      "Leaving a review helps other people find great places to order from. It also allows you to tell the business you ordered from what they did well and how they can improve.",
+    ],
+  },
+  {
+    title: "Can I change my review after I've left it?",
+    content: [
+      "Once it's submitted, you won't be able to amend your review, so please always make sure you double-check everything and base any comments on your genuine experience.",
+    ],
+  },
+  {
+    title: "Can I delete my review after I've left it?",
+    content: [
+      "You won't be able to delete your review once it's been published, so it's always a good idea to check it over before pressing the submit button.",
+    ],
+  },
+];

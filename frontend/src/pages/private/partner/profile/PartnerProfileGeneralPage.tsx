@@ -2,17 +2,17 @@ import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import { useUpdateProfileGeneralInformation } from "@partner/hooks/profile/useUpdateProfileGeneralInformation";
+import GeneralAddressCard from "@partner/profile/general/GeneralAddressCard";
+import GeneralPersonalInfoCard from "@partner/profile/general/GeneralPersonalInfoCard";
+import {
+  TProfileGeneralFormSchema,
+  profileGeneralFormSchema,
+} from "@partner/validations/profile-general-validations";
 import { FormProvider, useForm } from "react-hook-form";
 
-import PartnerProfileGeneralAddressCard from "@/components/partner/profile/general/PartnerProfileGeneralAddressCard";
-import PartnerProfileGeneralPersonalInfoCard from "@/components/partner/profile/general/PartnerProfileGeneralPersonalInfoCard";
-import PartnerHeadingBlock from "@/components/partner/restaurant/common/PartnerHeadingBlock";
-import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { useUpdatePartnerProfileGeneralInformation } from "@/hooks/react-query/private/partners/profile/useUpdatePartnerProfileGeneralInformation";
-import {
-  TPartnerProfileGeneralFormSchema,
-  partnerProfileGeneralFormSchema,
-} from "@/validations/partner-profile-general-validations";
+import { useAuth } from "@/contexts/AuthProvider";
 
 export default function PartnerProfileGeneralPage() {
   useEffect(() => {
@@ -23,10 +23,10 @@ export default function PartnerProfileGeneralPage() {
   const {
     mutateAsync: updatePartnerProfileGeneralInformation,
     isPending: isUpdating,
-  } = useUpdatePartnerProfileGeneralInformation();
+  } = useUpdateProfileGeneralInformation();
 
   const methods = useForm({
-    resolver: zodResolver(partnerProfileGeneralFormSchema),
+    resolver: zodResolver(profileGeneralFormSchema),
     defaultValues: {
       first_name: user?.first_name || "",
       last_name: user?.last_name || "",
@@ -45,13 +45,13 @@ export default function PartnerProfileGeneralPage() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: TPartnerProfileGeneralFormSchema) {
+  async function onSubmit(data: TProfileGeneralFormSchema) {
     await updatePartnerProfileGeneralInformation(data);
   }
 
   return (
     <FormProvider {...methods}>
-      <PartnerHeadingBlock
+      <HeadingBlock
         title="General information"
         description="Manage your general information of your profile"
       />
@@ -63,8 +63,8 @@ export default function PartnerProfileGeneralPage() {
         autoComplete="off"
         noValidate
       >
-        <PartnerProfileGeneralPersonalInfoCard />
-        <PartnerProfileGeneralAddressCard />
+        <GeneralPersonalInfoCard />
+        <GeneralAddressCard />
 
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button

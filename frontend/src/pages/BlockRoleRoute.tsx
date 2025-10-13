@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-import { useAuth } from "@/hooks/contexts/public/useAuth";
-import { hasRole, isCustomer, isPartner, isRider } from "@/lib/utils";
-import { Role } from "@/types";
+import { useAuth } from "@/contexts/AuthProvider";
+import { hasRole, isCustomer, isPartner, isRider } from "@/lib/utils/auth";
+import { Role } from "@/types/user-types";
 
 type BlockRoleRouteProps = {
   blockedRoles: Role[];
