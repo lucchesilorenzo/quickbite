@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-
-import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
-import PartnerRestaurantMenuProvider from "@/features/private/partner/contexts/PartnerMenuProvider";
-import MenuEditNavigation from "@/features/private/partner/restaurant/menu/edit/MenuEditNavigation";
-import MenuItemsList from "@/features/private/partner/restaurant/menu/edit/MenuItemsList";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import RestaurantMenuProvider from "@partner/contexts/MenuProvider";
+import MenuEditNavigation from "@partner/restaurant/menu/edit/MenuEditNavigation";
+import MenuItemsList from "@partner/restaurant/menu/edit/MenuItemsList";
 
 export default function PartnerMenuEditPage() {
   useEffect(() => {
@@ -13,7 +12,7 @@ export default function PartnerMenuEditPage() {
   }, []);
 
   return (
-    <PartnerRestaurantMenuProvider>
+    <RestaurantMenuProvider>
       <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
         <HeadingBlock
           title="Menu items"
@@ -22,6 +21,6 @@ export default function PartnerMenuEditPage() {
         <MenuEditNavigation />
         <MenuItemsList />
       </Container>
-    </PartnerRestaurantMenuProvider>
+    </RestaurantMenuProvider>
   );
 }

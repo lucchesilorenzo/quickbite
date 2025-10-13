@@ -1,5 +1,5 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
+import { useStats } from "@partner/contexts/StatsProvider";
 
 import BarLabel from "./BarLabel";
 
@@ -16,7 +16,7 @@ export default function StatsDetailsBarChart({
   barId,
   barLabel,
 }: StatsDetailsBarChartProps) {
-  const { statsData, range, isLoadingStats } = usePartnerStats();
+  const { statsData, range, isLoadingStats } = useStats();
 
   const label = range === "all" ? "Month" : "Day of the month";
 

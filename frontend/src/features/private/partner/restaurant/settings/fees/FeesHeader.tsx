@@ -2,15 +2,14 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import { TRestaurantSettingsFeesFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { useFormContext } from "react-hook-form";
 
-import HeadingBlock from "../../../components/HeadingBlock";
-
-import { usePartnerFees } from "@/features/private/partner/contexts/PartnerFeesProvider";
-import { TRestaurantSettingsFeesFormSchema } from "@/features/private/partner/validations/restaurant-settings-validations";
+import { useFees } from "@/features/private/partner/restaurant/settings/contexts/FeesProvider";
 
 export default function FeesHeader() {
-  const { editMode, setEditMode } = usePartnerFees();
+  const { editMode, setEditMode } = useFees();
 
   const {
     formState: { isSubmitting },

@@ -2,8 +2,7 @@ import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
-import PartnerRestaurantSettingsInfoProvider from "@partner/contexts/PartnerInfoProvider";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateInfo } from "@partner/hooks/restaurants/settings/useUpdateInfo";
 import InfoContainer from "@partner/restaurant/settings/info/InfoContainer";
 import {
@@ -12,12 +11,14 @@ import {
 } from "@partner/validations/restaurant-settings-validations";
 import { FormProvider, useForm } from "react-hook-form";
 
+import InfoProvider from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
+
 export default function PartnerSettingsInfoPage() {
   useEffect(() => {
     document.title = "Restaurant info | QuickBite";
   }, []);
 
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateInfo } = useUpdateInfo(restaurant.id);
 
@@ -72,7 +73,7 @@ export default function PartnerSettingsInfoPage() {
 
   return (
     <FormProvider {...methods}>
-      <PartnerRestaurantSettingsInfoProvider>
+      <InfoProvider>
         <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
           <Box
             component="form"
@@ -83,7 +84,7 @@ export default function PartnerSettingsInfoPage() {
             <InfoContainer />
           </Box>
         </Container>
-      </PartnerRestaurantSettingsInfoProvider>
+      </InfoProvider>
     </FormProvider>
   );
 }

@@ -11,17 +11,17 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Grid, Typography, debounce } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useUpdateMenuCategoriesOrder } from "@partner/hooks/restaurants/menu/categories/useUpdateMenuCategoriesOrder";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
 import { menuDefaults } from "@partner/lib/query-defaults";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import MenuCategoryItem from "./MenuCategoryItem";
 
 import Spinner from "@/components/Spinner";
 
 export default function MenuCategoriesList() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const {
     data: menuCategories = menuDefaults,

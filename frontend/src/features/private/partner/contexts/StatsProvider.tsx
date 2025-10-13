@@ -13,13 +13,13 @@ import {
 import { useSearchParams } from "react-router-dom";
 
 import { kpiSummaryDefaults, statsDefaults } from "../lib/query-defaults";
-import { usePartnerRestaurant } from "./PartnerRestaurantProvider";
+import { useRestaurant } from "./RestaurantProvider";
 
-type PartnerStatsProviderProps = {
+type StatsProviderProps = {
   children: React.ReactNode;
 };
 
-type PartnerStatsContext = {
+type StatsContext = {
   range: StatRange;
   activeKpi: Kpi;
   paymentMethod: PaymentMethodFilter;
@@ -34,7 +34,7 @@ type PartnerStatsContext = {
   setYear: React.Dispatch<React.SetStateAction<Record<Kpi, number>>>;
 };
 
-const PartnerStatsContext = createContext<PartnerStatsContext | null>(null);
+const StatsContext = createContext<StatsContext | null>(null);
 
 const kpiKeys: Kpi[] = [
   "accepted_orders",
@@ -43,10 +43,8 @@ const kpiKeys: Kpi[] = [
   "lost_revenue",
 ];
 
-export default function PartnerStatsProvider({
-  children,
-}: PartnerStatsProviderProps) {
-  const { restaurant } = usePartnerRestaurant();
+export default function StatsProvider({ children }: StatsProviderProps) {
+  const { restaurant } = useRestaurant();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [range, setRange] = useState<StatRange>("all");
@@ -104,7 +102,7 @@ export default function PartnerStatsProvider({
   }, [searchParams, setSearchParams]);
 
   return (
-    <PartnerStatsContext.Provider
+    <StatsContext.Provider
       value={{
         range,
         activeKpi,
@@ -121,17 +119,15 @@ export default function PartnerStatsProvider({
       }}
     >
       {children}
-    </PartnerStatsContext.Provider>
+    </StatsContext.Provider>
   );
 }
 
-export function usePartnerStats() {
-  const context = useContext(PartnerStatsContext);
+export function useStats() {
+  const context = useContext(StatsContext);
 
   if (!context) {
-    throw new Error(
-      "usePartnerStats must be used within a PartnerStatsProvider.",
-    );
+    throw new Error("useStats must be used within a StatsProvider.");
   }
 
   return context;

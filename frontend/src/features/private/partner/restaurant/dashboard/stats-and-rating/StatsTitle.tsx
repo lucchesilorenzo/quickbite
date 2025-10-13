@@ -1,11 +1,11 @@
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import { Link as MuiLink, Stack, Typography } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
 export default function StatsTitle() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   return (
     <Stack

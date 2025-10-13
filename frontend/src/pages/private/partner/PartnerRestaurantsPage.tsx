@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import { useGetRestaurants } from "@partner/hooks/restaurants/restaurant/useGetRestaurants";
+import RestaurantsSelection from "@partner/restaurants/RestaurantsSelection";
+import RestaurantsWelcome from "@partner/restaurants/RestaurantsWelcome";
 
 import Spinner from "@/components/Spinner";
-import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
-import { useGetRestaurants } from "@/features/private/partner/hooks/restaurants/restaurant/useGetRestaurants";
-import RestaurantsSelection from "@/features/private/partner/restaurants/RestaurantsSelection";
-import RestaurantsWelcome from "@/features/private/partner/restaurants/RestaurantsWelcome";
 
 export default function PartnerRestaurantsPage() {
-  const { data: restaurants = [], isLoading: isRestaurantsLoading } =
+  const { data: restaurants = [], isLoading: restaurantsLoading } =
     useGetRestaurants();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function PartnerRestaurantsPage() {
       <RestaurantsWelcome />
       <HeadingBlock title="🍔 Choose your restaurant" />
 
-      {isRestaurantsLoading ? (
+      {restaurantsLoading ? (
         <Spinner />
       ) : (
         <RestaurantsSelection restaurants={restaurants} />

@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 import { Card, Stack, Typography } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useUpdateRestaurantStatus } from "@partner/hooks/restaurants/restaurant/useUpdateRestaurantStatus";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import AntSwitch from "@/components/AntSwitch";
 
 export default function RestaurantStatusSwitch() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateRestaurantStatus } = useUpdateRestaurantStatus(
     restaurant.id,

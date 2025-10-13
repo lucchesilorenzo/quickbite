@@ -8,13 +8,13 @@ import {
   NewOrderReceivedToBroadcast,
   NewReviewReceivedToBroadcast,
 } from "@partner/types/notification-types";
+import RestaurantProvider from "@private/partner/contexts/RestaurantProvider";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 
 import NotificationToast from "@/components/NotificationToast";
 import { useAuth } from "@/contexts/AuthProvider";
-import PartnerRestaurantProvider from "@/features/private/partner/contexts/PartnerRestaurantProvider";
 
 export default function PartnerRestaurantLayout() {
   const { user } = useAuth();
@@ -90,12 +90,12 @@ export default function PartnerRestaurantLayout() {
   }, [restaurantId, leaveOrder, leaveReview]);
 
   return (
-    <PartnerRestaurantProvider restaurantId={restaurantId}>
+    <RestaurantProvider restaurantId={restaurantId}>
       <Stack sx={{ minHeight: "100vh", bgcolor: grey[100] }}>
         <RestaurantHeader />
 
         <Outlet />
       </Stack>
-    </PartnerRestaurantProvider>
+    </RestaurantProvider>
   );
 }

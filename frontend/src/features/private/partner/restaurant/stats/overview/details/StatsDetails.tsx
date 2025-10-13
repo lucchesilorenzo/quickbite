@@ -1,4 +1,4 @@
-import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
+import { useStats } from "@partner/contexts/StatsProvider";
 
 import AcceptedOrdersSection from "./accepted-orders/AcceptedOrdersSection";
 import LostRevenueSection from "./lost-revenue/LostRevenueSection";
@@ -6,7 +6,7 @@ import RejectedOrdersSection from "./rejected-orders/RejectedOrdersSection";
 import RevenueSection from "./revenue/RevenueSection";
 
 export default function StatsDetails() {
-  const { activeKpi } = usePartnerStats();
+  const { activeKpi } = useStats();
 
   const details = {
     accepted_orders: <AcceptedOrdersSection />,

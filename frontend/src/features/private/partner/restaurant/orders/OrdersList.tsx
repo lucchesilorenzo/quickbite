@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
-import { usePartnerOrders } from "@partner/contexts/PartnerOrdersProvider";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useGetOrders } from "@partner/hooks/restaurants/orders/useGetOrders";
 import { ordersDefaults } from "@private/lib/query-defaults";
+import { useOrders } from "@private/partner/contexts/OrdersProvider";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { useSearchParams } from "react-router-dom";
 
 import OrderItem from "./OrderItem";
@@ -15,8 +15,8 @@ import Spinner from "@/components/Spinner";
 import { orderStatuses } from "@/lib/constants/orders";
 
 export default function OrdersList() {
-  const { restaurant } = usePartnerRestaurant();
-  const { status, setStatus } = usePartnerOrders();
+  const { restaurant } = useRestaurant();
+  const { status, setStatus } = useOrders();
 
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(1);

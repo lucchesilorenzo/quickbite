@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
 import { Container, Typography, useMediaQuery } from "@mui/material";
-
-import Sections from "@/features/public/how-do-i-leave-a-review/Sections";
+import Sections from "@public/how-do-i-leave-a-review/Sections";
 
 export default function HowDoILeaveAReviewPage() {
   useEffect(() => {

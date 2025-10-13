@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import LoginLayoutDesktop from "@/features/private/partner/auth/login/layouts/LoginLayoutDesktop";
-import LoginLayoutMobile from "@/features/private/partner/auth/login/layouts/LoginLayoutMobile";
+import LoginLayoutDesktop from "@partner/auth/login/layouts/LoginLayoutDesktop";
+import LoginLayoutMobile from "@partner/auth/login/layouts/LoginLayoutMobile";
 
 export default function PartnerLoginPage() {
   useEffect(() => {

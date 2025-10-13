@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-
-import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
-import PartnerRestaurantReviewsProvider from "@/features/private/partner/contexts/PartnerReviewsProvider";
-import ReviewsLayout from "@/features/private/partner/restaurant/reviews/layouts/ReviewsLayout";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import ReviewsProvider from "@partner/contexts/ReviewsProvider";
+import ReviewsLayout from "@partner/restaurant/reviews/layouts/ReviewsLayout";
 
 export default function PartnerReviewsPage() {
   useEffect(() => {
@@ -12,11 +11,11 @@ export default function PartnerReviewsPage() {
   }, []);
 
   return (
-    <PartnerRestaurantReviewsProvider>
+    <ReviewsProvider>
       <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
         <HeadingBlock title="Ratings and reviews" />
         <ReviewsLayout />
       </Container>
-    </PartnerRestaurantReviewsProvider>
+    </ReviewsProvider>
   );
 }

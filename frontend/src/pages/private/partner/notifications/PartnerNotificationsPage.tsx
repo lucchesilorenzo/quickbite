@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-
-import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
-import NotificationsActionBar from "@/features/private/partner/restaurant/notifications/NotificationsActionBar";
-import NotificationsList from "@/features/private/partner/restaurant/notifications/NotificationsList";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import NotificationsActionBar from "@partner/restaurant/notifications/NotificationsActionBar";
+import NotificationsList from "@partner/restaurant/notifications/NotificationsList";
 
 export default function PartnerNotificationsPage() {
   useEffect(() => {

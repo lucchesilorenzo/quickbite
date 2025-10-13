@@ -2,23 +2,22 @@ import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
-
-import PartnerRestaurantSettingsFeesProvider from "@/features/private/partner/contexts/PartnerFeesProvider";
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { useUpdateFees } from "@/features/private/partner/hooks/restaurants/settings/useUpdateFees";
-import FeesContainer from "@/features/private/partner/restaurant/settings/fees/FeesContainer";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
+import { useUpdateFees } from "@partner/hooks/restaurants/settings/useUpdateFees";
+import FeesProvider from "@partner/restaurant/settings/contexts/FeesProvider";
+import FeesContainer from "@partner/restaurant/settings/fees/FeesContainer";
 import {
   TRestaurantSettingsFeesFormSchema,
   restaurantSettingsFeesFormSchema,
-} from "@/features/private/partner/validations/restaurant-settings-validations";
+} from "@partner/validations/restaurant-settings-validations";
+import { FormProvider, useForm } from "react-hook-form";
 
 export default function PartnerSettingsFeesPage() {
   useEffect(() => {
     document.title = "Fees | QuickBite";
   }, []);
 
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateFees } = useUpdateFees(restaurant.id);
 
@@ -41,7 +40,7 @@ export default function PartnerSettingsFeesPage() {
 
   return (
     <FormProvider {...methods}>
-      <PartnerRestaurantSettingsFeesProvider>
+      <FeesProvider>
         <Container component="main" maxWidth="md" sx={{ mt: 3 }}>
           <Box
             component="form"
@@ -52,7 +51,7 @@ export default function PartnerSettingsFeesPage() {
             <FeesContainer />
           </Box>
         </Container>
-      </PartnerRestaurantSettingsFeesProvider>
+      </FeesProvider>
     </FormProvider>
   );
 }

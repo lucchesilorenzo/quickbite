@@ -9,8 +9,8 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useDeleteOffer } from "@partner/hooks/restaurants/offers/useDeleteOffer";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import { Offer } from "@/types/offer-types";
 
@@ -25,7 +25,7 @@ export default function DeleteOfferDialog({
   openDeleteOfferDialog,
   setOpenDeleteOfferDialog,
 }: DeleteOfferDialogProps) {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: deleteOffer, isPending: isDeleting } = useDeleteOffer(
     restaurant.id,

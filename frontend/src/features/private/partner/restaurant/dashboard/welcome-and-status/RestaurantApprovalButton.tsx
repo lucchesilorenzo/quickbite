@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateRestaurantApprovedStatus } from "@partner/hooks/restaurants/restaurant/useUpdateRestaurantApprovedStatus";
 
 export default function RestaurantApprovalButton() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateRestaurantApprovedStatus, isPending: isUpdating } =
     useUpdateRestaurantApprovedStatus(restaurant.id);

@@ -2,13 +2,13 @@ import { Fragment } from "react";
 
 import EditIcon from "@mui/icons-material/Edit";
 import { Button, Grid, Typography } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { Link } from "react-router-dom";
 
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
 import { capitalize } from "@/lib/utils/formatting";
 
 export default function DeliveryTimesTab() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   return (
     <>

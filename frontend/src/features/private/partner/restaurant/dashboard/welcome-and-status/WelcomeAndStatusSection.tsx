@@ -1,12 +1,12 @@
 import { Stack } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import RestaurantApprovalButton from "./RestaurantApprovalButton";
 import RestaurantStatusSwitch from "./RestaurantStatusSwitch";
 import RestaurantWelcome from "./RestaurantWelcome";
 
 export default function WelcomeAndStatusSection() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   return (
     <Stack

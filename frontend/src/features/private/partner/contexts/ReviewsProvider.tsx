@@ -3,17 +3,17 @@ import { createContext, useContext, useState } from "react";
 import { useGetReviews } from "@partner/hooks/restaurants/reviews/useGetReviews";
 import { OrderStatusWithAll } from "@private/types/order-types";
 
-import { usePartnerRestaurant } from "./PartnerRestaurantProvider";
+import { useRestaurant } from "./RestaurantProvider";
 
 import Spinner from "@/components/Spinner";
 import { reviewsDefaults } from "@/lib/query-defaults";
 import { ReviewStats } from "@/types/review-types";
 
-type PartnerReviewsProviderProps = {
+type ReviewsProviderProps = {
   children: React.ReactNode;
 };
 
-type PartnerReviewsContext = {
+type ReviewsContext = {
   status: OrderStatusWithAll;
   reviewsData: ReviewStats;
   page: number;
@@ -21,12 +21,10 @@ type PartnerReviewsContext = {
   setStatus: React.Dispatch<React.SetStateAction<OrderStatusWithAll>>;
 };
 
-const PartnerReviewsContext = createContext<PartnerReviewsContext | null>(null);
+const ReviewsContext = createContext<ReviewsContext | null>(null);
 
-export default function PartnerReviewsProvider({
-  children,
-}: PartnerReviewsProviderProps) {
-  const { restaurant } = usePartnerRestaurant();
+export default function ReviewsProvider({ children }: ReviewsProviderProps) {
+  const { restaurant } = useRestaurant();
 
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState<OrderStatusWithAll>("all");
@@ -37,21 +35,19 @@ export default function PartnerReviewsProvider({
   if (isLoadingReviews) return <Spinner />;
 
   return (
-    <PartnerReviewsContext.Provider
+    <ReviewsContext.Provider
       value={{ status, reviewsData, page, setPage, setStatus }}
     >
       {children}
-    </PartnerReviewsContext.Provider>
+    </ReviewsContext.Provider>
   );
 }
 
-export function usePartnerReviews() {
-  const context = useContext(PartnerReviewsContext);
+export function useReviews() {
+  const context = useContext(ReviewsContext);
 
   if (!context) {
-    throw new Error(
-      "usePartnerReviews must be used within a PartnerReviewsProvider.",
-    );
+    throw new Error("useReviews must be used within a ReviewsProvider.");
   }
 
   return context;

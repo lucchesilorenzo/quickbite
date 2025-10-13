@@ -9,9 +9,9 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useDeleteMenuCategory } from "@partner/hooks/restaurants/menu/categories/useDeleteMenuCategory";
 import { PartnerMenu } from "@partner/types/menu-types";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 type DeleteMenuCategoryDialogProps = {
   menuCategory: PartnerMenu;
@@ -26,7 +26,7 @@ export default function DeleteMenuCategoryDialog({
   openDeleteMenuCategoryDialog,
   setOpenDeleteMenuCategoryDialog,
 }: DeleteMenuCategoryDialogProps) {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const {
     mutateAsync: deletePartnerRestaurantMenuCategory,

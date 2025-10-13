@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useGetOffers } from "@partner/hooks/restaurants/offers/useGetOffers";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import OffersItem from "./OffersItem";
 
@@ -11,7 +11,7 @@ import Spinner from "@/components/Spinner";
 import { offersDefaults } from "@/lib/query-defaults";
 
 export default function OffersList() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const [page, setPage] = useState(1);
 

@@ -11,26 +11,24 @@ import FullPageSpinner from "@/components/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { userNotificationsDefaults } from "@/lib/query-defaults";
 
-type PartnerRestaurantProviderProps = {
+type RestaurantProviderProps = {
   children: React.ReactNode;
   restaurantId?: string;
 };
 
-type PartnerRestaurantContext = {
+type RestaurantContext = {
   restaurant: PartnerRestaurantDetail;
   partnerNotifications: UserNotificationWithUnreadCount;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const PartnerRestaurantContext = createContext<PartnerRestaurantContext | null>(
-  null,
-);
+const RestaurantContext = createContext<RestaurantContext | null>(null);
 
-export default function PartnerRestaurantProvider({
+export default function RestaurantProvider({
   children,
   restaurantId,
-}: PartnerRestaurantProviderProps) {
+}: RestaurantProviderProps) {
   const { user } = useAuth();
 
   const [page, setPage] = useState(1);
@@ -50,21 +48,19 @@ export default function PartnerRestaurantProvider({
   if (isError || !restaurant) return <Navigate to="*" />;
 
   return (
-    <PartnerRestaurantContext.Provider
+    <RestaurantContext.Provider
       value={{ restaurant, partnerNotifications, page, setPage }}
     >
       {children}
-    </PartnerRestaurantContext.Provider>
+    </RestaurantContext.Provider>
   );
 }
 
-export function usePartnerRestaurant() {
-  const context = useContext(PartnerRestaurantContext);
+export function useRestaurant() {
+  const context = useContext(RestaurantContext);
 
   if (!context) {
-    throw new Error(
-      "usePartnerRestaurant must be used within a PartnerRestaurantProvider.",
-    );
+    throw new Error("useRestaurant must be used within a RestaurantProvider.");
   }
 
   return context;

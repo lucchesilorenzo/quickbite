@@ -9,18 +9,17 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useReviews } from "@partner/contexts/ReviewsProvider";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Link } from "react-router-dom";
-
-import { usePartnerRestaurant } from "@/features/private/partner/contexts/PartnerRestaurantProvider";
-import { usePartnerReviews } from "@/features/private/partner/contexts/PartnerReviewsProvider";
 
 type RatingDisplayCardProps = {
   type: "dashboard" | "reviews";
 };
 
 export default function RatingDisplayCard({ type }: RatingDisplayCardProps) {
-  const { restaurant } = usePartnerRestaurant();
-  const { reviewsData } = usePartnerReviews();
+  const { restaurant } = useRestaurant();
+  const { reviewsData } = useReviews();
 
   return (
     <Card variant="outlined">

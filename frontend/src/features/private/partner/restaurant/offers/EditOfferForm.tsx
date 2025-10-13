@@ -9,13 +9,13 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useUpdateOffer } from "@partner/hooks/restaurants/offers/useUpdateOffer";
 import { discountRates } from "@partner/lib/constants/offers";
 import {
   TRestaurantSettingsOffersFormSchema,
   restaurantSettingsOffersFormSchema,
 } from "@partner/validations/restaurant-settings-validations";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
@@ -30,7 +30,7 @@ export default function EditOfferForm({
   offer,
   setOpenEditOfferDialog,
 }: EditOfferFormProps) {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateOffer } = useUpdateOffer(restaurant.id, offer.id);
 

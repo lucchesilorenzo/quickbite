@@ -9,7 +9,7 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteMenuItem } from "@partner/hooks/restaurants/menu/items/useDeleteMenuItem";
 
 import { MenuItem } from "@/types/menu-types";
@@ -25,7 +25,7 @@ export default function DeleteMenuItemDialog({
   openDeleteMenuItemDialog,
   setOpenDeleteMenuItemDialog,
 }: DeleteMenuItemDialogProps) {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: deleteMenuItem, isPending: isDeleting } =
     useDeleteMenuItem(restaurant.id, menuItem.id);

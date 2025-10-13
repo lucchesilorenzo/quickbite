@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-
-import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
-import MenuMainCards from "@/features/private/partner/restaurant/menu/MenuMainCards";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import MenuMainCards from "@partner/restaurant/menu/MenuMainCards";
 
 export default function PartnerMenuPage() {
   useEffect(() => {

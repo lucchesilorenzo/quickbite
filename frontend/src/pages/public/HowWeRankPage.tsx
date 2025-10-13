@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
 import { Container, Typography, useMediaQuery } from "@mui/material";
-
-import RankingSections from "@/features/public/how-we-rank/RankingSections";
+import RankingSections from "@public/how-we-rank/RankingSections";
 
 export default function HowWeRankPage() {
   useEffect(() => {

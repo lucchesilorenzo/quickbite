@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-
-import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
-import OffersContainer from "@/features/private/partner/restaurant/offers/OffersContainer";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import OffersContainer from "@partner/restaurant/offers/OffersContainer";
 
 export default function PartnerOffersPage() {
   useEffect(() => {

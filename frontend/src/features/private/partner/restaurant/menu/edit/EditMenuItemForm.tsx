@@ -9,12 +9,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useUpdateMenuItem } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItem";
 import {
   TEditMenuItemFormSchema,
   editMenuItemFormSchema,
 } from "@partner/validations/menu-validations";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
 import AntSwitch from "@/components/AntSwitch";
@@ -31,7 +31,7 @@ export default function EditMenuItemForm({
   menuItem,
   setOpenEditMenuItemDialog,
 }: EditMenuItemFormProps) {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateMenuItem } = useUpdateMenuItem(
     restaurant.id,

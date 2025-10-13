@@ -1,5 +1,5 @@
 import { Card, Grid } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetDashboardStats } from "@partner/hooks/restaurants/stats/useGetDashboardStats";
 import { dashboardStatsDefaults } from "@partner/lib/query-defaults";
 
@@ -8,7 +8,7 @@ import StatsCardItem from "./StatsCardItem";
 import Spinner from "@/components/Spinner";
 
 export default function StatsCard() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { data: stats = dashboardStatsDefaults, isLoading: isLoadingStats } =
     useGetDashboardStats(restaurant.id);

@@ -6,11 +6,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
+import { useStats } from "@partner/contexts/StatsProvider";
 
 export default function StatsDetailsYearSelect() {
   const { statsData, isLoadingStats, activeKpi, range, year, setYear } =
-    usePartnerStats();
+    useStats();
 
   const currentYear = new Date().getFullYear();
 

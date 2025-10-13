@@ -1,12 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { usePartnerReviews } from "@partner/contexts/PartnerReviewsProvider";
+import { useReviews } from "@partner/contexts/ReviewsProvider";
 
 import ReviewItem from "./ReviewItem";
 
 import CustomPagination from "@/components/CustomPagination";
 
 export default function ReviewsList() {
-  const { reviewsData, page, setPage } = usePartnerReviews();
+  const { reviewsData, page, setPage } = useReviews();
 
   if (!reviewsData.count) {
     return (

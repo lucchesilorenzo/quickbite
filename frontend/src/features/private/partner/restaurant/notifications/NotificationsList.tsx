@@ -1,12 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import NotificationItem from "./NotificationItem";
 
 import CustomPagination from "@/components/CustomPagination";
 
 export default function NotificationsList() {
-  const { partnerNotifications, page, setPage } = usePartnerRestaurant();
+  const { partnerNotifications, page, setPage } = useRestaurant();
 
   return (
     <Stack spacing={2} sx={{ my: 3 }}>

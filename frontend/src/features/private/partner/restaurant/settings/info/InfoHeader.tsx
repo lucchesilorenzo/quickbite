@@ -3,12 +3,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
 import HeadingBlock from "@partner/components/HeadingBlock";
-import { usePartnerInfo } from "@partner/contexts/PartnerInfoProvider";
 import { TRestaurantSettingsInfoFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { useFormContext } from "react-hook-form";
 
+import { useInfo } from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
+
 export default function InfoHeader() {
-  const { editMode, setEditMode } = usePartnerInfo();
+  const { editMode, setEditMode } = useInfo();
 
   const {
     formState: { isSubmitting },

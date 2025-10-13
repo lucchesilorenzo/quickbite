@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useUpdateMenuCategory } from "@partner/hooks/restaurants/menu/categories/useUpdateMenuCategory";
 import { PartnerMenu } from "@partner/types/menu-types";
 import {
   TEditMenuCategoryFormSchema,
   editMenuCategoryFormSchema,
 } from "@partner/validations/menu-validations";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
@@ -20,7 +20,7 @@ export default function EditMenuCategoryForm({
   menuCategory,
   setOpenEditMenuCategoryDialog,
 }: EditMenuCategoryFormProps) {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateMenuCategory } = useUpdateMenuCategory(
     restaurant.id,

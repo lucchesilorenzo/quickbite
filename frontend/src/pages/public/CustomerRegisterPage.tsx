@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
+import RegisterFormCardDesktop from "@customer/register/RegisterFormCardDesktop";
+import RegisterFormCardMobile from "@customer/register/mobile/RegisterFormCardMobile";
 import { Container } from "@mui/material";
-
-import RegisterFormCardDesktop from "@/features/private/customer/register/RegisterFormCardDesktop";
-import RegisterFormCardMobile from "@/features/private/customer/register/mobile/RegisterFormCardMobile";
 
 export default function CustomerRegisterPage() {
   useEffect(() => {

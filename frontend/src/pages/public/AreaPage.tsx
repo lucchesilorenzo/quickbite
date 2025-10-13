@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 import { Container } from "@mui/material";
+import AreaLayoutDesktop from "@public/area/layouts/AreaLayoutDesktop";
+import AreaLayoutMobile from "@public/area/layouts/AreaLayoutMobile";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
 import { useAddress } from "@/contexts/AddressProvider";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
-import AreaLayoutDesktop from "@/features/public/area/layouts/AreaLayoutDesktop";
-import AreaLayoutMobile from "@/features/public/area/layouts/AreaLayoutMobile";
 import env from "@/lib/env";
 import { Address } from "@/types/address-types";
 

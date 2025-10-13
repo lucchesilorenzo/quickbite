@@ -4,10 +4,10 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Box, Fade, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { usePartnerMenu } from "@partner/contexts/PartnerMenuProvider";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
 import { menuDefaults } from "@partner/lib/query-defaults";
+import { useMenu } from "@private/partner/contexts/MenuProvider";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { useSearchParams } from "react-router-dom";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
@@ -19,9 +19,8 @@ import MenuCategoryNavigationSlide from "@/components/menu-category-navigation/M
 import ShowMoreMenuCategoriesButton from "@/components/menu-category-navigation/ShowMoreMenuCategoriesButton";
 
 export default function MenuEditNavigation() {
-  const { restaurant } = usePartnerRestaurant();
-  const { selectedMenuCategoryId, setSelectedMenuCategoryId } =
-    usePartnerMenu();
+  const { restaurant } = useRestaurant();
+  const { selectedMenuCategoryId, setSelectedMenuCategoryId } = useMenu();
 
   const {
     data: menuCategories = menuDefaults,

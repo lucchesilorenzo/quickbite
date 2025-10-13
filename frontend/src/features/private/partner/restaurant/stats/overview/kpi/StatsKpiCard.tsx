@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
+import { useStats } from "@partner/contexts/StatsProvider";
 import { Kpi } from "@partner/types/stat-types";
 import { useSearchParams } from "react-router-dom";
 
@@ -31,7 +31,7 @@ export default function StatsKpiCard({
   isActive,
   isLast,
 }: StatsKpiCardProps) {
-  const { isLoadingKpiSummary, setActiveKpi } = usePartnerStats();
+  const { isLoadingKpiSummary, setActiveKpi } = useStats();
 
   const [searchParams, setSearchParams] = useSearchParams();
 

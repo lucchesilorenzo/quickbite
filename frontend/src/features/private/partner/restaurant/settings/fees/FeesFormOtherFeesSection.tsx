@@ -1,12 +1,12 @@
 import { InputAdornment, Stack, TextField, Typography } from "@mui/material";
+import { TRestaurantSettingsFeesFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { Controller, useFormContext } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
-import { usePartnerFees } from "@/features/private/partner/contexts/PartnerFeesProvider";
-import { TRestaurantSettingsFeesFormSchema } from "@/features/private/partner/validations/restaurant-settings-validations";
+import { useFees } from "@/features/private/partner/restaurant/settings/contexts/FeesProvider";
 
 export default function FeesFormOtherFeesSection() {
-  const { editMode } = usePartnerFees();
+  const { editMode } = useFees();
 
   const {
     control,

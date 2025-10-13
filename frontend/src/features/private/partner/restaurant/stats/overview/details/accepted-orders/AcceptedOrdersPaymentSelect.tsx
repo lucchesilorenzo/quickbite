@@ -5,7 +5,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
+import { useStats } from "@partner/contexts/StatsProvider";
 import { PaymentMethodFilter } from "@partner/types/stat-types";
 
 export const paymentMethodOptions: {
@@ -17,7 +17,7 @@ export const paymentMethodOptions: {
 ];
 
 export default function AcceptedOrdersPaymentSelect() {
-  const { paymentMethod, setPaymentMethod } = usePartnerStats();
+  const { paymentMethod, setPaymentMethod } = useStats();
 
   function handlePaymentChange(e: SelectChangeEvent<PaymentMethodFilter>) {
     setPaymentMethod(e.target.value);

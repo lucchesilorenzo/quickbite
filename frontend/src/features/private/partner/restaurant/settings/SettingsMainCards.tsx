@@ -2,12 +2,12 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
 import { Stack } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import MainCard from "../components/MainCard";
 
 export default function SettingsMainCards() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const cards = [
     {

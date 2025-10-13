@@ -10,7 +10,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { Link } from "react-router-dom";
 
 import ProfileMenu from "../profile/ProfileMenu";
@@ -18,7 +18,7 @@ import RestaurantDrawer from "./RestaurantDrawer";
 import RestaurantNavigation from "./RestaurantNavigation";
 
 export default function RestaurantHeader() {
-  const { partnerNotifications, restaurant } = usePartnerRestaurant();
+  const { partnerNotifications, restaurant } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

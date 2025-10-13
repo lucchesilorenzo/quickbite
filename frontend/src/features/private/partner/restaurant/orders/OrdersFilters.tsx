@@ -1,5 +1,5 @@
 import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { usePartnerOrders } from "@partner/contexts/PartnerOrdersProvider";
+import { useOrders } from "@private/partner/contexts/OrdersProvider";
 import { OrderStatusWithAll } from "@private/types/order-types";
 import { useSearchParams } from "react-router-dom";
 
@@ -10,7 +10,7 @@ type OrdersFiltersProps = {
 };
 
 export default function OrdersFilters({ setPage }: OrdersFiltersProps) {
-  const { status, setStatus } = usePartnerOrders();
+  const { status, setStatus } = useOrders();
 
   const [, setSearchParams] = useSearchParams();
 

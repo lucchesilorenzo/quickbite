@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import HeadingBlock from "@partner/components/HeadingBlock";
-import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
+import { useStats } from "@partner/contexts/StatsProvider";
 import { getComputedRangeLabel } from "@partner/lib/utils/stats";
 
 import StatsRangeSelect from "./StatsRangeSelect";
 
 export default function StatsHeaderLeft() {
-  const { range } = usePartnerStats();
+  const { range } = useStats();
 
   const computedRange = getComputedRangeLabel(range);
 

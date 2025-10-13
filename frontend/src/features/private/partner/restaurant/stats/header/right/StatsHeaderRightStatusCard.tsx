@@ -1,9 +1,9 @@
 import { Cancel, CheckCircle } from "@mui/icons-material";
 import { Card, Chip, Stack, Typography } from "@mui/material";
-import { usePartnerRestaurant } from "@partner/contexts/PartnerRestaurantProvider";
+import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 export default function StatsHeaderRightStatusCard() {
-  const { restaurant } = usePartnerRestaurant();
+  const { restaurant } = useRestaurant();
 
   const status = restaurant.is_open
     ? {

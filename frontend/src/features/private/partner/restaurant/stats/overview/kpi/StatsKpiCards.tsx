@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { usePartnerStats } from "@partner/contexts/PartnerStatsProvider";
+import { useStats } from "@partner/contexts/StatsProvider";
 import { Kpi } from "@partner/types/stat-types";
 
 import StatsKpiCard from "./StatsKpiCard";
@@ -7,7 +7,7 @@ import StatsKpiCard from "./StatsKpiCard";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function StatsKpiCards() {
-  const { kpiSummary, activeKpi } = usePartnerStats();
+  const { kpiSummary, activeKpi } = useStats();
 
   const cards: { key: Kpi; value: string; title: string; color: string }[] = [
     {
