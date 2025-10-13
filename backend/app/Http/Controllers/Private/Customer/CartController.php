@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Private\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Customer\Cart\CustomerCreateOrUpdateCartRequest;
-use App\Http\Requests\Private\Customer\Cart\CustomerCreateOrUpdateCartsRequest;
+use App\Http\Requests\Private\Customer\Cart\CreateOrUpdateCartRequest;
+use App\Http\Requests\Private\Customer\Cart\CreateOrUpdateCartsRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Services\Private\Customer\CartService;
@@ -64,7 +64,7 @@ class CartController extends Controller
      * Create or update multiple carts for customer.
      */
     public function createOrUpdateCarts(
-        CustomerCreateOrUpdateCartsRequest $request
+        CreateOrUpdateCartsRequest $request
     ): JsonResponse {
         $data = $request->validated();
 
@@ -100,7 +100,7 @@ class CartController extends Controller
      * Update a customer's cart.
      */
     public function createOrUpdateCart(
-        CustomerCreateOrUpdateCartRequest $request
+        CreateOrUpdateCartRequest $request
     ): JsonResponse {
         $data = $request->validated();
 

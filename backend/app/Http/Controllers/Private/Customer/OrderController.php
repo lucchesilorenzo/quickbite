@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Private\Customer;
 use App\Exceptions\Private\Customer\CustomerRestaurantNotAvailableException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Customer\Order\CustomerCreateOrderRequest;
+use App\Http\Requests\Private\Customer\Order\CreateOrderRequest;
 use App\Models\Order;
 use App\Services\Private\Customer\OrderService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -60,7 +60,7 @@ class OrderController extends Controller
     /**
      * Create a new customer's order.
      */
-    public function createOrder(CustomerCreateOrderRequest $request): JsonResponse
+    public function createOrder(CreateOrderRequest $request): JsonResponse
     {
         try {
             $order = $this->orderService->createOrder(

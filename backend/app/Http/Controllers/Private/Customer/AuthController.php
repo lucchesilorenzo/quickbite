@@ -7,8 +7,8 @@ namespace App\Http\Controllers\Private\Customer;
 use App\Exceptions\Private\Customer\CustomerInvalidCredentialsException;
 use App\Exceptions\Private\Customer\CustomerUnauthorizedException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Private\Customer\Auth\CustomerLoginRequest;
-use App\Http\Requests\Private\Customer\Auth\CustomerRegisterRequest;
+use App\Http\Requests\Private\Customer\Auth\LoginRequest;
+use App\Http\Requests\Private\Customer\Auth\RegisterRequest;
 use App\Services\Private\Customer\AuthService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -22,7 +22,7 @@ class AuthController extends Controller
     /**
      * Register a new customer.
      */
-    public function register(CustomerRegisterRequest $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
         try {
             $token = $this->authService->register(
@@ -49,7 +49,7 @@ class AuthController extends Controller
     /**
      * Login a customer.
      */
-    public function login(CustomerLoginRequest $request): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
         try {
             $token = $this->authService->login(

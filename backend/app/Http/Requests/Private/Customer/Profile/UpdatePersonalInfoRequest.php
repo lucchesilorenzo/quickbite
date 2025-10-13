@@ -8,7 +8,7 @@ use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerUpdatePersonalInfoRequest extends FormRequest
+class UpdatePersonalInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Private\Customer\Auth;
+namespace App\Http\Requests\Private\Customer\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerLoginRequest extends FormRequest
+class UpdateAddressInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,11 @@ class CustomerLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
+            'street_address' => ['required', 'string', 'min:1', 'max:50'],
+            'building_number' => ['required', 'string', 'min:1', 'max:50'],
+            'postcode' => ['required', 'string', 'min:1', 'max:50'],
+            'city' => ['required', 'string', 'min:1', 'max:50'],
+            'state' => ['required', 'string', 'min:1', 'max:50'],
         ];
     }
 }
