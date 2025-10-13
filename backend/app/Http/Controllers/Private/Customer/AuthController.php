@@ -13,7 +13,7 @@ use App\Services\Private\Customer\CustomerAuthService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class CustomerAuthController extends Controller
+class AuthController extends Controller
 {
     public function __construct(
         private readonly CustomerAuthService $customerAuthService

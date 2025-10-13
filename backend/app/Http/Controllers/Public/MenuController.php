@@ -10,7 +10,7 @@ use App\Services\Public\MenuService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class RestaurantMenuController extends Controller
+class MenuController extends Controller
 {
     public function __construct(
         private readonly MenuService $menuService
@@ -19,7 +19,7 @@ class RestaurantMenuController extends Controller
     /**
      * Get restaurant's menu.
      */
-    public function getRestaurantMenu(Restaurant $restaurant): JsonResponse
+    public function getMenu(Restaurant $restaurant): JsonResponse
     {
         try {
             $menu = $this->menuService->getMenu($restaurant);

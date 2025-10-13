@@ -12,7 +12,7 @@ use App\Services\Private\Customer\CustomerProfileService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class CustomerProfileController extends Controller
+class ProfileController extends Controller
 {
     public function __construct(
         private readonly CustomerProfileService $customerProfileService

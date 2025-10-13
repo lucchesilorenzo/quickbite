@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class CustomerReviewController extends Controller
+class ReviewController extends Controller
 {
     public function __construct(
         private readonly CustomerReviewService $customerReviewService

@@ -14,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class CustomerCartController extends Controller
+class CartController extends Controller
 {
     public function __construct(
         private readonly CustomerCartService $customerCartService

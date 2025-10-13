@@ -60,7 +60,7 @@ class RestaurantController extends Controller
     /**
      * Get restaurant's delivery slots.
      */
-    public function getRestaurantDeliverySlots(Restaurant $restaurant): JsonResponse
+    public function getDeliverySlots(Restaurant $restaurant): JsonResponse
     {
         try {
             $deliverySlots = $this->restaurantService->getDeliverySlots($restaurant);
