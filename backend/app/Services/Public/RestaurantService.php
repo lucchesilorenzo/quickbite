@@ -49,8 +49,8 @@ class RestaurantService
         $search = $data['q'] ?? null;
 
         $query = Restaurant::select('*')
-            ->selectRaw(self::HAVERSINE.' AS distance', [$lat, $lon, $lat])
-            ->whereRaw(self::HAVERSINE.' < ?', [$lat, $lon, $lat, self::RADIUS_KM])
+            ->selectRaw(self::HAVERSINE . ' AS distance', [$lat, $lon, $lat])
+            ->whereRaw(self::HAVERSINE . ' < ?', [$lat, $lon, $lat, self::RADIUS_KM])
             ->where('is_approved', true)
             ->with([
                 'categories',
@@ -157,7 +157,7 @@ class RestaurantService
         $mimeType = Storage::disk('public')->mimeType($relativePath);
 
         return [
-            'logo' => 'data:'.$mimeType.';base64,'.base64_encode((string) $logo),
+            'logo' => 'data:' . $mimeType . ';base64,' . base64_encode((string) $logo),
         ];
     }
 
@@ -229,7 +229,7 @@ class RestaurantService
             ->when($sortBy === 'minimum_order_value', fn ($q) => $q->orderBy('min_amount')->orderBy('id'))
             ->when($sortBy === 'delivery_time', fn ($q) => $q->orderByRaw('(min_delivery_time + max_delivery_time) / 2')->orderBy('id'))
             ->when($sortBy === 'delivery_fee', fn ($q) => $q->orderBy('delivery_fee')->orderBy('id'))
-            ->when($sortBy === null || $sortBy === '' || $sortBy === '0', fn ($q) => $q->orderBy('id'));
+            ->when(in_array($sortBy, [null, '', '0'], true), fn ($q) => $q->orderBy('id'));
     }
 
     private function buildMeta(Builder $baseQuery, int $total): array
