@@ -10,7 +10,7 @@ use App\Services\Private\Partner\PartnerNotificationService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class PartnerNotificationController extends Controller
+class NotificationController extends Controller
 {
     public function __construct(
         private readonly PartnerNotificationService $partnerNotificationService,

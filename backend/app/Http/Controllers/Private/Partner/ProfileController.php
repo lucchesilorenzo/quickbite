@@ -12,7 +12,7 @@ use App\Services\Private\Partner\PartnerProfileService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class PartnerProfileController extends Controller
+class ProfileController extends Controller
 {
     public function __construct(
         private readonly PartnerProfileService $partnerProfileService

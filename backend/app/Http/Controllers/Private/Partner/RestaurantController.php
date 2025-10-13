@@ -17,7 +17,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class PartnerRestaurantController extends Controller
+class RestaurantController extends Controller
 {
     public function __construct(
         private readonly PartnerRestaurantService $partnerRestaurantService,
@@ -62,7 +62,7 @@ class PartnerRestaurantController extends Controller
     /**
      * Update a partner's restaurant status.
      */
-    public function updateRestaurantStatus(
+    public function updateStatus(
         UpdateRestaurantStatusRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
@@ -88,7 +88,7 @@ class PartnerRestaurantController extends Controller
     /**
      * Update a partner's restaurant approved status.
      */
-    public function updateRestaurantApprovedStatus(Restaurant $restaurant): JsonResponse
+    public function updateApprovedStatus(Restaurant $restaurant): JsonResponse
     {
         Gate::authorize('update', $restaurant);
 
@@ -113,7 +113,7 @@ class PartnerRestaurantController extends Controller
     /**
      * Update a partner's restaurant fees.
      */
-    public function updateRestaurantFees(
+    public function updateFees(
         UpdateRestaurantFeesRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
@@ -139,7 +139,7 @@ class PartnerRestaurantController extends Controller
     /**
      * Update a partner's restaurant delivery times.
      */
-    public function updateRestaurantDeliveryTimes(
+    public function updateDeliveryTimes(
         UpdateRestaurantDeliveryTimesRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
@@ -165,7 +165,7 @@ class PartnerRestaurantController extends Controller
     /**
      * Update a partner's restaurant info.
      */
-    public function updateRestaurantInfo(
+    public function updateInfo(
         UpdateRestaurantInfoRequest $request,
         Restaurant $restaurant
     ): JsonResponse {

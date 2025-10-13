@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class PartnerRestaurantMenuController extends Controller
+class MenuController extends Controller
 {
     public function __construct(
         private readonly PartnerMenuService $partnerMenuService
@@ -20,7 +20,7 @@ class PartnerRestaurantMenuController extends Controller
     /**
      * Get partner's restaurant menu.
      */
-    public function getRestaurantMenu(Restaurant $restaurant): JsonResponse
+    public function getMenu(Restaurant $restaurant): JsonResponse
     {
         Gate::authorize('viewPartnerMenu', $restaurant);
 

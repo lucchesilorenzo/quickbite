@@ -16,7 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class PartnerRestaurantStatsController extends Controller
+class StatsController extends Controller
 {
     public function __construct(
         private readonly PartnerStatsService $partnerStatsService
@@ -25,7 +25,7 @@ class PartnerRestaurantStatsController extends Controller
     /**
      * Get restaurant's dashboard stats.
      */
-    public function getRestaurantDashboardStats(
+    public function getDashboardStats(
         Restaurant $restaurant
     ): JsonResponse {
         Gate::authorize('viewPartnerStats', $restaurant);
@@ -41,7 +41,7 @@ class PartnerRestaurantStatsController extends Controller
         }
     }
 
-    public function getRestaurantKpiSummary(
+    public function getKpiSummary(
         GetRestaurantKpiSummaryRequest $request,
         Restaurant $restaurant
     ) {
@@ -67,7 +67,7 @@ class PartnerRestaurantStatsController extends Controller
         }
     }
 
-    public function getRestaurantStats(
+    public function getStats(
         GetRestaurantStatsRequest $request,
         Restaurant $restaurant
     ): JsonResponse {

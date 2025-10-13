@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class PartnerReviewController extends Controller
+class ReviewController extends Controller
 {
     public function __construct(
         private readonly PartnerReviewService $partnerReviewService

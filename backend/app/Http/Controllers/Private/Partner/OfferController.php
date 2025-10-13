@@ -15,7 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class PartnerOfferController extends Controller
+class OfferController extends Controller
 {
     public function __construct(
         private readonly PartnerOfferService $partnerOfferService

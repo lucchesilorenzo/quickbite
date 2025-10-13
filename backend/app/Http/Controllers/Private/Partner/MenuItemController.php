@@ -16,7 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
-class PartnerMenuItemController extends Controller
+class MenuItemController extends Controller
 {
     public function __construct(
         private readonly PartnerMenuItemService $partnerMenuItemService
@@ -25,7 +25,7 @@ class PartnerMenuItemController extends Controller
     /**
      * Create a partner's restaurant menu item.
      */
-    public function createRestaurantMenuItem(
+    public function createMenuItem(
         CreateRestaurantMenuItemRequest $request,
         MenuCategory $menuCategory
     ): JsonResponse {
@@ -54,7 +54,7 @@ class PartnerMenuItemController extends Controller
     /**
      * Update a partner's restaurant menu item.
      */
-    public function updateRestaurantMenuItem(
+    public function updateMenuItem(
         UpdateRestaurantMenuItemRequest $request,
         MenuItem $menuItem
     ): JsonResponse {
@@ -83,7 +83,7 @@ class PartnerMenuItemController extends Controller
     /**
      * Update a partner's restaurant menu items order.
      */
-    public function updateRestaurantMenuItemsOrder(
+    public function updateMenuItemsOrder(
         UpdateRestaurantMenuItemsOrderRequest $request
     ): JsonResponse {
         $data = $request->validated();
@@ -120,7 +120,7 @@ class PartnerMenuItemController extends Controller
     /**
      * Delete a partner's restaurant menu item.
      */
-    public function deleteRestaurantMenuItem(MenuItem $menuItem): JsonResponse
+    public function deleteMenuItem(MenuItem $menuItem): JsonResponse
     {
         Gate::authorize('delete', $menuItem);
 

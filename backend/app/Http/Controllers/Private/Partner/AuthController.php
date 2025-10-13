@@ -14,7 +14,7 @@ use App\Services\Private\Partner\PartnerAuthService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class PartnerAuthController extends Controller
+class AuthController extends Controller
 {
     public function __construct(
         private readonly PartnerAuthService $partnerAuthService,
