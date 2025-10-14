@@ -3,12 +3,12 @@ import { useEffect } from "react";
 import { useEchoNotification } from "@laravel/echo-react";
 import { Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import RestaurantProvider from "@partner/contexts/RestaurantProvider";
 import RestaurantHeader from "@partner/restaurant/RestaurantHeader";
 import {
   NewOrderReceivedToBroadcast,
   NewReviewReceivedToBroadcast,
 } from "@partner/types/notification-types";
-import RestaurantProvider from "@private/partner/contexts/RestaurantProvider";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";

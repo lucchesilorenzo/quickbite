@@ -1,8 +1,7 @@
 import { Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import RestaurantsHeader from "@partner/restaurants/RestaurantsHeader";
 import { Outlet } from "react-router-dom";
-
-import RestaurantsHeader from "@/features/private/partner/restaurants/RestaurantsHeader";
 
 export default function PartnerLayout() {
   return (
