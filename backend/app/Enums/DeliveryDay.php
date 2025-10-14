@@ -6,13 +6,13 @@ namespace App\Enums;
 
 enum DeliveryDay: string
 {
-    case MONDAY = 'MONDAY';
-    case TUESDAY = 'TUESDAY';
-    case WEDNESDAY = 'WEDNESDAY';
-    case THURSDAY = 'THURSDAY';
-    case FRIDAY = 'FRIDAY';
-    case SATURDAY = 'SATURDAY';
-    case SUNDAY = 'SUNDAY';
+    case MONDAY = 'monday';
+    case TUESDAY = 'tuesday';
+    case WEDNESDAY = 'wednesday';
+    case THURSDAY = 'thursday';
+    case FRIDAY = 'friday';
+    case SATURDAY = 'saturday';
+    case SUNDAY = 'sunday';
 
     /**
      * Get the enum values.

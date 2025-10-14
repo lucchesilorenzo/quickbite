@@ -155,7 +155,7 @@ export default function DeliveryTimesEditTab() {
             )}
           </Box>
 
-          {d.day !== "SUNDAY" && <Divider sx={{ my: 2 }} />}
+          {d.day !== "sunday" && <Divider sx={{ my: 2 }} />}
         </Box>
       ))}
 

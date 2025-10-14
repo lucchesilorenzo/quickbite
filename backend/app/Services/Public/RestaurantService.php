@@ -116,7 +116,7 @@ class RestaurantService
     public function getDeliverySlots(Restaurant $restaurant): array
     {
         $currentDeliveryDay = $restaurant->deliveryDays()
-            ->where('day', mb_strtoupper(now()->format('l')))
+            ->where('day', mb_strtolower(now()->format('l')))
             ->firstOrFail();
 
         $interval = 5;
@@ -165,7 +165,7 @@ class RestaurantService
     private function applyFilters(Builder $query, array $filters, ?string $search): void
     {
         if (in_array('open_now', $filters)) {
-            $dayName = mb_strtoupper(now()->format('l'));
+            $dayName = mb_strtolower(now()->format('l'));
             $currentTime = now()->format('H:i');
 
             $query->whereHas('deliveryDays', function ($q) use ($dayName, $currentTime): void {

@@ -5,7 +5,7 @@ import { Offer } from "@/types/offer-types";
 import { SingleRestaurantDetail } from "@/types/restaurant-types";
 
 export function getRestaurantOpeningTime(restaurant: SingleRestaurantDetail) {
-  const dayName = format(new Date(), "EEEE").toUpperCase();
+  const dayName = format(new Date(), "EEEE").toLowerCase();
 
   const day = restaurant.delivery_days.find((d) => d.day === dayName);
   if (!day?.start_time) return null;

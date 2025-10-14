@@ -63,7 +63,7 @@ class Restaurant extends Model
      */
     public function calculateIsOpen(): bool
     {
-        $dayName = mb_strtoupper(now()->format('l'));
+        $dayName = mb_strtolower(now()->format('l'));
         $currentTime = now()->format('H:i');
 
         return $this->deliveryDays()

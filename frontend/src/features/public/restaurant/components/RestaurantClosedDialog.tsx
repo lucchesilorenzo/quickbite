@@ -35,10 +35,10 @@ export default function RestaurantClosedDialog({
       : `${restaurant.name} is closed for delivery`;
 
   const availabilityContent = restaurant.force_close
-    ? "This restaurant is temporarily unavailable."
+    ? "This restaurant is temporarily unavailable"
     : openingTime
       ? `Delivery from ${openingTime}`
-      : "Closed for delivery.";
+      : "Closed for delivery";
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
