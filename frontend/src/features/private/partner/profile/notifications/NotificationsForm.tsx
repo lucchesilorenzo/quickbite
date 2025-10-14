@@ -42,11 +42,7 @@ export default function NotificationsForm() {
               name={preference.value}
               control={control}
               render={({ field }) => (
-                <AntSwitch
-                  {...field}
-                  checked={field.value}
-                  onChange={field.onChange}
-                />
+                <AntSwitch checked={field.value} onChange={field.onChange} />
               )}
             />
           </Stack>
