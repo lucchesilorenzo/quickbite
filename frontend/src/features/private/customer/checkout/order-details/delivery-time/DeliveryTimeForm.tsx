@@ -21,7 +21,7 @@ import {
   Stack,
 } from "@mui/material";
 import { format } from "date-fns";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
 
@@ -39,7 +39,6 @@ export default function DeliveryTimeForm({
     handleSubmit,
     control,
     formState: { isSubmitting, errors },
-    watch,
     setValue,
   } = useForm({
     resolver: zodResolver(deliveryTimeFormSchema),
@@ -49,8 +48,8 @@ export default function DeliveryTimeForm({
     },
   });
 
-  const deliveryType = watch("delivery_type");
-  const deliveryTime = watch("delivery_time");
+  const deliveryType = useWatch({ control, name: "delivery_type" });
+  const deliveryTime = useWatch({ control, name: "delivery_time" });
 
   useEffect(() => {
     if (deliveryType === "schedule") {

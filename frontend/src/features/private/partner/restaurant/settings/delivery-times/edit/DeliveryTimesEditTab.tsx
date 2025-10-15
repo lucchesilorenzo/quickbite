@@ -16,7 +16,7 @@ import {
   restaurantSettingsDeliveryTimesFormSchema,
 } from "@private/partner/validations/restaurant-settings-validations";
 import { format } from "date-fns";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 
 import AntSwitch from "@/components/AntSwitch";
 import { FormHelperTextError } from "@/components/FormHelperTextError";
@@ -31,7 +31,6 @@ export default function DeliveryTimesEditTab() {
   const {
     handleSubmit,
     control,
-    watch,
     setValue,
     formState: { isSubmitting, errors },
     clearErrors,
@@ -49,7 +48,10 @@ export default function DeliveryTimesEditTab() {
     },
   });
 
-  const deliveryDays = watch("delivery_days");
+  const deliveryDays = useWatch({
+    control,
+    name: "delivery_days",
+  });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 

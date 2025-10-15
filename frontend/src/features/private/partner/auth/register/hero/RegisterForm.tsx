@@ -17,7 +17,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useRegister } from "@partner/hooks/auth/useRegister";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 
 import { FormHelperTextError } from "@/components/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/PasswordStrengthIndicator";
@@ -35,7 +35,6 @@ export default function RegisterForm() {
     handleSubmit,
     control,
     formState: { isSubmitting, errors },
-    watch,
   } = useForm({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -59,7 +58,7 @@ export default function RegisterForm() {
   const [showPasswordConfirmation, setShowPasswordConfirmation] =
     useState(false);
 
-  const password = watch("password");
+  const password = useWatch({ control, name: "password" });
   const strength = calculatePasswordStrength(password);
 
   async function onSubmit(data: TRegisterFormSchema) {
