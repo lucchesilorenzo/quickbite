@@ -15,6 +15,10 @@ type MenuContext = {
   isLoadingMenu: boolean;
   menuCategoryRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  registerMenuCategoryRef: (
+    menuCategoryId: string,
+    el: HTMLDivElement | null,
+  ) => void;
 };
 
 const MenuContext = createContext<MenuContext | null>(null);
@@ -23,16 +27,31 @@ export default function MenuProvider({ children }: MenuProviderProps) {
   const { restaurant } = useRestaurant();
 
   const [page, setPage] = useState(1);
-  const menuCategoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const { data: menuData = [], isLoading: isLoadingMenu } = useGetMenu(
     restaurant.id,
     page,
   );
 
+  const menuCategoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  function registerMenuCategoryRef(
+    menuCategoryId: string,
+    el: HTMLDivElement | null,
+  ) {
+    menuCategoryRefs.current[menuCategoryId] = el;
+  }
+
   return (
     <MenuContext.Provider
-      value={{ menuData, page, isLoadingMenu, menuCategoryRefs, setPage }}
+      value={{
+        menuData,
+        page,
+        isLoadingMenu,
+        menuCategoryRefs,
+        setPage,
+        registerMenuCategoryRef,
+      }}
     >
       {children}
     </MenuContext.Provider>
