@@ -24,8 +24,8 @@ export type RestaurantBase = {
   min_amount: number;
   delivery_fee: number;
   service_fee: number;
-  delivery_time_min: number;
-  delivery_time_max: number;
+  min_delivery_time: number;
+  max_delivery_time: number;
   logo: string | null;
   cover: string | null;
   is_approved: boolean;

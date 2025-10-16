@@ -48,7 +48,8 @@ class RestaurantService
         $mov = $data['mov'] ?? null;
         $search = $data['q'] ?? null;
 
-        $query = Restaurant::select('*')
+        $query = Restaurant::query()
+            ->select('*')
             ->selectRaw(self::HAVERSINE . ' AS distance', [$lat, $lon, $lat])
             ->whereRaw(self::HAVERSINE . ' < ?', [$lat, $lon, $lat, self::RADIUS_KM])
             ->where('is_approved', true)
@@ -115,7 +116,7 @@ class RestaurantService
     public function getDeliverySlots(Restaurant $restaurant): array
     {
         $currentDeliveryDay = $restaurant->deliveryDays()
-            ->where('day', mb_strtoupper(now()->format('l')))
+            ->where('day', mb_strtolower(now()->format('l')))
             ->firstOrFail();
 
         $interval = 5;
@@ -164,7 +165,7 @@ class RestaurantService
     private function applyFilters(Builder $query, array $filters, ?string $search): void
     {
         if (in_array('open_now', $filters)) {
-            $dayName = mb_strtoupper(now()->format('l'));
+            $dayName = mb_strtolower(now()->format('l'));
             $currentTime = now()->format('H:i');
 
             $query->whereHas('deliveryDays', function ($q) use ($dayName, $currentTime): void {
@@ -203,7 +204,9 @@ class RestaurantService
         }
 
         // Categories filter
-        $categories = Category::pluck('slug')->toArray();
+        $categories = Category::query()
+            ->pluck('slug')
+            ->toArray();
         $selectedCategories = array_values(array_intersect($categories, $filters));
 
         if (count($selectedCategories) > 0) {
@@ -227,9 +230,9 @@ class RestaurantService
         $query->when($sortBy === 'review_rating', fn ($q) => $q->orderByDesc('reviews_avg_rating')->orderBy('id'))
             ->when($sortBy === 'distance', fn ($q) => $q->orderByRaw("{$haversine} ASC", [$lat, $lon, $lat])->orderBy('id'))
             ->when($sortBy === 'minimum_order_value', fn ($q) => $q->orderBy('min_amount')->orderBy('id'))
-            ->when($sortBy === 'delivery_time', fn ($q) => $q->orderByRaw('(delivery_time_min + delivery_time_max) / 2')->orderBy('id'))
+            ->when($sortBy === 'delivery_time', fn ($q) => $q->orderByRaw('(min_delivery_time + max_delivery_time) / 2')->orderBy('id'))
             ->when($sortBy === 'delivery_fee', fn ($q) => $q->orderBy('delivery_fee')->orderBy('id'))
-            ->when($sortBy === null || $sortBy === '' || $sortBy === '0', fn ($q) => $q->orderBy('id'));
+            ->when(in_array($sortBy, [null, '', '0'], true), fn ($q) => $q->orderBy('id'));
     }
 
     private function buildMeta(Builder $baseQuery, int $total): array

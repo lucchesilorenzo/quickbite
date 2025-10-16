@@ -38,8 +38,8 @@ class Restaurant extends Model
         'min_amount',
         'delivery_fee',
         'service_fee',
-        'delivery_time_min',
-        'delivery_time_max',
+        'min_delivery_time',
+        'max_delivery_time',
         'logo',
         'cover',
         'is_approved',
@@ -63,7 +63,7 @@ class Restaurant extends Model
      */
     public function calculateIsOpen(): bool
     {
-        $dayName = mb_strtoupper(now()->format('l'));
+        $dayName = mb_strtolower(now()->format('l'));
         $currentTime = now()->format('H:i');
 
         return $this->deliveryDays()
@@ -112,21 +112,21 @@ class Restaurant extends Model
     /**
      * Get the restaurant's delivery days.
      *
-     * @return HasMany<RestaurantDeliveryDay, $this>
+     * @return HasMany<DeliveryDay, $this>
      */
     public function deliveryDays(): HasMany
     {
-        return $this->hasMany(RestaurantDeliveryDay::class);
+        return $this->hasMany(DeliveryDay::class);
     }
 
     /**
      * Get the restaurant's offers.
      *
-     * @return HasMany<RestaurantOffer, $this>
+     * @return HasMany<Offer, $this>
      */
     public function offers(): HasMany
     {
-        return $this->hasMany(RestaurantOffer::class);
+        return $this->hasMany(Offer::class);
     }
 
     /**
@@ -142,11 +142,11 @@ class Restaurant extends Model
     /**
      * Get the restaurant's reviews.
      *
-     * @return HasMany<RestaurantReview, $this>
+     * @return HasMany<Review, $this>
      */
     public function reviews(): HasMany
     {
-        return $this->hasMany(RestaurantReview::class);
+        return $this->hasMany(Review::class);
     }
 
     /**

@@ -13,32 +13,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('restaurants', function (Blueprint $table) {
+        Schema::create('restaurants', function (Blueprint $table): void {
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-
             $table->string('street_address');
             $table->string('building_number');
             $table->string('postcode');
             $table->string('city');
             $table->string('state');
             $table->string('country')->default('Italy');
-
             $table->float('latitude');
             $table->float('longitude');
-
             $table->string('phone_number')->nullable()->unique();
             $table->string('email')->nullable()->unique();
             $table->decimal('min_amount')->default(0);
-
             $table->decimal('delivery_fee')->default(0);
             $table->decimal('service_fee')->default(0);
-
-            $table->unsignedSmallInteger('delivery_time_min')->nullable();
-            $table->unsignedSmallInteger('delivery_time_max')->nullable();
-
+            $table->unsignedSmallInteger('min_delivery_time')->nullable();
+            $table->unsignedSmallInteger('max_delivery_time')->nullable();
             $table->string('logo')->nullable();
             $table->string('cover')->nullable();
             $table->boolean('is_approved')->default(false);

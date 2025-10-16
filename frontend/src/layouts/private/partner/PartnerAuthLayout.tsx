@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
+import AuthHeader from "@partner/auth/AuthHeader";
 import { Outlet, useLocation } from "react-router-dom";
 
 import Footer from "@/components/Footer";
-import AuthHeader from "@/features/private/partner/auth/AuthHeader";
 
 export default function PartnerAuthLayout() {
   const { pathname } = useLocation();

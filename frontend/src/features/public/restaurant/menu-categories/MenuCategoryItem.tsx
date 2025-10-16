@@ -12,16 +12,14 @@ type MenuCategoryItemProps = {
 export default function MenuCategoryItem({
   menuCategory,
 }: MenuCategoryItemProps) {
-  const { menuCategoryRefs } = useMenu();
+  const { registerMenuCategoryRef } = useMenu();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Stack
       id={`category-${menuCategory.id}`}
-      ref={(el) => {
-        menuCategoryRefs.current[menuCategory.id] = el;
-      }}
+      ref={(el) => registerMenuCategoryRef(menuCategory.id, el)}
       spacing={2}
       sx={{ mb: 4 }}
     >

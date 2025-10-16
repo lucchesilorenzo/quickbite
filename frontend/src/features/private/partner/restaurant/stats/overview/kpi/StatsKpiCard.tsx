@@ -31,15 +31,13 @@ export default function StatsKpiCard({
   isActive,
   isLast,
 }: StatsKpiCardProps) {
-  const { isLoadingKpiSummary, setActiveKpi } = useStats();
+  const { isLoadingKpiSummary } = useStats();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   function handleKpiClick() {
-    setActiveKpi(card.key);
-
     setSearchParams({
       ...Object.fromEntries(searchParams),
       kpi: card.key,

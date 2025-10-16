@@ -8,13 +8,13 @@ export default function RestaurantCartShippingInfo() {
   const { restaurant } = useRestaurant();
 
   const isSameDeliveryTime =
-    restaurant.delivery_time_min === restaurant.delivery_time_max;
+    restaurant.min_delivery_time === restaurant.max_delivery_time;
 
   const openingTime = getRestaurantOpeningTime(restaurant);
 
   const deliveryTime = isSameDeliveryTime
-    ? `${restaurant.delivery_time_min} min`
-    : `${restaurant.delivery_time_min}-${restaurant.delivery_time_max} min`;
+    ? `${restaurant.min_delivery_time} min`
+    : `${restaurant.min_delivery_time}-${restaurant.max_delivery_time} min`;
 
   const openingInfo = restaurant.force_close
     ? "Temporarily unavailable"

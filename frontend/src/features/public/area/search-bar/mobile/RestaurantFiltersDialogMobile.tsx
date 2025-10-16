@@ -1,32 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Badge, Dialog, DialogTitle, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import RestaurantMinimumOrderRadioFilters from "@public/area/sidebar/RestaurantMinimumOrderRadioFilters";
+import RestaurantOfferFilters from "@public/area/sidebar/RestaurantOfferFilters";
+import RestaurantRatingFilter from "@public/area/sidebar/RestaurantRatingFilter";
+import RestaurantSwitchFilters from "@public/area/sidebar/RestaurantSwitchFilters";
+import RestaurantHeadingContainerMobile from "@public/area/sidebar/mobile/RestaurantHeadingContainerMobile";
 import { useSearchParams } from "react-router-dom";
 
-import RestaurantMinimumOrderRadioFilters from "../../sidebar/RestaurantMinimumOrderRadioFilters";
-import RestaurantOfferFilters from "../../sidebar/RestaurantOfferFilters";
-import RestaurantRatingFilter from "../../sidebar/RestaurantRatingFilter";
-import RestaurantSwitchFilters from "../../sidebar/RestaurantSwitchFilters";
-import RestaurantHeadingContainerMobile from "../../sidebar/mobile/RestaurantHeadingContainerMobile";
 import RestaurantSort from "../RestaurantSort";
 
 export default function RestaurantFiltersDialogMobile() {
   const [searchParams] = useSearchParams();
   const [openRestaurantFiltersDialog, setOpenRestaurantFiltersDialog] =
     useState(false);
-  const [isThereAnyFilter, setIsThereAnyFilter] = useState(false);
 
-  useEffect(() => {
-    const hasFilters =
-      searchParams.getAll("filter").length > 0 ||
-      searchParams.getAll("mov").length > 0 ||
-      searchParams.getAll("sort_by").length > 0;
-
-    setIsThereAnyFilter(hasFilters);
-  }, [searchParams]);
+  const isThereAnyFilter =
+    searchParams.getAll("filter").length > 0 ||
+    searchParams.getAll("mov").length > 0 ||
+    searchParams.getAll("sort_by").length > 0;
 
   return (
     <>
@@ -80,7 +75,6 @@ export default function RestaurantFiltersDialogMobile() {
             <RestaurantHeadingContainerMobile
               isThereAnyFilter={isThereAnyFilter}
               onCloseDialog={() => setOpenRestaurantFiltersDialog(false)}
-              setIsThereAnyFilter={setIsThereAnyFilter}
             />
           </Stack>
         </Stack>

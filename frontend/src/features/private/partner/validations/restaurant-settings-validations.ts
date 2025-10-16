@@ -10,7 +10,7 @@ const restaurantSettingsFeesFormDeliverySectionSchema = z.object({
         ? "Delivery fee is required."
         : "Delivery fee must be a number.",
   }),
-  delivery_time_min: z.coerce
+  min_delivery_time: z.coerce
     .number({
       error: (issue) =>
         issue.input === undefined
@@ -18,7 +18,7 @@ const restaurantSettingsFeesFormDeliverySectionSchema = z.object({
           : "Minimum delivery time must be a number.",
     })
     .positive("Minimum delivery time must be a positive number."),
-  delivery_time_max: z.coerce
+  max_delivery_time: z.coerce
     .number({
       error: (issue) =>
         issue.input === undefined
@@ -48,10 +48,10 @@ export const restaurantSettingsFeesFormSchema = z
     ...restaurantSettingsFeesFormDeliverySectionSchema.shape,
     ...restaurantSettingsFeesFormDeliveryOtherFeesSchema.shape,
   })
-  .refine((data) => data.delivery_time_min <= data.delivery_time_max, {
+  .refine((data) => data.min_delivery_time <= data.max_delivery_time, {
     message:
       "Minimum delivery time must be less or equal than maximum delivery time.",
-    path: ["delivery_time_min"],
+    path: ["min_delivery_time"],
   });
 
 export const restaurantSettingsDeliveryTimesFormSchema = z.object({

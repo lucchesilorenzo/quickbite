@@ -7,8 +7,8 @@ namespace Database\Factories;
 use App\Enums\RestaurantRole;
 use App\Enums\UserRole;
 use App\Models\Category;
+use App\Models\Offer;
 use App\Models\Restaurant;
-use App\Models\RestaurantOffer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
@@ -42,13 +42,13 @@ class RestaurantFactory extends Factory
             'country' => 'Italy',
             'latitude' => fake()->randomFloat(6, 43.7050, 43.7120),
             'longitude' => fake()->randomFloat(6, 10.4000, 10.4100),
-            'phone_number' => '+39 ' . '3' . fake()->numerify('##') . ' ' . fake()->numerify('###') . ' ' . fake()->numerify('####'),
+            'phone_number' => '+39 3' . fake()->numerify('##') . ' ' . fake()->numerify('###') . ' ' . fake()->numerify('####'),
             'email' => fake()->unique()->safeEmail(),
             'min_amount' => fake()->randomElement([10, 15, 20]),
             'delivery_fee' => fake()->randomElement([0, 2.99, 4.99]),
             'service_fee' => fake()->randomElement([0, 0.30, 0.50, 0.75, 1.00]),
-            'delivery_time_min' => fake()->randomElement([10, 15]),
-            'delivery_time_max' => fake()->randomElement([15, 20, 25, 30]),
+            'min_delivery_time' => fake()->randomElement([10, 15]),
+            'max_delivery_time' => fake()->randomElement([15, 20, 25, 30]),
             'logo' => Storage::url('restaurants/logos/default/logo' . $logoNumber++ . '.jpg'),
             'cover' => Storage::url('restaurants/covers/default/cover' . $coverNumber++ . '.jpg'),
             'is_approved' => true,
@@ -60,7 +60,7 @@ class RestaurantFactory extends Factory
      */
     public function configure(): self
     {
-        return $this->afterCreating(function (Restaurant $restaurant) {
+        return $this->afterCreating(function (Restaurant $restaurant): void {
             $this->assignOffersToRestaurant($restaurant);
             $this->assignCategoriesToRestaurant($restaurant);
             $this->assignPartnersToRestaurant($restaurant);
@@ -73,11 +73,11 @@ class RestaurantFactory extends Factory
      */
     private function assignOffersToRestaurant(Restaurant $restaurant): void
     {
-        $offersCount = rand(0, 3);
+        $offersCount = random_int(0, 3);
 
         if ($offersCount > 0) {
             $restaurant->offers()->createMany(
-                RestaurantOffer::factory($offersCount)->make()->toArray()
+                Offer::factory($offersCount)->make()->toArray()
             );
         }
     }
@@ -87,8 +87,9 @@ class RestaurantFactory extends Factory
      */
     private function assignCategoriesToRestaurant(Restaurant $restaurant): void
     {
-        $categories = Category::inRandomOrder()
-            ->take(rand(1, 3))
+        $categories = Category::query()
+            ->inRandomOrder()
+            ->take(random_int(1, 3))
             ->pluck('id');
 
         $restaurant->categories()->attach($categories);
@@ -123,7 +124,7 @@ class RestaurantFactory extends Factory
             ]);
 
             // Remove owner from partners (to avoid duplicates)
-            $partners = $partners->filter(fn ($id) => $id !== $ownerId);
+            $partners = $partners->filter(fn ($id): bool => $id !== $ownerId);
         }
 
         // Assign co-owner

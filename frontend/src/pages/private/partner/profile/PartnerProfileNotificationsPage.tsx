@@ -21,7 +21,7 @@ export default function PartnerProfileNotificationsPage() {
 
   const { user } = useAuth();
 
-  const { mutateAsync: updatePartnerProfileNotifications } =
+  const { mutateAsync: updateProfileNotifications } =
     useUpdateProfileNotifications();
 
   const defaultValues = user?.notification_preferences.reduce(
@@ -43,7 +43,7 @@ export default function PartnerProfileNotificationsPage() {
   } = methods;
 
   async function onSubmit(data: TProfileNotificationsFormSchema) {
-    await updatePartnerProfileNotifications(data);
+    await updateProfileNotifications(data);
   }
 
   return (

@@ -8,7 +8,7 @@ import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
 export default function RestaurantHeadingContainer() {
   const { allCategories } = useCategoryFilters();
-  const { movCounts } = useRestaurants();
+  const { totalRestaurants } = useRestaurants();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -37,7 +37,7 @@ export default function RestaurantHeadingContainer() {
   return (
     <Stack direction="row" sx={{ justifyContent: "space-between" }}>
       <Typography component="span" variant="h6" sx={{ fontWeight: 700 }}>
-        {movCounts.all} places
+        {totalRestaurants} places
       </Typography>
 
       {nonCategoryFilters.length > 0 && (

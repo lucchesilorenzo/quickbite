@@ -15,28 +15,28 @@ class RestaurantPolicy
 
     // === PARTNER ===
 
-    public function viewRestaurantOrders(User $user, Restaurant $restaurant): Response
+    public function viewPartnerOrders(User $user, Restaurant $restaurant): Response
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()
             : Response::deny('You are not authorized to view the orders.');
     }
 
-    public function viewRestaurantReviews(User $user, Restaurant $restaurant): Response
+    public function viewPartnerReviews(User $user, Restaurant $restaurant): Response
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()
             : Response::deny('You are not authorized to view the reviews.');
     }
 
-    public function viewRestaurantStats(User $user, Restaurant $restaurant): Response
+    public function viewPartnerStats(User $user, Restaurant $restaurant): Response
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()
             : Response::deny('You are not authorized to view the stats.');
     }
 
-    public function viewRestaurantMenu(User $user, Restaurant $restaurant): Response
+    public function viewPartnerMenu(User $user, Restaurant $restaurant): Response
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()
@@ -50,14 +50,14 @@ class RestaurantPolicy
             : Response::deny('You are not authorized to view this restaurant.');
     }
 
-    public function createOffer(User $user, Restaurant $restaurant): Response
+    public function createPartnerOffer(User $user, Restaurant $restaurant): Response
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()
             : Response::deny('You are not authorized to update this offer.');
     }
 
-    public function createMenuCategory(User $user, Restaurant $restaurant): Response
+    public function createPartnerMenuCategory(User $user, Restaurant $restaurant): Response
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()

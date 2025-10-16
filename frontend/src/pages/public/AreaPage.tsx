@@ -12,9 +12,6 @@ import env from "@/lib/env";
 import { Address } from "@/types/address-types";
 
 export default function AreaPage() {
-  const [searchParams] = useSearchParams();
-  const [addressError, setAddressError] = useState(false);
-
   const {
     totalRestaurants,
     isRestaurantsLoading,
@@ -22,6 +19,9 @@ export default function AreaPage() {
     isMapViewMobile,
   } = useRestaurants();
   const { currentAddress, setCurrentAddress } = useAddress();
+
+  const [searchParams] = useSearchParams();
+  const [addressError, setAddressError] = useState(false);
 
   const hasNoResults = !totalRestaurants || restaurantsError || addressError;
 

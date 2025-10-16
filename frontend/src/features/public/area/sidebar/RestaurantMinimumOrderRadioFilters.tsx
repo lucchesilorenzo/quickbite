@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import {
   Box,
   FormControl,
@@ -16,7 +14,8 @@ export default function RestaurantMinimumOrderRadioFilters() {
   const { movCounts } = useRestaurants();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState("all");
+
+  const value = searchParams.get("mov") || "all";
 
   const minOrderOptions = [
     {
@@ -37,8 +36,6 @@ export default function RestaurantMinimumOrderRadioFilters() {
   ];
 
   function handleRadioChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setValue(e.target.value);
-
     // Update query params
     const updatedMOV = e.target.value !== "all" ? e.target.value : [];
 
@@ -52,12 +49,6 @@ export default function RestaurantMinimumOrderRadioFilters() {
       q: searchParams.getAll("q"),
     });
   }
-
-  useEffect(() => {
-    const mov = searchParams.get("mov");
-
-    setValue(mov || "all");
-  }, [searchParams]);
 
   return (
     <Box>

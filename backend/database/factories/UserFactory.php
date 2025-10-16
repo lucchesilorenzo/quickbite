@@ -35,7 +35,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('test'),
             'profile_picture' => null,
             'date_of_birth' => fake()->date(),
-            'phone_number' => '+39 ' . '3' . fake()->numerify('##') . ' ' . fake()->numerify('###') . ' ' . fake()->numerify('####'),
+            'phone_number' => '+39 3' . fake()->numerify('##') . ' ' . fake()->numerify('###') . ' ' . fake()->numerify('####'),
             'street_address' => fake()->streetAddress(),
             'building_number' => fake()->buildingNumber(),
             'postcode' => fake()->postcode(),
@@ -53,7 +53,7 @@ class UserFactory extends Factory
      */
     public function customer(): static
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user): void {
             $user->assignRole(UserRole::CUSTOMER);
         });
     }
@@ -63,7 +63,7 @@ class UserFactory extends Factory
      */
     public function partner(): static
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user): void {
             $user->assignRole(UserRole::PARTNER);
         });
     }
@@ -73,7 +73,7 @@ class UserFactory extends Factory
      */
     public function rider(): static
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user): void {
             $user->assignRole(UserRole::RIDER);
             $user->update(['driving_licence' => fake()->boolean() ? fake()->numerify('##########') : null]);
         });

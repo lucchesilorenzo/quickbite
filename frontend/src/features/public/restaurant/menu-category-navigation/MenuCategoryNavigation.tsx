@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -20,17 +20,9 @@ export default function MenuCategoryNavigation() {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
-  function handleSlideChange(swiper: SwiperClass) {
+  function updateScrollButtons(swiper: SwiperClass) {
     setCanScrollPrev(!swiper.isBeginning);
     setCanScrollNext(!swiper.isEnd);
-  }
-
-  function scrollPrev() {
-    swiperRef.current?.slidePrev();
-  }
-
-  function scrollNext() {
-    swiperRef.current?.slideNext();
   }
 
   function handleSlideClick(menuCategoryId: string) {
@@ -49,23 +41,16 @@ export default function MenuCategoryNavigation() {
     });
   }
 
-  useEffect(() => {
-    setCanScrollPrev(!swiperRef.current?.isBeginning);
-    setCanScrollNext(!swiperRef.current?.isEnd);
-  }, [menuData]);
-
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 2 }}>
       <Fade in={canScrollPrev}>
         <IconButton
-          onClick={scrollPrev}
+          onClick={() => swiperRef.current?.slidePrev()}
           disabled={!canScrollPrev}
           color="inherit"
           sx={{
             bgcolor: grey[200],
-            "&:hover": {
-              bgcolor: grey[300],
-            },
+            "&:hover": { bgcolor: grey[300] },
           }}
           size="small"
         >
@@ -77,28 +62,19 @@ export default function MenuCategoryNavigation() {
         <Swiper
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
+            updateScrollButtons(swiper);
           }}
+          onSlideChange={updateScrollButtons}
           spaceBetween={16}
-          onSlideChange={handleSlideChange}
           keyboard
           mousewheel
           modules={[Keyboard, Mousewheel]}
           breakpoints={{
-            0: {
-              slidesPerView: 2,
-            },
-            500: {
-              slidesPerView: 3,
-            },
-            600: {
-              slidesPerView: 4,
-            },
-            700: {
-              slidesPerView: 5,
-            },
-            800: {
-              slidesPerView: 6,
-            },
+            0: { slidesPerView: 2 },
+            500: { slidesPerView: 3 },
+            600: { slidesPerView: 4 },
+            700: { slidesPerView: 5 },
+            800: { slidesPerView: 6 },
           }}
         >
           {menuData.map((menuCategory) => (
@@ -115,14 +91,12 @@ export default function MenuCategoryNavigation() {
 
       <Fade in={canScrollNext}>
         <IconButton
-          onClick={scrollNext}
+          onClick={() => swiperRef.current?.slideNext()}
           disabled={!canScrollNext}
           color="inherit"
           sx={{
             bgcolor: grey[200],
-            "&:hover": {
-              bgcolor: grey[300],
-            },
+            "&:hover": { bgcolor: grey[300] },
           }}
           size="small"
         >

@@ -21,7 +21,7 @@ class PartnerChannel
             return false;
         }
 
-        $restaurant = Restaurant::find($restaurantId);
+        $restaurant = Restaurant::query()->find($restaurantId);
 
         if (! $restaurant) {
             return false;

@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
+import HomeHeader from "@public/homepage/HomeHeader";
 import { Outlet } from "react-router-dom";
 
 import Footer from "@/components/Footer";
 import NavigateToTopFloatingButton from "@/components/NavigateToTopFloatingButton";
-import HomeHeader from "@/features/public/homepage/HomeHeader";
 
 export default function HomeLayout() {
   return (

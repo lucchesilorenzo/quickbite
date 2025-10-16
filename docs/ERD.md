@@ -8,23 +8,23 @@
 
 ### Models
 
-| Model                 | Namespace                          |
-| --------------------- | ---------------------------------- |
-| Cart                  | `App\Models\Cart`                  |
-| CartItem              | `App\Models\CartItem`              |
-| Category              | `App\Models\Category`              |
-| Delivery              | `App\Models\Delivery`              |
-| MenuCategory          | `App\Models\MenuCategory`          |
-| MenuItem              | `App\Models\MenuItem`              |
-| Order                 | `App\Models\Order`                 |
-| OrderItem             | `App\Models\OrderItem`             |
-| Permission            | `App\Models\Permission`            |
-| Restaurant            | `App\Models\Restaurant`            |
-| RestaurantDeliveryDay | `App\Models\RestaurantDeliveryDay` |
-| RestaurantOffer       | `App\Models\RestaurantOffer`       |
-| RestaurantReview      | `App\Models\RestaurantReview`      |
-| Role                  | `App\Models\Role`                  |
-| User                  | `App\Models\User`                  |
+| Model        | Namespace                 |
+| ------------ | ------------------------- |
+| Cart         | `App\Models\Cart`         |
+| CartItem     | `App\Models\CartItem`     |
+| Category     | `App\Models\Category`     |
+| Delivery     | `App\Models\Delivery`     |
+| MenuCategory | `App\Models\MenuCategory` |
+| MenuItem     | `App\Models\MenuItem`     |
+| Order        | `App\Models\Order`        |
+| OrderItem    | `App\Models\OrderItem`    |
+| Permission   | `App\Models\Permission`   |
+| Restaurant   | `App\Models\Restaurant`   |
+| DeliveryDay  | `App\Models\DeliveryDay`  |
+| Offer        | `App\Models\Offer`        |
+| Review       | `App\Models\Review`       |
+| Role         | `App\Models\Role`         |
+| User         | `App\Models\User`         |
 
 ---
 
@@ -78,22 +78,22 @@
 - **BelongsToMany** `partners` (User)
 - **BelongsToMany** `riders` (User)
 - **BelongsToMany** `categories`
-- **HasMany** `deliveryDays` (RestaurantDeliveryDay) via `restaurant_id`
-- **HasMany** `offers` (RestaurantOffer) via `restaurant_id`
+- **HasMany** `deliveryDays` (DeliveryDay) via `restaurant_id`
+- **HasMany** `offers` (Offer) via `restaurant_id`
 - **HasMany** `menuCategories` via `restaurant_id`
-- **HasMany** `reviews` (RestaurantReview) via `restaurant_id`
+- **HasMany** `reviews` (Review) via `restaurant_id`
 - **HasMany** `carts` via `restaurant_id`
 - **HasMany** `orders` via `restaurant_id`
 
-#### RestaurantDeliveryDay
+#### DeliveryDay
 
 - **BelongsTo** `restaurant` via `restaurant_id`
 
-#### RestaurantOffer
+#### Offer
 
 - **BelongsTo** `restaurant` via `restaurant_id`
 
-#### RestaurantReview
+#### Review
 
 - **BelongsTo** `customer` (User) via `user_id`
 - **BelongsTo** `restaurant` via `restaurant_id`
@@ -101,7 +101,7 @@
 
 #### User
 
-- **HasMany** `reviews` (RestaurantReview) via `user_id`
+- **HasMany** `reviews` (Review) via `user_id`
 - **HasMany** `carts` via `user_id`
 - **HasMany** `orders` via `user_id`
 - **BelongsToMany** `ownedRestaurants` (Restaurant)

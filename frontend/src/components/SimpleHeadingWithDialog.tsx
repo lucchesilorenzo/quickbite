@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
@@ -32,7 +32,6 @@ export default function SimpleHeadingWithDialog({
 }: SimpleHeadingWithDialogProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [openSimpleHeadingDialog, setSimpleHeadingDialog] = useState(false);
-  const [isThereAnyFilter, setIsThereAnyFilter] = useState(false);
 
   function handleClearFilters() {
     setSearchParams({
@@ -44,19 +43,13 @@ export default function SimpleHeadingWithDialog({
       view_type: searchParams.getAll("view_type"),
       q: [],
     });
-
-    setIsThereAnyFilter(false);
   }
 
-  useEffect(() => {
-    const hasFilters =
-      searchParams.getAll("filter").length > 0 ||
-      searchParams.getAll("mov").length > 0 ||
-      searchParams.getAll("sort_by").length > 0 ||
-      searchParams.getAll("q").length > 0;
-
-    setIsThereAnyFilter(hasFilters);
-  }, [searchParams]);
+  const isThereAnyFilter =
+    searchParams.getAll("filter").length > 0 ||
+    searchParams.getAll("mov").length > 0 ||
+    searchParams.getAll("sort_by").length > 0 ||
+    searchParams.getAll("q").length > 0;
 
   return (
     <Box>

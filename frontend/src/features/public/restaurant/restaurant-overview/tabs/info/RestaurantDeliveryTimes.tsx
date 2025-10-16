@@ -25,39 +25,27 @@ export default function RestaurantDeliveryTimes() {
       </Stack>
 
       <Card variant="outlined" sx={{ bgcolor: grey[100], p: 2 }}>
-        {restaurant.delivery_days.map((d) => {
-          function formatTime(time: string | null) {
-            return time?.slice(0, 5) ?? null;
-          }
+        {restaurant.delivery_days.map((d) => (
+          <Stack
+            key={d.id}
+            direction="row"
+            sx={{ alignItems: "center", justifyContent: "space-between" }}
+          >
+            <Typography variant={isMobile ? "body2" : "body1"} component="div">
+              {capitalize(d.day)}
+            </Typography>
 
-          const formattedStart = formatTime(d.start_time);
-          const formattedEnd = formatTime(d.end_time);
-
-          return (
-            <Stack
-              key={d.id}
-              direction="row"
-              sx={{ alignItems: "center", justifyContent: "space-between" }}
+            <Typography
+              variant={isMobile ? "body2" : "body1"}
+              color="text"
+              component="div"
             >
-              <Typography
-                variant={isMobile ? "body2" : "body1"}
-                component="div"
-              >
-                {capitalize(d.day)}
-              </Typography>
-
-              <Typography
-                variant={isMobile ? "body2" : "body1"}
-                color="text"
-                component="div"
-              >
-                {formattedStart && formattedEnd
-                  ? `${formattedStart} - ${formattedEnd}`
-                  : "Closed"}
-              </Typography>
-            </Stack>
-          );
-        })}
+              {d.start_time && d.end_time
+                ? `${d.start_time.slice(0, 5)} - ${d.end_time.slice(0, 5)}`
+                : "Closed"}
+            </Typography>
+          </Stack>
+        ))}
       </Card>
     </Box>
   );

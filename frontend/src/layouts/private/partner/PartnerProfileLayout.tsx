@@ -1,9 +1,8 @@
 import { Container, Grid, Stack, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import ProfileSidebar from "@partner/profile/ProfileSidebar";
+import RestaurantsHeader from "@partner/restaurants/RestaurantsHeader";
 import { Outlet } from "react-router-dom";
-
-import ProfileSidebar from "@/features/private/partner/profile/ProfileSidebar";
-import RestaurantsHeader from "@/features/private/partner/restaurants/RestaurantsHeader";
 
 export default function PartnerProfileLayout() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));

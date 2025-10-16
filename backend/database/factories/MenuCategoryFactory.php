@@ -47,7 +47,7 @@ class MenuCategoryFactory extends Factory
      */
     public function configure(): self
     {
-        return $this->afterCreating(function (MenuCategory $menuCategory) {
+        return $this->afterCreating(function (MenuCategory $menuCategory): void {
             $menuItems = $this->getMenuItemsForCategory($menuCategory->name);
 
             $menuCategory->menuItems()->createMany($menuItems);
@@ -198,6 +198,10 @@ class MenuCategoryFactory extends Factory
                 break;
         }
 
-        return collect($menuItems)->shuffle()->take(rand(1, 2))->values()->toArray();
+        return collect($menuItems)
+            ->shuffle()
+            ->take(random_int(1, 2))
+            ->values()
+            ->all();
     }
 }

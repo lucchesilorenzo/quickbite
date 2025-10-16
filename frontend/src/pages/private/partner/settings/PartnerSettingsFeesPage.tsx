@@ -25,8 +25,8 @@ export default function PartnerSettingsFeesPage() {
     resolver: zodResolver(restaurantSettingsFeesFormSchema),
     defaultValues: {
       delivery_fee: restaurant.delivery_fee,
-      delivery_time_min: restaurant.delivery_time_min || "",
-      delivery_time_max: restaurant.delivery_time_max || "",
+      min_delivery_time: restaurant.min_delivery_time || "",
+      max_delivery_time: restaurant.max_delivery_time || "",
       service_fee: restaurant.service_fee,
       min_amount: restaurant.min_amount,
     },

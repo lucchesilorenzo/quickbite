@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { Autocomplete, TextField, useMediaQuery } from "@mui/material";
@@ -17,9 +17,11 @@ export default function RestaurantSearch() {
     useRestaurants();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [inputValue, setInputValue] = useState("");
 
-  const restaurantSearchOptions = [
+  const currentSearchTerm = searchParams.get("q") || "";
+  const [inputValue, setInputValue] = useState(currentSearchTerm);
+
+  const baseOptions: RestaurantSearchOption[] = [
     ...restaurantsData.map((r) => ({
       id: r.id,
       label: r.name,
@@ -30,33 +32,33 @@ export default function RestaurantSearch() {
       label: c.name,
       type: "Category",
     })),
-    ...restaurantsData
-      .flatMap((r) => r.menu_categories.flatMap((c) => c.menu_items))
-      .map((i) => ({
-        id: i.id,
-        label: i.name,
-        type: "Item",
-      })),
-    {
-      id: "search",
-      label: inputValue,
-      type: "Search",
-    },
+    ...restaurantsData.flatMap((r) =>
+      r.menu_categories.flatMap((c) =>
+        c.menu_items.map((i) => ({
+          id: i.id,
+          label: i.name,
+          type: "Item",
+        })),
+      ),
+    ),
   ];
 
-  const options = inputValue.trim() !== "" ? restaurantSearchOptions : [];
+  const uniqueMap = new Map<string, RestaurantSearchOption>();
 
-  const uniqueMap = new Map();
-
-  options.forEach((item) => {
+  baseOptions.forEach((item) => {
     if (!uniqueMap.has(item.label)) {
       uniqueMap.set(item.label, item);
     }
   });
 
-  const uniqueOptions: RestaurantSearchOption[] = Array.from(
-    uniqueMap.values(),
-  );
+  let uniqueOptions = Array.from(uniqueMap.values());
+
+  if (inputValue.trim() !== "") {
+    uniqueOptions = [
+      ...uniqueOptions,
+      { id: "search", label: inputValue, type: "Search" },
+    ];
+  }
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -75,27 +77,19 @@ export default function RestaurantSearch() {
     }
   }
 
-  useEffect(() => {
-    const currentSearchTerm = searchParams.get("q");
-
-    if (currentSearchTerm && !selectedOption) {
-      setInputValue(currentSearchTerm);
-      setSelectedOption({
-        id: "search",
-        label: currentSearchTerm,
-        type: "Search",
-      });
-    }
-  }, [searchParams, selectedOption, setInputValue, setSelectedOption]);
+  const currentValue =
+    selectedOption ||
+    (currentSearchTerm
+      ? { id: "search", label: currentSearchTerm, type: "Search" }
+      : null);
 
   return (
     <Autocomplete
       freeSolo
       fullWidth
       options={uniqueOptions}
-      value={selectedOption}
+      value={currentValue}
       onChange={(_, newValue) => {
-        // After interacting with the clear icon
         if (newValue === null) {
           setInputValue("");
           setSelectedOption(null);
@@ -115,33 +109,31 @@ export default function RestaurantSearch() {
       inputValue={inputValue}
       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
       renderOption={(props, option, { inputValue }) => {
-        const matches = match(option.label, inputValue, {
-          insideWords: true,
-        });
+        const matches = match(option.label, inputValue, { insideWords: true });
         const parts = parse(option.label, matches);
 
         return (
           <li {...props} key={option.id}>
-            <div>
-              {parts.map((part, index) => (
-                <span
-                  key={index}
-                  style={{
-                    fontWeight: part.highlight ? 700 : 400,
-                  }}
-                >
-                  {option.type !== "Search"
-                    ? part.text
-                    : `See all options for '${inputValue}'`}
-                </span>
-              ))}
+            {option.type !== "Search" ? (
+              <div>
+                {parts.map((part, index) => (
+                  <span
+                    key={index}
+                    style={{ fontWeight: part.highlight ? 700 : 400 }}
+                  >
+                    {part.text}
+                  </span>
+                ))}
 
-              {option.type !== "Search" && (
                 <div style={{ color: grey[600], fontSize: "0.8rem" }}>
                   {option.type}
                 </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <span style={{ fontWeight: 600 }}>
+                See all options for '{inputValue}'
+              </span>
+            )}
           </li>
         );
       }}

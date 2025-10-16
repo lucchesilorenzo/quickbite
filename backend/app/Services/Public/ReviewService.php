@@ -14,7 +14,7 @@ class ReviewService
     {
         $reviews = $restaurant->reviews()
             ->with(['customer', 'order'])
-            ->orderByDesc('created_at')
+            ->latest()
             ->paginate(self::PER_PAGE);
 
         $avg = $restaurant->reviews()->avg('rating');

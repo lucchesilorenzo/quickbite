@@ -5,13 +5,11 @@ import { StatRange } from "@partner/types/stat-types";
 import { useSearchParams } from "react-router-dom";
 
 export default function StatsRangeSelect() {
-  const { range, setRange } = useStats();
+  const { range } = useStats();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   function handleRangeChange(e: SelectChangeEvent<StatRange>) {
-    setRange(e.target.value);
-
     setSearchParams({
       ...Object.fromEntries(searchParams),
       range: e.target.value !== "all" ? e.target.value : [],
