@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 import { useSearchParams } from "react-router-dom";
 
 import { useGetCategories } from "@/hooks/categories/useGetCategories";
-import { Category, CategoryWithSelected } from "@/types/category-types";
+import { CategoryWithSelected } from "@/types/category-types";
 
 type CategoryFiltersProviderProps = {
   children: React.ReactNode;
@@ -28,48 +28,34 @@ export default function CategoryFiltersProvider({
   const { data: categories = [], isLoading: isLoadingCategories } =
     useGetCategories();
 
-  const [allCategories, setAllCategories] = useState<CategoryWithSelected[]>(
-    [],
-  );
-  const [visibleCategories, setVisibleCategories] = useState<
-    CategoryWithSelected[]
-  >([]);
-
-  const [openCategoriesDialog, setOpenCategoriesDialog] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [openCategoriesDialog, setOpenCategoriesDialog] = useState(false);
 
-  useEffect(() => {
-    if (!categories.length) return;
+  const activeFilters = searchParams.getAll("filter");
 
-    const filters = searchParams.getAll("filter");
-
-    const updatedCategories = categories.map((c) => ({
+  const allCategories = useMemo<CategoryWithSelected[]>(() => {
+    return categories.map((c) => ({
       ...c,
-      selected: filters.includes(c.slug),
+      selected: activeFilters.includes(c.slug),
     }));
+  }, [categories, activeFilters]);
 
-    setAllCategories(updatedCategories);
-    setVisibleCategories(
-      updatedCategories.filter((c) => c.is_default || c.selected),
-    );
-  }, [searchParams, categories]);
+  const visibleCategories = useMemo(
+    () => allCategories.filter((c) => c.is_default || c.selected),
+    [allCategories],
+  );
 
-  function handleStatusChange(category: Category) {
+  function handleStatusChange(category: CategoryWithSelected) {
     const updatedCategories = allCategories.map((c) =>
       c.slug === category.slug ? { ...c, selected: !c.selected } : c,
     );
-    setAllCategories(updatedCategories);
 
-    // Update query params
-    const currentFilters = searchParams.getAll("filter");
-
-    // Take all the filters that are category filters
     const selectedFilters = updatedCategories
       .filter((c) => c.selected)
       .map((c) => c.slug);
 
     // Take all the filters that are not category filters
-    const nonCategoryFilters = currentFilters.filter(
+    const nonCategoryFilters = activeFilters.filter(
       (f) => !allCategories.some((c) => c.slug === f),
     );
 
@@ -82,7 +68,6 @@ export default function CategoryFiltersProvider({
       view_type: searchParams.getAll("view_type"),
       q: searchParams.getAll("q"),
     });
-
     setOpenCategoriesDialog(false);
   }
 
@@ -104,12 +89,10 @@ export default function CategoryFiltersProvider({
 
 export function useCategoryFilters() {
   const context = useContext(CategoryFiltersContext);
-
   if (!context) {
     throw new Error(
       "useCategoryFilters must be used within a CategoryFiltersProvider.",
     );
   }
-
   return context;
 }

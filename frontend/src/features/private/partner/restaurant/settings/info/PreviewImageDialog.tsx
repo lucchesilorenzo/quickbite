@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Box, Dialog, DialogContent, Stack, Typography } from "@mui/material";
 
@@ -13,11 +13,13 @@ export default function PreviewImageDialog({
   image,
   setOpenPreviewImageDialog,
 }: PreviewImageDialogProps) {
+  const [lastImage, setLastImage] = useState<File | string | null>(null);
   const [loadError, setLoadError] = useState(false);
 
-  useEffect(() => {
-    setLoadError(false);
-  }, [image]);
+  if (image !== lastImage) {
+    if (image) setLastImage(image);
+    if (loadError) setLoadError(false);
+  }
 
   if (!image) return null;
 

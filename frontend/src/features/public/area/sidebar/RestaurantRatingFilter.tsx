@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Rating, Stack, Typography } from "@mui/material";
@@ -15,11 +13,20 @@ const ratings: Record<number, string> = {
 
 export default function RestaurantRatingFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [rating, setRating] = useState<number | null>(null);
+
+  const currentFilters = searchParams.getAll("filter");
+  const ratingFilter = currentFilters.find((f) =>
+    Object.values(ratings).includes(f),
+  );
+
+  const rating =
+    (ratingFilter &&
+      Number(
+        Object.keys(ratings).find((k) => ratings[Number(k)] === ratingFilter),
+      )) ||
+    null;
 
   function handleRatingChange(_e: React.SyntheticEvent, value: number | null) {
-    // Update query params
-    const currentFilters = searchParams.getAll("filter");
     const currentMOV = searchParams.getAll("mov");
     const currentSort = searchParams.getAll("sort_by");
     const currentViewType = searchParams.getAll("view_type");
@@ -42,7 +49,6 @@ export default function RestaurantRatingFilter() {
         q: currentSearchTerm,
       });
 
-      setRating(null);
       return;
     }
 
@@ -56,30 +62,7 @@ export default function RestaurantRatingFilter() {
       view_type: currentViewType,
       q: currentSearchTerm,
     });
-
-    setRating(value);
   }
-
-  useEffect(() => {
-    const currentFilters = searchParams.getAll("filter");
-
-    // Check if there is a rating filter
-    const ratingFilter = currentFilters.find((f) =>
-      Object.values(ratings).includes(f),
-    );
-
-    if (!ratingFilter) {
-      setRating(null);
-      return;
-    }
-
-    // Get the key of the rating filter
-    const ratingKey = Object.entries(ratings).find(
-      ([, v]) => v === ratingFilter,
-    )?.[0];
-
-    if (ratingKey) setRating(Number(ratingKey));
-  }, [searchParams]);
 
   return (
     <Stack spacing={1}>

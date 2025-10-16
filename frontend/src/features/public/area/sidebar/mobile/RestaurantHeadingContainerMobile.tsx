@@ -1,20 +1,17 @@
 import { Box, Button, Paper, Stack } from "@mui/material";
+import ClearFiltersButton from "@public/area/components/ClearFiltersButton";
 import { useSearchParams } from "react-router-dom";
-
-import ClearFiltersButton from "../../components/ClearFiltersButton";
 
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
 type RestaurantHeadingContainerMobileProps = {
   isThereAnyFilter: boolean;
   onCloseDialog: () => void;
-  setIsThereAnyFilter: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function RestaurantHeadingContainerMobile({
   isThereAnyFilter,
   onCloseDialog,
-  setIsThereAnyFilter,
 }: RestaurantHeadingContainerMobileProps) {
   const { totalRestaurants } = useRestaurants();
 
@@ -32,8 +29,6 @@ export default function RestaurantHeadingContainerMobile({
       view_type: currentViewType,
       q: [],
     });
-
-    setIsThereAnyFilter(false);
   }
 
   return (

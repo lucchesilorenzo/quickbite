@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { Box, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
@@ -14,14 +12,10 @@ const sortOptions = [
 
 export default function RestaurantSort() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState("best-match");
 
-  const currentSort = searchParams.get("sort_by");
+  const value = searchParams.get("sort_by") || "best-match";
 
   function handleSortChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setValue(e.target.value);
-
-    // Update query params
     const updatedSort = e.target.value !== "best-match" ? e.target.value : [];
 
     setSearchParams({
@@ -34,12 +28,6 @@ export default function RestaurantSort() {
       q: searchParams.getAll("q"),
     });
   }
-
-  useEffect(() => {
-    const sortBy = searchParams.get("sort_by");
-
-    setValue(sortBy || "best-match");
-  }, [searchParams]);
 
   return (
     <>
@@ -62,7 +50,8 @@ export default function RestaurantSort() {
             sx={{
               minWidth: 250,
               "& .MuiSelect-select": {
-                color: currentSort ? "text.primary" : "text.secondary",
+                color:
+                  value !== "best-match" ? "text.primary" : "text.secondary",
               },
             }}
           >
@@ -70,7 +59,10 @@ export default function RestaurantSort() {
               <MenuItem
                 key={option.value}
                 value={option.value}
-                sx={{ color: currentSort ? "text.primary" : "text.secondary" }}
+                sx={{
+                  color:
+                    value !== "best-match" ? "text.primary" : "text.secondary",
+                }}
               >
                 {option.label}
               </MenuItem>
@@ -85,15 +77,15 @@ export default function RestaurantSort() {
         </Typography>
 
         <TextField
-          id="sort-select"
-          name="sort-select"
+          id="sort-select-mobile"
+          name="sort-select-mobile"
           select
           value={value}
           fullWidth
           onChange={handleSortChange}
           sx={{
             "& .MuiSelect-select": {
-              color: currentSort ? "text.primary" : "text.secondary",
+              color: value !== "best-match" ? "text.primary" : "text.secondary",
             },
           }}
         >
@@ -101,7 +93,10 @@ export default function RestaurantSort() {
             <MenuItem
               key={option.value}
               value={option.value}
-              sx={{ color: currentSort ? "text.primary" : "text.secondary" }}
+              sx={{
+                color:
+                  value !== "best-match" ? "text.primary" : "text.secondary",
+              }}
             >
               {option.label}
             </MenuItem>

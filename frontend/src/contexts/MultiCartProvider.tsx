@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { useAuth } from "./AuthProvider";
 
@@ -74,6 +74,8 @@ export default function MultiCartProvider({
     return {};
   });
 
+  const inizialized = useRef(false);
+
   useEffect(() => {
     if (!isCustomer(user)) return;
 
@@ -84,6 +86,9 @@ export default function MultiCartProvider({
       const nextString = JSON.stringify(cartsWithRestaurantKey);
 
       if (prevString === nextString) return prev;
+
+      inizialized.current = true;
+
       return cartsWithRestaurantKey;
     });
   }, [user, updatedCarts]);

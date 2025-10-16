@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { CheckoutData } from "@customer/types/order-types";
 import { useParams } from "react-router-dom";
@@ -55,11 +55,15 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
 
   const isCheckoutReady = !!(restaurantId && checkoutData[restaurantId]);
 
+  const initialized = useRef(false);
+
   useEffect(() => {
     if (!restaurantId) return;
 
     setCheckoutData((prev) => {
       if (prev[restaurantId]) return prev;
+
+      initialized.current = true;
 
       return {
         ...prev,
@@ -76,10 +80,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
             city: user?.city || "",
             state: user?.state || "",
           },
-          delivery_time: {
-            type: null,
-            value: "",
-          },
+          delivery_time: { type: null, value: "" },
           notes: null,
           payment_method: null,
         },

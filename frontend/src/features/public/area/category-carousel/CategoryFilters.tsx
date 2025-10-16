@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -21,23 +21,10 @@ export default function CategoryFilters() {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
-  function handleSlideChange(swiper: SwiperClass) {
+  function updateScrollButtons(swiper: SwiperClass) {
     setCanScrollPrev(!swiper.isBeginning);
     setCanScrollNext(!swiper.isEnd);
   }
-
-  function scrollPrev() {
-    swiperRef.current?.slidePrev();
-  }
-
-  function scrollNext() {
-    swiperRef.current?.slideNext();
-  }
-
-  useEffect(() => {
-    setCanScrollPrev(!swiperRef.current?.isBeginning);
-    setCanScrollNext(!swiperRef.current?.isEnd);
-  }, [visibleCategories]);
 
   return (
     <Container
@@ -45,7 +32,10 @@ export default function CategoryFilters() {
       sx={{ display: "flex", alignItems: "center", py: 2 }}
     >
       <Fade in={canScrollPrev}>
-        <IconButton onClick={scrollPrev} disabled={!canScrollPrev}>
+        <IconButton
+          onClick={() => swiperRef.current?.slidePrev()}
+          disabled={!canScrollPrev}
+        >
           <ArrowBackIosNewIcon fontSize="small" />
         </IconButton>
       </Fade>
@@ -54,33 +44,20 @@ export default function CategoryFilters() {
         <Swiper
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
+            updateScrollButtons(swiper);
           }}
-          onSlideChange={handleSlideChange}
+          onSlideChange={updateScrollButtons}
           keyboard
           mousewheel
           modules={[Keyboard, Mousewheel]}
           breakpoints={{
-            0: {
-              slidesPerView: 2,
-            },
-            500: {
-              slidesPerView: 3,
-            },
-            600: {
-              slidesPerView: 4,
-            },
-            800: {
-              slidesPerView: 5,
-            },
-            900: {
-              slidesPerView: 6,
-            },
-            1000: {
-              slidesPerView: 7,
-            },
-            1200: {
-              slidesPerView: 8,
-            },
+            0: { slidesPerView: 2 },
+            500: { slidesPerView: 3 },
+            600: { slidesPerView: 4 },
+            800: { slidesPerView: 5 },
+            900: { slidesPerView: 6 },
+            1000: { slidesPerView: 7 },
+            1200: { slidesPerView: 8 },
           }}
         >
           {isLoadingCategories ? (
@@ -106,7 +83,10 @@ export default function CategoryFilters() {
       </Box>
 
       <Fade in={canScrollNext}>
-        <IconButton onClick={scrollNext} disabled={!canScrollNext}>
+        <IconButton
+          onClick={() => swiperRef.current?.slideNext()}
+          disabled={!canScrollNext}
+        >
           <ArrowForwardIosIcon fontSize="small" />
         </IconButton>
       </Fade>

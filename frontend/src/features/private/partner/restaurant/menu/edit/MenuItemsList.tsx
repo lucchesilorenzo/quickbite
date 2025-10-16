@@ -47,19 +47,24 @@ export default function MenuItemsList() {
     [updateMenuItemsOrder],
   );
 
-  const selectedMenuCategory = menuCategoriesWithMenuItemsPagination.find(
-    (c) => c.id === selectedMenuCategoryId,
+  const selectedMenuCategory = useMemo(
+    () =>
+      menuCategoriesWithMenuItemsPagination.find(
+        (c) => c.id === selectedMenuCategoryId,
+      ),
+    [menuCategoriesWithMenuItemsPagination, selectedMenuCategoryId],
   );
 
-  const menuItems = selectedMenuCategory?.menu_items.data;
+  const menuItems = useMemo(
+    () => selectedMenuCategory?.menu_items.data || [],
+    [selectedMenuCategory],
+  );
 
-  const [items, setItems] = useState(menuItems || []);
+  const [items, setItems] = useState(menuItems);
 
   useEffect(() => {
-    if (!menuItems) return;
-
     setItems(menuItems);
-  }, [menuItems, items]);
+  }, [menuItems]);
 
   if (isLoadingMenuCategories) return <Spinner />;
 
@@ -77,12 +82,11 @@ export default function MenuItemsList() {
       }));
 
       debounceUpdateRestaurantMenuItemsOrder(updatedItems);
-
       return updatedItems;
     });
   }
 
-  if (!menuItems || !menuItems.length) {
+  if (!menuItems.length) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center", mt: 4 }}>
         {selectedMenuCategoryId
@@ -103,7 +107,7 @@ export default function MenuItemsList() {
           <Box sx={{ alignSelf: "center" }}>
             <CustomPagination
               page={page}
-              totalPages={selectedMenuCategory?.menu_items.last_page}
+              totalPages={selectedMenuCategory?.menu_items.last_page || 1}
               menuCategoryId={selectedMenuCategoryId}
               setPage={setPage}
             />

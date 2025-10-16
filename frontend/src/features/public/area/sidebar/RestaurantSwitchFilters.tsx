@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { Stack, Switch, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
@@ -11,20 +9,10 @@ const switchFilters = [
 
 export default function RestaurantSwitchFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [checked, setChecked] = useState<Record<string, boolean>>({
-    open_now: false,
-    new: false,
-    free_delivery: false,
-  });
-  const [isUpdating, setIsUpdating] = useState(false);
+
+  const currentFilters = searchParams.getAll("filter");
 
   function handleSwitchToggle(e: React.ChangeEvent<HTMLInputElement>) {
-    setIsUpdating(true);
-    setChecked((prev) => ({ ...prev, [e.target.name]: e.target.checked }));
-
-    // Update query params
-    const currentFilters = searchParams.getAll("filter");
-
     const updatedFilters = e.target.checked
       ? [...currentFilters, e.target.name]
       : currentFilters.filter((f) => f !== e.target.name);
@@ -40,22 +28,6 @@ export default function RestaurantSwitchFilters() {
     });
   }
 
-  useEffect(() => {
-    setIsUpdating(false);
-
-    const filters = searchParams.getAll("filter");
-
-    const initialState = switchFilters.reduce(
-      (acc, filter) => {
-        acc[filter.key] = filters.includes(filter.key);
-        return acc;
-      },
-      {} as Record<string, boolean>,
-    );
-
-    setChecked(initialState);
-  }, [searchParams]);
-
   return (
     <Stack spacing={2}>
       {switchFilters.map((filter) => (
@@ -70,9 +42,8 @@ export default function RestaurantSwitchFilters() {
 
           <Switch
             name={filter.key}
-            checked={checked[filter.key]}
+            checked={currentFilters.includes(filter.key)}
             onChange={handleSwitchToggle}
-            disabled={isUpdating}
           />
         </Stack>
       ))}
