@@ -5,7 +5,9 @@ type FormHelperTextErrorProps = {
   message: string;
 };
 
-export function FormHelperTextError({ message }: FormHelperTextErrorProps) {
+export default function FormHelperTextError({
+  message,
+}: FormHelperTextErrorProps) {
   return (
     <Typography
       component="span"

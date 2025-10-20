@@ -18,7 +18,7 @@ import {
 import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/FormHelperTextError";
 import { Offer } from "@/types/offer-types";
 
 type EditOfferFormProps = {
