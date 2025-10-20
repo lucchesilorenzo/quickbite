@@ -25,7 +25,7 @@ export default function HeadingWithTooltip({
 
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-      <Typography component="span" variant="h6" sx={{ fontWeight: "700" }}>
+      <Typography component="span" variant="h6" sx={{ fontWeight: 700 }}>
         {headingText}
       </Typography>
 

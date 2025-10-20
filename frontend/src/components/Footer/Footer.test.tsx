@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import { footerLinks } from "@/lib/constants/navigation";
 
 describe("Footer", () => {
-  function renderFooter() {
+  function renderComponent() {
     render(
       <MemoryRouter>
         <Footer />
@@ -15,7 +15,7 @@ describe("Footer", () => {
   }
 
   it("renders footer links correctly", () => {
-    renderFooter();
+    renderComponent();
 
     const links = screen.getAllByRole("link");
     expect(links).toHaveLength(footerLinks.length);
@@ -27,7 +27,7 @@ describe("Footer", () => {
   });
 
   it("renders current year and brand name", () => {
-    renderFooter();
+    renderComponent();
 
     const currentYear = new Date().getFullYear();
     expect(
