@@ -18,7 +18,7 @@ export default function SectionHeader({ title, subtitle }: SectionHeaderProps) {
         variant={isMobile ? "h4" : "h3"}
         component="h2"
         color="primary"
-        sx={{ fontWeight: "700" }}
+        sx={{ fontWeight: 700 }}
       >
         {subtitle}
       </Typography>
