@@ -14,6 +14,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      tests: path.resolve(__dirname, "./tests"),
       "@": path.resolve(__dirname, "./src"),
       "@public": path.resolve(__dirname, "./src/features/public"),
       "@private": path.resolve(__dirname, "./src/features/private"),
