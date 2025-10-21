@@ -20,7 +20,7 @@ export default function SimpleHeader() {
           to="/"
           sx={{ alignItems: "center", textDecoration: "none" }}
         >
-          <IconButton onClick={() => navigate(-1)}>
+          <IconButton aria-label="back" onClick={() => navigate(-1)}>
             <KeyboardArrowLeftIcon color="primary" />
           </IconButton>
 
