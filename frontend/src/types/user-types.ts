@@ -3,7 +3,7 @@ export type User = {
   first_name: string;
   last_name: string;
   email: string;
-  email_verified_at: string;
+  email_verified_at: string | null;
   profile_picture: string | null;
   date_of_birth: string;
   phone_number: string;
@@ -34,14 +34,11 @@ export type User = {
     created_at: string;
     updated_at: string;
   }[];
+  is_approved: boolean;
   created_at: string;
   updated_at: string;
 };
 
 export type NotificationType = "new_order" | "new_review";
 
-export enum Role {
-  CUSTOMER = "customer",
-  PARTNER = "partner",
-  RIDER = "rider",
-}
+export type Role = "customer" | "partner" | "rider";
