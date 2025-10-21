@@ -5,10 +5,10 @@ import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import CustomerHeaderDialog from "@private/customer/header/CustomerHeaderDialog";
 import { Link, useNavigate } from "react-router-dom";
 
-import CustomerHeaderDialog from "../features/private/customer/header/CustomerHeaderDialog";
-import HeaderDialog from "./HeaderDialog";
+import HeaderDialog from "../HeaderDialog";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { isCustomer } from "@/lib/utils/auth";
@@ -28,7 +28,7 @@ export default function Header() {
           to="/"
           sx={{ alignItems: "center", textDecoration: "none" }}
         >
-          <IconButton onClick={() => navigate(-1)}>
+          <IconButton aria-label="back" onClick={() => navigate(-1)}>
             <KeyboardArrowLeftIcon color="primary" />
           </IconButton>
 
