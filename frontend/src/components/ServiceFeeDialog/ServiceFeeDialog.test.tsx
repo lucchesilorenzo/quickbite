@@ -27,7 +27,7 @@ describe("ServiceFeeDialog", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
   });
 
-  it("should render main dialog structure", () => {
+  it("should render the main dialog structure", () => {
     renderComponent(true);
 
     expect(
@@ -43,9 +43,10 @@ describe("ServiceFeeDialog", () => {
     await user.click(screen.getByRole("button", { name: /close/i }));
 
     expect(mockSetOpenServiceFeeDialog).toHaveBeenCalledWith(false);
+    expect(mockSetOpenServiceFeeDialog).toHaveBeenCalledTimes(1);
   });
 
-  it("should not render when openServiceFeeDialog is false", () => {
+  it("should not render the dialog when openServiceFeeDialog is false", () => {
     renderComponent(false);
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();

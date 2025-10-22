@@ -39,8 +39,6 @@ describe("SimpleHeadingWithDialog", () => {
       mockSetSearchParams,
     ]);
 
-    console.log(mockSearchParams.getAll("filter"));
-
     render(
       <MemoryRouter>
         <SimpleHeadingWithDialog
