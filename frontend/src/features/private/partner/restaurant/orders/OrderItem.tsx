@@ -50,7 +50,7 @@ export default function OrderItem({ order }: OrderItemProps) {
                 Order # {order.order_code}
               </Typography>
 
-              <OrderStatusBadge order={order} />
+              <OrderStatusBadge orderStatus={order.status} />
             </Stack>
 
             <Stack spacing={0.5} sx={{ mb: 1 }}>

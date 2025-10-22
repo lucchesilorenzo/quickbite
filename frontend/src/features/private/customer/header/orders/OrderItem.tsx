@@ -81,7 +81,7 @@ export default function OrderItem({ order }: OrderItemProps) {
                 {order.restaurant.name}
               </Typography>
 
-              <OrderStatusBadge order={order} />
+              <OrderStatusBadge orderStatus={order.status} />
             </Stack>
 
             <Stack spacing={0.5} sx={{ mb: 1 }}>
