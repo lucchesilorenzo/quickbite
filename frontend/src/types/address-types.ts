@@ -15,19 +15,22 @@ export type AddressBase = {
 };
 
 export type Address = {
-  place_id: number;
+  place_id: string;
   licence: string;
   osm_type: string;
-  osm_id: number;
+  class: string;
+  osm_id: string;
   lat: string;
   lon: string;
-  category: string;
+  category?: string;
   type: string;
-  place_rank: number;
-  importance: number;
-  addresstype: string;
-  name: string;
+  place_rank?: number;
+  importance?: number;
+  addresstype?: string;
+  name?: string;
   display_name: string;
+  display_place: string;
+  display_address: string;
   address: AddressBase;
   boundingbox: string[];
 };
