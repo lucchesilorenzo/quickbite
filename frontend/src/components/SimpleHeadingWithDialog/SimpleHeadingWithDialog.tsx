@@ -54,12 +54,13 @@ export default function SimpleHeadingWithDialog({
   return (
     <Box>
       <Stack direction="row" sx={{ alignItems: "center" }}>
-        <Typography component="h1" variant="h6" sx={{ fontWeight: "700" }}>
+        <Typography component="h1" variant="h6" sx={{ fontWeight: 700 }}>
           {headingText}
         </Typography>
 
         <IconButton
           color="inherit"
+          aria-label="info"
           onClick={() => setSimpleHeadingDialog(true)}
         >
           <InfoOutlineIcon />

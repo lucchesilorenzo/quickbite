@@ -6,18 +6,18 @@ import ServiceFeeDialog from "./ServiceFeeDialog";
 
 describe("ServiceFeeDialog", () => {
   function renderComponent(open: boolean) {
-    const setOpenServiceFeeDialog = vi.fn();
+    const mockSetOpenServiceFeeDialog = vi.fn();
 
     customRender(
       <ServiceFeeDialog
         openServiceFeeDialog={open}
-        setOpenServiceFeeDialog={setOpenServiceFeeDialog}
+        setOpenServiceFeeDialog={mockSetOpenServiceFeeDialog}
       />,
     );
 
     return {
       user: userEvent.setup(),
-      setOpenServiceFeeDialog,
+      mockSetOpenServiceFeeDialog,
     };
   }
 
@@ -38,11 +38,11 @@ describe("ServiceFeeDialog", () => {
   });
 
   it("should call setOpenServiceFeeDialog(false) when clicking close button", async () => {
-    const { user, setOpenServiceFeeDialog } = renderComponent(true);
+    const { user, mockSetOpenServiceFeeDialog } = renderComponent(true);
 
     await user.click(screen.getByRole("button", { name: /close/i }));
 
-    expect(setOpenServiceFeeDialog).toHaveBeenCalledWith(false);
+    expect(mockSetOpenServiceFeeDialog).toHaveBeenCalledWith(false);
   });
 
   it("should not render when openServiceFeeDialog is false", () => {
