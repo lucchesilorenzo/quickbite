@@ -11,11 +11,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import EditLocationForm from "./EditLocationForm";
+import EditLocationForm from "../EditLocationForm";
 
 import { useAddress } from "@/contexts/AddressProvider";
 
-type EditLocationDialog = {
+type EditLocationDialogProps = {
   openEditLocationDialog: boolean;
   onCloseDialogs: () => void;
 };
@@ -23,7 +23,7 @@ type EditLocationDialog = {
 export default function EditLocationDialog({
   openEditLocationDialog,
   onCloseDialogs,
-}: EditLocationDialog) {
+}: EditLocationDialogProps) {
   const { currentAddress } = useAddress();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
