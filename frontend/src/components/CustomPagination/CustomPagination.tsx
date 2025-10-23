@@ -4,12 +4,14 @@ import { Pagination, useMediaQuery } from "@mui/material";
 import { OrderStatusWithAll } from "@private/types/order-types";
 import { useSearchParams } from "react-router-dom";
 
+import { PaginationContext } from "@/types/pagination-types";
+
 type CustomPaginationProps = {
   page: number;
   totalPages: number;
   status?: OrderStatusWithAll;
   menuCategoryId?: string;
-  context?: "orders_page" | "reviews_page" | "offers_page" | "page";
+  context?: PaginationContext;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
