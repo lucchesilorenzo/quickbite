@@ -25,3 +25,9 @@ export type BaseCursorPagination = {
   prev_cursor: string | null;
   prev_page_url: string | null;
 };
+
+export type PaginationContext =
+  | "orders_page"
+  | "reviews_page"
+  | "offers_page"
+  | "page";
