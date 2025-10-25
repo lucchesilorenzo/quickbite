@@ -116,7 +116,6 @@ export default function PaymentMethodForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Saving..."
         variant="contained"

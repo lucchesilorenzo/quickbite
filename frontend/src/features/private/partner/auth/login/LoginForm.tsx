@@ -114,7 +114,6 @@ export default function LoginForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Logging in..."
         variant="contained"

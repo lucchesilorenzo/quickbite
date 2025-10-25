@@ -65,7 +65,6 @@ export default function PartnerProfileNotificationsPage() {
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button
             type="submit"
-            disabled={isSubmitting}
             loading={isSubmitting}
             loadingIndicator="Saving..."
             variant="contained"

@@ -62,7 +62,6 @@ export default function PersonalInfoEditEmailForm() {
       {isDirty && (
         <Button
           type="submit"
-          disabled={isSubmitting}
           loading={isSubmitting}
           loadingIndicator="Editing..."
           variant="contained"

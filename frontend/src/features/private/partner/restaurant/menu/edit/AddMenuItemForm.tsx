@@ -164,7 +164,6 @@ export default function AddMenuItemForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Adding..."
         variant="contained"

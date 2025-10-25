@@ -94,7 +94,6 @@ export default function AddReviewForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Saving..."
         variant="contained"

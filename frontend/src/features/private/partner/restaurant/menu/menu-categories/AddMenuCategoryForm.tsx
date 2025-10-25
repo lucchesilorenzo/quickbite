@@ -93,7 +93,6 @@ export default function AddMenuCategoryForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Saving..."
         variant="contained"

@@ -51,7 +51,6 @@ export default function FeesHeader() {
         <Button
           type={editMode ? "submit" : "button"}
           variant="contained"
-          disabled={isSubmitting}
           loading={isSubmitting}
           loadingIndicator="Saving..."
           startIcon={editMode ? <Save /> : <EditIcon />}

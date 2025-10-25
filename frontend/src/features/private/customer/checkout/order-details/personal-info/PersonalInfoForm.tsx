@@ -127,7 +127,6 @@ export default function PersonalInfoForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Saving..."
         variant="contained"
