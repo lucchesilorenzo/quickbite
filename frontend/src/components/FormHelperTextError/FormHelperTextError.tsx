@@ -10,6 +10,7 @@ export default function FormHelperTextError({
 }: FormHelperTextErrorProps) {
   return (
     <Typography
+      role="alert"
       component="span"
       variant="body2"
       color="error"
