@@ -5,7 +5,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import FormHelperTextError from "./FormHelperTextError";
+import FormHelperTextError from "../FormHelperTextError";
 
 import { useAddress } from "@/contexts/AddressProvider";
 import env from "@/lib/env";
@@ -40,8 +40,6 @@ export default function EditLocationForm({
   const notifications = useNotifications();
 
   async function onSubmit(data: TEditLocationFormSchema) {
-    onCloseDialogs();
-
     if (!currentAddress) return;
 
     const updatedDisplayName = `${data.house_number}, ${currentAddress.display_name}`;
@@ -55,6 +53,7 @@ export default function EditLocationForm({
       navigate(
         `/area/${generateSlug(address[0].display_name)}?lat=${address[0].lat}&lon=${address[0].lon}`,
       );
+      onCloseDialogs();
     } catch {
       notifications.show("There was an error fetching your location.", {
         key: "geolocation-error",
@@ -67,8 +66,6 @@ export default function EditLocationForm({
     <Stack component="form" onSubmit={handleSubmit(onSubmit)} spacing={4}>
       <TextField
         {...register("house_number")}
-        autoFocus
-        id="house-number"
         label="Insert house number"
         variant="standard"
         error={!!errors.house_number}
@@ -83,9 +80,8 @@ export default function EditLocationForm({
         type="submit"
         variant="contained"
         fullWidth
-        disabled={isSubmitting}
         loading={isSubmitting}
-        loadingIndicator="Confirming address..."
+        loadingIndicator="Confirming..."
       >
         Confirm address
       </Button>
