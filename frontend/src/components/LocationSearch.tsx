@@ -36,7 +36,7 @@ export default function LocationSearch() {
 
       try {
         const { data } = await axios.get<Address[]>(
-          `https://api.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${value}&limit=5&dedupe=1&normalizecity=1&countrycodes=IT`,
+          `https://eu1.locationiq.com/v1/autocomplete?key=${env.VITE_LOCATIONIQ_API_KEY}&q=${value}&limit=5&dedupe=1&normalizecity=1&countrycodes=IT`,
         );
 
         setAddresses(data);
