@@ -14,3 +14,10 @@ vi.mock("@/contexts/AuthProvider", () => ({
     user: undefined,
   }),
 }));
+
+vi.mock("@toolpad/core/useNotifications", () => ({
+  useNotifications: vi.fn().mockReturnValue({
+    show: vi.fn(),
+    close: vi.fn(),
+  }),
+}));
