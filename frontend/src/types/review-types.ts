@@ -1,7 +1,7 @@
 import { Order } from "@private/types/order-types";
 
 import { BaseOffsetPagination } from "./pagination-types";
-import { User } from "./user-types";
+import { UserWithoutNotificationsAndRoles } from "./user-types";
 
 export type Review = {
   id: string;
@@ -12,9 +12,11 @@ export type Review = {
   rating: number;
   created_at: string;
   updated_at: string;
-  customer: User;
+  customer: UserWithoutNotificationsAndRoles;
   order: Order;
 };
+
+export type ReviewWithoutOrder = Omit<Review, "order">;
 
 export type ReviewWithPagination = BaseOffsetPagination & {
   data: Review[];

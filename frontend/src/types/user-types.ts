@@ -39,6 +39,11 @@ export type User = {
   updated_at: string;
 };
 
+export type UserWithoutNotificationsAndRoles = Omit<
+  User,
+  "notification_preferences" | "roles"
+>;
+
 export type NotificationType = "new_order" | "new_review";
 
 export type Role = "customer" | "partner" | "rider";
