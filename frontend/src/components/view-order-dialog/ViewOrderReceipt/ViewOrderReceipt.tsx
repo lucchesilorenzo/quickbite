@@ -3,7 +3,7 @@ import { PartnerOrder } from "@partner/types/order-types";
 import { Order } from "@private/types/order-types";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-import OrderReceiptToPDF from "./OrderReceiptToPDF";
+import OrderReceiptToPDF from "../OrderReceiptToPDF";
 
 import { useGetBase64RestaurantLogo } from "@/hooks/restaurants/useGetBase64RestaurantLogo";
 
@@ -28,7 +28,7 @@ export default function ViewOrderReceipt({ order }: ViewOrderReceiptProps) {
           size="large"
           sx={{ fontWeight: 700 }}
         >
-          {error ? "There was an error saving your receipt" : "View receipt"}
+          {!error ? "View receipt" : "There was an error saving your receipt"}
         </Button>
       )}
     </PDFDownloadLink>
