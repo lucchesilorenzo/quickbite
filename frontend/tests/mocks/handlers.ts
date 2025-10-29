@@ -1,6 +1,8 @@
 import { http, HttpResponse } from "msw";
+import { restaurantLogo } from "tests/mocks/data/restaurants";
 
 import { address } from "tests/mocks/data/addresses";
+import env from "@/lib/env";
 
 export const handlers = [
   http.get(
@@ -16,4 +18,7 @@ export const handlers = [
       return HttpResponse.json([address]);
     }
   ),
+  http.get(`${env.VITE_BASE_URL}/api/restaurants/:id/base64-logo`, async () => {
+    return HttpResponse.json(restaurantLogo);
+  }),
 ];
