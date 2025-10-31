@@ -57,9 +57,7 @@ export default function OrderNotesForm({
             multiline
             autoComplete="off"
             label="Add a note (optional)"
-            placeholder={
-              'For example: "Very spicy, please" or "Leave the order on the porch".'
-            }
+            placeholder='For example: "Very spicy, please" or "Leave the order on the porch".'
             maxRows={4}
             error={!!errors.notes}
             helperText={
