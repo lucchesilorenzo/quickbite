@@ -45,6 +45,7 @@ export default function ViewOrderFeesAndDiscounts({
         <Stack
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
+          data-testid="service-fee-section"
         >
           <Typography variant="body1" component="div">
             Service fee
@@ -60,6 +61,7 @@ export default function ViewOrderFeesAndDiscounts({
         <Stack
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
+          data-testid="discount-section"
         >
           <Typography variant="body1" component="div">
             {order.discount_rate * 100}% off
