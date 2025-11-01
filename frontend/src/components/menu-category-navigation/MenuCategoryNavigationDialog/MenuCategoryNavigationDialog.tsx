@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { PartnerMenu } from "@partner/types/menu-types";
 
-import MenuCategoryNavigationItem from "./MenuCategoryNavigationItem";
+import MenuCategoryNavigationItem from "../MenuCategoryNavigationItem";
 
 import { MenuCategory } from "@/types/menu-types";
 
