@@ -17,6 +17,7 @@ export type MenuItem = {
   price: number;
   image: string | null;
   is_available: boolean;
+  order: number;
   created_at: string;
   updated_at: string;
 };
