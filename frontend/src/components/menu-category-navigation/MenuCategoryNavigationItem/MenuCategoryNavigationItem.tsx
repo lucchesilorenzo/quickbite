@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { PartnerMenu } from "@partner/types/menu-types";
 
-import MenuItemQuantityInCartBadge from "./MenuItemQuantityInCartBadge";
+import MenuItemQuantityInCartBadge from "../MenuItemQuantityInCartBadge";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { isCustomer } from "@/lib/utils/auth";
