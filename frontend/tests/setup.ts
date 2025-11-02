@@ -10,9 +10,7 @@ beforeEach(() => {
 });
 
 vi.mock("@/contexts/AuthProvider", () => ({
-  useAuth: vi.fn().mockReturnValue({
-    user: undefined,
-  }),
+  useAuth: vi.fn().mockReturnValue({ user: undefined }),
 }));
 
 vi.mock("@toolpad/core/useNotifications", () => ({
