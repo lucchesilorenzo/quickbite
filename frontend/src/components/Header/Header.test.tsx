@@ -1,12 +1,10 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, useNavigate } from "react-router-dom";
-import { user } from "tests/mocks/data/users";
 import { customRender } from "tests/utils/custom-render";
+import { mockAuthState } from "tests/utils/mock-auth-state";
 
 import Header from "./Header";
-
-import { useAuth } from "@/contexts/AuthProvider";
 
 vi.mock("../HeaderDialog", () => ({
   default: () => (
@@ -35,11 +33,19 @@ vi.mock("react-router-dom", async (importOriginal) => {
 
 describe("Header", () => {
   function renderComponent() {
+    const mockNavigate = vi.fn();
+    vi.mocked(useNavigate).mockReturnValue(mockNavigate);
+
     customRender(
       <MemoryRouter>
         <Header />
       </MemoryRouter>,
     );
+
+    return {
+      user: userEvent.setup(),
+      mockNavigate,
+    };
   }
 
   it("should render main header structure", () => {
@@ -54,10 +60,7 @@ describe("Header", () => {
   });
 
   it("should go back to the previous page when the back button is clicked", async () => {
-    const user = userEvent.setup();
-    const mockNavigate = vi.fn();
-    vi.mocked(useNavigate).mockReturnValue(mockNavigate);
-    renderComponent();
+    const { user, mockNavigate } = renderComponent();
 
     await user.click(screen.getByRole("button", { name: /back/i }));
 
@@ -66,7 +69,7 @@ describe("Header", () => {
   });
 
   it("should render the customer header dialog when user has customer role", () => {
-    vi.mocked(useAuth).mockReturnValue({ user });
+    mockAuthState("customer");
     renderComponent();
 
     expect(screen.getByTestId("customer-header-dialog")).toBeInTheDocument();
