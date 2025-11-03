@@ -3,7 +3,7 @@ import { Order } from "@private/types/order-types";
 
 import OrderItem from "./OrderItem";
 
-import CustomPagination from "@/components/CustomPagination";
+import CustomPagination from "@/components/common/CustomPagination";
 
 type OrdersListProps = {
   orders: Order[];

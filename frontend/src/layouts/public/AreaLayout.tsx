@@ -2,8 +2,8 @@ import { Stack } from "@mui/material";
 import AreaHeader from "@public/area/AreaHeader";
 import { Outlet } from "react-router-dom";
 
-import Footer from "@/components/Footer";
-import NavigateToTopFloatingButton from "@/components/NavigateToTopFloatingButton";
+import Footer from "@/components/common/Footer";
+import NavigateToTopFloatingButton from "@/components/common/NavigateToTopFloatingButton";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
 export default function AreaLayout() {

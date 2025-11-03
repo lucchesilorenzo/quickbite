@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/common/Spinner";
 import { useGetRestaurant } from "@/hooks/restaurants/useGetRestaurant";
 import ErrorPage from "@/pages/public/ErrorPage";
 import {

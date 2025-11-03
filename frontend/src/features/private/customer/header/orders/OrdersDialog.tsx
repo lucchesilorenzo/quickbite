@@ -16,7 +16,7 @@ import { useSearchParams } from "react-router-dom";
 import EmptyOrders from "./EmptyOrders";
 import OrdersList from "./OrdersList";
 
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/common/Spinner";
 
 type OrdersDialogProps = {
   openOrdersDialog: boolean;

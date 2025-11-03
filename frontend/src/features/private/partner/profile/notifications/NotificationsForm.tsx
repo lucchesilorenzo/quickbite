@@ -3,7 +3,7 @@ import { TProfileNotificationsFormSchema } from "@partner/validations/profile-no
 import { Controller, useFormContext } from "react-hook-form";
 import { Fragment } from "react/jsx-runtime";
 
-import AntSwitch from "@/components/AntSwitch";
+import AntSwitch from "@/components/common/AntSwitch";
 
 const notificationPreferences = [
   {

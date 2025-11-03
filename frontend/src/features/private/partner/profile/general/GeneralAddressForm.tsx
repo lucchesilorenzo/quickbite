@@ -2,7 +2,7 @@ import { Stack, TextField, useMediaQuery } from "@mui/material";
 import { TProfileGeneralFormSchema } from "@partner/validations/profile-general-validations";
 import { Controller, useFormContext } from "react-hook-form";
 
-import FormHelperTextError from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 export default function GeneralAddressForm() {
   const {

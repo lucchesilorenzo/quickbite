@@ -22,8 +22,8 @@ import { Controller, useFormContext } from "react-hook-form";
 
 import PreviewImageDialog from "./PreviewImageDialog";
 
-import FormHelperTextError from "@/components/FormHelperTextError";
-import VisuallyHiddenInput from "@/components/VisuallyHiddenInput";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
+import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
 import { useInfo } from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
 import env from "@/lib/env";

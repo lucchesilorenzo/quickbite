@@ -6,7 +6,7 @@ import { useGetRestaurants } from "@partner/hooks/restaurants/restaurant/useGetR
 import RestaurantsSelection from "@partner/restaurants/RestaurantsSelection";
 import RestaurantsWelcome from "@partner/restaurants/RestaurantsWelcome";
 
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/common/Spinner";
 
 export default function PartnerRestaurantsPage() {
   const { data: restaurants = [], isLoading: restaurantsLoading } =

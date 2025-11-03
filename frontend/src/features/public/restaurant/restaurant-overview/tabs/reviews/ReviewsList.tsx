@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/material";
 
 import Review from "./Review";
 
-import CustomPagination from "@/components/CustomPagination";
+import CustomPagination from "@/components/common/CustomPagination";
 import { useReviews } from "@/contexts/ReviewsProvider";
 
 export default function ReviewsList() {

@@ -2,7 +2,7 @@ import { Box, Grid, Stack } from "@mui/material";
 
 import RestaurantOfferButton from "./RestaurantOfferButton";
 
-import CustomPagination from "@/components/CustomPagination";
+import CustomPagination from "@/components/common/CustomPagination";
 import { useOffers } from "@/contexts/OffersProvider";
 
 type RestaurantOffersListProps = {

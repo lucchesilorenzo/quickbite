@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { CheckoutData } from "@customer/types/order-types";
 import { useParams } from "react-router-dom";
 
-import FullPageSpinner from "@/components/FullPageSpinner";
+import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetCart } from "@/features/private/customer/hooks/carts/useGetCart";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";

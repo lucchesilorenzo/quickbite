@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
 import ViewOrderDialog from "./ViewOrderDialog";
 
-import OrderStatusBadge from "@/components/OrderStatusBadge";
+import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type OrderItemProps = {

@@ -23,7 +23,7 @@ import {
 import { format } from "date-fns";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
-import FormHelperTextError from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type DeliveryTimeFormProps = {
   setOpenDeliveryTimeDialog: React.Dispatch<React.SetStateAction<boolean>>;

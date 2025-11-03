@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 
-import ServiceFeeDialog from "@/components/ServiceFeeDialog";
+import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useOffers } from "@/contexts/OffersProvider";

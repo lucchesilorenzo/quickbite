@@ -15,8 +15,8 @@ import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
-import FormHelperTextError from "@/components/FormHelperTextError";
-import PasswordStrengthIndicator from "@/components/PasswordStrengthIndicator";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
+import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRegister } from "@/features/private/customer/hooks/auth/useRegister";
 import { useCreateOrUpdateCarts } from "@/features/private/customer/hooks/carts/useCreateOrUpdateCarts";

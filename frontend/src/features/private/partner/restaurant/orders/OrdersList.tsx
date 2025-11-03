@@ -10,8 +10,8 @@ import { useSearchParams } from "react-router-dom";
 import OrderItem from "./OrderItem";
 import OrdersFilters from "./OrdersFilters";
 
-import CustomPagination from "@/components/CustomPagination";
-import Spinner from "@/components/Spinner";
+import CustomPagination from "@/components/common/CustomPagination";
+import Spinner from "@/components/common/Spinner";
 import { orderStatuses } from "@/lib/constants/orders";
 
 export default function OrdersList() {

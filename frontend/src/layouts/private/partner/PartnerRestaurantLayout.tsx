@@ -13,7 +13,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 
-import NotificationToast from "@/components/NotificationToast";
+import NotificationToast from "@/components/common/NotificationToast";
 import { useAuth } from "@/contexts/AuthProvider";
 
 export default function PartnerRestaurantLayout() {
