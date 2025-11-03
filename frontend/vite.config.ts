@@ -20,6 +20,7 @@ export default defineConfig({
       "@private": path.resolve(__dirname, "./src/features/private"),
       "@customer": path.resolve(__dirname, "./src/features/private/customer"),
       "@partner": path.resolve(__dirname, "./src/features/private/partner"),
+      "@rider": path.resolve(__dirname, "./src/features/private/rider"),
     },
   },
 });
