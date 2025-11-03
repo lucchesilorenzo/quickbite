@@ -2,13 +2,13 @@ import { Route } from "react-router-dom";
 
 import BlockRoleRoute from "./BlockRoleRoute";
 import AreaPage from "./public/AreaPage";
-import BecomeARiderPage from "./public/BecomeARiderPage";
 import HomePage from "./public/HomePage";
 import HowDoILeaveAReviewPage from "./public/HowDoILeaveAReviewPage";
 import HowWeRankPage from "./public/HowWeRankPage";
 import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
 import RestaurantPage from "./public/RestaurantPage";
 import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
+import BecomeARiderPage from "./public/rider/RiderRegisterPage";
 
 import AppLayout from "@/layouts/public/AppLayout";
 import AreaLayout from "@/layouts/public/AreaLayout";
@@ -28,13 +28,9 @@ export const PublicRoutes = [
   <Route path="/" element={<AppLayout />}>
     <Route element={<BlockRoleRoute blockedRoles={PUBLIC_BLOCKED_ROLES} />}>
       <Route path="become-a-rider" element={<BecomeARiderPage />} />
-
       <Route path="terms-and-conditions" element={<TermsAndConditionsPage />} />
-
       <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-
       <Route path="how-we-rank" element={<HowWeRankPage />} />
-
       <Route
         path="how-do-i-leave-a-review"
         element={<HowDoILeaveAReviewPage />}

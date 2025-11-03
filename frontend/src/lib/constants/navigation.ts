@@ -3,7 +3,7 @@ import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
 
 export const headerDialogOptions = [
   {
-    href: "/become-a-rider",
+    href: "/rider/auth/register",
     label: "Become a rider",
     icon: DeliveryDiningOutlinedIcon,
   },
@@ -15,7 +15,7 @@ export const headerDialogOptions = [
 ];
 
 export const footerLinks = [
-  { href: "/become-a-rider", label: "Jobs" },
+  { href: "/rider/auth/register", label: "Jobs" },
   { href: "/partner/auth/register", label: "Sign up a restaurant" },
   { href: "/terms-and-conditions", label: "Terms of Service" },
   { href: "/privacy-policy", label: "Privacy statement" },
