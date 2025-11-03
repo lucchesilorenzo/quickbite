@@ -24,7 +24,7 @@ type MultiCartContext = {
   isEmpty: (restaurantId: string) => boolean;
   addItem: (
     restaurant: SingleRestaurantDetail,
-    menuItem: MenuItem,
+    menuItem: MenuItem | CartItem,
     quantity: number,
   ) => void;
   getItem: (restaurantId: string, cartItemId: string) => CartItem | undefined;
@@ -74,6 +74,8 @@ export default function MultiCartProvider({
 
     return {};
   });
+
+  console.log(carts);
 
   const inizialized = useRef(false);
 
@@ -131,7 +133,7 @@ export default function MultiCartProvider({
 
   async function addItem(
     restaurant: SingleRestaurantDetail,
-    menuItem: MenuItem,
+    menuItem: MenuItem | CartItem,
     quantity: number,
   ) {
     let updatedCart: RestaurantCart | null = null;
