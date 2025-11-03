@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\VehicleType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('country')->nullable()->default('Italy');
+            $table->enum('vehicle_type', VehicleType::values())->nullable();
             $table->string('driving_licence')->nullable()->unique();
             $table->boolean('is_approved')->default(true); // When email verification will be implemented
             $table->rememberToken();
