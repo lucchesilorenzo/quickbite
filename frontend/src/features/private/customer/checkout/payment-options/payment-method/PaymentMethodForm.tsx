@@ -10,7 +10,7 @@ import { Box, Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 const paymentMethodOptions = [
   {
@@ -116,7 +116,6 @@ export default function PaymentMethodForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Saving..."
         variant="contained"

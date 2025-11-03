@@ -89,10 +89,12 @@ export default function CategoryFiltersProvider({
 
 export function useCategoryFilters() {
   const context = useContext(CategoryFiltersContext);
+
   if (!context) {
     throw new Error(
       "useCategoryFilters must be used within a CategoryFiltersProvider.",
     );
   }
+
   return context;
 }

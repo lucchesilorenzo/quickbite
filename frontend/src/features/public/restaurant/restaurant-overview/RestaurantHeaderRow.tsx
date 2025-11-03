@@ -6,8 +6,8 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StarIcon from "@mui/icons-material/Star";
 import { IconButton, Link, Stack, Typography } from "@mui/material";
 
-import ServiceFeeDialog from "@/components/ServiceFeeDialog";
-import Spinner from "@/components/Spinner";
+import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
+import Spinner from "@/components/common/Spinner";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { useReviews } from "@/contexts/ReviewsProvider";
 import { formatCurrency } from "@/lib/utils/formatting";

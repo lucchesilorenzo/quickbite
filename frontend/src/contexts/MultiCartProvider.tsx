@@ -1,9 +1,10 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
+import { useCreateOrUpdateCart } from "@private/customer/hooks/carts/useCreateOrUpdateCart";
+import { useGetCarts } from "@private/customer/hooks/carts/useGetCarts";
+
 import { useAuth } from "./AuthProvider";
 
-import { useCreateOrUpdateCart } from "@/features/private/customer/hooks/carts/useCreateOrUpdateCart";
-import { useGetCarts } from "@/features/private/customer/hooks/carts/useGetCarts";
 import { emptyRestaurant } from "@/lib/constants/restaurants";
 import { isCustomer } from "@/lib/utils/auth";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants";
@@ -23,7 +24,7 @@ type MultiCartContext = {
   isEmpty: (restaurantId: string) => boolean;
   addItem: (
     restaurant: SingleRestaurantDetail,
-    menuItem: MenuItem,
+    menuItem: MenuItem | CartItem,
     quantity: number,
   ) => void;
   getItem: (restaurantId: string, cartItemId: string) => CartItem | undefined;
@@ -73,6 +74,8 @@ export default function MultiCartProvider({
 
     return {};
   });
+
+  console.log(carts);
 
   const inizialized = useRef(false);
 
@@ -130,7 +133,7 @@ export default function MultiCartProvider({
 
   async function addItem(
     restaurant: SingleRestaurantDetail,
-    menuItem: MenuItem,
+    menuItem: MenuItem | CartItem,
     quantity: number,
   ) {
     let updatedCart: RestaurantCart | null = null;

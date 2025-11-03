@@ -20,10 +20,11 @@ import MenuItemInfoDialog from "./MenuItemInfoDialog";
 
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
+import { CartItem } from "@/types/cart-types";
 import { MenuItem } from "@/types/menu-types";
 
 type MenuItemDialogProps = {
-  menuItem: MenuItem;
+  menuItem: MenuItem | CartItem;
   openMenuItemDialog: boolean;
   setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -33,9 +34,9 @@ export default function MenuItemDialog({
   openMenuItemDialog,
   setOpenMenuItemDialog,
 }: MenuItemDialogProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const [openMenuItemInfoDialog, setOpenMenuItemInfoDialog] = useState(false);
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-import FullPageSpinner from "@/components/FullPageSpinner";
+import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuthMe } from "@/features/private/hooks/auth/useAuthMe";
 import { User } from "@/types/user-types";
 

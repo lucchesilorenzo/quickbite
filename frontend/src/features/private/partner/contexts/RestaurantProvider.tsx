@@ -7,7 +7,7 @@ import { Navigate } from "react-router-dom";
 
 import { PartnerRestaurantDetail } from "../types/restaurant-types";
 
-import FullPageSpinner from "@/components/FullPageSpinner";
+import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { userNotificationsDefaults } from "@/lib/query-defaults";
 

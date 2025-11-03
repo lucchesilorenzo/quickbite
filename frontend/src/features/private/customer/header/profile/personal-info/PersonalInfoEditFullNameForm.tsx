@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField, useMediaQuery } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
 
 export default function PersonalInfoEditFullNameForm() {
@@ -87,7 +87,6 @@ export default function PersonalInfoEditFullNameForm() {
       {isDirty && (
         <Button
           type="submit"
-          disabled={isSubmitting}
           loading={isSubmitting}
           loadingIndicator="Editing..."
           variant="contained"

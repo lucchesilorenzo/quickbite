@@ -5,13 +5,13 @@ export function hasRole(user: User | null | undefined, role: Role) {
 }
 
 export function isCustomer(user?: User | null): user is User {
-  return hasRole(user, Role.CUSTOMER);
+  return hasRole(user, "customer");
 }
 
 export function isPartner(user?: User | null): user is User {
-  return hasRole(user, Role.PARTNER);
+  return hasRole(user, "partner");
 }
 
 export function isRider(user?: User | null): user is User {
-  return hasRole(user, Role.RIDER);
+  return hasRole(user, "rider");
 }

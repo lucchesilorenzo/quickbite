@@ -19,8 +19,8 @@ import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import MenuItem from "./MenuItem";
 
-import CustomPagination from "@/components/CustomPagination";
-import Spinner from "@/components/Spinner";
+import CustomPagination from "@/components/common/CustomPagination";
+import Spinner from "@/components/common/Spinner";
 
 export default function MenuItemsList() {
   const { restaurant } = useRestaurant();

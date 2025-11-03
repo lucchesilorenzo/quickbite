@@ -17,7 +17,7 @@ import {
 } from "@partner/validations/auth-validations";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 export default function LoginForm() {
   const { mutateAsync: loginPartner } = useLogin();
@@ -114,7 +114,6 @@ export default function LoginForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Logging in..."
         variant="contained"

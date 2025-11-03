@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import NavigateToTopFloatingButton from "@/components/NavigateToTopFloatingButton";
+import Footer from "@/components/common/Footer";
+import Header from "@/components/common/Header";
+import NavigateToTopFloatingButton from "@/components/common/NavigateToTopFloatingButton";
 
 export default function AppLayout() {
   return (

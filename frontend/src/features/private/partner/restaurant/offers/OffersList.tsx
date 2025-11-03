@@ -6,8 +6,8 @@ import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import OffersItem from "./OffersItem";
 
-import CustomPagination from "@/components/CustomPagination";
-import Spinner from "@/components/Spinner";
+import CustomPagination from "@/components/common/CustomPagination";
+import Spinner from "@/components/common/Spinner";
 import { offersDefaults } from "@/lib/query-defaults";
 
 export default function OffersList() {

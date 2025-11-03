@@ -1,7 +1,7 @@
 import { MenuItem } from "./menu-types";
 import { RestaurantBase } from "./restaurant-types";
 
-export type CartItem = MenuItem & {
+export type CartItem = Omit<MenuItem, "order"> & {
   quantity: number;
   item_total: number;
 };

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 import CustomerHeaderDialog from "../../private/customer/header/CustomerHeaderDialog";
 
-import HeaderDialog from "@/components/HeaderDialog";
+import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/contexts/AuthProvider";
 import { isCustomer } from "@/lib/utils/auth";
 

@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import HeadingWithTooltip from "@/components/HeadingWithTooltip";
+import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
 export default function RestaurantMinimumOrderRadioFilters() {

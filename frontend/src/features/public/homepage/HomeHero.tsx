@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import LocationSearch from "@/components/LocationSearch";
+import LocationSearch from "@/components/common/LocationSearch";
 
 export default function HomeHero() {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));

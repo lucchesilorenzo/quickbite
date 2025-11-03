@@ -2,7 +2,7 @@ import { InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import { TRestaurantSettingsFeesFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { Controller, useFormContext } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useFees } from "@/features/private/partner/restaurant/settings/contexts/FeesProvider";
 
 export default function FeesFormOtherFeesSection() {

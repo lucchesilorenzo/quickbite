@@ -16,7 +16,7 @@ import HomeLayout from "@/layouts/public/HomeLayout";
 import RestaurantLayout from "@/layouts/public/RestaurantLayout";
 import { Role } from "@/types/user-types";
 
-const PUBLIC_BLOCKED_ROLES = [Role.PARTNER, Role.RIDER];
+const PUBLIC_BLOCKED_ROLES: Role[] = ["partner", "rider"];
 
 export const PublicRoutes = [
   <Route path="/" element={<HomeLayout />}>

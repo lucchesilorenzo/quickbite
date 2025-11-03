@@ -5,7 +5,7 @@ import { dashboardStatsDefaults } from "@partner/lib/query-defaults";
 
 import StatsCardItem from "./StatsCardItem";
 
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/common/Spinner";
 
 export default function StatsCard() {
   const { restaurant } = useRestaurant();

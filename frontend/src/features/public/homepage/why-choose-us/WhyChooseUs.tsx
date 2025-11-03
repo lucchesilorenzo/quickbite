@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 
 import WhyChooseUsFeatures from "./WhyChooseUsFeatures";
 
-import SectionHeader from "@/components/SectionHeader";
+import SectionHeader from "@/components/common/SectionHeader";
 
 export default function WhyChooseUs() {
   return (

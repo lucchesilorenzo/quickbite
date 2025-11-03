@@ -10,10 +10,10 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import MenuItemQuantityInCartBadge from "../../../../components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import MenuItemAddButton from "../components/MenuItemAddButton";
 import MenuItemDialog from "./MenuItemDialog";
 
+import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import env from "@/lib/env";

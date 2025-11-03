@@ -6,6 +6,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "types": ["vitest/globals"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -24,6 +25,7 @@
 
     "baseUrl": ".",
     "paths": {
+      "tests": ["./tests/*"],
       "@/*": ["./src/*"],
       "@public/*": ["./src/features/public/*"],
       "@private/*": ["./src/features/private/*"],
@@ -31,5 +33,5 @@
       "@partner/*": ["./src/features/private/partner/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

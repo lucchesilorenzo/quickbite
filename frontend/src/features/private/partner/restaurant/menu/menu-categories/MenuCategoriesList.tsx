@@ -18,7 +18,7 @@ import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import MenuCategoryItem from "./MenuCategoryItem";
 
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/common/Spinner";
 
 export default function MenuCategoriesList() {
   const { restaurant } = useRestaurant();

@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
 import ViewOrderDialog from "./ViewOrderDialog";
 
-import OrderStatusBadge from "@/components/OrderStatusBadge";
+import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type OrderItemProps = {
@@ -50,7 +50,7 @@ export default function OrderItem({ order }: OrderItemProps) {
                 Order # {order.order_code}
               </Typography>
 
-              <OrderStatusBadge order={order} />
+              <OrderStatusBadge orderStatus={order.status} />
             </Stack>
 
             <Stack spacing={0.5} sx={{ mb: 1 }}>

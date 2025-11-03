@@ -18,7 +18,7 @@ import LocationSearchButton from "./location-search/LocationSearchButton";
 import LocationSearchDialog from "./location-search/LocationSearchDialog";
 import RestaurantSearchContainerMobile from "./search-bar/mobile/RestaurantSearchContainerMobile";
 
-import HeaderDialog from "@/components/HeaderDialog";
+import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAddress } from "@/contexts/AddressProvider";
 import { useAuth } from "@/contexts/AuthProvider";
 import { isCustomer } from "@/lib/utils/auth";

@@ -4,7 +4,7 @@ import { Card, Stack, Typography } from "@mui/material";
 import { useUpdateRestaurantStatus } from "@partner/hooks/restaurants/restaurant/useUpdateRestaurantStatus";
 import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
-import AntSwitch from "@/components/AntSwitch";
+import AntSwitch from "@/components/common/AntSwitch";
 
 export default function RestaurantStatusSwitch() {
   const { restaurant } = useRestaurant();

@@ -15,7 +15,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import AddReviewDialog from "./AddReviewDialog";
 import ViewOrderDialog from "./ViewOrderDialog";
 
-import OrderStatusBadge from "@/components/OrderStatusBadge";
+import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { useAuth } from "@/contexts/AuthProvider";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
@@ -81,7 +81,7 @@ export default function OrderItem({ order }: OrderItemProps) {
                 {order.restaurant.name}
               </Typography>
 
-              <OrderStatusBadge order={order} />
+              <OrderStatusBadge orderStatus={order.status} />
             </Stack>
 
             <Stack spacing={0.5} sx={{ mb: 1 }}>

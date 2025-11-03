@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type OrderNotesFormProps = {
   setOpenOrderNotesDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -57,9 +57,7 @@ export default function OrderNotesForm({
             multiline
             autoComplete="off"
             label="Add a note (optional)"
-            placeholder={
-              'For example: "Very spicy, please" or "Leave the order on the porch".'
-            }
+            placeholder='For example: "Very spicy, please" or "Leave the order on the porch".'
             maxRows={4}
             error={!!errors.notes}
             helperText={
@@ -75,7 +73,6 @@ export default function OrderNotesForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Saving..."
         variant="contained"

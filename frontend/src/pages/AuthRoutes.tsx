@@ -10,7 +10,7 @@ import CustomerAuthLayout from "@/layouts/private/customer/CustomerAuthLayout";
 import PartnerAuthLayout from "@/layouts/private/partner/PartnerAuthLayout";
 import { Role } from "@/types/user-types";
 
-const AUTH_BLOCKED_ROLES = [Role.CUSTOMER, Role.PARTNER, Role.RIDER];
+const AUTH_BLOCKED_ROLES: Role[] = ["customer", "partner", "rider"];
 
 export const AuthRoutes = [
   <Route path="/" element={<CustomerAuthLayout />}>

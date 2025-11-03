@@ -9,7 +9,7 @@ import {
 import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type EditMenuCategoryFormProps = {
   menuCategory: PartnerMenu;
@@ -97,7 +97,6 @@ export default function EditMenuCategoryForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Saving..."
         variant="contained"

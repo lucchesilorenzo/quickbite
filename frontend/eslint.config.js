@@ -28,5 +28,21 @@ export default tseslint.config(
       "@typescript-eslint/ban-ts-comment": "off",
       "react-refresh/only-export-components": "off",
     },
+  },
+  {
+    files: ["**/*.test.{ts,tsx}", "tests/**/*.{ts,tsx}"],
+    plugins: { vitest },
+    rules: {
+      ...vitest.configs.recommended.rules,
+      "vitest/max-nested-describe": ["error", { max: 3 }],
+    },
+    settings: {
+      vitest: { typecheck: true },
+    },
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
+    },
   }
 );

@@ -9,7 +9,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { format, parseISO } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
 
 export default function PersonalInfoEditDateOfBirthForm() {
@@ -72,7 +72,6 @@ export default function PersonalInfoEditDateOfBirthForm() {
       {isDirty && (
         <Button
           type="submit"
-          disabled={isSubmitting}
           loading={isSubmitting}
           loadingIndicator="Editing..."
           variant="contained"

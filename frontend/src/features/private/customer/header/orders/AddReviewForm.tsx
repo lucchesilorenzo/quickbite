@@ -10,7 +10,7 @@ import { Button, Rating, Stack, TextField, Typography } from "@mui/material";
 import { Order } from "@private/types/order-types";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type AddReviewFormProps = {
   order: Order;
@@ -94,7 +94,6 @@ export default function AddReviewForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Saving..."
         variant="contained"

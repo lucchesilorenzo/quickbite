@@ -3,7 +3,7 @@ import { useReviews } from "@partner/contexts/ReviewsProvider";
 
 import ReviewItem from "./ReviewItem";
 
-import CustomPagination from "@/components/CustomPagination";
+import CustomPagination from "@/components/common/CustomPagination";
 
 export default function ReviewsList() {
   const { reviewsData, page, setPage } = useReviews();

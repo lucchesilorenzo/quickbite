@@ -17,9 +17,9 @@ import {
 import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
-import AntSwitch from "@/components/AntSwitch";
-import { FormHelperTextError } from "@/components/FormHelperTextError";
-import VisuallyHiddenInput from "@/components/VisuallyHiddenInput";
+import AntSwitch from "@/components/common/AntSwitch";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
+import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { MenuItem } from "@/types/menu-types";
 
 type EditMenuItemFormProps = {
@@ -202,7 +202,6 @@ export default function EditMenuItemForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
         loading={isSubmitting}
         loadingIndicator="Editing..."
         variant="contained"

@@ -14,7 +14,7 @@ import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
 import AddMenuItemButton from "./AddMenuItemButton";
 
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/common/Spinner";
 import MenuCategoryNavigationSlide from "@/components/menu-category-navigation/MenuCategoryNavigationSlide";
 import ShowMoreMenuCategoriesButton from "@/components/menu-category-navigation/ShowMoreMenuCategoriesButton";
 

@@ -7,6 +7,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "tests": ["./tests/*"],
       "@/*": ["./src/*"],
       "@public/*": ["./src/features/public/*"],
       "@private/*": ["./src/features/private/*"],

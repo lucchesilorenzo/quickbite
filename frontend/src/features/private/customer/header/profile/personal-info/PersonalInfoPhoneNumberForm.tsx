@@ -8,7 +8,7 @@ import { Button, Stack } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm } from "react-hook-form";
 
-import { FormHelperTextError } from "@/components/FormHelperTextError";
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
 
 export default function PersonalInfoEditPhoneNumberForm() {
@@ -64,7 +64,6 @@ export default function PersonalInfoEditPhoneNumberForm() {
       {isDirty && (
         <Button
           type="submit"
-          disabled={isSubmitting}
           loading={isSubmitting}
           loadingIndicator="Editing..."
           variant="contained"

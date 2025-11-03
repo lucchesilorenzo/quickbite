@@ -4,7 +4,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import RestaurantInfo from "../RestaurantInfo";
 import MenuCategoryItem from "./MenuCategoryItem";
 
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/common/Spinner";
 import { useMenu } from "@/contexts/MenuProvider";
 
 export default function MenuCategoriesList() {

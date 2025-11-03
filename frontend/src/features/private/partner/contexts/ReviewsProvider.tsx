@@ -5,7 +5,7 @@ import { OrderStatusWithAll } from "@private/types/order-types";
 
 import { useRestaurant } from "./RestaurantProvider";
 
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/common/Spinner";
 import { reviewsDefaults } from "@/lib/query-defaults";
 import { ReviewStats } from "@/types/review-types";
 

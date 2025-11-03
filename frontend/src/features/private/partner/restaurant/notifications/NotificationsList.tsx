@@ -3,7 +3,7 @@ import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import NotificationItem from "./NotificationItem";
 
-import CustomPagination from "@/components/CustomPagination";
+import CustomPagination from "@/components/common/CustomPagination";
 
 export default function NotificationsList() {
   const { partnerNotifications, page, setPage } = useRestaurant();
