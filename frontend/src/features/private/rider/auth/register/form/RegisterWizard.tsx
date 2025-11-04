@@ -16,7 +16,7 @@ import {
 } from "@rider/validations/auth-validations";
 import { FormProvider, useForm } from "react-hook-form";
 
-import RequirementsStep from "./steps/RequirementsStep";
+import RequirementsStep from "./steps/requirements/RequirementsStep";
 
 const steps = [
   { title: "Step 1", subtitle: "Requirements" },
@@ -47,7 +47,7 @@ export default function RegisterWizard() {
 
   return (
     <FormProvider {...methods}>
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Container maxWidth="lg" sx={{ my: 4 }}>
         <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
           {steps.map(({ title, subtitle }) => (
             <Step key={title}>
