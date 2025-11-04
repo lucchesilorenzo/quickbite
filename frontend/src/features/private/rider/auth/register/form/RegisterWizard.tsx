@@ -16,11 +16,12 @@ import {
 } from "@rider/validations/auth-validations";
 import { FormProvider, useForm } from "react-hook-form";
 
+import PersonalInfoStep from "./steps/personal-info/PersonalInfoStep";
 import RequirementsStep from "./steps/requirements/RequirementsStep";
 
 const steps = [
   { title: "Step 1", subtitle: "Requirements" },
-  { title: "Step 3", subtitle: "Personal information" },
+  { title: "Step 2", subtitle: "Personal info" },
   { title: "Step 3", subtitle: "Location" },
   { title: "Step 4", subtitle: "Vehicle" },
 ];
@@ -30,7 +31,12 @@ export default function RegisterWizard() {
 
   const methods = useForm({
     resolver: zodResolver(registerFormSchema),
-    defaultValues: {},
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone_number: "",
+    },
   });
 
   async function onSubmit(data: TRegisterFormSchema) {
@@ -65,6 +71,7 @@ export default function RegisterWizard() {
             noValidate
           >
             {activeStep === 0 && <RequirementsStep />}
+            {activeStep === 1 && <PersonalInfoStep />}
 
             <Stack
               direction="row"
