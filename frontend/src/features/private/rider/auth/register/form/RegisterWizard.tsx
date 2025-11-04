@@ -26,6 +26,11 @@ const steps = [
   { title: "Step 4", subtitle: "Vehicle" },
 ];
 
+const stepFields: Record<number, (keyof TRegisterFormSchema)[]> = {
+  0: [],
+  1: ["first_name", "last_name", "email", "phone_number"],
+};
+
 export default function RegisterWizard() {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -43,7 +48,11 @@ export default function RegisterWizard() {
     console.log(data);
   }
 
-  function handleNext() {
+  async function handleNext() {
+    const isValid = await methods.trigger(stepFields[activeStep]);
+
+    if (!isValid) return;
+
     setActiveStep((prev) => prev + 1);
   }
 
