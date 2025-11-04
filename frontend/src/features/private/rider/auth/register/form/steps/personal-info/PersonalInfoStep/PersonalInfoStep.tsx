@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 
-import PersonalInfoContactSection from "./PersonalInfoContactSection";
-import PersonalInfoNameSection from "./PersonalInfoNameSection";
+import PersonalInfoContactSection from "../PersonalInfoContactSection";
+import PersonalInfoNameSection from "../PersonalInfoNameSection";
 
 export default function PersonalInfoStep() {
   return (
