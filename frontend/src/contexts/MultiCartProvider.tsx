@@ -75,8 +75,6 @@ export default function MultiCartProvider({
     return {};
   });
 
-  console.log(carts);
-
   const inizialized = useRef(false);
 
   useEffect(() => {
