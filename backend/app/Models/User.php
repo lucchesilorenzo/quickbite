@@ -41,7 +41,7 @@ class User extends Authenticatable
         'state',
         'country',
         'vehicle_type',
-        'driving_licence',
+        'drivers_license',
         'is_approved',
     ];
 

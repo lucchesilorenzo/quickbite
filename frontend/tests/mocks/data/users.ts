@@ -15,7 +15,7 @@ export const user: User = {
   city: null,
   state: null,
   country: "Italy",
-  driving_licence: null,
+  drivers_license: null,
   is_approved: true,
   created_at: "2025-10-21T10:13:57.000000Z",
   updated_at: "2025-10-21T10:13:57.000000Z",

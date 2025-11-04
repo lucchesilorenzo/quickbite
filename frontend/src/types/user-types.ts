@@ -13,7 +13,7 @@ export type User = {
   city: string | null;
   state: string | null;
   country: string | null;
-  driving_licence: string | null;
+  drivers_license: string | null;
   roles: {
     uuid: string;
     name: Role;

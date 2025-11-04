@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('country')->nullable()->default('Italy');
             $table->enum('vehicle_type', VehicleType::values())->nullable();
-            $table->string('driving_licence')->nullable()->unique();
+            $table->string('drivers_license')->nullable()->unique();
             $table->boolean('is_approved')->default(true); // When email verification will be implemented
             $table->rememberToken();
             $table->timestamps();

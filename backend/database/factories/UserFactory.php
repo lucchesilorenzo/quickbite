@@ -44,7 +44,7 @@ class UserFactory extends Factory
             'state' => fake()->state(),
             'country' => 'Italy',
             'vehicle_type' => null,
-            'driving_licence' => null,
+            'drivers_license' => null,
             'is_approved' => true,
             'remember_token' => Str::random(10),
         ];
@@ -79,7 +79,7 @@ class UserFactory extends Factory
             $user->assignRole(UserRole::RIDER);
             $user->update([
                 'vehicle_type' => fake()->randomElement(VehicleType::values()),
-                'driving_licence' => fake()->numerify('##########'),
+                'drivers_license' => fake()->numerify('##########'),
             ]);
         });
     }
