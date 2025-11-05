@@ -145,9 +145,7 @@ export const restaurantSettingsInfoFormSchema = z.object({
     .trim()
     .min(1, "Please fill out your state.")
     .max(50, "State is too long."),
-  email: z
-    .email({ error: "Please enter a valid email address." })
-    .min(1, "Email is required."),
+  email: z.email({ error: "Please enter a valid email address." }),
   phone_number: z
     .string()
     .trim()

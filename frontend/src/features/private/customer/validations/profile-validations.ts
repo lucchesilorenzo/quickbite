@@ -17,9 +17,7 @@ export const editFullNameFormSchema = z.object({
 });
 
 export const editEmailFormSchema = z.object({
-  email: z
-    .email({ error: "Please enter a valid email address." })
-    .min(1, "Email is required."),
+  email: z.email({ error: "Please enter a valid email address." }),
 });
 
 export const editPhoneNumberFormSchema = z.object({
