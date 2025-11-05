@@ -40,7 +40,6 @@ describe("PersonalInfoNameSection", () => {
   it.each([
     {
       scenario: "missing",
-      first_name: "",
       errorMessage: /fill out your first name/i,
     },
     {
@@ -54,7 +53,7 @@ describe("PersonalInfoNameSection", () => {
       const { user, firstNameInput, expectErrorToBeInTheDocument } =
         renderComponent();
 
-      if (first_name) {
+      if (first_name !== undefined) {
         await user.type(firstNameInput, first_name);
       } else {
         await user.type(firstNameInput, "a");
@@ -68,7 +67,6 @@ describe("PersonalInfoNameSection", () => {
   it.each([
     {
       scenario: "missing",
-      last_name: "",
       errorMessage: /fill out your last name/i,
     },
     {
@@ -82,7 +80,7 @@ describe("PersonalInfoNameSection", () => {
       const { user, lastNameInput, expectErrorToBeInTheDocument } =
         renderComponent();
 
-      if (last_name) {
+      if (last_name !== undefined) {
         await user.type(lastNameInput, last_name);
       } else {
         await user.type(lastNameInput, "a");
