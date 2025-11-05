@@ -191,13 +191,20 @@ describe("LocationStep", () => {
   );
 
   it("should not display any validation errors when all fields are valid", async () => {
-    const { user } = renderComponent();
+    const {
+      user,
+      streetAddressInput,
+      buildingNumberInput,
+      postcodeInput,
+      cityInput,
+      stateInput,
+    } = renderComponent();
 
-    await user.type(screen.getByLabelText(/street address/i), "Via Roma");
-    await user.type(screen.getByLabelText(/building number/i), "11");
-    await user.type(screen.getByLabelText(/postcode/i), "00100");
-    await user.type(screen.getByLabelText(/city/i), "Rome");
-    await user.type(screen.getByLabelText(/state/i), "Lazio");
+    await user.type(streetAddressInput, "Via Roma");
+    await user.type(buildingNumberInput, "11");
+    await user.type(postcodeInput, "00100");
+    await user.type(cityInput, "Rome");
+    await user.type(stateInput, "Lazio");
 
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
