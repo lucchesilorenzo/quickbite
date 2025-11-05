@@ -26,6 +26,31 @@ export const registerFormSchema = z.object({
         error: "Please enter a valid phone number.",
       },
     ),
+  street_address: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your street address.")
+    .max(50, "Street address is too long."),
+  building_number: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your building number.")
+    .max(50, "Building number is too long."),
+  postcode: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your postcode.")
+    .max(50, "Postcode is too long."),
+  city: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your city.")
+    .max(50, "City is too long."),
+  state: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your state.")
+    .max(50, "State is too long."),
 });
 
 export type TRegisterFormSchema = z.infer<typeof registerFormSchema>;
