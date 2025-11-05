@@ -81,4 +81,13 @@ describe("PersonalInfoContactSection", () => {
       expectErrorToBeInTheDocument(errorMessage);
     },
   );
+
+  it("should not display any validation errors when all fields are valid", async () => {
+    const { user, emailInput, phoneNumberInput } = renderComponent();
+
+    await user.type(emailInput, "johndoe@gmail.com");
+    await user.type(phoneNumberInput, "3273753895");
+
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
 });

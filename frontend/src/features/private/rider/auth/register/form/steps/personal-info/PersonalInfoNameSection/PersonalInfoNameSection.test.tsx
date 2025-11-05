@@ -90,4 +90,13 @@ describe("PersonalInfoNameSection", () => {
       expectErrorToBeInTheDocument(errorMessage);
     },
   );
+
+  it("should not display any validation errors when all fields are valid", async () => {
+    const { user, firstNameInput, lastNameInput } = renderComponent();
+
+    await user.type(firstNameInput, "johndoe@gmail.com");
+    await user.type(lastNameInput, "3273753895");
+
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
 });
