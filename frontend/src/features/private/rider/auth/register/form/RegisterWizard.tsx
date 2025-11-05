@@ -29,6 +29,7 @@ const steps = [
 const stepFields: Record<number, (keyof TRegisterFormSchema)[]> = {
   0: [],
   1: ["first_name", "last_name", "email", "phone_number"],
+  2: ["street_address", "building_number", "postcode", "city", "state"],
 };
 
 export default function RegisterWizard() {
@@ -36,11 +37,17 @@ export default function RegisterWizard() {
 
   const methods = useForm({
     resolver: zodResolver(registerFormSchema),
+    mode: "onChange",
     defaultValues: {
       first_name: "",
       last_name: "",
       email: "",
       phone_number: "",
+      street_address: "",
+      building_number: "",
+      postcode: "",
+      city: "",
+      state: "",
     },
   });
 
