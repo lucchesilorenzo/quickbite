@@ -16,6 +16,7 @@ import {
 } from "@rider/validations/auth-validations";
 import { FormProvider, useForm } from "react-hook-form";
 
+import LocationStep from "./steps/location/LocationStep";
 import PersonalInfoStep from "./steps/personal-info/PersonalInfoStep";
 import RequirementsStep from "./steps/requirements/RequirementsStep";
 
@@ -88,6 +89,7 @@ export default function RegisterWizard() {
           >
             {activeStep === 0 && <RequirementsStep />}
             {activeStep === 1 && <PersonalInfoStep />}
+            {activeStep === 2 && <LocationStep />}
 
             <Stack
               direction="row"
