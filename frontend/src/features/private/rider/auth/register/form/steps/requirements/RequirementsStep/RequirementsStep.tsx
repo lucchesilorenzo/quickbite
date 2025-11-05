@@ -10,7 +10,7 @@ export default function RequirementsStep() {
         Requirements
       </Typography>
 
-      <Typography variant="body1" sx={{ mb: 4 }}>
+      <Typography variant="body1" sx={{ mb: 3 }}>
         To apply, you must meet the following requirements:
       </Typography>
 

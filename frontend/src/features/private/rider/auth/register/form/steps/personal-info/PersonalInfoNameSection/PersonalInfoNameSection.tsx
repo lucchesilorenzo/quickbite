@@ -12,7 +12,7 @@ export default function PersonalInfoNameSection() {
 
   return (
     <Box>
-      <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
+      <Typography variant="h5" sx={{ fontWeight: 600, mb: 3 }}>
         What's your name?
       </Typography>
 
