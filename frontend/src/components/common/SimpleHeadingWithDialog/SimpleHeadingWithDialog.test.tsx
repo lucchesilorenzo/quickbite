@@ -24,6 +24,8 @@ describe("SimpleHeadingWithDialog", () => {
   const actionText = "Action text";
 
   function renderComponent(hasFilters: boolean) {
+    const user = userEvent.setup();
+
     const mockSetSearchParams = vi.fn();
 
     const mockSearchParams = {
@@ -51,7 +53,7 @@ describe("SimpleHeadingWithDialog", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       infoButton: screen.getByRole("button", { name: /info/i }),
       getCloseButton: () => screen.queryByRole("button", { name: /close/i }),
       getDialog: () => screen.queryByRole("dialog"),

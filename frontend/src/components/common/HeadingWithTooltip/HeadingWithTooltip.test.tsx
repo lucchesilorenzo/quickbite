@@ -9,6 +9,8 @@ describe("HeadingWithTooltip", () => {
   const placement = "top";
 
   function renderComponent() {
+    const user = userEvent.setup();
+
     render(
       <HeadingWithTooltip
         headingText={headingText}
@@ -17,9 +19,7 @@ describe("HeadingWithTooltip", () => {
       />,
     );
 
-    return {
-      user: userEvent.setup(),
-    };
+    return { user };
   }
 
   it("should render the heading and button", () => {

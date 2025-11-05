@@ -15,6 +15,8 @@ vi.mock("react-router-dom", async (importOriginal) => {
 
 describe("AuthHeader", () => {
   function renderComponent(path: string = "/rider/auth/register") {
+    const user = userEvent.setup();
+
     const mockNavigate = vi.fn();
     vi.mocked(useNavigate).mockReturnValue(mockNavigate);
 
@@ -25,7 +27,7 @@ describe("AuthHeader", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       getBackButton: () => screen.queryByRole("button", { name: /back/i }),
       getLoginLink: () => screen.queryByRole("link", { name: /log in/i }),
       mockNavigate,

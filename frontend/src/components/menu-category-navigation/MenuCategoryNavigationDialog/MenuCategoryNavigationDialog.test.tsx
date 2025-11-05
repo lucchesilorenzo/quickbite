@@ -7,6 +7,8 @@ import MenuCategoryNavigationDialog from "./MenuCategoryNavigationDialog";
 
 describe("MenuCategoryNavigationDialog", () => {
   function renderComponent(openMenuCategoryNavigationDialog: boolean) {
+    const user = userEvent.setup();
+
     const title = "Categories";
     const mockSetOpenMenuCategoryNavigationDialog = vi.fn();
     const mockOnSlideClick = vi.fn();
@@ -24,9 +26,9 @@ describe("MenuCategoryNavigationDialog", () => {
     );
 
     return {
-      user: userEvent.setup(),
-      getCloseButton: () => screen.queryByRole("button", { name: /close/i }),
+      user,
       title,
+      getCloseButton: () => screen.queryByRole("button", { name: /close/i }),
       mockSetOpenMenuCategoryNavigationDialog,
     };
   }

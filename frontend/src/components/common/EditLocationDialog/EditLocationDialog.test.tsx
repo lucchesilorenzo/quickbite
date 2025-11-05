@@ -18,6 +18,8 @@ vi.mock("../EditLocationForm", () => ({
 
 describe("EditLocationDialog", () => {
   function renderComponent(open: boolean, address?: Address) {
+    const user = userEvent.setup();
+
     const mockOnCloseDialogs = vi.fn();
 
     vi.mocked(useAddress).mockReturnValue({
@@ -33,7 +35,7 @@ describe("EditLocationDialog", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       getDialog: () => screen.queryByRole("dialog"),
       getCloseButton: () => screen.queryByRole("button", { name: /close/i }),
       mockOnCloseDialogs,

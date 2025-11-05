@@ -21,6 +21,8 @@ vi.mock(
 
 describe("ShowMoreMenuCategoriesButton", () => {
   function renderComponent() {
+    const user = userEvent.setup();
+
     const mockOnSlideClick = vi.fn();
 
     render(
@@ -31,7 +33,7 @@ describe("ShowMoreMenuCategoriesButton", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       mockOnSlideClick,
     };
   }

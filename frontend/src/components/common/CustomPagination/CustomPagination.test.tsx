@@ -41,6 +41,8 @@ describe("CustomPagination", () => {
     status?: OrderStatusWithAll,
     menuCategoryId?: string,
   ) {
+    const user = userEvent.setup();
+
     const mockSetPage = vi.fn();
     const mockSetSearchParams = vi.fn();
 
@@ -70,7 +72,7 @@ describe("CustomPagination", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       mockSetPage,
       mockSetSearchParams,
     };
