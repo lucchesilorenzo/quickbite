@@ -54,6 +54,7 @@ export default function VehicleStep() {
                     }}
                   >
                     <CardActionArea
+                      aria-pressed={selected}
                       onClick={() => field.onChange(vehicle.value)}
                     >
                       <CardContent>
