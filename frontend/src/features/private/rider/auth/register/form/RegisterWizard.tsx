@@ -117,7 +117,6 @@ export default function RegisterWizard() {
               sx={{ justifyContent: "space-between", mt: 6 }}
             >
               <Button
-                type="button"
                 variant="outlined"
                 color="inherit"
                 size="large"
@@ -129,14 +128,15 @@ export default function RegisterWizard() {
               </Button>
 
               <Button
-                type="button"
                 variant="contained"
                 color="primary"
                 size="large"
                 sx={{ px: 5, fontWeight: 700 }}
-                onClick={handleNext}
+                loading={isLastStep && isSubmitting}
+                loadingIndicator="Submitting..."
+                onClick={isLastStep ? handleSubmit(onSubmit) : handleNext}
               >
-                Next
+                {isLastStep ? "Submit" : "Next"}
               </Button>
             </Stack>
           </Stack>
