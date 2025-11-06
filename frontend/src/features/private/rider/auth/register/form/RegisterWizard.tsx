@@ -17,6 +17,7 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 
 import AccountSecurityStep from "./steps/account-security/AccountSecurityStep";
+import FinishYourRegistrationStep from "./steps/finish-your-registration/FinishYourRegistrationStep";
 import LocationStep from "./steps/location/LocationStep";
 import PersonalInfoStep from "./steps/personal-info/PersonalInfoStep";
 import RequirementsStep from "./steps/requirements/RequirementsStep";
@@ -28,6 +29,7 @@ const steps = [
   { title: "Step 3", subtitle: "Location" },
   { title: "Step 4", subtitle: "Vehicle" },
   { title: "Step 5", subtitle: "Account security" },
+  { title: "Step 6", subtitle: "Finish your registration" },
 ];
 
 const stepFields: Record<number, (keyof TRegisterFormSchema)[]> = {
@@ -36,6 +38,7 @@ const stepFields: Record<number, (keyof TRegisterFormSchema)[]> = {
   2: ["street_address", "building_number", "postcode", "city", "state"],
   3: ["vehicle_type"],
   4: ["password", "password_confirmation"],
+  5: [],
 };
 
 export default function RegisterWizard() {
@@ -60,13 +63,20 @@ export default function RegisterWizard() {
     },
   });
 
+  const {
+    handleSubmit,
+    trigger,
+    formState: { isSubmitting },
+  } = methods;
+
+  const isLastStep = activeStep === steps.length - 1;
+
   async function onSubmit(data: TRegisterFormSchema) {
     console.log(data);
   }
 
   async function handleNext() {
-    const isValid = await methods.trigger(stepFields[activeStep]);
-
+    const isValid = await trigger(stepFields[activeStep]);
     if (!isValid) return;
 
     setActiveStep((prev) => prev + 1);
@@ -91,7 +101,7 @@ export default function RegisterWizard() {
         <Container maxWidth="md">
           <Stack
             component="form"
-            onSubmit={methods.handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
             noValidate
           >
@@ -100,6 +110,7 @@ export default function RegisterWizard() {
             {activeStep === 2 && <LocationStep />}
             {activeStep === 3 && <VehicleStep />}
             {activeStep === 4 && <AccountSecurityStep />}
+            {activeStep === 5 && <FinishYourRegistrationStep />}
 
             <Stack
               direction="row"
