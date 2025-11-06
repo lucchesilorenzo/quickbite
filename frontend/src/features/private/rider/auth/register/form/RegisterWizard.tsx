@@ -16,6 +16,7 @@ import {
 } from "@rider/validations/auth-validations";
 import { FormProvider, useForm } from "react-hook-form";
 
+import AccountSecurityStep from "./steps/account-security/AccountSecurityStep";
 import LocationStep from "./steps/location/LocationStep";
 import PersonalInfoStep from "./steps/personal-info/PersonalInfoStep";
 import RequirementsStep from "./steps/requirements/RequirementsStep";
@@ -26,6 +27,7 @@ const steps = [
   { title: "Step 2", subtitle: "Personal info" },
   { title: "Step 3", subtitle: "Location" },
   { title: "Step 4", subtitle: "Vehicle" },
+  { title: "Step 5", subtitle: "Account security" },
 ];
 
 const stepFields: Record<number, (keyof TRegisterFormSchema)[]> = {
@@ -33,6 +35,7 @@ const stepFields: Record<number, (keyof TRegisterFormSchema)[]> = {
   1: ["first_name", "last_name", "email", "phone_number"],
   2: ["street_address", "building_number", "postcode", "city", "state"],
   3: ["vehicle_type"],
+  4: ["password", "password_confirmation"],
 };
 
 export default function RegisterWizard() {
@@ -52,6 +55,8 @@ export default function RegisterWizard() {
       city: "",
       state: "",
       vehicle_type: undefined,
+      password: "",
+      password_confirmation: "",
     },
   });
 
@@ -94,12 +99,14 @@ export default function RegisterWizard() {
             {activeStep === 1 && <PersonalInfoStep />}
             {activeStep === 2 && <LocationStep />}
             {activeStep === 3 && <VehicleStep />}
+            {activeStep === 4 && <AccountSecurityStep />}
 
             <Stack
               direction="row"
               sx={{ justifyContent: "space-between", mt: 6 }}
             >
               <Button
+                type="button"
                 variant="outlined"
                 color="inherit"
                 size="large"
@@ -111,6 +118,7 @@ export default function RegisterWizard() {
               </Button>
 
               <Button
+                type="button"
                 variant="contained"
                 color="primary"
                 size="large"
