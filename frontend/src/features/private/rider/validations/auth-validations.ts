@@ -49,6 +49,9 @@ export const registerFormSchema = z.object({
     .trim()
     .min(1, "Please fill out your state.")
     .max(50, "State is too long."),
+  vehicle_type: z.enum(["car", "scooter"], {
+    error: "Please select a valid vehicle type.",
+  }),
 });
 
 export type TRegisterFormSchema = z.infer<typeof registerFormSchema>;
