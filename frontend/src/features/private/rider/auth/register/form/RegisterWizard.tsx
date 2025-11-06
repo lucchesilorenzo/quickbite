@@ -19,6 +19,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import LocationStep from "./steps/location/LocationStep";
 import PersonalInfoStep from "./steps/personal-info/PersonalInfoStep";
 import RequirementsStep from "./steps/requirements/RequirementsStep";
+import VehicleStep from "./steps/vehicle/VehicleStep";
 
 const steps = [
   { title: "Step 1", subtitle: "Requirements" },
@@ -31,6 +32,7 @@ const stepFields: Record<number, (keyof TRegisterFormSchema)[]> = {
   0: [],
   1: ["first_name", "last_name", "email", "phone_number"],
   2: ["street_address", "building_number", "postcode", "city", "state"],
+  3: ["vehicle_type"],
 };
 
 export default function RegisterWizard() {
@@ -49,6 +51,7 @@ export default function RegisterWizard() {
       postcode: "",
       city: "",
       state: "",
+      vehicle_type: undefined,
     },
   });
 
@@ -90,6 +93,7 @@ export default function RegisterWizard() {
             {activeStep === 0 && <RequirementsStep />}
             {activeStep === 1 && <PersonalInfoStep />}
             {activeStep === 2 && <LocationStep />}
+            {activeStep === 3 && <VehicleStep />}
 
             <Stack
               direction="row"
