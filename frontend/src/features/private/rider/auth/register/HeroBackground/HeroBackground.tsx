@@ -6,7 +6,12 @@ export default function HeroBackground() {
       component="img"
       src="/rider-register-hero.jpg"
       alt="Rider hero background"
-      sx={{ width: 1, height: 200, objectFit: "cover" }}
+      sx={{
+        width: 1,
+        height: 200,
+        objectFit: "cover",
+        display: { xs: "none", md: "block" },
+      }}
     />
   );
 }
