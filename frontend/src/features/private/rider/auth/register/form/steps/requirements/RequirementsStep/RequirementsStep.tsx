@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { requirements } from "@rider/lib/utils/requirements";
+import { requirements } from "@rider/lib/constants/register-wizard/requirements";
 
 import RequirementCard from "../RequirementCard";
 
