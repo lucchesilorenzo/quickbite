@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactNode } from "react";
+
 import {
   FieldValues,
   FormProvider,
@@ -9,7 +9,7 @@ import {
 import { ZodType } from "zod";
 
 type FormWrapperProps<T extends FieldValues> = {
-  children: ReactNode;
+  children: React.ReactNode;
   schema: ZodType<T>;
   defaultValues?: Partial<T>;
   formOptions?: Omit<UseFormProps<T>, "resolver" | "defaultValues">;

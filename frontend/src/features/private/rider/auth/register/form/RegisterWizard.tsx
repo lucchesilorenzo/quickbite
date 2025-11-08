@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Container } from "@mui/material";
-import { stepFields } from "@rider/lib/constants/register-wizard/steps";
+import { steps } from "@rider/lib/constants/register-wizard/steps";
 import {
   TRegisterFormSchema,
   registerFormSchema,
@@ -39,7 +39,7 @@ export default function RegisterWizard() {
   }
 
   async function handleNext() {
-    const isValid = await methods.trigger(stepFields[activeStep]);
+    const isValid = await methods.trigger(steps[activeStep].fields);
     if (!isValid) return;
 
     setActiveStep((prev) => prev + 1);
