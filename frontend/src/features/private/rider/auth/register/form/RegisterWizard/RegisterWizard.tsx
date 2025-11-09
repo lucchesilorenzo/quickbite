@@ -9,8 +9,8 @@ import {
 } from "@rider/validations/auth-validations";
 import { FormProvider, useForm } from "react-hook-form";
 
-import Stepper from "./Stepper";
-import MobileStepper from "./mobile/MobileStepper";
+import Stepper from "../Stepper";
+import MobileStepper from "../mobile/MobileStepper";
 
 export default function RegisterWizard() {
   const [activeStep, setActiveStep] = useState(0);

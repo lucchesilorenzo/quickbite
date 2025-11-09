@@ -20,7 +20,7 @@ type MobileStepperProps = {
   onSubmit: (data: TRegisterFormSchema) => void;
 };
 
-export default function Stepper({
+export default function MobileStepper({
   activeStep,
   onNext,
   onBack,
