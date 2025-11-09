@@ -12,12 +12,12 @@ import { steps } from "@rider/lib/constants/register-wizard/steps";
 import { TRegisterFormSchema } from "@rider/validations/auth-validations";
 import { useFormContext } from "react-hook-form";
 
-import AccountSecurityStep from "./steps/account-security/AccountSecurityStep";
-import FinishYourRegistrationStep from "./steps/finish-your-registration/FinishYourRegistrationStep";
-import LocationStep from "./steps/location/LocationStep";
-import PersonalInfoStep from "./steps/personal-info/PersonalInfoStep";
-import RequirementsStep from "./steps/requirements/RequirementsStep";
-import VehicleStep from "./steps/vehicle/VehicleStep";
+import AccountSecurityStep from "../steps/account-security/AccountSecurityStep";
+import FinishYourRegistrationStep from "../steps/finish-your-registration/FinishYourRegistrationStep";
+import LocationStep from "../steps/location/LocationStep";
+import PersonalInfoStep from "../steps/personal-info/PersonalInfoStep";
+import RequirementsStep from "../steps/requirements/RequirementsStep";
+import VehicleStep from "../steps/vehicle/VehicleStep";
 
 type StepperProps = {
   activeStep: number;
@@ -51,12 +51,7 @@ export default function Stepper({
       </MuiStepper>
 
       <Container maxWidth="md">
-        <Stack
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          autoComplete="off"
-          noValidate
-        >
+        <Stack component="form" autoComplete="off" noValidate>
           {activeStep === 0 && <RequirementsStep />}
           {activeStep === 1 && <PersonalInfoStep />}
           {activeStep === 2 && <LocationStep />}

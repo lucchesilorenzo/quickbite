@@ -86,7 +86,7 @@ describe("PersonalInfoContactSection", () => {
     const { user, emailInput, phoneNumberInput } = renderComponent();
 
     await user.type(emailInput, "johndoe@gmail.com");
-    await user.type(phoneNumberInput, "3273753895");
+    await user.type(phoneNumberInput, "+39 373 332 3323");
 
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
