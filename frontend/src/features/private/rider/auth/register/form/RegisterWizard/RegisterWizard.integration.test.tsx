@@ -1,3 +1,4 @@
+import { TRegisterFormSchema } from "@rider/validations/auth-validations";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -19,16 +20,180 @@ describe("RegisterWizard (integration)", () => {
     };
   }
 
-  it("should display validation errors when 'Next' button is clicked with empty required fields (step 2)", async () => {
-    const { user, nextButton } = renderComponent();
+  it.each<{
+    step: number;
+    errors: RegExp[];
+    prefill: Partial<TRegisterFormSchema>;
+  }>([
+    {
+      step: 2,
+      errors: [/first name/i, /last name/i, /email address/i, /phone number/i],
+      prefill: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
+      },
+    },
+    {
+      step: 3,
+      errors: [
+        /street address/i,
+        /building number/i,
+        /postcode/i,
+        /city/i,
+        /state/i,
+      ],
+      prefill: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "johndoe@gmail.com",
+        phone_number: "+39 373 332 3323",
+        street_address: "",
+        building_number: "",
+        postcode: "",
+        city: "",
+        state: "",
+      },
+    },
+    {
+      step: 4,
+      errors: [/valid vehicle/i],
+      prefill: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "johndoe@gmail.com",
+        phone_number: "+39 373 332 3323",
+        street_address: "Via Roma",
+        building_number: "12",
+        postcode: "00100",
+        city: "Roma",
+        state: "Lazio",
+        vehicle_type: undefined,
+      },
+    },
+    {
+      step: 5,
+      errors: [/your password/i, /your password/i],
+      prefill: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "johndoe@gmail.com",
+        phone_number: "+39 373 332 3323",
+        street_address: "Via Roma",
+        building_number: "12",
+        postcode: "00100",
+        city: "Roma",
+        state: "Lazio",
+        vehicle_type: "scooter",
+        password: "",
+        password_confirmation: "",
+      },
+    },
+  ])(
+    "should show validation errors for step $step when required fields are empty",
+    async ({ step, errors, prefill }) => {
+      localStorage.setItem("rider_registration_data", JSON.stringify(prefill));
 
-    await user.click(nextButton);
-    await user.click(nextButton);
+      const { user, nextButton } = renderComponent();
 
-    const alerts = screen.getAllByRole("alert");
-    expect(alerts[0]).toHaveTextContent(/first name/i);
-    expect(alerts[1]).toHaveTextContent(/last name/i);
-    expect(alerts[2]).toHaveTextContent(/email address/i);
-    expect(alerts[3]).toHaveTextContent(/phone number/i);
-  });
+      for (let i = 1; i < step; i++) {
+        await user.click(nextButton);
+      }
+
+      // Click the next button to trigger validation
+      await user.click(nextButton);
+
+      const alerts = screen.getAllByRole("alert");
+
+      alerts.forEach((alert, index) => {
+        expect(alert).toHaveTextContent(errors[index]);
+      });
+    },
+  );
+
+  it.each<{
+    step: number;
+    fields: (keyof TRegisterFormSchema)[];
+    prefill: Partial<TRegisterFormSchema>;
+  }>([
+    {
+      step: 2,
+      fields: ["first_name", "last_name", "email", "phone_number"],
+      prefill: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "johndoe@gmail.com",
+        phone_number: "+39 373 332 3323",
+      },
+    },
+    {
+      step: 3,
+      fields: [
+        "street_address",
+        "building_number",
+        "postcode",
+        "city",
+        "state",
+      ],
+      prefill: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "johndoe@gmail.com",
+        phone_number: "+39 373 332 3323",
+        street_address: "Via Roma",
+        building_number: "12",
+        postcode: "00100",
+        city: "Roma",
+        state: "Lazio",
+      },
+    },
+    {
+      step: 4,
+      fields: ["vehicle_type"],
+      prefill: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "johndoe@gmail.com",
+        phone_number: "+39 373 332 3323",
+        street_address: "Via Roma",
+        building_number: "12",
+        postcode: "00100",
+        city: "Roma",
+        state: "Lazio",
+        vehicle_type: "scooter",
+      },
+    },
+  ])(
+    "should prefill form fields from localStorage for step $step",
+    async ({ step, fields, prefill }) => {
+      localStorage.setItem("rider_registration_data", JSON.stringify(prefill));
+
+      const { user, nextButton } = renderComponent();
+
+      for (let i = 1; i < step; i++) {
+        await user.click(nextButton);
+      }
+
+      for (const field of fields) {
+        if (field === "vehicle_type") {
+          expect(
+            screen.getByRole("button", { name: /own scooter/i }),
+          ).toHaveAttribute("aria-pressed", "true");
+
+          continue;
+        }
+
+        const input = screen.getByLabelText(
+          new RegExp(field.replace(/_/g, " "), "i"),
+        );
+
+        if (field === "phone_number") {
+          expect(input).toHaveValue("373 332 3323");
+        } else {
+          expect(input).toHaveValue(prefill[field]);
+        }
+      }
+    },
+  );
 });

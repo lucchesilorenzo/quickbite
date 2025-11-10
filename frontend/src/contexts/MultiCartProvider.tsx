@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
-import { useCreateOrUpdateCart } from "@private/customer/hooks/carts/useCreateOrUpdateCart";
-import { useGetCarts } from "@private/customer/hooks/carts/useGetCarts";
+import { useCreateOrUpdateCart } from "@customer/hooks/carts/useCreateOrUpdateCart";
+import { useGetCarts } from "@customer/hooks/carts/useGetCarts";
 
 import { useAuth } from "./AuthProvider";
 
