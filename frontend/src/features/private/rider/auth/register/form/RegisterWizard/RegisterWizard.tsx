@@ -13,22 +13,34 @@ import Stepper from "../Stepper";
 import MobileStepper from "../mobile/MobileStepper";
 
 export default function RegisterWizard() {
+  const [defaultValues] = useState<
+    Omit<TRegisterFormSchema, "password" | "password_confirmation">
+  >(() => {
+    const stored = localStorage.getItem("rider_registration_data");
+    return stored
+      ? JSON.parse(stored)
+      : {
+          first_name: "",
+          last_name: "",
+          email: "",
+          phone_number: "",
+          street_address: "",
+          building_number: "",
+          postcode: "",
+          city: "",
+          state: "",
+          vehicle_type: undefined,
+          password: "",
+          password_confirmation: "",
+        };
+  });
   const [activeStep, setActiveStep] = useState(0);
 
   const methods = useForm({
     resolver: zodResolver(registerFormSchema),
     mode: "onChange",
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone_number: "",
-      street_address: "",
-      building_number: "",
-      postcode: "",
-      city: "",
-      state: "",
-      vehicle_type: undefined,
+      ...defaultValues,
       password: "",
       password_confirmation: "",
     },
@@ -41,6 +53,9 @@ export default function RegisterWizard() {
   async function handleNext() {
     const isValid = await methods.trigger(steps[activeStep].fields);
     if (!isValid) return;
+
+    const { password, password_confirmation, ...rest } = methods.getValues();
+    localStorage.setItem("rider_registration_data", JSON.stringify(rest));
 
     setActiveStep((prev) => prev + 1);
   }
