@@ -33,7 +33,11 @@ vi.mock(
 );
 
 describe("MobileStepper", () => {
-  function renderComponent(activeStep: number = 0, defaultValues = {}) {
+  function renderComponent(
+    activeStep: number = 0,
+    defaultValues = {},
+    isRegistering = false,
+  ) {
     const user = userEvent.setup();
 
     const mockOnNext = vi.fn();
@@ -48,6 +52,7 @@ describe("MobileStepper", () => {
       >
         <MobileStepper
           activeStep={activeStep}
+          isRegistering={isRegistering}
           onNext={mockOnNext}
           onBack={mockOnBack}
           onSubmit={mockOnSubmit}
@@ -160,5 +165,21 @@ describe("MobileStepper", () => {
     expect(mockOnNext).toHaveBeenCalledTimes(1);
   });
 
-  // TODO: Loading state
+  it("should render the loading indicator upon submission", async () => {
+    const { getSubmitButton } = renderComponent(5, {}, true);
+
+    expect(getSubmitButton()).toHaveTextContent(/submitting/i);
+  });
+
+  it("should not render the loading indicator after submission", () => {
+    const { getSubmitButton } = renderComponent(5);
+
+    expect(getSubmitButton()).not.toHaveTextContent(/submitting/i);
+  });
+
+  it("should not render the loading indicator if submission fails", () => {
+    const { getSubmitButton } = renderComponent(5);
+
+    expect(getSubmitButton()).not.toHaveTextContent(/submitting/i);
+  });
 });
