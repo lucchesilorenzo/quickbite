@@ -2,6 +2,13 @@ import { render, screen } from "@testing-library/react";
 
 import RegisterWizard from "./RegisterWizard";
 
+vi.mock("@rider/hooks/auth/useRegister", () => ({
+  useRegister: () => ({
+    mutateAsync: vi.fn(),
+    isPending: false,
+  }),
+}));
+
 vi.mock("../Stepper", () => ({
   default: () => <div data-testid="stepper" />,
 }));
