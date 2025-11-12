@@ -1,8 +1,9 @@
 import { http, HttpResponse } from "msw";
 import { restaurantLogo } from "tests/mocks/data/restaurants";
 
-import { address } from "tests/mocks/data/addresses";
 import env from "@/lib/env";
+import { address } from "tests/mocks/data/addresses";
+import { user } from "tests/mocks/data/users";
 
 export const handlers = [
   http.get(
@@ -20,5 +21,15 @@ export const handlers = [
   ),
   http.get(`${env.VITE_BASE_URL}/api/restaurants/:id/base64-logo`, async () => {
     return HttpResponse.json(restaurantLogo);
+  }),
+  http.post(`${env.VITE_BASE_URL}/api/rider/auth/register`, async () => {
+    return HttpResponse.json(
+      {
+        ...user,
+        date_of_birth: null,
+        roles: [{ ...user.roles[0], name: "rider" }],
+      },
+      { status: 201 }
+    );
   }),
 ];
