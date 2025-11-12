@@ -15,6 +15,7 @@ import VehicleStep from "../../steps/vehicle/VehicleStep";
 
 type MobileStepperProps = {
   activeStep: number;
+  isRegistering: boolean;
   onNext: () => void;
   onBack: () => void;
   onSubmit: (data: TRegisterFormSchema) => void;
@@ -22,6 +23,7 @@ type MobileStepperProps = {
 
 export default function MobileStepper({
   activeStep,
+  isRegistering,
   onNext,
   onBack,
   onSubmit,
@@ -31,6 +33,7 @@ export default function MobileStepper({
     formState: { isSubmitting },
   } = useFormContext<TRegisterFormSchema>();
 
+  const isPending = isRegistering || isSubmitting;
   const isLastStep = activeStep === steps.length - 1;
 
   return (
@@ -75,7 +78,7 @@ export default function MobileStepper({
               color="primary"
               size="large"
               sx={{ px: 5, fontWeight: 700 }}
-              loading={isSubmitting}
+              loading={isPending}
               loadingIndicator="Submitting..."
             >
               Submit

@@ -21,6 +21,7 @@ import VehicleStep from "../steps/vehicle/VehicleStep";
 
 type StepperProps = {
   activeStep: number;
+  isRegistering: boolean;
   onNext: () => void;
   onBack: () => void;
   onSubmit: (data: TRegisterFormSchema) => void;
@@ -28,6 +29,7 @@ type StepperProps = {
 
 export default function Stepper({
   activeStep,
+  isRegistering,
   onNext,
   onBack,
   onSubmit,
@@ -37,6 +39,7 @@ export default function Stepper({
     formState: { isSubmitting },
   } = useFormContext<TRegisterFormSchema>();
 
+  const isPending = isRegistering || isSubmitting;
   const isLastStep = activeStep === steps.length - 1;
 
   return (
@@ -79,7 +82,7 @@ export default function Stepper({
               color="primary"
               size="large"
               sx={{ px: 5, fontWeight: 700 }}
-              loading={isLastStep && isSubmitting}
+              loading={isLastStep && isPending}
               loadingIndicator="Submitting..."
               onClick={isLastStep ? handleSubmit(onSubmit) : onNext}
             >

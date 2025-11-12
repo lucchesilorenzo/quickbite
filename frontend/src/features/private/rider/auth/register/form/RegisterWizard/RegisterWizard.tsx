@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Container } from "@mui/material";
+import { useRegister } from "@rider/hooks/auth/useRegister";
 import { steps } from "@rider/lib/constants/register-wizard/steps";
 import {
   TRegisterFormSchema,
@@ -13,6 +14,9 @@ import Stepper from "../Stepper";
 import MobileStepper from "../mobile/MobileStepper";
 
 export default function RegisterWizard() {
+  const { mutateAsync: registerRider, isPending: isRegistering } =
+    useRegister();
+
   const [defaultValues] = useState<
     Omit<TRegisterFormSchema, "password" | "password_confirmation">
   >(() => {
@@ -47,7 +51,8 @@ export default function RegisterWizard() {
   });
 
   async function onSubmit(data: TRegisterFormSchema) {
-    console.log(data);
+    await registerRider(data);
+    localStorage.removeItem("rider_registration_data");
   }
 
   async function handleNext() {
@@ -69,6 +74,7 @@ export default function RegisterWizard() {
       <Container maxWidth="lg" sx={{ my: 4 }}>
         <Stepper
           activeStep={activeStep}
+          isRegistering={isRegistering}
           onNext={handleNext}
           onBack={handleBack}
           onSubmit={onSubmit}
@@ -76,6 +82,7 @@ export default function RegisterWizard() {
 
         <MobileStepper
           activeStep={activeStep}
+          isRegistering={isRegistering}
           onNext={handleNext}
           onBack={handleBack}
           onSubmit={onSubmit}
