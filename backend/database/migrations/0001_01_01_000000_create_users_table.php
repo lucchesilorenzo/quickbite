@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('profile_picture')->nullable();
-            $table->date('date_of_birth');
+            $table->date('date_of_birth')->nullable();
             $table->string('phone_number')->unique();
             $table->string('street_address')->nullable();
             $table->string('building_number')->nullable();
