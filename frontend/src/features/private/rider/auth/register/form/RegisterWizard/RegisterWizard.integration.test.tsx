@@ -1,22 +1,70 @@
 import { TRegisterFormSchema } from "@rider/validations/auth-validations";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
+import { customRender } from "tests/utils/custom-render";
+import { simulateInfiniteLoading } from "tests/utils/msw";
 
 import RegisterWizard from "./RegisterWizard";
+
+import env from "@/lib/env";
+
+const baseData: Partial<TRegisterFormSchema> = {
+  first_name: "John",
+  last_name: "Doe",
+  email: "johndoe@gmail.com",
+  phone_number: "+39 373 332 3323",
+  street_address: "Via Roma",
+  building_number: "12",
+  postcode: "00100",
+  city: "Roma",
+  state: "Lazio",
+  vehicle_type: "scooter",
+};
 
 vi.mock("../mobile/MobileStepper", () => ({
   default: () => <div data-testid="mobile-stepper" />,
 }));
 
 describe("RegisterWizard (integration)", () => {
-  function renderComponent() {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  function renderComponent(baseData?: Partial<TRegisterFormSchema>) {
     const user = userEvent.setup();
 
-    render(<RegisterWizard />);
+    if (baseData) {
+      localStorage.setItem("rider_registration_data", JSON.stringify(baseData));
+    }
+
+    customRender(
+      <BrowserRouter>
+        <RegisterWizard />
+      </BrowserRouter>,
+    );
+
+    const nextButton = screen.getByRole("button", { name: /next/i });
+
+    async function navigateToStep(step: number) {
+      for (let i = 1; i < step; i++) {
+        await user.click(nextButton);
+      }
+    }
+
+    async function completeFormAndGoToSubmit() {
+      await navigateToStep(5);
+      await user.type(screen.getByLabelText(/^password/i), "JohnDoe111!");
+      await user.type(screen.getByLabelText(/^confirm/i), "JohnDoe111!");
+      await user.click(nextButton);
+    }
 
     return {
       user,
       nextButton: screen.getByRole("button", { name: /next/i }),
+      getSubmitButton: () => screen.queryByRole("button", { name: /submit/i }),
+      navigateToStep,
+      completeFormAndGoToSubmit,
     };
   }
 
@@ -59,53 +107,22 @@ describe("RegisterWizard (integration)", () => {
     {
       step: 4,
       errors: [/valid vehicle/i],
-      prefill: {
-        first_name: "John",
-        last_name: "Doe",
-        email: "johndoe@gmail.com",
-        phone_number: "+39 373 332 3323",
-        street_address: "Via Roma",
-        building_number: "12",
-        postcode: "00100",
-        city: "Roma",
-        state: "Lazio",
-        vehicle_type: undefined,
-      },
+      prefill: { ...baseData, vehicle_type: undefined },
     },
     {
       step: 5,
       errors: [/your password/i, /your password/i],
-      prefill: {
-        first_name: "John",
-        last_name: "Doe",
-        email: "johndoe@gmail.com",
-        phone_number: "+39 373 332 3323",
-        street_address: "Via Roma",
-        building_number: "12",
-        postcode: "00100",
-        city: "Roma",
-        state: "Lazio",
-        vehicle_type: "scooter",
-        password: "",
-        password_confirmation: "",
-      },
+      prefill: { ...baseData, password: "", password_confirmation: "" },
     },
   ])(
     "should show validation errors for step $step when required fields are empty",
     async ({ step, errors, prefill }) => {
-      localStorage.setItem("rider_registration_data", JSON.stringify(prefill));
+      const { user, nextButton, navigateToStep } = renderComponent(prefill);
 
-      const { user, nextButton } = renderComponent();
-
-      for (let i = 1; i < step; i++) {
-        await user.click(nextButton);
-      }
-
-      // Click the next button to trigger validation
+      await navigateToStep(step);
       await user.click(nextButton);
 
       const alerts = screen.getAllByRole("alert");
-
       alerts.forEach((alert, index) => {
         expect(alert).toHaveTextContent(errors[index]);
       });
@@ -151,29 +168,14 @@ describe("RegisterWizard (integration)", () => {
     {
       step: 4,
       fields: ["vehicle_type"],
-      prefill: {
-        first_name: "John",
-        last_name: "Doe",
-        email: "johndoe@gmail.com",
-        phone_number: "+39 373 332 3323",
-        street_address: "Via Roma",
-        building_number: "12",
-        postcode: "00100",
-        city: "Roma",
-        state: "Lazio",
-        vehicle_type: "scooter",
-      },
+      prefill: baseData,
     },
   ])(
     "should prefill form fields from localStorage for step $step",
     async ({ step, fields, prefill }) => {
-      localStorage.setItem("rider_registration_data", JSON.stringify(prefill));
+      const { navigateToStep } = renderComponent(prefill);
 
-      const { user, nextButton } = renderComponent();
-
-      for (let i = 1; i < step; i++) {
-        await user.click(nextButton);
-      }
+      await navigateToStep(step);
 
       for (const field of fields) {
         if (field === "vehicle_type") {
@@ -196,4 +198,40 @@ describe("RegisterWizard (integration)", () => {
       }
     },
   );
+
+  it("should render the loading indicator upon submission", async () => {
+    simulateInfiniteLoading(
+      `${env.VITE_BASE_URL}/api/rider/auth/register`,
+      "post",
+    );
+    const { user, getSubmitButton, navigateToStep, completeFormAndGoToSubmit } =
+      renderComponent(baseData);
+
+    await navigateToStep(5);
+    await completeFormAndGoToSubmit();
+    await user.click(getSubmitButton()!);
+
+    expect(getSubmitButton()!).toHaveTextContent(/submitting/i);
+  });
+
+  it("should not render the loading indicator after submission", async () => {
+    const { user, getSubmitButton, navigateToStep, completeFormAndGoToSubmit } =
+      renderComponent(baseData);
+
+    await navigateToStep(5);
+    await completeFormAndGoToSubmit();
+    await user.click(getSubmitButton()!);
+
+    expect(getSubmitButton()).not.toHaveTextContent(/submitting/i);
+  });
+
+  it("should remove rider registration data from localStorage after submission", async () => {
+    const { user, getSubmitButton, completeFormAndGoToSubmit } =
+      renderComponent(baseData);
+
+    await completeFormAndGoToSubmit();
+    await user.click(getSubmitButton()!);
+
+    expect(localStorage.getItem("rider_registration_data")).toBeNull();
+  });
 });
