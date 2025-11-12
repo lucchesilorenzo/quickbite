@@ -31,6 +31,10 @@ vi.mock("../steps/finish-your-registration/FinishYourRegistrationStep", () => ({
 }));
 
 describe("Stepper", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   function renderComponent(
     activeStep: number = 0,
     defaultValues = {},

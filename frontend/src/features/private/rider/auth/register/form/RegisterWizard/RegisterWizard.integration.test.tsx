@@ -234,4 +234,30 @@ describe("RegisterWizard (integration)", () => {
 
     expect(localStorage.getItem("rider_registration_data")).toBeNull();
   });
+
+  it("should set rider registration data in localStorage when clicking the 'Next' button", async () => {
+    const personalInfoStep = {
+      first_name: "John",
+      last_name: "Doe",
+      email: "johndoe@gmail.com",
+      phone_number: "+39 373 332 3323",
+      street_address: "",
+      building_number: "",
+      postcode: "",
+      city: "",
+      state: "",
+    };
+    const { user, nextButton } = renderComponent();
+
+    await user.click(nextButton);
+    await user.type(screen.getByLabelText(/first name/i), "John");
+    await user.type(screen.getByLabelText(/last name/i), "Doe");
+    await user.type(screen.getByLabelText(/email/i), "johndoe@gmail.com");
+    await user.type(screen.getByLabelText(/phone number/i), "373 332 3323");
+    await user.click(nextButton);
+
+    expect(localStorage.getItem("rider_registration_data")).toBe(
+      JSON.stringify(personalInfoStep),
+    );
+  });
 });
