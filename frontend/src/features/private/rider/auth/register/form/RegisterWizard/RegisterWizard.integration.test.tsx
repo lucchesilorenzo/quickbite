@@ -2,25 +2,13 @@ import { TRegisterFormSchema } from "@rider/validations/auth-validations";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
+import { registerFormWithoutPasswordAndConfirmation } from "tests/mocks/data/forms/rider/register";
 import { customRender } from "tests/utils/custom-render";
 import { simulateInfiniteLoading } from "tests/utils/msw";
 
 import RegisterWizard from "./RegisterWizard";
 
 import env from "@/lib/env";
-
-const baseData: Partial<TRegisterFormSchema> = {
-  first_name: "John",
-  last_name: "Doe",
-  email: "johndoe@gmail.com",
-  phone_number: "+39 373 332 3323",
-  street_address: "Via Roma",
-  building_number: "12",
-  postcode: "00100",
-  city: "Roma",
-  state: "Lazio",
-  vehicle_type: "scooter",
-};
 
 vi.mock("../mobile/MobileStepper", () => ({
   default: () => <div data-testid="mobile-stepper" />,
@@ -107,12 +95,19 @@ describe("RegisterWizard (integration)", () => {
     {
       step: 4,
       errors: [/valid vehicle/i],
-      prefill: { ...baseData, vehicle_type: undefined },
+      prefill: {
+        ...registerFormWithoutPasswordAndConfirmation,
+        vehicle_type: undefined,
+      },
     },
     {
       step: 5,
       errors: [/your password/i, /your password/i],
-      prefill: { ...baseData, password: "", password_confirmation: "" },
+      prefill: {
+        ...registerFormWithoutPasswordAndConfirmation,
+        password: "",
+        password_confirmation: "",
+      },
     },
   ])(
     "should show validation errors for step $step when required fields are empty",
@@ -168,7 +163,7 @@ describe("RegisterWizard (integration)", () => {
     {
       step: 4,
       fields: ["vehicle_type"],
-      prefill: baseData,
+      prefill: registerFormWithoutPasswordAndConfirmation,
     },
   ])(
     "should prefill form fields from localStorage for step $step",
@@ -205,7 +200,7 @@ describe("RegisterWizard (integration)", () => {
       "post",
     );
     const { user, getSubmitButton, navigateToStep, completeFormAndGoToSubmit } =
-      renderComponent(baseData);
+      renderComponent(registerFormWithoutPasswordAndConfirmation);
 
     await navigateToStep(5);
     await completeFormAndGoToSubmit();
@@ -216,7 +211,7 @@ describe("RegisterWizard (integration)", () => {
 
   it("should not render the loading indicator after submission", async () => {
     const { user, getSubmitButton, navigateToStep, completeFormAndGoToSubmit } =
-      renderComponent(baseData);
+      renderComponent(registerFormWithoutPasswordAndConfirmation);
 
     await navigateToStep(5);
     await completeFormAndGoToSubmit();
@@ -227,7 +222,7 @@ describe("RegisterWizard (integration)", () => {
 
   it("should remove rider registration data from localStorage after submission", async () => {
     const { user, getSubmitButton, completeFormAndGoToSubmit } =
-      renderComponent(baseData);
+      renderComponent(registerFormWithoutPasswordAndConfirmation);
 
     await completeFormAndGoToSubmit();
     await user.click(getSubmitButton()!);
