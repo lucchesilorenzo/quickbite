@@ -149,8 +149,6 @@ class RestaurantFactory extends Factory
 
         $restaurant->riders()->attach($riders, [
             'role' => RestaurantRole::RIDER,
-            'contract_start' => now(),
-            'contract_end' => now()->addDays(30),
             'is_active' => true,
         ]);
     }
