@@ -91,7 +91,7 @@ export const order: Order = {
           city: "Bayerton",
           state: "Minnesota",
           country: "Italy",
-          driving_licence: null,
+          drivers_license: null,
           is_approved: true,
           created_at: "2025-10-14T08:35:46.000000Z",
           updated_at: "2025-10-14T08:35:46.000000Z",

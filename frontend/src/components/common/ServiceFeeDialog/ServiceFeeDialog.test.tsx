@@ -6,6 +6,8 @@ import ServiceFeeDialog from "./ServiceFeeDialog";
 
 describe("ServiceFeeDialog", () => {
   function renderComponent(open: boolean) {
+    const user = userEvent.setup();
+
     const mockSetOpenServiceFeeDialog = vi.fn();
 
     customRender(
@@ -16,7 +18,7 @@ describe("ServiceFeeDialog", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       mockSetOpenServiceFeeDialog,
     };
   }

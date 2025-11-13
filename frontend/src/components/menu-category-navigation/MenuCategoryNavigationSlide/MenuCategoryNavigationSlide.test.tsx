@@ -6,6 +6,8 @@ import MenuCategoryNavigationSlide from "./MenuCategoryNavigationSlide";
 
 describe("MenuCategoryNavigationSlide", () => {
   function renderComponent() {
+    const user = userEvent.setup();
+
     const mockOnSlideClick = vi.fn();
 
     render(
@@ -17,7 +19,7 @@ describe("MenuCategoryNavigationSlide", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       getSlideButton: () =>
         screen.queryByRole("button", { name: menuCategories[0].name }),
       mockOnSlideClick,

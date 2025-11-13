@@ -16,11 +16,15 @@ vi.mock("react-router-dom", async (importOriginal) => {
 
 describe("SimpleHeader", () => {
   function renderComponent() {
+    const user = userEvent.setup();
+
     customRender(
       <MemoryRouter>
         <SimpleHeader />
       </MemoryRouter>,
     );
+
+    return { user };
   }
 
   it("should render main header structure", () => {
@@ -31,10 +35,9 @@ describe("SimpleHeader", () => {
   });
 
   it("should go back to the previous page when the back button is clicked", async () => {
-    const user = userEvent.setup();
     const mockNavigate = vi.fn();
     vi.mocked(useNavigate).mockReturnValue(mockNavigate);
-    renderComponent();
+    const { user } = renderComponent();
 
     await user.click(screen.getByRole("button", { name: /back/i }));
 

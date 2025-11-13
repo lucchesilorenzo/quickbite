@@ -50,7 +50,7 @@ describe("EditLocationForm", () => {
       expectErrorToBeInTheDocument: (errorMessage: RegExp) => {
         expect(screen.getByRole("alert")).toHaveTextContent(errorMessage);
       },
-      waitForFormToLoad: async () => {
+      getForm: async () => {
         const houseNumberInput = screen.getByLabelText(/house/i);
         const submitButton = screen.getByRole("button", { name: /confirm/i });
 
@@ -85,9 +85,9 @@ describe("EditLocationForm", () => {
   }
 
   it("should render the main form structure", async () => {
-    const { waitForFormToLoad } = renderComponent();
+    const { getForm } = renderComponent();
 
-    const { houseNumberInput, submitButton } = await waitForFormToLoad();
+    const { houseNumberInput, submitButton } = await getForm();
     expect(houseNumberInput).toBeInTheDocument();
     expect(submitButton).toBeInTheDocument();
   });
@@ -111,10 +111,9 @@ describe("EditLocationForm", () => {
   ])(
     "should display an error if house_number is $scenario",
     async ({ house_number, errorMessage }) => {
-      const { waitForFormToLoad, expectErrorToBeInTheDocument } =
-        renderComponent();
+      const { getForm, expectErrorToBeInTheDocument } = renderComponent();
 
-      const form = await waitForFormToLoad();
+      const form = await getForm();
       await form.fill({ ...form.validData, house_number });
 
       expectErrorToBeInTheDocument(errorMessage);
@@ -122,13 +121,9 @@ describe("EditLocationForm", () => {
   );
 
   it("should call navigate and onCloseDialogs if call to eu1.locationiq.com/v1/autocomplete is successful", async () => {
-    const {
-      waitForFormToLoad,
-      mockSetCurrentAddress,
-      mockOnCloseDialogs,
-      mockNavigate,
-    } = renderComponent(address);
-    const form = await waitForFormToLoad();
+    const { getForm, mockSetCurrentAddress, mockOnCloseDialogs, mockNavigate } =
+      renderComponent(address);
+    const form = await getForm();
     await form.fill(form.validData);
 
     expect(mockSetCurrentAddress).toHaveBeenCalledWith(address);
@@ -140,8 +135,8 @@ describe("EditLocationForm", () => {
 
   it("should render a toast if call to eu1.locationiq.com/v1/autocomplete fails", async () => {
     simulateError("https://eu1.locationiq.com/v1/autocomplete");
-    const { waitForFormToLoad, mockShow } = renderComponent(address);
-    const form = await waitForFormToLoad();
+    const { getForm, mockShow } = renderComponent(address);
+    const form = await getForm();
     await form.fill(form.validData);
 
     expect(mockShow).toHaveBeenCalledWith(
@@ -155,18 +150,18 @@ describe("EditLocationForm", () => {
 
   it("should render the loading indicator upon submission", async () => {
     simulateInfiniteLoading("https://eu1.locationiq.com/v1/autocomplete");
-    const { waitForFormToLoad } = renderComponent(address);
+    const { getForm } = renderComponent(address);
 
-    const form = await waitForFormToLoad();
+    const form = await getForm();
     await form.fill(form.validData);
 
     expect(form.submitButton).toHaveTextContent(/confirming/i);
   });
 
   it("should not render the loading indicator after submission", async () => {
-    const { waitForFormToLoad } = renderComponent(address);
+    const { getForm } = renderComponent(address);
 
-    const form = await waitForFormToLoad();
+    const form = await getForm();
     await form.fill(form.validData);
 
     expect(form.submitButton).not.toHaveTextContent(/confirming/i);
@@ -174,9 +169,9 @@ describe("EditLocationForm", () => {
 
   it("should not render the loading indicator if submission fails", async () => {
     simulateError("https://eu1.locationiq.com/v1/autocomplete");
-    const { waitForFormToLoad } = renderComponent(address);
+    const { getForm } = renderComponent(address);
 
-    const form = await waitForFormToLoad();
+    const form = await getForm();
     await form.fill(form.validData);
 
     expect(form.submitButton).not.toHaveTextContent(/confirming/i);

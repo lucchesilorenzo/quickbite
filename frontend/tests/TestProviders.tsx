@@ -10,9 +10,8 @@ type TestProvidersProps = {
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      retry: false,
-    },
+    queries: { retry: false },
+    mutations: { retry: false },
   },
 });
 

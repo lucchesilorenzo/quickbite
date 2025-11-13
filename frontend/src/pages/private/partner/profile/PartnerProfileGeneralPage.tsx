@@ -21,7 +21,7 @@ export default function PartnerProfileGeneralPage() {
 
   const { user } = useAuth();
   const {
-    mutateAsync: updatePartnerProfileGeneralInformation,
+    mutateAsync: updateProfileGeneralInformation,
     isPending: isUpdating,
   } = useUpdateProfileGeneralInformation();
 
@@ -46,7 +46,7 @@ export default function PartnerProfileGeneralPage() {
   } = methods;
 
   async function onSubmit(data: TProfileGeneralFormSchema) {
-    await updatePartnerProfileGeneralInformation(data);
+    await updateProfileGeneralInformation(data);
   }
 
   return (

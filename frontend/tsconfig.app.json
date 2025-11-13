@@ -30,7 +30,8 @@
       "@public/*": ["./src/features/public/*"],
       "@private/*": ["./src/features/private/*"],
       "@customer/*": ["./src/features/private/customer/*"],
-      "@partner/*": ["./src/features/private/partner/*"]
+      "@partner/*": ["./src/features/private/partner/*"],
+      "@rider/*": ["./src/features/private/rider/*"]
     }
   },
   "include": ["src", "tests"]

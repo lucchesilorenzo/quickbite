@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\UserRole;
+use App\Enums\VehicleType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -42,7 +43,8 @@ class UserFactory extends Factory
             'city' => fake()->city(),
             'state' => fake()->state(),
             'country' => 'Italy',
-            'driving_licence' => null,
+            'vehicle_type' => null,
+            'drivers_license' => null,
             'is_approved' => true,
             'remember_token' => Str::random(10),
         ];
@@ -75,7 +77,10 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user): void {
             $user->assignRole(UserRole::RIDER);
-            $user->update(['driving_licence' => fake()->boolean() ? fake()->numerify('##########') : null]);
+            $user->update([
+                'vehicle_type' => fake()->randomElement(VehicleType::values()),
+                'drivers_license' => fake()->numerify('##########'),
+            ]);
         });
     }
 }

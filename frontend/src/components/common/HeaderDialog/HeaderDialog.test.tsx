@@ -9,15 +9,15 @@ import { headerDialogOptions } from "@/lib/constants/navigation";
 
 describe("HeaderDialog", () => {
   function renderComponent() {
+    const user = userEvent.setup();
+
     customRender(
       <MemoryRouter>
         <HeaderDialog />
       </MemoryRouter>,
     );
 
-    return {
-      user: userEvent.setup(),
-    };
+    return { user };
   }
 
   it("should render the menu button", () => {

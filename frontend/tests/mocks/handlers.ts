@@ -1,8 +1,8 @@
 import { http, HttpResponse } from "msw";
 import { restaurantLogo } from "tests/mocks/data/restaurants";
 
-import { address } from "tests/mocks/data/addresses";
 import env from "@/lib/env";
+import { address } from "tests/mocks/data/addresses";
 
 export const handlers = [
   http.get(
@@ -20,5 +20,14 @@ export const handlers = [
   ),
   http.get(`${env.VITE_BASE_URL}/api/restaurants/:id/base64-logo`, async () => {
     return HttpResponse.json(restaurantLogo);
+  }),
+  http.post(`${env.VITE_BASE_URL}/api/rider/auth/register`, async () => {
+    return HttpResponse.json(
+      {
+        token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
+        message: "Rider registered successfully.",
+      },
+      { status: 201 }
+    );
   }),
 ];

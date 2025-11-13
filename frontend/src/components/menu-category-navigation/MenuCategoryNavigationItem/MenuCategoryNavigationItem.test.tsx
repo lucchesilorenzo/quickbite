@@ -11,6 +11,8 @@ vi.mock("../MenuItemQuantityInCartBadge", () => ({
 
 describe("MenuCategoryNavigationItem", () => {
   function renderComponent(isLast: boolean) {
+    const user = userEvent.setup();
+
     const mockSetOpenMenuCategoryNavigationDialog = vi.fn();
     const mockOnSlideClick = vi.fn();
 
@@ -26,7 +28,7 @@ describe("MenuCategoryNavigationItem", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       getMenuCategoryItemButton: () =>
         screen.queryByRole("button", { name: menuCategories[0].name }),
       getCartBadge: () => screen.queryByTestId("cart-badge"),

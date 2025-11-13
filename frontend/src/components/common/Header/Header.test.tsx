@@ -33,6 +33,8 @@ vi.mock("react-router-dom", async (importOriginal) => {
 
 describe("Header", () => {
   function renderComponent() {
+    const user = userEvent.setup();
+
     const mockNavigate = vi.fn();
     vi.mocked(useNavigate).mockReturnValue(mockNavigate);
 
@@ -43,7 +45,7 @@ describe("Header", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       mockNavigate,
     };
   }

@@ -15,10 +15,12 @@ vi.mock("@mui/material", async (importOriginal) => {
 
 describe("NavigateToTopFloatingButton", () => {
   function renderComponent() {
+    const user = userEvent.setup();
+
     render(<NavigateToTopFloatingButton />);
 
     return {
-      user: userEvent.setup(),
+      user,
       getButton: () => screen.queryByRole("button", { name: /scroll/i }),
     };
   }

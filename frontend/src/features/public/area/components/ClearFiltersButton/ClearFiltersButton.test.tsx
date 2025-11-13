@@ -5,6 +5,8 @@ import ClearFiltersButton from "./ClearFiltersButton";
 
 describe("ClearFiltersButton", () => {
   function renderComponent() {
+    const user = userEvent.setup();
+
     const mockOnHandleClick = vi.fn();
 
     render(
@@ -14,7 +16,7 @@ describe("ClearFiltersButton", () => {
     );
 
     return {
-      user: userEvent.setup(),
+      user,
       clearFiltersButton: screen.getByRole("button", { name: /clear/i }),
       mockOnHandleClick,
     };
