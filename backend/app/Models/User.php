@@ -63,7 +63,7 @@ class User extends Authenticatable
     public function restaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
-            ->withPivot(['role', 'contract_start', 'contract_end', 'is_active']);
+            ->withPivot('role', 'is_active');
     }
 
     /**

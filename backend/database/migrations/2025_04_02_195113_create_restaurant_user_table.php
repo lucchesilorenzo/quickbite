@@ -18,8 +18,6 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->enum('role', RestaurantRole::values())->default(RestaurantRole::OWNER);
-            $table->date('contract_start')->nullable();
-            $table->date('contract_end')->nullable();
             $table->boolean('is_active')->default(false);
 
             $table->primary(['user_id', 'restaurant_id']);
