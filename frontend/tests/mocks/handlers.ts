@@ -3,7 +3,6 @@ import { restaurantLogo } from "tests/mocks/data/restaurants";
 
 import env from "@/lib/env";
 import { address } from "tests/mocks/data/addresses";
-import { user } from "tests/mocks/data/users";
 
 export const handlers = [
   http.get(
@@ -25,9 +24,8 @@ export const handlers = [
   http.post(`${env.VITE_BASE_URL}/api/rider/auth/register`, async () => {
     return HttpResponse.json(
       {
-        ...user,
-        date_of_birth: null,
-        roles: [{ ...user.roles[0], name: "rider" }],
+        token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
+        message: "Rider registered successfully.",
       },
       { status: 201 }
     );
