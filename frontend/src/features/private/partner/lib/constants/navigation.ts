@@ -1,4 +1,5 @@
 import BarChartIcon from "@mui/icons-material/BarChart";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import RateReviewIcon from "@mui/icons-material/RateReview";
@@ -41,5 +42,10 @@ export const partnerRestaurantRoutes = (restaurantId?: string) => [
     href: `/partner/restaurants/${restaurantId}/stats`,
     label: "Stats",
     icon: BarChartIcon,
+  },
+  {
+    href: `/partner/restaurants/${restaurantId}/job-posts`,
+    label: "Job posts",
+    icon: BusinessCenterIcon,
   },
 ];
