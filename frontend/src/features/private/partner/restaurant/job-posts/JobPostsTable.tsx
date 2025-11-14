@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 import PlusIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Chip, IconButton, Stack } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+
+import AddJobPostDialog from "./AddJobPostDialog";
 
 const rows: GridRowsProp = [
   {
@@ -67,10 +71,16 @@ const columns: GridColDef[] = [
 ];
 
 export default function JobPostsTable() {
+  const [openAddJobPostDialog, setOpenAddJobPostDialog] = useState(false);
+
   return (
     <Stack spacing={2}>
       <Box>
-        <Button variant="contained" startIcon={<PlusIcon />}>
+        <Button
+          variant="contained"
+          startIcon={<PlusIcon />}
+          onClick={() => setOpenAddJobPostDialog(true)}
+        >
           Add job post
         </Button>
       </Box>
@@ -85,6 +95,11 @@ export default function JobPostsTable() {
           ignoreDiacritics
         />
       </Stack>
+
+      <AddJobPostDialog
+        openAddJobPostDialog={openAddJobPostDialog}
+        setOpenAddJobPostDialog={setOpenAddJobPostDialog}
+      />
     </Stack>
   );
 }
