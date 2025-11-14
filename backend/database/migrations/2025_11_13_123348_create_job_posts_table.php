@@ -21,7 +21,6 @@ return new class extends Migration
             $table->longText('description');
             $table->enum('employment_type', EmploymentType::values());
             $table->string('salary')->nullable();
-            $table->string('location');
             $table->enum('status', ['open', 'closed'])->default('open');
             $table->timestamps();
         });

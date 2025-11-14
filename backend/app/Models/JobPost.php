@@ -19,7 +19,6 @@ class JobPost extends Model
         'description',
         'employment_type',
         'salary',
-        'location',
         'status',
     ];
 
