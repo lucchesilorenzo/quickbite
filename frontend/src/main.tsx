@@ -20,6 +20,7 @@ import "react-leaflet-markercluster/styles";
 // @ts-ignore
 import "swiper/css/bundle";
 
+import { ignoreFocusVisibleWarning } from "./lib/utils/warnings";
 import AppRoutes from "./pages/AppRoutes";
 
 import "@/lib/echo";
@@ -84,6 +85,9 @@ const theme = createTheme({
     },
   },
 });
+
+// Ignore ':focus-visible' warnings (caused by MUI TipTap)
+ignoreFocusVisibleWarning();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
