@@ -2,8 +2,7 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 import HeadingBlock from "@partner/components/HeadingBlock";
-
-import JobPostsTable from "@/features/private/partner/restaurant/job-posts/JobPostsTable";
+import JobPostsTable from "@partner/restaurant/job-posts/JobPostsTable";
 
 export default function PartnerJobPostsPage() {
   useEffect(() => {
