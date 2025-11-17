@@ -10,12 +10,12 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { employmentTypes } from "@partner/lib/constants/job-posts";
 import {
   TAddJobPostFormSchema,
   addJobPostFormSchema,
 } from "@partner/validations/job-posts-validations";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "./job-description-editor/JobPostEditor";
@@ -39,13 +39,15 @@ export default function AddJobPostForm({
     resolver: zodResolver(addJobPostFormSchema),
     defaultValues: {
       title: "",
-      description: "",
+      description: { html: "", text: "" },
       employment_type: "",
       salary: "",
     },
   });
 
   async function onSubmit(data: TAddJobPostFormSchema) {
+    const payload = { ...data, description: data.description.html };
+
     setOpenAddJobPostDialog(false);
   }
 
@@ -84,13 +86,11 @@ export default function AddJobPostForm({
           control={control}
           render={({ field }) => (
             <Box>
-              <JobPostEditor value={field.value} onChange={field.onChange} />
-
-              <Box sx={{ mt: 1 }}>
-                {errors.description?.message && (
-                  <FormHelperTextError message={errors.description.message} />
-                )}
-              </Box>
+              <JobPostEditor
+                value={field.value.html}
+                onChange={field.onChange}
+                descriptionError={errors.description?.text?.message}
+              />
             </Box>
           )}
         />
@@ -127,7 +127,6 @@ export default function AddJobPostForm({
           render={({ field }) => (
             <TextField
               {...field}
-              required
               label="Salary"
               placeholder="Enter salary"
               error={!!errors.salary}
