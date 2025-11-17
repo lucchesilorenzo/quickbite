@@ -11,7 +11,9 @@ import {
   TextField,
 } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
+import { useCreateJobPost } from "@partner/hooks/restaurants/job-posts/useCreateJobPost/useCreateJobPost";
 import { employmentTypes } from "@partner/lib/constants/job-posts";
+import { CreateJobPostPayload } from "@partner/types/job-posts/job-posts.api-types";
 import {
   TAddJobPostFormSchema,
   addJobPostFormSchema,
@@ -31,6 +33,8 @@ export default function AddJobPostForm({
 }: AddJobPostFormProps) {
   const { restaurant } = useRestaurant();
 
+  const { mutateAsync: createJobPost } = useCreateJobPost(restaurant.id);
+
   const {
     handleSubmit,
     control,
@@ -46,8 +50,12 @@ export default function AddJobPostForm({
   });
 
   async function onSubmit(data: TAddJobPostFormSchema) {
-    const payload = { ...data, description: data.description.html };
+    const payload: CreateJobPostPayload = {
+      ...data,
+      description: data.description.html,
+    };
 
+    await createJobPost(payload);
     setOpenAddJobPostDialog(false);
   }
 
@@ -85,13 +93,11 @@ export default function AddJobPostForm({
           name="description"
           control={control}
           render={({ field }) => (
-            <Box>
-              <JobPostEditor
-                value={field.value.html}
-                onChange={field.onChange}
-                descriptionError={errors.description?.text?.message}
-              />
-            </Box>
+            <JobPostEditor
+              value={field.value.html}
+              onChange={field.onChange}
+              descriptionError={errors.description?.text?.message}
+            />
           )}
         />
 
