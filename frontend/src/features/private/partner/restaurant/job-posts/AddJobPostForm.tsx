@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
-import { useCreateJobPost } from "@partner/hooks/restaurants/job-posts/useCreateJobPost/useCreateJobPost";
+import { useCreateJobPost } from "@partner/hooks/restaurants/job-posts/useCreateJobPost";
 import { employmentTypes } from "@partner/lib/constants/job-posts";
 import { CreateJobPostPayload } from "@partner/types/job-posts/job-posts.api-types";
 import {
