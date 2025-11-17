@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Private\Partner\AuthController;
+use App\Http\Controllers\Private\Partner\JobPostController;
 use App\Http\Controllers\Private\Partner\MenuCategoryController;
 use App\Http\Controllers\Private\Partner\MenuController;
 use App\Http\Controllers\Private\Partner\MenuItemController;
@@ -81,5 +82,8 @@ Route::prefix('partner')->group(function (): void {
             Route::get('/{restaurant}/stats/dashboard', [StatsController::class, 'getDashboardStats']);
             Route::get('/{restaurant}/stats/kpis', [StatsController::class, 'getKpiSummary']);
             Route::get('/{restaurant}/stats', [StatsController::class, 'getStats']);
+
+            // Job Posts
+            Route::post('/{restaurant}/job-posts', [JobPostController::class, 'createJobPost']);
         });
 });
