@@ -22,16 +22,18 @@ export const addJobPostFormSchema = z.object({
     .refine((data) => data !== "", {
       error: "Please select an employment type.",
     }),
-  salary: z.coerce
-    .number({
-      error: (issue) => {
-        if (issue.code === "invalid_type") {
-          return { message: "Salary must be a number." };
-        }
-      },
-    })
-    .positive("Salary must be a positive number.")
-    .nullable(),
+  salary: z
+    .string()
+    .trim()
+    .refine(
+      (data) => data === "" || (!isNaN(Number(data)) && Number(data) > 0),
+      "Salary must be a valid number.",
+    )
+    .transform((data) => (data === "" ? null : Number(data)))
+    .refine(
+      (data) => data === null || (data >= 10000 && data <= 100000),
+      "Salary must be between €10,000 and €100,000 per year.",
+    ),
 });
 
 export type TAddJobPostFormSchema = z.infer<typeof addJobPostFormSchema>;
