@@ -3,6 +3,7 @@ import { restaurantLogo } from "tests/mocks/data/restaurants";
 
 import env from "@/lib/env";
 import { address } from "tests/mocks/data/addresses";
+import { addJobPostFormResponse } from "tests/mocks/data/forms/partner/add-job-post";
 
 export const handlers = [
   http.get(
@@ -30,4 +31,10 @@ export const handlers = [
       { status: 201 }
     );
   }),
+  http.post(
+    `${env.VITE_BASE_URL}/api/partner/restaurants/:id/job-posts`,
+    async () => {
+      return HttpResponse.json(addJobPostFormResponse, { status: 201 });
+    }
+  ),
 ];
