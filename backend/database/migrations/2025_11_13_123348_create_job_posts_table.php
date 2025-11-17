@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->enum('employment_type', EmploymentType::values());
-            $table->string('salary')->nullable();
+            $table->decimal('salary', 10, 2)->nullable();
             $table->enum('status', ['open', 'closed'])->default('open');
             $table->timestamps();
         });
