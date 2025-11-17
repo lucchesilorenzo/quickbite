@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Private\Partner;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Private\Partner\JobPost\CreateJobPostRequest;
+use App\Models\Restaurant;
+use App\Services\Private\Partner\JobPostService;
+use Illuminate\Http\JsonResponse;
+use Throwable;
+
+class JobPostController extends Controller
+{
+    public function __construct(
+        private readonly JobPostService $jobPostService
+    ) {}
+
+    public function createJobPost(
+        CreateJobPostRequest $request,
+        Restaurant $restaurant
+    ): JsonResponse {
+        try {
+            $jobPost = $this->jobPostService->createJobPost(
+                $request->validated(),
+                $restaurant,
+            );
+
+            return response()->json([
+                'job_post' => $jobPost,
+                'message' => 'Job post created successfully.',
+            ], 201);
+        } catch (Throwable) {
+            return response()->json([
+                'message' => 'Could not create job post.',
+            ], 500);
+        }
+    }
+}
