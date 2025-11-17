@@ -58,12 +58,12 @@ describe("useRegister", () => {
     );
   });
 
-  it("should not show notification on success", async () => {
+  it("should not show notification on success", () => {
     const { result } = renderHook(() => useRegister(), {
       wrapper: TestQueryWrapper,
     });
 
-    await result.current.mutateAsync(registerForm);
+    result.current.mutate(registerForm);
 
     expect(mockShow).not.toHaveBeenCalled();
   });
