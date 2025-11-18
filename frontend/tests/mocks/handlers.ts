@@ -1,9 +1,9 @@
 import { http, HttpResponse } from "msw";
-import { restaurantLogo } from "tests/mocks/data/restaurants";
+import { restaurantLogo } from "@tests/mocks/data/public/restaurants";
 
 import env from "@/lib/env";
-import { address } from "tests/mocks/data/addresses";
-import { addJobPostFormResponse } from "tests/mocks/data/forms/partner/add-job-post";
+import { address } from "@tests/mocks/data/public/addresses";
+import { addJobPostFormResponse } from "@tests/mocks/data/private/partner/forms/add-job-post";
 
 export const handlers = [
   http.get(

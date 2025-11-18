@@ -1,6 +1,6 @@
 import { render, RenderOptions } from "@testing-library/react";
 import { ReactElement } from "react";
-import TestProviders from "tests/TestProviders";
+import TestProviders from "@tests/TestProviders";
 
 export function customRender(
   ui: ReactElement,

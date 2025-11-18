@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse } from "msw";
-import { server } from "tests/mocks/server";
+import { server } from "@tests/mocks/server";
 
 type HttpMethod = "get" | "post" | "patch" | "delete";
 

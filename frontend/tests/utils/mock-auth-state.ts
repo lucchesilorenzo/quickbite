@@ -1,6 +1,6 @@
 import { useAuth } from "@/contexts/AuthProvider";
 import { Role } from "@/types/user-types";
-import { user } from "tests/mocks/data/users";
+import { user } from "../mocks/data/public/users";
 
 export function mockAuthState(state?: Role | null) {
   if (state === undefined) {

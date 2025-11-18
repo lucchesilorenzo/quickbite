@@ -1,5 +1,5 @@
-import { deliveryDays } from "tests/mocks/data/delivery-days";
-import { category } from "tests/mocks/data/categories";
+import { deliveryDays } from "@tests/mocks/data/public/delivery-days";
+import { category } from "@tests/mocks/data/public/categories";
 import { SingleRestaurantDetail } from "@/types/restaurant-types";
 
 export const restaurant: SingleRestaurantDetail = {

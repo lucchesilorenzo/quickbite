@@ -1,5 +1,5 @@
 import { Cart, CartItem } from "@/types/cart-types";
-import { restaurant } from "tests/mocks/data/restaurants";
+import { restaurant } from "@tests/mocks/data/public/restaurants";
 
 export const cartItem: CartItem = {
   id: "0199e1dc-796d-7323-9cc3-abdece74db4e",
