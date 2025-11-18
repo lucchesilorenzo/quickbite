@@ -1,7 +1,7 @@
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { menuCategories } from "tests/mocks/data/menu";
-import { customRender } from "tests/utils/custom-render";
+import { menuCategories } from "@tests/mocks/data/public/menu";
+import { customRender } from "@tests/utils/custom-render";
 
 import MenuCategoryNavigationDialog from "./MenuCategoryNavigationDialog";
 

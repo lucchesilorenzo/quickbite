@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from "@testing-library/react";
+import TestQueryWrapper from "@tests/TestQueryWrapper";
+import { registerForm } from "@tests/mocks/data/private/rider/forms/register";
+import { simulateError } from "@tests/utils/msw";
 import { useNotifications } from "@toolpad/core/useNotifications";
-import TestQueryWrapper from "tests/TestQueryWrapper";
-import { registerForm } from "tests/mocks/data/forms/rider/register";
-import { simulateError } from "tests/utils/msw";
 
 import { useRegister } from "./useRegister";
 

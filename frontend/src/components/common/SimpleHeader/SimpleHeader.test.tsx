@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { customRender } from "@tests/utils/custom-render";
 import { MemoryRouter, useNavigate } from "react-router-dom";
-import { customRender } from "tests/utils/custom-render";
 
 import SimpleHeader from "./SimpleHeader";
 

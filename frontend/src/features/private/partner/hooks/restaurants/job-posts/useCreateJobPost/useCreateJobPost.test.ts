@@ -1,11 +1,11 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { useNotifications } from "@toolpad/core/useNotifications";
-import TestQueryWrapper from "tests/TestQueryWrapper";
+import TestQueryWrapper from "@tests/TestQueryWrapper";
 import {
   addJobPostForm,
   addJobPostFormResponse,
-} from "tests/mocks/data/forms/partner/add-job-post";
-import { simulateError } from "tests/utils/msw";
+} from "@tests/mocks/data/private/partner/forms/add-job-post";
+import { simulateError } from "@tests/utils/msw";
+import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { useCreateJobPost } from "./useCreateJobPost";
 

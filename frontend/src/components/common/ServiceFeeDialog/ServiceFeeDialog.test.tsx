@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { customRender } from "tests/utils/custom-render";
+import { customRender } from "@tests/utils/custom-render";
 
 import ServiceFeeDialog from "./ServiceFeeDialog";
 

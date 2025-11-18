@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { menuCategories } from "tests/mocks/data/menu";
+import { menuCategories } from "@tests/mocks/data/public/menu";
 
 import MenuCategoryNavigationSlide from "./MenuCategoryNavigationSlide";
 

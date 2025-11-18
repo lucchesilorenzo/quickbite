@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import { cartItem } from "tests/mocks/data/carts";
-import { menuCategories, menuItem } from "tests/mocks/data/menu";
-import { restaurant } from "tests/mocks/data/restaurants";
+import { cartItem } from "@tests/mocks/data/public/carts";
+import { menuCategories, menuItem } from "@tests/mocks/data/public/menu";
+import { restaurant } from "@tests/mocks/data/public/restaurants";
 
 import MenuItemQuantityInCartBadge from "./MenuItemQuantityInCartBadge";
 

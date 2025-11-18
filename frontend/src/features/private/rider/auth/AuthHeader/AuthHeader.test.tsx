@@ -1,8 +1,8 @@
 import AuthHeader from "@private/rider/auth/AuthHeader";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { customRender } from "@tests/utils/custom-render";
 import { MemoryRouter, useNavigate } from "react-router-dom";
-import { customRender } from "tests/utils/custom-render";
 
 vi.mock("react-router-dom", async (importOriginal) => {
   const original = await importOriginal<typeof import("react-router-dom")>();
