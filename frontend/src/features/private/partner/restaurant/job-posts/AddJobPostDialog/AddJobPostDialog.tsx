@@ -8,7 +8,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import AddJobPostForm from "./AddJobPostForm";
+import AddJobPostForm from "../AddJobPostForm";
 
 type AddJobPostDialogProps = {
   openAddJobPostDialog: boolean;
