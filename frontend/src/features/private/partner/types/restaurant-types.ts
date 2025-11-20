@@ -1,6 +1,6 @@
-import { RestaurantBase, RestaurantDetail } from "@/types/restaurant-types";
+import { BaseRestaurant, RestaurantDetail } from "@/types/restaurant-types";
 
-export type PartnerRestaurantDetail = RestaurantBase &
+export type PartnerRestaurantDetail = BaseRestaurant &
   Omit<
     RestaurantDetail,
     | "offers"

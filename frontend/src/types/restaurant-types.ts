@@ -5,7 +5,7 @@ import { Offer } from "./offer-types";
 import { BaseCursorPagination } from "./pagination-types";
 import { Review } from "./review-types";
 
-export type RestaurantBase = {
+export type BaseRestaurant = {
   id: string;
   name: string;
   slug: string;
@@ -35,7 +35,7 @@ export type RestaurantBase = {
   updated_at: string;
 };
 
-export type RestaurantListItem = RestaurantBase & {
+export type RestaurantListItem = BaseRestaurant & {
   reviews: Review[];
   reviews_avg_rating: number | null;
   reviews_count: number;
@@ -70,7 +70,7 @@ export type RestaurantDetail = RestaurantListItem & {
   updated_at: string;
 };
 
-export type SingleRestaurantDetail = RestaurantBase &
+export type SingleRestaurantDetail = BaseRestaurant &
   Omit<
     RestaurantDetail,
     | "reviews"

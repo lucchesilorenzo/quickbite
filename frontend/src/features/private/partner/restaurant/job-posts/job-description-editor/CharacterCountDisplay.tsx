@@ -17,7 +17,7 @@ export default function CharacterCountDisplay({
       {descriptionError ? (
         <FormHelperTextError message={descriptionError} />
       ) : (
-        <Typography variant="body2" sx={{ visibility: "hidden" }}></Typography>
+        <Typography sx={{ visibility: "hidden" }}></Typography>
       )}
 
       <Typography variant="body2">

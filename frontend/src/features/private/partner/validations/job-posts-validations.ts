@@ -17,7 +17,12 @@ export const addJobPostFormSchema = z.object({
       .max(2000, "Description is too long."),
   }),
   employment_type: z
-    .enum(employmentTypes.map((type) => type.value))
+    .enum(
+      employmentTypes.map((type) => type.value),
+      {
+        error: "The option you selected is not valid.",
+      },
+    )
     .or(z.literal(""))
     .refine((data) => data !== "", {
       error: "Please select an employment type.",
