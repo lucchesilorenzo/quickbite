@@ -20,7 +20,7 @@ import {
 } from "@partner/validations/job-posts-validations";
 import { Controller, useForm } from "react-hook-form";
 
-import JobPostEditor from "./job-description-editor/JobPostEditor";
+import JobPostEditor from "../job-description-editor/JobPostEditor";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
@@ -33,7 +33,8 @@ export default function AddJobPostForm({
 }: AddJobPostFormProps) {
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: createJobPost } = useCreateJobPost(restaurant.id);
+  const { mutateAsync: createJobPost, isPending: isCreating } =
+    useCreateJobPost(restaurant.id);
 
   const {
     handleSubmit,
@@ -106,9 +107,16 @@ export default function AddJobPostForm({
           control={control}
           render={({ field }) => (
             <FormControl fullWidth error={!!errors.employment_type} required>
-              <InputLabel>Employment type</InputLabel>
+              <InputLabel id="employment-type-label">
+                Employment type
+              </InputLabel>
 
-              <Select {...field} label="Employment type">
+              <Select
+                {...field}
+                labelId="employment-type-label"
+                id="employment-type"
+                label="Employment type"
+              >
                 {employmentTypes.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
@@ -157,8 +165,8 @@ export default function AddJobPostForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting}
-        loading={isSubmitting}
+        disabled={isSubmitting || isCreating}
+        loading={isSubmitting || isCreating}
         loadingIndicator="Adding..."
         variant="contained"
       >
