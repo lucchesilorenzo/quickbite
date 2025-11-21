@@ -15,6 +15,7 @@ class JobPost extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
+        'restaurant_id',
         'title',
         'description',
         'employment_type',
