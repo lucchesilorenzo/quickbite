@@ -84,6 +84,7 @@ Route::prefix('partner')->group(function (): void {
             Route::get('/{restaurant}/stats', [StatsController::class, 'getStats']);
 
             // Job Posts
+            Route::get('/{restaurant}/job-posts', [JobPostController::class, 'getJobPosts']);
             Route::post('/{restaurant}/job-posts', [JobPostController::class, 'createJobPost']);
         });
 });
