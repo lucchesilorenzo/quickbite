@@ -29,10 +29,9 @@ class JobPostController extends Controller
             );
 
             return response()->json($jobPosts, 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not get job posts.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }
