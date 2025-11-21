@@ -35,3 +35,5 @@ export const menuDefaults = [
     menu_items: menuItemsDefaults,
   },
 ];
+
+export const jobPostsDefaults = baseOffsetPaginationDefaults;
