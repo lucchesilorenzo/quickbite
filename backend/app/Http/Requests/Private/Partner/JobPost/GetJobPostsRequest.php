@@ -25,6 +25,9 @@ class GetJobPostsRequest extends FormRequest
     {
         return [
             'page_size' => ['required', 'in:25,50,100'],
+            'sort_by' => ['sometimes', 'string'],
+            'filter' => ['sometimes', 'string'],
+            'search' => ['sometimes', 'string'],
         ];
     }
 }
