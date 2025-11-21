@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\JobPost\CreateJobPostRequest;
+use App\Http\Requests\Private\Partner\JobPost\GetJobPostsRequest;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\JobPostService;
 use Illuminate\Http\JsonResponse;
@@ -16,6 +17,25 @@ class JobPostController extends Controller
     public function __construct(
         private readonly JobPostService $jobPostService
     ) {}
+
+    public function getJobPosts(
+        GetJobPostsRequest $request,
+        Restaurant $restaurant
+    ): JsonResponse {
+        try {
+            $jobPosts = $this->jobPostService->getJobPosts(
+                $request->validated(),
+                $restaurant
+            );
+
+            return response()->json($jobPosts, 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'message' => 'Could not get job posts.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 
     public function createJobPost(
         CreateJobPostRequest $request,
