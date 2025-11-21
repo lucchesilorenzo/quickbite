@@ -5,23 +5,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Chip, IconButton, Stack } from "@mui/material";
 import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
+import { useGetJobPosts } from "../../hooks/restaurants/job-posts/useGetJobPosts";
+import { jobPostsDefaults } from "../../lib/query-defaults";
 import AddJobPostDialog from "./AddJobPostDialog";
-
-const rows: GridRowsProp = [
-  {
-    id: 1,
-    title: "Frontend developer",
-    status: "open",
-    applicationsCount: 10,
-  },
-  {
-    id: 2,
-    title: "Backend developer",
-    status: "closed",
-    applicationsCount: 5,
-  },
-];
 
 const columns: GridColDef[] = [
   {
@@ -72,6 +60,25 @@ const columns: GridColDef[] = [
 
 export default function JobPostsTable() {
   const [openAddJobPostDialog, setOpenAddJobPostDialog] = useState(false);
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 25,
+  });
+
+  const { restaurant } = useRestaurant();
+  const { data: jobPosts = jobPostsDefaults, isLoading: isLoadingJobPosts } =
+    useGetJobPosts(
+      restaurant.id,
+      paginationModel.page,
+      paginationModel.pageSize,
+    );
+
+  const rows: GridRowsProp = jobPosts.data.map((jobPost) => ({
+    id: jobPost.id,
+    title: jobPost.title,
+    status: jobPost.status,
+    applicationsCount: jobPost.job_applications_count,
+  }));
 
   return (
     <Stack spacing={2}>
@@ -87,6 +94,16 @@ export default function JobPostsTable() {
 
       <Stack>
         <DataGrid
+          initialState={{
+            pagination: {
+              paginationModel: { pageSize: 25, page: 0 },
+            },
+          }}
+          paginationMode="server"
+          rowCount={jobPosts.total}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          loading={isLoadingJobPosts}
           rows={rows}
           columns={columns}
           checkboxSelection
