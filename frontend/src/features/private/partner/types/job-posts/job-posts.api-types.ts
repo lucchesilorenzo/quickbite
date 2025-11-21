@@ -1,5 +1,13 @@
 import { TAddJobPostFormSchema } from "@partner/validations/job-posts-validations";
 
+import { JobPostWithApplicationsCount } from "./job-posts.types";
+
+import { BaseOffsetPagination } from "@/types/pagination-types";
+
+export type GetJobPostsResponse = BaseOffsetPagination & {
+  data: JobPostWithApplicationsCount[];
+};
+
 export type CreateJobPostPayload = Omit<
   TAddJobPostFormSchema,
   "description"
