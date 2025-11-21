@@ -4,7 +4,13 @@ import PlusIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Chip, IconButton, Stack } from "@mui/material";
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridFilterModel,
+  GridRowsProp,
+  GridSortModel,
+} from "@mui/x-data-grid";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 import { useGetJobPosts } from "../../hooks/restaurants/job-posts/useGetJobPosts";
@@ -64,6 +70,10 @@ export default function JobPostsTable() {
     page: 0,
     pageSize: 25,
   });
+  const [sortModel, setSortModel] = useState<GridSortModel>([]);
+  const [filterModel, setFilterModel] = useState<GridFilterModel>({
+    items: [],
+  });
 
   const { restaurant } = useRestaurant();
   const { data: jobPosts = jobPostsDefaults, isLoading: isLoadingJobPosts } =
@@ -71,6 +81,8 @@ export default function JobPostsTable() {
       restaurant.id,
       paginationModel.page,
       paginationModel.pageSize,
+      sortModel,
+      filterModel,
     );
 
   const rows: GridRowsProp = jobPosts.data.map((jobPost) => ({
@@ -100,9 +112,15 @@ export default function JobPostsTable() {
             },
           }}
           paginationMode="server"
+          sortingMode="server"
+          filterMode="server"
           rowCount={jobPosts.total}
           paginationModel={paginationModel}
+          sortModel={sortModel}
+          filterModel={filterModel}
           onPaginationModelChange={setPaginationModel}
+          onSortModelChange={setSortModel}
+          onFilterModelChange={setFilterModel}
           loading={isLoadingJobPosts}
           rows={rows}
           columns={columns}
