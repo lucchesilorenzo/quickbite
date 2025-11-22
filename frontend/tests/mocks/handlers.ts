@@ -52,4 +52,13 @@ export const handlers = [
       return HttpResponse.json(addJobPostFormResponse, { status: 201 });
     }
   ),
+  http.delete(
+    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
+    async () => {
+      return HttpResponse.json(
+        { message: "Job post deleted successfully." },
+        { status: 200 }
+      );
+    }
+  ),
 ];
