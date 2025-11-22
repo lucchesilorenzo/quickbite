@@ -63,4 +63,9 @@ class JobPostService
     {
         return $restaurant->jobPosts()->create($data);
     }
+
+    public function deleteJobPost(JobPost $jobPost): void
+    {
+        $jobPost->delete();
+    }
 }
