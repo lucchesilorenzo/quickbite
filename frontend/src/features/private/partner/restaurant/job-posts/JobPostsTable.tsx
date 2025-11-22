@@ -16,56 +16,14 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetJobPosts } from "../../hooks/restaurants/job-posts/useGetJobPosts";
 import { jobPostsDefaults } from "../../lib/query-defaults";
 import AddJobPostDialog from "./AddJobPostDialog";
-
-const columns: GridColDef[] = [
-  {
-    field: "title",
-    headerName: "Title",
-    flex: 1,
-  },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 120,
-    renderCell: ({ value }) => (
-      <Chip
-        label={value === "open" ? "Open" : "Closed"}
-        color={value === "open" ? "success" : "error"}
-        size="small"
-      />
-    ),
-  },
-  {
-    field: "applicationsCount",
-    headerName: "Applications count",
-    width: 200,
-  },
-  {
-    field: "actions",
-    headerName: "Actions",
-    width: 200,
-    filterable: false,
-    sortable: false,
-    disableExport: true,
-    disableColumnMenu: true,
-    hideSortIcons: true,
-    type: "actions",
-    renderCell: () => (
-      <>
-        <IconButton size="small" color="primary">
-          <EditIcon />
-        </IconButton>
-
-        <IconButton size="small" color="error">
-          <DeleteIcon />
-        </IconButton>
-      </>
-    ),
-  },
-];
+import DeleteJobPostDialog from "./DeleteJobPostDialog";
 
 export default function JobPostsTable() {
   const [openAddJobPostDialog, setOpenAddJobPostDialog] = useState(false);
+  const [openDeleteJobPostDialog, setOpenDeleteJobPostDialog] = useState(false);
+  const [selectedJobPostId, setSelectedJobPostId] = useState<string | null>(
+    null,
+  );
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 25,
@@ -84,6 +42,60 @@ export default function JobPostsTable() {
       sortModel,
       filterModel,
     );
+
+  const columns: GridColDef[] = [
+    {
+      field: "title",
+      headerName: "Title",
+      flex: 1,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 120,
+      renderCell: ({ value }) => (
+        <Chip
+          label={value === "open" ? "Open" : "Closed"}
+          color={value === "open" ? "success" : "error"}
+          size="small"
+        />
+      ),
+    },
+    {
+      field: "applicationsCount",
+      headerName: "Applications count",
+      width: 200,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 200,
+      filterable: false,
+      sortable: false,
+      disableExport: true,
+      disableColumnMenu: true,
+      hideSortIcons: true,
+      type: "actions",
+      renderCell: ({ row }) => (
+        <>
+          <IconButton size="small" color="primary">
+            <EditIcon />
+          </IconButton>
+
+          <IconButton
+            size="small"
+            color="error"
+            onClick={() => {
+              setSelectedJobPostId(row.id);
+              setOpenDeleteJobPostDialog(true);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </>
+      ),
+    },
+  ];
 
   const rows: GridRowsProp = jobPosts.data.map((jobPost) => ({
     id: jobPost.id,
@@ -134,6 +146,12 @@ export default function JobPostsTable() {
       <AddJobPostDialog
         openAddJobPostDialog={openAddJobPostDialog}
         setOpenAddJobPostDialog={setOpenAddJobPostDialog}
+      />
+
+      <DeleteJobPostDialog
+        jobPostId={selectedJobPostId}
+        openDeleteJobPostDialog={openDeleteJobPostDialog}
+        setOpenDeleteJobPostDialog={setOpenDeleteJobPostDialog}
       />
     </Stack>
   );
