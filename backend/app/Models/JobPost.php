@@ -23,6 +23,10 @@ class JobPost extends Model
         'status',
     ];
 
+    protected $casts = [
+        'salary' => 'float',
+    ];
+
     /**
      * Get the restaurant that owns the job post.
      *
