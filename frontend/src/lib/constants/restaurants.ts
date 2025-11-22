@@ -1,4 +1,4 @@
-import { RestaurantBase, RestaurantTab } from "@/types/restaurant-types";
+import { BaseRestaurant, RestaurantTab } from "@/types/restaurant-types";
 
 export const emptyRestaurant = {
   id: "",
@@ -28,6 +28,6 @@ export const emptyRestaurant = {
   force_close: false,
   created_at: "",
   updated_at: "",
-} satisfies RestaurantBase;
+} satisfies BaseRestaurant;
 
 export const restaurantTabs: RestaurantTab[] = ["info", "reviews", "offers"];
