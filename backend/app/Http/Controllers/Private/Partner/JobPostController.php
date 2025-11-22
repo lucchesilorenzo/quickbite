@@ -7,9 +7,11 @@ namespace App\Http\Controllers\Private\Partner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\JobPost\CreateJobPostRequest;
 use App\Http\Requests\Private\Partner\JobPost\GetJobPostsRequest;
+use App\Models\JobPost;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\JobPostService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 use Throwable;
 
 class JobPostController extends Controller
@@ -22,6 +24,8 @@ class JobPostController extends Controller
         GetJobPostsRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
+        Gate::authorize('viewAny', [JobPost::class, $restaurant]);
+
         try {
             $jobPosts = $this->jobPostService->getJobPosts(
                 $request->validated(),
@@ -40,6 +44,8 @@ class JobPostController extends Controller
         CreateJobPostRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
+        Gate::authorize('create', [JobPost::class, $restaurant]);
+
         try {
             $jobPost = $this->jobPostService->createJobPost(
                 $request->validated(),
