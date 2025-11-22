@@ -56,4 +56,21 @@ class JobPostController extends Controller
             ], 500);
         }
     }
+
+    public function deleteJobPost(Restaurant $restaurant, JobPost $jobPost): JsonResponse
+    {
+        Gate::authorize('delete', $jobPost);
+
+        try {
+            $this->jobPostService->deleteJobPost($jobPost);
+
+            return response()->json([
+                'message' => 'Job post deleted successfully.',
+            ], 200);
+        } catch (Throwable) {
+            return response()->json([
+                'message' => 'Could not delete job post.',
+            ], 500);
+        }
+    }
 }
