@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\JobPost\CreateJobPostRequest;
+use App\Http\Requests\Private\Partner\JobPost\DeleteJobPostsRequest;
 use App\Http\Requests\Private\Partner\JobPost\GetJobPostsRequest;
 use App\Models\JobPost;
 use App\Models\Restaurant;
@@ -76,6 +77,27 @@ class JobPostController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not delete job post.',
+            ], 500);
+        }
+    }
+
+    public function deleteJobPosts(
+        DeleteJobPostsRequest $request,
+        Restaurant $restaurant
+    ): JsonResponse {
+        Gate::authorize('deleteAny', [JobPost::class, $restaurant]);
+
+        try {
+            $this->jobPostService->deleteJobPosts(
+                $request->validated()
+            );
+
+            return response()->json([
+                'message' => 'Job posts deleted successfully.',
+            ], 200);
+        } catch (Throwable) {
+            return response()->json([
+                'message' => 'Could not delete job posts.',
             ], 500);
         }
     }
