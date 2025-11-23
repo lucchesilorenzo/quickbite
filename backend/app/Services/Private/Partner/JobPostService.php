@@ -68,4 +68,11 @@ class JobPostService
     {
         $jobPost->delete();
     }
+
+    public function deleteJobPosts(array $data): void
+    {
+        JobPost::query()
+            ->whereIn('id', $data['ids'])
+            ->delete();
+    }
 }
