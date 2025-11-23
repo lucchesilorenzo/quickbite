@@ -9,36 +9,37 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { GridRowId } from "@mui/x-data-grid";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
-import { useDeleteJobPost } from "@partner/hooks/restaurants/job-posts/useDeleteJobPost";
+import { useDeleteJobPosts } from "@partner/hooks/restaurants/job-posts/useDeleteJobPosts";
 
 type DeleteJobPostDialogProps = {
-  jobPostId: string | null;
-  openDeleteJobPostDialog: boolean;
-  setOpenDeleteJobPostDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  jobPostIds?: Set<GridRowId>;
+  openDeleteJobPostsDialog: boolean;
+  setOpenDeleteJobPostsDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function DeleteJobPostDialog({
-  jobPostId,
-  openDeleteJobPostDialog,
-  setOpenDeleteJobPostDialog,
+  jobPostIds,
+  openDeleteJobPostsDialog,
+  setOpenDeleteJobPostsDialog,
 }: DeleteJobPostDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: deleteJobPost, isPending: isDeleting } =
-    useDeleteJobPost(restaurant.id, jobPostId);
+  const { mutateAsync: deleteJobPosts, isPending: isDeleting } =
+    useDeleteJobPosts(restaurant.id, jobPostIds);
 
-  async function handleDeleteJobPost() {
-    await deleteJobPost();
-    setOpenDeleteJobPostDialog(false);
+  async function handleDeleteJobPosts() {
+    await deleteJobPosts();
+    setOpenDeleteJobPostsDialog(false);
   }
 
   return (
     <Dialog
-      open={openDeleteJobPostDialog}
-      onClose={() => setOpenDeleteJobPostDialog(false)}
+      open={openDeleteJobPostsDialog}
+      onClose={() => setOpenDeleteJobPostsDialog(false)}
       fullWidth={!isMobile}
       fullScreen={isMobile}
       disableRestoreFocus
@@ -46,13 +47,13 @@ export default function DeleteJobPostDialog({
       <Stack spacing={2} sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between" }}>
           <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
-            Delete job post
+            Delete job posts
           </DialogTitle>
 
           <IconButton
             color="inherit"
             aria-label="close"
-            onClick={() => setOpenDeleteJobPostDialog(false)}
+            onClick={() => setOpenDeleteJobPostsDialog(false)}
             sx={{ p: 0 }}
           >
             <CloseIcon />
@@ -60,16 +61,17 @@ export default function DeleteJobPostDialog({
         </Stack>
 
         <DialogContent sx={{ p: 0 }}>
-          Are you sure you want to delete this job post?
+          Are you sure you want to delete the selected job posts?
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={() => setOpenDeleteJobPostDialog(false)}>
+          <Button onClick={() => setOpenDeleteJobPostsDialog(false)}>
             Cancel
           </Button>
 
           <Button
-            onClick={handleDeleteJobPost}
+            onClick={handleDeleteJobPosts}
+            disabled={!jobPostIds?.size}
             loading={isDeleting}
             loadingIndicator="Deleting..."
             autoFocus
