@@ -1,3 +1,4 @@
+import { GridRowId } from "@mui/x-data-grid";
 import { GetJobPostsResponse } from "@partner/types/job-posts/job-posts.api-types";
 
 export const jobPost: GetJobPostsResponse = {
@@ -49,3 +50,8 @@ export const jobPost: GetJobPostsResponse = {
   to: 1,
   total: 1,
 };
+
+export const jobPostIds: Set<GridRowId> = new Set([
+  "019a9226-9299-72d8-a1a6-a6d51fbbbc5d",
+  "019a9225-9299-72d8-a1a6-a6d51fbbbc5d",
+]);
