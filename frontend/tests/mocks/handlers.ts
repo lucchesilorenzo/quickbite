@@ -20,9 +20,12 @@ export const handlers = [
       return HttpResponse.json([address]);
     }
   ),
-  http.get(`${env.VITE_BASE_URL}/api/restaurants/:id/base64-logo`, async () => {
-    return HttpResponse.json(restaurantLogo);
-  }),
+  http.get(
+    `${env.VITE_BASE_URL}/api/restaurants/:restaurantId/base64-logo`,
+    async () => {
+      return HttpResponse.json(restaurantLogo);
+    }
+  ),
   http.post(`${env.VITE_BASE_URL}/api/rider/auth/register`, async () => {
     return HttpResponse.json(
       {
@@ -33,7 +36,7 @@ export const handlers = [
     );
   }),
   http.get(
-    `${env.VITE_BASE_URL}/api/partner/restaurants/:id/job-posts`,
+    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
     async ({ request }) => {
       const url = new URL(request.url);
       const pageParam = url.searchParams.get("page");
@@ -47,9 +50,25 @@ export const handlers = [
     }
   ),
   http.post(
-    `${env.VITE_BASE_URL}/api/partner/restaurants/:id/job-posts`,
+    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
     async () => {
       return HttpResponse.json(addJobPostFormResponse, { status: 201 });
+    }
+  ),
+  http.delete(
+    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
+    async ({ request }) => {
+      const url = new URL(request.url);
+      const ids = url.searchParams.getAll("ids[]");
+
+      if (!ids.length) {
+        return HttpResponse.json(null, { status: 400 });
+      }
+
+      return HttpResponse.json(
+        { message: "Job posts deleted successfully." },
+        { status: 200 }
+      );
     }
   ),
   http.delete(
