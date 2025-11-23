@@ -3,27 +3,33 @@ import { useState } from "react";
 import PlusIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Button, Chip, IconButton, Stack } from "@mui/material";
+import { Button, Chip, IconButton, Stack } from "@mui/material";
 import {
   DataGrid,
   GridColDef,
   GridFilterModel,
+  GridRowSelectionModel,
   GridRowsProp,
   GridSortModel,
 } from "@mui/x-data-grid";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
+import { useGetJobPosts } from "@partner/hooks/restaurants/job-posts/useGetJobPosts";
+import { jobPostsDefaults } from "@partner/lib/query-defaults";
 
-import { useGetJobPosts } from "../../hooks/restaurants/job-posts/useGetJobPosts";
-import { jobPostsDefaults } from "../../lib/query-defaults";
 import AddJobPostDialog from "./AddJobPostDialog";
 import DeleteJobPostDialog from "./DeleteJobPostDialog";
+import DeleteJobPostsDialog from "./DeleteJobPostsDialog";
 
 export default function JobPostsTable() {
   const [openAddJobPostDialog, setOpenAddJobPostDialog] = useState(false);
   const [openDeleteJobPostDialog, setOpenDeleteJobPostDialog] = useState(false);
+  const [openDeleteJobPostsDialog, setOpenDeleteJobPostsDialog] =
+    useState(false);
   const [selectedJobPostId, setSelectedJobPostId] = useState<string | null>(
     null,
   );
+  const [selectedJobPosts, setSelectedJobPosts] =
+    useState<GridRowSelectionModel>();
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 25,
@@ -106,7 +112,7 @@ export default function JobPostsTable() {
 
   return (
     <Stack spacing={2}>
-      <Box>
+      <Stack direction="row" spacing={2}>
         <Button
           variant="contained"
           startIcon={<PlusIcon />}
@@ -114,10 +120,25 @@ export default function JobPostsTable() {
         >
           Add job post
         </Button>
-      </Box>
+
+        {selectedJobPosts?.ids && selectedJobPosts.ids.size > 1 && (
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<DeleteIcon />}
+            onClick={() => setOpenDeleteJobPostsDialog(true)}
+          >
+            Delete job posts
+          </Button>
+        )}
+      </Stack>
 
       <Stack>
         <DataGrid
+          sx={{
+            "& .MuiDataGrid-cell:focus": { outline: "none" },
+            "& .MuiDataGrid-cell:focus-within": { outline: "none" },
+          }}
           initialState={{
             pagination: {
               paginationModel: { pageSize: 25, page: 0 },
@@ -133,11 +154,13 @@ export default function JobPostsTable() {
           onPaginationModelChange={setPaginationModel}
           onSortModelChange={setSortModel}
           onFilterModelChange={setFilterModel}
+          onRowSelectionModelChange={(rows) => setSelectedJobPosts(rows)}
           loading={isLoadingJobPosts}
           rows={rows}
           columns={columns}
           checkboxSelection
           disableRowSelectionOnClick
+          disableRowSelectionExcludeModel
           showToolbar
           ignoreDiacritics
         />
@@ -152,6 +175,12 @@ export default function JobPostsTable() {
         jobPostId={selectedJobPostId}
         openDeleteJobPostDialog={openDeleteJobPostDialog}
         setOpenDeleteJobPostDialog={setOpenDeleteJobPostDialog}
+      />
+
+      <DeleteJobPostsDialog
+        jobPostIds={selectedJobPosts?.ids}
+        openDeleteJobPostsDialog={openDeleteJobPostsDialog}
+        setOpenDeleteJobPostsDialog={setOpenDeleteJobPostsDialog}
       />
     </Stack>
   );
