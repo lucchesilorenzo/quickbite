@@ -86,6 +86,7 @@ Route::prefix('partner')->group(function (): void {
             // Job Posts
             Route::get('/{restaurant}/job-posts', [JobPostController::class, 'getJobPosts']);
             Route::post('/{restaurant}/job-posts', [JobPostController::class, 'createJobPost']);
+            Route::delete('/{restaurant}/job-posts', [JobPostController::class, 'deleteJobPosts']);
             Route::delete('/{restaurant}/job-posts/{jobPost}', [JobPostController::class, 'deleteJobPost']);
         });
 });
