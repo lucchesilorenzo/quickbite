@@ -44,6 +44,13 @@ class JobPostPolicy
           : Response::deny('You are not authorized to update this job post.');
     }
 
+    public function deleteAny(User $user, Restaurant $restaurant): Response
+    {
+        return $this->isPartner($user, $restaurant)
+          ? Response::allow()
+          : Response::deny('You are not authorized to delete job posts for this restaurant.');
+    }
+
     public function delete(User $user, JobPost $jobPost): Response
     {
         return $this->isPartner($user, $jobPost->restaurant)
