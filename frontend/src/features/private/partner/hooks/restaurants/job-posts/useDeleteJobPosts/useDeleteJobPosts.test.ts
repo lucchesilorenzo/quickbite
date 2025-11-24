@@ -8,6 +8,7 @@ import { useDeleteJobPosts } from "./useDeleteJobPosts";
 
 import env from "@/lib/env";
 
+const mockSetOpenDeleteJobPostsDialog = vi.fn();
 const mockShow = vi.fn();
 
 vi.mocked(useNotifications).mockReturnValue({
@@ -16,8 +17,14 @@ vi.mocked(useNotifications).mockReturnValue({
 });
 
 describe("useDeleteJobPosts", () => {
+  const options = {
+    restaurantId: "1",
+    jobPostIds,
+    setOpenDeleteJobPostsDialog: mockSetOpenDeleteJobPostsDialog,
+  };
+
   it("should mutate and return data", async () => {
-    const { result } = renderHook(() => useDeleteJobPosts("1", jobPostIds), {
+    const { result } = renderHook(() => useDeleteJobPosts(options), {
       wrapper: TestQueryWrapper,
     });
 
@@ -36,7 +43,7 @@ describe("useDeleteJobPosts", () => {
       "delete",
     );
 
-    const { result } = renderHook(() => useDeleteJobPosts("1", jobPostIds), {
+    const { result } = renderHook(() => useDeleteJobPosts(options), {
       wrapper: TestQueryWrapper,
     });
 
@@ -56,7 +63,7 @@ describe("useDeleteJobPosts", () => {
   });
 
   it("should show notification on success", async () => {
-    const { result } = renderHook(() => useDeleteJobPosts("1", jobPostIds), {
+    const { result } = renderHook(() => useDeleteJobPosts(options), {
       wrapper: TestQueryWrapper,
     });
 
