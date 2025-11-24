@@ -2,6 +2,7 @@ import { TAddJobPostFormSchema } from "@partner/validations/job-posts-validation
 
 import { JobPostWithApplicationsCount } from "./job-posts.types";
 
+import { ApiResponse } from "@/types/api-types";
 import { BaseOffsetPagination } from "@/types/pagination-types";
 
 export type GetJobPostsResponse = BaseOffsetPagination & {
@@ -26,5 +27,4 @@ export type CreateJobPostResponse = {
     created_at: string;
     updated_at: string;
   };
-  message: string;
-};
+} & ApiResponse;
