@@ -7,7 +7,12 @@ export function simulateInfiniteLoading(
   endpoint: string,
   method: HttpMethod = "get"
 ) {
-  server.use(http[method](endpoint, () => new Promise(() => {})));
+  server.use(
+    http[method](endpoint, async () => {
+      await delay("infinite");
+      return HttpResponse.json([]);
+    })
+  );
 }
 
 export function simulateDelay(endpoint: string, method: HttpMethod = "get") {
