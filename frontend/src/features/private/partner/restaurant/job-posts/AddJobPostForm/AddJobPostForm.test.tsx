@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import { addJobPostForm } from "@tests/mocks/data/private/partner/forms/add-job-post";
 import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
 import { customRender } from "@tests/utils/custom-render";
-import { simulateError } from "@tests/utils/msw";
+import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
 import AddJobPostForm from "./AddJobPostForm";
 
@@ -259,6 +259,19 @@ describe("AddJobPostForm", () => {
     },
   );
 
+  it("should render the loading indicator upon submission", async () => {
+    simulateInfiniteLoading(
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
+      "post",
+    );
+    const { getForm } = renderComponent();
+
+    const form = await getForm();
+    await form.fill(form.validData);
+
+    expect(form.submitButton).toHaveTextContent(/adding/i);
+  });
+
   it("should not render the loading indicator after submission", async () => {
     const { getForm } = renderComponent();
 
@@ -270,7 +283,7 @@ describe("AddJobPostForm", () => {
 
   it("should not render the loading indicator if submission fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/1/job-posts`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
       "post",
     );
     const { getForm } = renderComponent();
