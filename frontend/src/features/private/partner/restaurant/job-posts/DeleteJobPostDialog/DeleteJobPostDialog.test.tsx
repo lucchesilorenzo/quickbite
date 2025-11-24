@@ -1,3 +1,4 @@
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
@@ -7,9 +8,10 @@ import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 import DeleteJobPostDialog from "./DeleteJobPostDialog";
 
 import env from "@/lib/env";
+import { baseOffsetPaginationDefaults } from "@/lib/query-defaults";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
-  useRestaurant: () => ({ restaurant }),
+  useRestaurant: vi.fn(),
 }));
 
 describe("DeleteJobPostDialog", () => {
@@ -17,6 +19,16 @@ describe("DeleteJobPostDialog", () => {
     const user = userEvent.setup();
 
     const mockSetOpenDeleteJobPostDialog = vi.fn();
+
+    vi.mocked(useRestaurant).mockReturnValue({
+      restaurant,
+      partnerNotifications: {
+        notifications: baseOffsetPaginationDefaults,
+        unread_count: 0,
+      },
+      page: 1,
+      setPage: vi.fn(),
+    });
 
     customRender(
       <DeleteJobPostDialog
