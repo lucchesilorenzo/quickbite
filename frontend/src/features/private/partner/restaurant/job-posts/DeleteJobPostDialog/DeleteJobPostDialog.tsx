@@ -72,7 +72,6 @@ export default function DeleteJobPostDialog({
             onClick={handleDeleteJobPost}
             loading={isDeleting}
             loadingIndicator="Deleting..."
-            autoFocus
           >
             Confirm
           </Button>
