@@ -33,8 +33,10 @@ export default function AddJobPostForm({
 }: AddJobPostFormProps) {
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: createJobPost, isPending: isCreating } =
-    useCreateJobPost(restaurant.id);
+  const { mutate: createJobPost, isPending: isCreating } = useCreateJobPost(
+    restaurant.id,
+    setOpenAddJobPostDialog,
+  );
 
   const {
     handleSubmit,
@@ -50,14 +52,13 @@ export default function AddJobPostForm({
     },
   });
 
-  async function onSubmit(data: TAddJobPostFormSchema) {
+  function onSubmit(data: TAddJobPostFormSchema) {
     const payload: CreateJobPostPayload = {
       ...data,
       description: data.description.html,
     };
 
-    await createJobPost(payload);
-    setOpenAddJobPostDialog(false);
+    createJobPost(payload);
   }
 
   return (
@@ -165,7 +166,6 @@ export default function AddJobPostForm({
 
       <Button
         type="submit"
-        disabled={isSubmitting || isCreating}
         loading={isSubmitting || isCreating}
         loadingIndicator="Adding..."
         variant="contained"
