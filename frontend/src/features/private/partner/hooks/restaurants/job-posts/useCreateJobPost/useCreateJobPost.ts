@@ -7,7 +7,10 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { postData } from "@/lib/api-client";
 
-export function useCreateJobPost(restaurantId: string) {
+export function useCreateJobPost(
+  restaurantId: string,
+  setOpenAddJobPostDialog: React.Dispatch<React.SetStateAction<boolean>>,
+) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
@@ -18,6 +21,8 @@ export function useCreateJobPost(restaurantId: string) {
       queryClient.invalidateQueries({
         queryKey: ["partner-job-posts", restaurantId],
       });
+
+      setOpenAddJobPostDialog(false);
 
       notifications.show(response.message, {
         key: "partner-create-job-post-success",
