@@ -3,11 +3,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { deleteData } from "@/lib/api-client";
+import { ApiResponse } from "@/types/api-types";
 
-export function useDeleteJobPosts(
-  restaurantId: string,
-  jobPostIds?: Set<GridRowId>,
-) {
+type UseDeleteJobPostsOptions = {
+  restaurantId: string;
+  jobPostIds?: Set<GridRowId>;
+  setOpenDeleteJobPostsDialog: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function useDeleteJobPosts({
+  restaurantId,
+  jobPostIds,
+  setOpenDeleteJobPostsDialog,
+}: UseDeleteJobPostsOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
@@ -25,6 +33,8 @@ export function useDeleteJobPosts(
       queryClient.invalidateQueries({
         queryKey: ["partner-job-posts", restaurantId],
       });
+
+      setOpenDeleteJobPostsDialog(false);
 
       notifications.show(response.message, {
         key: "partner-delete-job-posts-success",

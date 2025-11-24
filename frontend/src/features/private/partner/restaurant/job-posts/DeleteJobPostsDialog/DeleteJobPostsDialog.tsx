@@ -28,12 +28,14 @@ export default function DeleteJobPostDialog({
 
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: deleteJobPosts, isPending: isDeleting } =
-    useDeleteJobPosts(restaurant.id, jobPostIds);
+  const { mutate: deleteJobPosts, isPending: isDeleting } = useDeleteJobPosts({
+    restaurantId: restaurant.id,
+    jobPostIds,
+    setOpenDeleteJobPostsDialog,
+  });
 
-  async function handleDeleteJobPosts() {
-    await deleteJobPosts();
-    setOpenDeleteJobPostsDialog(false);
+  function handleDeleteJobPosts() {
+    deleteJobPosts();
   }
 
   return (
