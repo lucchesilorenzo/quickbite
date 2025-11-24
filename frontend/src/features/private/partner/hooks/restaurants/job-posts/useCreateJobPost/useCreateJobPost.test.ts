@@ -11,6 +11,7 @@ import { useCreateJobPost } from "./useCreateJobPost";
 
 import env from "@/lib/env";
 
+const mockSetOpenAddJobPostDialog = vi.fn();
 const mockShow = vi.fn();
 
 vi.mocked(useNotifications).mockReturnValue({
@@ -20,9 +21,12 @@ vi.mocked(useNotifications).mockReturnValue({
 
 describe("useCreateJobPost", () => {
   it("should mutate and return data", async () => {
-    const { result } = renderHook(() => useCreateJobPost("1"), {
-      wrapper: TestQueryWrapper,
-    });
+    const { result } = renderHook(
+      () => useCreateJobPost("1", mockSetOpenAddJobPostDialog),
+      {
+        wrapper: TestQueryWrapper,
+      },
+    );
 
     result.current.mutate(addJobPostForm);
 
@@ -37,9 +41,12 @@ describe("useCreateJobPost", () => {
       "post",
     );
 
-    const { result } = renderHook(() => useCreateJobPost("1"), {
-      wrapper: TestQueryWrapper,
-    });
+    const { result } = renderHook(
+      () => useCreateJobPost("1", mockSetOpenAddJobPostDialog),
+      {
+        wrapper: TestQueryWrapper,
+      },
+    );
 
     result.current.mutate(addJobPostForm);
 
@@ -57,9 +64,12 @@ describe("useCreateJobPost", () => {
   });
 
   it("should show notification on success", async () => {
-    const { result } = renderHook(() => useCreateJobPost("1"), {
-      wrapper: TestQueryWrapper,
-    });
+    const { result } = renderHook(
+      () => useCreateJobPost("1", mockSetOpenAddJobPostDialog),
+      {
+        wrapper: TestQueryWrapper,
+      },
+    );
 
     result.current.mutate(addJobPostForm);
 
