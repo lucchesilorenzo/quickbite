@@ -11,7 +11,7 @@ export function useDeleteJobPosts(
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
+  return useMutation<ApiResponse>({
     mutationFn: () => {
       const params = new URLSearchParams();
 
