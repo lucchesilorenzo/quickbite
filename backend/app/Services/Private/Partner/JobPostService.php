@@ -59,6 +59,11 @@ class JobPostService
         return $query->paginate($data['page_size']);
     }
 
+    public function getJobPost(JobPost $jobPost): JobPost
+    {
+        return $jobPost;
+    }
+
     public function createJobPost(array $data, Restaurant $restaurant): JobPost
     {
         return $restaurant->jobPosts()->create($data);
