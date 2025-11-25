@@ -61,6 +61,7 @@ describe("useCreateJobPost", () => {
         severity: "error",
       }),
     );
+    expect(mockShow).toHaveBeenCalledTimes(1);
   });
 
   it("should show notification on success", async () => {
@@ -82,5 +83,6 @@ describe("useCreateJobPost", () => {
         severity: "success",
       }),
     );
+    expect(mockShow).toHaveBeenCalledTimes(1);
   });
 });
