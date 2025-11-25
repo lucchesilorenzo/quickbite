@@ -15,6 +15,7 @@ import {
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetJobPosts } from "@partner/hooks/restaurants/job-posts/useGetJobPosts";
 import { jobPostsDefaults } from "@partner/lib/query-defaults";
+import { useNotifications } from "@toolpad/core/useNotifications";
 
 import AddJobPostDialog from "./AddJobPostDialog";
 import DeleteJobPostDialog from "./DeleteJobPostDialog";
@@ -39,9 +40,15 @@ export default function JobPostsTable() {
     items: [],
   });
 
+  const notifications = useNotifications();
+
   const { restaurant } = useRestaurant();
-  const { data: jobPosts = jobPostsDefaults, isLoading: isLoadingJobPosts } =
-    useGetJobPosts(
+
+  const {
+    data: jobPosts = jobPostsDefaults,
+    isLoading: isLoadingJobPosts,
+    error: jobPostsError,
+  } = useGetJobPosts(
       restaurant.id,
       paginationModel.page,
       paginationModel.pageSize,
@@ -109,6 +116,13 @@ export default function JobPostsTable() {
     status: jobPost.status,
     applicationsCount: jobPost.job_applications_count,
   }));
+
+  if (jobPostsError) {
+    notifications.show(jobPostsError.message, {
+      key: "partner-get-job-posts-error",
+      severity: "error",
+    });
+  }
 
   return (
     <Stack spacing={2}>
