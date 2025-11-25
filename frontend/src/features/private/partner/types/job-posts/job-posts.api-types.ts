@@ -22,3 +22,5 @@ export type CreateJobPostPayload = Omit<
 export type CreateJobPostResponse = {
   job_post: JobPost;
 } & ApiResponse;
+
+export type UpdateJobPostPayload = CreateJobPostPayload;
