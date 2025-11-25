@@ -41,4 +41,9 @@ export const addJobPostFormSchema = z.object({
     ),
 });
 
+export const editJobPostFormSchema = z.object({
+  ...addJobPostFormSchema.shape,
+});
+
 export type TAddJobPostFormSchema = z.infer<typeof addJobPostFormSchema>;
+export type TEditJobPostFormSchema = z.infer<typeof editJobPostFormSchema>;
