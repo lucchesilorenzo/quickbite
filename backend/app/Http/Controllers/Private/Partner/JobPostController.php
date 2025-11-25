@@ -41,6 +41,21 @@ class JobPostController extends Controller
         }
     }
 
+    public function getJobPost(Restaurant $restaurant, JobPost $jobPost): JsonResponse
+    {
+        Gate::authorize('view', $jobPost);
+
+        try {
+            $jobPost = $this->jobPostService->getJobPost($jobPost);
+
+            return response()->json($jobPost, 200);
+        } catch (Throwable) {
+            return response()->json([
+                'message' => 'Could not get job post.',
+            ], 500);
+        }
+    }
+
     public function createJobPost(
         CreateJobPostRequest $request,
         Restaurant $restaurant
