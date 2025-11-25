@@ -27,7 +27,6 @@ export default function EditJobPostDialog({
   setOpenEditJobPostDialog,
 }: EditJobPostDialogProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
   const notifications = useNotifications();
 
   const { restaurant } = useRestaurant();
