@@ -1,9 +1,12 @@
 import { TAddJobPostFormSchema } from "@partner/validations/job-posts-validations";
 
-import { JobPostWithApplicationsCount } from "./job-posts.types";
+import { JobPost, JobPostWithApplicationsCount } from "./job-posts.types";
 
 import { ApiResponse } from "@/types/api-types";
 import { BaseOffsetPagination } from "@/types/pagination-types";
+import { BaseRestaurant } from "@/types/restaurant-types";
+
+export type GetJobPostResponse = JobPost & BaseRestaurant;
 
 export type GetJobPostsResponse = BaseOffsetPagination & {
   data: JobPostWithApplicationsCount[];
@@ -17,14 +20,5 @@ export type CreateJobPostPayload = Omit<
 };
 
 export type CreateJobPostResponse = {
-  job_post: {
-    id: string;
-    title: string;
-    description: string;
-    employment_type: string;
-    salary: number | null;
-    restaurant_id: string;
-    created_at: string;
-    updated_at: string;
-  };
+  job_post: JobPost;
 } & ApiResponse;
