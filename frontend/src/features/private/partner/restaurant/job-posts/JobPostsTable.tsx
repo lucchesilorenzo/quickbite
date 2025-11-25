@@ -20,9 +20,11 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import AddJobPostDialog from "./AddJobPostDialog";
 import DeleteJobPostDialog from "./DeleteJobPostDialog";
 import DeleteJobPostsDialog from "./DeleteJobPostsDialog";
+import EditJobPostDialog from "./EditJobPostDialog";
 
 export default function JobPostsTable() {
   const [openAddJobPostDialog, setOpenAddJobPostDialog] = useState(false);
+  const [openEditJobPostDialog, setOpenEditJobPostDialog] = useState(false);
   const [openDeleteJobPostDialog, setOpenDeleteJobPostDialog] = useState(false);
   const [openDeleteJobPostsDialog, setOpenDeleteJobPostsDialog] =
     useState(false);
@@ -49,12 +51,12 @@ export default function JobPostsTable() {
     isLoading: isLoadingJobPosts,
     error: jobPostsError,
   } = useGetJobPosts(
-      restaurant.id,
-      paginationModel.page,
-      paginationModel.pageSize,
-      sortModel,
-      filterModel,
-    );
+    restaurant.id,
+    paginationModel.page,
+    paginationModel.pageSize,
+    sortModel,
+    filterModel,
+  );
 
   const columns: GridColDef[] = [
     {
@@ -91,7 +93,14 @@ export default function JobPostsTable() {
       type: "actions",
       renderCell: ({ row }) => (
         <>
-          <IconButton size="small" color="primary">
+          <IconButton
+            size="small"
+            color="primary"
+            onClick={() => {
+              setSelectedJobPostId(row.id);
+              setOpenEditJobPostDialog(true);
+            }}
+          >
             <EditIcon />
           </IconButton>
 
@@ -183,6 +192,12 @@ export default function JobPostsTable() {
       <AddJobPostDialog
         openAddJobPostDialog={openAddJobPostDialog}
         setOpenAddJobPostDialog={setOpenAddJobPostDialog}
+      />
+
+      <EditJobPostDialog
+        jobPostId={selectedJobPostId}
+        openEditJobPostDialog={openEditJobPostDialog}
+        setOpenEditJobPostDialog={setOpenEditJobPostDialog}
       />
 
       <DeleteJobPostDialog
