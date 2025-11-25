@@ -61,6 +61,8 @@ class JobPostService
 
     public function getJobPost(JobPost $jobPost): JobPost
     {
+        $jobPost->unsetRelation('restaurant');
+
         return $jobPost;
     }
 
