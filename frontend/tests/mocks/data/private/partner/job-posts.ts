@@ -1,22 +1,24 @@
 import { GridRowId } from "@mui/x-data-grid";
-import { GetJobPostsResponse } from "@partner/types/job-posts/job-posts.api-types";
+import {
+  GetJobPostResponse,
+  GetJobPostsResponse,
+} from "@partner/types/job-posts/job-posts.api-types";
 
-export const jobPost: GetJobPostsResponse = {
+export const jobPost: GetJobPostResponse = {
+  id: "019a9226-9299-72d8-a1a6-a6d51fbbbc5d",
+  restaurant_id: "a0611650-d7f4-481f-ac39-de9c8d1073ed",
+  title: "Test",
+  description: '<p style="text-align: left;"><strong>test</strong></p>',
+  employment_type: "full_time",
+  salary: 60000.3,
+  status: "open",
+  created_at: "2025-11-17T14:09:52.000000Z",
+  updated_at: "2025-11-17T14:09:52.000000Z",
+};
+
+export const jobPosts: GetJobPostsResponse = {
   current_page: 1,
-  data: [
-    {
-      id: "019a9226-9299-72d8-a1a6-a6d51fbbbc5d",
-      restaurant_id: "a0611650-d7f4-481f-ac39-de9c8d1073ed",
-      title: "Test",
-      description: '<p style="text-align: left;"><strong>test</strong></p>',
-      employment_type: "full_time",
-      salary: 60000.3,
-      status: "open",
-      created_at: "2025-11-17T14:09:52.000000Z",
-      updated_at: "2025-11-17T14:09:52.000000Z",
-      job_applications_count: 1,
-    },
-  ],
+  data: [{ ...jobPost, job_applications_count: 1 }],
   first_page_url:
     "http://localhost:8000/api/partner/restaurants/a0611650-d7f4-481f-ac39-de9c8d1073ed/job-posts?page=1",
   from: 1,
