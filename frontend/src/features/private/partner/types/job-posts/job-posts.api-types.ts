@@ -4,9 +4,8 @@ import { JobPost, JobPostWithApplicationsCount } from "./job-posts.types";
 
 import { ApiResponse } from "@/types/api-types";
 import { BaseOffsetPagination } from "@/types/pagination-types";
-import { BaseRestaurant } from "@/types/restaurant-types";
 
-export type GetJobPostResponse = JobPost & BaseRestaurant;
+export type GetJobPostResponse = JobPost;
 
 export type GetJobPostsResponse = BaseOffsetPagination & {
   data: JobPostWithApplicationsCount[];
