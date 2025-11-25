@@ -4,7 +4,7 @@ import { restaurantLogo } from "@tests/mocks/data/public/restaurants";
 import env from "@/lib/env";
 import { address } from "@tests/mocks/data/public/addresses";
 import { addJobPostFormResponse } from "@tests/mocks/data/private/partner/forms/add-job-post";
-import { jobPost } from "./data/private/partner/job-posts";
+import { jobPost, jobPosts } from "./data/private/partner/job-posts";
 
 export const handlers = [
   http.get(
@@ -46,6 +46,12 @@ export const handlers = [
         return HttpResponse.json(null, { status: 400 });
       }
 
+      return HttpResponse.json(jobPosts);
+    }
+  ),
+  http.get(
+    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
+    async () => {
       return HttpResponse.json(jobPost);
     }
   ),
