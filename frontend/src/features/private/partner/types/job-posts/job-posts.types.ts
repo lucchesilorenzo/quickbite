@@ -5,7 +5,8 @@ export type JobPost = {
   id: string;
   restaurant_id: string;
   title: string;
-  description: string;
+  description_html: string;
+  description_text: string;
   employment_type: EmploymentType;
   salary: number | null;
   status: JobPostStatus;

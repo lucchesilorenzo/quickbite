@@ -11,12 +11,7 @@ export type GetJobPostsResponse = BaseOffsetPagination & {
   data: JobPostWithApplicationsCount[];
 };
 
-export type CreateJobPostPayload = Omit<
-  TAddJobPostFormSchema,
-  "description"
-> & {
-  description: string;
-};
+export type CreateJobPostPayload = TAddJobPostFormSchema;
 
 export type CreateJobPostResponse = {
   job_post: JobPost;
