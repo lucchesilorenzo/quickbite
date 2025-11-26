@@ -13,7 +13,6 @@ import {
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateJobPost } from "@partner/hooks/restaurants/job-posts/useCreateJobPost";
 import { employmentTypes } from "@partner/lib/constants/job-posts";
-import { CreateJobPostPayload } from "@partner/types/job-posts/job-posts.api-types";
 import {
   TAddJobPostFormSchema,
   addJobPostFormSchema,
@@ -40,25 +39,22 @@ export default function AddJobPostForm({
 
   const {
     handleSubmit,
+    setValue,
     control,
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(addJobPostFormSchema),
     defaultValues: {
       title: "",
-      description: { html: "", text: "" },
+      description_html: "",
+      description_text: "",
       employment_type: "",
       salary: "",
     },
   });
 
   function onSubmit(data: TAddJobPostFormSchema) {
-    const payload: CreateJobPostPayload = {
-      ...data,
-      description: data.description.html,
-    };
-
-    createJobPost(payload);
+    createJobPost(data);
   }
 
   return (
@@ -92,13 +88,14 @@ export default function AddJobPostForm({
         />
 
         <Controller
-          name="description"
+          name="description_html"
           control={control}
           render={({ field }) => (
             <JobPostEditor
-              value={field.value.html}
+              value={field.value}
               onChange={field.onChange}
-              descriptionError={errors.description?.text?.message}
+              descriptionError={errors.description_text?.message}
+              setValue={setValue}
             />
           )}
         />
