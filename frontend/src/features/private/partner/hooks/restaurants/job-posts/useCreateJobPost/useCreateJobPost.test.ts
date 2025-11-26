@@ -20,13 +20,15 @@ vi.mocked(useNotifications).mockReturnValue({
 });
 
 describe("useCreateJobPost", () => {
+  const options = {
+    restaurantId: "1",
+    setOpenAddJobPostDialog: mockSetOpenAddJobPostDialog,
+  };
+
   it("should mutate and return data", async () => {
-    const { result } = renderHook(
-      () => useCreateJobPost("1", mockSetOpenAddJobPostDialog),
-      {
-        wrapper: TestQueryWrapper,
-      },
-    );
+    const { result } = renderHook(() => useCreateJobPost(options), {
+      wrapper: TestQueryWrapper,
+    });
 
     result.current.mutate(addJobPostForm);
 
@@ -41,12 +43,9 @@ describe("useCreateJobPost", () => {
       "post",
     );
 
-    const { result } = renderHook(
-      () => useCreateJobPost("1", mockSetOpenAddJobPostDialog),
-      {
-        wrapper: TestQueryWrapper,
-      },
-    );
+    const { result } = renderHook(() => useCreateJobPost(options), {
+      wrapper: TestQueryWrapper,
+    });
 
     result.current.mutate(addJobPostForm);
 
@@ -65,12 +64,9 @@ describe("useCreateJobPost", () => {
   });
 
   it("should show notification on success", async () => {
-    const { result } = renderHook(
-      () => useCreateJobPost("1", mockSetOpenAddJobPostDialog),
-      {
-        wrapper: TestQueryWrapper,
-      },
-    );
+    const { result } = renderHook(() => useCreateJobPost(options), {
+      wrapper: TestQueryWrapper,
+    });
 
     result.current.mutate(addJobPostForm);
 
