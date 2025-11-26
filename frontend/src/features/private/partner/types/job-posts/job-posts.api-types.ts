@@ -17,4 +17,8 @@ export type CreateJobPostResponse = {
   job_post: JobPost;
 } & ApiResponse;
 
-export type UpdateJobPostPayload = CreateJobPostPayload;
+export type UpdateJobPostPayload = CreateJobPostPayload & {
+  status: "open" | "closed";
+};
+
+export type UpdateJobPostResponse = CreateJobPostResponse;
