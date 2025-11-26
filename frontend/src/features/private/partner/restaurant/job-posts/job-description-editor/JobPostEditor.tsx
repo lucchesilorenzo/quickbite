@@ -19,19 +19,22 @@ import {
   RichTextEditor,
   type RichTextEditorRef,
 } from "mui-tiptap";
+import { UseFormSetValue } from "react-hook-form";
 
 import CharacterCountDisplay from "./CharacterCountDisplay";
 
 type JobPostEditorProps = {
   value: string;
   descriptionError?: string;
-  onChange: ({ html, text }: { html: string; text: string }) => void;
+  onChange: (value: string) => void;
+  setValue: UseFormSetValue<any>;
 };
 
 export default function JobPostEditor({
   value,
   descriptionError,
   onChange,
+  setValue,
 }: JobPostEditorProps) {
   const rteRef = useRef<RichTextEditorRef>(null);
 
@@ -49,10 +52,8 @@ export default function JobPostEditor({
         ]}
         content={value}
         onUpdate={({ editor }) => {
-          onChange({
-            html: editor.getHTML(),
-            text: editor.getText().trim(),
-          });
+          onChange(editor.getHTML());
+          setValue("description_text", editor.getText().trim());
         }}
         renderControls={() => (
           <MenuControlsContainer>
