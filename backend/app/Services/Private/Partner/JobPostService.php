@@ -71,6 +71,13 @@ class JobPostService
         return $restaurant->jobPosts()->create($data);
     }
 
+    public function updateJobPost(array $data, JobPost $jobPost): JobPost
+    {
+        $jobPost->update($data);
+
+        return $jobPost;
+    }
+
     public function deleteJobPost(JobPost $jobPost): void
     {
         $jobPost->delete();
