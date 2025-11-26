@@ -33,10 +33,10 @@ export default function AddJobPostForm({
 }: AddJobPostFormProps) {
   const { restaurant } = useRestaurant();
 
-  const { mutate: createJobPost, isPending: isCreating } = useCreateJobPost(
-    restaurant.id,
+  const { mutate: createJobPost, isPending: isCreating } = useCreateJobPost({
+    restaurantId: restaurant.id,
     setOpenAddJobPostDialog,
-  );
+  });
 
   const {
     handleSubmit,

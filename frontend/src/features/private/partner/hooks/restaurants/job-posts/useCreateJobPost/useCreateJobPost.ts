@@ -7,10 +7,15 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { postData } from "@/lib/api-client";
 
-export function useCreateJobPost(
-  restaurantId: string,
-  setOpenAddJobPostDialog: React.Dispatch<React.SetStateAction<boolean>>,
-) {
+type UseCreateJobPostOptions = {
+  restaurantId: string;
+  setOpenAddJobPostDialog: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function useCreateJobPost({
+  restaurantId,
+  setOpenAddJobPostDialog,
+}: UseCreateJobPostOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
