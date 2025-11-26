@@ -18,18 +18,16 @@ vi.mock("@partner/contexts/RestaurantProvider", () => ({
 }));
 
 vi.mock("../job-description-editor/JobPostEditor", () => ({
-  default: ({ value, onChange, descriptionError }: any) => (
+  default: ({ value, onChange, setValue, descriptionError }: any) => (
     <div>
       <textarea
         aria-label="description"
         role="textbox"
         value={value || ""}
-        onChange={(e) =>
-          onChange({
-            html: e.target.value,
-            text: e.target.value,
-          })
-        }
+        onChange={(e) => {
+          onChange(e.target.value);
+          setValue("description_text", e.target.value);
+        }}
       />
 
       {descriptionError && <div role="alert">{descriptionError}</div>}
@@ -78,21 +76,13 @@ describe("AddJobPostForm", () => {
           [K in keyof TAddJobPostFormSchema]: any;
         };
 
-        const validData: FormData = {
-          ...addJobPostForm,
-          description: {
-            html: addJobPostForm.description,
-            text: "test",
-          },
-        };
-
         async function fill(data: FormData) {
           if (data.title !== undefined) {
             await user.type(title, data.title.toString());
           }
 
-          if (data.description.text !== undefined) {
-            await user.type(description, data.description.text.toString());
+          if (data.description_text !== undefined) {
+            await user.type(description, data.description_text.toString());
           }
 
           if (data.employment_type !== undefined) {
@@ -122,7 +112,6 @@ describe("AddJobPostForm", () => {
           employmentType,
           salary,
           submitButton,
-          validData,
           fill,
         };
       },
@@ -170,7 +159,7 @@ describe("AddJobPostForm", () => {
       const { getForm, expectErrorToBeInTheDocument } = renderComponent();
 
       const form = await getForm();
-      await form.fill({ ...form.validData, title });
+      await form.fill({ ...addJobPostForm, title });
 
       expectErrorToBeInTheDocument(errorMessage);
     },
@@ -179,28 +168,23 @@ describe("AddJobPostForm", () => {
   it.each([
     {
       scenario: "required",
-      description: { html: undefined, text: undefined },
       errorMessage: /fill out your job post description/i,
     },
     {
       scenario: "too long",
-      description: {
-        html: `<p>a</p>`,
-        text: "a".repeat(2001),
-      },
+      description_text: "a".repeat(2001),
       errorMessage: /too long/i,
     },
   ])(
-    "should display an error if description is $scenario",
-    async ({ description, errorMessage }) => {
+    "should display an error if description_text is $scenario",
+    async ({ description_text, errorMessage }) => {
       const { getForm, expectErrorToBeInTheDocument } = renderComponent();
 
       const form = await getForm();
-      await form.fill({ ...form.validData, description });
+      await form.fill({ ...addJobPostForm, description_text });
 
       expectErrorToBeInTheDocument(errorMessage);
     },
-    20000,
   );
 
   it.each([
@@ -215,7 +199,7 @@ describe("AddJobPostForm", () => {
       const { getForm, expectErrorToBeInTheDocument } = renderComponent();
 
       const form = await getForm();
-      await form.fill({ ...form.validData, employment_type });
+      await form.fill({ ...addJobPostForm, employment_type });
 
       expectErrorToBeInTheDocument(errorMessage);
     },
@@ -253,7 +237,7 @@ describe("AddJobPostForm", () => {
       const { getForm, expectErrorToBeInTheDocument } = renderComponent();
 
       const form = await getForm();
-      await form.fill({ ...form.validData, salary });
+      await form.fill({ ...addJobPostForm, salary });
 
       expectErrorToBeInTheDocument(errorMessage);
     },
@@ -267,7 +251,7 @@ describe("AddJobPostForm", () => {
     const { getForm } = renderComponent();
 
     const form = await getForm();
-    await form.fill(form.validData);
+    await form.fill(addJobPostForm);
 
     expect(form.submitButton).toHaveTextContent(/adding/i);
   });
@@ -276,7 +260,7 @@ describe("AddJobPostForm", () => {
     const { getForm } = renderComponent();
 
     const form = await getForm();
-    await form.fill(form.validData);
+    await form.fill(addJobPostForm);
 
     expect(form.submitButton).not.toHaveTextContent(/adding/i);
   });
@@ -289,7 +273,7 @@ describe("AddJobPostForm", () => {
     const { getForm } = renderComponent();
 
     const form = await getForm();
-    await form.fill(form.validData);
+    await form.fill(addJobPostForm);
 
     expect(form.submitButton).not.toHaveTextContent(/adding/i);
   });
