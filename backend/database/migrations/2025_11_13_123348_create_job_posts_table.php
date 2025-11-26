@@ -18,7 +18,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('restaurant_id')->constrained()->cascadeOnDelete();
             $table->string('title');
-            $table->longText('description');
+            $table->longText('description_html');
+            $table->longText('description_text');
             $table->enum('employment_type', EmploymentType::values());
             $table->decimal('salary', 10, 2)->nullable();
             $table->enum('status', ['open', 'closed'])->default('open');

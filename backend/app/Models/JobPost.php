@@ -17,7 +17,8 @@ class JobPost extends Model
     protected $fillable = [
         'restaurant_id',
         'title',
-        'description',
+        'description_html',
+        'description_text',
         'employment_type',
         'salary',
         'status',
