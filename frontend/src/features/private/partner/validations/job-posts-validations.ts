@@ -1,6 +1,6 @@
 import z from "zod";
 
-import { employmentTypes } from "../lib/constants/job-posts";
+import { employmentTypes, jobPostStatuses } from "../lib/constants/job-posts";
 
 export const addJobPostFormSchema = z.object({
   title: z
@@ -8,14 +8,12 @@ export const addJobPostFormSchema = z.object({
     .trim()
     .min(1, "Please fill out your job post title.")
     .max(50, "Job post title is too long."),
-  description: z.object({
-    html: z.string(),
-    text: z
-      .string()
-      .trim()
-      .min(1, "Please fill out your job post description.")
-      .max(2000, "Description is too long."),
-  }),
+  description_html: z.string(),
+  description_text: z
+    .string()
+    .trim()
+    .min(1, "Please fill out your job post description.")
+    .max(2000, "Description is too long."),
   employment_type: z
     .enum(
       employmentTypes.map((type) => type.value),
@@ -43,6 +41,12 @@ export const addJobPostFormSchema = z.object({
 
 export const editJobPostFormSchema = z.object({
   ...addJobPostFormSchema.shape,
+  status: z.enum(
+    jobPostStatuses.map((status) => status.value),
+    {
+      error: "The option you selected is not valid.",
+    },
+  ),
 });
 
 export type TAddJobPostFormSchema = z.infer<typeof addJobPostFormSchema>;
