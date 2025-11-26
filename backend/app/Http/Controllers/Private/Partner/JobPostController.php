@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\JobPost\CreateJobPostRequest;
 use App\Http\Requests\Private\Partner\JobPost\DeleteJobPostsRequest;
 use App\Http\Requests\Private\Partner\JobPost\GetJobPostsRequest;
+use App\Http\Requests\Private\Partner\JobPost\UpdateJobPostRequest;
 use App\Models\JobPost;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\JobPostService;
@@ -75,6 +76,30 @@ class JobPostController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not create job post.',
+            ], 500);
+        }
+    }
+
+    public function updateJobPost(
+        UpdateJobPostRequest $request,
+        Restaurant $restaurant,
+        JobPost $jobPost
+    ): JsonResponse {
+        Gate::authorize('update', $jobPost);
+
+        try {
+            $jobPost = $this->jobPostService->updateJobPost(
+                $request->validated(),
+                $jobPost,
+            );
+
+            return response()->json([
+                'job_post' => $jobPost,
+                'message' => 'Job post updated successfully.',
+            ], 200);
+        } catch (Throwable) {
+            return response()->json([
+                'message' => 'Could not update job post.',
             ], 500);
         }
     }
