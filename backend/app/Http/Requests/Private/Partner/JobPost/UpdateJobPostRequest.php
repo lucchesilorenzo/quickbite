@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Private\Partner\JobPost;
 
+use App\Enums\EmploymentType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class DeleteJobPostsRequest extends FormRequest
+class UpdateJobPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +26,11 @@ class DeleteJobPostsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids' => ['required', 'array'],
-            'ids.*' => ['required', 'uuid', 'exists:job_posts,id'],
+            'title' => ['required', 'string', 'min:1', 'max:50'],
+            'description' => ['required', 'string', 'min:1'],
+            'employment_type' => ['required', Rule::enum(EmploymentType::class)],
+            'status' => ['required', Rule::in(['open', 'closed'])],
+            'salary' => ['nullable', 'numeric', 'min:10000', 'max:1000000'],
         ];
     }
 }
