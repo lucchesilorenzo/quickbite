@@ -1,9 +1,10 @@
-import { http, HttpResponse } from "msw";
 import { restaurantLogo } from "@tests/mocks/data/public/restaurants";
+import { http, HttpResponse } from "msw";
 
 import env from "@/lib/env";
-import { address } from "@tests/mocks/data/public/addresses";
 import { addJobPostFormResponse } from "@tests/mocks/data/private/partner/forms/add-job-post";
+import { address } from "@tests/mocks/data/public/addresses";
+import { editJobPostFormResponse } from "./data/private/partner/forms/edit-job-post";
 import { jobPost, jobPosts } from "./data/private/partner/job-posts";
 
 export const handlers = [
@@ -59,6 +60,12 @@ export const handlers = [
     `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
     async () => {
       return HttpResponse.json(addJobPostFormResponse, { status: 201 });
+    }
+  ),
+  http.patch(
+    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
+    async () => {
+      return HttpResponse.json(editJobPostFormResponse);
     }
   ),
   http.delete(
