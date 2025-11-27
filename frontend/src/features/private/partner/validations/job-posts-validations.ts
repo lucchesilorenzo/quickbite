@@ -41,11 +41,14 @@ export const addJobPostFormSchema = z.object({
 
 export const editJobPostFormSchema = z.object({
   ...addJobPostFormSchema.shape,
-  status: z.enum(
-    jobPostStatuses.map((status) => status.value),
-    {
-      error: "The option you selected is not valid.",
-    },
+  status: z.preprocess(
+    (value) => (value === "" ? undefined : value),
+    z.enum(
+      jobPostStatuses.map((status) => status.value),
+      {
+        error: "The option you selected is not valid.",
+      },
+    ),
   ),
 });
 
