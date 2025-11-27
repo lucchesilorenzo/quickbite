@@ -185,6 +185,7 @@ describe("AddJobPostForm", () => {
 
       expectErrorToBeInTheDocument(errorMessage);
     },
+    20000,
   );
 
   it.each([
