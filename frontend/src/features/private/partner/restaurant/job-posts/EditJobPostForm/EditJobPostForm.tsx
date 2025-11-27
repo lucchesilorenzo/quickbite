@@ -11,11 +11,12 @@ import {
   TextField,
 } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
-import { employmentTypes } from "@partner/lib/constants/job-posts";
+import { useUpdateJobPost } from "@partner/hooks/restaurants/job-posts/useUpdateJobPost";
 import {
-  GetJobPostResponse,
-  UpdateJobPostPayload,
-} from "@partner/types/job-posts/job-posts.api-types";
+  employmentTypes,
+  jobPostStatuses,
+} from "@partner/lib/constants/job-posts";
+import { GetJobPostResponse } from "@partner/types/job-posts/job-posts.api-types";
 import {
   TEditJobPostFormSchema,
   editJobPostFormSchema,
@@ -37,32 +38,31 @@ export default function EditJobPostForm({
 }: EditJobPostFormProps) {
   const { restaurant } = useRestaurant();
 
-  // const { mutate: updateJobPost, isPending: isUpdating } = useUpdateJobPost(
-  //   restaurant.id,
-  //   setOpenEditJobPostDialog,
-  // );
+  const { mutate: updateJobPost, isPending: isUpdating } = useUpdateJobPost({
+    restaurantId: restaurant.id,
+    jobPostId: jobPost?.id,
+    setOpenEditJobPostDialog,
+  });
 
   const {
     handleSubmit,
+    setValue,
     control,
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(editJobPostFormSchema),
     defaultValues: {
       title: jobPost?.title || "",
-      description: { html: jobPost?.description || "", text: "" },
+      description_html: jobPost?.description_html || "",
+      description_text: jobPost?.description_text || "",
       employment_type: jobPost?.employment_type || "",
       salary: jobPost?.salary?.toString() || "",
+      status: jobPost?.status || "",
     },
   });
 
   function onSubmit(data: TEditJobPostFormSchema) {
-    const payload: UpdateJobPostPayload = {
-      ...data,
-      description: data.description.html,
-    };
-
-    // updateJobPost(payload);
+    updateJobPost(data);
   }
 
   return (
@@ -96,13 +96,14 @@ export default function EditJobPostForm({
         />
 
         <Controller
-          name="description"
+          name="description_html"
           control={control}
           render={({ field }) => (
             <JobPostEditor
-              value={field.value.html}
+              value={field.value}
               onChange={field.onChange}
-              descriptionError={errors.description?.text?.message}
+              descriptionError={errors.description_text?.message}
+              setValue={setValue}
             />
           )}
         />
@@ -166,11 +167,40 @@ export default function EditJobPostForm({
             />
           )}
         />
+
+        <Controller
+          name="status"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth error={!!errors.status} required>
+              <InputLabel id="status-label">Status</InputLabel>
+
+              <Select
+                {...field}
+                labelId="status-label"
+                id="status"
+                label="Status"
+              >
+                {jobPostStatuses.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+
+              <Box sx={{ mt: 1 }}>
+                {errors.status?.message && (
+                  <FormHelperTextError message={errors.status.message} />
+                )}
+              </Box>
+            </FormControl>
+          )}
+        />
       </Stack>
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isUpdating}
         loadingIndicator="Editing..."
         variant="contained"
       >
