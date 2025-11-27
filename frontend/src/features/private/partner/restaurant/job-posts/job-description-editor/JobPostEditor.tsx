@@ -41,6 +41,11 @@ export default function JobPostEditor({
   return (
     <Box>
       <RichTextEditor
+        editorProps={{
+          attributes: {
+            spellcheck: "false",
+          },
+        }}
         ref={rteRef}
         extensions={[
           StarterKit,
