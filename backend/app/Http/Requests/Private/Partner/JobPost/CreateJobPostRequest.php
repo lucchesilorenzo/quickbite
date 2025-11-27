@@ -27,7 +27,8 @@ class CreateJobPostRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'min:1', 'max:50'],
-            'description' => ['required', 'string', 'min:1'],
+            'description_html' => ['required', 'string', 'min:1'],
+            'description_text' => ['required', 'string', 'min:1', 'max:2000'],
             'employment_type' => ['required', Rule::enum(EmploymentType::class)],
             'salary' => ['nullable', 'numeric', 'min:10000', 'max:1000000'],
         ];
