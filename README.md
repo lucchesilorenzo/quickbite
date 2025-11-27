@@ -45,6 +45,7 @@
 - Access customer reviews and overall ratings.
 - Gain insights with detailed analytics.
 - Receive real-time notifications for new orders and reviews.
+- Job post management system for hiring riders
 
 ### 🛵 Rider (coming soon)
 
@@ -94,6 +95,7 @@
 - [React Leaflet](https://react-leaflet.js.org/) for interactive maps.
 - [React PDF](https://react-pdf.org/) for PDF generation.
 - [dnd kit](https://dndkit.com/) for drag and drop functionality.
+- [MUI TipTap](https://github.com/sjdemartini/mui-tiptap) for rich text editor.
 
 ---
 
@@ -220,6 +222,8 @@ For detailed information about the database schema, models, and relationships, s
 
 ## Roadmap
 
+- OAuth integration for social media login.
+- Reset password functionality.
 - Integrate Stripe for payment processing.
 - Improve user experience and design.
 
