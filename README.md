@@ -225,6 +225,7 @@ For detailed information about the database schema, models, and relationships, s
 - OAuth integration for social media login.
 - Reset password functionality.
 - Integrate Stripe for payment processing.
+- Add more tests.
 - Improve user experience and design.
 
 ## License
