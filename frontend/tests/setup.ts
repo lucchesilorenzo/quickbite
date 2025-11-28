@@ -5,6 +5,12 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
+const ignoredMessages = ["Could not parse CSS stylesheet"];
+
+vi.spyOn(console, "error").mockImplementation((message) => {
+  if (ignoredMessages.some((v) => message.includes(v))) return;
+});
+
 beforeEach(() => {
   vi.clearAllMocks();
 });

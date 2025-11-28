@@ -10,6 +10,18 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
+    server: {
+      deps: {
+        inline: [
+          "@mui/material",
+          "@mui/system",
+          "@mui/styled-engine",
+          "@mui/icons-material",
+          "@mui/x-date-pickers",
+          "@mui/x-data-grid",
+        ],
+      },
+    },
     setupFiles: "./tests/setup.ts",
   },
   resolve: {
