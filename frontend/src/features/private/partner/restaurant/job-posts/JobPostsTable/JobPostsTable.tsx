@@ -17,10 +17,10 @@ import { useGetJobPosts } from "@partner/hooks/restaurants/job-posts/useGetJobPo
 import { jobPostsDefaults } from "@partner/lib/query-defaults";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import AddJobPostDialog from "./AddJobPostDialog";
-import DeleteJobPostDialog from "./DeleteJobPostDialog";
-import DeleteJobPostsDialog from "./DeleteJobPostsDialog";
-import EditJobPostDialog from "./EditJobPostDialog";
+import AddJobPostDialog from "../AddJobPostDialog";
+import DeleteJobPostDialog from "../DeleteJobPostDialog";
+import DeleteJobPostsDialog from "../DeleteJobPostsDialog";
+import EditJobPostDialog from "../EditJobPostDialog";
 
 export default function JobPostsTable() {
   const [openAddJobPostDialog, setOpenAddJobPostDialog] = useState(false);
@@ -94,6 +94,7 @@ export default function JobPostsTable() {
       renderCell: ({ row }) => (
         <>
           <IconButton
+            aria-label="edit"
             size="small"
             color="primary"
             onClick={() => {
@@ -105,6 +106,7 @@ export default function JobPostsTable() {
           </IconButton>
 
           <IconButton
+            aria-label="delete"
             size="small"
             color="error"
             onClick={() => {
@@ -158,6 +160,7 @@ export default function JobPostsTable() {
 
       <Stack>
         <DataGrid
+          aria-label="job-posts-table"
           sx={{
             "& .MuiDataGrid-cell:focus": { outline: "none" },
             "& .MuiDataGrid-cell:focus-within": { outline: "none" },
