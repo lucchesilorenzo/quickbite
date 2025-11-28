@@ -19,7 +19,14 @@ export const jobPost: GetJobPostResponse = {
 
 export const jobPosts: GetJobPostsResponse = {
   current_page: 1,
-  data: [{ ...jobPost, job_applications_count: 1 }],
+  data: [
+    { ...jobPost, job_applications_count: 1 },
+    {
+      ...jobPost,
+      id: "019a9227-53ad-7271-90bd-2e88ab8ca909",
+      job_applications_count: 0,
+    },
+  ],
   first_page_url:
     "http://localhost:8000/api/partner/restaurants/a0611650-d7f4-481f-ac39-de9c8d1073ed/job-posts?page=1",
   from: 1,
