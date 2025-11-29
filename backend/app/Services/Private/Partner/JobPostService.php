@@ -16,7 +16,9 @@ class JobPostService
         $sortBy = isset($data['sort_by']) ? json_decode($data['sort_by'], true) : null;
         $search = $data['search'] ?? null;
 
-        $query = $restaurant->jobPosts()->withCount('jobApplications');
+        $query = $restaurant
+            ->jobPosts()
+            ->withCount('jobApplications');
 
         // Filtering
         if ($filter && isset($filter['field'], $filter['operator'], $filter['value'])) {

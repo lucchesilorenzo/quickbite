@@ -77,9 +77,12 @@ export default function JobPostsTable() {
       ),
     },
     {
-      field: "applicationsCount",
+      field: "applications_count",
       headerName: "Applications count",
       width: 200,
+      filterable: false,
+      sortable: false,
+      disableExport: true,
     },
     {
       field: "actions",
@@ -125,7 +128,7 @@ export default function JobPostsTable() {
     id: jobPost.id,
     title: jobPost.title,
     status: jobPost.status,
-    applicationsCount: jobPost.job_applications_count,
+    applications_count: jobPost.job_applications_count,
   }));
 
   if (jobPostsError) {
