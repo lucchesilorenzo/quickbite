@@ -54,6 +54,8 @@ class JobPostService
         // Sorting
         if ($sortBy && isset($sortBy['field'], $sortBy['sort'])) {
             $query->orderBy($sortBy['field'], $sortBy['sort']);
+        } else {
+            $query->oldest();
         }
 
         return $query->paginate($data['page_size']);
