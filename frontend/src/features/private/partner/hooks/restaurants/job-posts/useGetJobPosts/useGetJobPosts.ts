@@ -6,7 +6,7 @@ import { fetchData } from "@/lib/api-client";
 
 export function useGetJobPosts(
   restaurantId: string,
-  page: number = 1,
+  page: number,
   pageSize: number,
   sortBy: GridSortModel,
   filters: GridFilterModel,

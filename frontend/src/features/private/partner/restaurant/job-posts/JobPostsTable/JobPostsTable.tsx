@@ -52,7 +52,7 @@ export default function JobPostsTable() {
     error: jobPostsError,
   } = useGetJobPosts(
     restaurant.id,
-    paginationModel.page,
+    paginationModel.page + 1,
     paginationModel.pageSize,
     sortModel,
     filterModel,
@@ -136,7 +136,7 @@ export default function JobPostsTable() {
   }
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ my: 2 }}>
       <Stack direction="row" spacing={2}>
         <Button
           variant="contained"
