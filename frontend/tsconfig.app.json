@@ -25,8 +25,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "tests": ["./tests/*"],
       "@/*": ["./src/*"],
+      "@tests/*": ["./tests/*"],
       "@public/*": ["./src/features/public/*"],
       "@private/*": ["./src/features/private/*"],
       "@customer/*": ["./src/features/private/customer/*"],

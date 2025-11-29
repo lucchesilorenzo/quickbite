@@ -170,6 +170,16 @@ class Restaurant extends Model
     }
 
     /**
+     * Get the restaurant's job posts.
+     *
+     * @return HasMany<JobPost, $this>
+     */
+    public function jobPosts(): HasMany
+    {
+        return $this->hasMany(JobPost::class);
+    }
+
+    /**
      * Get the full address attribute.
      */
     protected function fullAddress(): Attribute

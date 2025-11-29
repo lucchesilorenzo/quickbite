@@ -7,6 +7,7 @@ export type BaseOffsetPagination = {
   links: {
     url: string | null;
     label: string;
+    page: number | null;
     active: boolean;
   }[];
   next_page_url: string | null;

@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { customRender } from "@tests/utils/custom-render";
+import { mockAuthState } from "@tests/utils/mock-auth-state";
 import { MemoryRouter, useNavigate } from "react-router-dom";
-import { customRender } from "tests/utils/custom-render";
-import { mockAuthState } from "tests/utils/mock-auth-state";
 
 import Header from "./Header";
 

@@ -1,0 +1,129 @@
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
+import { screen, waitForElementToBeRemoved } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
+import { customRender } from "@tests/utils/custom-render";
+import { simulateDelay, simulateError } from "@tests/utils/msw";
+import { useNotifications } from "@toolpad/core/useNotifications";
+
+import EditJobPostDialog from "./EditJobPostDialog";
+
+import env from "@/lib/env";
+import { baseOffsetPaginationDefaults } from "@/lib/query-defaults";
+
+vi.mock("@partner/contexts/RestaurantProvider", () => ({
+  useRestaurant: vi.fn(),
+}));
+
+vi.mock("../EditJobPostForm", () => ({
+  default: () => <div data-testid="edit-job-post-form" />,
+}));
+
+describe("EditJobPostDialog", () => {
+  function renderComponent(open: boolean) {
+    const user = userEvent.setup();
+
+    const mockSetOpenJobPostDialog = vi.fn();
+
+    vi.mocked(useRestaurant).mockReturnValue({
+      restaurant,
+      partnerNotifications: {
+        notifications: baseOffsetPaginationDefaults,
+        unread_count: 0,
+      },
+      page: 1,
+      setPage: vi.fn(),
+    });
+
+    const { container } = customRender(
+      <EditJobPostDialog
+        jobPostId="1"
+        openEditJobPostDialog={open}
+        setOpenEditJobPostDialog={mockSetOpenJobPostDialog}
+      />,
+    );
+
+    return {
+      user,
+      container,
+      getDialog: () => screen.queryByRole("dialog"),
+      getCloseButton: () => screen.queryByRole("button", { name: /close/i }),
+      mockSetOpenJobPostDialog,
+    };
+  }
+
+  it("should render the dialog when openEditJobPostDialog is true", () => {
+    const { getDialog } = renderComponent(true);
+
+    expect(getDialog()).toBeInTheDocument();
+  });
+
+  it("should render the main dialog structure", () => {
+    const { getCloseButton } = renderComponent(true);
+
+    expect(
+      screen.getByRole("heading", { name: /edit job post/i }),
+    ).toBeInTheDocument();
+    expect(getCloseButton()).toBeInTheDocument();
+  });
+
+  it("should render the spinner when fetching job post", () => {
+    simulateDelay(
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/1`,
+    );
+    renderComponent(true);
+
+    expect(screen.getByRole("progressbar")).toBeInTheDocument();
+  });
+
+  it("should render the edit job post form", async () => {
+    renderComponent(true);
+
+    await waitForElementToBeRemoved(() => screen.queryByRole("progressbar"));
+
+    expect(screen.getByTestId("edit-job-post-form")).toBeInTheDocument();
+  });
+
+  it("should display a toast if job post fetching fails", async () => {
+    const mockShow = vi.fn();
+
+    vi.mocked(useNotifications).mockReturnValue({
+      show: mockShow,
+      close: vi.fn(),
+    });
+
+    simulateError(
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/1`,
+    );
+
+    const { container } = renderComponent(true);
+
+    await waitForElementToBeRemoved(() => screen.queryByRole("progressbar"));
+
+    expect(container).toBeEmptyDOMElement();
+    expect(mockShow).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({
+        key: "partner-get-job-post-error",
+        severity: "error",
+      }),
+    );
+    expect(mockShow).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call setOpenEditJobPostDialog(false) when clicking close button", async () => {
+    const { user, getCloseButton, mockSetOpenJobPostDialog } =
+      renderComponent(true);
+
+    await user.click(getCloseButton()!);
+
+    expect(mockSetOpenJobPostDialog).toHaveBeenCalledWith(false);
+    expect(mockSetOpenJobPostDialog).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not render the dialog when openEditJobPostDialog is false", () => {
+    const { getDialog } = renderComponent(false);
+
+    expect(getDialog()).not.toBeInTheDocument();
+  });
+});

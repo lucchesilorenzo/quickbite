@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from "@testing-library/react";
+import TestQueryWrapper from "@tests/TestQueryWrapper";
+import { registerForm } from "@tests/mocks/data/private/rider/forms/register";
+import { simulateError } from "@tests/utils/msw";
 import { useNotifications } from "@toolpad/core/useNotifications";
-import TestQueryWrapper from "tests/TestQueryWrapper";
-import { registerForm } from "tests/mocks/data/forms/rider/register";
-import { simulateError } from "tests/utils/msw";
 
 import { useRegister } from "./useRegister";
 
@@ -58,12 +58,12 @@ describe("useRegister", () => {
     );
   });
 
-  it("should not show notification on success", async () => {
+  it("should not show notification on success", () => {
     const { result } = renderHook(() => useRegister(), {
       wrapper: TestQueryWrapper,
     });
 
-    await result.current.mutateAsync(registerForm);
+    result.current.mutate(registerForm);
 
     expect(mockShow).not.toHaveBeenCalled();
   });

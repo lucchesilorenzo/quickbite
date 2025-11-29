@@ -102,7 +102,9 @@ class RestaurantController extends Controller
                 'message' => 'Restaurant approved status updated successfully.',
             ], 200);
         } catch (RestaurantApprovalException $e) {
-            return response()->json([], $e->getCode());
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not update restaurant approved status.',

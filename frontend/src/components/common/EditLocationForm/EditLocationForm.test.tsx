@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { address } from "@tests/mocks/data/public/addresses";
+import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
-import { address } from "tests/mocks/data/addresses";
-import { simulateError, simulateInfiniteLoading } from "tests/utils/msw";
 
 import EditLocationForm from "./EditLocationForm";
 

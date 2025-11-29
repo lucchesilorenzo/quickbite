@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
-import { order } from "tests/mocks/data/orders";
-import { customRender } from "tests/utils/custom-render";
+import { order } from "@tests/mocks/data/private/orders";
+import { customRender } from "@tests/utils/custom-render";
 
 import ViewOrderReceipt from "./ViewOrderReceipt";
 

@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse } from "msw";
-import { server } from "tests/mocks/server";
+import { server } from "@tests/mocks/server";
 
 type HttpMethod = "get" | "post" | "patch" | "delete";
 
@@ -7,7 +7,12 @@ export function simulateInfiniteLoading(
   endpoint: string,
   method: HttpMethod = "get"
 ) {
-  server.use(http[method](endpoint, () => new Promise(() => {})));
+  server.use(
+    http[method](endpoint, async () => {
+      await delay("infinite");
+      return HttpResponse.json([]);
+    })
+  );
 }
 
 export function simulateDelay(endpoint: string, method: HttpMethod = "get") {

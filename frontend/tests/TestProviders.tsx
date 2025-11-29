@@ -8,16 +8,16 @@ type TestProvidersProps = {
   children: React.ReactNode;
 };
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { retry: false },
-    mutations: { retry: false },
-  },
-});
-
-const theme = createTheme();
-
 export default function TestProviders({ children }: TestProvidersProps) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+      mutations: { retry: false },
+    },
+  });
+
+  const theme = createTheme();
+
   return (
     <QueryClientProvider client={queryClient}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enGB}>

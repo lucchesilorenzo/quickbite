@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { address } from "tests/mocks/data/addresses";
-import { customRender } from "tests/utils/custom-render";
+import { address } from "@tests/mocks/data/public/addresses";
+import { customRender } from "@tests/utils/custom-render";
 
 import EditLocationDialog from "./EditLocationDialog";
 
@@ -13,7 +13,7 @@ vi.mock("@/contexts/AddressProvider", () => ({
 }));
 
 vi.mock("../EditLocationForm", () => ({
-  default: () => <form role="form">EditLocationForm</form>,
+  default: () => <div data-testid="edit-location-form" />,
 }));
 
 describe("EditLocationDialog", () => {
@@ -54,7 +54,7 @@ describe("EditLocationDialog", () => {
     expect(screen.getByRole("heading", { name: /help/i })).toBeInTheDocument();
     expect(getCloseButton()).toBeInTheDocument();
     expect(screen.getByText(/accurate/i)).toBeInTheDocument();
-    expect(screen.getByRole("form")).toBeInTheDocument();
+    expect(screen.getByTestId("edit-location-form")).toBeInTheDocument();
   });
 
   it("should display the current address display name when available", () => {

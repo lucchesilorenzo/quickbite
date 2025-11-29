@@ -2,6 +2,7 @@ import { Navigate, Route } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PartnerDashboardPage from "./private/partner/dashboard/PartnerDashboardPage";
+import PartnerJobPostsPage from "./private/partner/job-posts/PartnerJobPostsPage";
 import PartnerMenuCategoriesPage from "./private/partner/menu/PartnerMenuCategoriesPage";
 import PartnerMenuEditPage from "./private/partner/menu/PartnerMenuEditPage";
 import PartnerMenuPage from "./private/partner/menu/PartnerMenuPage";
@@ -71,6 +72,7 @@ export const PartnerRoutes = [
       <Route path="offers" element={<PartnerOffersPage />} />
       <Route path="reviews" element={<PartnerReviewsPage />} />
       <Route path="stats" element={<PartnerStatsPage />} />
+      <Route path="job-posts" element={<PartnerJobPostsPage />} />
 
       <Route path="notifications" element={<PartnerNotificationsPage />} />
     </Route>

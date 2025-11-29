@@ -1,8 +1,8 @@
 import { OrderStatusWithAll } from "@private/types/order-types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { customRender } from "@tests/utils/custom-render";
 import { useSearchParams } from "react-router-dom";
-import { customRender } from "tests/utils/custom-render";
 
 import CustomPagination from "./CustomPagination";
 

@@ -63,7 +63,7 @@ class User extends Authenticatable
     public function restaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
-            ->withPivot(['role', 'contract_start', 'contract_end', 'is_active']);
+            ->withPivot('role', 'is_active');
     }
 
     /**
@@ -143,7 +143,17 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Restaurant::class)
             ->wherePivot('role', RestaurantRole::RIDER)
-            ->withPivot('contract_start', 'contract_end', 'is_active');
+            ->withPivot('is_active');
+    }
+
+    /**
+     * Get the user's job applications.
+     *
+     * @return HasMany<JobApplication, $this>
+     */
+    public function jobApplications(): HasMany
+    {
+        return $this->hasMany(JobApplication::class);
     }
 
     /**

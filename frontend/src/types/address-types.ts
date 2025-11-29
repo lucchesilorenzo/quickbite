@@ -1,4 +1,4 @@
-export type AddressBase = {
+export type BaseAddress = {
   name: string;
   house_number?: string;
   road?: string;
@@ -31,7 +31,7 @@ export type Address = {
   display_name: string;
   display_place: string;
   display_address: string;
-  address: AddressBase;
+  address: BaseAddress;
   boundingbox: string[];
 };
 

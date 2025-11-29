@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { customRender } from "tests/utils/custom-render";
+import { customRender } from "@tests/utils/custom-render";
 
 import SectionHeader from "./SectionHeader";
 

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { orderItem } from "tests/mocks/data/orders";
+import { orderItem } from "@tests/mocks/data/private/orders";
 
 import ViewOrderItem from "./ViewOrderItem";
 

@@ -1,0 +1,35 @@
+import { PartnerRestaurantDetail } from "@partner/types/restaurant-types";
+import { deliveryDays } from "../../public/delivery-days";
+import { category } from "../../public/categories";
+
+export const restaurant: PartnerRestaurantDetail = {
+  id: "a0611650-d7f4-481f-ac39-de9c8d1073ed",
+  name: "McLaughlin, Buckridge and Anderson",
+  slug: "mclaughlin-buckridge-and-anderson-a0611650-d7f4-481f-ac39-de9c8d1073ed",
+  description: "Adipisci nulla similique iure laudantium voluptatem ab.",
+  street_address: "Via Santa Maria",
+  building_number: "2",
+  postcode: "56126",
+  city: "Pisa",
+  state: "Tuscany",
+  country: "Italy",
+  latitude: 43.710476,
+  longitude: 10.404822,
+  phone_number: "+39 323 265 8437",
+  email: "frederik.nader@example.com",
+  min_amount: 20,
+  delivery_fee: 0,
+  service_fee: 0.75,
+  min_delivery_time: 10,
+  max_delivery_time: 30,
+  logo: "/storage/restaurants/logos/default/logo1.jpg",
+  cover: "/storage/restaurants/covers/default/cover1.jpg",
+  is_approved: true,
+  force_close: false,
+  created_at: "2025-11-17T14:07:46.000000Z",
+  updated_at: "2025-11-17T14:07:46.000000Z",
+  full_address: "Via Santa Maria 2, 56126 Pisa, Tuscany",
+  is_open: true,
+  categories: [category],
+  delivery_days: deliveryDays,
+};

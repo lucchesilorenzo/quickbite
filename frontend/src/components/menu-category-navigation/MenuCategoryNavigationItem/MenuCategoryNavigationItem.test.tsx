@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { menuCategories } from "tests/mocks/data/menu";
-import { mockAuthState } from "tests/utils/mock-auth-state";
+import { menuCategories } from "@tests/mocks/data/public/menu";
+import { mockAuthState } from "@tests/utils/mock-auth-state";
 
 import MenuCategoryNavigationItem from "./MenuCategoryNavigationItem";
 

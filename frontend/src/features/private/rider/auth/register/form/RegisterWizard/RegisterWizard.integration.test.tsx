@@ -1,10 +1,10 @@
 import { TRegisterFormSchema } from "@rider/validations/auth-validations";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { registerFormWithoutPasswordAndConfirmation } from "@tests/mocks/data/private/rider/forms/register";
+import { customRender } from "@tests/utils/custom-render";
+import { simulateInfiniteLoading } from "@tests/utils/msw";
 import { BrowserRouter } from "react-router-dom";
-import { registerFormWithoutPasswordAndConfirmation } from "tests/mocks/data/forms/rider/register";
-import { customRender } from "tests/utils/custom-render";
-import { simulateInfiniteLoading } from "tests/utils/msw";
 
 import RegisterWizard from "./RegisterWizard";
 
