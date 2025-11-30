@@ -140,6 +140,10 @@ class JobPostController extends Controller
             return response()->json([
                 'message' => 'Job posts deleted successfully.',
             ], 200);
+        } catch (JobPostHasApplicationsException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not delete job posts.',
