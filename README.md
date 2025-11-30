@@ -45,7 +45,7 @@
 - Access customer reviews and overall ratings.
 - Gain insights with detailed analytics.
 - Receive real-time notifications for new orders and reviews.
-- Job post management system for hiring riders
+- Job post management system for hiring riders.
 
 ### 🛵 Rider (coming soon)
 
