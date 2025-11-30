@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
+use App\Exceptions\Private\Partner\JobPostHasApplicationsException;
 use App\Models\JobPost;
 use App\Models\Restaurant;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -84,6 +85,10 @@ class JobPostService
 
     public function deleteJobPost(JobPost $jobPost): void
     {
+        if ($jobPost->jobApplications()->count() <= 0) {
+            throw new JobPostHasApplicationsException;
+        }
+
         $jobPost->delete();
     }
 
