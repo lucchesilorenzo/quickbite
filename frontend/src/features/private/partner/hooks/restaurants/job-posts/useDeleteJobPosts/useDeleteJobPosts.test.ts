@@ -62,6 +62,19 @@ describe("useDeleteJobPosts", () => {
     );
   });
 
+  it("should call setOpenDeleteJobPostsDialog(false) if there is no error", async () => {
+    const { result } = renderHook(() => useDeleteJobPosts(options), {
+      wrapper: TestQueryWrapper,
+    });
+
+    result.current.mutate();
+
+    await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
+
+    expect(mockSetOpenDeleteJobPostsDialog).toHaveBeenCalledWith(false);
+    expect(mockSetOpenDeleteJobPostsDialog).toHaveBeenCalledTimes(1);
+  });
+
   it("should show notification on success", async () => {
     const { result } = renderHook(() => useDeleteJobPosts(options), {
       wrapper: TestQueryWrapper,

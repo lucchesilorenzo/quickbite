@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
+use App\Exceptions\Private\Partner\JobPostHasApplicationsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\JobPost\CreateJobPostRequest;
 use App\Http\Requests\Private\Partner\JobPost\DeleteJobPostsRequest;
@@ -114,6 +115,10 @@ class JobPostController extends Controller
             return response()->json([
                 'message' => 'Job post deleted successfully.',
             ], 200);
+        } catch (JobPostHasApplicationsException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not delete job post.',
@@ -135,6 +140,10 @@ class JobPostController extends Controller
             return response()->json([
                 'message' => 'Job posts deleted successfully.',
             ], 200);
+        } catch (JobPostHasApplicationsException $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
                 'message' => 'Could not delete job posts.',

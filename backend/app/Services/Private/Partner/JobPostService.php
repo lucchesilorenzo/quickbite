@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
+use App\Exceptions\Private\Partner\JobPostHasApplicationsException;
 use App\Models\JobPost;
 use App\Models\Restaurant;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -16,9 +17,7 @@ class JobPostService
         $sortBy = isset($data['sort_by']) ? json_decode($data['sort_by'], true) : null;
         $search = $data['search'] ?? null;
 
-        $query = $restaurant
-            ->jobPosts()
-            ->withCount('jobApplications');
+        $query = $restaurant->jobPosts()->withCount('jobApplications');
 
         // Filtering
         if ($filter && isset($filter['field'], $filter['operator'], $filter['value'])) {
@@ -57,7 +56,7 @@ class JobPostService
         if ($sortBy && isset($sortBy['field'], $sortBy['sort'])) {
             $query->orderBy($sortBy['field'], $sortBy['sort']);
         } else {
-            $query->oldest();
+            $query->oldest('created_at');
         }
 
         return $query->paginate($data['page_size']);
@@ -84,11 +83,27 @@ class JobPostService
 
     public function deleteJobPost(JobPost $jobPost): void
     {
+        if ($jobPost->jobApplications()->count() > 0) {
+            throw new JobPostHasApplicationsException;
+        }
+
         $jobPost->delete();
     }
 
     public function deleteJobPosts(array $data): void
     {
+        $jobPostsWithApplications = JobPost::query()
+            ->whereIn('id', $data['ids'])
+            ->whereHas('jobApplications')
+            ->exists();
+
+        if ($jobPostsWithApplications) {
+            throw new JobPostHasApplicationsException(
+                'Some job posts cannot be deleted because they have applications.',
+                400
+            );
+        }
+
         JobPost::query()
             ->whereIn('id', $data['ids'])
             ->delete();

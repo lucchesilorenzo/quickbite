@@ -4,10 +4,17 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { deleteData } from "@/lib/api-client";
 import { ApiResponse } from "@/types/api-types";
 
-export function useDeleteJobPost(
-  restaurantId: string,
-  jobPostId: string | null,
-) {
+type UseDeleteJobPostOptions = {
+  restaurantId: string;
+  jobPostId: string | null;
+  setOpenDeleteJobPostDialog: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function useDeleteJobPost({
+  restaurantId,
+  jobPostId,
+  setOpenDeleteJobPostDialog,
+}: UseDeleteJobPostOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
@@ -18,6 +25,8 @@ export function useDeleteJobPost(
       queryClient.invalidateQueries({
         queryKey: ["partner-job-posts", restaurantId],
       });
+
+      setOpenDeleteJobPostDialog(false);
 
       notifications.show(response.message, {
         key: "partner-delete-job-post-success",
