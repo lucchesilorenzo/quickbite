@@ -85,7 +85,7 @@ class JobPostService
 
     public function deleteJobPost(JobPost $jobPost): void
     {
-        if ($jobPost->jobApplications()->count() <= 0) {
+        if ($jobPost->jobApplications()->count() > 0) {
             throw new JobPostHasApplicationsException;
         }
 
@@ -94,6 +94,18 @@ class JobPostService
 
     public function deleteJobPosts(array $data): void
     {
+        $jobPostsWithApplications = JobPost::query()
+            ->whereIn('id', $data['ids'])
+            ->whereHas('jobApplications')
+            ->exists();
+
+        if ($jobPostsWithApplications) {
+            throw new JobPostHasApplicationsException(
+                'Some job posts cannot be deleted because they have applications.',
+                400
+            );
+        }
+
         JobPost::query()
             ->whereIn('id', $data['ids'])
             ->delete();
