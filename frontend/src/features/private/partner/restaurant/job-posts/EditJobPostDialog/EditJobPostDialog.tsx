@@ -38,6 +38,7 @@ export default function EditJobPostDialog({
   } = useGetJobPost({
     restaurantId: restaurant.id,
     jobPostId,
+    enabled: openEditJobPostDialog,
   });
 
   if (jobPostError) {
