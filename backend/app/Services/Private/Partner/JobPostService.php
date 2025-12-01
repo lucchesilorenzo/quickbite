@@ -17,9 +17,7 @@ class JobPostService
         $sortBy = isset($data['sort_by']) ? json_decode($data['sort_by'], true) : null;
         $search = $data['search'] ?? null;
 
-        $query = $restaurant
-            ->jobPosts()
-            ->withCount('jobApplications');
+        $query = $restaurant->jobPosts()->withCount('jobApplications');
 
         // Filtering
         if ($filter && isset($filter['field'], $filter['operator'], $filter['value'])) {
@@ -58,7 +56,7 @@ class JobPostService
         if ($sortBy && isset($sortBy['field'], $sortBy['sort'])) {
             $query->orderBy($sortBy['field'], $sortBy['sort']);
         } else {
-            $query->oldest();
+            $query->oldest('created_at');
         }
 
         return $query->paginate($data['page_size']);
