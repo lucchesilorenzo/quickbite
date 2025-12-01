@@ -11,6 +11,7 @@ describe("useGetJobPost", () => {
   const options = {
     restaurantId: "1",
     jobPostId: "1",
+    enabled: true,
   };
 
   it("should fetch data and return it", async () => {
