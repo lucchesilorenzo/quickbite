@@ -30,8 +30,8 @@ class AuthController extends Controller
             );
 
             return response()->json([
-                'message' => 'Customer registered successfully.',
                 'token' => $token,
+                'message' => 'Customer registered successfully.',
             ], 201);
         } catch (Throwable $e) {
             if ($e->getCode() === '23505') {

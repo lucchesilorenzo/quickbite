@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { deleteData } from "@/lib/api-client";
+import { ApiResponse } from "@/types/api.types";
 
 export function useDeleteMenuCategory(
   restaurantId: string,
@@ -10,7 +11,7 @@ export function useDeleteMenuCategory(
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
+  return useMutation<ApiResponse>({
     mutationFn: () =>
       deleteData(`/partner/restaurants/menu/categories/${menuCategoryId}`),
     onSuccess: (response) => {

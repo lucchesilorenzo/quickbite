@@ -1,8 +1,11 @@
+import {
+  LoginPayload,
+  LoginResponse,
+} from "@customer/types/auth/auth.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { TLoginFormSchema } from "@/features/private/customer/schemas/auth.schema";
 import { postData } from "@/lib/api-client";
 
 export function useLogin() {
@@ -10,9 +13,8 @@ export function useLogin() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation({
-    mutationFn: (data: TLoginFormSchema) =>
-      postData("/customer/auth/login", data),
+  return useMutation<LoginResponse, Error, LoginPayload>({
+    mutationFn: (data) => postData("/customer/auth/login", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       navigate("/");
