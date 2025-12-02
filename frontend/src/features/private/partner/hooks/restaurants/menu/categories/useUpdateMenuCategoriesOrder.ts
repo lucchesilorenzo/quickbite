@@ -1,7 +1,7 @@
-import { PartnerMenu } from "@partner/types/menu-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { PartnerMenu } from "@/features/private/partner/types/menu.types";
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateMenuCategoriesOrder(restaurantId: string) {

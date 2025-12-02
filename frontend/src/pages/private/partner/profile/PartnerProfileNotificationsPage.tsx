@@ -12,7 +12,7 @@ import {
   TProfileNotificationsFormSchema,
   profileNotificationsFormSchema,
 } from "@/features/private/partner/schemas/profile-notifications.schema";
-import { NotificationType } from "@/types/user-types";
+import { NotificationType } from "@/types/user.types";
 
 export default function PartnerProfileNotificationsPage() {
   useEffect(() => {

@@ -18,7 +18,7 @@ import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
-import { MenuItem } from "@/types/menu-types";
+import { MenuItem } from "@/types/menu.types";
 
 type MenuItemCardProps = {
   menuItem: MenuItem;

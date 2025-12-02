@@ -1,9 +1,10 @@
-import { Order } from "@private/types/order-types";
 import { render, screen } from "@testing-library/react";
 import { order } from "@tests/mocks/data/private/orders";
 import { vi } from "vitest";
 
 import ViewOrderFeesAndDiscounts from "./ViewOrderFeesAndDiscounts";
+
+import { Order } from "@/features/private/types/order.types";
 
 vi.mock("@/lib/utils/formatting", () => ({
   formatCurrency: (value: number) => value.toString(),

@@ -1,4 +1,4 @@
-import { Cart, CartItem } from "@/types/cart-types";
+import { Cart, CartItem } from "@/types/cart.types";
 import { restaurant } from "@tests/mocks/data/public/restaurants";
 
 export const cartItem: CartItem = {

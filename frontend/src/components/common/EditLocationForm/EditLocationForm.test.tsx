@@ -10,7 +10,7 @@ import EditLocationForm from "./EditLocationForm";
 import { useAddress } from "@/contexts/AddressProvider";
 import { generateSlug } from "@/lib/utils/formatting";
 import { TEditLocationFormSchema } from "@/schemas/location.schema";
-import { Address } from "@/types/address-types";
+import { Address } from "@/types/address.types";
 
 vi.mock("@/contexts/AddressProvider", () => ({
   useAddress: vi.fn(),

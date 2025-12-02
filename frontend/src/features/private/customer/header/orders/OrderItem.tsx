@@ -8,7 +8,6 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Order } from "@private/types/order-types";
 import { format } from "date-fns";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
@@ -17,6 +16,7 @@ import ViewOrderDialog from "./ViewOrderDialog";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { useAuth } from "@/contexts/AuthProvider";
+import { Order } from "@/features/private/types/order.types";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
 

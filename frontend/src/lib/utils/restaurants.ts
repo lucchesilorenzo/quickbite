@@ -1,8 +1,8 @@
 import { format } from "date-fns";
 
-import { Cart, RestaurantCart } from "@/types/cart-types";
-import { Offer } from "@/types/offer-types";
-import { SingleRestaurantDetail } from "@/types/restaurant-types";
+import { Cart, RestaurantCart } from "@/types/cart.types";
+import { Offer } from "@/types/offer.types";
+import { SingleRestaurantDetail } from "@/types/restaurant.types";
 
 export function getRestaurantOpeningTime(restaurant: SingleRestaurantDetail) {
   const dayName = format(new Date(), "EEEE").toLowerCase();

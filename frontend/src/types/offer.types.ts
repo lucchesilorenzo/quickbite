@@ -1,4 +1,4 @@
-import { BaseOffsetPagination } from "./pagination-types";
+import { BaseOffsetPagination } from "./pagination.types";
 
 export type Offer = {
   id: string;

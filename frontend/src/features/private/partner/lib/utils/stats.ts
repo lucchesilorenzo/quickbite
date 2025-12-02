@@ -1,5 +1,6 @@
-import { StatRange } from "@partner/types/stat-types";
 import { format, subDays } from "date-fns";
+
+import { StatRange } from "@/features/private/partner/types/stat.types";
 
 export function getComputedRangeLabel(range: StatRange) {
   const today = new Date();

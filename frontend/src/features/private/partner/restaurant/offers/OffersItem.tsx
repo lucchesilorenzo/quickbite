@@ -14,7 +14,7 @@ import DeleteOfferDialog from "./DeleteOfferDialog";
 import EditOfferDialog from "./EditOfferDialog";
 
 import { formatCurrency } from "@/lib/utils/formatting";
-import { Offer } from "@/types/offer-types";
+import { Offer } from "@/types/offer.types";
 
 type OffersItemProps = {
   offer: Offer;

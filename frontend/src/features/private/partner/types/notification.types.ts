@@ -1,8 +1,8 @@
 import {
   BaseBroadcastNotification,
   BaseDatabaseNotification,
-} from "@/types/notification-types";
-import { BaseOffsetPagination } from "@/types/pagination-types";
+} from "@/types/notification.types";
+import { BaseOffsetPagination } from "@/types/pagination.types";
 
 // === Broadcast ===
 

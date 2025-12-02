@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { deleteData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api-types";
+import { ApiResponse } from "@/types/api.types";
 
 type UseDeleteJobPostsOptions = {
   restaurantId: string;

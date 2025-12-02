@@ -1,9 +1,9 @@
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
-import { CreateOrder } from "@customer/types/order-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { useMultiCart } from "@/contexts/MultiCartProvider";
+import { CreateOrder } from "@/features/private/customer/types/order.types";
 import { postData } from "@/lib/api-client";
 
 export function useCreateOrder(restaurantId: string) {

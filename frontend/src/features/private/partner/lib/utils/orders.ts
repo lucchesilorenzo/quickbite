@@ -1,7 +1,6 @@
-import { OrderStatus } from "@private/types/order-types";
-
 import { statusTransitions } from "../constants/orders";
 
+import { OrderStatus } from "@/features/private/types/order.types";
 import { orderStatuses } from "@/lib/constants/orders";
 
 export function getDisabledOrderStatuses(currentStatus: OrderStatus) {

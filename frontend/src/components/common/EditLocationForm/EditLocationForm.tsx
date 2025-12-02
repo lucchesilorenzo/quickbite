@@ -14,7 +14,7 @@ import {
   TEditLocationFormSchema,
   editLocationFormSchema,
 } from "@/schemas/location.schema";
-import { Address } from "@/types/address-types";
+import { Address } from "@/types/address.types";
 
 type EditLocationFormProps = {
   onCloseDialogs: () => void;

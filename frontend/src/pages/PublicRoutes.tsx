@@ -14,7 +14,7 @@ import AppLayout from "@/layouts/public/AppLayout";
 import AreaLayout from "@/layouts/public/AreaLayout";
 import HomeLayout from "@/layouts/public/HomeLayout";
 import RestaurantLayout from "@/layouts/public/RestaurantLayout";
-import { Role } from "@/types/user-types";
+import { Role } from "@/types/user.types";
 
 const PUBLIC_BLOCKED_ROLES: Role[] = ["partner", "rider"];
 

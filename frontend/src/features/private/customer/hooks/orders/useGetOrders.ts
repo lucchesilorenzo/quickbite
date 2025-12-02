@@ -1,6 +1,6 @@
-import { OrderWithPagination } from "@private/types/order-types";
 import { useQuery } from "@tanstack/react-query";
 
+import { OrderWithPagination } from "@/features/private/types/order.types";
 import { fetchData } from "@/lib/api-client";
 
 export function useGetOrders(page: number = 1) {

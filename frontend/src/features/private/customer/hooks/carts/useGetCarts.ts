@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { RestaurantCart } from "@/types/cart-types";
+import { RestaurantCart } from "@/types/cart.types";
 
 export function useGetCarts(isCustomer: boolean) {
   return useQuery({

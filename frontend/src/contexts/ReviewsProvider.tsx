@@ -4,7 +4,7 @@ import { useRestaurant } from "./RestaurantProvider";
 
 import { useGetReviews } from "@/hooks/reviews/useGetReviews";
 import { reviewsDefaults } from "@/lib/query-defaults";
-import { ReviewStats } from "@/types/review-types";
+import { ReviewStats } from "@/types/review.types";
 
 type ReviewsProviderProps = {
   children: React.ReactNode;

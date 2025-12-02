@@ -1,9 +1,9 @@
 import { Grid } from "@mui/material";
 import { useStats } from "@partner/contexts/StatsProvider";
-import { Kpi } from "@partner/types/stat-types";
 
 import StatsKpiCard from "./StatsKpiCard";
 
+import { Kpi } from "@/features/private/partner/types/stat.types";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function StatsKpiCards() {

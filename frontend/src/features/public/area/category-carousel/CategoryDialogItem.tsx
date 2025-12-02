@@ -8,7 +8,7 @@ import {
 
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
-import { CategoryWithSelected } from "@/types/category-types";
+import { CategoryWithSelected } from "@/types/category.types";
 
 type CategoryDialogItemProps = {
   category: CategoryWithSelected;

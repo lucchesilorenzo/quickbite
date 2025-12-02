@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import { useAddress } from "@/contexts/AddressProvider";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 import env from "@/lib/env";
-import { Address } from "@/types/address-types";
+import { Address } from "@/types/address.types";
 
 export default function AreaPage() {
   const {

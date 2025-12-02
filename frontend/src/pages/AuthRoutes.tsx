@@ -11,7 +11,7 @@ import RiderRegisterPage from "./public/rider/RiderRegisterPage";
 import CustomerAuthLayout from "@/layouts/private/customer/CustomerAuthLayout";
 import PartnerAuthLayout from "@/layouts/private/partner/PartnerAuthLayout";
 import RiderAuthLayout from "@/layouts/private/rider/RiderAuthLayout";
-import { Role } from "@/types/user-types";
+import { Role } from "@/types/user.types";
 
 const AUTH_BLOCKED_ROLES: Role[] = ["customer", "partner", "rider"];
 

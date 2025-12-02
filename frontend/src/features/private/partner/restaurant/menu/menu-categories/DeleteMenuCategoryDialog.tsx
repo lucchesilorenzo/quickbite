@@ -10,8 +10,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useDeleteMenuCategory } from "@partner/hooks/restaurants/menu/categories/useDeleteMenuCategory";
-import { PartnerMenu } from "@partner/types/menu-types";
 import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+
+import { PartnerMenu } from "@/features/private/partner/types/menu.types";
 
 type DeleteMenuCategoryDialogProps = {
   menuCategory: PartnerMenu;

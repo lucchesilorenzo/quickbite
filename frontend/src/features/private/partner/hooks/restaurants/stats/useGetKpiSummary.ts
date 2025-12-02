@@ -1,10 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+
 import {
   KpiSummary,
   PaymentMethodFilter,
   StatRange,
-} from "@partner/types/stat-types";
-import { useQuery } from "@tanstack/react-query";
-
+} from "@/features/private/partner/types/stat.types";
 import { fetchData } from "@/lib/api-client";
 
 type GetKpiSummary = {

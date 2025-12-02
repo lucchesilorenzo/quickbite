@@ -1,7 +1,7 @@
-import { OrderStatusWithAll } from "@private/types/order-types";
-import { OrderWithPagination } from "@private/types/order-types";
 import { useQuery } from "@tanstack/react-query";
 
+import { OrderStatusWithAll } from "@/features/private/types/order.types";
+import { OrderWithPagination } from "@/features/private/types/order.types";
 import { fetchData } from "@/lib/api-client";
 
 type GetOrders = {

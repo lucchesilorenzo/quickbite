@@ -7,13 +7,13 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { PartnerMenu } from "@partner/types/menu-types";
 
 import MenuItemQuantityInCartBadge from "../MenuItemQuantityInCartBadge";
 
 import { useAuth } from "@/contexts/AuthProvider";
+import { PartnerMenu } from "@/features/private/partner/types/menu.types";
 import { isCustomer } from "@/lib/utils/auth";
-import { MenuCategory } from "@/types/menu-types";
+import { MenuCategory } from "@/types/menu.types";
 
 type MenuCategoryNavigationItemProps = {
   menuCategory: MenuCategory | PartnerMenu;

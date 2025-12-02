@@ -1,5 +1,3 @@
-import { PartnerOrder } from "@partner/types/order-types";
-import { Order } from "@private/types/order-types";
 import {
   Document,
   Image,
@@ -10,6 +8,8 @@ import {
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
 
+import { PartnerOrder } from "@/features/private/partner/types/order.types";
+import { Order } from "@/features/private/types/order.types";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type OrderReceiptToPDFProps = {

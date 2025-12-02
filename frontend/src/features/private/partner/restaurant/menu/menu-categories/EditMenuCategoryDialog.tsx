@@ -7,9 +7,10 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { PartnerMenu } from "@partner/types/menu-types";
 
 import EditMenuCategoryForm from "./EditMenuCategoryForm";
+
+import { PartnerMenu } from "@/features/private/partner/types/menu.types";
 
 type EditMenuCategoryDialogProps = {
   menuCategory: PartnerMenu;

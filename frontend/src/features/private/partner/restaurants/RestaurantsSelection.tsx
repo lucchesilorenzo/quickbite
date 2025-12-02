@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 
 import RestaurantCard from "./RestaurantCard";
 
-import { BaseRestaurant } from "@/types/restaurant-types";
+import { BaseRestaurant } from "@/types/restaurant.types";
 
 type RestaurantsSelectionProps = {
   restaurants: BaseRestaurant[];

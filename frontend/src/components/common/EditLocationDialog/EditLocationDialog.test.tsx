@@ -6,7 +6,7 @@ import { customRender } from "@tests/utils/custom-render";
 import EditLocationDialog from "./EditLocationDialog";
 
 import { useAddress } from "@/contexts/AddressProvider";
-import { Address } from "@/types/address-types";
+import { Address } from "@/types/address.types";
 
 vi.mock("@/contexts/AddressProvider", () => ({
   useAddress: vi.fn(),

@@ -8,11 +8,11 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { PartnerOrder } from "@partner/types/order-types";
 
 import ViewOrderFeesAndDiscounts from "@/components/view-order-dialog/ViewOrderFeesAndDiscounts";
 import ViewOrderItemsList from "@/components/view-order-dialog/ViewOrderItemsList";
 import ViewOrderReceipt from "@/components/view-order-dialog/ViewOrderReceipt";
+import { PartnerOrder } from "@/features/private/partner/types/order.types";
 
 type ViewOrderDialogProps = {
   order: PartnerOrder;
