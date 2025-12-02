@@ -1,14 +1,14 @@
 import { useUpdateAddressInfo } from "@customer/hooks/profile/useUpdateAddressInfo";
-import {
-  TEditAddressFormSchema,
-  editAddressFormSchema,
-} from "@customer/validations/profile-validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
+import {
+  TEditAddressFormSchema,
+  editAddressFormSchema,
+} from "@/features/private/customer/schemas/profile.schema";
 
 export default function AddressInfoEditForm() {
   const { user } = useAuth();

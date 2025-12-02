@@ -3,10 +3,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
 import HeadingBlock from "@partner/components/HeadingBlock";
-import { TRestaurantSettingsInfoFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { useFormContext } from "react-hook-form";
 
 import { useInfo } from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
+import { TRestaurantSettingsInfoFormSchema } from "@/features/private/partner/schemas/restaurant-settings.schema";
 
 export default function InfoHeader() {
   const { editMode, setEditMode } = useInfo();

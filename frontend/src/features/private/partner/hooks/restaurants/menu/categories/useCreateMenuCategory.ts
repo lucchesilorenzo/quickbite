@@ -1,7 +1,7 @@
-import { TAddMenuCategoryFormSchema } from "@partner/validations/menu-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { TAddMenuCategoryFormSchema } from "@/features/private/partner/schemas/menu.schema";
 import { postData } from "@/lib/api-client";
 
 export function useCreateMenuCategory(restaurantId: string) {

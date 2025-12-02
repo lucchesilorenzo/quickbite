@@ -11,14 +11,14 @@ import {
 } from "@mui/material";
 import { useUpdateOffer } from "@partner/hooks/restaurants/offers/useUpdateOffer";
 import { discountRates } from "@partner/lib/constants/offers";
-import {
-  TRestaurantSettingsOffersFormSchema,
-  restaurantSettingsOffersFormSchema,
-} from "@partner/validations/restaurant-settings-validations";
 import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import {
+  TRestaurantSettingsOffersFormSchema,
+  restaurantSettingsOffersFormSchema,
+} from "@/features/private/partner/schemas/restaurant-settings.schema";
 import { Offer } from "@/types/offer-types";
 
 type EditOfferFormProps = {

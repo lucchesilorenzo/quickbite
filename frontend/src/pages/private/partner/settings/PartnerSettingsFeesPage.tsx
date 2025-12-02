@@ -6,11 +6,12 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateFees } from "@partner/hooks/restaurants/settings/useUpdateFees";
 import FeesProvider from "@partner/restaurant/settings/contexts/FeesProvider";
 import FeesContainer from "@partner/restaurant/settings/fees/FeesContainer";
+import { FormProvider, useForm } from "react-hook-form";
+
 import {
   TRestaurantSettingsFeesFormSchema,
   restaurantSettingsFeesFormSchema,
-} from "@partner/validations/restaurant-settings-validations";
-import { FormProvider, useForm } from "react-hook-form";
+} from "@/features/private/partner/schemas/restaurant-settings.schema";
 
 export default function PartnerSettingsFeesPage() {
   useEffect(() => {

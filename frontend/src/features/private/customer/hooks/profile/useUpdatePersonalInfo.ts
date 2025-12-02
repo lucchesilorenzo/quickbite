@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TPersonalInfoField } from "@/features/private/customer/validations/profile-validations";
+import { TPersonalInfoField } from "@/features/private/customer/schemas/profile.schema";
 import { updateData } from "@/lib/api-client";
 
 export function useUpdatePersonalInfo() {

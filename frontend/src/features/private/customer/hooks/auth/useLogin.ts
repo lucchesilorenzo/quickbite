@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { TLoginFormSchema } from "@/features/private/customer/validations/auth-validations";
+import { TLoginFormSchema } from "@/features/private/customer/schemas/auth.schema";
 import { postData } from "@/lib/api-client";
 
 export function useLogin() {

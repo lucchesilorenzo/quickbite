@@ -1,9 +1,10 @@
-import { registerFormSchema } from "@rider/validations/auth-validations";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FormWrapper from "@tests/FormWrapper";
 
 import LocationStep from "./LocationStep";
+
+import { registerFormSchema } from "@/features/private/rider/schemas/auth.schema";
 
 describe("LocationStep", () => {
   function renderComponent() {

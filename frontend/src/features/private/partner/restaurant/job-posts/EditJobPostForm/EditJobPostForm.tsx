@@ -17,15 +17,15 @@ import {
   jobPostStatuses,
 } from "@partner/lib/constants/job-posts";
 import { GetJobPostResponse } from "@partner/types/job-posts/job-posts.api-types";
-import {
-  TEditJobPostFormSchema,
-  editJobPostFormSchema,
-} from "@partner/validations/job-posts-validations";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import {
+  TEditJobPostFormSchema,
+  editJobPostFormSchema,
+} from "@/features/private/partner/schemas/job-posts.schema";
 
 type EditJobPostFormProps = {
   jobPost?: GetJobPostResponse;

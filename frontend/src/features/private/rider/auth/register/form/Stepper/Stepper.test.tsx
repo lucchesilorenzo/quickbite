@@ -1,10 +1,11 @@
 import { steps } from "@rider/lib/constants/register-wizard/steps";
-import { registerFormSchema } from "@rider/validations/auth-validations";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FormWrapper from "@tests/FormWrapper";
 
 import Stepper from "./Stepper";
+
+import { registerFormSchema } from "@/features/private/rider/schemas/auth.schema";
 
 vi.mock("../steps/requirements/RequirementsStep", () => ({
   default: () => <div data-testid="requirements-step" />,

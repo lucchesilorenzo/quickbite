@@ -2,10 +2,6 @@ import { useState } from "react";
 
 import { useRegister } from "@customer/hooks/auth/useRegister";
 import { useCreateOrUpdateCarts } from "@customer/hooks/carts/useCreateOrUpdateCarts";
-import {
-  TRegisterFormSchema,
-  registerFormSchema,
-} from "@customer/validations/auth-validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -24,6 +20,10 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
+import {
+  TRegisterFormSchema,
+  registerFormSchema,
+} from "@/features/private/customer/schemas/auth.schema";
 import { calculatePasswordStrength } from "@/lib/utils/validation";
 
 export default function RegisterForm() {

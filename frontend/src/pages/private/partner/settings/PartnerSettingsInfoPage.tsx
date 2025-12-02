@@ -5,13 +5,13 @@ import { Box, Container } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateInfo } from "@partner/hooks/restaurants/settings/useUpdateInfo";
 import InfoContainer from "@partner/restaurant/settings/info/InfoContainer";
-import {
-  TRestaurantSettingsInfoFormSchema,
-  restaurantSettingsInfoFormSchema,
-} from "@partner/validations/restaurant-settings-validations";
 import { FormProvider, useForm } from "react-hook-form";
 
 import InfoProvider from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
+import {
+  TRestaurantSettingsInfoFormSchema,
+  restaurantSettingsInfoFormSchema,
+} from "@/features/private/partner/schemas/restaurant-settings.schema";
 
 export default function PartnerSettingsInfoPage() {
   useEffect(() => {

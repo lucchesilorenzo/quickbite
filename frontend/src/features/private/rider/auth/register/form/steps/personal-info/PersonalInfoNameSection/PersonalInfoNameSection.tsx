@@ -1,8 +1,8 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
 import { Controller, useFormContext } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import { TRegisterFormSchema } from "@/features/private/rider/schemas/auth.schema";
 
 export default function PersonalInfoNameSection() {
   const {

@@ -1,7 +1,7 @@
-import { TRestaurantSettingsFeesFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { TRestaurantSettingsFeesFormSchema } from "@/features/private/partner/schemas/restaurant-settings.schema";
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateFees(restaurantId: string) {

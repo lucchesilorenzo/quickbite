@@ -1,8 +1,4 @@
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
-import {
-  TPaymentMethodFormSchema,
-  paymentMethodFormSchema,
-} from "@customer/validations/checkout-validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import EuroOutlinedIcon from "@mui/icons-material/EuroOutlined";
@@ -11,6 +7,10 @@ import { grey } from "@mui/material/colors";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import {
+  TPaymentMethodFormSchema,
+  paymentMethodFormSchema,
+} from "@/features/private/customer/schemas/checkout.schema";
 
 const paymentMethodOptions = [
   {

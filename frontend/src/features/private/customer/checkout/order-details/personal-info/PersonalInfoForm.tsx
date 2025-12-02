@@ -1,8 +1,4 @@
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
-import {
-  TPersonalInfoFormSchema,
-  personalInfoFormSchema,
-} from "@customer/validations/checkout-validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
@@ -10,6 +6,10 @@ import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
+import {
+  TPersonalInfoFormSchema,
+  personalInfoFormSchema,
+} from "@/features/private/customer/schemas/checkout.schema";
 
 type PersonalInfoFormProps = {
   setOpenPersonalInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;

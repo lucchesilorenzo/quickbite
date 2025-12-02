@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TAddReviewFormSchema } from "@/features/private/customer/validations/review-validations";
+import { TAddReviewFormSchema } from "@/features/private/customer/schemas/review.schema";
 import { postData } from "@/lib/api-client";
 
 export function useCreateReview(restaurantSlug: string) {

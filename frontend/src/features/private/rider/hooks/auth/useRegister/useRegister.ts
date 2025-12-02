@@ -1,8 +1,8 @@
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
+import { TRegisterFormSchema } from "@/features/private/rider/schemas/auth.schema";
 import { postData } from "@/lib/api-client";
 
 export function useRegister() {

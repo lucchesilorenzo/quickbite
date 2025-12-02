@@ -10,11 +10,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
+import { TRegisterFormSchema } from "@/features/private/rider/schemas/auth.schema";
 import { calculatePasswordStrength } from "@/lib/utils/validation";
 
 export default function AccountSecurityStep() {

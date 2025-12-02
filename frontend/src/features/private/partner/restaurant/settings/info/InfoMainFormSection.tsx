@@ -16,7 +16,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { TRestaurantSettingsInfoFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -26,6 +25,7 @@ import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
 import { useInfo } from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
+import { TRestaurantSettingsInfoFormSchema } from "@/features/private/partner/schemas/restaurant-settings.schema";
 import env from "@/lib/env";
 
 export default function InfoMainFormSection() {

@@ -1,7 +1,7 @@
-import { TProfileNotificationsFormSchema } from "@partner/validations/profile-notifications-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { TProfileNotificationsFormSchema } from "@/features/private/partner/schemas/profile-notifications.schema";
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateProfileNotifications() {

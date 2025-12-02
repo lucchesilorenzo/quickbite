@@ -2,14 +2,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { useUpdateMenuCategory } from "@partner/hooks/restaurants/menu/categories/useUpdateMenuCategory";
 import { PartnerMenu } from "@partner/types/menu-types";
-import {
-  TEditMenuCategoryFormSchema,
-  editMenuCategoryFormSchema,
-} from "@partner/validations/menu-validations";
 import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import {
+  TEditMenuCategoryFormSchema,
+  editMenuCategoryFormSchema,
+} from "@/features/private/partner/schemas/menu.schema";
 
 type EditMenuCategoryFormProps = {
   menuCategory: PartnerMenu;

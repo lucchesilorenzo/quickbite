@@ -1,8 +1,4 @@
 import { useUpdatePersonalInfo } from "@customer/hooks/profile/useUpdatePersonalInfo";
-import {
-  TEditDateOfBirthFormSchema,
-  editDateOfBirthFormSchema,
-} from "@customer/validations/profile-validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -11,6 +7,10 @@ import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
+import {
+  TEditDateOfBirthFormSchema,
+  editDateOfBirthFormSchema,
+} from "@/features/private/customer/schemas/profile.schema";
 
 export default function PersonalInfoEditDateOfBirthForm() {
   const { user } = useAuth();

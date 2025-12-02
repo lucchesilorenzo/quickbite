@@ -1,7 +1,7 @@
-import { TRestaurantSettingsOffersFormSchema } from "@partner/validations/restaurant-settings-validations";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { TRestaurantSettingsOffersFormSchema } from "@/features/private/partner/schemas/restaurant-settings.schema";
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateOffer(restaurantId: string, offerId: string) {

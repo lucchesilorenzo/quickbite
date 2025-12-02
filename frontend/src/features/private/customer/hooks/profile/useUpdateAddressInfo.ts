@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TEditAddressFormSchema } from "@/features/private/customer/validations/profile-validations";
+import { TEditAddressFormSchema } from "@/features/private/customer/schemas/profile.schema";
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateAddressInfo() {

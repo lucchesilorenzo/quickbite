@@ -10,16 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useUpdateMenuItem } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItem";
-import {
-  TEditMenuItemFormSchema,
-  editMenuItemFormSchema,
-} from "@partner/validations/menu-validations";
 import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Controller, useForm } from "react-hook-form";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
+import {
+  TEditMenuItemFormSchema,
+  editMenuItemFormSchema,
+} from "@/features/private/partner/schemas/menu.schema";
 import { MenuItem } from "@/types/menu-types";
 
 type EditMenuItemFormProps = {

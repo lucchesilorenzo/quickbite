@@ -1,4 +1,4 @@
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
+import { TRegisterFormSchema } from "@/features/private/rider/schemas/auth.schema";
 
 export const steps: {
   title: string;
