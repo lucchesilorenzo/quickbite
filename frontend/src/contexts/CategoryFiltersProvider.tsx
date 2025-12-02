@@ -3,7 +3,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { useGetCategories } from "@/hooks/categories/useGetCategories";
-import { CategoryWithSelected } from "@/types/category.types";
+import { CategoryWithSelected } from "@/types/categories/category.types";
 
 type CategoryFiltersProviderProps = {
   children: React.ReactNode;
@@ -13,7 +13,8 @@ type CategoryFiltersContext = {
   visibleCategories: CategoryWithSelected[];
   allCategories: CategoryWithSelected[];
   openCategoriesDialog: boolean;
-  isLoadingCategories: boolean;
+  loadingCategories: boolean;
+  categoriesError: Error | null;
   setOpenCategoriesDialog: React.Dispatch<React.SetStateAction<boolean>>;
   handleStatusChange: (category: CategoryWithSelected) => void;
 };
@@ -25,8 +26,11 @@ const CategoryFiltersContext = createContext<CategoryFiltersContext | null>(
 export default function CategoryFiltersProvider({
   children,
 }: CategoryFiltersProviderProps) {
-  const { data: categories = [], isLoading: isLoadingCategories } =
-    useGetCategories();
+  const {
+    data: categories = [],
+    isLoading: loadingCategories,
+    error: categoriesError,
+  } = useGetCategories();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [openCategoriesDialog, setOpenCategoriesDialog] = useState(false);
@@ -77,7 +81,8 @@ export default function CategoryFiltersProvider({
         visibleCategories,
         allCategories,
         openCategoriesDialog,
-        isLoadingCategories,
+        loadingCategories,
+        categoriesError,
         setOpenCategoriesDialog,
         handleStatusChange,
       }}

@@ -1,4 +1,4 @@
-import { CategoryWithPivot } from "./category.types";
+import { CategoryWithPivot } from "./categories/category.types";
 import { DeliveryDay } from "./delivery.types";
 import { MenuCategory } from "./menu.types";
 import { Offer } from "./offer.types";

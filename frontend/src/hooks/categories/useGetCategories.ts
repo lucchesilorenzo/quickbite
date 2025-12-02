@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { Category } from "@/types/category.types";
+import { GetCategoriesResponse } from "@/types/categories/category.api.types";
 
 export function useGetCategories() {
-  return useQuery({
+  return useQuery<GetCategoriesResponse>({
     queryKey: ["categories"],
-    queryFn: (): Promise<Category[]> => fetchData("/categories"),
+    queryFn: () => fetchData("/categories"),
   });
 }
