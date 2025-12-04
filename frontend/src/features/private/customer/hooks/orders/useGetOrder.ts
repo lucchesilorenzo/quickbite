@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { Order } from "@/features/private/types/order.types";
+import { GetOrderResponse } from "../../types/order/order.api.types";
+
 import { fetchData } from "@/lib/api-client";
 
 export function useGetOrder(orderId?: string) {
-  return useQuery({
+  return useQuery<GetOrderResponse>({
     queryKey: ["customer-orders", orderId],
-    queryFn: (): Promise<Order> => fetchData(`/customer/orders/${orderId}`),
+    queryFn: () => fetchData(`/customer/orders/${orderId}`),
   });
 }

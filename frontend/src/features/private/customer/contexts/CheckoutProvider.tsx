@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetCart } from "@/features/private/customer/hooks/carts/useGetCart";
-import { CheckoutData } from "@/features/private/customer/types/order.types";
+import { CheckoutData } from "@/features/private/customer/types/order/order.types";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
 import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";

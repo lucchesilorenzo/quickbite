@@ -18,7 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
-import { CreateOrder } from "@/features/private/customer/types/order.types";
+import { CreateOrder } from "@/features/private/customer/types/order/order.types";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 

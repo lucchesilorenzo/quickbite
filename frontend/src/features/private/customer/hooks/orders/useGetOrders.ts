@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { OrderWithPagination } from "@/features/private/types/order.types";
+import { GetOrdersResponse } from "../../types/order/order.api.types";
+
 import { fetchData } from "@/lib/api-client";
 
 export function useGetOrders(page: number = 1) {
-  return useQuery({
+  return useQuery<GetOrdersResponse>({
     queryKey: ["customer-orders", page],
-    queryFn: (): Promise<OrderWithPagination> =>
-      fetchData(`/customer/orders?page=${page}`),
+    queryFn: () => fetchData(`/customer/orders?page=${page}`),
   });
 }
