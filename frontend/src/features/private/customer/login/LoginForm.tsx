@@ -2,6 +2,10 @@ import { useState } from "react";
 
 import { useLogin } from "@customer/hooks/auth/useLogin";
 import { useCreateOrUpdateCarts } from "@customer/hooks/carts/useCreateOrUpdateCarts";
+import {
+  TLoginFormSchema,
+  loginFormSchema,
+} from "@customer/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -16,10 +20,6 @@ import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
-import {
-  TLoginFormSchema,
-  loginFormSchema,
-} from "@/features/private/customer/schemas/auth.schema";
 
 export default function LoginForm() {
   const { getCarts } = useMultiCart();
