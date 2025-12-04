@@ -19,7 +19,7 @@ import {
   TRestaurantSettingsOffersFormSchema,
   restaurantSettingsOffersFormSchema,
 } from "@/features/private/partner/schemas/restaurant-settings.schema";
-import { Offer } from "@/types/offer.types";
+import { Offer } from "@/types/offer/offer.types";
 
 type EditOfferFormProps = {
   offer: Offer;

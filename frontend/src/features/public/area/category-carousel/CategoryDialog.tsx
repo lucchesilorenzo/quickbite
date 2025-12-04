@@ -21,7 +21,7 @@ import { grey } from "@mui/material/colors";
 import CategoryDialogItem from "./CategoryDialogItem";
 
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
-import { CategoryWithSelected } from "@/types/categories/category.types";
+import { CategoryWithSelected } from "@/types/category/category.types";
 
 type CategoryDialogProps = {
   categories: CategoryWithSelected[];

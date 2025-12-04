@@ -1,7 +1,7 @@
-import { CategoryWithPivot } from "./categories/category.types";
+import { CategoryWithPivot } from "./category/category.types";
 import { DeliveryDay } from "./delivery.types";
 import { MenuCategory } from "./menu/menu.types";
-import { Offer } from "./offer.types";
+import { Offer } from "./offer/offer.types";
 import { BaseCursorPagination } from "./pagination.types";
 import { Review } from "./review.types";
 

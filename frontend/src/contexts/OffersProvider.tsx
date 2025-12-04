@@ -4,7 +4,7 @@ import { useRestaurant } from "./RestaurantProvider";
 
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { offersDefaults } from "@/lib/query-defaults";
-import { OfferWithPagination } from "@/types/offer.types";
+import { OfferWithPagination } from "@/types/offer/offer.types";
 
 type OffersProviderProps = {
   children: React.ReactNode;

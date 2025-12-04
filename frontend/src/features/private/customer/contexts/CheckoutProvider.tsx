@@ -11,7 +11,7 @@ import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
 import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
 import { RestaurantCart } from "@/types/cart.types";
 import { DeliverySlots } from "@/types/delivery.types";
-import { OfferWithPagination } from "@/types/offer.types";
+import { OfferWithPagination } from "@/types/offer/offer.types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
