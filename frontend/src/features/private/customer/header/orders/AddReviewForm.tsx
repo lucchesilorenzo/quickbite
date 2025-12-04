@@ -1,16 +1,16 @@
 import { useCreateReview } from "@customer/hooks/reviews/useCreateReview";
+import {
+  TAddReviewFormSchema,
+  addReviewFormSchema,
+} from "@customer/schemas/review.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Button, Rating, Stack, TextField, Typography } from "@mui/material";
+import { Order } from "@private/types/order.types";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
-import {
-  TAddReviewFormSchema,
-  addReviewFormSchema,
-} from "@/features/private/customer/schemas/review.schema";
-import { Order } from "@/features/private/types/order.types";
 
 type AddReviewFormProps = {
   order: Order;

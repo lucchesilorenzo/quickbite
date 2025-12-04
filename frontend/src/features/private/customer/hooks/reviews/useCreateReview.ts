@@ -1,15 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TAddReviewFormSchema } from "@/features/private/customer/schemas/review.schema";
+import {
+  CreateReviewPayload,
+  CreateReviewResponse,
+} from "../../types/review/review.api.types";
+
 import { postData } from "@/lib/api-client";
 
 export function useCreateReview(restaurantSlug: string) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TAddReviewFormSchema & { order_id: string }) =>
+  return useMutation<CreateReviewResponse, Error, CreateReviewPayload>({
+    mutationFn: (data) =>
       postData(`/customer/restaurants/${restaurantSlug}/reviews`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["restaurants"] });
