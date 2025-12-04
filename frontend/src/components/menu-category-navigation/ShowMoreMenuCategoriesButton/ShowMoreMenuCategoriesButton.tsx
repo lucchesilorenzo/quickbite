@@ -6,7 +6,7 @@ import { grey } from "@mui/material/colors";
 
 import MenuCategoryNavigationDialog from "@/components/menu-category-navigation/MenuCategoryNavigationDialog";
 import { PartnerMenu } from "@/features/private/partner/types/menu.types";
-import { MenuCategory } from "@/types/menu.types";
+import { MenuCategory } from "@/types/menu/menu.types";
 
 type ShowMoreMenuCategoriesButtonProps = {
   menuCategories: MenuCategory[] | PartnerMenu[];

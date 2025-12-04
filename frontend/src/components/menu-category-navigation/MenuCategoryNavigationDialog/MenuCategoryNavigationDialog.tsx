@@ -14,7 +14,7 @@ import {
 import MenuCategoryNavigationItem from "../MenuCategoryNavigationItem";
 
 import { PartnerMenu } from "@/features/private/partner/types/menu.types";
-import { MenuCategory } from "@/types/menu.types";
+import { MenuCategory } from "@/types/menu/menu.types";
 
 type MenuCategoryNavigationDialogProps = {
   menuCategories: MenuCategory[] | PartnerMenu[];

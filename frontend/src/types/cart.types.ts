@@ -1,4 +1,4 @@
-import { MenuItem } from "./menu.types";
+import { MenuItem } from "./menu/menu.types";
 import { BaseRestaurant } from "./restaurant.types";
 
 export type CartItem = Omit<MenuItem, "order"> & {

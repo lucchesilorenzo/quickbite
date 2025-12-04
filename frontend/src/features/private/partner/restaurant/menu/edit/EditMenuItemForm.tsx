@@ -20,7 +20,7 @@ import {
   TEditMenuItemFormSchema,
   editMenuItemFormSchema,
 } from "@/features/private/partner/schemas/menu.schema";
-import { MenuItem } from "@/types/menu.types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type EditMenuItemFormProps = {
   menuItem: MenuItem;

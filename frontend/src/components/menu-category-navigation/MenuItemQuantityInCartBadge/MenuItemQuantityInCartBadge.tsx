@@ -4,7 +4,7 @@ import { grey } from "@mui/material/colors";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { PartnerMenu } from "@/features/private/partner/types/menu.types";
-import { MenuCategory, MenuItem } from "@/types/menu.types";
+import { MenuCategory, MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemQuantityInCartBadgeProps = {
   type: "from-list" | "from-search";

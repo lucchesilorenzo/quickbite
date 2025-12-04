@@ -1,4 +1,4 @@
-import { MenuCategory, MenuItem } from "@/types/menu.types";
+import { MenuCategory, MenuItem } from "@/types/menu/menu.types";
 
 export const menuItem: MenuItem = {
   id: "0199e1dc-796d-7323-9cc3-abdece74db4e",

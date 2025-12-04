@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import { MenuItem } from "@/types/menu.types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 export function useUpdateMenuItemsOrder(restaurantId: string) {
   const queryClient = useQueryClient();

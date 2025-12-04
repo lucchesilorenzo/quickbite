@@ -16,7 +16,7 @@ import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { CartItem } from "@/types/cart.types";
-import { MenuItem } from "@/types/menu.types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemDialogActionsProps = {
   menuItem: MenuItem | CartItem;

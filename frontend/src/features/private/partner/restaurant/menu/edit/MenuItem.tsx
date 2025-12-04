@@ -21,7 +21,7 @@ import EditMenuItemDialog from "./EditMenuItemDialog";
 
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
-import { type MenuItem } from "@/types/menu.types";
+import { type MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemProps = {
   menuItem: MenuItem;
