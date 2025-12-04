@@ -1,5 +1,5 @@
-import { BaseOffsetPagination } from "./pagination.types";
-import { UserWithoutNotificationsAndRoles } from "./user.types";
+import { BaseOffsetPagination } from "../pagination.types";
+import { UserWithoutNotificationsAndRoles } from "../user.types";
 
 import { Order } from "@/features/private/types/order.types";
 

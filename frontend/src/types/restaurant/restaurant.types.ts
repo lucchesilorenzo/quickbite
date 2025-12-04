@@ -2,7 +2,7 @@ import { CategoryWithPivot } from "../category/category.types";
 import { DeliveryDay } from "../delivery/delivery.types";
 import { MenuCategory } from "../menu/menu.types";
 import { Offer } from "../offer/offer.types";
-import { Review } from "../review.types";
+import { Review } from "../review/review.types";
 
 export type BaseRestaurant = {
   id: string;
