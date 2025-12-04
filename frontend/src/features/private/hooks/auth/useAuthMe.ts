@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { GetAuthMeResponse } from "../../types/auth/auth.api.types";
+
 import { fetchData } from "@/lib/api-client";
-import { User } from "@/types/user.types";
 
 export function useAuthMe() {
-  return useQuery({
+  return useQuery<GetAuthMeResponse>({
     queryKey: ["auth"],
-    queryFn: (): Promise<User> => fetchData("/auth/me"),
+    queryFn: () => fetchData("/auth/me"),
     retry: false,
     refetchOnWindowFocus: false,
   });
