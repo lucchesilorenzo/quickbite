@@ -1,16 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TEditAddressFormSchema } from "@/features/private/customer/schemas/profile.schema";
+import {
+  UpdateAddressInfoPayload,
+  UpdateAddressInfoResponse,
+} from "../../types/profile/profile.api.types";
+
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateAddressInfo() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TEditAddressFormSchema) =>
-      updateData("/customer/profile/address-info", data),
+  return useMutation<
+    UpdateAddressInfoResponse,
+    Error,
+    UpdateAddressInfoPayload
+  >({
+    mutationFn: (data) => updateData("/customer/profile/address-info", data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       notifications.show(response.message, {
