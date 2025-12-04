@@ -5,7 +5,7 @@ import RestaurantAvailability from "../components/RestaurantAvailability";
 import RestaurantCardImage from "./RestaurantCardImage";
 import RestaurantCardText from "./RestaurantCardText";
 
-import { RestaurantListItem } from "@/types/restaurant.types";
+import { RestaurantListItem } from "@/types/restaurant/restaurant.types";
 
 type RestaurantCardProps = {
   restaurant: RestaurantListItem;

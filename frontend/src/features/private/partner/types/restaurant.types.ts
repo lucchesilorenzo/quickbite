@@ -1,4 +1,7 @@
-import { BaseRestaurant, RestaurantDetail } from "@/types/restaurant.types";
+import {
+  BaseRestaurant,
+  RestaurantDetail,
+} from "@/types/restaurant/restaurant.types";
 
 export type PartnerRestaurantDetail = BaseRestaurant &
   Omit<

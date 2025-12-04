@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import { RestaurantDetail } from "@/types/restaurant.types";
+import { RestaurantDetail } from "@/types/restaurant/restaurant.types";
 
 type UpdatePartnerRestaurantStatus = {
   force_close: RestaurantDetail["force_close"];

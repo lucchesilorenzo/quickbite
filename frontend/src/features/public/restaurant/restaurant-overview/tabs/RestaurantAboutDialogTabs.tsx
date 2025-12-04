@@ -14,7 +14,7 @@ import ReviewsTab from "./reviews/ReviewsTab";
 import { useOffers } from "@/contexts/OffersProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { restaurantTabs } from "@/lib/constants/restaurants";
-import { RestaurantTab } from "@/types/restaurant.types";
+import { RestaurantTab } from "@/types/restaurant/restaurant.types";
 
 export default function RestaurantAboutDialogTabs() {
   const { tabToOpen, setTabToOpen } = useRestaurant();

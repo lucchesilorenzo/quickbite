@@ -10,7 +10,7 @@ import { isCustomer } from "@/lib/utils/auth";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants";
 import { Cart, CartItem, RestaurantCart } from "@/types/cart.types";
 import { MenuItem } from "@/types/menu/menu.types";
-import { SingleRestaurantDetail } from "@/types/restaurant.types";
+import { SingleRestaurantDetail } from "@/types/restaurant/restaurant.types";
 
 type MultiCartProviderProps = {
   children: React.ReactNode;

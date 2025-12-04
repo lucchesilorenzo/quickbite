@@ -10,7 +10,7 @@ import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
 import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
 import { RestaurantCart } from "@/types/cart.types";
-import { DeliverySlots } from "@/types/delivery.types";
+import { DeliverySlots } from "@/types/delivery/delivery.types";
 import { OfferWithPagination } from "@/types/offer/offer.types";
 
 type CheckoutProviderProps = {
