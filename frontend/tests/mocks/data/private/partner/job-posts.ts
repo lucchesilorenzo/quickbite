@@ -2,7 +2,7 @@ import { GridRowId } from "@mui/x-data-grid";
 import {
   GetJobPostResponse,
   GetJobPostsResponse,
-} from "@partner/types/job-posts/job-posts.api-types";
+} from "@partner/types/job-post/job-post.api-types";
 
 export const jobPost: GetJobPostResponse = {
   id: "019a9226-9299-72d8-a1a6-a6d51fbbbc5d",

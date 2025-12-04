@@ -1,7 +1,7 @@
 import {
   CreateJobPostPayload,
   CreateJobPostResponse,
-} from "@partner/types/job-posts/job-posts.api-types";
+} from "@partner/types/job-post/job-post.api-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 

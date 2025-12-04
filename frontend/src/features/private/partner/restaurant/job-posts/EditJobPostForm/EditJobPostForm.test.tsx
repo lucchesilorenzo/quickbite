@@ -3,7 +3,8 @@ import {
   employmentTypes,
   jobPostStatuses,
 } from "@partner/lib/constants/job-posts";
-import { GetJobPostResponse } from "@partner/types/job-posts/job-posts.api-types";
+import { TEditJobPostFormSchema } from "@partner/schemas/job-posts.schema";
+import { GetJobPostResponse } from "@partner/types/job-post/job-post.api-types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { editJobPostForm } from "@tests/mocks/data/private/partner/forms/edit-job-post";
@@ -14,7 +15,6 @@ import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
 import EditJobPostForm from "./EditJobPostForm";
 
-import { TEditJobPostFormSchema } from "@/features/private/partner/schemas/job-posts.schema";
 import env from "@/lib/env";
 import { baseOffsetPaginationDefaults } from "@/lib/query-defaults";
 

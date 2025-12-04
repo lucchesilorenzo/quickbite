@@ -1,6 +1,7 @@
-import { JobPost, JobPostWithApplicationsCount } from "./job-posts.types";
+import { TAddJobPostFormSchema } from "@partner/schemas/job-posts.schema";
 
-import { TAddJobPostFormSchema } from "@/features/private/partner/schemas/job-posts.schema";
+import { JobPost, JobPostWithApplicationsCount } from "./job-post.types";
+
 import { ApiResponse } from "@/types/api.types";
 import { BaseOffsetPagination } from "@/types/pagination.types";
 
