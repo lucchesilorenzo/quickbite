@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useStats } from "@partner/contexts/StatsProvider";
 
-import { PaymentMethodFilter } from "@/features/private/partner/types/stat.types";
+import { PaymentMethodFilter } from "@/features/private/partner/types/stats/stats.types";
 
 export const paymentMethodOptions: {
   value: PaymentMethodFilter;

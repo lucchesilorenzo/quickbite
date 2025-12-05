@@ -14,7 +14,7 @@ import {
   PaymentMethodFilter,
   StatRange,
   StatsWithFilters,
-} from "@/features/private/partner/types/stat.types";
+} from "@/features/private/partner/types/stats/stats.types";
 
 type StatsProviderProps = {
   children: React.ReactNode;

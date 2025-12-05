@@ -11,7 +11,7 @@ export default function StatsCard() {
   const { restaurant } = useRestaurant();
 
   const { data: stats = dashboardStatsDefaults, isLoading: isLoadingStats } =
-    useGetDashboardStats(restaurant.id);
+    useGetDashboardStats({ restaurantId: restaurant.id });
 
   const computedStats = [
     { title: "Today's earnings", value: stats.earnings_today, currency: true },

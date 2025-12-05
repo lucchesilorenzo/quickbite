@@ -1,13 +1,13 @@
+import { GetKpiSummaryResponse } from "@partner/types/stats/stats.api.types";
 import { useQuery } from "@tanstack/react-query";
 
 import {
-  KpiSummary,
   PaymentMethodFilter,
   StatRange,
-} from "@/features/private/partner/types/stat.types";
+} from "@/features/private/partner/types/stats/stats.types";
 import { fetchData } from "@/lib/api-client";
 
-type GetKpiSummary = {
+type UseGetKpiSummary = {
   restaurantId: string;
   range: StatRange;
   paymentMethod: PaymentMethodFilter;
@@ -19,10 +19,10 @@ export function useGetKpiSummary({
   range,
   paymentMethod,
   year,
-}: GetKpiSummary) {
-  return useQuery({
+}: UseGetKpiSummary) {
+  return useQuery<GetKpiSummaryResponse>({
     queryKey: ["partner-stats", restaurantId, range, paymentMethod, year],
-    queryFn: (): Promise<KpiSummary> => {
+    queryFn: () => {
       const params = new URLSearchParams();
 
       if (range !== "all") params.set("range", range);

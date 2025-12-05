@@ -3,7 +3,7 @@ import { useStats } from "@partner/contexts/StatsProvider";
 import { statRanges } from "@partner/lib/constants/stats";
 import { useSearchParams } from "react-router-dom";
 
-import { StatRange } from "@/features/private/partner/types/stat.types";
+import { StatRange } from "@/features/private/partner/types/stats/stats.types";
 
 export default function StatsRangeSelect() {
   const { range } = useStats();
