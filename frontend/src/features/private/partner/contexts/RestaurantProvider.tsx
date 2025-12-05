@@ -8,7 +8,7 @@ import { PartnerRestaurantDetail } from "../types/restaurant.types";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
-import { UserNotificationWithUnreadCount } from "@/features/private/partner/types/notification.types";
+import { UserNotificationWithUnreadCount } from "@/features/private/partner/types/notification/notification.types";
 import { userNotificationsDefaults } from "@/lib/query-defaults";
 
 type RestaurantProviderProps = {

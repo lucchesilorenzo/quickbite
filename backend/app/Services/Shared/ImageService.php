@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\Storage;
 class ImageService
 {
     /**
-     * Upload a new image
+     * Upload a new image.
      */
     public function create(UploadedFile $file, string $folder): string
     {
         $path = $file->store($folder, 'public');
 
-        return '/storage/' . $path;
+        return '/storage/'.$path;
     }
 
     /**
-     * Update an image: delete old one (if not default) and upload new one
+     * Update an image: delete old one (if not default) and upload new one.
      */
     public function update(
         ?string $currentPath,
@@ -37,7 +37,7 @@ class ImageService
     }
 
     /**
-     * Delete an image
+     * Delete an image.
      */
     public function delete(
         ?string $currentPath,
@@ -49,7 +49,7 @@ class ImageService
     }
 
     /**
-     * Delete image only if it's not a default image
+     * Delete image only if it's not a default image.
      */
     private function deleteIfNotDefault(
         string $currentPath,
@@ -63,7 +63,7 @@ class ImageService
     }
 
     /**
-     * Delete an image from storage
+     * Delete an image from storage.
      */
     private function deleteImage(string $path): void
     {

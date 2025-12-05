@@ -3,7 +3,7 @@ import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { formatDistanceToNow } from "date-fns";
 
-import { UserNotification } from "@/features/private/partner/types/notification.types";
+import { UserNotification } from "@/features/private/partner/types/notification/notification.types";
 
 type NotificationItemProps = {
   notification: UserNotification;

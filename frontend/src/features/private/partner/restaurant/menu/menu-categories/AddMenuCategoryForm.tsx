@@ -1,14 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateMenuCategory } from "@partner/hooks/restaurants/menu/categories/useCreateMenuCategory";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
-import { Controller, useForm } from "react-hook-form";
-
-import FormHelperTextError from "@/components/common/FormHelperTextError";
 import {
   TAddMenuCategoryFormSchema,
   addMenuCategoryFormSchema,
-} from "@/features/private/partner/schemas/menu.schema";
+} from "@partner/schemas/menu.schema";
+import { Controller, useForm } from "react-hook-form";
+
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type AddMenuCategoryFormProps = {
   setOpenAddMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,9 +19,9 @@ export default function AddMenuCategoryForm({
 }: AddMenuCategoryFormProps) {
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: createMenuCategory } = useCreateMenuCategory(
-    restaurant.id,
-  );
+  const { mutateAsync: createMenuCategory } = useCreateMenuCategory({
+    restaurantId: restaurant.id,
+  });
 
   const {
     handleSubmit,

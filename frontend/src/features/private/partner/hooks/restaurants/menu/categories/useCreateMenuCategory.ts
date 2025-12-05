@@ -1,15 +1,28 @@
+import {
+  CreateMenuCategoryPayload,
+  CreateMenuCategoryResponse,
+} from "@partner/types/menu/menu.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TAddMenuCategoryFormSchema } from "@/features/private/partner/schemas/menu.schema";
 import { postData } from "@/lib/api-client";
 
-export function useCreateMenuCategory(restaurantId: string) {
+type UseCreateMenuCategoryOptions = {
+  restaurantId: string;
+};
+
+export function useCreateMenuCategory({
+  restaurantId,
+}: UseCreateMenuCategoryOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TAddMenuCategoryFormSchema) =>
+  return useMutation<
+    CreateMenuCategoryResponse,
+    Error,
+    CreateMenuCategoryPayload
+  >({
+    mutationFn: (data) =>
       postData(`/partner/restaurants/${restaurantId}/menu/categories`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({

@@ -1,17 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Box, Button, InputAdornment, Stack, TextField } from "@mui/material";
+import { useMenu } from "@partner/contexts/MenuProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateMenuItem } from "@partner/hooks/restaurants/menu/items/useCreateMenuItem";
-import { useMenu } from "@private/partner/contexts/MenuProvider";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import {
+  TAddMenuItemFormSchema,
+  addMenuItemFormSchema,
+} from "@partner/schemas/menu.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
-import {
-  TAddMenuItemFormSchema,
-  addMenuItemFormSchema,
-} from "@/features/private/partner/schemas/menu.schema";
 
 type AddMenuItemFormProps = {
   setOpenAddMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,10 +23,10 @@ export default function AddMenuItemForm({
   const { restaurant } = useRestaurant();
   const { selectedMenuCategoryId } = useMenu();
 
-  const { mutateAsync: createMenuItem } = useCreateMenuItem(
-    restaurant.id,
-    selectedMenuCategoryId,
-  );
+  const { mutateAsync: createMenuItem } = useCreateMenuItem({
+    restaurantId: restaurant.id,
+    menuCategoryId: selectedMenuCategoryId,
+  });
 
   const {
     handleSubmit,

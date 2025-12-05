@@ -28,7 +28,7 @@ export default function DeleteMenuItemDialog({
   const { restaurant } = useRestaurant();
 
   const { mutateAsync: deleteMenuItem, isPending: isDeleting } =
-    useDeleteMenuItem(restaurant.id, menuItem.id);
+    useDeleteMenuItem({ restaurantId: restaurant.id, menuItemId: menuItem.id });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

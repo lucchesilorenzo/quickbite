@@ -41,7 +41,7 @@ class MenuCategoryController extends Controller
             return response()->json([
                 'menu_category' => $menuCategory,
                 'message' => 'Menu category created successfully.',
-            ], 200);
+            ], 201);
         } catch (MenuCategoryOrderExceededException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -77,7 +77,7 @@ class MenuCategoryController extends Controller
 
             return response()->json([
                 'menu_categories' => $updatedMenuCategories,
-                'message' => 'Order updated successfully.',
+                'message' => 'Menu categories order updated successfully.',
             ], 200);
         } catch (ModelNotFoundException) {
             return response()->json([

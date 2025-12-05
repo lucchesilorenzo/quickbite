@@ -9,17 +9,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuItem } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItem";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import {
+  TEditMenuItemFormSchema,
+  editMenuItemFormSchema,
+} from "@partner/schemas/menu.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
-import {
-  TEditMenuItemFormSchema,
-  editMenuItemFormSchema,
-} from "@/features/private/partner/schemas/menu.schema";
 import { MenuItem } from "@/types/menu/menu.types";
 
 type EditMenuItemFormProps = {
@@ -33,10 +33,10 @@ export default function EditMenuItemForm({
 }: EditMenuItemFormProps) {
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: updateMenuItem } = useUpdateMenuItem(
-    restaurant.id,
-    menuItem.id,
-  );
+  const { mutateAsync: updateMenuItem } = useUpdateMenuItem({
+    restaurantId: restaurant.id,
+    menuItemId: menuItem.id,
+  });
 
   const {
     handleSubmit,

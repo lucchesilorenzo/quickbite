@@ -11,11 +11,11 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Stack, Typography, debounce } from "@mui/material";
+import { useMenu } from "@partner/contexts/MenuProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuItemsOrder } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItemsOrder";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
 import { menuDefaults } from "@partner/lib/query-defaults";
-import { useMenu } from "@private/partner/contexts/MenuProvider";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import MenuItem from "./MenuItem";
 
@@ -38,9 +38,9 @@ export default function MenuItemsList() {
     isLoading: isLoadingMenuCategories,
   } = useGetMenu(restaurant.id, page);
 
-  const { mutateAsync: updateMenuItemsOrder } = useUpdateMenuItemsOrder(
-    restaurant.id,
-  );
+  const { mutateAsync: updateMenuItemsOrder } = useUpdateMenuItemsOrder({
+    restaurantId: restaurant.id,
+  });
 
   const debounceUpdateRestaurantMenuItemsOrder = useMemo(
     () => debounce(updateMenuItemsOrder, 500),

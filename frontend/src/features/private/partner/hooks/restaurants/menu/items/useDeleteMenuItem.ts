@@ -4,7 +4,15 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { deleteData } from "@/lib/api-client";
 import { ApiResponse } from "@/types/api.types";
 
-export function useDeleteMenuItem(restaurantId: string, menuItemId: string) {
+type UseDeleteMenuItemOptions = {
+  restaurantId: string;
+  menuItemId: string;
+};
+
+export function useDeleteMenuItem({
+  restaurantId,
+  menuItemId,
+}: UseDeleteMenuItemOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 

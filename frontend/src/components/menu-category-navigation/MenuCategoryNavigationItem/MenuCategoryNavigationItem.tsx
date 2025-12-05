@@ -11,7 +11,7 @@ import {
 import MenuItemQuantityInCartBadge from "../MenuItemQuantityInCartBadge";
 
 import { useAuth } from "@/contexts/AuthProvider";
-import { PartnerMenu } from "@/features/private/partner/types/menu.types";
+import { PartnerMenu } from "@/features/private/partner/types/menu/menu.types";
 import { isCustomer } from "@/lib/utils/auth";
 import { MenuCategory } from "@/types/menu/menu.types";
 

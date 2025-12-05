@@ -10,7 +10,7 @@ import {
 
 import EditMenuCategoryForm from "./EditMenuCategoryForm";
 
-import { PartnerMenu } from "@/features/private/partner/types/menu.types";
+import { PartnerMenu } from "@/features/private/partner/types/menu/menu.types";
 
 type EditMenuCategoryDialogProps = {
   menuCategory: PartnerMenu;

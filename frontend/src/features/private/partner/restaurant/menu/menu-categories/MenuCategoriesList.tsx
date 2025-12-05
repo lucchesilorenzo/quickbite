@@ -11,10 +11,10 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Grid, Typography, debounce } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuCategoriesOrder } from "@partner/hooks/restaurants/menu/categories/useUpdateMenuCategoriesOrder";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
 import { menuDefaults } from "@partner/lib/query-defaults";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import MenuCategoryItem from "./MenuCategoryItem";
 
@@ -29,7 +29,7 @@ export default function MenuCategoriesList() {
   } = useGetMenu(restaurant.id);
 
   const { mutateAsync: updateMenuCategoriesOrder } =
-    useUpdateMenuCategoriesOrder(restaurant.id);
+    useUpdateMenuCategoriesOrder({ restaurantId: restaurant.id });
 
   const debounceUpdateRestaurantMenuCategoriesOrder = useMemo(
     () => debounce(updateMenuCategoriesOrder, 500),

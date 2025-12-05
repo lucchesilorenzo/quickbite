@@ -9,7 +9,7 @@ import { grey } from "@mui/material/colors";
 import DeleteMenuCategoryDialog from "./DeleteMenuCategoryDialog";
 import EditMenuCategoryDialog from "./EditMenuCategoryDialog";
 
-import { PartnerMenu } from "@/features/private/partner/types/menu.types";
+import { PartnerMenu } from "@/features/private/partner/types/menu/menu.types";
 
 type MenuCategoryItemProps = {
   menuCategory: PartnerMenu;

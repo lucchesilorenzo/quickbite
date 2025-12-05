@@ -1,18 +1,30 @@
+import {
+  UpdateMenuCategoryPayload,
+  UpdateMenuCategoryResponse,
+} from "@partner/types/menu/menu.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TEditMenuCategoryFormSchema } from "@/features/private/partner/schemas/menu.schema";
 import { updateData } from "@/lib/api-client";
 
-export function useUpdateMenuCategory(
-  restaurantId: string,
-  menuCategoryId: string,
-) {
+type UseUpdateMenuCategoryOptions = {
+  restaurantId: string;
+  menuCategoryId: string;
+};
+
+export function useUpdateMenuCategory({
+  restaurantId,
+  menuCategoryId,
+}: UseUpdateMenuCategoryOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TEditMenuCategoryFormSchema) =>
+  return useMutation<
+    UpdateMenuCategoryResponse,
+    Error,
+    UpdateMenuCategoryPayload
+  >({
+    mutationFn: (data) =>
       updateData(
         `/partner/restaurants/menu/categories/${menuCategoryId}`,
         data,

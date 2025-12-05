@@ -5,7 +5,7 @@ import { IconButton } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import MenuCategoryNavigationDialog from "@/components/menu-category-navigation/MenuCategoryNavigationDialog";
-import { PartnerMenu } from "@/features/private/partner/types/menu.types";
+import { PartnerMenu } from "@/features/private/partner/types/menu/menu.types";
 import { MenuCategory } from "@/types/menu/menu.types";
 
 type ShowMoreMenuCategoriesButtonProps = {

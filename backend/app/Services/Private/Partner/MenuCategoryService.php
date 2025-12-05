@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class MenuCategoryService
 {
+    private const int MAX_MENU_CATEGORIES_ORDER = 8;
+
     public function createMenuCategory(array $data, Restaurant $restaurant): MenuCategory
     {
         // Get menu category order
         $menuCategoryOrder = $restaurant->menuCategories()->max('order');
 
-        if ($menuCategoryOrder === 8) {
+        if ($menuCategoryOrder === self::MAX_MENU_CATEGORIES_ORDER) {
             throw new MenuCategoryOrderExceededException;
         }
 
@@ -35,7 +37,9 @@ class MenuCategoryService
                 $menuCategory->save();
             }
 
-            return $menuCategories;
+            return collect($menuCategories)
+                ->pluck('id')
+                ->all();
         });
     }
 
@@ -43,7 +47,7 @@ class MenuCategoryService
     {
         $menuCategory->update($data);
 
-        return $menuCategory;
+        return $menuCategory->fresh();
     }
 
     public function deleteMenuCategory(MenuCategory $menuCategory): void
