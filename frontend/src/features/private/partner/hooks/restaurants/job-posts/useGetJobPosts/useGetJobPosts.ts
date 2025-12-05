@@ -4,13 +4,21 @@ import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
 
-export function useGetJobPosts(
-  restaurantId: string,
-  page: number,
-  pageSize: number,
-  sortBy: GridSortModel,
-  filters: GridFilterModel,
-) {
+type UseGetJobPosts = {
+  restaurantId: string;
+  page: number;
+  pageSize: number;
+  sortBy: GridSortModel;
+  filters: GridFilterModel;
+};
+
+export function useGetJobPosts({
+  restaurantId,
+  page,
+  pageSize,
+  sortBy,
+  filters,
+}: UseGetJobPosts) {
   return useQuery<GetJobPostsResponse>({
     queryKey: [
       "partner-job-posts",

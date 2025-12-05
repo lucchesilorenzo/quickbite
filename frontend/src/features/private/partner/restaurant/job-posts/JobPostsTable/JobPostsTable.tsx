@@ -50,13 +50,13 @@ export default function JobPostsTable() {
     data: jobPosts = jobPostsDefaults,
     isLoading: isLoadingJobPosts,
     error: jobPostsError,
-  } = useGetJobPosts(
-    restaurant.id,
-    paginationModel.page + 1,
-    paginationModel.pageSize,
-    sortModel,
-    filterModel,
-  );
+  } = useGetJobPosts({
+    restaurantId: restaurant.id,
+    page: paginationModel.page + 1,
+    pageSize: paginationModel.pageSize,
+    sortBy: sortModel,
+    filters: filterModel,
+  });
 
   const columns: GridColDef[] = [
     {
