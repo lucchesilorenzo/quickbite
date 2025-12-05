@@ -111,14 +111,12 @@ class RestaurantService
         }
 
         return DB::transaction(function () use ($restaurant, $data): Restaurant {
-            // Get location
             $locationData = $this->locationService->getLocationData($data);
 
             if ($locationData === null) {
                 throw new LocationNotFoundException;
             }
 
-            // Update restaurant info
             $restaurant->update([
                 ...$data,
                 'latitude' => $locationData['lat'],

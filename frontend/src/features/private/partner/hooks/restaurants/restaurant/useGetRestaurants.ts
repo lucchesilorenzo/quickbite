@@ -1,11 +1,11 @@
+import { GetRestaurantsResponse } from "@partner/types/restaurant/restaurant.api.types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { BaseRestaurant } from "@/types/restaurant/restaurant.types";
 
 export function useGetRestaurants() {
-  return useQuery({
+  return useQuery<GetRestaurantsResponse>({
     queryKey: ["partner-restaurants"],
-    queryFn: (): Promise<BaseRestaurant[]> => fetchData("/partner/restaurants"),
+    queryFn: () => fetchData("/partner/restaurants"),
   });
 }

@@ -6,7 +6,7 @@ export default function RestaurantApprovalButton() {
   const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateRestaurantApprovedStatus, isPending: isUpdating } =
-    useUpdateRestaurantApprovedStatus(restaurant.id);
+    useUpdateRestaurantApprovedStatus({ restaurantId: restaurant.id });
 
   async function handleRestaurantApproval() {
     await updateRestaurantApprovedStatus();

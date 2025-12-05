@@ -4,7 +4,7 @@ import { useGetNotifications } from "@partner/hooks/notifications/useGetNotifica
 import { useGetRestaurant } from "@partner/hooks/restaurants/restaurant/useGetRestaurant";
 import { Navigate } from "react-router-dom";
 
-import { PartnerRestaurantDetail } from "../types/restaurant.types";
+import { PartnerRestaurantDetail } from "../types/restaurant/restaurant.types";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
