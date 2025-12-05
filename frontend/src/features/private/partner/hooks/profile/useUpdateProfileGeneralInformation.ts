@@ -1,16 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TProfileGeneralFormSchema } from "@/features/private/partner/schemas/profile-general.schema";
+import {
+  UpdateProfileGeneralInformationPayload,
+  UpdateProfileGeneralInformationResponse,
+} from "../../types/profile/profile.api.types";
+
 import { updateData } from "@/lib/api-client";
 
 export function useUpdateProfileGeneralInformation() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TProfileGeneralFormSchema) =>
-      updateData("/partner/profile/general", data),
+  return useMutation<
+    UpdateProfileGeneralInformationResponse,
+    Error,
+    UpdateProfileGeneralInformationPayload
+  >({
+    mutationFn: (data) => updateData("/partner/profile/general", data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["auth"],

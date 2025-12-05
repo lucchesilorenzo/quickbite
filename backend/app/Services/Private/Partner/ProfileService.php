@@ -15,7 +15,7 @@ class ProfileService
         private readonly LocationService $locationService
     ) {}
 
-    public function updateProfileGeneralInformation(array $data, User $user): User
+    public function updateProfileGeneralInformation(array $data, User $partner): User
     {
         $locationData = $this->locationService->getLocationData($data);
 
@@ -23,22 +23,22 @@ class ProfileService
             throw new LocationNotFoundException;
         }
 
-        $user->update($data);
+        $partner->update($data);
 
-        return $user;
+        return $partner;
     }
 
-    public function updateProfileNotifications(array $data, User $user): User
+    public function updateProfileNotifications(array $data, User $partner): User
     {
-        return DB::transaction(function () use ($data, $user) {
+        return DB::transaction(function () use ($data, $partner) {
             foreach ($data as $type => $enabled) {
-                $user->notificationPreferences()->updateOrCreate(
+                $partner->notificationPreferences()->updateOrCreate(
                     ['type' => $type],
                     ['enabled' => $enabled]
                 );
             }
 
-            return $user->load('notificationPreferences');
+            return $partner->load('notificationPreferences');
         });
     }
 }

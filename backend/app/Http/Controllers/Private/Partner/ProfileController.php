@@ -22,13 +22,13 @@ class ProfileController extends Controller
         UpdateProfileGeneralInformationRequest $request
     ): JsonResponse {
         try {
-            $user = $this->profileService->updateProfileGeneralInformation(
+            $partner = $this->profileService->updateProfileGeneralInformation(
                 $request->validated(),
                 auth()->user()
             );
 
             return response()->json([
-                'user' => $user,
+                'partner' => $partner,
                 'message' => 'Profile general information updated successfully.',
             ], 200);
         } catch (LocationNotFoundException $e) {
@@ -46,13 +46,13 @@ class ProfileController extends Controller
         UpdateProfileNotificationsRequest $request
     ): JsonResponse {
         try {
-            $user = $this->profileService->updateProfileNotifications(
+            $partner = $this->profileService->updateProfileNotifications(
                 $request->validated(),
                 auth()->user()
             );
 
             return response()->json([
-                'user' => $user,
+                'partner' => $partner,
                 'message' => 'Profile notifications updated successfully.',
             ], 200);
         } catch (Throwable) {
