@@ -18,7 +18,7 @@ export default function CheckoutSuccessPage() {
     data: order,
     isLoading: isOrderLoading,
     error: orderError,
-  } = useGetOrder(orderId);
+  } = useGetOrder({ orderId: orderId });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

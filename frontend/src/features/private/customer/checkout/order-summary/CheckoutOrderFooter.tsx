@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { useDeleteCart } from "@customer/hooks/carts/useDeleteCart";
 import { useCreateOrder } from "@customer/hooks/orders/useCreateOrder";
+import { CreateOrder } from "@customer/types/order/order.types";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
   Box,
@@ -18,15 +19,14 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
-import { CreateOrder } from "@/features/private/customer/types/order/order.types";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 
 export default function CheckoutOrderFooter() {
   const { cart, checkoutData, restaurantId, offersData } = useCheckout();
 
-  const { mutateAsync: createOrder } = useCreateOrder(restaurantId);
-  const { mutateAsync: deleteCart } = useDeleteCart(cart.id);
+  const { mutateAsync: createOrder } = useCreateOrder({ restaurantId });
+  const { mutateAsync: deleteCart } = useDeleteCart({ cartId: cart.id });
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);

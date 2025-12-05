@@ -3,7 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
 
-export function useGetRestaurant(restaurantId?: string) {
+type UseGetRestaurantOptions = {
+  restaurantId?: string;
+};
+
+export function useGetRestaurant({ restaurantId }: UseGetRestaurantOptions) {
   return useQuery<GetRestaurantResponse>({
     queryKey: ["partner-restaurant", restaurantId],
     queryFn: () => fetchData(`/partner/restaurants/${restaurantId}`),

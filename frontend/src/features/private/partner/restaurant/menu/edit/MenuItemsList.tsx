@@ -36,7 +36,7 @@ export default function MenuItemsList() {
   const {
     data: menuCategoriesWithMenuItemsPagination = menuDefaults,
     isLoading: isLoadingMenuCategories,
-  } = useGetMenu(restaurant.id, page);
+  } = useGetMenu({ restaurantId: restaurant.id, page });
 
   const { mutateAsync: updateMenuItemsOrder } = useUpdateMenuItemsOrder({
     restaurantId: restaurant.id,

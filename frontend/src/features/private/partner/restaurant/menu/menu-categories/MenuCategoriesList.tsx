@@ -26,7 +26,7 @@ export default function MenuCategoriesList() {
   const {
     data: menuCategories = menuDefaults,
     isLoading: isLoadingMenuCategories,
-  } = useGetMenu(restaurant.id);
+  } = useGetMenu({ restaurantId: restaurant.id });
 
   const { mutateAsync: updateMenuCategoriesOrder } =
     useUpdateMenuCategoriesOrder({ restaurantId: restaurant.id });

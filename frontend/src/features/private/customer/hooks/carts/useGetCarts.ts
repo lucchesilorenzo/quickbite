@@ -4,7 +4,11 @@ import { GetCartsResponse } from "../../types/cart/cart.api.types";
 
 import { fetchData } from "@/lib/api-client";
 
-export function useGetCarts(isCustomer: boolean) {
+type UseGetCartsOptions = {
+  isCustomer: boolean;
+};
+
+export function useGetCarts({ isCustomer }: UseGetCartsOptions) {
   return useQuery<GetCartsResponse>({
     queryKey: ["customer-carts"],
     queryFn: () => fetchData("/customer/carts"),

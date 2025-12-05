@@ -3,7 +3,15 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/lib/api-client";
 import { GetReviewsResponse } from "@/types/review/review.api.types";
 
-export function useGetReviews(restaurantId: string, page: number = 1) {
+type UseGetReviewsOptions = {
+  restaurantId: string;
+  page?: number;
+};
+
+export function useGetReviews({
+  restaurantId,
+  page = 1,
+}: UseGetReviewsOptions) {
   return useQuery<GetReviewsResponse>({
     queryKey: ["reviews", restaurantId, page],
     queryFn: () =>

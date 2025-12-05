@@ -39,7 +39,7 @@ export default function RestaurantProvider({
     data: restaurant,
     isLoading: isRestaurantLoading,
     error: restaurantError,
-  } = useGetRestaurant(restaurantSlug);
+  } = useGetRestaurant({ restaurantSlug: restaurantSlug });
 
   const [openRestaurantClosedDialog, setOpenRestaurantClosedDialog] =
     useState(false);

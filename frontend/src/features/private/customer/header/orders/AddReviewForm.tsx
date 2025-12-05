@@ -21,7 +21,9 @@ export default function AddReviewForm({
   order,
   setOpenAddReviewDialog,
 }: AddReviewFormProps) {
-  const { mutateAsync: createReview } = useCreateReview(order.restaurant.slug);
+  const { mutateAsync: createReview } = useCreateReview({
+    restaurantSlug: order.restaurant.slug,
+  });
 
   const {
     handleSubmit,

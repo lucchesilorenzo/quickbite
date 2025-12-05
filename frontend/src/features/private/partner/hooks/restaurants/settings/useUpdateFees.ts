@@ -7,11 +7,11 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
 
-type UseUpdateFees = {
+type UseUpdateFeesOptions = {
   restaurantId: string;
 };
 
-export function useUpdateFees({ restaurantId }: UseUpdateFees) {
+export function useUpdateFees({ restaurantId }: UseUpdateFeesOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 

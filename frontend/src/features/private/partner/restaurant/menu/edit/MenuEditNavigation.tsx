@@ -25,7 +25,7 @@ export default function MenuEditNavigation() {
   const {
     data: menuCategories = menuDefaults,
     isLoading: isLoadingMenuCategories,
-  } = useGetMenu(restaurant.id);
+  } = useGetMenu({ restaurantId: restaurant.id });
 
   const swiperRef = useRef<SwiperClass>(null);
 

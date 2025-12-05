@@ -28,10 +28,10 @@ export default function MenuProvider({ children }: MenuProviderProps) {
 
   const [page, setPage] = useState(1);
 
-  const { data: menuData = [], isLoading: isLoadingMenu } = useGetMenu(
-    restaurant.id,
+  const { data: menuData = [], isLoading: isLoadingMenu } = useGetMenu({
+    restaurantId: restaurant.id,
     page,
-  );
+  });
 
   const menuCategoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 

@@ -4,7 +4,13 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { postData } from "@/lib/api-client";
 import { ApiResponse } from "@/types/api.types";
 
-export function useMarkNotificationsAsRead(restaurantId: string) {
+type UseMarkNotificationsAsReadOptions = {
+  restaurantId: string;
+};
+
+export function useMarkNotificationsAsRead({
+  restaurantId,
+}: UseMarkNotificationsAsReadOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 

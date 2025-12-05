@@ -10,7 +10,11 @@ import {
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { postData } from "@/lib/api-client";
 
-export function useCreateOrder(restaurantId: string) {
+type UseCreateOrderOptions = {
+  restaurantId: string;
+};
+
+export function useCreateOrder({ restaurantId }: UseCreateOrderOptions) {
   const { emptyCart } = useMultiCart();
   const { emptyCheckoutData } = useCheckout();
 

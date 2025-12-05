@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
+import { useGetCart } from "@customer/hooks/carts/useGetCart";
+import { CheckoutData } from "@customer/types/order/order.types";
 import { useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
-import { useGetCart } from "@/features/private/customer/hooks/carts/useGetCart";
-import { CheckoutData } from "@/features/private/customer/types/order/order.types";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
 import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
@@ -37,16 +37,19 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
 
   const [fetchDeliverySlots, setFetchDeliverySlots] = useState(false);
 
-  const { data: cart, isLoading: isLoadingCart } = useGetCart(cartId);
+  const { data: cart, isLoading: isLoadingCart } = useGetCart({ cartId });
   const restaurantId = cart?.restaurant.id;
 
   const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
-    useGetOffers(restaurantId!);
+    useGetOffers({ restaurantId: restaurantId! });
 
   const {
     data: deliverySlots = deliverySlotsDefaults,
     isLoading: isLoadingDeliverySlots,
-  } = useGetDeliverySlots(restaurantId!, fetchDeliverySlots);
+  } = useGetDeliverySlots({
+    restaurantId: restaurantId!,
+    enabled: fetchDeliverySlots,
+  });
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
     const stored = localStorage.getItem("checkout_data_by_restaurant");

@@ -8,7 +8,11 @@ import {
 
 import { postData } from "@/lib/api-client";
 
-export function useCreateReview(restaurantSlug: string) {
+type UseCreateReviewOptions = {
+  restaurantSlug: string;
+};
+
+export function useCreateReview({ restaurantSlug }: UseCreateReviewOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 

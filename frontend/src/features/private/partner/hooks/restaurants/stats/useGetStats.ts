@@ -1,14 +1,14 @@
 import { GetStatsResponse } from "@partner/types/stats/stats.api.types";
-import { useQuery } from "@tanstack/react-query";
-
 import {
   Kpi,
   PaymentMethodFilter,
   StatRange,
-} from "@/features/private/partner/types/stats/stats.types";
+} from "@partner/types/stats/stats.types";
+import { useQuery } from "@tanstack/react-query";
+
 import { fetchData } from "@/lib/api-client";
 
-type UseGetStats = {
+type UseGetStatsOptions = {
   restaurantId: string;
   kpi: Kpi;
   range: StatRange;
@@ -22,7 +22,7 @@ export function useGetStats({
   range,
   paymentMethod,
   year,
-}: UseGetStats) {
+}: UseGetStatsOptions) {
   return useQuery<GetStatsResponse>({
     queryKey: ["partner-stats", restaurantId, kpi, range, paymentMethod, year],
     queryFn: () => {

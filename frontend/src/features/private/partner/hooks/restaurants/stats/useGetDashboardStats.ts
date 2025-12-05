@@ -3,11 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
 
-type UseGetDashboardStats = {
+type UseGetDashboardStatsOptions = {
   restaurantId: string;
 };
 
-export function useGetDashboardStats({ restaurantId }: UseGetDashboardStats) {
+export function useGetDashboardStats({
+  restaurantId,
+}: UseGetDashboardStatsOptions) {
   return useQuery<GetDashboardStatsResponse>({
     queryKey: ["partner-dashboard-stats", restaurantId],
     queryFn: () =>

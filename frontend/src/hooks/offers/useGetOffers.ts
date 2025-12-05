@@ -3,7 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/lib/api-client";
 import { GetOffersResponse } from "@/types/offer/offer.api.types";
 
-export function useGetOffers(restaurantId: string, page: number = 1) {
+type UseGetOffersOptions = {
+  restaurantId: string;
+  page?: number;
+};
+
+export function useGetOffers({ restaurantId, page = 1 }: UseGetOffersOptions) {
   return useQuery<GetOffersResponse>({
     queryKey: ["offers", restaurantId, page],
     queryFn: () =>

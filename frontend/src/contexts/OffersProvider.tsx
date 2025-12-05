@@ -25,7 +25,7 @@ export default function OffersProvider({ children }: OffersProviderProps) {
   const [page, setPage] = useState(1);
 
   const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
-    useGetOffers(restaurant.id, page);
+    useGetOffers({ restaurantId: restaurant.id, page });
 
   return (
     <OffersContext.Provider

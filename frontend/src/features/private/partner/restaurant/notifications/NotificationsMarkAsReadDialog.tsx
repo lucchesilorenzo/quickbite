@@ -9,8 +9,8 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useMarkNotificationsAsRead } from "@partner/hooks/notifications/useMarkNotificationsAsRead";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 type NotificationsMarkAsReadDialogProps = {
   openMarkUserNotificationsAsRead: boolean;
@@ -26,7 +26,7 @@ export default function NotificationsMarkAsReadDialog({
   const { restaurant } = useRestaurant();
 
   const { mutateAsync: markUserNotificationsAsRead, isPending: isMarking } =
-    useMarkNotificationsAsRead(restaurant.id);
+    useMarkNotificationsAsRead({ restaurantId: restaurant.id });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

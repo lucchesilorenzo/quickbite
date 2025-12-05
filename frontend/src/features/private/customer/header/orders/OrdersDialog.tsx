@@ -29,7 +29,7 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
   const {
     data: ordersWithPagination = ordersDefaults,
     isLoading: isLoadingOrders,
-  } = useGetOrders(page);
+  } = useGetOrders({ page });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 

@@ -42,7 +42,7 @@ export default function RestaurantProvider({
     data: restaurant,
     isLoading,
     isError,
-  } = useGetRestaurant(restaurantId);
+  } = useGetRestaurant({ restaurantId });
 
   if (isLoading || isLoadingPartnerNotifications) return <FullPageSpinner />;
   if (isError || !restaurant) return <Navigate to="*" />;

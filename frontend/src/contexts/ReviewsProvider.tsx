@@ -25,7 +25,7 @@ export default function ReviewsProvider({ children }: ReviewsProviderProps) {
   const [page, setPage] = useState(1);
 
   const { data: reviewsData = reviewsDefaults, isLoading: isLoadingReviews } =
-    useGetReviews(restaurant.id, page);
+    useGetReviews({ restaurantId: restaurant.id, page });
 
   return (
     <ReviewsContext.Provider
