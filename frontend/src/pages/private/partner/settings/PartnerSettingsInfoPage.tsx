@@ -4,14 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateInfo } from "@partner/hooks/restaurants/settings/useUpdateInfo";
+import InfoProvider from "@partner/restaurant/settings/contexts/InfoProvider";
 import InfoContainer from "@partner/restaurant/settings/info/InfoContainer";
-import { FormProvider, useForm } from "react-hook-form";
-
-import InfoProvider from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
 import {
   TRestaurantSettingsInfoFormSchema,
   restaurantSettingsInfoFormSchema,
-} from "@/features/private/partner/schemas/restaurant-settings.schema";
+} from "@partner/schemas/restaurant-settings.schema";
+import { FormProvider, useForm } from "react-hook-form";
 
 export default function PartnerSettingsInfoPage() {
   useEffect(() => {
@@ -20,7 +19,9 @@ export default function PartnerSettingsInfoPage() {
 
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: updateInfo } = useUpdateInfo(restaurant.id);
+  const { mutateAsync: updateInfo } = useUpdateInfo({
+    restaurantId: restaurant.id,
+  });
 
   const methods = useForm({
     resolver: zodResolver(restaurantSettingsInfoFormSchema),

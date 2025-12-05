@@ -9,24 +9,24 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
-import { useUpdateDeliveryTimes } from "@private/partner/hooks/restaurants/settings/useUpdateDeliveryTimes";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
+import { useUpdateDeliveryTimes } from "@partner/hooks/restaurants/settings/useUpdateDeliveryTimes";
+import {
+  TRestaurantSettingsDeliveryTimesFormSchema,
+  restaurantSettingsDeliveryTimesFormSchema,
+} from "@partner/schemas/restaurant-settings.schema";
 import { format } from "date-fns";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
-import {
-  TRestaurantSettingsDeliveryTimesFormSchema,
-  restaurantSettingsDeliveryTimesFormSchema,
-} from "@/features/private/partner/schemas/restaurant-settings.schema";
 import { capitalize } from "@/lib/utils/formatting";
 
 export default function DeliveryTimesEditTab() {
   const { restaurant } = useRestaurant();
 
   const { mutateAsync: updateDeliveryTimes, isPending: isUpdating } =
-    useUpdateDeliveryTimes(restaurant.id);
+    useUpdateDeliveryTimes({ restaurantId: restaurant.id });
 
   const {
     handleSubmit,

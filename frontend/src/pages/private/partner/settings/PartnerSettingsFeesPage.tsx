@@ -6,12 +6,11 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateFees } from "@partner/hooks/restaurants/settings/useUpdateFees";
 import FeesProvider from "@partner/restaurant/settings/contexts/FeesProvider";
 import FeesContainer from "@partner/restaurant/settings/fees/FeesContainer";
-import { FormProvider, useForm } from "react-hook-form";
-
 import {
   TRestaurantSettingsFeesFormSchema,
   restaurantSettingsFeesFormSchema,
-} from "@/features/private/partner/schemas/restaurant-settings.schema";
+} from "@partner/schemas/restaurant-settings.schema";
+import { FormProvider, useForm } from "react-hook-form";
 
 export default function PartnerSettingsFeesPage() {
   useEffect(() => {
@@ -20,7 +19,9 @@ export default function PartnerSettingsFeesPage() {
 
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: updateFees } = useUpdateFees(restaurant.id);
+  const { mutateAsync: updateFees } = useUpdateFees({
+    restaurantId: restaurant.id,
+  });
 
   const methods = useForm({
     resolver: zodResolver(restaurantSettingsFeesFormSchema),
