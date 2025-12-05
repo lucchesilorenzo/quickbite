@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { Box, Grid, Stack, Typography } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetOffers } from "@partner/hooks/restaurants/offers/useGetOffers";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import OffersItem from "./OffersItem";
 
@@ -18,7 +18,7 @@ export default function OffersList() {
   const {
     data: offersWithPagination = offersDefaults,
     isLoading: isLoadingOffers,
-  } = useGetOffers(restaurant.id, page);
+  } = useGetOffers({ restaurantId: restaurant.id, page });
 
   if (isLoadingOffers) return <Spinner />;
 

@@ -1,15 +1,22 @@
+import {
+  CreateOfferPayload,
+  CreateOfferResponse,
+} from "@partner/types/offer/offer.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TRestaurantSettingsOffersFormSchema } from "@/features/private/partner/schemas/restaurant-settings.schema";
 import { postData } from "@/lib/api-client";
 
-export function useCreateOffer(restaurantId: string) {
+type UseCreateOfferOptions = {
+  restaurantId: string;
+};
+
+export function useCreateOffer({ restaurantId }: UseCreateOfferOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TRestaurantSettingsOffersFormSchema) =>
+  return useMutation<CreateOfferResponse, Error, CreateOfferPayload>({
+    mutationFn: (data) =>
       postData(`/partner/restaurants/${restaurantId}/offers`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({

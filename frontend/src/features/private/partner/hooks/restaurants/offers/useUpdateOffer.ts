@@ -1,15 +1,26 @@
+import {
+  UpdateOfferPayload,
+  UpdateOfferResponse,
+} from "@partner/types/offer/offer.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TRestaurantSettingsOffersFormSchema } from "@/features/private/partner/schemas/restaurant-settings.schema";
 import { updateData } from "@/lib/api-client";
 
-export function useUpdateOffer(restaurantId: string, offerId: string) {
+type UseUpdateOfferOptions = {
+  restaurantId: string;
+  offerId: string;
+};
+
+export function useUpdateOffer({
+  restaurantId,
+  offerId,
+}: UseUpdateOfferOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TRestaurantSettingsOffersFormSchema) =>
+  return useMutation<UpdateOfferResponse, Error, UpdateOfferPayload>({
+    mutationFn: (data) =>
       updateData(
         `/partner/restaurants/${restaurantId}/offers/${offerId}`,
         data,

@@ -4,14 +4,14 @@ import { useRestaurant } from "./RestaurantProvider";
 
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { offersDefaults } from "@/lib/query-defaults";
-import { OfferWithPagination } from "@/types/offer/offer.types";
+import { OffersWithPagination } from "@/types/offer/offer.types";
 
 type OffersProviderProps = {
   children: React.ReactNode;
 };
 
 type OffersContext = {
-  offersData: OfferWithPagination;
+  offersData: OffersWithPagination;
   page: number;
   isLoadingOffers: boolean;
   setPage: React.Dispatch<React.SetStateAction<number>>;

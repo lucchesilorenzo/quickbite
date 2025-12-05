@@ -50,6 +50,7 @@ class OfferService
         }
 
         $offer->update($data);
+        $offer->unsetRelation('restaurant');
 
         return $offer;
     }

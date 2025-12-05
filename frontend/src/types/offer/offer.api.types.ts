@@ -1,3 +1,3 @@
-import { OfferWithPagination } from "./offer.types";
+import { OffersWithPagination } from "./offer.types";
 
-export type GetOffersResponse = OfferWithPagination;
+export type GetOffersResponse = OffersWithPagination;

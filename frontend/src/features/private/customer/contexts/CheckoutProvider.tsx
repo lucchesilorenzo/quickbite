@@ -11,7 +11,7 @@ import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
 import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
 import { RestaurantCart } from "@/types/cart.types";
 import { DeliverySlots } from "@/types/delivery/delivery.types";
-import { OfferWithPagination } from "@/types/offer/offer.types";
+import { OffersWithPagination } from "@/types/offer/offer.types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ type CheckoutContext = {
   cart: RestaurantCart;
   checkoutData: CheckoutData;
   restaurantId: string;
-  offersData: OfferWithPagination;
+  offersData: OffersWithPagination;
   deliverySlots: DeliverySlots;
   isLoadingDeliverySlots: boolean;
   setFetchDeliverySlots: React.Dispatch<React.SetStateAction<boolean>>;

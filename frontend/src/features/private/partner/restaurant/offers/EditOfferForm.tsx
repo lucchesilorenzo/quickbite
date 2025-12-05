@@ -9,16 +9,16 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateOffer } from "@partner/hooks/restaurants/offers/useUpdateOffer";
 import { discountRates } from "@partner/lib/constants/offers";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
-import { Controller, useForm } from "react-hook-form";
-
-import FormHelperTextError from "@/components/common/FormHelperTextError";
 import {
   TRestaurantSettingsOffersFormSchema,
   restaurantSettingsOffersFormSchema,
-} from "@/features/private/partner/schemas/restaurant-settings.schema";
+} from "@partner/schemas/restaurant-settings.schema";
+import { Controller, useForm } from "react-hook-form";
+
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { Offer } from "@/types/offer/offer.types";
 
 type EditOfferFormProps = {
@@ -32,7 +32,10 @@ export default function EditOfferForm({
 }: EditOfferFormProps) {
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: updateOffer } = useUpdateOffer(restaurant.id, offer.id);
+  const { mutateAsync: updateOffer } = useUpdateOffer({
+    restaurantId: restaurant.id,
+    offerId: offer.id,
+  });
 
   const {
     handleSubmit,

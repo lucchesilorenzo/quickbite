@@ -9,16 +9,16 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateOffer } from "@partner/hooks/restaurants/offers/useCreateOffer";
 import { discountRates } from "@partner/lib/constants/offers";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
-import { Controller, useForm } from "react-hook-form";
-
-import FormHelperTextError from "@/components/common/FormHelperTextError";
 import {
   TRestaurantSettingsOffersFormSchema,
   restaurantSettingsOffersFormSchema,
-} from "@/features/private/partner/schemas/restaurant-settings.schema";
+} from "@partner/schemas/restaurant-settings.schema";
+import { Controller, useForm } from "react-hook-form";
+
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type AddOfferFormProps = {
   setOpenAddOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,9 +29,9 @@ export default function AddOfferForm({
 }: AddOfferFormProps) {
   const { restaurant } = useRestaurant();
 
-  const { mutateAsync: createOffer, isPending: isAdding } = useCreateOffer(
-    restaurant.id,
-  );
+  const { mutateAsync: createOffer, isPending: isAdding } = useCreateOffer({
+    restaurantId: restaurant.id,
+  });
 
   const {
     handleSubmit,

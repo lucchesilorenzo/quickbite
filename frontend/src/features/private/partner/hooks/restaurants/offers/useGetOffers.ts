@@ -1,12 +1,17 @@
+import { GetOffersResponse } from "@partner/types/offer/offer.api.types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { OfferWithPagination } from "@/types/offer/offer.types";
 
-export function useGetOffers(restaurantId: string, page: number = 1) {
-  return useQuery({
+type UseGetOffersOptions = {
+  restaurantId: string;
+  page: number;
+};
+
+export function useGetOffers({ restaurantId, page = 1 }: UseGetOffersOptions) {
+  return useQuery<GetOffersResponse>({
     queryKey: ["partner-offers", restaurantId, page],
-    queryFn: (): Promise<OfferWithPagination> =>
+    queryFn: () =>
       fetchData(`/partner/restaurants/${restaurantId}/offers?page=${page}`),
   });
 }

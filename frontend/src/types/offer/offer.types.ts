@@ -9,6 +9,6 @@ export type Offer = {
   updated_at: string;
 };
 
-export type OfferWithPagination = BaseOffsetPagination & {
+export type OffersWithPagination = BaseOffsetPagination & {
   data: Offer[];
 };
