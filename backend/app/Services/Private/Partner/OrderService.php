@@ -54,6 +54,7 @@ class OrderService
             }
 
             $order->update($data);
+            $order->unsetRelation('restaurant');
 
             return $order;
         });

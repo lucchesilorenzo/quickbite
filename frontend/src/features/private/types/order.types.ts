@@ -4,9 +4,6 @@ import { ReviewWithoutOrder } from "@/types/review/review.types";
 
 export type Order = {
   id: string;
-  restaurant: BaseRestaurant & {
-    reviews: ReviewWithoutOrder[];
-  };
   user_id: string | null;
   restaurant_id: string;
   order_code: number;
@@ -22,7 +19,6 @@ export type Order = {
   delivery_time: string;
   notes: string | null;
   payment_method: string;
-  order_items: OrderItem[];
   subtotal: number;
   delivery_fee: number;
   service_fee: number;
@@ -32,6 +28,10 @@ export type Order = {
   status: OrderStatus;
   created_at: string;
   updated_at: string;
+  restaurant: BaseRestaurant & {
+    reviews: ReviewWithoutOrder[];
+  };
+  order_items: OrderItem[];
 };
 
 export type OrderItem = {
@@ -56,6 +56,6 @@ export type OrderStatus =
 
 export type OrderStatusWithAll = OrderStatus | "all";
 
-export type OrderWithPagination = BaseOffsetPagination & {
+export type OrdersWithPagination = BaseOffsetPagination & {
   data: Order[];
 };

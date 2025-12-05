@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import { useUpdateOrderStatus } from "@partner/hooks/restaurants/orders/useUpdateOrderStatus";
 import { getDisabledOrderStatuses } from "@partner/lib/utils/orders";
+import { Order, OrderStatus } from "@private/types/order.types";
 
-import { Order, OrderStatus } from "@/features/private/types/order.types";
 import { orderStatuses } from "@/lib/constants/orders";
 
 type UpdateOrderStatusButtonProps = {
@@ -28,7 +28,7 @@ export default function UpdateOrderStatusButton({
   const [status, setStatus] = useState(order.status);
 
   const { mutateAsync: updateOrderStatus, isPending: isOrderStatusUpdating } =
-    useUpdateOrderStatus(order.id);
+    useUpdateOrderStatus({ orderId: order.id });
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setAnchorEl(e.currentTarget);

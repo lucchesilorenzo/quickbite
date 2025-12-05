@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
+import { useOrders } from "@partner/contexts/OrdersProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetOrders } from "@partner/hooks/restaurants/orders/useGetOrders";
 import { ordersDefaults } from "@private/lib/query-defaults";
-import { useOrders } from "@private/partner/contexts/OrdersProvider";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { useSearchParams } from "react-router-dom";
 
 import OrderItem from "./OrderItem";

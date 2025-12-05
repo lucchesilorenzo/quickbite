@@ -12,7 +12,7 @@ import {
 import ViewOrderFeesAndDiscounts from "@/components/view-order-dialog/ViewOrderFeesAndDiscounts";
 import ViewOrderItemsList from "@/components/view-order-dialog/ViewOrderItemsList";
 import ViewOrderReceipt from "@/components/view-order-dialog/ViewOrderReceipt";
-import { PartnerOrder } from "@/features/private/partner/types/order.types";
+import { PartnerOrder } from "@/features/private/partner/types/order/order.types";
 
 type ViewOrderDialogProps = {
   order: PartnerOrder;

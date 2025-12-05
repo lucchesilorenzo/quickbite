@@ -16,7 +16,7 @@ class ImageService
     {
         $path = $file->store($folder, 'public');
 
-        return '/storage/'.$path;
+        return '/storage/' . $path;
     }
 
     /**

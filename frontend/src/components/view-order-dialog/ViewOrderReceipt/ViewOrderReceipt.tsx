@@ -3,7 +3,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import OrderReceiptToPDF from "../OrderReceiptToPDF";
 
-import { PartnerOrder } from "@/features/private/partner/types/order.types";
+import { PartnerOrder } from "@/features/private/partner/types/order/order.types";
 import { Order } from "@/features/private/types/order.types";
 import { useGetBase64RestaurantLogo } from "@/hooks/restaurants/useGetBase64RestaurantLogo";
 
