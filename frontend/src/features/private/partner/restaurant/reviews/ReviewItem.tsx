@@ -11,10 +11,10 @@ import {
 import { blue } from "@mui/material/colors";
 import { format } from "date-fns";
 
-import { ReviewWithPagination } from "@/types/review/review.types";
+import { ReviewsWithPagination } from "@/types/review/review.types";
 
 type ReviewItemProps = {
-  review: ReviewWithPagination["data"][number];
+  review: ReviewsWithPagination["data"][number];
 };
 
 export default function ReviewItem({ review }: ReviewItemProps) {

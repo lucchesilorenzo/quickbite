@@ -18,12 +18,12 @@ export type Review = {
 
 export type ReviewWithoutOrder = Omit<Review, "order">;
 
-export type ReviewWithPagination = BaseOffsetPagination & {
+export type ReviewsWithPagination = BaseOffsetPagination & {
   data: Review[];
 };
 
 export type ReviewStats = {
-  reviews: ReviewWithPagination;
+  reviews: ReviewsWithPagination;
   avg_rating: number | null;
   count: number;
 };

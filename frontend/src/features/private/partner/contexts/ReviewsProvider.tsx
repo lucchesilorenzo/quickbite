@@ -30,7 +30,7 @@ export default function ReviewsProvider({ children }: ReviewsProviderProps) {
   const [status, setStatus] = useState<OrderStatusWithAll>("all");
 
   const { data: reviewsData = reviewsDefaults, isLoading: isLoadingReviews } =
-    useGetReviews(restaurant.id, page);
+    useGetReviews({ restaurantId: restaurant.id, page });
 
   if (isLoadingReviews) return <Spinner />;
 
