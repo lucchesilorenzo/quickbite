@@ -46,36 +46,36 @@ function applyInterceptors(axiosInstance: AxiosInstance) {
 
 applyInterceptors(api);
 
-export async function fetchData<T>(
+export async function fetchData<TResponse>(
   endpoint: string,
   axiosInstance: AxiosInstance = api,
-): Promise<T> {
+): Promise<TResponse> {
   const response = await axiosInstance.get(endpoint);
   return response.data;
 }
 
-export async function postData<T>(
+export async function postData<TResponse, TBody = unknown>(
   endpoint: string,
-  data?: T,
+  data?: TBody,
   axiosInstance: AxiosInstance = api,
-) {
+): Promise<TResponse> {
   const response = await axiosInstance.post(endpoint, data);
   return response.data;
 }
 
-export async function updateData<T>(
+export async function updateData<TResponse, TBody = unknown>(
   endpoint: string,
-  data?: T,
+  data?: TBody,
   axiosInstance: AxiosInstance = api,
-) {
+): Promise<TResponse> {
   const response = await axiosInstance.patch(endpoint, data);
   return response.data;
 }
 
-export async function deleteData(
+export async function deleteData<TResponse = unknown>(
   endpoint: string,
   axiosInstance: AxiosInstance = api,
-) {
+): Promise<TResponse> {
   const response = await axiosInstance.delete(endpoint);
   return response.data;
 }
