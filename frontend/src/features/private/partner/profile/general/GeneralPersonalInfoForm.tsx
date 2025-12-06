@@ -1,11 +1,11 @@
 import { Stack, TextField, useMediaQuery } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TProfileGeneralFormSchema } from "@partner/schemas/profile-general.schema";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useFormContext } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
-import { TProfileGeneralFormSchema } from "@/features/private/partner/schemas/profile-general.schema";
 
 export default function GeneralPersonalInfoForm() {
   const {

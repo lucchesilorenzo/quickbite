@@ -2,16 +2,16 @@ import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
-
-import { useAuth } from "@/contexts/AuthProvider";
-import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
-import { useUpdateProfileNotifications } from "@/features/private/partner/hooks/profile/useUpdateProfileNotifications";
-import NotificationsCard from "@/features/private/partner/profile/notifications/NotificationsCard";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import { useUpdateProfileNotifications } from "@partner/hooks/profile/useUpdateProfileNotifications";
+import NotificationsCard from "@partner/profile/notifications/NotificationsCard";
 import {
   TProfileNotificationsFormSchema,
   profileNotificationsFormSchema,
-} from "@/features/private/partner/schemas/profile-notifications.schema";
+} from "@partner/schemas/profile-notifications.schema";
+import { FormProvider, useForm } from "react-hook-form";
+
+import { useAuth } from "@/contexts/AuthProvider";
 import { NotificationType } from "@/types/user.types";
 
 export default function PartnerProfileNotificationsPage() {

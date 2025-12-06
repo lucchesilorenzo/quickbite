@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 import NotificationItem from "./NotificationItem";
 

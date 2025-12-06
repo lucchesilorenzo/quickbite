@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
+import { useGetOrder } from "@customer/hooks/orders/useGetOrder";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useGetOrder } from "@/features/private/customer/hooks/orders/useGetOrder";
 
 export default function CheckoutSuccessPage() {
   useEffect(() => {

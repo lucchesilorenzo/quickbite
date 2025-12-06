@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
+import {
+  TDeliveryTimeFormSchema,
+  deliveryTimeFormSchema,
+} from "@customer/schemas/checkout.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
@@ -20,10 +24,6 @@ import { format } from "date-fns";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
-import {
-  TDeliveryTimeFormSchema,
-  deliveryTimeFormSchema,
-} from "@/features/private/customer/schemas/checkout.schema";
 
 type DeliveryTimeFormProps = {
   setOpenDeliveryTimeDialog: React.Dispatch<React.SetStateAction<boolean>>;

@@ -4,7 +4,7 @@ import { vi } from "vitest";
 
 import ViewOrderFeesAndDiscounts from "./ViewOrderFeesAndDiscounts";
 
-import { Order } from "@/features/private/types/order.types";
+import { Order } from "@/features/private/shared/types/order.types";
 
 vi.mock("@/lib/utils/formatting", () => ({
   formatCurrency: (value: number) => value.toString(),

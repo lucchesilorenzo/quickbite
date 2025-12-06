@@ -1,6 +1,6 @@
 import { Chip } from "@mui/material";
 
-import { OrderStatus } from "@/features/private/types/order.types";
+import { OrderStatus } from "@/features/private/shared/types/order.types";
 import { orderStatuses } from "@/lib/constants/orders";
 
 type OrderStatusBadgeProps = {

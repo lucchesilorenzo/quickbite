@@ -1,3 +1,4 @@
+import CustomerHeaderDialog from "@customer/header/CustomerHeaderDialog";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import { IconButton } from "@mui/material";
@@ -5,7 +6,6 @@ import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import CustomerHeaderDialog from "@private/customer/header/CustomerHeaderDialog";
 import { Link, useNavigate } from "react-router-dom";
 
 import HeaderDialog from "../HeaderDialog";

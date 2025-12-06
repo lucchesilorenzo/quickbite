@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
 import { PartnerOrder } from "@partner/types/order/order.types";
-import { Order } from "@private/types/order.types";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import OrderReceiptToPDF from "../OrderReceiptToPDF";
 
+import { Order } from "@/features/private/shared/types/order.types";
 import { useGetBase64RestaurantLogo } from "@/hooks/restaurants/useGetBase64RestaurantLogo";
 
 type ViewOrderReceiptProps = {

@@ -1,7 +1,7 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
+import { PartnerOrder } from "@partner/types/order/order.types";
 
-import { PartnerOrder } from "@/features/private/partner/types/order/order.types";
-import { Order } from "@/features/private/types/order.types";
+import { Order } from "@/features/private/shared/types/order.types";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type ViewOrderFeesAndDiscountsProps = {

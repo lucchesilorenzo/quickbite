@@ -2,7 +2,7 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
 import { Stack } from "@mui/material";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 import MainCard from "../components/MainCard";
 

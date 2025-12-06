@@ -9,8 +9,8 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useReviews } from "@partner/contexts/ReviewsProvider";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 import { Link } from "react-router-dom";
 
 type RatingDisplayCardProps = {

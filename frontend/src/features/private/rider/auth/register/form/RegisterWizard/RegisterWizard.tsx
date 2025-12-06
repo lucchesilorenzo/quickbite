@@ -4,15 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Container } from "@mui/material";
 import { useRegister } from "@rider/hooks/auth/useRegister";
 import { steps } from "@rider/lib/constants/register-wizard/steps";
+import {
+  TRegisterFormSchema,
+  registerFormSchema,
+} from "@rider/schemas/auth.schema";
 import { FormProvider, useForm } from "react-hook-form";
 
 import Stepper from "../Stepper";
 import MobileStepper from "../mobile/MobileStepper";
-
-import {
-  TRegisterFormSchema,
-  registerFormSchema,
-} from "@/features/private/rider/schemas/auth.schema";
 
 export default function RegisterWizard() {
   const { mutateAsync: registerRider, isPending: isRegistering } =

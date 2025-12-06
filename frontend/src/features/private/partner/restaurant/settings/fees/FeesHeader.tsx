@@ -3,10 +3,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
 import HeadingBlock from "@partner/components/HeadingBlock";
+import { useFees } from "@partner/restaurant/settings/contexts/FeesProvider";
+import { TRestaurantSettingsFeesFormSchema } from "@partner/schemas/restaurant-settings.schema";
 import { useFormContext } from "react-hook-form";
-
-import { useFees } from "@/features/private/partner/restaurant/settings/contexts/FeesProvider";
-import { TRestaurantSettingsFeesFormSchema } from "@/features/private/partner/schemas/restaurant-settings.schema";
 
 export default function FeesHeader() {
   const { editMode, setEditMode } = useFees();

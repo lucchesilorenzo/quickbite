@@ -1,9 +1,9 @@
 import { Badge } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { PartnerMenu } from "@/features/private/partner/types/menu/menu.types";
 import { MenuCategory, MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemQuantityInCartBadgeProps = {

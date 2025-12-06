@@ -10,7 +10,7 @@ import {
 
 import AddReviewForm from "./AddReviewForm";
 
-import { Order } from "@/features/private/types/order.types";
+import { Order } from "@/features/private/shared/types/order.types";
 
 type AddReviewDialogProps = {
   order: Order;

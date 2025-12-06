@@ -1,4 +1,4 @@
-import { TRegisterFormSchema } from "@/features/private/rider/schemas/auth.schema";
+import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 
 export const registerForm: TRegisterFormSchema = {
   first_name: "John",

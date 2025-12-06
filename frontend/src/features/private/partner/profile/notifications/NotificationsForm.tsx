@@ -1,9 +1,9 @@
 import { Divider, Stack, Typography } from "@mui/material";
+import { TProfileNotificationsFormSchema } from "@partner/schemas/profile-notifications.schema";
 import { Controller, useFormContext } from "react-hook-form";
 import { Fragment } from "react/jsx-runtime";
 
 import AntSwitch from "@/components/common/AntSwitch";
-import { TProfileNotificationsFormSchema } from "@/features/private/partner/schemas/profile-notifications.schema";
 
 const notificationPreferences = [
   {

@@ -1,14 +1,14 @@
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
+import {
+  TAddressInfoFormSchema,
+  addressInfoFormSchema,
+} from "@customer/schemas/checkout.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
-import {
-  TAddressInfoFormSchema,
-  addressInfoFormSchema,
-} from "@/features/private/customer/schemas/checkout.schema";
 
 type AddressInfoFormProps = {
   setOpenAddressInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;

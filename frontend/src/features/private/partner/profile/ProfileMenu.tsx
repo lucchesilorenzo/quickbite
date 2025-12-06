@@ -8,7 +8,7 @@ import Divider from "@mui/material/Divider";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useLogout } from "@private/partner/hooks/auth/useLogout";
+import { useLogout } from "@partner/hooks/auth/useLogout";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "@/contexts/AuthProvider";

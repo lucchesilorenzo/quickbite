@@ -11,13 +11,13 @@ import {
   TextField,
 } from "@mui/material";
 import { useLogin } from "@partner/hooks/auth/useLogin";
-import { Controller, useForm } from "react-hook-form";
-
-import FormHelperTextError from "@/components/common/FormHelperTextError";
 import {
   TLoginFormSchema,
   loginFormSchema,
-} from "@/features/private/partner/schemas/auth.schema";
+} from "@partner/schemas/auth.schema";
+import { Controller, useForm } from "react-hook-form";
+
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 export default function LoginForm() {
   const { mutateAsync: loginPartner } = useLogin();

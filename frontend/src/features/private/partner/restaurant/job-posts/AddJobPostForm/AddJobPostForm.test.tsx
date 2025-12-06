@@ -1,5 +1,6 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { employmentTypes } from "@partner/lib/constants/job-posts";
+import { TAddJobPostFormSchema } from "@partner/schemas/job-posts.schema";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { addJobPostForm } from "@tests/mocks/data/private/partner/forms/add-job-post";
@@ -9,7 +10,6 @@ import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
 import AddJobPostForm from "./AddJobPostForm";
 
-import { TAddJobPostFormSchema } from "@/features/private/partner/schemas/job-posts.schema";
 import env from "@/lib/env";
 import { baseOffsetPaginationDefaults } from "@/lib/query-defaults";
 

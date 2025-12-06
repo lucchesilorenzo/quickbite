@@ -1,3 +1,4 @@
+import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { registerFormWithoutPasswordAndConfirmation } from "@tests/mocks/data/private/rider/forms/register";
@@ -7,7 +8,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import RegisterWizard from "./RegisterWizard";
 
-import { TRegisterFormSchema } from "@/features/private/rider/schemas/auth.schema";
 import env from "@/lib/env";
 
 vi.mock("../mobile/MobileStepper", () => ({

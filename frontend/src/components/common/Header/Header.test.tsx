@@ -14,7 +14,7 @@ vi.mock("../HeaderDialog", () => ({
   ),
 }));
 
-vi.mock("@private/customer/header/CustomerHeaderDialog", () => ({
+vi.mock("@customer/header/CustomerHeaderDialog", () => ({
   default: () => (
     <button aria-label="menu" data-testid="customer-header-dialog">
       CustomerHeaderDialog

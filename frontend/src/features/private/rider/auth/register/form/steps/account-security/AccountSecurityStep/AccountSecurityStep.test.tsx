@@ -1,10 +1,9 @@
+import { registerFormSchema } from "@rider/schemas/auth.schema";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FormWrapper from "@tests/FormWrapper";
 
 import AccountSecurityStep from "./AccountSecurityStep";
-
-import { registerFormSchema } from "@/features/private/rider/schemas/auth.schema";
 
 describe("AccountSecurityStep", () => {
   function renderComponent() {

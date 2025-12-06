@@ -15,7 +15,7 @@ import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
 import ViewOrderDialog from "./ViewOrderDialog";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
-import { Order } from "@/features/private/types/order.types";
+import { Order } from "@/features/private/shared/types/order.types";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type OrderItemProps = {

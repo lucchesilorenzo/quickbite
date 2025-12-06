@@ -1,4 +1,7 @@
-import { Order, OrderStatus } from "@private/types/order.types";
+import {
+  Order,
+  OrderStatus,
+} from "@/features/private/shared/types/order.types";
 
 export type PartnerOrder = Omit<Order, "restaurant"> & {
   restaurant: Omit<Order["restaurant"], "reviews">;

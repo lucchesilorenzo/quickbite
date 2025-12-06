@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Pagination, useMediaQuery } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import { OrderStatusWithAll } from "@/features/private/types/order.types";
+import { OrderStatusWithAll } from "@/features/private/shared/types/order.types";
 import { PaginationContext } from "@/types/pagination.types";
 
 type CustomPaginationProps = {

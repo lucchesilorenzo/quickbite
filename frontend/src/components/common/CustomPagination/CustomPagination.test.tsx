@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 
 import CustomPagination from "./CustomPagination";
 
-import { OrderStatusWithAll } from "@/features/private/types/order.types";
+import { OrderStatusWithAll } from "@/features/private/shared/types/order.types";
 import { PaginationContext } from "@/types/pagination.types";
 
 vi.mock("react-router-dom", async (importOriginal) => {

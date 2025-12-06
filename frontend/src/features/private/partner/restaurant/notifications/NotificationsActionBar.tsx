@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Button, Stack } from "@mui/material";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 import NotificationsMarkAsReadDialog from "./NotificationsMarkAsReadDialog";
 

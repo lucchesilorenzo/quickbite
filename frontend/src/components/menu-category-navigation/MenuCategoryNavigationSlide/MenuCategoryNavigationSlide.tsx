@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { PartnerMenu } from "@partner/types/menu/menu.types";
 
-import { PartnerMenu } from "@/features/private/partner/types/menu/menu.types";
 import { MenuCategory } from "@/types/menu/menu.types";
 
 type MenuCategoryNavigationSlideProps = {

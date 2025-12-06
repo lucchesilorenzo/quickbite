@@ -10,13 +10,13 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { ordersDefaults } from "@private/lib/query-defaults";
 import { useSearchParams } from "react-router-dom";
 
 import EmptyOrders from "./EmptyOrders";
 import OrdersList from "./OrdersList";
 
 import Spinner from "@/components/common/Spinner";
+import { ordersDefaults } from "@/features/private/shared/lib/query-defaults";
 
 type OrdersDialogProps = {
   openOrdersDialog: boolean;

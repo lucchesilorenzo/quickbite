@@ -1,4 +1,4 @@
-import { StatRange } from "@/features/private/partner/types/stats/stats.types";
+import { StatRange } from "@partner/types/stats/stats.types";
 
 export const statRanges: { value: StatRange; label: string }[] = [
   { value: "all", label: "All time" },

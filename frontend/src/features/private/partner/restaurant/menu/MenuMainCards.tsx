@@ -1,7 +1,7 @@
 import FastfoodOutlinedIcon from "@mui/icons-material/FastfoodOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import { Stack } from "@mui/material";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 import MainCard from "../components/MainCard";
 

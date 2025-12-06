@@ -15,16 +15,16 @@ import {
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useRegister } from "@partner/hooks/auth/useRegister";
+import {
+  TRegisterFormSchema,
+  registerFormSchema,
+} from "@partner/schemas/auth.schema";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
-import {
-  TRegisterFormSchema,
-  registerFormSchema,
-} from "@/features/private/partner/schemas/auth.schema";
 import { calculatePasswordStrength } from "@/lib/utils/validation";
 
 export default function RegisterForm() {

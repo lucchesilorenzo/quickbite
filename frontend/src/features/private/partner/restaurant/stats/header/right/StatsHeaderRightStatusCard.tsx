@@ -1,6 +1,6 @@
 import { Cancel, CheckCircle } from "@mui/icons-material";
 import { Card, Chip, Stack, Typography } from "@mui/material";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 export default function StatsHeaderRightStatusCard() {
   const { restaurant } = useRestaurant();

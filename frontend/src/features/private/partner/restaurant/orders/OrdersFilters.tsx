@@ -1,8 +1,8 @@
 import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { useOrders } from "@private/partner/contexts/OrdersProvider";
+import { useOrders } from "@partner/contexts/OrdersProvider";
 import { useSearchParams } from "react-router-dom";
 
-import { OrderStatusWithAll } from "@/features/private/types/order.types";
+import { OrderStatusWithAll } from "@/features/private/shared/types/order.types";
 import { orderStatuses } from "@/lib/constants/orders";
 
 type OrdersFiltersProps = {
