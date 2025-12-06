@@ -4,7 +4,7 @@ import {
   jobPostStatuses,
 } from "@partner/lib/constants/job-posts";
 import { TEditJobPostFormSchema } from "@partner/schemas/job-posts.schema";
-import { GetJobPostResponse } from "@partner/types/job-post/job-post.api-types";
+import { GetJobPostResponse } from "@partner/types/job-posts/job-post.api-types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { editJobPostForm } from "@tests/mocks/data/private/partner/forms/edit-job-post";

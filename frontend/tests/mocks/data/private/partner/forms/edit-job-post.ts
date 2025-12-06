@@ -1,7 +1,7 @@
 import {
   UpdateJobPostPayload,
   UpdateJobPostResponse,
-} from "@partner/types/job-post/job-post.api-types";
+} from "@partner/types/job-posts/job-post.api-types";
 import { addJobPostForm, addJobPostFormResponse } from "./add-job-post";
 
 export const editJobPostForm: UpdateJobPostPayload = {

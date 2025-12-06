@@ -1,5 +1,5 @@
 import { TRestaurantSettingsFeesFormSchema } from "../../schemas/restaurant-settings.schema";
-import { PartnerRestaurantDetail } from "../restaurant/restaurant.types";
+import { PartnerRestaurantDetail } from "../restaurants/restaurant.types";
 
 import { ApiResponse } from "@/types/api.types";
 

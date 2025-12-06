@@ -1,8 +1,8 @@
-import { CategoryWithPivot } from "../category/category.types";
-import { DeliveryDay } from "../delivery/delivery.types";
+import { CategoryWithPivot } from "../categories/category.types";
+import { DeliveryDay } from "../deliveries/delivery.types";
 import { MenuCategory } from "../menu/menu.types";
-import { Offer } from "../offer/offer.types";
-import { Review } from "../review/review.types";
+import { Offer } from "../offers/offer.types";
+import { Review } from "../reviews/review.types";
 
 export type BaseRestaurant = {
   id: string;

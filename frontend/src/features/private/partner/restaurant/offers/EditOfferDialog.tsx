@@ -10,7 +10,7 @@ import {
 
 import EditOfferForm from "./EditOfferForm";
 
-import { Offer } from "@/types/offer/offer.types";
+import { Offer } from "@/types/offers/offer.types";
 
 type EditOfferDialogProps = {
   offer: Offer;

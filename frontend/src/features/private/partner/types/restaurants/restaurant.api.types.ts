@@ -4,7 +4,7 @@ import { ApiResponse } from "@/types/api.types";
 import {
   BaseRestaurant,
   RestaurantDetail,
-} from "@/types/restaurant/restaurant.types";
+} from "@/types/restaurants/restaurant.types";
 
 export type GetRestaurantResponse = PartnerRestaurantDetail;
 

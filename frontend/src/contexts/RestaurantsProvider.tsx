@@ -12,12 +12,12 @@ import { useAddress } from "./AddressProvider";
 
 import { useGetRestaurants } from "@/hooks/restaurants/useGetRestaurants";
 import { restaurantsDefaults } from "@/lib/query-defaults";
-import { GetRestaurantsResponse } from "@/types/restaurant/restaurant.api.types";
+import { GetRestaurantsResponse } from "@/types/restaurants/restaurant.api.types";
 import {
   RestaurantListItem,
   RestaurantMeta,
   RestaurantSearchOption,
-} from "@/types/restaurant/restaurant.types";
+} from "@/types/restaurants/restaurant.types";
 
 type RestaurantsProviderProps = {
   children: React.ReactNode;

@@ -8,7 +8,7 @@ import ErrorPage from "@/pages/public/ErrorPage";
 import {
   RestaurantTab,
   SingleRestaurantDetail,
-} from "@/types/restaurant/restaurant.types";
+} from "@/types/restaurants/restaurant.types";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;

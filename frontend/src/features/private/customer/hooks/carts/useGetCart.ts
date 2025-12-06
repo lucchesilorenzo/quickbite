@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { GetCartResponse } from "../../types/cart/cart.api.types";
+import { GetCartResponse } from "../../types/carts/cart.api.types";
 
 import { fetchData } from "@/lib/api-client";
 

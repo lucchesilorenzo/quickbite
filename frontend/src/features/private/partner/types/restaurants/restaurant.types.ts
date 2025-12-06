@@ -1,7 +1,7 @@
 import {
   BaseRestaurant,
   RestaurantDetail,
-} from "@/types/restaurant/restaurant.types";
+} from "@/types/restaurants/restaurant.types";
 
 export type PartnerRestaurantDetail = BaseRestaurant &
   Omit<

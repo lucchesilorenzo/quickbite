@@ -1,4 +1,4 @@
-import { GetNotificationsResponse } from "@partner/types/notification/notification.api.types";
+import { GetNotificationsResponse } from "@partner/types/notifications/notification.api.types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";

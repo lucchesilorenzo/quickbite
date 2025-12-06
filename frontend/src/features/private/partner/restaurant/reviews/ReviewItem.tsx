@@ -11,7 +11,7 @@ import {
 import { blue } from "@mui/material/colors";
 import { format } from "date-fns";
 
-import { ReviewsWithPagination } from "@/types/review/review.types";
+import { ReviewsWithPagination } from "@/types/reviews/review.types";
 
 type ReviewItemProps = {
   review: ReviewsWithPagination["data"][number];

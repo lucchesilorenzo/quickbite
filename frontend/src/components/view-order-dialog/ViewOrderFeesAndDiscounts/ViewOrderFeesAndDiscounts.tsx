@@ -1,5 +1,5 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import { PartnerOrder } from "@partner/types/order/order.types";
+import { PartnerOrder } from "@partner/types/orders/order.types";
 
 import { Order } from "@/features/private/shared/types/order.types";
 import { formatCurrency } from "@/lib/utils/formatting";

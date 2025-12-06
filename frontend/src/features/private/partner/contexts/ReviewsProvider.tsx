@@ -7,7 +7,7 @@ import { useRestaurant } from "./RestaurantProvider";
 import Spinner from "@/components/common/Spinner";
 import { OrderStatusWithAll } from "@/features/private/shared/types/order.types";
 import { reviewsDefaults } from "@/lib/query-defaults";
-import { ReviewStats } from "@/types/review/review.types";
+import { ReviewStats } from "@/types/reviews/review.types";
 
 type ReviewsProviderProps = {
   children: React.ReactNode;

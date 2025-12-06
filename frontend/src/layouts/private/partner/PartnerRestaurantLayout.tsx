@@ -8,7 +8,7 @@ import RestaurantHeader from "@partner/restaurant/RestaurantHeader";
 import {
   NewOrderReceivedToBroadcast,
   NewReviewReceivedToBroadcast,
-} from "@partner/types/notification/notification.types";
+} from "@partner/types/notifications/notification.types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";

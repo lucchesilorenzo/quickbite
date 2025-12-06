@@ -1,7 +1,7 @@
 import { TRestaurantSettingsOffersFormSchema } from "../../schemas/restaurant-settings.schema";
 
 import { ApiResponse } from "@/types/api.types";
-import { Offer, OffersWithPagination } from "@/types/offer/offer.types";
+import { Offer, OffersWithPagination } from "@/types/offers/offer.types";
 
 export type GetOffersResponse = OffersWithPagination;
 

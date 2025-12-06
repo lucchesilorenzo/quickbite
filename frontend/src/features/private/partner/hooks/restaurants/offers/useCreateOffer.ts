@@ -1,7 +1,7 @@
 import {
   CreateOfferPayload,
   CreateOfferResponse,
-} from "@partner/types/offer/offer.api.types";
+} from "@partner/types/offers/offer.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 

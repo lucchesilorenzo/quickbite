@@ -4,7 +4,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import {
   CreateReviewPayload,
   CreateReviewResponse,
-} from "../../types/review/review.api.types";
+} from "../../types/reviews/review.api.types";
 
 import { postData } from "@/lib/api-client";
 

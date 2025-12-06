@@ -1,4 +1,4 @@
-import { GetRestaurantsResponse } from "@partner/types/restaurant/restaurant.api.types";
+import { GetRestaurantsResponse } from "@partner/types/restaurants/restaurant.api.types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";

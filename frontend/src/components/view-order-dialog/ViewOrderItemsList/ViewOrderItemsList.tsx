@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { PartnerOrder } from "@partner/types/order/order.types";
+import { PartnerOrder } from "@partner/types/orders/order.types";
 
 import ViewOrderItem from "../ViewOrderItem";
 

@@ -20,7 +20,7 @@ import {
   TEditJobPostFormSchema,
   editJobPostFormSchema,
 } from "@partner/schemas/job-posts.schema";
-import { GetJobPostResponse } from "@partner/types/job-post/job-post.api-types";
+import { GetJobPostResponse } from "@partner/types/job-posts/job-post.api-types";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";

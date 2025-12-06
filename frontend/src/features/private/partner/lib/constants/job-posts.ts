@@ -1,4 +1,4 @@
-import { EmploymentType } from "@partner/types/job-post/job-post.types";
+import { EmploymentType } from "@partner/types/job-posts/job-post.types";
 
 export const employmentTypes: {
   value: EmploymentType | string;

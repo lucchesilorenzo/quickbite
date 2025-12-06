@@ -1,4 +1,4 @@
-import { PartnerRestaurantDetail } from "@partner/types/restaurant/restaurant.types";
+import { PartnerRestaurantDetail } from "@partner/types/restaurants/restaurant.types";
 import { deliveryDays } from "../../public/delivery-days";
 import { category } from "../../public/categories";
 

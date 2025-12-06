@@ -1,6 +1,6 @@
 import { deliveryDays } from "@tests/mocks/data/public/delivery-days";
 import { category } from "@tests/mocks/data/public/categories";
-import { SingleRestaurantDetail } from "@/types/restaurant/restaurant.types";
+import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
 
 export const restaurant: SingleRestaurantDetail = {
   id: "a01c3a1f-5f95-45e7-8cc8-4c7bcda56d46",

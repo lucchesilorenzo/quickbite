@@ -9,7 +9,7 @@ import RestaurantAboutDialog from "./RestaurantAboutDialog";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { restaurantTabs } from "@/lib/constants/restaurants";
-import { RestaurantTab } from "@/types/restaurant/restaurant.types";
+import { RestaurantTab } from "@/types/restaurants/restaurant.types";
 
 export default function RestaurantHeader() {
   const {

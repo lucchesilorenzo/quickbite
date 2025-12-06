@@ -5,7 +5,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import {
   CreateOrderPayload,
   CreateOrderResponse,
-} from "../../types/order/order.api.types";
+} from "../../types/orders/order.api.types";
 
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { postData } from "@/lib/api-client";

@@ -1,7 +1,7 @@
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { UserNotification } from "@partner/types/notification/notification.types";
+import { UserNotification } from "@partner/types/notifications/notification.types";
 import { formatDistanceToNow } from "date-fns";
 
 type NotificationItemProps = {

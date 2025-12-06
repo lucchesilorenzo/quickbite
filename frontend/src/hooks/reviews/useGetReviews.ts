@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { GetReviewsResponse } from "@/types/review/review.api.types";
+import { GetReviewsResponse } from "@/types/reviews/review.api.types";
 
 type UseGetReviewsOptions = {
   restaurantId: string;

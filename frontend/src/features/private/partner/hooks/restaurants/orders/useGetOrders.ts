@@ -1,4 +1,4 @@
-import { GetOrdersResponse } from "@partner/types/order/order.api.types";
+import { GetOrdersResponse } from "@partner/types/orders/order.api.types";
 import { useQuery } from "@tanstack/react-query";
 
 import { OrderStatusWithAll } from "@/features/private/shared/types/order.types";

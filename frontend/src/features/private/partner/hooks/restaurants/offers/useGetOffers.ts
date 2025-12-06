@@ -1,4 +1,4 @@
-import { GetOffersResponse } from "@partner/types/offer/offer.api.types";
+import { GetOffersResponse } from "@partner/types/offers/offer.api.types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";

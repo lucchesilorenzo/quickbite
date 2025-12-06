@@ -2,10 +2,10 @@ import { createContext, useContext, useState } from "react";
 
 import { useGetNotifications } from "@partner/hooks/notifications/useGetNotifications";
 import { useGetRestaurant } from "@partner/hooks/restaurants/restaurant/useGetRestaurant";
-import { UserNotificationWithUnreadCount } from "@partner/types/notification/notification.types";
+import { UserNotificationWithUnreadCount } from "@partner/types/notifications/notification.types";
 import { Navigate } from "react-router-dom";
 
-import { PartnerRestaurantDetail } from "../types/restaurant/restaurant.types";
+import { PartnerRestaurantDetail } from "../types/restaurants/restaurant.types";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";

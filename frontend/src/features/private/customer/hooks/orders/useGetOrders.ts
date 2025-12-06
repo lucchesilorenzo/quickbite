@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { GetOrdersResponse } from "../../types/order/order.api.types";
+import { GetOrdersResponse } from "../../types/orders/order.api.types";
 
 import { fetchData } from "@/lib/api-client";
 

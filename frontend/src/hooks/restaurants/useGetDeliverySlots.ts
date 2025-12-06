@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { GetDeliverySlotsResponse } from "@/types/delivery/delivery.api.types";
+import { GetDeliverySlotsResponse } from "@/types/deliveries/delivery.api.types";
 
 type UseGetDeliverySlotsOptions = {
   restaurantId: string;

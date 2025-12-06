@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { PartnerOrder } from "@partner/types/order/order.types";
+import { PartnerOrder } from "@partner/types/orders/order.types";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import OrderReceiptToPDF from "../OrderReceiptToPDF";

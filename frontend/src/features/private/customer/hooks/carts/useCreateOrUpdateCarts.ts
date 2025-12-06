@@ -4,7 +4,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import {
   CreateOrUpdateCartsPayload,
   CreateOrUpdateCartsResponse,
-} from "../../types/cart/cart.api.types";
+} from "../../types/carts/cart.api.types";
 
 import { postData } from "@/lib/api-client";
 

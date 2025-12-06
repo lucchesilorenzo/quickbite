@@ -4,7 +4,7 @@ import { yellow } from "@mui/material/colors";
 
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
-import { RestaurantListItem } from "@/types/restaurant/restaurant.types";
+import { RestaurantListItem } from "@/types/restaurants/restaurant.types";
 
 type RestaurantCardImageProps = {
   restaurant: RestaurantListItem;

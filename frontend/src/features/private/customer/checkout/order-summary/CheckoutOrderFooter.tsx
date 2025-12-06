@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { useDeleteCart } from "@customer/hooks/carts/useDeleteCart";
 import { useCreateOrder } from "@customer/hooks/orders/useCreateOrder";
-import { CreateOrder } from "@customer/types/order/order.types";
+import { CreateOrder } from "@customer/types/orders/order.types";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
   Box,

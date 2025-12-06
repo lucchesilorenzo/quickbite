@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { GetRestaurantsResponse } from "@/types/restaurant/restaurant.api.types";
+import { GetRestaurantsResponse } from "@/types/restaurants/restaurant.api.types";
 
 type UseGetRestaurantsOptions = {
   lat?: string;

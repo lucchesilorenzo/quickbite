@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { GetOffersResponse } from "@/types/offer/offer.api.types";
+import { GetOffersResponse } from "@/types/offers/offer.api.types";
 
 type UseGetOffersOptions = {
   restaurantId: string;

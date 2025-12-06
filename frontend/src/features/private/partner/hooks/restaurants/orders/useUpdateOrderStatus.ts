@@ -1,7 +1,7 @@
 import {
   UpdateOrderStatusPayload,
   UpdateOrderStatusResponse,
-} from "@partner/types/order/order.api.types";
+} from "@partner/types/orders/order.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 

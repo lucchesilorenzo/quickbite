@@ -1,4 +1,4 @@
-import { UpdateRestaurantApprovedStatusResponse } from "@partner/types/restaurant/restaurant.api.types";
+import { UpdateRestaurantApprovedStatusResponse } from "@partner/types/restaurants/restaurant.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 

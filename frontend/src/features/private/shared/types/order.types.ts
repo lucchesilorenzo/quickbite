@@ -1,6 +1,6 @@
 import { BaseOffsetPagination } from "@/types/pagination.types";
-import { BaseRestaurant } from "@/types/restaurant/restaurant.types";
-import { ReviewWithoutOrder } from "@/types/review/review.types";
+import { BaseRestaurant } from "@/types/restaurants/restaurant.types";
+import { ReviewWithoutOrder } from "@/types/reviews/review.types";
 
 export type Order = {
   id: string;

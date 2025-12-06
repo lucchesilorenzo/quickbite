@@ -3,7 +3,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Card, CardContent, Rating, Typography } from "@mui/material";
 import { format } from "date-fns";
 
-import { type Review } from "@/types/review/review.types";
+import { type Review } from "@/types/reviews/review.types";
 
 type ReviewProps = {
   review: Review;
