@@ -1,10 +1,11 @@
 import { Stack } from "@mui/material";
 
-import NoRestaurantsOrLoading from "../components/NoRestaurantsOrLoading";
 import RestaurantSearchContainer from "../search-bar/RestaurantSearchContainer";
 import RestaurantMap from "../search-bar/restaurant-map/RestaurantMap";
 import RestaurantsList from "./RestaurantsList";
 
+import ErrorMessage from "@/components/common/ErrorMessage";
+import Spinner from "@/components/common/Spinner";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
 type RestaurantMainProps = {
@@ -20,8 +21,19 @@ export default function RestaurantMain({
 
   // Render the correct content
   function renderRestaurantContent() {
-    if (isLoading) return <NoRestaurantsOrLoading type="isLoading" />;
-    if (hasNoResults) return <NoRestaurantsOrLoading type="noRestaurants" />;
+    if (isLoading) {
+      return <Spinner />;
+    }
+
+    if (hasNoResults) {
+      return (
+        <ErrorMessage
+          message="No restaurants found in this area"
+          secondaryMessage="Try adjusting your filters or searching a different location."
+        />
+      );
+    }
+
     return viewMap ? <RestaurantMap /> : <RestaurantsList />;
   }
 

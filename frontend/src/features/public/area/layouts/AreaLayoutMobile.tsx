@@ -1,9 +1,10 @@
 import { Stack } from "@mui/material";
 
-import NoRestaurantsOrLoading from "../components/NoRestaurantsOrLoading";
 import RestaurantsList from "../restaurants/RestaurantsList";
 import RestaurantMap from "../search-bar/restaurant-map/RestaurantMap";
 
+import ErrorMessage from "@/components/common/ErrorMessage";
+import Spinner from "@/components/common/Spinner";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
 type AreaLayoutMobileProps = {
@@ -19,8 +20,19 @@ export default function AreaLayoutMobile({
 
   // Render the correct content
   function renderRestaurantContent() {
-    if (isLoading) return <NoRestaurantsOrLoading type="isLoading" />;
-    if (hasNoResults) return <NoRestaurantsOrLoading type="noRestaurants" />;
+    if (isLoading) {
+      return <Spinner />;
+    }
+
+    if (hasNoResults) {
+      return (
+        <ErrorMessage
+          message="No restaurants found in this area"
+          secondaryMessage="Try adjusting your filters or searching a different location."
+        />
+      );
+    }
+
     return viewMap ? <RestaurantMap /> : <RestaurantsList />;
   }
 
