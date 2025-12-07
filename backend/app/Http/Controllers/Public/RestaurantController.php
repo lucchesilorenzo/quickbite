@@ -25,11 +25,16 @@ class RestaurantController extends Controller
     public function getRestaurants(GetRestaurantsRequest $request): JsonResponse
     {
         try {
-            $restaurants = $this->restaurantService->getRestaurants(
+            [$restaurants, $meta] = $this->restaurantService->getRestaurants(
                 $request->validated()
             );
 
-            return response()->json($restaurants, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Restaurants retrieved successfully.',
+                'restaurants' => $restaurants,
+                'meta' => $meta,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

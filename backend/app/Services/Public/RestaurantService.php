@@ -94,10 +94,7 @@ class RestaurantService
         $restaurants = $query->cursorPaginate(self::PER_PAGE);
         $meta = $this->buildMeta($baseQuery, $total);
 
-        return [
-            'restaurants' => $restaurants,
-            'meta' => $meta,
-        ];
+        return [$restaurants, $meta];
     }
 
     public function getRestaurant(string $restaurantSlug): Restaurant

@@ -1,3 +1,4 @@
+import { ApiResponse } from "../api.types";
 import { BaseCursorPagination } from "../pagination.types";
 import {
   RestaurantListItem,
@@ -9,11 +10,11 @@ export type GetBase64RestaurantLogoResponse = {
   logo: string;
 };
 
-export type GetRestaurantResponse = SingleRestaurantDetail;
-
 export type GetRestaurantsResponse = {
   restaurants: BaseCursorPagination & {
     data: RestaurantListItem[];
   };
   meta: RestaurantMeta;
-};
+} & ApiResponse;
+
+export type GetRestaurantResponse = SingleRestaurantDetail;
