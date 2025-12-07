@@ -12,7 +12,7 @@ import ShowMoreMenuCategoriesButton from "@/components/menu-category-navigation/
 import { useMenu } from "@/contexts/MenuProvider";
 
 export default function MenuCategoryNavigation() {
-  const { menuData, menuCategoryRefs } = useMenu();
+  const { data, menuCategoryRefs } = useMenu();
 
   const swiperRef = useRef<SwiperClass>(null);
 
@@ -77,7 +77,7 @@ export default function MenuCategoryNavigation() {
             800: { slidesPerView: 6 },
           }}
         >
-          {menuData.map((menuCategory) => (
+          {data.menu.map((menuCategory) => (
             <SwiperSlide key={menuCategory.id}>
               <MenuCategoryNavigationSlide
                 menuCategory={menuCategory}
@@ -105,7 +105,7 @@ export default function MenuCategoryNavigation() {
       </Fade>
 
       <ShowMoreMenuCategoriesButton
-        menuCategories={menuData}
+        menuCategories={data.menu}
         onSlideClick={handleSlideClick}
       />
     </Stack>

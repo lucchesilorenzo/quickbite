@@ -19,9 +19,11 @@ import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 export default function MenuCategoryNavigationSearch() {
   const { restaurant, searchTerm, setSearchTerm } = useRestaurant();
-  const { menuData } = useMenu();
+  const { data } = useMenu();
 
-  const menuItems = menuData.flatMap((menuCategory) => menuCategory.menu_items);
+  const menuItems = data.menu.flatMap(
+    (menuCategory) => menuCategory.menu_items,
+  );
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

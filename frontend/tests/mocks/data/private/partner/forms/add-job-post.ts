@@ -21,5 +21,6 @@ export const addJobPostFormResponse: CreateJobPostResponse = {
     updated_at: "2025-11-17T14:10:42.000000Z",
     created_at: "2025-11-17T14:10:42.000000Z",
   },
+  success: true,
   message: "Job post created successfully.",
 };
