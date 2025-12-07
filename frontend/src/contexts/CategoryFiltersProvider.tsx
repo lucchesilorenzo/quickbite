@@ -13,7 +13,7 @@ type CategoryFiltersContext = {
   visibleCategories: CategoryWithSelected[];
   allCategories: CategoryWithSelected[];
   openCategoriesDialog: boolean;
-  loadingCategories: boolean;
+  isLoadingCategories: boolean;
   categoriesError: Error | null;
   setOpenCategoriesDialog: React.Dispatch<React.SetStateAction<boolean>>;
   handleStatusChange: (category: CategoryWithSelected) => void;
@@ -27,8 +27,8 @@ export default function CategoryFiltersProvider({
   children,
 }: CategoryFiltersProviderProps) {
   const {
-    data: categories = [],
-    isLoading: loadingCategories,
+    data = { success: false, message: "", categories: [] },
+    isLoading: isLoadingCategories,
     error: categoriesError,
   } = useGetCategories();
 
@@ -38,11 +38,11 @@ export default function CategoryFiltersProvider({
   const activeFilters = searchParams.getAll("filter");
 
   const allCategories = useMemo<CategoryWithSelected[]>(() => {
-    return categories.map((c) => ({
+    return data.categories.map((c) => ({
       ...c,
       selected: activeFilters.includes(c.slug),
     }));
-  }, [categories, activeFilters]);
+  }, [data, activeFilters]);
 
   const visibleCategories = useMemo(
     () => allCategories.filter((c) => c.is_default || c.selected),
@@ -81,7 +81,7 @@ export default function CategoryFiltersProvider({
         visibleCategories,
         allCategories,
         openCategoriesDialog,
-        loadingCategories,
+        isLoadingCategories,
         categoriesError,
         setOpenCategoriesDialog,
         handleStatusChange,

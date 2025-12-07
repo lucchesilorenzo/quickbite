@@ -16,7 +16,7 @@ export default function CategoryFilters() {
   const {
     visibleCategories,
     allCategories,
-    loadingCategories,
+    isLoadingCategories,
     categoriesError,
   } = useCategoryFilters();
 
@@ -64,7 +64,7 @@ export default function CategoryFilters() {
             1200: { slidesPerView: 8 },
           }}
         >
-          {loadingCategories &&
+          {isLoadingCategories &&
             Array.from({ length: 8 }).map((_, i) => (
               <SwiperSlide key={i}>
                 <CategoryFilterSkeleton />
@@ -77,7 +77,7 @@ export default function CategoryFilters() {
             </Stack>
           )}
 
-          {!loadingCategories && !categoriesError && (
+          {!isLoadingCategories && !categoriesError && (
             <>
               {visibleCategories.map((category) => (
                 <SwiperSlide key={category.id}>
