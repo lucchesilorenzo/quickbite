@@ -15,13 +15,17 @@ type AuthContext = {
 const AuthContext = createContext<AuthContext | null>(null);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const { data, isLoading: isLoadingUser, isError } = useAuthMe();
+  const {
+    data = { success: false, message: "", user: undefined },
+    isLoading: isLoadingUser,
+    isError,
+  } = useAuthMe();
 
   if (isLoadingUser) {
     return <FullPageSpinner />;
   }
 
-  const user = !isError ? data : null;
+  const user = !isError ? data.user : null;
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
