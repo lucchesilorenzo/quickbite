@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import RestaurantsList from "../restaurants/RestaurantsList";
 import RestaurantMap from "../search-bar/restaurant-map/RestaurantMap";
 
-import ErrorMessage from "@/components/common/ErrorMessage";
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
@@ -26,7 +26,7 @@ export default function AreaLayoutMobile({
 
     if (hasNoResults) {
       return (
-        <ErrorMessage
+        <FullPageErrorMessage
           message="No restaurants found in this area"
           secondaryMessage="Try adjusting your filters or searching a different location."
         />

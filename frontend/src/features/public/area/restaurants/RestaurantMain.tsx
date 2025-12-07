@@ -4,7 +4,7 @@ import RestaurantSearchContainer from "../search-bar/RestaurantSearchContainer";
 import RestaurantMap from "../search-bar/restaurant-map/RestaurantMap";
 import RestaurantsList from "./RestaurantsList";
 
-import ErrorMessage from "@/components/common/ErrorMessage";
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
@@ -27,7 +27,7 @@ export default function RestaurantMain({
 
     if (hasNoResults) {
       return (
-        <ErrorMessage
+        <FullPageErrorMessage
           message="No restaurants found in this area"
           secondaryMessage="Try adjusting your filters or searching a different location."
         />

@@ -1,15 +1,15 @@
 import ErrorIcon from "@mui/icons-material/Error";
 import { Stack, Typography } from "@mui/material";
 
-type ErrorMessageProps = {
+type FullPageErrorMessageProps = {
   message: string;
   secondaryMessage?: string;
 };
 
-export default function ErrorMessage({
+export default function FullPageErrorMessage({
   message,
   secondaryMessage,
-}: ErrorMessageProps) {
+}: FullPageErrorMessageProps) {
   return (
     <Stack
       sx={{

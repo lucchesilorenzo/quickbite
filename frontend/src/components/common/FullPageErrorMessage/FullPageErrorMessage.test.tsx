@@ -1,14 +1,17 @@
 import { render, screen } from "@testing-library/react";
 
-import ErrorMessage from "./ErrorMessage";
+import FullPageErrorMessage from "./FullPageErrorMessage";
 
-describe("ErrorMessage", () => {
+describe("FullPageErrorMessage", () => {
   const message = "Error message";
   const secondaryMessage = "Secondary message";
 
   function renderComponent(secondaryMessage?: string) {
     render(
-      <ErrorMessage message={message} secondaryMessage={secondaryMessage} />,
+      <FullPageErrorMessage
+        message={message}
+        secondaryMessage={secondaryMessage}
+      />,
     );
   }
 
