@@ -15,7 +15,7 @@ import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { useReviews } from "@/contexts/ReviewsProvider";
 
 export default function RatingDisplay() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { reviewsData } = useReviews();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
@@ -58,7 +58,7 @@ export default function RatingDisplay() {
 
           <Typography component="div" variant="caption" sx={{ color: "white" }}>
             All reviews come from QuickBite customers who have ordered from{" "}
-            {restaurant.name}.{" "}
+            {restaurantData.restaurant.name}.{" "}
             <Typography
               component={Link}
               variant="caption"

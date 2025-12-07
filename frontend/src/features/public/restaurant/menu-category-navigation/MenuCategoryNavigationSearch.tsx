@@ -18,7 +18,7 @@ import { useMenu } from "@/contexts/MenuProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 export default function MenuCategoryNavigationSearch() {
-  const { restaurant, searchTerm, setSearchTerm } = useRestaurant();
+  const { restaurantData, searchTerm, setSearchTerm } = useRestaurant();
   const { data } = useMenu();
 
   const menuItems = data.menu.flatMap(
@@ -40,7 +40,7 @@ export default function MenuCategoryNavigationSearch() {
       <TextField
         autoComplete="off"
         size={isMobile ? "small" : "medium"}
-        placeholder={`Search in ${restaurant.name}`}
+        placeholder={`Search in ${restaurantData.restaurant.name}`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         sx={{

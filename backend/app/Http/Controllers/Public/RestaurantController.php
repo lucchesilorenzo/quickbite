@@ -51,7 +51,11 @@ class RestaurantController extends Controller
         try {
             $restaurant = $this->restaurantService->getRestaurant($restaurantSlug);
 
-            return response()->json($restaurant, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Restaurant retrieved successfully.',
+                'restaurant' => $restaurant,
+            ], 200);
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,

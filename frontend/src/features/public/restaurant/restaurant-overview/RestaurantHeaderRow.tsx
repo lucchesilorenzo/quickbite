@@ -14,7 +14,7 @@ import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function RestaurantHeaderRow() {
   const {
-    restaurant,
+    restaurantData,
     setOpenRestaurantAboutDialog,
     setTabToOpen,
     setScrollToDeliveryFee,
@@ -23,7 +23,7 @@ export default function RestaurantHeaderRow() {
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const isDeliveryFeeFree = restaurant.delivery_fee === 0;
+  const isDeliveryFeeFree = restaurantData.restaurant.delivery_fee === 0;
 
   function handleOpenDialogAndScroll() {
     setTabToOpen("info");
@@ -66,7 +66,7 @@ export default function RestaurantHeaderRow() {
         </Link>
       </Stack>
 
-      {restaurant.min_amount > 0 && (
+      {restaurantData.restaurant.min_amount > 0 && (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <Typography component="span">&bull;</Typography>
 
@@ -74,7 +74,7 @@ export default function RestaurantHeaderRow() {
             <ShoppingBagOutlinedIcon fontSize="small" />
 
             <Typography component="span" variant="body2" color="textPrimary">
-              Min. {formatCurrency(restaurant.min_amount)}
+              Min. {formatCurrency(restaurantData.restaurant.min_amount)}
             </Typography>
           </Stack>
         </Stack>
@@ -87,7 +87,7 @@ export default function RestaurantHeaderRow() {
 
         <Typography component="span" variant="body2" color="textPrimary">
           {!isDeliveryFeeFree
-            ? formatCurrency(restaurant.delivery_fee)
+            ? formatCurrency(restaurantData.restaurant.delivery_fee)
             : "Free"}
         </Typography>
 
@@ -101,7 +101,7 @@ export default function RestaurantHeaderRow() {
         </IconButton>
       </Stack>
 
-      {restaurant.service_fee > 0 && (
+      {restaurantData.restaurant.service_fee > 0 && (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <Typography component="span">&bull;</Typography>
 
@@ -111,7 +111,7 @@ export default function RestaurantHeaderRow() {
             </Typography>
 
             <Typography component="span" variant="body2" color="textPrimary">
-              {formatCurrency(restaurant.service_fee)}
+              {formatCurrency(restaurantData.restaurant.service_fee)}
             </Typography>
 
             <IconButton

@@ -6,10 +6,10 @@ import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 export default function RestaurantCartList() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { getItems } = useMultiCart();
 
-  const items = getItems(restaurant.id);
+  const items = getItems(restaurantData.restaurant.id);
 
   return (
     <Box sx={{ maxHeight: 650, overflowY: "auto", p: 2 }}>

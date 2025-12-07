@@ -10,7 +10,7 @@ import {
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 export default function RestaurantInfo() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -33,21 +33,22 @@ export default function RestaurantInfo() {
           variant={isMobile ? "body2" : "body1"}
           color="textSecondary"
         >
-          {restaurant.name}
+          {restaurantData.restaurant.name}
         </Typography>
 
         <Typography
           variant={isMobile ? "body2" : "body1"}
           color="textSecondary"
         >
-          {restaurant.street_address}, {restaurant.building_number}
+          {restaurantData.restaurant.street_address},{" "}
+          {restaurantData.restaurant.building_number}
         </Typography>
 
         <Typography
           variant={isMobile ? "body2" : "body1"}
           color="textSecondary"
         >
-          {restaurant.postcode} {restaurant.city}
+          {restaurantData.restaurant.postcode} {restaurantData.restaurant.city}
         </Typography>
       </Box>
     </Container>

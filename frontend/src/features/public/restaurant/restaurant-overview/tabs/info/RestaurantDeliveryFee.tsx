@@ -8,7 +8,7 @@ import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function RestaurantDeliveryFee() {
-  const { restaurant, scrollToDeliveryFee, setScrollToDeliveryFee } =
+  const { restaurantData, scrollToDeliveryFee, setScrollToDeliveryFee } =
     useRestaurant();
 
   const deliveryFeeRef = useRef<HTMLDivElement | null>(null);
@@ -41,7 +41,7 @@ export default function RestaurantDeliveryFee() {
       </Stack>
 
       <Card variant="outlined" sx={{ bgcolor: grey[100], p: 2 }}>
-        {restaurant.min_amount && (
+        {restaurantData.restaurant.min_amount && (
           <Stack
             direction="row"
             sx={{ alignItems: "center", justifyContent: "space-between" }}
@@ -51,7 +51,7 @@ export default function RestaurantDeliveryFee() {
             </Typography>
 
             <Typography variant={isMobile ? "body2" : "body1"}>
-              {formatCurrency(restaurant.min_amount)}
+              {formatCurrency(restaurantData.restaurant.min_amount)}
             </Typography>
           </Stack>
         )}
@@ -65,9 +65,9 @@ export default function RestaurantDeliveryFee() {
           </Typography>
 
           <Typography variant={isMobile ? "body2" : "body1"}>
-            {restaurant.delivery_fee === 0
+            {restaurantData.restaurant.delivery_fee === 0
               ? "Free"
-              : formatCurrency(restaurant.delivery_fee)}
+              : formatCurrency(restaurantData.restaurant.delivery_fee)}
           </Typography>
         </Stack>
       </Card>

@@ -24,17 +24,17 @@ export default function RestaurantClosedDialog({
   openRestaurantClosedDialog,
   setOpenRestaurantClosedDialog,
 }: RestaurantClosedDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const openingTime = getRestaurantOpeningTime(restaurant);
+  const openingTime = getRestaurantOpeningTime(restaurantData.restaurant);
 
-  const availabilityTitle = restaurant.force_close
-    ? `${restaurant.name} is temporarily closed`
+  const availabilityTitle = restaurantData.restaurant.force_close
+    ? `${restaurantData.restaurant.name} is temporarily closed`
     : openingTime
-      ? `${restaurant.name} starts delivering at ${openingTime}`
-      : `${restaurant.name} is closed for delivery`;
+      ? `${restaurantData.restaurant.name} starts delivering at ${openingTime}`
+      : `${restaurantData.restaurant.name} is closed for delivery`;
 
-  const availabilityContent = restaurant.force_close
+  const availabilityContent = restaurantData.restaurant.force_close
     ? "This restaurant is temporarily unavailable"
     : openingTime
       ? `Delivery from ${openingTime}`

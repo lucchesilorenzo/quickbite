@@ -13,7 +13,7 @@ import { RestaurantTab } from "@/types/restaurants/restaurant.types";
 
 export default function RestaurantHeader() {
   const {
-    restaurant,
+    restaurantData,
     openRestaurantAboutDialog,
     setOpenRestaurantAboutDialog,
     setTabToOpen,
@@ -50,7 +50,7 @@ export default function RestaurantHeader() {
         variant={isMobile ? "h5" : "h4"}
         sx={{ fontWeight: 700 }}
       >
-        {restaurant.name}
+        {restaurantData.restaurant.name}
       </Typography>
 
       <IconButton

@@ -1,6 +1,7 @@
-import { deliveryDays } from "@tests/mocks/data/public/delivery-days";
-import { category } from "@tests/mocks/data/public/categories";
+import { GetRestaurantResponse } from "@/types/restaurants/restaurant.api.types";
 import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
+import { category } from "@tests/mocks/data/public/categories";
+import { deliveryDays } from "@tests/mocks/data/public/delivery-days";
 
 export const restaurant: SingleRestaurantDetail = {
   id: "a01c3a1f-5f95-45e7-8cc8-4c7bcda56d46",
@@ -32,6 +33,12 @@ export const restaurant: SingleRestaurantDetail = {
   is_open: false,
   categories: [category],
   delivery_days: deliveryDays,
+};
+
+export const restaurantData: GetRestaurantResponse = {
+  success: true,
+  message: "Restaurants retrieved successfully.",
+  restaurant,
 };
 
 export const restaurantLogo: { logo: string } = {

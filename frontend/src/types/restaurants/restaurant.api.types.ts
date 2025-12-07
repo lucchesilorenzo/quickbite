@@ -17,4 +17,6 @@ export type GetRestaurantsResponse = {
   meta: RestaurantMeta;
 } & ApiResponse;
 
-export type GetRestaurantResponse = SingleRestaurantDetail;
+export type GetRestaurantResponse = {
+  restaurant: SingleRestaurantDetail;
+} & ApiResponse;

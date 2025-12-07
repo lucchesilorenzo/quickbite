@@ -25,7 +25,7 @@ type MenuContext = {
 const MenuContext = createContext<MenuContext | null>(null);
 
 export default function MenuProvider({ children }: MenuProviderProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const [page, setPage] = useState(1);
 
@@ -34,7 +34,7 @@ export default function MenuProvider({ children }: MenuProviderProps) {
     isLoading: isLoadingMenu,
     error: menuError,
   } = useGetMenu({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     page,
   });
 

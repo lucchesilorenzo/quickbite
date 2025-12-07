@@ -24,16 +24,16 @@ import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 
 export default function RestaurantCartFooter() {
   const { user } = useAuth();
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { data } = useOffers();
   const { getCart, cartTotal, isCartUpdating } = useMultiCart();
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const subtotal = cartTotal(restaurant.id);
+  const subtotal = cartTotal(restaurantData.restaurant.id);
 
-  const isDeliveryFeeFree = restaurant.delivery_fee === 0;
+  const isDeliveryFeeFree = restaurantData.restaurant.delivery_fee === 0;
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
     data.offers.data,
@@ -43,10 +43,14 @@ export default function RestaurantCartFooter() {
   const discount = subtotal * (bestOffer?.discount_rate || 0);
 
   const total =
-    subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;
+    subtotal +
+    restaurantData.restaurant.delivery_fee +
+    restaurantData.restaurant.service_fee -
+    discount;
 
   const isCheckoutDisabled =
-    !restaurant.is_open || subtotal < restaurant.min_amount;
+    !restaurantData.restaurant.is_open ||
+    subtotal < restaurantData.restaurant.min_amount;
 
   const navigate = useNavigate();
 
@@ -56,7 +60,7 @@ export default function RestaurantCartFooter() {
       return;
     }
 
-    const cart = getCart(restaurant.id);
+    const cart = getCart(restaurantData.restaurant.id);
     navigate(`/checkout/${cart.id}`);
   }
 
@@ -96,12 +100,12 @@ export default function RestaurantCartFooter() {
 
         <Typography variant="body2" component="div">
           {!isDeliveryFeeFree
-            ? formatCurrency(restaurant.delivery_fee)
+            ? formatCurrency(restaurantData.restaurant.delivery_fee)
             : "Free"}
         </Typography>
       </Stack>
 
-      {restaurant.service_fee > 0 && (
+      {restaurantData.restaurant.service_fee > 0 && (
         <Stack
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
@@ -122,7 +126,7 @@ export default function RestaurantCartFooter() {
           </Stack>
 
           <Typography variant="body2" component="div">
-            {formatCurrency(restaurant.service_fee)}
+            {formatCurrency(restaurantData.restaurant.service_fee)}
           </Typography>
         </Stack>
       )}

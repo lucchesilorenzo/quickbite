@@ -27,7 +27,7 @@ export default function MenuItemDialogActions({
   menuItem,
   setOpenMenuItemDialog,
 }: MenuItemDialogActionsProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { addItem } = useMultiCart();
 
   const [menuItemQuantity, setMenuItemQuantity] = useState(1);
@@ -35,7 +35,7 @@ export default function MenuItemDialogActions({
   const totalPrice = menuItem.price * menuItemQuantity;
 
   function handleAddToCart() {
-    addItem(restaurant, menuItem, menuItemQuantity);
+    addItem(restaurantData.restaurant, menuItem, menuItemQuantity);
 
     setMenuItemQuantity(1);
     setOpenMenuItemDialog(false);

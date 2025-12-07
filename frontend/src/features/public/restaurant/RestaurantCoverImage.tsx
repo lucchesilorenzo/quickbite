@@ -4,7 +4,7 @@ import { useRestaurant } from "@/contexts/RestaurantProvider";
 import env from "@/lib/env";
 
 export default function RestaurantCoverImage() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   return (
     <Box
@@ -17,8 +17,8 @@ export default function RestaurantCoverImage() {
     >
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${restaurant.cover}`}
-        alt={restaurant.name}
+        src={`${env.VITE_BASE_URL}${restaurantData.restaurant.cover}`}
+        alt={restaurantData.restaurant.name}
         sx={{
           objectFit: "cover",
           width: 1,
@@ -39,8 +39,8 @@ export default function RestaurantCoverImage() {
       >
         <Box
           component="img"
-          src={`${env.VITE_BASE_URL}${restaurant.logo}`}
-          alt={restaurant.name}
+          src={`${env.VITE_BASE_URL}${restaurantData.restaurant.logo}`}
+          alt={restaurantData.restaurant.name}
           sx={{
             objectFit: "cover",
             width: 80,
@@ -62,8 +62,8 @@ export default function RestaurantCoverImage() {
       >
         <Box
           component="img"
-          src={`${env.VITE_BASE_URL}${restaurant.logo}`}
-          alt={restaurant.name}
+          src={`${env.VITE_BASE_URL}${restaurantData.restaurant.logo}`}
+          alt={restaurantData.restaurant.name}
           sx={{
             objectFit: "cover",
             width: 60,

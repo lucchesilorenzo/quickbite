@@ -13,14 +13,14 @@ import { formatCurrency } from "@/lib/utils/formatting";
 import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 
 export default function RestaurantCartMobile() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { data } = useOffers();
   const { cartTotal, totalItems } = useMultiCart();
 
   const [openRestaurantCartDialogMobile, setOpenRestaurantCartDialogMobile] =
     useState(false);
 
-  const subtotal = cartTotal(restaurant.id);
+  const subtotal = cartTotal(restaurantData.restaurant.id);
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
     data.offers.data,
@@ -30,7 +30,10 @@ export default function RestaurantCartMobile() {
   const discount = subtotal * (bestOffer?.discount_rate || 0);
 
   const total =
-    subtotal + restaurant.delivery_fee + restaurant.service_fee - discount;
+    subtotal +
+    restaurantData.restaurant.delivery_fee +
+    restaurantData.restaurant.service_fee -
+    discount;
 
   return (
     <>
@@ -52,7 +55,7 @@ export default function RestaurantCartMobile() {
           onClick={() => setOpenRestaurantCartDialogMobile(true)}
         >
           <Badge
-            badgeContent={totalItems(restaurant.id)}
+            badgeContent={totalItems(restaurantData.restaurant.id)}
             anchorOrigin={{ vertical: "top", horizontal: "left" }}
             max={20}
             sx={{

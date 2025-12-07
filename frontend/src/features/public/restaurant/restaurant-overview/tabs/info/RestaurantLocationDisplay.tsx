@@ -6,7 +6,7 @@ import RestaurantLocationInfo from "./RestaurantLocationInfo";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 export default function RestaurantLocationDisplay() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const customShopIcon = new Icon({
     iconUrl: "/shop-pin.png",
@@ -15,7 +15,10 @@ export default function RestaurantLocationDisplay() {
 
   return (
     <MapContainer
-      center={[restaurant.latitude, restaurant.longitude]}
+      center={[
+        restaurantData.restaurant.latitude,
+        restaurantData.restaurant.longitude,
+      ]}
       zoom={13}
       style={{ minHeight: "45vh", position: "relative" }}
       dragging={false}
@@ -28,11 +31,14 @@ export default function RestaurantLocationDisplay() {
       />
 
       <Marker
-        position={[restaurant.latitude, restaurant.longitude]}
+        position={[
+          restaurantData.restaurant.latitude,
+          restaurantData.restaurant.longitude,
+        ]}
         icon={customShopIcon}
       />
 
-      <RestaurantLocationInfo restaurant={restaurant} />
+      <RestaurantLocationInfo restaurant={restaurantData.restaurant} />
     </MapContainer>
   );
 }

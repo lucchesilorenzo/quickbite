@@ -20,12 +20,12 @@ type ReviewsContext = {
 const ReviewsContext = createContext<ReviewsContext | null>(null);
 
 export default function ReviewsProvider({ children }: ReviewsProviderProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const [page, setPage] = useState(1);
 
   const { data: reviewsData = reviewsDefaults, isLoading: isLoadingReviews } =
-    useGetReviews({ restaurantId: restaurant.id, page });
+    useGetReviews({ restaurantId: restaurantData.restaurant.id, page });
 
   return (
     <ReviewsContext.Provider

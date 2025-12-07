@@ -7,7 +7,7 @@ import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 export default function RetaurantNavigateToTopFloatingButton() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { isEmpty } = useMultiCart();
 
   const trigger = useScrollTrigger({
@@ -62,8 +62,8 @@ export default function RetaurantNavigateToTopFloatingButton() {
         role="presentation"
         sx={{
           position: "fixed",
-          bottom: isMobile && !isEmpty(restaurant.id) ? 100 : 16,
-          right: !isMobile && !isEmpty(restaurant.id) ? 340 : 16,
+          bottom: isMobile && !isEmpty(restaurantData.restaurant.id) ? 100 : 16,
+          right: !isMobile && !isEmpty(restaurantData.restaurant.id) ? 340 : 16,
           zIndex: 2000,
         }}
       >
