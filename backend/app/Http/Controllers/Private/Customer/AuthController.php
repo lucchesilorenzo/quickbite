@@ -30,17 +30,20 @@ class AuthController extends Controller
             );
 
             return response()->json([
-                'token' => $token,
+                'success' => true,
                 'message' => 'Customer registered successfully.',
+                'token' => $token,
             ], 201);
         } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
                 return response()->json([
+                    'success' => false,
                     'message' => 'User already exists.',
                 ], 409);
             }
 
             return response()->json([
+                'success' => false,
                 'message' => 'Could not register customer.',
             ], 500);
         }
@@ -57,15 +60,18 @@ class AuthController extends Controller
             );
 
             return response()->json([
-                'token' => $token,
+                'success' => true,
                 'message' => 'Customer logged in successfully.',
+                'token' => $token,
             ], 200);
         } catch (InvalidCredentialsException|UnauthorizedException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not login customer.',
             ], 500);
         }
@@ -82,10 +88,12 @@ class AuthController extends Controller
             );
 
             return response()->json([
+                'success' => true,
                 'message' => 'Customer logged out successfully.',
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not logout customer.',
             ], 500);
         }

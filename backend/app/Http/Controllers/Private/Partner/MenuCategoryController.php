@@ -39,15 +39,18 @@ class MenuCategoryController extends Controller
             );
 
             return response()->json([
-                'menu_category' => $menuCategory,
+                'success' => true,
                 'message' => 'Menu category created successfully.',
+                'menu_category' => $menuCategory,
             ], 201);
         } catch (MenuCategoryOrderExceededException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create menu category.',
             ], 500);
         }
@@ -76,15 +79,18 @@ class MenuCategoryController extends Controller
             $updatedMenuCategories = $this->menuCategoryService->updateMenuCategoriesOrder($menuCategories);
 
             return response()->json([
-                'menu_categories' => $updatedMenuCategories,
+                'success' => true,
                 'message' => 'Menu categories order updated successfully.',
+                'menu_categories' => $updatedMenuCategories,
             ], 200);
         } catch (ModelNotFoundException) {
             return response()->json([
+                'success' => false,
                 'message' => 'Menu category not found.',
             ], 404);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update menu categories.',
             ], 500);
         }
@@ -106,11 +112,13 @@ class MenuCategoryController extends Controller
             );
 
             return response()->json([
-                'menu_category' => $menuCategory,
+                'success' => true,
                 'message' => 'Menu category updated successfully.',
+                'menu_category' => $menuCategory,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update menu category.',
             ], 500);
         }
@@ -127,10 +135,12 @@ class MenuCategoryController extends Controller
             $this->menuCategoryService->deleteMenuCategory($menuCategory);
 
             return response()->json([
+                'success' => true,
                 'message' => 'Menu category deleted successfully.',
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete menu category.',
             ], 500);
         }

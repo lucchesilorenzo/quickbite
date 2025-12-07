@@ -31,10 +31,15 @@ class CartController extends Controller
             );
 
             return CartResource::collection($carts)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Carts retrieved successfully.',
+                ])
                 ->response()
                 ->setStatusCode(200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get carts.',
             ], 500);
         }
@@ -51,10 +56,15 @@ class CartController extends Controller
             $cart = $this->cartService->getCart($cart);
 
             return new CartResource($cart)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Cart retrieved successfully.',
+                ])
                 ->response()
                 ->setStatusCode(200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get cart.',
             ], 500);
         }
@@ -85,12 +95,14 @@ class CartController extends Controller
 
             return CartResource::collection($carts)
                 ->additional([
+                    'success' => true,
                     'message' => 'Carts merged successfully.',
                 ])
                 ->response()
                 ->setStatusCode(200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not merge carts.',
             ], 500);
         }
@@ -119,6 +131,7 @@ class CartController extends Controller
 
             if (! $cart instanceof Cart) {
                 return response()->json([
+                    'success' => true,
                     'message' => 'Cart has been successfully deleted as it contained no items.',
                 ], 200);
             }
@@ -127,12 +140,14 @@ class CartController extends Controller
 
             return new CartResource($cart)
                 ->additional([
+                    'success' => true,
                     'message' => $existingCart ? 'Cart updated successfully.' : 'Cart created successfully.',
                 ])
                 ->response()
                 ->setStatusCode($status);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create or update cart.',
             ], 500);
         }
@@ -149,10 +164,12 @@ class CartController extends Controller
             $this->cartService->deleteCart($cart);
 
             return response()->json([
+                'success' => true,
                 'message' => 'Cart deleted successfully.',
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete cart.',
             ], 500);
         }

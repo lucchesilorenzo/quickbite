@@ -31,11 +31,13 @@ class ProfileController extends Controller
             );
 
             return response()->json([
-                'customer' => $customer,
+                'success' => true,
                 'message' => 'Personal information updated successfully.',
+                'customer' => $customer,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update personal information.',
             ], 500);
         }
@@ -54,15 +56,18 @@ class ProfileController extends Controller
             );
 
             return response()->json([
-                'customer' => $customer,
+                'success' => true,
                 'message' => 'Address information updated successfully.',
+                'customer' => $customer,
             ], 200);
         } catch (LocationNotFoundException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update address information.',
             ], 500);
         }

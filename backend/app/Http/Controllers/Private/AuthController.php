@@ -28,6 +28,7 @@ class AuthController extends Controller
             return response()->json($user, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get user.',
             ], 500);
         }

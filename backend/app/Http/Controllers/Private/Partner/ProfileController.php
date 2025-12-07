@@ -28,15 +28,18 @@ class ProfileController extends Controller
             );
 
             return response()->json([
-                'partner' => $partner,
+                'success' => true,
                 'message' => 'Profile general information updated successfully.',
+                'partner' => $partner,
             ], 200);
         } catch (LocationNotFoundException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update profile general information.',
             ], 500);
         }
@@ -52,11 +55,13 @@ class ProfileController extends Controller
             );
 
             return response()->json([
-                'partner' => $partner,
+                'success' => true,
                 'message' => 'Profile notifications updated successfully.',
+                'partner' => $partner,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update profile notification preferences.',
             ], 500);
         }

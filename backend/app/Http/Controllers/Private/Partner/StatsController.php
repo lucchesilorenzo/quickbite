@@ -36,6 +36,7 @@ class StatsController extends Controller
             return response()->json($stats, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get dashboard stats.',
             ], 500);
         }
@@ -62,6 +63,7 @@ class StatsController extends Controller
             return response()->json($summary, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get KPI summary.',
             ], 500);
         }
@@ -90,6 +92,7 @@ class StatsController extends Controller
             return response()->json($stats, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get restaurant stats.',
             ], 500);
         }

@@ -36,6 +36,7 @@ class RestaurantController extends Controller
             return response()->json($restaurants, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get restaurants.',
             ], 500);
         }
@@ -54,6 +55,7 @@ class RestaurantController extends Controller
             return response()->json($restaurant, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get restaurant.',
             ], 500);
         }
@@ -75,11 +77,13 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant status updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant status.',
             ], 500);
         }
@@ -98,15 +102,18 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant approved status updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (RestaurantApprovalException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant approved status.',
             ], 500);
         }
@@ -128,11 +135,13 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant fees updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant fees.',
             ], 500);
         }
@@ -154,11 +163,13 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant delivery times updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant delivery times.',
             ], 500);
         }
@@ -185,15 +196,18 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant info updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (LocationNotFoundException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant info.',
             ], 500);
         }

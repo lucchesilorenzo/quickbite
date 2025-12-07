@@ -38,6 +38,7 @@ class JobPostController extends Controller
             return response()->json($jobPosts, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get job posts.',
             ], 500);
         }
@@ -53,6 +54,7 @@ class JobPostController extends Controller
             return response()->json($jobPost, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get job post.',
             ], 500);
         }
@@ -71,11 +73,13 @@ class JobPostController extends Controller
             );
 
             return response()->json([
-                'job_post' => $jobPost,
+                'success' => true,
                 'message' => 'Job post created successfully.',
+                'job_post' => $jobPost,
             ], 201);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create job post.',
             ], 500);
         }
@@ -95,11 +99,13 @@ class JobPostController extends Controller
             );
 
             return response()->json([
-                'job_post' => $jobPost,
+                'success' => true,
                 'message' => 'Job post updated successfully.',
+                'job_post' => $jobPost,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update job post.',
             ], 500);
         }
@@ -113,14 +119,17 @@ class JobPostController extends Controller
             $this->jobPostService->deleteJobPost($jobPost);
 
             return response()->json([
+                'success' => true,
                 'message' => 'Job post deleted successfully.',
             ], 200);
         } catch (JobPostHasApplicationsException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete job post.',
             ], 500);
         }
@@ -138,14 +147,17 @@ class JobPostController extends Controller
             );
 
             return response()->json([
+                'success' => true,
                 'message' => 'Job posts deleted successfully.',
             ], 200);
         } catch (JobPostHasApplicationsException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete job posts.',
             ], 500);
         }

@@ -33,19 +33,23 @@ class ReviewController extends Controller
             );
 
             return response()->json([
-                'review' => $review,
+                'success' => true,
                 'message' => 'Review created successfully.',
+                'review' => $review,
             ], 201);
         } catch (ModelNotFoundException) {
             return response()->json([
+                'success' => false,
                 'message' => 'Restaurant not found.',
             ], 404);
         } catch (CustomerAlreadyReviewedException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create review.',
             ], 500);
         }

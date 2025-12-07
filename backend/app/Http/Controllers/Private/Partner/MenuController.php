@@ -30,6 +30,7 @@ class MenuController extends Controller
             return response()->json($menu, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get menu.',
             ], 500);
         }

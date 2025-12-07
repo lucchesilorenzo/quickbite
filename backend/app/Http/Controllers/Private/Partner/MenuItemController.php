@@ -41,11 +41,13 @@ class MenuItemController extends Controller
             );
 
             return response()->json([
-                'menu_item' => $menuItem,
+                'success' => true,
                 'message' => 'Menu item created successfully.',
+                'menu_item' => $menuItem,
             ], 201);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create menu item.',
             ], 500);
         }
@@ -70,11 +72,13 @@ class MenuItemController extends Controller
             );
 
             return response()->json([
-                'menu_item' => $menuItem,
+                'success' => true,
                 'message' => 'Menu item updated successfully.',
+                'menu_item' => $menuItem,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update menu item.',
             ], 500);
         }
@@ -103,15 +107,18 @@ class MenuItemController extends Controller
             $updatedMenuItems = $this->menuItemService->updateMenuItemsOrder($menuItems);
 
             return response()->json([
-                'menu_items' => $updatedMenuItems,
+                'success' => true,
                 'message' => 'Order updated successfully.',
+                'menu_items' => $updatedMenuItems,
             ], 200);
         } catch (ModelNotFoundException) {
             return response()->json([
+                'success' => false,
                 'message' => 'Menu item not found.',
             ], 404);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update menu items.',
             ], 500);
         }
@@ -128,10 +135,12 @@ class MenuItemController extends Controller
             $this->menuItemService->deleteMenuItem($menuItem);
 
             return response()->json([
+                'success' => true,
                 'message' => 'Menu item deleted successfully.',
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete menu item.',
             ], 500);
         }

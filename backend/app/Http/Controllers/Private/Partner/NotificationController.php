@@ -27,6 +27,7 @@ class NotificationController extends Controller
             return response()->json($notifications, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get notifications.',
             ], 500);
         }
@@ -41,10 +42,12 @@ class NotificationController extends Controller
             );
 
             return response()->json([
+                'success' => true,
                 'message' => 'Notifications successfully marked as read.',
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not mark notifications as read.',
             ], 500);
         }

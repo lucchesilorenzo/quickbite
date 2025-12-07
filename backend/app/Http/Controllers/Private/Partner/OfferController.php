@@ -34,6 +34,7 @@ class OfferController extends Controller
             return response()->json($offers, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get offers.',
             ], 500);
         }
@@ -55,15 +56,18 @@ class OfferController extends Controller
             );
 
             return response()->json([
-                'offer' => $offer,
+                'success' => true,
                 'message' => 'Offer created successfully.',
+                'offer' => $offer,
             ], 201);
         } catch (OfferAlreadyExistsException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create offer.',
             ], 500);
         }
@@ -87,15 +91,18 @@ class OfferController extends Controller
             );
 
             return response()->json([
-                'offer' => $offer,
+                'success' => true,
                 'message' => 'Offer updated successfully.',
+                'offer' => $offer,
             ], 200);
         } catch (OfferAlreadyExistsException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update offer.',
             ], 500);
         }
@@ -112,10 +119,12 @@ class OfferController extends Controller
             $this->offerService->deleteOffer($offer);
 
             return response()->json([
+                'success' => true,
                 'message' => 'Offer deleted successfully.',
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete offer.',
             ], 500);
         }

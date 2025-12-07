@@ -34,6 +34,7 @@ class OrderController extends Controller
             return response()->json($orders, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get orders.',
             ], 500);
         }
@@ -52,6 +53,7 @@ class OrderController extends Controller
             return response()->json($order, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get order.',
             ], 500);
         }
@@ -69,19 +71,23 @@ class OrderController extends Controller
             );
 
             return response()->json([
-                'order' => $order,
+                'success' => true,
                 'message' => 'Order created successfully.',
+                'order' => $order,
             ], 201);
         } catch (ModelNotFoundException) {
             return response()->json([
+                'success' => false,
                 'message' => 'Restaurant not found.',
             ], 404);
         } catch (LocationNotFoundException|RestaurantNotAvailableException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create order.',
             ], 500);
         }

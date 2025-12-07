@@ -32,6 +32,7 @@ class RestaurantController extends Controller
             return response()->json($restaurants, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get restaurants.',
             ], 500);
         }
@@ -48,10 +49,12 @@ class RestaurantController extends Controller
             return response()->json($restaurant, 200);
         } catch (ModelNotFoundException) {
             return response()->json([
+                'success' => false,
                 'message' => 'Restaurant not found.',
             ], 404);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get restaurant.',
             ], 500);
         }
@@ -68,10 +71,12 @@ class RestaurantController extends Controller
             return response()->json($deliverySlots, 200);
         } catch (ModelNotFoundException) {
             return response()->json([
+                'success' => false,
                 'message' => 'Delivery day not found.',
             ], 404);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get delivery slots.',
             ], 500);
         }
@@ -88,10 +93,12 @@ class RestaurantController extends Controller
             return response()->json($base64Logo, 200);
         } catch (RestaurantLogoNotFoundException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get restaurant logo.',
             ], 500);
         }

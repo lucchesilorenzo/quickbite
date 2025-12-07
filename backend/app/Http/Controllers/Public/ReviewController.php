@@ -27,6 +27,7 @@ class ReviewController extends Controller
             return response()->json($reviews, 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get reviews.',
             ], 500);
         }
