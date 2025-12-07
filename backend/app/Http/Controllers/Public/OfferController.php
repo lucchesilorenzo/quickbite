@@ -24,9 +24,14 @@ class OfferController extends Controller
         try {
             $offers = $this->offerService->getOffers($restaurant);
 
-            return response()->json($offers, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Offers retrieved successfully.',
+                'offers' => $offers,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get offers.',
             ], 500);
         }

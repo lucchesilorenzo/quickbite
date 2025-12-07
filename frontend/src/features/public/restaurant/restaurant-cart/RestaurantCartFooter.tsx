@@ -25,7 +25,7 @@ import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 export default function RestaurantCartFooter() {
   const { user } = useAuth();
   const { restaurant } = useRestaurant();
-  const { offersData } = useOffers();
+  const { data } = useOffers();
   const { getCart, cartTotal, isCartUpdating } = useMultiCart();
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
@@ -36,7 +36,7 @@ export default function RestaurantCartFooter() {
   const isDeliveryFeeFree = restaurant.delivery_fee === 0;
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offersData.data,
+    data.offers.data,
     subtotal,
   );
 

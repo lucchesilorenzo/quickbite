@@ -4,11 +4,7 @@ import RestaurantOffersList from "../components/RestaurantOffersList";
 import RestaurantHeader from "./RestaurantHeader";
 import RestaurantHeaderRow from "./RestaurantHeaderRow";
 
-import { useOffers } from "@/contexts/OffersProvider";
-
 export default function RestaurantOverview() {
-  const { offersData } = useOffers();
-
   return (
     <>
       <Container
@@ -18,7 +14,7 @@ export default function RestaurantOverview() {
       >
         <RestaurantHeader />
         <RestaurantHeaderRow />
-        {offersData.data.length > 0 && <RestaurantOffersList />}
+        <RestaurantOffersList />
       </Container>
 
       <Box
@@ -27,7 +23,7 @@ export default function RestaurantOverview() {
       >
         <RestaurantHeader />
         <RestaurantHeaderRow />
-        {offersData.data.length > 0 && <RestaurantOffersList />}
+        <RestaurantOffersList />
       </Box>
     </>
   );

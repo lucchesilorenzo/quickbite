@@ -1,4 +1,4 @@
-import { Box, Grid, Stack } from "@mui/material";
+import { Alert, Box, Grid, Skeleton, Stack } from "@mui/material";
 
 import RestaurantOfferButton from "./RestaurantOfferButton";
 
@@ -12,11 +12,37 @@ type RestaurantOffersListProps = {
 export default function RestaurantOffersList({
   showPagination = false,
 }: RestaurantOffersListProps) {
-  const { offersData, page, setPage } = useOffers();
+  const { data, isLoadingOffers, offersError, page, setPage } = useOffers();
 
   const displayedOffers = showPagination
-    ? offersData.data
-    : offersData.data.slice(0, 2);
+    ? data.offers.data
+    : data.offers.data.slice(0, 2);
+
+  if (!isLoadingOffers && !offersError && displayedOffers.length === 0) {
+    return null;
+  }
+
+  if (isLoadingOffers) {
+    return (
+      <Stack spacing={4} sx={{ mb: 2 }}>
+        <Grid container spacing={2}>
+          {[1, 2].map((i) => (
+            <Grid key={i} size={6}>
+              <Skeleton variant="rounded" animation="wave" height={40} />
+            </Grid>
+          ))}
+        </Grid>
+      </Stack>
+    );
+  }
+
+  if (offersError) {
+    return (
+      <Box sx={{ mb: 2 }}>
+        <Alert severity="error">{offersError.message}</Alert>
+      </Box>
+    );
+  }
 
   return (
     <Stack spacing={4} sx={{ mb: 2 }}>
@@ -33,7 +59,7 @@ export default function RestaurantOffersList({
           <CustomPagination
             context="offers_page"
             page={page}
-            totalPages={offersData.last_page}
+            totalPages={data.offers.last_page}
             setPage={setPage}
           />
         </Box>

@@ -14,7 +14,7 @@ import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 
 export default function RestaurantCartMobile() {
   const { restaurant } = useRestaurant();
-  const { offersData } = useOffers();
+  const { data } = useOffers();
   const { cartTotal, totalItems } = useMultiCart();
 
   const [openRestaurantCartDialogMobile, setOpenRestaurantCartDialogMobile] =
@@ -23,7 +23,7 @@ export default function RestaurantCartMobile() {
   const subtotal = cartTotal(restaurant.id);
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offersData.data,
+    data.offers.data,
     subtotal,
   );
 

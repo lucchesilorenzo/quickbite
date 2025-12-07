@@ -4,16 +4,17 @@ import { useRestaurant } from "./RestaurantProvider";
 
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { offersDefaults } from "@/lib/query-defaults";
-import { OffersWithPagination } from "@/types/offers/offer.types";
+import { GetOffersResponse } from "@/types/offers/offer.api.types";
 
 type OffersProviderProps = {
   children: React.ReactNode;
 };
 
 type OffersContext = {
-  offersData: OffersWithPagination;
+  data: GetOffersResponse;
   page: number;
   isLoadingOffers: boolean;
+  offersError: Error | null;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -24,12 +25,15 @@ export default function OffersProvider({ children }: OffersProviderProps) {
 
   const [page, setPage] = useState(1);
 
-  const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
-    useGetOffers({ restaurantId: restaurant.id, page });
+  const {
+    data = { success: false, message: "", offers: offersDefaults },
+    isLoading: isLoadingOffers,
+    error: offersError,
+  } = useGetOffers({ restaurantId: restaurant.id, page });
 
   return (
     <OffersContext.Provider
-      value={{ offersData, page, isLoadingOffers, setPage }}
+      value={{ data, page, isLoadingOffers, offersError, setPage }}
     >
       {children}
     </OffersContext.Provider>
