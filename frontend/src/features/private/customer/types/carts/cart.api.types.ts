@@ -1,18 +1,18 @@
 import { ApiResponse } from "@/types/api.types";
 import { RestaurantCart } from "@/types/cart.types";
 
-export type GetCartResponse = RestaurantCart;
-
-export type GetCartsResponse = RestaurantCart[];
-
-export type CreateOrUpdateCartResponse = {
-  data: Omit<RestaurantCart, "id"> & { id: string };
+export type GetCartsResponse = {
+  carts: Required<RestaurantCart[]>;
 } & ApiResponse;
 
-export type CreateOrUpdateCartPayload = GetCartResponse;
-
-export type CreateOrUpdateCartsResponse = {
-  data: Array<Omit<RestaurantCart, "id"> & { id: string }>;
+export type GetCartResponse = {
+  cart: Required<RestaurantCart>;
 } & ApiResponse;
 
-export type CreateOrUpdateCartsPayload = GetCartsResponse;
+export type CreateOrUpdateCartsResponse = GetCartsResponse;
+
+export type CreateOrUpdateCartsPayload = RestaurantCart[];
+
+export type CreateOrUpdateCartResponse = GetCartResponse;
+
+export type CreateOrUpdateCartPayload = RestaurantCart;

@@ -30,13 +30,11 @@ class CartController extends Controller
                 auth()->user()
             );
 
-            return CartResource::collection($carts)
-                ->additional([
-                    'success' => true,
-                    'message' => 'Carts retrieved successfully.',
-                ])
-                ->response()
-                ->setStatusCode(200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Carts retrieved successfully.',
+                'carts' => CartResource::collection($carts),
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -55,13 +53,11 @@ class CartController extends Controller
         try {
             $cart = $this->cartService->getCart($cart);
 
-            return new CartResource($cart)
-                ->additional([
-                    'success' => true,
-                    'message' => 'Cart retrieved successfully.',
-                ])
-                ->response()
-                ->setStatusCode(200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Cart retrieved successfully.',
+                'cart' => new CartResource($cart),
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -93,13 +89,11 @@ class CartController extends Controller
 
             $carts = $this->cartService->createOrUpdateCarts($user, $data);
 
-            return CartResource::collection($carts)
-                ->additional([
-                    'success' => true,
-                    'message' => 'Carts merged successfully.',
-                ])
-                ->response()
-                ->setStatusCode(200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Carts merged successfully.',
+                'carts' => CartResource::collection($carts),
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -138,13 +132,11 @@ class CartController extends Controller
 
             $status = $existingCart ? 200 : 201;
 
-            return new CartResource($cart)
-                ->additional([
-                    'success' => true,
-                    'message' => $existingCart ? 'Cart updated successfully.' : 'Cart created successfully.',
-                ])
-                ->response()
-                ->setStatusCode($status);
+            return response()->json([
+                'success' => true,
+                'message' => $existingCart ? 'Cart updated successfully.' : 'Cart created successfully.',
+                'cart' => new CartResource($cart),
+            ], $status);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

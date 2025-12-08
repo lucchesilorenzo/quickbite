@@ -4,13 +4,15 @@ import { useGetCart } from "@customer/hooks/carts/useGetCart";
 import { CheckoutData } from "@customer/types/orders/order.types";
 import { useParams } from "react-router-dom";
 
+import { cartDefaults } from "../lib/query-defaults";
+import { GetCartResponse } from "../types/carts/cart.api.types";
+
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
-import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
-import { RestaurantCart } from "@/types/cart.types";
-import { DeliverySlots } from "@/types/deliveries/delivery.types";
+import { offersDefaults } from "@/lib/query-defaults";
+import { GetDeliverySlotsResponse } from "@/types/deliveries/delivery.api.types";
 import { GetOffersResponse } from "@/types/offers/offer.api.types";
 
 type CheckoutProviderProps = {
@@ -18,7 +20,7 @@ type CheckoutProviderProps = {
 };
 
 type CheckoutContext = {
-  cart: RestaurantCart;
+  cartData: GetCartResponse;
   checkoutData: CheckoutData;
   restaurantId: string;
   offersData: GetOffersResponse;
@@ -37,8 +39,11 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
 
   const [fetchDeliverySlots, setFetchDeliverySlots] = useState(false);
 
-  const { data: cart, isLoading: isLoadingCart } = useGetCart({ cartId });
-  const restaurantId = cart?.restaurant.id;
+  const {
+    data: cartData = { success: false, message: "", cart: cartDefaults },
+    isLoading: isLoadingCart,
+  } = useGetCart({ cartId });
+  const restaurantId = cartData.cart?.restaurant.id;
 
   const {
     data: offersData = { success: false, message: "", offers: offersDefaults },
@@ -116,7 +121,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   return (
     <CheckoutContext.Provider
       value={{
-        cart,
+        cartData,
         checkoutData,
         restaurantId,
         offersData,

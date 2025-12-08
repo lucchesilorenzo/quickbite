@@ -62,9 +62,10 @@ export default function MultiCartProvider({
 }: MultiCartProviderProps) {
   const { user } = useAuth();
 
-  const { data: updatedCarts = [] } = useGetCarts({
-    isCustomer: isCustomer(user),
-  });
+  const { data: cartsData = { success: false, message: "", carts: [] } } =
+    useGetCarts({
+      isCustomer: isCustomer(user),
+    });
   const { mutateAsync: createOrUpdateCart, isPending: isCartUpdating } =
     useCreateOrUpdateCart();
 
@@ -82,7 +83,7 @@ export default function MultiCartProvider({
   useEffect(() => {
     if (!isCustomer(user)) return;
 
-    const cartsWithRestaurantKey = addRestaurantIdAsKey(updatedCarts);
+    const cartsWithRestaurantKey = addRestaurantIdAsKey(cartsData.carts);
 
     setCarts((prev) => {
       const prevString = JSON.stringify(prev);
@@ -94,7 +95,7 @@ export default function MultiCartProvider({
 
       return cartsWithRestaurantKey;
     });
-  }, [user, updatedCarts]);
+  }, [user, cartsData.carts]);
 
   useEffect(() => {
     if (user === null) {
