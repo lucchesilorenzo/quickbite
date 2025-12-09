@@ -1,4 +1,4 @@
-import { restaurantLogo } from "@tests/mocks/data/public/restaurants";
+import { restaurantLogoResponse } from "@tests/mocks/data/public/restaurants";
 import { http, HttpResponse } from "msw";
 
 import env from "@/lib/env";
@@ -24,7 +24,7 @@ export const handlers = [
   http.get(
     `${env.VITE_BASE_URL}/api/restaurants/:restaurantId/base64-logo`,
     async () => {
-      return HttpResponse.json(restaurantLogo);
+      return HttpResponse.json(restaurantLogoResponse);
     }
   ),
   http.post(`${env.VITE_BASE_URL}/api/rider/auth/register`, async () => {
