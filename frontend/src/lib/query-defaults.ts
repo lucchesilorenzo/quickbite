@@ -81,8 +81,4 @@ export const userNotificationsDefaults = {
 
 export const offersDefaults = baseOffsetPaginationDefaults;
 
-export const reviewsDefaults = {
-  reviews: baseOffsetPaginationDefaults,
-  avg_rating: 0,
-  count: 0,
-};
+export const reviewsDefaults = baseOffsetPaginationDefaults;

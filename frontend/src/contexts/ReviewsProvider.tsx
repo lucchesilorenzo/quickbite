@@ -4,16 +4,17 @@ import { useRestaurant } from "./RestaurantProvider";
 
 import { useGetReviews } from "@/hooks/reviews/useGetReviews";
 import { reviewsDefaults } from "@/lib/query-defaults";
-import { ReviewStats } from "@/types/reviews/review.types";
+import { GetReviewsResponse } from "@/types/reviews/review.api.types";
 
 type ReviewsProviderProps = {
   children: React.ReactNode;
 };
 
 type ReviewsContext = {
-  reviewsData: ReviewStats;
+  reviewsData: GetReviewsResponse;
   page: number;
   isLoadingReviews: boolean;
+  reviewsError: Error | null;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
@@ -24,12 +25,21 @@ export default function ReviewsProvider({ children }: ReviewsProviderProps) {
 
   const [page, setPage] = useState(1);
 
-  const { data: reviewsData = reviewsDefaults, isLoading: isLoadingReviews } =
-    useGetReviews({ restaurantId: restaurantData.restaurant.id, page });
+  const {
+    data: reviewsData = {
+      success: false,
+      message: "",
+      reviews: reviewsDefaults,
+      avg_rating: null,
+      count: 0,
+    },
+    isLoading: isLoadingReviews,
+    error: reviewsError,
+  } = useGetReviews({ restaurantId: restaurantData.restaurant.id, page });
 
   return (
     <ReviewsContext.Provider
-      value={{ reviewsData, page, isLoadingReviews, setPage }}
+      value={{ reviewsData, page, isLoadingReviews, reviewsError, setPage }}
     >
       {children}
     </ReviewsContext.Provider>

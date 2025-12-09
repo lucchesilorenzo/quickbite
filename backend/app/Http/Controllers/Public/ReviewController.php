@@ -22,9 +22,15 @@ class ReviewController extends Controller
     public function getReviews(Restaurant $restaurant): JsonResponse
     {
         try {
-            $reviews = $this->reviewService->getReviews($restaurant);
+            $reviewsData = $this->reviewService->getReviews($restaurant);
 
-            return response()->json($reviews, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Reviews retrieved successfully.',
+                'reviews' => $reviewsData['reviews'],
+                'avg_rating' => $reviewsData['avg_rating'],
+                'count' => $reviewsData['count'],
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

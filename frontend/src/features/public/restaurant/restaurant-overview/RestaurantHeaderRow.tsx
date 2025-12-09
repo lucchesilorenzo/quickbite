@@ -4,10 +4,9 @@ import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlin
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StarIcon from "@mui/icons-material/Star";
-import { IconButton, Link, Stack, Typography } from "@mui/material";
+import { IconButton, Link, Skeleton, Stack, Typography } from "@mui/material";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
-import Spinner from "@/components/common/Spinner";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { useReviews } from "@/contexts/ReviewsProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
@@ -19,7 +18,7 @@ export default function RestaurantHeaderRow() {
     setTabToOpen,
     setScrollToDeliveryFee,
   } = useRestaurant();
-  const { reviewsData, isLoadingReviews } = useReviews();
+  const { reviewsData, isLoadingReviews, reviewsError } = useReviews();
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
@@ -31,40 +30,52 @@ export default function RestaurantHeaderRow() {
     setOpenRestaurantAboutDialog(true);
   }
 
-  if (isLoadingReviews) return <Spinner />;
-
   return (
     <Stack
       direction="row"
       spacing={1}
       sx={{ alignItems: "center", mb: 2, flexWrap: "wrap" }}
     >
-      <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-        <StarIcon fontSize="small" color="primary" />
+      {isLoadingReviews && <Skeleton width={70} height={35} />}
 
-        <Link
-          color="inherit"
-          underline="always"
-          sx={{ "&:hover": { textDecoration: "none" } }}
-        >
-          <Typography
-            component="span"
-            variant="body2"
-            color="textPrimary"
-            sx={{ fontWeight: 500, mr: 0.5 }}
-          >
-            {reviewsData.avg_rating?.toLocaleString("it-IT", {
-              maximumFractionDigits: 1,
-            }) || "N/A"}
+      {!isLoadingReviews && reviewsError && (
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <StarIcon fontSize="small" color="disabled" />
+
+          <Typography variant="body2" color="textSecondary">
+            N/A
           </Typography>
+        </Stack>
+      )}
 
-          {reviewsData.count > 0 && (
-            <Typography component="span" variant="body2" color="textPrimary">
-              ({reviewsData.count})
+      {!isLoadingReviews && !reviewsError && (
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <StarIcon fontSize="small" color="primary" />
+
+          <Link
+            color="inherit"
+            underline="always"
+            sx={{ "&:hover": { textDecoration: "none" } }}
+          >
+            <Typography
+              component="span"
+              variant="body2"
+              color="textPrimary"
+              sx={{ fontWeight: 500, mr: 0.5 }}
+            >
+              {reviewsData.avg_rating?.toLocaleString("it-IT", {
+                maximumFractionDigits: 1,
+              }) || "N/A"}
             </Typography>
-          )}
-        </Link>
-      </Stack>
+
+            {reviewsData.count > 0 && (
+              <Typography component="span" variant="body2" color="textPrimary">
+                ({reviewsData.count})
+              </Typography>
+            )}
+          </Link>
+        </Stack>
+      )}
 
       {restaurantData.restaurant.min_amount > 0 && (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
