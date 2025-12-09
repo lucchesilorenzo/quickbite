@@ -1,7 +1,7 @@
+import { Order } from "@private/shared/types/order.types";
+
 import { BaseOffsetPagination } from "../pagination.types";
 import { UserWithoutNotificationsAndRoles } from "../user.types";
-
-import { Order } from "@/features/private/shared/types/order.types";
 
 export type Review = {
   id: string;
@@ -20,10 +20,4 @@ export type ReviewWithoutOrder = Omit<Review, "order">;
 
 export type ReviewsWithPagination = BaseOffsetPagination & {
   data: Review[];
-};
-
-export type ReviewStats = {
-  reviews: ReviewsWithPagination;
-  avg_rating: number | null;
-  count: number;
 };
