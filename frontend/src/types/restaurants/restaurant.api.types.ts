@@ -8,7 +8,7 @@ import {
 
 export type GetBase64RestaurantLogoResponse = {
   logo: string;
-};
+} & ApiResponse;
 
 export type GetRestaurantsResponse = {
   restaurants: BaseCursorPagination & {

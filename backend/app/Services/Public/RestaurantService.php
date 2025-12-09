@@ -136,7 +136,7 @@ class RestaurantService
         return [$isAsapAvailable, $deliverySlots];
     }
 
-    public function getBase64Logo(Restaurant $restaurant): array
+    public function getBase64Logo(Restaurant $restaurant): string
     {
         if (! $restaurant->logo) {
             throw new RestaurantLogoNotFoundException;
@@ -151,9 +151,7 @@ class RestaurantService
         $logo = Storage::disk('public')->get($relativePath);
         $mimeType = Storage::disk('public')->mimeType($relativePath);
 
-        return [
-            'logo' => 'data:' . $mimeType . ';base64,' . base64_encode((string) $logo),
-        ];
+        return 'data:' . $mimeType . ';base64,' . base64_encode((string) $logo);
     }
 
     private function applyFilters(Builder $query, array $filters, ?string $search): void

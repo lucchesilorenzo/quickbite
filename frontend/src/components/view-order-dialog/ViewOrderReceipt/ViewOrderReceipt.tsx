@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Alert, Button, Typography } from "@mui/material";
 import { PartnerOrder } from "@partner/types/orders/order.types";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
@@ -12,13 +12,25 @@ type ViewOrderReceiptProps = {
 };
 
 export default function ViewOrderReceipt({ order }: ViewOrderReceiptProps) {
-  const { data } = useGetBase64RestaurantLogo({
+  const {
+    data: logoData,
+    isLoading: isLoadingLogo,
+    error: logoError,
+  } = useGetBase64RestaurantLogo({
     restaurantId: order.restaurant.id,
   });
 
+  if (isLoadingLogo) {
+    return <Typography variant="body2">Loading receipt...</Typography>;
+  }
+
+  if (logoError) {
+    return <Alert severity="error">{logoError.message}</Alert>;
+  }
+
   return (
     <PDFDownloadLink
-      document={<OrderReceiptToPDF order={order} base64Logo={data?.logo} />}
+      document={<OrderReceiptToPDF order={order} base64Logo={logoData?.logo} />}
       fileName={`order-${order.order_code}-receipt.pdf`}
     >
       {({ loading, error }) => (
