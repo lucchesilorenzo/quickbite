@@ -27,7 +27,7 @@ type CheckoutContext = {
   offersData: GetOffersResponse;
   deliverySlotsData: GetDeliverySlotsResponse;
   isLoadingDeliverySlots: boolean;
-  setFetchDeliverySlots: React.Dispatch<React.SetStateAction<boolean>>;
+  deliverySlotsError: Error | null;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
   emptyCheckoutData: (restaurantId: string) => void;
 };
@@ -40,8 +40,6 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
 
   const navigate = useNavigate();
   const notifications = useNotifications();
-
-  const [fetchDeliverySlots, setFetchDeliverySlots] = useState(false);
 
   const {
     data: cartData = { success: false, message: "", cart: cartDefaults },
@@ -64,10 +62,8 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
       delivery_slots: [],
     },
     isLoading: isLoadingDeliverySlots,
-  } = useGetDeliverySlots({
-    restaurantId,
-    enabled: fetchDeliverySlots,
-  });
+    error: deliverySlotsError,
+  } = useGetDeliverySlots({ restaurantId });
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
     const stored = localStorage.getItem("checkout_data_by_restaurant");
@@ -97,6 +93,18 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
       localStorage.removeItem("last_restaurant_url");
     };
   }, [isLoadingCart, cartError, notifications, navigate]);
+
+  useEffect(() => {
+    if (isLoadingDeliverySlots || !deliverySlotsError) return;
+
+    setCheckoutData((prev) => ({
+      ...prev,
+      [restaurantId]: {
+        ...prev[restaurantId],
+        delivery_time: { type: null, value: "" },
+      },
+    }));
+  }, [deliverySlotsError, restaurantId]);
 
   useEffect(() => {
     if (!restaurantId) return;
@@ -158,7 +166,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
         offersData,
         deliverySlotsData,
         isLoadingDeliverySlots,
-        setFetchDeliverySlots,
+        deliverySlotsError,
         setCheckoutData,
         emptyCheckoutData,
       }}

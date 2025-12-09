@@ -1,6 +1,7 @@
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import {
+  Alert,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -21,7 +22,7 @@ export default function DeliveryTimeDialog({
   openDeliveryTimeDialog,
   setOpenDeliveryTimeDialog,
 }: DeliveryTimeDialogProps) {
-  const { isLoadingDeliverySlots } = useCheckout();
+  const { isLoadingDeliverySlots, deliverySlotsError } = useCheckout();
 
   return (
     <Dialog
@@ -47,12 +48,18 @@ export default function DeliveryTimeDialog({
         </Stack>
 
         <DialogContent sx={{ p: 0 }}>
-          {!isLoadingDeliverySlots ? (
+          {isLoadingDeliverySlots && <Spinner />}
+
+          {!isLoadingDeliverySlots && deliverySlotsError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {deliverySlotsError.message}
+            </Alert>
+          )}
+
+          {!isLoadingDeliverySlots && !deliverySlotsError && (
             <DeliveryTimeForm
               setOpenDeliveryTimeDialog={setOpenDeliveryTimeDialog}
             />
-          ) : (
-            <Spinner />
           )}
         </DialogContent>
       </Stack>

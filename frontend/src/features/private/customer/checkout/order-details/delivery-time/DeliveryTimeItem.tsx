@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import DeliveryTimeDialog from "./DeliveryTimeDialog";
 
 export default function DeliveryTimeItem() {
-  const { checkoutData, restaurantId, setFetchDeliverySlots } = useCheckout();
+  const { checkoutData, restaurantId } = useCheckout();
 
   const [openDeliveryTimeDialog, setOpenDeliveryTimeDialog] = useState(false);
 
@@ -30,7 +30,6 @@ export default function DeliveryTimeItem() {
         : "Select delivery time";
 
   async function handleOpenDeliveryTimeDialog() {
-    setFetchDeliverySlots(true);
     setOpenDeliveryTimeDialog(true);
 
     queryClient.invalidateQueries({ queryKey: ["delivery-slots"] });
