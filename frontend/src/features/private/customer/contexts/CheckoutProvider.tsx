@@ -25,7 +25,7 @@ type CheckoutContext = {
   checkoutData: CheckoutData;
   restaurantId: string;
   offersData: GetOffersResponse;
-  deliverySlots: DeliverySlots;
+  deliverySlotsData: GetDeliverySlotsResponse;
   isLoadingDeliverySlots: boolean;
   setFetchDeliverySlots: React.Dispatch<React.SetStateAction<boolean>>;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
@@ -57,10 +57,15 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   } = useGetOffers({ restaurantId });
 
   const {
-    data: deliverySlots = deliverySlotsDefaults,
+    data: deliverySlotsData = {
+      success: false,
+      message: "",
+      is_asap_available: false,
+      delivery_slots: [],
+    },
     isLoading: isLoadingDeliverySlots,
   } = useGetDeliverySlots({
-    restaurantId: restaurantId!,
+    restaurantId,
     enabled: fetchDeliverySlots,
   });
 
@@ -151,7 +156,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
         checkoutData,
         restaurantId,
         offersData,
-        deliverySlots,
+        deliverySlotsData,
         isLoadingDeliverySlots,
         setFetchDeliverySlots,
         setCheckoutData,

@@ -86,8 +86,3 @@ export const reviewsDefaults = {
   avg_rating: 0,
   count: 0,
 };
-
-export const deliverySlotsDefaults = {
-  is_asap_available: false,
-  delivery_slots: [],
-};

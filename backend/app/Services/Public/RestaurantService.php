@@ -133,10 +133,7 @@ class RestaurantService
 
         $isAsapAvailable = $restaurant->is_open && now()->between($startTimeDay, $endTimeDay);
 
-        return [
-            'is_asap_available' => $isAsapAvailable,
-            'delivery_slots' => $deliverySlots,
-        ];
+        return [$isAsapAvailable, $deliverySlots];
     }
 
     public function getBase64Logo(Restaurant $restaurant): array

@@ -75,9 +75,14 @@ class RestaurantController extends Controller
     public function getDeliverySlots(Restaurant $restaurant): JsonResponse
     {
         try {
-            $deliverySlots = $this->restaurantService->getDeliverySlots($restaurant);
+            [$isAsapAvailable, $deliverySlots] = $this->restaurantService->getDeliverySlots($restaurant);
 
-            return response()->json($deliverySlots, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Delivery slots retrieved successfully.',
+                'is_asap_available' => $isAsapAvailable,
+                'delivery_slots' => $deliverySlots,
+            ], 200);
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,
