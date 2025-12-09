@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { useGetCart } from "@customer/hooks/carts/useGetCart";
 import { CheckoutData } from "@customer/types/orders/order.types";
-import { useParams } from "react-router-dom";
+import { useNotifications } from "@toolpad/core/useNotifications";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { cartDefaults } from "../lib/query-defaults";
 import { GetCartResponse } from "../types/carts/cart.api.types";
@@ -37,18 +38,23 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const { cartId } = useParams();
   const { user } = useAuth();
 
+  const navigate = useNavigate();
+  const notifications = useNotifications();
+
   const [fetchDeliverySlots, setFetchDeliverySlots] = useState(false);
 
   const {
     data: cartData = { success: false, message: "", cart: cartDefaults },
     isLoading: isLoadingCart,
+    error: cartError,
   } = useGetCart({ cartId });
-  const restaurantId = cartData.cart?.restaurant.id;
+
+  const restaurantId = cartData.cart.restaurant.id;
 
   const {
     data: offersData = { success: false, message: "", offers: offersDefaults },
     isLoading: isLoadingOffers,
-  } = useGetOffers({ restaurantId: restaurantId! });
+  } = useGetOffers({ restaurantId });
 
   const {
     data: deliverySlots = deliverySlotsDefaults,
@@ -63,9 +69,29 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
     return stored ? JSON.parse(stored) : {};
   });
 
+  const initialized = useRef(false);
   const isCheckoutReady = !!(restaurantId && checkoutData[restaurantId]);
 
-  const initialized = useRef(false);
+  useEffect(() => {
+    if (isLoadingCart || !cartError) return;
+
+    const lastRestaurantUrl = localStorage.getItem("last_restaurant_url");
+
+    if (lastRestaurantUrl) {
+      navigate(lastRestaurantUrl, { replace: true });
+    } else {
+      navigate("/", { replace: true });
+    }
+
+    notifications.show(cartError.message, {
+      key: "cart-error",
+      severity: "error",
+    });
+
+    return () => {
+      localStorage.removeItem("last_restaurant_url");
+    };
+  }, [isLoadingCart, cartError, notifications, navigate]);
 
   useEffect(() => {
     if (!restaurantId) return;

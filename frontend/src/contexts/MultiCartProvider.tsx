@@ -2,9 +2,11 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { useCreateOrUpdateCart } from "@customer/hooks/carts/useCreateOrUpdateCart";
 import { useGetCarts } from "@customer/hooks/carts/useGetCarts";
+import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { useAuth } from "./AuthProvider";
 
+import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { emptyRestaurant } from "@/lib/constants/restaurants";
 import { isCustomer } from "@/lib/utils/auth";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants";
@@ -62,10 +64,12 @@ export default function MultiCartProvider({
 }: MultiCartProviderProps) {
   const { user } = useAuth();
 
-  const { data: cartsData = { success: false, message: "", carts: [] } } =
-    useGetCarts({
-      isCustomer: isCustomer(user),
-    });
+  const {
+    data: cartsData = { success: false, message: "", carts: [] },
+    isLoading: isLoadingCarts,
+    error: cartsError,
+  } = useGetCarts({ isCustomer: isCustomer(user) });
+
   const { mutateAsync: createOrUpdateCart, isPending: isCartUpdating } =
     useCreateOrUpdateCart();
 
@@ -79,6 +83,9 @@ export default function MultiCartProvider({
   });
 
   const inizialized = useRef(false);
+  const errorShown = useRef(false);
+
+  const notifications = useNotifications();
 
   useEffect(() => {
     if (!isCustomer(user)) return;
@@ -102,6 +109,21 @@ export default function MultiCartProvider({
       localStorage.setItem("carts", JSON.stringify(carts));
     }
   }, [user, carts]);
+
+  useEffect(() => {
+    if (isCustomer(user) && cartsError && !errorShown.current) {
+      notifications.show(cartsError.message, {
+        key: "multi-cart-error",
+        severity: "error",
+      });
+
+      errorShown.current = true;
+    }
+  }, [user, cartsError]);
+
+  useEffect(() => {
+    errorShown.current = false;
+  }, [user]);
 
   // Helper function to calculate cart totals
   function calculateCartTotals(items: CartItem[]) {
@@ -335,6 +357,10 @@ export default function MultiCartProvider({
 
   function emptyCarts() {
     setCarts({});
+  }
+
+  if (isLoadingCarts) {
+    return <FullPageSpinner />;
   }
 
   return (
