@@ -9,7 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import RestaurantCartDeliveryFeeDialog from "./RestaurantCartDeliveryFeeDialog";
 
@@ -53,12 +53,15 @@ export default function RestaurantCartFooter() {
     subtotal < restaurantData.restaurant.min_amount;
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   async function handleCartCheckout() {
     if (!isCustomer(user)) {
       navigate("/customer/auth/login");
       return;
     }
+
+    localStorage.setItem("last_restaurant_url", pathname);
 
     const cart = getCart(restaurantData.restaurant.id);
     navigate(`/checkout/${cart.id}`);
