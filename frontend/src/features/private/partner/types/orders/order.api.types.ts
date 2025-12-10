@@ -1,9 +1,7 @@
+import { Order, OrdersWithPagination } from "@private/shared/types/order.types";
+
 import { PartnerOrderStatus } from "./order.types";
 
-import {
-  Order,
-  OrdersWithPagination,
-} from "@/features/private/shared/types/order.types";
 import { ApiResponse } from "@/types/api.types";
 
 export type GetOrdersResponse = OrdersWithPagination;

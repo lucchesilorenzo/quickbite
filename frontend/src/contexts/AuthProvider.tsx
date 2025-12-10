@@ -1,7 +1,8 @@
 import { createContext, useContext } from "react";
 
+import { useAuthMe } from "@private/shared/hooks/auth/useAuthMe";
+
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useAuthMe } from "@/features/private/shared/hooks/auth/useAuthMe";
 import { User } from "@/types/user.types";
 
 type AuthProviderProps = {

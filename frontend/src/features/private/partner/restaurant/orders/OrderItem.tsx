@@ -9,13 +9,13 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { Order } from "@private/shared/types/order.types";
 import { format } from "date-fns";
 
 import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
 import ViewOrderDialog from "./ViewOrderDialog";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
-import { Order } from "@/features/private/shared/types/order.types";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type OrderItemProps = {

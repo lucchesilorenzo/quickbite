@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-import { OrderStatusWithAll } from "@/features/private/shared/types/order.types";
+import { OrderStatusWithAll } from "@private/shared/types/order.types";
 
 type OrdersProviderProps = {
   children: React.ReactNode;

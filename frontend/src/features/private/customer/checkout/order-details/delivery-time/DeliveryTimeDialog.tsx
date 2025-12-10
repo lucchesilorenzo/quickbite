@@ -51,9 +51,7 @@ export default function DeliveryTimeDialog({
           {isLoadingDeliverySlots && <Spinner />}
 
           {!isLoadingDeliverySlots && deliverySlotsError && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {deliverySlotsError.message}
-            </Alert>
+            <Alert severity="error">{deliverySlotsError.message}</Alert>
           )}
 
           {!isLoadingDeliverySlots && !deliverySlotsError && (

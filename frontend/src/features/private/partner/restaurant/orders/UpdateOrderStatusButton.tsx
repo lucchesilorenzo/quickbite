@@ -13,11 +13,8 @@ import {
 } from "@mui/material";
 import { useUpdateOrderStatus } from "@partner/hooks/restaurants/orders/useUpdateOrderStatus";
 import { getDisabledOrderStatuses } from "@partner/lib/utils/orders";
+import { Order, OrderStatus } from "@private/shared/types/order.types";
 
-import {
-  Order,
-  OrderStatus,
-} from "@/features/private/shared/types/order.types";
 import { orderStatuses } from "@/lib/constants/orders";
 
 type UpdateOrderStatusButtonProps = {

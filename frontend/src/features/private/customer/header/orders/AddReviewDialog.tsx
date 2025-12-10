@@ -7,10 +7,9 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { Order } from "@private/shared/types/order.types";
 
 import AddReviewForm from "./AddReviewForm";
-
-import { Order } from "@/features/private/shared/types/order.types";
 
 type AddReviewDialogProps = {
   order: Order;

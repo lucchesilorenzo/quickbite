@@ -4,6 +4,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { useOrders } from "@partner/contexts/OrdersProvider";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetOrders } from "@partner/hooks/restaurants/orders/useGetOrders";
+import { ordersDefaults } from "@private/shared/lib/query-defaults";
 import { useSearchParams } from "react-router-dom";
 
 import OrderItem from "./OrderItem";
@@ -11,7 +12,6 @@ import OrdersFilters from "./OrdersFilters";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import Spinner from "@/components/common/Spinner";
-import { ordersDefaults } from "@/features/private/shared/lib/query-defaults";
 import { orderStatuses } from "@/lib/constants/orders";
 
 export default function OrdersList() {
@@ -22,11 +22,7 @@ export default function OrdersList() {
   const [page, setPage] = useState(1);
 
   const { data: ordersData = ordersDefaults, isLoading: isLoadingOrders } =
-    useGetOrders({
-      restaurantId: restaurant.id,
-      status,
-      page,
-    });
+    useGetOrders({ restaurantId: restaurant.id, status, page });
 
   useEffect(() => {
     const status = searchParams.get("status");

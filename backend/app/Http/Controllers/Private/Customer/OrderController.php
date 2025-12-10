@@ -31,7 +31,11 @@ class OrderController extends Controller
                 auth()->user()
             );
 
-            return response()->json($orders, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Orders retrieved successfully.',
+                'orders' => $orders,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -50,7 +54,11 @@ class OrderController extends Controller
         try {
             $order = $this->orderService->getOrder($order);
 
-            return response()->json($order, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Order retrieved successfully.',
+                'order' => $order,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
