@@ -1,3 +1,5 @@
+import { BaseOffsetPagination } from "@/types/pagination.types";
+
 export type EmploymentType = "full_time" | "part_time" | "contract";
 export type JobPostStatus = "open" | "closed";
 
@@ -16,4 +18,8 @@ export type JobPost = {
 
 export type JobPostWithApplicationsCount = JobPost & {
   job_applications_count: number;
+};
+
+export type JobPostsWithPagination = BaseOffsetPagination & {
+  data: JobPostWithApplicationsCount[];
 };
