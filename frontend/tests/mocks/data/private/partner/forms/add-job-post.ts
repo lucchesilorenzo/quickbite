@@ -1,7 +1,8 @@
 import {
   CreateJobPostPayload,
   CreateJobPostResponse,
-} from "@partner/types/job-posts/job-post.api-types";
+} from "@/features/private/partner/types/job-posts/job-post.api.types";
+import { apiResponse } from "@tests/mocks/data/shared/common";
 
 export const addJobPostForm: CreateJobPostPayload = {
   title: "test",
@@ -12,15 +13,17 @@ export const addJobPostForm: CreateJobPostPayload = {
 };
 
 export const addJobPostFormResponse: CreateJobPostResponse = {
+  ...apiResponse,
   job_post: {
-    ...addJobPostForm,
     id: "019a9227-53ad-7271-90bd-2e88ab8ca909",
+    title: "test",
+    description_html: '<p style="text-align: left;">test</p>',
+    description_text: "test",
+    employment_type: "part_time",
+    salary: 10000,
     restaurant_id: "a0611650-d7f4-481f-ac39-de9c8d1073ed",
-    employment_type: "full_time",
     status: "open",
     updated_at: "2025-11-17T14:10:42.000000Z",
     created_at: "2025-11-17T14:10:42.000000Z",
   },
-  success: true,
-  message: "Job post created successfully.",
 };
