@@ -1,7 +1,7 @@
 import { GridFilterModel, GridSortModel } from "@mui/x-data-grid";
-import { GetJobPostsResponse } from "@partner/types/job-posts/job-post.api-types";
 import { useQuery } from "@tanstack/react-query";
 
+import { GetJobPostsResponse } from "@/features/private/partner/types/job-posts/job-post.api.types";
 import { fetchData } from "@/lib/api-client";
 
 type UseGetJobPostsOptions = {

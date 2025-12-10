@@ -35,7 +35,11 @@ class JobPostController extends Controller
                 $restaurant
             );
 
-            return response()->json($jobPosts, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Job posts retrieved successfully.',
+                'job_posts' => $jobPosts,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -51,7 +55,11 @@ class JobPostController extends Controller
         try {
             $jobPost = $this->jobPostService->getJobPost($jobPost);
 
-            return response()->json($jobPost, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Job post retrieved successfully.',
+                'job_post' => $jobPost,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

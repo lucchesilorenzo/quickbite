@@ -20,7 +20,7 @@ import {
   TEditJobPostFormSchema,
   editJobPostFormSchema,
 } from "@partner/schemas/job-posts.schema";
-import { GetJobPostResponse } from "@partner/types/job-posts/job-post.api-types";
+import { JobPost } from "@partner/types/job-posts/job-post.types";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";
@@ -28,7 +28,7 @@ import JobPostEditor from "../job-description-editor/JobPostEditor";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type EditJobPostFormProps = {
-  jobPost?: GetJobPostResponse;
+  jobPost?: JobPost;
   setOpenEditJobPostDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

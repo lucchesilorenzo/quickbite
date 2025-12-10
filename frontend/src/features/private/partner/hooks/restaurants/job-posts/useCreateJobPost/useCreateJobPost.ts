@@ -1,10 +1,10 @@
-import {
-  CreateJobPostPayload,
-  CreateJobPostResponse,
-} from "@partner/types/job-posts/job-post.api-types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import {
+  CreateJobPostPayload,
+  CreateJobPostResponse,
+} from "@/features/private/partner/types/job-posts/job-post.api.types";
 import { postData } from "@/lib/api-client";
 
 type UseCreateJobPostOptions = {

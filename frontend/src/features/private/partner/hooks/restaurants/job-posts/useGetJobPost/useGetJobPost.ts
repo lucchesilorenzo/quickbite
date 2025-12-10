@@ -1,6 +1,6 @@
-import { GetJobPostResponse } from "@partner/types/job-posts/job-post.api-types";
 import { useQuery } from "@tanstack/react-query";
 
+import { GetJobPostResponse } from "@/features/private/partner/types/job-posts/job-post.api.types";
 import { fetchData } from "@/lib/api-client";
 
 type UseGetJobPostOptions = {

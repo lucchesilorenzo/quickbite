@@ -47,7 +47,11 @@ export default function JobPostsTable() {
   const { restaurant } = useRestaurant();
 
   const {
-    data: jobPosts = jobPostsDefaults,
+    data: jobPostsData = {
+      success: false,
+      message: "",
+      job_posts: jobPostsDefaults,
+    },
     isLoading: isLoadingJobPosts,
     error: jobPostsError,
   } = useGetJobPosts({
@@ -124,7 +128,7 @@ export default function JobPostsTable() {
     },
   ];
 
-  const rows: GridRowsProp = jobPosts.data.map((jobPost) => ({
+  const rows: GridRowsProp = jobPostsData.job_posts.data.map((jobPost) => ({
     id: jobPost.id,
     title: jobPost.title,
     status: jobPost.status,
@@ -176,7 +180,7 @@ export default function JobPostsTable() {
           paginationMode="server"
           sortingMode="server"
           filterMode="server"
-          rowCount={jobPosts.total}
+          rowCount={jobPostsData.job_posts.total}
           paginationModel={paginationModel}
           sortModel={sortModel}
           filterModel={filterModel}
