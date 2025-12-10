@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import TestQueryWrapper from "@tests/TestQueryWrapper";
-import { jobPosts } from "@tests/mocks/data/private/partner/job-posts";
+import { jobPostsResponse } from "@tests/mocks/data/private/partner/job-posts";
 import { server } from "@tests/mocks/server";
 import { simulateError } from "@tests/utils/msw";
 import { HttpResponse, http } from "msw";
@@ -25,7 +25,7 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPosts);
+    expect(result.current.data).toEqual(jobPostsResponse);
   });
 
   it("should send 'sort_by' query parameter correctly", async () => {
@@ -38,7 +38,7 @@ describe("useGetJobPosts", () => {
 
           expect(sort).toBe(JSON.stringify({ field: "title", sort: "asc" }));
 
-          return HttpResponse.json(jobPosts);
+          return HttpResponse.json(jobPostsResponse);
         },
       ),
     );
@@ -54,7 +54,7 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPosts);
+    expect(result.current.data).toEqual(jobPostsResponse);
   });
 
   it("should send 'filter' query parameter correctly", async () => {
@@ -73,7 +73,7 @@ describe("useGetJobPosts", () => {
 
           expect(param).toBe(JSON.stringify(filter));
 
-          return HttpResponse.json(jobPosts);
+          return HttpResponse.json(jobPostsResponse);
         },
       ),
     );
@@ -85,7 +85,7 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPosts);
+    expect(result.current.data).toEqual(jobPostsResponse);
   });
 
   it("should send 'search' query parameter correctly", async () => {
@@ -98,7 +98,7 @@ describe("useGetJobPosts", () => {
 
           expect(search).toBe("pizza");
 
-          return HttpResponse.json(jobPosts);
+          return HttpResponse.json(jobPostsResponse);
         },
       ),
     );
@@ -117,7 +117,7 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPosts);
+    expect(result.current.data).toEqual(jobPostsResponse);
   });
 
   it("should fail to fetch data", async () => {

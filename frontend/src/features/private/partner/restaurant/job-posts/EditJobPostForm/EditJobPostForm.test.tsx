@@ -4,11 +4,11 @@ import {
   jobPostStatuses,
 } from "@partner/lib/constants/job-posts";
 import { TEditJobPostFormSchema } from "@partner/schemas/job-posts.schema";
-import { GetJobPostResponse } from "@partner/types/job-posts/job-post.api-types";
+import { JobPost } from "@partner/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { editJobPostForm } from "@tests/mocks/data/private/partner/forms/edit-job-post";
-import { jobPost } from "@tests/mocks/data/private/partner/job-posts";
+import { jobPostResponse } from "@tests/mocks/data/private/partner/job-posts";
 import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
 import { customRender } from "@tests/utils/custom-render";
 import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
@@ -41,7 +41,7 @@ vi.mock("../job-description-editor/JobPostEditor", () => ({
 }));
 
 describe("EditJobPostForm", () => {
-  function renderComponent(jobPost?: GetJobPostResponse) {
+  function renderComponent(jobPost?: JobPost) {
     const user = userEvent.setup({ delay: null });
 
     const mockSetOpenEditJobPostDialog = vi.fn();
@@ -159,16 +159,16 @@ describe("EditJobPostForm", () => {
   });
 
   it("should populate form fields when editing a job post", async () => {
-    const { getForm } = renderComponent(jobPost);
+    const { getForm } = renderComponent(jobPostResponse.job_post);
 
     const inputs = await getForm();
 
     const employmentTypeLabel = employmentTypes.find(
-      (option) => option.value === jobPost.employment_type,
+      (option) => option.value === jobPostResponse.job_post.employment_type,
     )?.label;
 
     const statusLabel = jobPostStatuses.find(
-      (option) => option.value === jobPost.status,
+      (option) => option.value === jobPostResponse.job_post.status,
     )?.label;
 
     if (employmentTypeLabel) {
@@ -181,16 +181,20 @@ describe("EditJobPostForm", () => {
       expect(inputs.status).toHaveTextContent(statusLabel.toString());
     }
 
-    if (jobPost.salary) {
-      expect(inputs.salary).toHaveValue(jobPost.salary.toString());
+    if (jobPostResponse.job_post.salary) {
+      expect(inputs.salary).toHaveValue(
+        jobPostResponse.job_post.salary.toString(),
+      );
     }
 
-    expect(inputs.title).toHaveValue(jobPost.title);
-    expect(inputs.description).toHaveValue(jobPost.description_html);
+    expect(inputs.title).toHaveValue(jobPostResponse.job_post.title);
+    expect(inputs.description).toHaveValue(
+      jobPostResponse.job_post.description_html,
+    );
   });
 
   it("should render the correct select options", async () => {
-    const { user, getForm } = renderComponent(jobPost);
+    const { user, getForm } = renderComponent(jobPostResponse.job_post);
     const { employmentType } = await getForm();
 
     await user.click(employmentType);
@@ -321,10 +325,10 @@ describe("EditJobPostForm", () => {
 
   it("should render the loading indicator upon submission", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/${jobPost.id}`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
       "patch",
     );
-    const { getForm } = renderComponent(jobPost);
+    const { getForm } = renderComponent(jobPostResponse.job_post);
 
     const form = await getForm();
     await form.fill(editJobPostForm);
@@ -343,10 +347,10 @@ describe("EditJobPostForm", () => {
 
   it("should not render the loading indicator if submission fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/${jobPost.id}`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
       "patch",
     );
-    const { getForm } = renderComponent(jobPost);
+    const { getForm } = renderComponent(jobPostResponse.job_post);
 
     const form = await getForm();
     await form.fill(editJobPostForm);

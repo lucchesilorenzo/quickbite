@@ -1,7 +1,7 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { jobPosts } from "@tests/mocks/data/private/partner/job-posts";
+import { jobPostsResponse } from "@tests/mocks/data/private/partner/job-posts";
 import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
 import { server } from "@tests/mocks/server";
 import { customRender } from "@tests/utils/custom-render";
@@ -105,7 +105,7 @@ describe("JobPostsTable", () => {
     server.use(
       http.get(
         `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
-        async () => HttpResponse.json(jobPosts),
+        async () => HttpResponse.json(jobPostsResponse),
       ),
     );
     const { user, getEditJobPostButtons } = renderComponent();
@@ -124,7 +124,7 @@ describe("JobPostsTable", () => {
     server.use(
       http.get(
         `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
-        async () => HttpResponse.json(jobPosts),
+        async () => HttpResponse.json(jobPostsResponse),
       ),
     );
     const { user, getDeleteJobPostButtons } = renderComponent();
@@ -143,7 +143,7 @@ describe("JobPostsTable", () => {
     server.use(
       http.get(
         `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
-        () => HttpResponse.json(jobPosts),
+        () => HttpResponse.json(jobPostsResponse),
       ),
     );
     const { user, getDeleteJobPostsButton } = renderComponent();
@@ -160,7 +160,7 @@ describe("JobPostsTable", () => {
     server.use(
       http.get(
         `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
-        () => HttpResponse.json(jobPosts),
+        () => HttpResponse.json(jobPostsResponse),
       ),
     );
     const { user, getDeleteJobPostsButton } = renderComponent();
