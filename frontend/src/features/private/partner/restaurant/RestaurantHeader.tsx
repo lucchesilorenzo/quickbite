@@ -18,7 +18,7 @@ import RestaurantDrawer from "./RestaurantDrawer";
 import RestaurantNavigation from "./RestaurantNavigation";
 
 export default function RestaurantHeader() {
-  const { partnerNotifications, restaurant } = useRestaurant();
+  const { notificationsData, restaurant } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -59,7 +59,7 @@ export default function RestaurantHeader() {
             <Link to={`/partner/restaurants/${restaurant.id}/notifications`}>
               <IconButton aria-label="notifications">
                 <Badge
-                  badgeContent={partnerNotifications.unread_count}
+                  badgeContent={notificationsData.unread_count}
                   color="error"
                   max={20}
                 >

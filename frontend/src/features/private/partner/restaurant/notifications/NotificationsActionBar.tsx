@@ -6,14 +6,14 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import NotificationsMarkAsReadDialog from "./NotificationsMarkAsReadDialog";
 
 export default function NotificationsActionBar() {
-  const { partnerNotifications } = useRestaurant();
+  const { notificationsData } = useRestaurant();
 
   const [openMarkUserNotificationsAsRead, setOpenMarkUserNotificationsAsRead] =
     useState(false);
 
   return (
     <Stack direction="row">
-      {partnerNotifications.unread_count > 0 && (
+      {notificationsData.unread_count > 0 && (
         <Button
           sx={{ ml: "auto" }}
           onClick={() => setOpenMarkUserNotificationsAsRead(true)}

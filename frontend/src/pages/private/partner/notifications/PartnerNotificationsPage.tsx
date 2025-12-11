@@ -2,10 +2,15 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 import HeadingBlock from "@partner/components/HeadingBlock";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import NotificationsActionBar from "@partner/restaurant/notifications/NotificationsActionBar";
 import NotificationsList from "@partner/restaurant/notifications/NotificationsList";
 
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
+
 export default function PartnerNotificationsPage() {
+  const { notificationsError } = useRestaurant();
+
   useEffect(() => {
     document.title = "Notifications | QuickBite";
   }, []);
@@ -17,8 +22,14 @@ export default function PartnerNotificationsPage() {
         description="View and manage your notifications"
       />
 
-      <NotificationsActionBar />
-      <NotificationsList />
+      {notificationsError ? (
+        <FullPageErrorMessage message={notificationsError.message} />
+      ) : (
+        <>
+          <NotificationsActionBar />
+          <NotificationsList />
+        </>
+      )}
     </Container>
   );
 }

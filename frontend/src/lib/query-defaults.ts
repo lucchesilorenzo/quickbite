@@ -74,10 +74,7 @@ export const restaurantsDefaults = {
   ],
 };
 
-export const userNotificationsDefaults = {
-  notifications: baseOffsetPaginationDefaults,
-  unread_count: 0,
-};
+export const notificationsDefaults = baseOffsetPaginationDefaults;
 
 export const offersDefaults = baseOffsetPaginationDefaults;
 

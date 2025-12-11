@@ -2,14 +2,14 @@ import { createContext, useContext, useState } from "react";
 
 import { useGetNotifications } from "@partner/hooks/notifications/useGetNotifications";
 import { useGetRestaurant } from "@partner/hooks/restaurants/restaurant/useGetRestaurant";
-import { UserNotificationWithUnreadCount } from "@partner/types/notifications/notification.types";
 import { Navigate } from "react-router-dom";
 
+import { GetNotificationsResponse } from "../types/notifications/notification.api.types";
 import { PartnerRestaurantDetail } from "../types/restaurants/restaurant.types";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
-import { userNotificationsDefaults } from "@/lib/query-defaults";
+import { notificationsDefaults } from "@/lib/query-defaults";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;
@@ -18,7 +18,8 @@ type RestaurantProviderProps = {
 
 type RestaurantContext = {
   restaurant: PartnerRestaurantDetail;
-  partnerNotifications: UserNotificationWithUnreadCount;
+  notificationsData: GetNotificationsResponse;
+  notificationsError: Error | null;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -34,8 +35,14 @@ export default function RestaurantProvider({
   const [page, setPage] = useState(1);
 
   const {
-    data: partnerNotifications = userNotificationsDefaults,
-    isLoading: isLoadingPartnerNotifications,
+    data: notificationsData = {
+      success: false,
+      message: "",
+      notifications: notificationsDefaults,
+      unread_count: 0,
+    },
+    isLoading: isLoadingNotifications,
+    error: notificationsError,
   } = useGetNotifications({ userId: user?.id, restaurantId, page });
 
   const {
@@ -44,12 +51,23 @@ export default function RestaurantProvider({
     isError,
   } = useGetRestaurant({ restaurantId });
 
-  if (isLoading || isLoadingPartnerNotifications) return <FullPageSpinner />;
-  if (isError || !restaurant) return <Navigate to="*" />;
+  if (isLoading || isLoadingNotifications) {
+    return <FullPageSpinner />;
+  }
+
+  if (isError || !restaurant) {
+    return <Navigate to="*" />;
+  }
 
   return (
     <RestaurantContext.Provider
-      value={{ restaurant, partnerNotifications, page, setPage }}
+      value={{
+        restaurant,
+        notificationsData,
+        notificationsError,
+        page,
+        setPage,
+      }}
     >
       {children}
     </RestaurantContext.Provider>

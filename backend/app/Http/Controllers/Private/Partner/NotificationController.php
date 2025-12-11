@@ -19,12 +19,17 @@ class NotificationController extends Controller
     public function getNotifications(Restaurant $restaurant): JsonResponse
     {
         try {
-            $notifications = $this->notificationService->getNotifications(
+            $notificationsData = $this->notificationService->getNotifications(
                 $restaurant,
                 auth()->user()
             );
 
-            return response()->json($notifications, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Notifications retrieved successfully.',
+                'notifications' => $notificationsData['notifications'],
+                'unread_count' => $notificationsData['unread_count'],
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
