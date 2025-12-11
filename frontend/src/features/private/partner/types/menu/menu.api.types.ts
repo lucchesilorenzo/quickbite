@@ -8,7 +8,9 @@ import { ApiResponse } from "@/types/api.types";
 import { MenuCategory, MenuItem } from "@/types/menu/menu.types";
 
 // Menu
-export type GetMenuResponse = PartnerMenu[];
+export type GetMenuResponse = {
+  menu: PartnerMenu[];
+} & ApiResponse;
 
 export type CreateMenuCategoryResponse = {
   menu_category: Omit<MenuCategory, "menu_items">;

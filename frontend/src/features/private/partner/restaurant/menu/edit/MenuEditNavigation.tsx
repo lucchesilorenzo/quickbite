@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Box, Fade, IconButton, Stack } from "@mui/material";
+import { Alert, Box, Fade, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useMenu } from "@partner/contexts/MenuProvider";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
@@ -13,8 +13,8 @@ import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
 import AddMenuItemButton from "./AddMenuItemButton";
+import MenuEditNavigationSkeletons from "./MenuEditNavigationSkeletons";
 
-import Spinner from "@/components/common/Spinner";
 import MenuCategoryNavigationSlide from "@/components/menu-category-navigation/MenuCategoryNavigationSlide";
 import ShowMoreMenuCategoriesButton from "@/components/menu-category-navigation/ShowMoreMenuCategoriesButton";
 
@@ -23,8 +23,9 @@ export default function MenuEditNavigation() {
   const { selectedMenuCategoryId, setSelectedMenuCategoryId } = useMenu();
 
   const {
-    data: menuCategories = menuDefaults,
-    isLoading: isLoadingMenuCategories,
+    data: menuData = { success: false, message: "", menu: menuDefaults },
+    isLoading: isLoadingMenu,
+    error: menuError,
   } = useGetMenu({ restaurantId: restaurant.id });
 
   const swiperRef = useRef<SwiperClass>(null);
@@ -47,7 +48,7 @@ export default function MenuEditNavigation() {
     const menuCategoryId = searchParams.get("menu_category_id");
 
     if (menuCategoryId) {
-      const menuCategory = menuCategories.find(
+      const menuCategory = menuData.menu.find(
         (menuCategory) => menuCategory.id === menuCategoryId,
       );
 
@@ -55,9 +56,15 @@ export default function MenuEditNavigation() {
         setSelectedMenuCategoryId(menuCategory.id);
       }
     }
-  }, [searchParams, menuCategories, setSelectedMenuCategoryId]);
+  }, [searchParams, menuData.menu, setSelectedMenuCategoryId]);
 
-  if (isLoadingMenuCategories) return <Spinner />;
+  if (isLoadingMenu) {
+    return <MenuEditNavigationSkeletons />;
+  }
+
+  if (menuError) {
+    return <Alert severity="error">{menuError.message}</Alert>;
+  }
 
   return (
     <Stack direction="row" spacing={1} sx={{ alignItems: "center", mt: 3 }}>
@@ -95,7 +102,7 @@ export default function MenuEditNavigation() {
             800: { slidesPerView: 6 },
           }}
         >
-          {menuCategories.map((menuCategory) => (
+          {menuData.menu.map((menuCategory) => (
             <SwiperSlide key={menuCategory.id}>
               <MenuCategoryNavigationSlide
                 menuCategory={menuCategory}
@@ -124,9 +131,9 @@ export default function MenuEditNavigation() {
 
       {selectedMenuCategoryId && <AddMenuItemButton />}
 
-      {menuCategories.length > 0 && (
+      {menuData.menu.length > 0 && (
         <ShowMoreMenuCategoriesButton
-          menuCategories={menuCategories}
+          menuCategories={menuData.menu}
           onSlideClick={handleSlideClick}
         />
       )}

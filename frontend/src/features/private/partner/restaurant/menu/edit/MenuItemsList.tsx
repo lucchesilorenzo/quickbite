@@ -20,6 +20,7 @@ import { menuDefaults } from "@partner/lib/query-defaults";
 import MenuItem from "./MenuItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 
 export default function MenuItemsList() {
@@ -34,8 +35,9 @@ export default function MenuItemsList() {
   );
 
   const {
-    data: menuCategoriesWithMenuItemsPagination = menuDefaults,
-    isLoading: isLoadingMenuCategories,
+    data: menuData = { success: false, message: "", menu: menuDefaults },
+    isLoading: isLoadingMenu,
+    error: menuError,
   } = useGetMenu({ restaurantId: restaurant.id, page });
 
   const { mutateAsync: updateMenuItemsOrder } = useUpdateMenuItemsOrder({
@@ -48,11 +50,8 @@ export default function MenuItemsList() {
   );
 
   const selectedMenuCategory = useMemo(
-    () =>
-      menuCategoriesWithMenuItemsPagination.find(
-        (c) => c.id === selectedMenuCategoryId,
-      ),
-    [menuCategoriesWithMenuItemsPagination, selectedMenuCategoryId],
+    () => menuData.menu.find((c) => c.id === selectedMenuCategoryId),
+    [menuData.menu, selectedMenuCategoryId],
   );
 
   const menuItems = useMemo(
@@ -66,7 +65,13 @@ export default function MenuItemsList() {
     setItems(menuItems);
   }, [menuItems]);
 
-  if (isLoadingMenuCategories) return <Spinner />;
+  if (isLoadingMenu) {
+    return <Spinner />;
+  }
+
+  if (menuError) {
+    return <FullPageErrorMessage message={menuError.message} />;
+  }
 
   async function handleMenuItemSort({ active, over }: DragEndEvent) {
     if (active.id === over?.id) return;

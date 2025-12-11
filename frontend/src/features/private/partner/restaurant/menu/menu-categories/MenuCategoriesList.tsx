@@ -18,14 +18,16 @@ import { menuDefaults } from "@partner/lib/query-defaults";
 
 import MenuCategoryItem from "./MenuCategoryItem";
 
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 
 export default function MenuCategoriesList() {
   const { restaurant } = useRestaurant();
 
   const {
-    data: menuCategories = menuDefaults,
-    isLoading: isLoadingMenuCategories,
+    data: menuData = { success: false, message: "", menu: menuDefaults },
+    isLoading: isLoadingMenu,
+    error: menuError,
   } = useGetMenu({ restaurantId: restaurant.id });
 
   const { mutateAsync: updateMenuCategoriesOrder } =
@@ -36,7 +38,7 @@ export default function MenuCategoriesList() {
     [updateMenuCategoriesOrder],
   );
 
-  const [items, setItems] = useState(menuCategories);
+  const [items, setItems] = useState(menuData.menu);
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -44,8 +46,8 @@ export default function MenuCategoriesList() {
   );
 
   useEffect(() => {
-    setItems(menuCategories);
-  }, [menuCategories]);
+    setItems(menuData.menu);
+  }, [menuData.menu]);
 
   async function handleMenuCategorySort({ active, over }: DragEndEvent) {
     if (active.id === over?.id) return;
@@ -66,9 +68,15 @@ export default function MenuCategoriesList() {
     });
   }
 
-  if (isLoadingMenuCategories) return <Spinner />;
+  if (isLoadingMenu) {
+    return <Spinner />;
+  }
 
-  if (!menuCategories.length) {
+  if (menuError) {
+    return <FullPageErrorMessage message={menuError.message} />;
+  }
+
+  if (!menuData.menu.length) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center", mt: 3 }}>
         Start adding your menu categories here.

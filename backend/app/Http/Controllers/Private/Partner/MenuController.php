@@ -27,7 +27,11 @@ class MenuController extends Controller
         try {
             $menu = $this->menuService->getMenu($restaurant);
 
-            return response()->json($menu, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Menu retrieved successfully.',
+                'menu' => $menu,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
