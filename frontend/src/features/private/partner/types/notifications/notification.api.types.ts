@@ -1,3 +1,8 @@
-import { UserNotificationWithUnreadCount } from "./notification.types";
+import { UserNotificationWithPagination } from "./notification.types";
 
-export type GetNotificationsResponse = UserNotificationWithUnreadCount;
+import { ApiResponse } from "@/types/api.types";
+
+export type GetNotificationsResponse = {
+  notifications: UserNotificationWithPagination;
+  unread_count: number;
+} & ApiResponse;

@@ -44,11 +44,6 @@ export type UserNotification = BaseDatabaseNotification & {
   data: NewOrderReceivedToDatabase | NewReviewReceivedToDatabase;
 };
 
-type UserNotificationWithPagination = BaseOffsetPagination & {
+export type UserNotificationWithPagination = BaseOffsetPagination & {
   data: UserNotification[];
-};
-
-export type UserNotificationWithUnreadCount = {
-  notifications: UserNotificationWithPagination;
-  unread_count: number;
 };
