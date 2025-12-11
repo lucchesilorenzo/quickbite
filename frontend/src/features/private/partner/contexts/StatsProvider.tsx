@@ -25,8 +25,10 @@ type StatsContext = {
   paymentMethod: PaymentMethodFilter;
   statsData: StatsWithFilters;
   isLoadingStats: boolean;
+  statsError: Error | null;
   year: Record<Kpi, number>;
   kpiSummary: KpiSummary;
+  kpiSummaryError: Error | null;
   isLoadingKpiSummary: boolean;
   setPaymentMethod: React.Dispatch<React.SetStateAction<PaymentMethodFilter>>;
   setYear: React.Dispatch<React.SetStateAction<Record<Kpi, number>>>;
@@ -73,8 +75,9 @@ export default function StatsProvider({ children }: StatsProviderProps) {
   }, [kpiParam, searchParams, setSearchParams]);
 
   const {
-    data: kpiSummary = kpiSummaryDefaults,
+    data: kpiSummary = { success: false, message: "", ...kpiSummaryDefaults },
     isLoading: isLoadingKpiSummary,
+    error: kpiSummaryError,
   } = useGetKpiSummary({
     restaurantId: restaurantData.restaurant.id,
     range,
@@ -82,14 +85,17 @@ export default function StatsProvider({ children }: StatsProviderProps) {
     year: year[activeKpi],
   });
 
-  const { data: statsData = statsDefaults, isLoading: isLoadingStats } =
-    useGetStats({
-      restaurantId: restaurantData.restaurant.id,
-      kpi: activeKpi,
-      range,
-      paymentMethod,
-      year: year[activeKpi],
-    });
+  const {
+    data: statsData = { success: false, message: "", ...statsDefaults },
+    isLoading: isLoadingStats,
+    error: statsError,
+  } = useGetStats({
+    restaurantId: restaurantData.restaurant.id,
+    kpi: activeKpi,
+    range,
+    paymentMethod,
+    year: year[activeKpi],
+  });
 
   return (
     <StatsContext.Provider
@@ -99,9 +105,11 @@ export default function StatsProvider({ children }: StatsProviderProps) {
         paymentMethod,
         statsData,
         isLoadingStats,
+        statsError,
         year,
         kpiSummary,
         isLoadingKpiSummary,
+        kpiSummaryError,
         setPaymentMethod,
         setYear,
       }}
@@ -113,8 +121,10 @@ export default function StatsProvider({ children }: StatsProviderProps) {
 
 export function useStats() {
   const context = useContext(StatsContext);
+
   if (!context) {
     throw new Error("useStats must be used within a StatsProvider.");
   }
+
   return context;
 }

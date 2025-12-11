@@ -3,6 +3,8 @@ import { useStats } from "@partner/contexts/StatsProvider";
 
 import BarLabel from "./BarLabel";
 
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
+
 type StatsDetailsBarChartProps = {
   barPrimaryColor: string;
   barSecondaryColor: string;
@@ -16,9 +18,13 @@ export default function StatsDetailsBarChart({
   barId,
   barLabel,
 }: StatsDetailsBarChartProps) {
-  const { statsData, range, isLoadingStats } = useStats();
+  const { statsData, range, isLoadingStats, statsError } = useStats();
 
   const label = range === "all" ? "Month" : "Day of the month";
+
+  if (statsError) {
+    return <FullPageErrorMessage message={statsError.message} />;
+  }
 
   return (
     <BarChart

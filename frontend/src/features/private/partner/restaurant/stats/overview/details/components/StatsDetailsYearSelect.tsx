@@ -1,4 +1,5 @@
 import {
+  Alert,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -9,8 +10,15 @@ import {
 import { useStats } from "@partner/contexts/StatsProvider";
 
 export default function StatsDetailsYearSelect() {
-  const { statsData, isLoadingStats, activeKpi, range, year, setYear } =
-    useStats();
+  const {
+    statsData,
+    isLoadingStats,
+    statsError,
+    activeKpi,
+    range,
+    year,
+    setYear,
+  } = useStats();
 
   const currentYear = new Date().getFullYear();
 
@@ -21,6 +29,10 @@ export default function StatsDetailsYearSelect() {
 
   function handleYearChange(e: SelectChangeEvent<number>) {
     setYear((prev) => ({ ...prev, [activeKpi]: e.target.value }));
+  }
+
+  if (statsError) {
+    return <Alert severity="error">{statsError.message}</Alert>;
   }
 
   return (

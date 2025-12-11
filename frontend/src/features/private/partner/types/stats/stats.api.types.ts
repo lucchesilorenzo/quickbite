@@ -1,7 +1,9 @@
 import { DashboardStats, KpiSummary, StatsWithFilters } from "./stats.types";
 
-export type GetStatsResponse = StatsWithFilters;
+import { ApiResponse } from "@/types/api.types";
 
-export type GetDashboardStatsResponse = DashboardStats;
+export type GetStatsResponse = StatsWithFilters & ApiResponse;
 
-export type GetKpiSummaryResponse = KpiSummary;
+export type GetDashboardStatsResponse = DashboardStats & ApiResponse;
+
+export type GetKpiSummaryResponse = KpiSummary & ApiResponse;

@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
 import { useStats } from "@partner/contexts/StatsProvider";
 import { Kpi } from "@partner/types/stats/stats.types";
 
@@ -7,7 +7,7 @@ import StatsKpiCard from "./StatsKpiCard";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function StatsKpiCards() {
-  const { kpiSummary, activeKpi } = useStats();
+  const { kpiSummary, activeKpi, kpiSummaryError } = useStats();
 
   const cards: { key: Kpi; value: string; title: string; color: string }[] = [
     {
@@ -35,6 +35,14 @@ export default function StatsKpiCards() {
       color: "error",
     },
   ];
+
+  if (kpiSummaryError) {
+    return (
+      <Alert sx={{ mt: 6, mb: 2 }} severity="error">
+        {kpiSummaryError.message}
+      </Alert>
+    );
+  }
 
   return (
     <Grid container sx={{ mt: 6 }}>

@@ -1,4 +1,4 @@
-import { Card, Grid } from "@mui/material";
+import { Alert, Card, Grid } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetDashboardStats } from "@partner/hooks/restaurants/stats/useGetDashboardStats";
 import { dashboardStatsDefaults } from "@partner/lib/query-defaults";
@@ -10,18 +10,45 @@ import Spinner from "@/components/common/Spinner";
 export default function StatsCard() {
   const { restaurantData } = useRestaurant();
 
-  const { data: stats = dashboardStatsDefaults, isLoading: isLoadingStats } =
-    useGetDashboardStats({ restaurantId: restaurantData.restaurant.id });
+  const {
+    data: dashboardStatData = {
+      success: false,
+      message: "",
+      ...dashboardStatsDefaults,
+    },
+    isLoading: isLoadingDashboardStats,
+    error: dashboardStatsError,
+  } = useGetDashboardStats({ restaurantId: restaurantData.restaurant.id });
 
   const computedStats = [
-    { title: "Today's earnings", value: stats.earnings_today, currency: true },
-    { title: "Pending orders", value: stats.pending_orders, currency: false },
-    { title: "Accepted orders", value: stats.accepted_orders, currency: false },
-    { title: "Rejected orders", value: stats.rejected_orders, currency: false },
+    {
+      title: "Today's earnings",
+      value: dashboardStatData.earnings_today,
+      currency: true,
+    },
+    {
+      title: "Pending orders",
+      value: dashboardStatData.pending_orders,
+      currency: false,
+    },
+    {
+      title: "Accepted orders",
+      value: dashboardStatData.accepted_orders,
+      currency: false,
+    },
+    {
+      title: "Rejected orders",
+      value: dashboardStatData.rejected_orders,
+      currency: false,
+    },
   ];
 
-  if (isLoadingStats) {
+  if (isLoadingDashboardStats) {
     return <Spinner />;
+  }
+
+  if (dashboardStatsError) {
+    return <Alert severity="error">{dashboardStatsError.message}</Alert>;
   }
 
   return (
