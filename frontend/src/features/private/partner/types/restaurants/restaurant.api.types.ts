@@ -6,13 +6,15 @@ import {
   RestaurantDetail,
 } from "@/types/restaurants/restaurant.types";
 
-export type GetRestaurantResponse = PartnerRestaurantDetail;
+export type GetRestaurantsResponse = {
+  restaurants: BaseRestaurant[];
+} & ApiResponse;
 
-export type GetRestaurantsResponse = BaseRestaurant[];
-
-export type UpdateRestaurantApprovedStatusResponse = {
+export type GetRestaurantResponse = {
   restaurant: PartnerRestaurantDetail;
 } & ApiResponse;
+
+export type UpdateRestaurantApprovedStatusResponse = GetRestaurantResponse;
 
 export type UpdateRestaurantStatusResponse =
   UpdateRestaurantApprovedStatusResponse;

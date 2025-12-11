@@ -17,20 +17,20 @@ export default function PartnerSettingsFeesPage() {
     document.title = "Fees | QuickBite";
   }, []);
 
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: updateFees } = useUpdateFees({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
   });
 
   const methods = useForm({
     resolver: zodResolver(restaurantSettingsFeesFormSchema),
     defaultValues: {
-      delivery_fee: restaurant.delivery_fee,
-      min_delivery_time: restaurant.min_delivery_time || "",
-      max_delivery_time: restaurant.max_delivery_time || "",
-      service_fee: restaurant.service_fee,
-      min_amount: restaurant.min_amount,
+      delivery_fee: restaurantData.restaurant.delivery_fee,
+      min_delivery_time: restaurantData.restaurant.min_delivery_time || "",
+      max_delivery_time: restaurantData.restaurant.max_delivery_time || "",
+      service_fee: restaurantData.restaurant.service_fee,
+      min_amount: restaurantData.restaurant.min_amount,
     },
   });
 

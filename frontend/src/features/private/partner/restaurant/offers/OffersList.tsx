@@ -12,7 +12,7 @@ import Spinner from "@/components/common/Spinner";
 import { offersDefaults } from "@/lib/query-defaults";
 
 export default function OffersList() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const [page, setPage] = useState(1);
 
@@ -20,7 +20,7 @@ export default function OffersList() {
     data: offersData = { success: false, message: "", offers: offersDefaults },
     isLoading: isLoadingOffers,
     error: offersError,
-  } = useGetOffers({ restaurantId: restaurant.id, page });
+  } = useGetOffers({ restaurantId: restaurantData.restaurant.id, page });
 
   if (isLoadingOffers) {
     return <Spinner />;

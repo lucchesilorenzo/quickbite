@@ -23,10 +23,10 @@ import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { capitalize } from "@/lib/utils/formatting";
 
 export default function DeliveryTimesEditTab() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: updateDeliveryTimes, isPending: isUpdating } =
-    useUpdateDeliveryTimes({ restaurantId: restaurant.id });
+    useUpdateDeliveryTimes({ restaurantId: restaurantData.restaurant.id });
 
   const {
     handleSubmit,
@@ -37,7 +37,7 @@ export default function DeliveryTimesEditTab() {
   } = useForm<TRestaurantSettingsDeliveryTimesFormSchema>({
     resolver: zodResolver(restaurantSettingsDeliveryTimesFormSchema),
     defaultValues: {
-      delivery_days: restaurant.delivery_days.map((d) => ({
+      delivery_days: restaurantData.restaurant.delivery_days.map((d) => ({
         day: d.day,
         start_time: d.start_time
           ? new Date(`1970-01-01T${d.start_time}`)
@@ -85,7 +85,7 @@ export default function DeliveryTimesEditTab() {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
-      {restaurant.delivery_days.map((d, index) => (
+      {restaurantData.restaurant.delivery_days.map((d, index) => (
         <Box key={d.id}>
           <Stack
             direction="row"

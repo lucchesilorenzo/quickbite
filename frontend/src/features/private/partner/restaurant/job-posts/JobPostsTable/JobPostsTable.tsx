@@ -44,7 +44,7 @@ export default function JobPostsTable() {
 
   const notifications = useNotifications();
 
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const {
     data: jobPostsData = {
@@ -55,7 +55,7 @@ export default function JobPostsTable() {
     isLoading: isLoadingJobPosts,
     error: jobPostsError,
   } = useGetJobPosts({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     page: paginationModel.page + 1,
     pageSize: paginationModel.pageSize,
     sortBy: sortModel,

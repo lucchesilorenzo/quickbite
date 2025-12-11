@@ -7,13 +7,15 @@ import { useUpdateRestaurantStatus } from "@partner/hooks/restaurants/restaurant
 import AntSwitch from "@/components/common/AntSwitch";
 
 export default function RestaurantStatusSwitch() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: updateRestaurantStatus } = useUpdateRestaurantStatus({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
   });
 
-  const [restaurantStatus, setRestaurantStatus] = useState(restaurant.is_open);
+  const [restaurantStatus, setRestaurantStatus] = useState(
+    restaurantData.restaurant.is_open,
+  );
 
   async function handleUpdateRestaurantStatus(
     e: React.ChangeEvent<HTMLInputElement>,

@@ -8,10 +8,10 @@ import StatsCardItem from "./StatsCardItem";
 import Spinner from "@/components/common/Spinner";
 
 export default function StatsCard() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { data: stats = dashboardStatsDefaults, isLoading: isLoadingStats } =
-    useGetDashboardStats({ restaurantId: restaurant.id });
+    useGetDashboardStats({ restaurantId: restaurantData.restaurant.id });
 
   const computedStats = [
     { title: "Today's earnings", value: stats.earnings_today, currency: true },
@@ -20,7 +20,9 @@ export default function StatsCard() {
     { title: "Rejected orders", value: stats.rejected_orders, currency: false },
   ];
 
-  if (isLoadingStats) return <Spinner />;
+  if (isLoadingStats) {
+    return <Spinner />;
+  }
 
   return (
     <Card variant="outlined" sx={{ p: 2 }}>

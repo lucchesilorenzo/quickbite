@@ -22,16 +22,18 @@ import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 
 export default function MenuCategoriesList() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const {
     data: menuData = { success: false, message: "", menu: menuDefaults },
     isLoading: isLoadingMenu,
     error: menuError,
-  } = useGetMenu({ restaurantId: restaurant.id });
+  } = useGetMenu({ restaurantId: restaurantData.restaurant.id });
 
   const { mutateAsync: updateMenuCategoriesOrder } =
-    useUpdateMenuCategoriesOrder({ restaurantId: restaurant.id });
+    useUpdateMenuCategoriesOrder({
+      restaurantId: restaurantData.restaurant.id,
+    });
 
   const debounceUpdateRestaurantMenuCategoriesOrder = useMemo(
     () => debounce(updateMenuCategoriesOrder, 500),

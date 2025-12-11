@@ -42,7 +42,7 @@ const kpiKeys: Kpi[] = [
 ];
 
 export default function StatsProvider({ children }: StatsProviderProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [paymentMethod, setPaymentMethod] =
@@ -76,7 +76,7 @@ export default function StatsProvider({ children }: StatsProviderProps) {
     data: kpiSummary = kpiSummaryDefaults,
     isLoading: isLoadingKpiSummary,
   } = useGetKpiSummary({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     range,
     paymentMethod,
     year: year[activeKpi],
@@ -84,7 +84,7 @@ export default function StatsProvider({ children }: StatsProviderProps) {
 
   const { data: statsData = statsDefaults, isLoading: isLoadingStats } =
     useGetStats({
-      restaurantId: restaurant.id,
+      restaurantId: restaurantData.restaurant.id,
       kpi: activeKpi,
       range,
       paymentMethod,

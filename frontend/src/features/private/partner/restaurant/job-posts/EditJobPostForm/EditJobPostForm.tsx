@@ -36,10 +36,10 @@ export default function EditJobPostForm({
   jobPost,
   setOpenEditJobPostDialog,
 }: EditJobPostFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutate: updateJobPost, isPending: isUpdating } = useUpdateJobPost({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     jobPostId: jobPost?.id,
     setOpenEditJobPostDialog,
   });

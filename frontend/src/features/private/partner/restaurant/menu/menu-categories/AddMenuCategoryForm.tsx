@@ -17,10 +17,10 @@ type AddMenuCategoryFormProps = {
 export default function AddMenuCategoryForm({
   setOpenAddMenuCategoryDialog,
 }: AddMenuCategoryFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: createMenuCategory } = useCreateMenuCategory({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
   });
 
   const {

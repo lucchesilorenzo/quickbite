@@ -6,7 +6,7 @@ import RestaurantStatusSwitch from "./RestaurantStatusSwitch";
 import RestaurantWelcome from "./RestaurantWelcome";
 
 export default function WelcomeAndStatusSection() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   return (
     <Stack
@@ -23,7 +23,7 @@ export default function WelcomeAndStatusSection() {
 
       <Stack spacing={2} sx={{ alignItems: { sm: "center" } }}>
         <RestaurantStatusSwitch />
-        {!restaurant.is_approved && <RestaurantApprovalButton />}
+        {!restaurantData.restaurant.is_approved && <RestaurantApprovalButton />}
       </Stack>
     </Stack>
   );

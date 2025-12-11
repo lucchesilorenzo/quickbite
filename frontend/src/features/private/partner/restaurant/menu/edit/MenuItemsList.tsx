@@ -24,7 +24,7 @@ import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 
 export default function MenuItemsList() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { selectedMenuCategoryId } = useMenu();
 
   const [page, setPage] = useState(1);
@@ -38,10 +38,10 @@ export default function MenuItemsList() {
     data: menuData = { success: false, message: "", menu: menuDefaults },
     isLoading: isLoadingMenu,
     error: menuError,
-  } = useGetMenu({ restaurantId: restaurant.id, page });
+  } = useGetMenu({ restaurantId: restaurantData.restaurant.id, page });
 
   const { mutateAsync: updateMenuItemsOrder } = useUpdateMenuItemsOrder({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
   });
 
   const debounceUpdateRestaurantMenuItemsOrder = useMemo(

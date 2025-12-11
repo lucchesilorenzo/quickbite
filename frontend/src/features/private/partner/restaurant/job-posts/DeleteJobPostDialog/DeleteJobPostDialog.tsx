@@ -23,15 +23,15 @@ export default function DeleteJobPostDialog({
   openDeleteJobPostDialog,
   setOpenDeleteJobPostDialog,
 }: DeleteJobPostDialogProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutate: deleteJobPost, isPending: isDeleting } = useDeleteJobPost({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     jobPostId,
     setOpenDeleteJobPostDialog,
   });
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   function handleDeleteJobPost() {
     deleteJobPost();

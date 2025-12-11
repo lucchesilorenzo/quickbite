@@ -5,7 +5,7 @@ import { useGetRestaurant } from "@partner/hooks/restaurants/restaurant/useGetRe
 import { Navigate } from "react-router-dom";
 
 import { GetNotificationsResponse } from "../types/notifications/notification.api.types";
-import { PartnerRestaurantDetail } from "../types/restaurants/restaurant.types";
+import { GetRestaurantResponse } from "../types/restaurants/restaurant.api.types";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
@@ -17,7 +17,7 @@ type RestaurantProviderProps = {
 };
 
 type RestaurantContext = {
-  restaurant: PartnerRestaurantDetail;
+  restaurantData: GetRestaurantResponse;
   notificationsData: GetNotificationsResponse;
   notificationsError: Error | null;
   page: number;
@@ -46,23 +46,23 @@ export default function RestaurantProvider({
   } = useGetNotifications({ userId: user?.id, restaurantId, page });
 
   const {
-    data: restaurant,
-    isLoading,
-    isError,
+    data: restaurantData,
+    isLoading: isLoadingRestaurant,
+    error: restaurantError,
   } = useGetRestaurant({ restaurantId });
 
-  if (isLoading || isLoadingNotifications) {
+  if (isLoadingRestaurant || isLoadingNotifications) {
     return <FullPageSpinner />;
   }
 
-  if (isError || !restaurant) {
+  if (restaurantError || !restaurantData?.restaurant) {
     return <Navigate to="*" />;
   }
 
   return (
     <RestaurantContext.Provider
       value={{
-        restaurant,
+        restaurantData,
         notificationsData,
         notificationsError,
         page,

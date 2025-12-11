@@ -30,10 +30,10 @@ type AddJobPostFormProps = {
 export default function AddJobPostForm({
   setOpenAddJobPostDialog,
 }: AddJobPostFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutate: createJobPost, isPending: isCreating } = useCreateJobPost({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     setOpenAddJobPostDialog,
   });
 

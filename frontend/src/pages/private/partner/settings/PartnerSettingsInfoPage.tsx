@@ -17,27 +17,27 @@ export default function PartnerSettingsInfoPage() {
     document.title = "Restaurant info | QuickBite";
   }, []);
 
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: updateInfo } = useUpdateInfo({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
   });
 
   const methods = useForm({
     resolver: zodResolver(restaurantSettingsInfoFormSchema),
     defaultValues: {
-      name: restaurant.name || "",
-      description: restaurant.description || "",
-      street_address: restaurant.street_address || "",
-      building_number: restaurant.building_number || "",
-      postcode: restaurant.postcode || "",
-      city: restaurant.city || "",
-      state: restaurant.state || "",
-      email: restaurant.email || "",
-      phone_number: restaurant.phone_number || "",
-      categories: restaurant.categories.map((c) => c.id),
-      logo: restaurant.logo,
-      cover: restaurant.cover,
+      name: restaurantData.restaurant.name || "",
+      description: restaurantData.restaurant.description || "",
+      street_address: restaurantData.restaurant.street_address || "",
+      building_number: restaurantData.restaurant.building_number || "",
+      postcode: restaurantData.restaurant.postcode || "",
+      city: restaurantData.restaurant.city || "",
+      state: restaurantData.restaurant.state || "",
+      email: restaurantData.restaurant.email || "",
+      phone_number: restaurantData.restaurant.phone_number || "",
+      categories: restaurantData.restaurant.categories.map((c) => c.id),
+      logo: restaurantData.restaurant.logo,
+      cover: restaurantData.restaurant.cover,
     },
   });
 

@@ -31,10 +31,10 @@ export default function EditMenuItemForm({
   menuItem,
   setOpenEditMenuItemDialog,
 }: EditMenuItemFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: updateMenuItem } = useUpdateMenuItem({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     menuItemId: menuItem.id,
   });
 

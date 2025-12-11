@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 export default function RestaurantWelcome() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   return (
     <Box>
@@ -11,7 +11,7 @@ export default function RestaurantWelcome() {
       </Typography>
 
       <Typography variant="h6" sx={{ fontWeight: 500 }}>
-        {restaurant.name}
+        {restaurantData.restaurant.name}
       </Typography>
     </Box>
   );

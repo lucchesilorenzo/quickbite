@@ -18,7 +18,7 @@ import RestaurantDrawer from "./RestaurantDrawer";
 import RestaurantNavigation from "./RestaurantNavigation";
 
 export default function RestaurantHeader() {
-  const { notificationsData, restaurant } = useRestaurant();
+  const { notificationsData, restaurantData } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -56,7 +56,9 @@ export default function RestaurantHeader() {
           sx={{ alignItems: "center" }}
         >
           <Tooltip title="Notifications">
-            <Link to={`/partner/restaurants/${restaurant.id}/notifications`}>
+            <Link
+              to={`/partner/restaurants/${restaurantData.restaurant.id}/notifications`}
+            >
               <IconButton aria-label="notifications">
                 <Badge
                   badgeContent={notificationsData.unread_count}

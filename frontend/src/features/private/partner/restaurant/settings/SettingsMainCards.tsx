@@ -7,26 +7,26 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import MainCard from "../components/MainCard";
 
 export default function SettingsMainCards() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const cards = [
     {
       title: "Fees",
       description: "Set your delivery, service and minimum order fees",
       icon: ShoppingBagOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/settings/fees`,
+      href: `/partner/restaurants/${restaurantData.restaurant.id}/settings/fees`,
     },
     {
       title: "Delivery times",
       description: "Configure your delivery time slots and availability",
       icon: WatchLaterOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/settings/delivery-times`,
+      href: `/partner/restaurants/${restaurantData.restaurant.id}/settings/delivery-times`,
     },
     {
       title: "Restaurant info",
       description: "Update your logo, contact info and details",
       icon: StoreOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/settings/info`,
+      href: `/partner/restaurants/${restaurantData.restaurant.id}/settings/info`,
     },
   ];
 

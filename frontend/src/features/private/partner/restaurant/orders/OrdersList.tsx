@@ -16,7 +16,7 @@ import Spinner from "@/components/common/Spinner";
 import { orderStatuses } from "@/lib/constants/orders";
 
 export default function OrdersList() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { status, setStatus } = useOrders();
 
   const [searchParams] = useSearchParams();
@@ -26,7 +26,11 @@ export default function OrdersList() {
     data: ordersData = { success: false, message: "", orders: ordersDefaults },
     isLoading: isLoadingOrders,
     error: ordersError,
-  } = useGetOrders({ restaurantId: restaurant.id, status, page });
+  } = useGetOrders({
+    restaurantId: restaurantData.restaurant.id,
+    status,
+    page,
+  });
 
   useEffect(() => {
     const status = searchParams.get("status");

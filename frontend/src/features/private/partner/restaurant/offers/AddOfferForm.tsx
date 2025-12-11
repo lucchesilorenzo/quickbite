@@ -27,10 +27,10 @@ type AddOfferFormProps = {
 export default function AddOfferForm({
   setOpenAddOfferDialog,
 }: AddOfferFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: createOffer, isPending: isAdding } = useCreateOffer({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
   });
 
   const {
@@ -39,7 +39,7 @@ export default function AddOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      restaurantSettingsOffersFormSchema(restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurantData.restaurant.min_amount),
     ),
     defaultValues: {
       discount_rate: "",

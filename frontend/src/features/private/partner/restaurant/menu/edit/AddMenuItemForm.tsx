@@ -20,11 +20,11 @@ type AddMenuItemFormProps = {
 export default function AddMenuItemForm({
   setOpenAddMenuItemDialog,
 }: AddMenuItemFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { selectedMenuCategoryId } = useMenu();
 
   const { mutateAsync: createMenuItem } = useCreateMenuItem({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     menuCategoryId: selectedMenuCategoryId,
   });
 

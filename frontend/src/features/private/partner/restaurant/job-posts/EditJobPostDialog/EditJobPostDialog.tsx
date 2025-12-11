@@ -26,14 +26,14 @@ export default function EditJobPostDialog({
   openEditJobPostDialog,
   setOpenEditJobPostDialog,
 }: EditJobPostDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const {
     data: jobPostData,
     isLoading: isJobPostLoading,
     error: jobPostError,
   } = useGetJobPost({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     jobPostId,
     enabled: openEditJobPostDialog,
   });

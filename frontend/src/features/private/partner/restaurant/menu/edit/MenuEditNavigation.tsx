@@ -19,14 +19,14 @@ import MenuCategoryNavigationSlide from "@/components/menu-category-navigation/M
 import ShowMoreMenuCategoriesButton from "@/components/menu-category-navigation/ShowMoreMenuCategoriesButton";
 
 export default function MenuEditNavigation() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { selectedMenuCategoryId, setSelectedMenuCategoryId } = useMenu();
 
   const {
     data: menuData = { success: false, message: "", menu: menuDefaults },
     isLoading: isLoadingMenu,
     error: menuError,
-  } = useGetMenu({ restaurantId: restaurant.id });
+  } = useGetMenu({ restaurantId: restaurantData.restaurant.id });
 
   const swiperRef = useRef<SwiperClass>(null);
 

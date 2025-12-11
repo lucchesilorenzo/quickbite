@@ -33,7 +33,11 @@ class RestaurantController extends Controller
                 auth()->user()
             );
 
-            return response()->json($restaurants, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Restaurants retrieved successfully.',
+                'restaurants' => $restaurants,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -52,7 +56,11 @@ class RestaurantController extends Controller
         try {
             $restaurant = $this->restaurantService->getRestaurant($restaurant);
 
-            return response()->json($restaurant, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Restaurant retrieved successfully.',
+                'restaurant' => $restaurant,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

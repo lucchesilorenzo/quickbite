@@ -23,10 +23,10 @@ export default function NotificationsMarkAsReadDialog({
   openMarkUserNotificationsAsRead,
   setOpenMarkUserNotificationsAsRead,
 }: NotificationsMarkAsReadDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: markUserNotificationsAsRead, isPending: isMarking } =
-    useMarkNotificationsAsRead({ restaurantId: restaurant.id });
+    useMarkNotificationsAsRead({ restaurantId: restaurantData.restaurant.id });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

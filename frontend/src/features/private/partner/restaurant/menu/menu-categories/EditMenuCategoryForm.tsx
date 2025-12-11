@@ -20,10 +20,10 @@ export default function EditMenuCategoryForm({
   menuCategory,
   setOpenEditMenuCategoryDialog,
 }: EditMenuCategoryFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: updateMenuCategory } = useUpdateMenuCategory({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     menuCategoryId: menuCategory.id,
   });
 

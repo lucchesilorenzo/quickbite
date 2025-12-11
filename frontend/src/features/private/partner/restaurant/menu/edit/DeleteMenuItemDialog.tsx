@@ -25,10 +25,13 @@ export default function DeleteMenuItemDialog({
   openDeleteMenuItemDialog,
   setOpenDeleteMenuItemDialog,
 }: DeleteMenuItemDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: deleteMenuItem, isPending: isDeleting } =
-    useDeleteMenuItem({ restaurantId: restaurant.id, menuItemId: menuItem.id });
+    useDeleteMenuItem({
+      restaurantId: restaurantData.restaurant.id,
+      menuItemId: menuItem.id,
+    });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 

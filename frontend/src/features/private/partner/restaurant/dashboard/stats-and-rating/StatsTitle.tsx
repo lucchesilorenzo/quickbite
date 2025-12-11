@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
 export default function StatsTitle() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   return (
     <Stack
@@ -28,7 +28,7 @@ export default function StatsTitle() {
       <MuiLink
         component={Link}
         variant="body2"
-        to={`/partner/restaurants/${restaurant.id}/stats`}
+        to={`/partner/restaurants/${restaurantData.restaurant.id}/stats`}
         underline="always"
         color="inherit"
         sx={{

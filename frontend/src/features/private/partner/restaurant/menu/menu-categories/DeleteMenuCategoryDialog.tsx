@@ -26,13 +26,13 @@ export default function DeleteMenuCategoryDialog({
   openDeleteMenuCategoryDialog,
   setOpenDeleteMenuCategoryDialog,
 }: DeleteMenuCategoryDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const {
     mutateAsync: deletePartnerRestaurantMenuCategory,
     isPending: isDeleting,
   } = useDeleteMenuCategory({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     menuCategoryId: menuCategory.id,
   });
 

@@ -30,10 +30,10 @@ export default function EditOfferForm({
   offer,
   setOpenEditOfferDialog,
 }: EditOfferFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutateAsync: updateOffer } = useUpdateOffer({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     offerId: offer.id,
   });
 
@@ -43,7 +43,7 @@ export default function EditOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      restaurantSettingsOffersFormSchema(restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurantData.restaurant.min_amount),
     ),
     defaultValues: {
       discount_rate: offer.discount_rate,

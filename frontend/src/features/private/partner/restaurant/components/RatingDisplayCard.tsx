@@ -21,7 +21,7 @@ type RatingDisplayCardProps = {
 };
 
 export default function RatingDisplayCard({ type }: RatingDisplayCardProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { reviewsData, isLoadingReviews, reviewsError } = useReviews();
 
   return (
@@ -78,7 +78,7 @@ export default function RatingDisplayCard({ type }: RatingDisplayCardProps) {
                 {type === "dashboard" && (
                   <IconButton
                     component={Link}
-                    to={`/partner/restaurants/${restaurant.id}/reviews`}
+                    to={`/partner/restaurants/${restaurantData.restaurant.id}/reviews`}
                   >
                     <ArrowForwardIosIcon />
                   </IconButton>
