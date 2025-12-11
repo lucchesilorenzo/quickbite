@@ -8,7 +8,7 @@ import { simulateDelay, simulateError } from "@tests/utils/msw";
 import EditJobPostDialog from "./EditJobPostDialog";
 
 import env from "@/lib/env";
-import { baseOffsetPaginationDefaults } from "@/lib/query-defaults";
+import { notificationsDefaults } from "@/lib/query-defaults";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
   useRestaurant: vi.fn(),
@@ -26,10 +26,13 @@ describe("EditJobPostDialog", () => {
 
     vi.mocked(useRestaurant).mockReturnValue({
       restaurant,
-      partnerNotifications: {
-        notifications: baseOffsetPaginationDefaults,
+      notificationsData: {
+        success: false,
+        message: "",
+        notifications: notificationsDefaults,
         unread_count: 0,
       },
+      notificationsError: null,
       page: 1,
       setPage: vi.fn(),
     });
