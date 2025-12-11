@@ -23,14 +23,14 @@ export type UpdateMenuCategoriesOrderResponse = {
 
 export type UpdateMenuCategoriesOrderPayload = PartnerMenu[];
 
-export type UpdateMenuCategoryResponse = {
-  menu_category: Omit<MenuCategory, "menu_items">;
-} & ApiResponse;
+export type UpdateMenuCategoryResponse = CreateMenuCategoryResponse;
 
 export type UpdateMenuCategoryPayload = TEditMenuCategoryFormSchema;
 
 // Menu Items
-export type CreateMenuItemResponse = { menu_item: MenuItem } & ApiResponse;
+export type CreateMenuItemResponse = {
+  menu_item: MenuItem;
+} & ApiResponse;
 
 export type CreateMenuItemPayload = FormData;
 
