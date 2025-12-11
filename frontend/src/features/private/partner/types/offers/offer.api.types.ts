@@ -3,9 +3,13 @@ import { TRestaurantSettingsOffersFormSchema } from "../../schemas/restaurant-se
 import { ApiResponse } from "@/types/api.types";
 import { Offer, OffersWithPagination } from "@/types/offers/offer.types";
 
-export type GetOffersResponse = OffersWithPagination;
+export type GetOffersResponse = {
+  offers: OffersWithPagination;
+} & ApiResponse;
 
-export type CreateOfferResponse = { offer: Offer } & ApiResponse;
+export type CreateOfferResponse = {
+  offer: Offer;
+} & ApiResponse;
 
 export type CreateOfferPayload = TRestaurantSettingsOffersFormSchema;
 
