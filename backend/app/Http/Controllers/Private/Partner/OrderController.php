@@ -36,7 +36,11 @@ class OrderController extends Controller
                 $restaurant
             );
 
-            return response()->json($orders, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Orders retrieved successfully.',
+                'orders' => $orders,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
