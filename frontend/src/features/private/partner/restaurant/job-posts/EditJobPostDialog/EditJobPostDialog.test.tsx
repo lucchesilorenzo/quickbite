@@ -1,7 +1,7 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { screen, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
+import { restaurantResponse } from "@tests/mocks/data/private/partner/restaurants";
 import { customRender } from "@tests/utils/custom-render";
 import { simulateDelay, simulateError } from "@tests/utils/msw";
 
@@ -25,7 +25,7 @@ describe("EditJobPostDialog", () => {
     const mockSetOpenJobPostDialog = vi.fn();
 
     vi.mocked(useRestaurant).mockReturnValue({
-      restaurant,
+      restaurantData: restaurantResponse,
       notificationsData: {
         success: false,
         message: "",
@@ -71,7 +71,7 @@ describe("EditJobPostDialog", () => {
 
   it("should render the spinner when fetching job post", () => {
     simulateDelay(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/1`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
     );
     const { getLoadingText } = renderComponent(true);
 
@@ -88,7 +88,7 @@ describe("EditJobPostDialog", () => {
 
   it("should display a toast if job post fetching fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/1`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
     );
 
     const { getLoadingText } = renderComponent(true);

@@ -9,7 +9,7 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { editJobPostForm } from "@tests/mocks/data/private/partner/forms/edit-job-post";
 import { jobPostResponse } from "@tests/mocks/data/private/partner/job-posts";
-import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
+import { restaurantResponse } from "@tests/mocks/data/private/partner/restaurants";
 import { customRender } from "@tests/utils/custom-render";
 import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
@@ -47,7 +47,7 @@ describe("EditJobPostForm", () => {
     const mockSetOpenEditJobPostDialog = vi.fn();
 
     vi.mocked(useRestaurant).mockReturnValue({
-      restaurant,
+      restaurantData: restaurantResponse,
       notificationsData: {
         success: false,
         message: "",
@@ -328,7 +328,7 @@ describe("EditJobPostForm", () => {
 
   it("should render the loading indicator upon submission", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
       "patch",
     );
     const { getForm } = renderComponent(jobPostResponse.job_post);
@@ -350,7 +350,7 @@ describe("EditJobPostForm", () => {
 
   it("should not render the loading indicator if submission fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
       "patch",
     );
     const { getForm } = renderComponent(jobPostResponse.job_post);

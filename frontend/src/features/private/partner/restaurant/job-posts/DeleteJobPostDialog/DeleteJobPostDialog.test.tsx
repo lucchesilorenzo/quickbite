@@ -1,7 +1,7 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
+import { restaurantResponse } from "@tests/mocks/data/private/partner/restaurants";
 import { customRender } from "@tests/utils/custom-render";
 import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
@@ -21,7 +21,7 @@ describe("DeleteJobPostDialog", () => {
     const mockSetOpenDeleteJobPostDialog = vi.fn();
 
     vi.mocked(useRestaurant).mockReturnValue({
-      restaurant,
+      restaurantData: restaurantResponse,
       notificationsData: {
         success: false,
         message: "",
@@ -89,7 +89,7 @@ describe("DeleteJobPostDialog", () => {
 
   it("should render the loading indicator upon deletion", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/1`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
       "delete",
     );
     const { user, getConfirmButton } = renderComponent(true);
@@ -107,7 +107,7 @@ describe("DeleteJobPostDialog", () => {
 
   it("should not render the loading indicator if deletion fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/1`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
       "delete",
     );
     const { getConfirmButton } = renderComponent(true);
