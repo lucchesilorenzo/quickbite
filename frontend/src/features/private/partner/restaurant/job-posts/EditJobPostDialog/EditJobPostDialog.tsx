@@ -64,7 +64,7 @@ export default function EditJobPostDialog({
           </IconButton>
         </Stack>
 
-        <DialogContent sx={{ p: 0 }}>
+        <DialogContent sx={{ p: 2 }}>
           {isJobPostLoading && <Spinner />}
 
           {!isJobPostLoading && jobPostError && (
