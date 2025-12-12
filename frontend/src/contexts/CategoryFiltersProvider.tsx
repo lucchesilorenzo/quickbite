@@ -27,7 +27,7 @@ export default function CategoryFiltersProvider({
   children,
 }: CategoryFiltersProviderProps) {
   const {
-    data = { success: false, message: "", categories: [] },
+    data: categoriesData = { success: false, message: "", categories: [] },
     isLoading: isLoadingCategories,
     error: categoriesError,
   } = useGetCategories();
@@ -38,11 +38,11 @@ export default function CategoryFiltersProvider({
   const activeFilters = searchParams.getAll("filter");
 
   const allCategories = useMemo<CategoryWithSelected[]>(() => {
-    return data.categories.map((c) => ({
+    return categoriesData.categories.map((c) => ({
       ...c,
       selected: activeFilters.includes(c.slug),
     }));
-  }, [data, activeFilters]);
+  }, [categoriesData.categories, activeFilters]);
 
   const visibleCategories = useMemo(
     () => allCategories.filter((c) => c.is_default || c.selected),

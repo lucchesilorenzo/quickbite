@@ -18,7 +18,7 @@ import { RestaurantTab } from "@/types/restaurants/restaurant.types";
 
 export default function RestaurantAboutDialogTabs() {
   const { tabToOpen, setTabToOpen } = useRestaurant();
-  const { data } = useOffers();
+  const { offersData } = useOffers();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -63,7 +63,9 @@ export default function RestaurantAboutDialogTabs() {
       >
         <Tab label="Reviews" value="reviews" />
         <Tab label="Info" value="info" />
-        {data.offers.data.length > 0 && <Tab label="Offers" value="offers" />}
+        {offersData.offers.data.length > 0 && (
+          <Tab label="Offers" value="offers" />
+        )}
       </TabList>
 
       <TabPanel

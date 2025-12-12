@@ -11,7 +11,7 @@ type OffersProviderProps = {
 };
 
 type OffersContext = {
-  data: GetOffersResponse;
+  offersData: GetOffersResponse;
   page: number;
   isLoadingOffers: boolean;
   offersError: Error | null;
@@ -26,14 +26,14 @@ export default function OffersProvider({ children }: OffersProviderProps) {
   const [page, setPage] = useState(1);
 
   const {
-    data = { success: false, message: "", offers: offersDefaults },
+    data: offersData = { success: false, message: "", offers: offersDefaults },
     isLoading: isLoadingOffers,
     error: offersError,
   } = useGetOffers({ restaurantId: restaurantData.restaurant.id, page });
 
   return (
     <OffersContext.Provider
-      value={{ data, page, isLoadingOffers, offersError, setPage }}
+      value={{ offersData, page, isLoadingOffers, offersError, setPage }}
     >
       {children}
     </OffersContext.Provider>

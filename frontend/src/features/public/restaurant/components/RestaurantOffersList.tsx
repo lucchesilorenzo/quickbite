@@ -12,11 +12,12 @@ type RestaurantOffersListProps = {
 export default function RestaurantOffersList({
   showPagination = false,
 }: RestaurantOffersListProps) {
-  const { data, isLoadingOffers, offersError, page, setPage } = useOffers();
+  const { offersData, isLoadingOffers, offersError, page, setPage } =
+    useOffers();
 
   const displayedOffers = showPagination
-    ? data.offers.data
-    : data.offers.data.slice(0, 2);
+    ? offersData.offers.data
+    : offersData.offers.data.slice(0, 2);
 
   if (!isLoadingOffers && !offersError && displayedOffers.length === 0) {
     return null;
@@ -59,7 +60,7 @@ export default function RestaurantOffersList({
           <CustomPagination
             context="offers_page"
             page={page}
-            totalPages={data.offers.last_page}
+            totalPages={offersData.offers.last_page}
             setPage={setPage}
           />
         </Box>

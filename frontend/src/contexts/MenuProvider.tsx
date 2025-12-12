@@ -10,7 +10,7 @@ type MenuProviderProps = {
 };
 
 type MenuContext = {
-  data: GetMenuResponse;
+  menuData: GetMenuResponse;
   isLoadingMenu: boolean;
   menuError: Error | null;
   page: number;
@@ -30,7 +30,7 @@ export default function MenuProvider({ children }: MenuProviderProps) {
   const [page, setPage] = useState(1);
 
   const {
-    data = { success: false, message: "", menu: [] },
+    data: menuData = { success: false, message: "", menu: [] },
     isLoading: isLoadingMenu,
     error: menuError,
   } = useGetMenu({
@@ -50,7 +50,7 @@ export default function MenuProvider({ children }: MenuProviderProps) {
   return (
     <MenuContext.Provider
       value={{
-        data,
+        menuData,
         page,
         isLoadingMenu,
         menuError,

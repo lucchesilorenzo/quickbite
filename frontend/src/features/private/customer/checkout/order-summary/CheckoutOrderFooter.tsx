@@ -6,6 +6,7 @@ import { useCreateOrder } from "@customer/hooks/orders/useCreateOrder";
 import { CreateOrder } from "@customer/types/orders/order.types";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
+  Alert,
   Box,
   Button,
   Divider,
@@ -23,7 +24,8 @@ import { formatCurrency } from "@/lib/utils/formatting";
 import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 
 export default function CheckoutOrderFooter() {
-  const { cartData, checkoutData, restaurantId, offersData } = useCheckout();
+  const { cartData, checkoutData, restaurantId, offersData, offersError } =
+    useCheckout();
 
   const { mutateAsync: createOrder } = useCreateOrder({ restaurantId });
   const { mutateAsync: deleteCart } = useDeleteCart({
@@ -50,6 +52,10 @@ export default function CheckoutOrderFooter() {
     cartData.cart.restaurant.delivery_fee +
     cartData.cart.restaurant.service_fee -
     discount;
+
+  if (offersError) {
+    return <Alert severity="error">{offersError.message}</Alert>;
+  }
 
   async function handleOrderCheckout() {
     const restaurantCheckoutData = checkoutData[restaurantId];

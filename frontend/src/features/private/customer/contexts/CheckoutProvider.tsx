@@ -25,6 +25,7 @@ type CheckoutContext = {
   checkoutData: CheckoutData;
   restaurantId: string;
   offersData: GetOffersResponse;
+  offersError: Error | null;
   deliverySlotsData: GetDeliverySlotsResponse;
   isLoadingDeliverySlots: boolean;
   deliverySlotsError: Error | null;
@@ -52,6 +53,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const {
     data: offersData = { success: false, message: "", offers: offersDefaults },
     isLoading: isLoadingOffers,
+    error: offersError,
   } = useGetOffers({ restaurantId });
 
   const {
@@ -164,6 +166,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
         checkoutData,
         restaurantId,
         offersData,
+        offersError,
         deliverySlotsData,
         isLoadingDeliverySlots,
         deliverySlotsError,
