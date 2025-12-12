@@ -78,6 +78,7 @@
 - [Laravel Telescope](https://laravel.com/docs/telescope) for monitoring and debugging.
 - [giggsey/libphonenumber-for-php](https://github.com/giggsey/libphonenumber-for-php) for phone number validation.
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission) for role-based access control.
+- [dedoc/scramble](https://scramble.dedoc.co/) for generating API documentation.
 
 ### Database
 
@@ -219,6 +220,10 @@ The frontend will be running at [http://localhost:5173](http://localhost:5173).
 ## 📊 Data Models and Relationships
 
 For detailed information about the database schema, models, and relationships, see the [Entity Relationship Diagram and Models](./docs/ERD.md).
+
+## API Documentation
+
+The API documentation is available at [http://localhost:8000/api/docs](http://localhost:8000/api/docs).
 
 ## Roadmap
 
