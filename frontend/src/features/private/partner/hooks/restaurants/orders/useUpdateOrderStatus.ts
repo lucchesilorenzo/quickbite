@@ -9,9 +9,13 @@ import { updateData } from "@/lib/api-client";
 
 type UseUpdateOrderStatusOptions = {
   orderId: string;
+  setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
 };
 
-export function useUpdateOrderStatus({ orderId }: UseUpdateOrderStatusOptions) {
+export function useUpdateOrderStatus({
+  orderId,
+  setAnchorEl,
+}: UseUpdateOrderStatusOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
@@ -26,6 +30,8 @@ export function useUpdateOrderStatus({ orderId }: UseUpdateOrderStatusOptions) {
       queryClient.invalidateQueries({
         queryKey: ["partner-orders"],
       });
+
+      setAnchorEl(null);
 
       notifications.show(response.message, {
         key: "partner-update-order-status-success",

@@ -27,8 +27,10 @@ export default function CheckoutOrderFooter() {
   const { cartData, checkoutData, restaurantId, offersData, offersError } =
     useCheckout();
 
-  const { mutateAsync: createOrder } = useCreateOrder({ restaurantId });
-  const { mutateAsync: deleteCart } = useDeleteCart({
+  const { mutateAsync: createOrder, isPending: isCreating } = useCreateOrder({
+    restaurantId,
+  });
+  const { mutateAsync: deleteCart, isPending: isDeleting } = useDeleteCart({
     cartId: cartData.cart.id,
   });
 
@@ -218,6 +220,8 @@ export default function CheckoutOrderFooter() {
           variant="contained"
           size="large"
           fullWidth
+          loading={isCreating || isDeleting}
+          loadingIndicator="Placing order..."
           onClick={handleOrderCheckout}
         >
           Order and pay

@@ -25,7 +25,8 @@ export default function LoginForm() {
   const { getCarts } = useMultiCart();
 
   const { mutateAsync: loginCustomer, isPending: isLoggingIn } = useLogin();
-  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCarts();
+  const { mutateAsync: createOrUpdateCarts, isPending: isCreating } =
+    useCreateOrUpdateCarts();
 
   const {
     handleSubmit,
@@ -127,8 +128,7 @@ export default function LoginForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting || isLoggingIn}
-        loading={isSubmitting || isLoggingIn}
+        loading={isSubmitting || isLoggingIn || isCreating}
         loadingIndicator="Logging in..."
         variant="contained"
       >

@@ -27,16 +27,15 @@ export default function UpdateOrderStatusButton({
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [status, setStatus] = useState(order.status);
 
-  const { mutateAsync: updateOrderStatus, isPending: isOrderStatusUpdating } =
-    useUpdateOrderStatus({ orderId: order.id });
+  const { mutate: updateOrderStatus, isPending: isUpdating } =
+    useUpdateOrderStatus({ orderId: order.id, setAnchorEl });
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setAnchorEl(e.currentTarget);
   }
 
-  async function handleConfirm() {
-    await updateOrderStatus({ status });
-    setAnchorEl(null);
+  function handleConfirm() {
+    updateOrderStatus({ status });
   }
 
   return (
@@ -96,8 +95,8 @@ export default function UpdateOrderStatusButton({
           <Button
             variant="contained"
             onClick={handleConfirm}
-            disabled={status === order.status || isOrderStatusUpdating}
-            loading={isOrderStatusUpdating}
+            disabled={status === order.status || isUpdating}
+            loading={isUpdating}
             loadingIndicator="Updating..."
             sx={{ mt: 2 }}
             fullWidth

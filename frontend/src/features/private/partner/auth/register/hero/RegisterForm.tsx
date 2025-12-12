@@ -28,8 +28,7 @@ import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndic
 import { calculatePasswordStrength } from "@/lib/utils/validation";
 
 export default function RegisterForm() {
-  const { mutateAsync: registerPartner, isPending: isRegistering } =
-    useRegister();
+  const { mutate: registerPartner, isPending: isRegistering } = useRegister();
 
   const {
     handleSubmit,
@@ -61,8 +60,8 @@ export default function RegisterForm() {
   const password = useWatch({ control, name: "password" });
   const strength = calculatePasswordStrength(password);
 
-  async function onSubmit(data: TRegisterFormSchema) {
-    await registerPartner(data);
+  function onSubmit(data: TRegisterFormSchema) {
+    registerPartner(data);
   }
 
   return (

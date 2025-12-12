@@ -9,9 +9,13 @@ import { postData } from "@/lib/api-client";
 
 type UseCreateOfferOptions = {
   restaurantId: string;
+  setOpenAddOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function useCreateOffer({ restaurantId }: UseCreateOfferOptions) {
+export function useCreateOffer({
+  restaurantId,
+  setOpenAddOfferDialog,
+}: UseCreateOfferOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
@@ -22,6 +26,8 @@ export function useCreateOffer({ restaurantId }: UseCreateOfferOptions) {
       queryClient.invalidateQueries({
         queryKey: ["partner-offers", restaurantId],
       });
+
+      setOpenAddOfferDialog(false);
 
       notifications.show(response.message, {
         key: "partner-create-offer-success",

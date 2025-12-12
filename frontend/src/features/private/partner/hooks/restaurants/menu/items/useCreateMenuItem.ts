@@ -10,11 +10,13 @@ import { postData } from "@/lib/api-client";
 type UseCreateMenuItemOptions = {
   restaurantId: string;
   menuCategoryId: string;
+  setOpenAddMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function useCreateMenuItem({
   restaurantId,
   menuCategoryId,
+  setOpenAddMenuItemDialog,
 }: UseCreateMenuItemOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
@@ -29,6 +31,8 @@ export function useCreateMenuItem({
       queryClient.invalidateQueries({
         queryKey: ["partner-menu", restaurantId],
       });
+
+      setOpenAddMenuItemDialog(false);
 
       notifications.show(response.message, {
         key: "partner-menu-item-create-success",

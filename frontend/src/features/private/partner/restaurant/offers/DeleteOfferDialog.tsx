@@ -27,16 +27,16 @@ export default function DeleteOfferDialog({
 }: DeleteOfferDialogProps) {
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: deleteOffer, isPending: isDeleting } = useDeleteOffer({
+  const { mutate: deleteOffer, isPending: isDeleting } = useDeleteOffer({
     restaurantId: restaurantData.restaurant.id,
     offerId: offer.id,
+    setOpenDeleteOfferDialog,
   });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  async function handleDeleteOffer() {
-    await deleteOffer();
-    setOpenDeleteOfferDialog(false);
+  function handleDeleteOffer() {
+    deleteOffer();
   }
 
   return (

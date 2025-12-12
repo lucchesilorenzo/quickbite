@@ -5,13 +5,13 @@ import { useUpdateRestaurantApprovedStatus } from "@partner/hooks/restaurants/re
 export default function RestaurantApprovalButton() {
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateRestaurantApprovedStatus, isPending: isUpdating } =
+  const { mutate: updateRestaurantApprovedStatus, isPending: isUpdating } =
     useUpdateRestaurantApprovedStatus({
       restaurantId: restaurantData.restaurant.id,
     });
 
-  async function handleRestaurantApproval() {
-    await updateRestaurantApprovedStatus();
+  function handleRestaurantApproval() {
+    updateRestaurantApprovedStatus();
   }
 
   return (

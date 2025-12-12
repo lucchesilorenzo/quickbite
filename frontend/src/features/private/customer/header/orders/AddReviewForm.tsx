@@ -21,8 +21,9 @@ export default function AddReviewForm({
   order,
   setOpenAddReviewDialog,
 }: AddReviewFormProps) {
-  const { mutateAsync: createReview } = useCreateReview({
+  const { mutate: createReview, isPending: isCreating } = useCreateReview({
     restaurantSlug: order.restaurant.slug,
+    setOpenAddReviewDialog,
   });
 
   const {
@@ -37,9 +38,8 @@ export default function AddReviewForm({
     },
   });
 
-  async function onSubmit(data: TAddReviewFormSchema) {
-    await createReview({ ...data, order_id: order.id });
-    setOpenAddReviewDialog(false);
+  function onSubmit(data: TAddReviewFormSchema) {
+    createReview({ ...data, order_id: order.id });
   }
 
   return (
@@ -96,7 +96,7 @@ export default function AddReviewForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isCreating}
         loadingIndicator="Saving..."
         variant="contained"
       >

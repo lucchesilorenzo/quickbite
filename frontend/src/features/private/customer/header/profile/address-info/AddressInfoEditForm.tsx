@@ -13,7 +13,8 @@ import { useAuth } from "@/contexts/AuthProvider";
 export default function AddressInfoEditForm() {
   const { user } = useAuth();
 
-  const { mutateAsync: updateCustomerAddressInfo } = useUpdateAddressInfo();
+  const { mutate: updateCustomerAddressInfo, isPending: isUpdating } =
+    useUpdateAddressInfo();
 
   const {
     handleSubmit,
@@ -30,8 +31,8 @@ export default function AddressInfoEditForm() {
     },
   });
 
-  async function onSubmit(data: TEditAddressFormSchema) {
-    await updateCustomerAddressInfo(data);
+  function onSubmit(data: TEditAddressFormSchema) {
+    updateCustomerAddressInfo(data);
   }
 
   return (
@@ -149,7 +150,7 @@ export default function AddressInfoEditForm() {
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isUpdating}
         loadingIndicator="Editing..."
         variant="contained"
       >

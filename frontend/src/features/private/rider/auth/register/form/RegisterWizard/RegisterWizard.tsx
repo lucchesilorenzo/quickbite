@@ -14,8 +14,7 @@ import Stepper from "../Stepper";
 import MobileStepper from "../mobile/MobileStepper";
 
 export default function RegisterWizard() {
-  const { mutateAsync: registerRider, isPending: isRegistering } =
-    useRegister();
+  const { mutate: registerRider, isPending: isRegistering } = useRegister();
 
   const [defaultValues] = useState<
     Omit<TRegisterFormSchema, "password" | "password_confirmation">
@@ -50,9 +49,8 @@ export default function RegisterWizard() {
     },
   });
 
-  async function onSubmit(data: TRegisterFormSchema) {
-    await registerRider(data);
-    localStorage.removeItem("rider_registration_data");
+  function onSubmit(data: TRegisterFormSchema) {
+    registerRider(data);
   }
 
   async function handleNext() {

@@ -17,7 +17,7 @@ import { getColorByName } from "@/lib/utils/colors";
 export default function ProfileMenu() {
   const { user } = useAuth();
 
-  const { mutateAsync: logoutPartner } = useLogout();
+  const { mutate: logoutPartner, isPending: isLoggingOut } = useLogout();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -27,8 +27,8 @@ export default function ProfileMenu() {
     setAnchorEl(e.currentTarget);
   }
 
-  async function handleLogoutPartner() {
-    await logoutPartner();
+  function handleLogoutPartner() {
+    logoutPartner();
   }
 
   return (
@@ -72,7 +72,7 @@ export default function ProfileMenu() {
 
         <Divider />
 
-        <MenuItem onClick={handleLogoutPartner}>
+        <MenuItem onClick={handleLogoutPartner} disabled={isLoggingOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

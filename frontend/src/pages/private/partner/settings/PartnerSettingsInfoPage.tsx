@@ -19,7 +19,7 @@ export default function PartnerSettingsInfoPage() {
 
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateInfo } = useUpdateInfo({
+  const { mutate: updateInfo, isPending: isUpdating } = useUpdateInfo({
     restaurantId: restaurantData.restaurant.id,
   });
 
@@ -43,7 +43,7 @@ export default function PartnerSettingsInfoPage() {
 
   const { handleSubmit } = methods;
 
-  async function onSubmit(data: TRestaurantSettingsInfoFormSchema) {
+  function onSubmit(data: TRestaurantSettingsInfoFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);
@@ -69,7 +69,7 @@ export default function PartnerSettingsInfoPage() {
       formData.append("cover", data.cover);
     }
 
-    await updateInfo(formData);
+    updateInfo(formData);
   }
 
   return (
@@ -82,7 +82,7 @@ export default function PartnerSettingsInfoPage() {
             autoComplete="off"
             noValidate
           >
-            <InfoContainer />
+            <InfoContainer isUpdating={isUpdating} />
           </Box>
         </Container>
       </InfoProvider>

@@ -70,7 +70,7 @@ export default function MultiCartProvider({
     error: cartsError,
   } = useGetCarts({ isCustomer: isCustomer(user) });
 
-  const { mutateAsync: createOrUpdateCart, isPending: isCartUpdating } =
+  const { mutate: createOrUpdateCart, isPending: isCartUpdating } =
     useCreateOrUpdateCart();
 
   const [carts, setCarts] = useState<Cart>(() => {
@@ -210,7 +210,7 @@ export default function MultiCartProvider({
     });
 
     if (isCustomer(user) && updatedCart) {
-      await createOrUpdateCart(updatedCart);
+      createOrUpdateCart(updatedCart);
     }
   }
 
@@ -276,7 +276,7 @@ export default function MultiCartProvider({
     });
 
     if (isCustomer(user) && updatedCart) {
-      await createOrUpdateCart(updatedCart);
+      createOrUpdateCart(updatedCart);
     }
   }
 
@@ -322,7 +322,7 @@ export default function MultiCartProvider({
     });
 
     if (isCustomer(user) && updatedCart) {
-      await createOrUpdateCart(updatedCart);
+      createOrUpdateCart(updatedCart);
     }
   }
 

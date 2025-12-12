@@ -31,7 +31,8 @@ export default function RegisterForm() {
 
   const { mutateAsync: registerCustomer, isPending: isRegistering } =
     useRegister();
-  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCarts();
+  const { mutateAsync: createOrUpdateCarts, isPending: isCreating } =
+    useCreateOrUpdateCarts();
 
   const {
     handleSubmit,
@@ -285,8 +286,7 @@ export default function RegisterForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting || isRegistering}
-        loading={isSubmitting || isRegistering}
+        loading={isSubmitting || isRegistering || isCreating}
         loadingIndicator="Creating account..."
         variant="contained"
       >

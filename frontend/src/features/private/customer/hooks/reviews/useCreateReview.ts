@@ -10,9 +10,13 @@ import { postData } from "@/lib/api-client";
 
 type UseCreateReviewOptions = {
   restaurantSlug: string;
+  setOpenAddReviewDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function useCreateReview({ restaurantSlug }: UseCreateReviewOptions) {
+export function useCreateReview({
+  restaurantSlug,
+  setOpenAddReviewDialog,
+}: UseCreateReviewOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
@@ -23,6 +27,8 @@ export function useCreateReview({ restaurantSlug }: UseCreateReviewOptions) {
       queryClient.invalidateQueries({ queryKey: ["restaurants"] });
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
       queryClient.invalidateQueries({ queryKey: ["customer-orders"] });
+
+      setOpenAddReviewDialog(false);
 
       notifications.show(response.message, {
         key: "customer-create-review-success",

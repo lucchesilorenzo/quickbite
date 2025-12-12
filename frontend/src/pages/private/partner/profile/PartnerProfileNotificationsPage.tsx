@@ -21,7 +21,7 @@ export default function PartnerProfileNotificationsPage() {
 
   const { user } = useAuth();
 
-  const { mutateAsync: updateProfileNotifications } =
+  const { mutate: updateProfileNotifications, isPending: isUpdating } =
     useUpdateProfileNotifications();
 
   const defaultValues = user?.notification_preferences.reduce(
@@ -42,8 +42,8 @@ export default function PartnerProfileNotificationsPage() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: TProfileNotificationsFormSchema) {
-    await updateProfileNotifications(data);
+  function onSubmit(data: TProfileNotificationsFormSchema) {
+    updateProfileNotifications(data);
   }
 
   return (
@@ -65,7 +65,7 @@ export default function PartnerProfileNotificationsPage() {
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button
             type="submit"
-            loading={isSubmitting}
+            loading={isSubmitting || isUpdating}
             loadingIndicator="Saving..."
             variant="contained"
             sx={{

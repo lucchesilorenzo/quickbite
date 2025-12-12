@@ -19,7 +19,7 @@ export default function PartnerSettingsFeesPage() {
 
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateFees } = useUpdateFees({
+  const { mutate: updateFees, isPending: isUpdating } = useUpdateFees({
     restaurantId: restaurantData.restaurant.id,
   });
 
@@ -36,8 +36,8 @@ export default function PartnerSettingsFeesPage() {
 
   const { handleSubmit } = methods;
 
-  async function onSubmit(data: TRestaurantSettingsFeesFormSchema) {
-    await updateFees(data);
+  function onSubmit(data: TRestaurantSettingsFeesFormSchema) {
+    updateFees(data);
   }
 
   return (
@@ -50,7 +50,7 @@ export default function PartnerSettingsFeesPage() {
             autoComplete="off"
             noValidate
           >
-            <FeesContainer />
+            <FeesContainer isUpdating={isUpdating} />
           </Box>
         </Container>
       </FeesProvider>

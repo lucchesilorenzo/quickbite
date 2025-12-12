@@ -9,10 +9,12 @@ import { postData } from "@/lib/api-client";
 
 type UseCreateMenuCategoryOptions = {
   restaurantId: string;
+  setOpenAddMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function useCreateMenuCategory({
   restaurantId,
+  setOpenAddMenuCategoryDialog,
 }: UseCreateMenuCategoryOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
@@ -28,6 +30,8 @@ export function useCreateMenuCategory({
       queryClient.invalidateQueries({
         queryKey: ["partner-menu", restaurantId],
       });
+
+      setOpenAddMenuCategoryDialog(false);
 
       notifications.show(response.message, {
         key: "partner-menu-category-create-success",

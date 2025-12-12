@@ -17,6 +17,9 @@ export function useRegister() {
     mutationFn: (data) => postData("/rider/auth/register", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
+
+      localStorage.removeItem("rider_registration_data");
+
       navigate("/rider/dashboard");
     },
     onError: (error) => {

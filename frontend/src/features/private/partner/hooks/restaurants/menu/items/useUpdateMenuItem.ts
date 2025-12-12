@@ -10,11 +10,13 @@ import { postData } from "@/lib/api-client";
 type UseUpdateMenuItemOptions = {
   restaurantId: string;
   menuItemId: string;
+  setOpenEditMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function useUpdateMenuItem({
   restaurantId,
   menuItemId,
+  setOpenEditMenuItemDialog,
 }: UseUpdateMenuItemOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
@@ -26,6 +28,8 @@ export function useUpdateMenuItem({
       queryClient.invalidateQueries({
         queryKey: ["partner-menu", restaurantId],
       });
+
+      setOpenEditMenuItemDialog(false);
 
       notifications.show(response.message, {
         key: "partner-update-menu-item-success",

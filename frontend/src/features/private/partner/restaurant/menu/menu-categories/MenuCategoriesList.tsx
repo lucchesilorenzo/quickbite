@@ -30,7 +30,7 @@ export default function MenuCategoriesList() {
     error: menuError,
   } = useGetMenu({ restaurantId: restaurantData.restaurant.id });
 
-  const { mutateAsync: updateMenuCategoriesOrder } =
+  const { mutate: updateMenuCategoriesOrder, isPending: isUpdating } =
     useUpdateMenuCategoriesOrder({
       restaurantId: restaurantData.restaurant.id,
     });
@@ -94,7 +94,7 @@ export default function MenuCategoriesList() {
       </Typography>
 
       <DndContext sensors={sensors} onDragEnd={handleMenuCategorySort}>
-        <SortableContext items={items}>
+        <SortableContext items={items} disabled={isUpdating}>
           <Grid container spacing={1}>
             {items.map((menuCategory) => (
               <Grid key={menuCategory.id} size={{ xs: 6, sm: 4 }}>

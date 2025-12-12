@@ -20,10 +20,8 @@ export default function PartnerProfileGeneralPage() {
   }, []);
 
   const { user } = useAuth();
-  const {
-    mutateAsync: updateProfileGeneralInformation,
-    isPending: isUpdating,
-  } = useUpdateProfileGeneralInformation();
+  const { mutate: updateProfileGeneralInformation, isPending: isUpdating } =
+    useUpdateProfileGeneralInformation();
 
   const methods = useForm({
     resolver: zodResolver(profileGeneralFormSchema),
@@ -45,8 +43,8 @@ export default function PartnerProfileGeneralPage() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: TProfileGeneralFormSchema) {
-    await updateProfileGeneralInformation(data);
+  function onSubmit(data: TProfileGeneralFormSchema) {
+    updateProfileGeneralInformation(data);
   }
 
   return (

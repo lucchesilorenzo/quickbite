@@ -40,9 +40,10 @@ export default function MenuItemsList() {
     error: menuError,
   } = useGetMenu({ restaurantId: restaurantData.restaurant.id, page });
 
-  const { mutateAsync: updateMenuItemsOrder } = useUpdateMenuItemsOrder({
-    restaurantId: restaurantData.restaurant.id,
-  });
+  const { mutate: updateMenuItemsOrder, isPending: isUpdating } =
+    useUpdateMenuItemsOrder({
+      restaurantId: restaurantData.restaurant.id,
+    });
 
   const debounceUpdateRestaurantMenuItemsOrder = useMemo(
     () => debounce(updateMenuItemsOrder, 500),
@@ -103,7 +104,7 @@ export default function MenuItemsList() {
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleMenuItemSort}>
-      <SortableContext items={items}>
+      <SortableContext items={items} disabled={isUpdating}>
         <Stack spacing={2} sx={{ my: 3 }}>
           {items.map((menuItem) => (
             <MenuItem key={menuItem.id} menuItem={menuItem} />

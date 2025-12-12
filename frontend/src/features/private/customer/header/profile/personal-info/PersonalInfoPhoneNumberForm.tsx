@@ -14,7 +14,8 @@ import { useAuth } from "@/contexts/AuthProvider";
 export default function PersonalInfoEditPhoneNumberForm() {
   const { user } = useAuth();
 
-  const { mutateAsync: updateCustomerPhoneNumber } = useUpdatePersonalInfo();
+  const { mutate: updateCustomerPhoneNumber, isPending: isUpdating } =
+    useUpdatePersonalInfo();
 
   const {
     handleSubmit,
@@ -27,8 +28,8 @@ export default function PersonalInfoEditPhoneNumberForm() {
     },
   });
 
-  async function onSubmit(data: TEditPhoneNumberFormSchema) {
-    await updateCustomerPhoneNumber(data);
+  function onSubmit(data: TEditPhoneNumberFormSchema) {
+    updateCustomerPhoneNumber(data);
   }
 
   return (
@@ -64,7 +65,7 @@ export default function PersonalInfoEditPhoneNumberForm() {
       {isDirty && (
         <Button
           type="submit"
-          loading={isSubmitting}
+          loading={isSubmitting || isUpdating}
           loadingIndicator="Editing..."
           variant="contained"
         >

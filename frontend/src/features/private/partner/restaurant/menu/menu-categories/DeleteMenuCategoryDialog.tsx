@@ -28,13 +28,11 @@ export default function DeleteMenuCategoryDialog({
 }: DeleteMenuCategoryDialogProps) {
   const { restaurantData } = useRestaurant();
 
-  const {
-    mutateAsync: deletePartnerRestaurantMenuCategory,
-    isPending: isDeleting,
-  } = useDeleteMenuCategory({
-    restaurantId: restaurantData.restaurant.id,
-    menuCategoryId: menuCategory.id,
-  });
+  const { mutate: deleteRestaurantMenuCategory, isPending: isDeleting } =
+    useDeleteMenuCategory({
+      restaurantId: restaurantData.restaurant.id,
+      menuCategoryId: menuCategory.id,
+    });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -72,7 +70,7 @@ export default function DeleteMenuCategoryDialog({
           </Button>
 
           <Button
-            onClick={async () => await deletePartnerRestaurantMenuCategory()}
+            onClick={() => deleteRestaurantMenuCategory()}
             disabled={isDeleting}
             loading={isDeleting}
             loadingIndicator="Deleting..."

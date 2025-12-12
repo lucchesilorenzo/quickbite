@@ -9,19 +9,20 @@ import AntSwitch from "@/components/common/AntSwitch";
 export default function RestaurantStatusSwitch() {
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateRestaurantStatus } = useUpdateRestaurantStatus({
-    restaurantId: restaurantData.restaurant.id,
-  });
+  const { mutate: updateRestaurantStatus, isPending: isUpdating } =
+    useUpdateRestaurantStatus({
+      restaurantId: restaurantData.restaurant.id,
+    });
 
   const [restaurantStatus, setRestaurantStatus] = useState(
     restaurantData.restaurant.is_open,
   );
 
-  async function handleUpdateRestaurantStatus(
+  function handleUpdateRestaurantStatus(
     e: React.ChangeEvent<HTMLInputElement>,
   ) {
     setRestaurantStatus(e.target.checked);
-    await updateRestaurantStatus({ force_close: !e.target.checked });
+    updateRestaurantStatus({ force_close: !e.target.checked });
   }
 
   return (
@@ -40,6 +41,7 @@ export default function RestaurantStatusSwitch() {
         <AntSwitch
           checked={restaurantStatus}
           onChange={handleUpdateRestaurantStatus}
+          disabled={isUpdating}
         />
       </Stack>
     </Card>

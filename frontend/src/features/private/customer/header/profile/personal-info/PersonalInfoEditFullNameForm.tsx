@@ -13,7 +13,8 @@ import { useAuth } from "@/contexts/AuthProvider";
 export default function PersonalInfoEditFullNameForm() {
   const { user } = useAuth();
 
-  const { mutateAsync: updateCustomerFullName } = useUpdatePersonalInfo();
+  const { mutate: updateCustomerFullName, isPending: isUpdating } =
+    useUpdatePersonalInfo();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -29,8 +30,8 @@ export default function PersonalInfoEditFullNameForm() {
     },
   });
 
-  async function onSubmit(data: TEditFullNameFormSchema) {
-    await updateCustomerFullName(data);
+  function onSubmit(data: TEditFullNameFormSchema) {
+    updateCustomerFullName(data);
   }
 
   return (
@@ -87,7 +88,7 @@ export default function PersonalInfoEditFullNameForm() {
       {isDirty && (
         <Button
           type="submit"
-          loading={isSubmitting}
+          loading={isSubmitting || isUpdating}
           loadingIndicator="Editing..."
           variant="contained"
         >

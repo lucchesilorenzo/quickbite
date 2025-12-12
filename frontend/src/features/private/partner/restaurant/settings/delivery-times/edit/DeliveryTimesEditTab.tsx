@@ -25,7 +25,7 @@ import { capitalize } from "@/lib/utils/formatting";
 export default function DeliveryTimesEditTab() {
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateDeliveryTimes, isPending: isUpdating } =
+  const { mutate: updateDeliveryTimes, isPending: isUpdating } =
     useUpdateDeliveryTimes({ restaurantId: restaurantData.restaurant.id });
 
   const {
@@ -66,7 +66,7 @@ export default function DeliveryTimesEditTab() {
     }
   }
 
-  async function onSubmit(data: TRestaurantSettingsDeliveryTimesFormSchema) {
+  function onSubmit(data: TRestaurantSettingsDeliveryTimesFormSchema) {
     const normalized = {
       delivery_days: data.delivery_days.map((d) => ({
         day: d.day,
@@ -75,7 +75,7 @@ export default function DeliveryTimesEditTab() {
       })),
     };
 
-    await updateDeliveryTimes(normalized);
+    updateDeliveryTimes(normalized);
   }
 
   return (

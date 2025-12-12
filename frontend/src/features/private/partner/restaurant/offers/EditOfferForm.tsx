@@ -32,9 +32,10 @@ export default function EditOfferForm({
 }: EditOfferFormProps) {
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateOffer } = useUpdateOffer({
+  const { mutate: updateOffer, isPending: isUpdating } = useUpdateOffer({
     restaurantId: restaurantData.restaurant.id,
     offerId: offer.id,
+    setOpenEditOfferDialog,
   });
 
   const {
@@ -51,9 +52,8 @@ export default function EditOfferForm({
     },
   });
 
-  async function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    await updateOffer(data);
-    setOpenEditOfferDialog(false);
+  function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
+    updateOffer(data);
   }
 
   return (
@@ -115,7 +115,7 @@ export default function EditOfferForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isUpdating}
         loadingIndicator="Editing..."
         variant="contained"
       >

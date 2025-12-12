@@ -15,7 +15,8 @@ import { useAuth } from "@/contexts/AuthProvider";
 export default function PersonalInfoEditDateOfBirthForm() {
   const { user } = useAuth();
 
-  const { mutateAsync: updateCustomerDateOfBirth } = useUpdatePersonalInfo();
+  const { mutate: updateCustomerDateOfBirth, isPending: isUpdating } =
+    useUpdatePersonalInfo();
 
   const {
     handleSubmit,
@@ -28,8 +29,8 @@ export default function PersonalInfoEditDateOfBirthForm() {
     },
   });
 
-  async function onSubmit(data: TEditDateOfBirthFormSchema) {
-    await updateCustomerDateOfBirth(data);
+  function onSubmit(data: TEditDateOfBirthFormSchema) {
+    updateCustomerDateOfBirth(data);
   }
 
   return (
@@ -72,7 +73,7 @@ export default function PersonalInfoEditDateOfBirthForm() {
       {isDirty && (
         <Button
           type="submit"
-          loading={isSubmitting}
+          loading={isSubmitting || isUpdating}
           loadingIndicator="Editing..."
           variant="contained"
         >

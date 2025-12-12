@@ -6,10 +6,14 @@ import { ApiResponse } from "@/types/api.types";
 
 type UseMarkNotificationsAsReadOptions = {
   restaurantId: string;
+  setOpenMarkUserNotificationsAsRead: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 };
 
 export function useMarkNotificationsAsRead({
   restaurantId,
+  setOpenMarkUserNotificationsAsRead,
 }: UseMarkNotificationsAsReadOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
@@ -23,6 +27,8 @@ export function useMarkNotificationsAsRead({
       queryClient.invalidateQueries({
         queryKey: ["partner-notifications", restaurantId],
       });
+
+      setOpenMarkUserNotificationsAsRead(false);
 
       notifications.show(response.message, {
         key: "partner-notifications-mark-as-read-success",

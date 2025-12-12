@@ -23,9 +23,10 @@ export default function AddMenuItemForm({
   const { restaurantData } = useRestaurant();
   const { selectedMenuCategoryId } = useMenu();
 
-  const { mutateAsync: createMenuItem } = useCreateMenuItem({
+  const { mutate: createMenuItem, isPending: isCreating } = useCreateMenuItem({
     restaurantId: restaurantData.restaurant.id,
     menuCategoryId: selectedMenuCategoryId,
+    setOpenAddMenuItemDialog,
   });
 
   const {
@@ -42,7 +43,7 @@ export default function AddMenuItemForm({
     },
   });
 
-  async function onSubmit(data: TAddMenuItemFormSchema) {
+  function onSubmit(data: TAddMenuItemFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);
@@ -50,8 +51,7 @@ export default function AddMenuItemForm({
     formData.append("price", String(data.price));
     if (data.image) formData.append("image", data.image[0]);
 
-    await createMenuItem(formData);
-    setOpenAddMenuItemDialog(false);
+    createMenuItem(formData);
   }
 
   function handleFileUpload(
@@ -164,7 +164,7 @@ export default function AddMenuItemForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isCreating}
         loadingIndicator="Adding..."
         variant="contained"
       >

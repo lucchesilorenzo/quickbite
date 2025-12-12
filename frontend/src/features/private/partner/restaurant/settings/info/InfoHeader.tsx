@@ -7,7 +7,11 @@ import { useInfo } from "@partner/restaurant/settings/contexts/InfoProvider";
 import { TRestaurantSettingsInfoFormSchema } from "@partner/schemas/restaurant-settings.schema";
 import { useFormContext } from "react-hook-form";
 
-export default function InfoHeader() {
+type InfoHeaderProps = {
+  isUpdating: boolean;
+};
+
+export default function InfoHeader({ isUpdating }: InfoHeaderProps) {
   const { editMode, setEditMode } = useInfo();
 
   const {
@@ -50,7 +54,7 @@ export default function InfoHeader() {
         <Button
           type={editMode ? "submit" : "button"}
           variant="contained"
-          loading={isSubmitting}
+          loading={isSubmitting || isUpdating}
           loadingIndicator="Saving..."
           startIcon={editMode ? <Save /> : <EditIcon />}
           onClick={handleEditMode}

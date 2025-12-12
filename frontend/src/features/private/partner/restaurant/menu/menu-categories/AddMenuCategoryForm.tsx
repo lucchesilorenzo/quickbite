@@ -19,9 +19,11 @@ export default function AddMenuCategoryForm({
 }: AddMenuCategoryFormProps) {
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: createMenuCategory } = useCreateMenuCategory({
-    restaurantId: restaurantData.restaurant.id,
-  });
+  const { mutate: createMenuCategory, isPending: isCreating } =
+    useCreateMenuCategory({
+      restaurantId: restaurantData.restaurant.id,
+      setOpenAddMenuCategoryDialog,
+    });
 
   const {
     handleSubmit,
@@ -35,9 +37,8 @@ export default function AddMenuCategoryForm({
     },
   });
 
-  async function onSubmit(data: TAddMenuCategoryFormSchema) {
-    await createMenuCategory(data);
-    setOpenAddMenuCategoryDialog(false);
+  function onSubmit(data: TAddMenuCategoryFormSchema) {
+    createMenuCategory(data);
   }
 
   return (
@@ -93,7 +94,7 @@ export default function AddMenuCategoryForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isCreating}
         loadingIndicator="Saving..."
         variant="contained"
       >

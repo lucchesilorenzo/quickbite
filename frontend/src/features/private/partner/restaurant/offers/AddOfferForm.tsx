@@ -29,8 +29,9 @@ export default function AddOfferForm({
 }: AddOfferFormProps) {
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: createOffer, isPending: isAdding } = useCreateOffer({
+  const { mutate: createOffer, isPending: isAdding } = useCreateOffer({
     restaurantId: restaurantData.restaurant.id,
+    setOpenAddOfferDialog,
   });
 
   const {
@@ -47,9 +48,8 @@ export default function AddOfferForm({
     },
   });
 
-  async function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    await createOffer(data);
-    setOpenAddOfferDialog(false);
+  function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
+    createOffer(data);
   }
 
   return (

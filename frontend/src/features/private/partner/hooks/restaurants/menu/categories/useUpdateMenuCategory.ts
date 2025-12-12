@@ -10,11 +10,13 @@ import { updateData } from "@/lib/api-client";
 type UseUpdateMenuCategoryOptions = {
   restaurantId: string;
   menuCategoryId: string;
+  setOpenEditMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function useUpdateMenuCategory({
   restaurantId,
   menuCategoryId,
+  setOpenEditMenuCategoryDialog,
 }: UseUpdateMenuCategoryOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
@@ -33,6 +35,8 @@ export function useUpdateMenuCategory({
       queryClient.invalidateQueries({
         queryKey: ["partner-menu", restaurantId],
       });
+
+      setOpenEditMenuCategoryDialog(false);
 
       notifications.show(response.message, {
         key: "partner-update-menu-category-success",

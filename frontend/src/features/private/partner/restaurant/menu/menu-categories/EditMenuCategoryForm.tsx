@@ -22,10 +22,12 @@ export default function EditMenuCategoryForm({
 }: EditMenuCategoryFormProps) {
   const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateMenuCategory } = useUpdateMenuCategory({
-    restaurantId: restaurantData.restaurant.id,
-    menuCategoryId: menuCategory.id,
-  });
+  const { mutate: updateMenuCategory, isPending: isUpdating } =
+    useUpdateMenuCategory({
+      restaurantId: restaurantData.restaurant.id,
+      menuCategoryId: menuCategory.id,
+      setOpenEditMenuCategoryDialog,
+    });
 
   const {
     handleSubmit,
@@ -39,9 +41,8 @@ export default function EditMenuCategoryForm({
     },
   });
 
-  async function onSubmit(data: TEditMenuCategoryFormSchema) {
-    await updateMenuCategory(data);
-    setOpenEditMenuCategoryDialog(false);
+  function onSubmit(data: TEditMenuCategoryFormSchema) {
+    updateMenuCategory(data);
   }
 
   return (
@@ -97,7 +98,7 @@ export default function EditMenuCategoryForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isUpdating}
         loadingIndicator="Saving..."
         variant="contained"
       >
