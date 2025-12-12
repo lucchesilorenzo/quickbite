@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Card, Stack, Typography } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateRestaurantStatus } from "@partner/hooks/restaurants/restaurant/useUpdateRestaurantStatus";
+import { format } from "date-fns";
 
 import AntSwitch from "@/components/common/AntSwitch";
 
@@ -10,12 +11,19 @@ export default function RestaurantStatusSwitch() {
   const { restaurantData } = useRestaurant();
 
   const { mutate: updateRestaurantStatus, isPending: isUpdating } =
-    useUpdateRestaurantStatus({
-      restaurantId: restaurantData.restaurant.id,
-    });
+    useUpdateRestaurantStatus({ restaurantId: restaurantData.restaurant.id });
 
   const [restaurantStatus, setRestaurantStatus] = useState(
     restaurantData.restaurant.is_open,
+  );
+
+  const currentDay = format(new Date(), "EEEE").toLowerCase();
+
+  const hasDeliveryTimes = restaurantData.restaurant.delivery_days.some(
+    (deliveryDay) =>
+      deliveryDay.day === currentDay &&
+      deliveryDay.start_time &&
+      deliveryDay.end_time,
   );
 
   function handleUpdateRestaurantStatus(
@@ -39,9 +47,9 @@ export default function RestaurantStatusSwitch() {
         </Typography>
 
         <AntSwitch
+          disabled={!hasDeliveryTimes || isUpdating}
           checked={restaurantStatus}
           onChange={handleUpdateRestaurantStatus}
-          disabled={isUpdating}
         />
       </Stack>
     </Card>
