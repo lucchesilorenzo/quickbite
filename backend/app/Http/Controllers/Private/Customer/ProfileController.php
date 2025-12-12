@@ -9,9 +9,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Profile\UpdateAddressInfoRequest;
 use App\Http\Requests\Private\Customer\Profile\UpdatePersonalInfoRequest;
 use App\Services\Private\Customer\ProfileService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Customer Profile')]
 class ProfileController extends Controller
 {
     public function __construct(
@@ -19,7 +21,7 @@ class ProfileController extends Controller
     ) {}
 
     /**
-     * Update customer profile's personal information.
+     * Update profile's personal information.
      */
     public function updatePersonalInfo(
         UpdatePersonalInfoRequest $request
@@ -44,7 +46,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update customer profile's address information.
+     * Update profile's address information.
      */
     public function updateAddressInfo(
         UpdateAddressInfoRequest $request

@@ -12,11 +12,13 @@ use App\Http\Requests\Private\Partner\Menu\MenuCategory\UpdateMenuCategoryReques
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\MenuCategoryService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Menu Categories')]
 class MenuCategoryController extends Controller
 {
     public function __construct(
@@ -24,7 +26,7 @@ class MenuCategoryController extends Controller
     ) {}
 
     /**
-     * Create a partner's restaurant menu category.
+     * Create a menu category.
      */
     public function createMenuCategory(
         CreateMenuCategoryRequest $request,
@@ -57,7 +59,7 @@ class MenuCategoryController extends Controller
     }
 
     /**
-     * Update a partner's restaurant menu categories order.
+     * Update menu categories order.
      */
     public function updateMenuCategoriesOrder(
         UpdateMenuCategoriesOrderRequest $request
@@ -97,7 +99,7 @@ class MenuCategoryController extends Controller
     }
 
     /**
-     * Update a partner's restaurant menu category.
+     * Update a menu category.
      */
     public function updateMenuCategory(
         UpdateMenuCategoryRequest $request,
@@ -125,7 +127,7 @@ class MenuCategoryController extends Controller
     }
 
     /**
-     * Delete a partner's restaurant menu category.
+     * Delete a menu category.
      */
     public function deleteMenuCategory(MenuCategory $menuCategory): JsonResponse
     {

@@ -13,10 +13,12 @@ use App\Http\Requests\Private\Partner\Restaurant\UpdateInfoRequest;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateStatusRequest;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\RestaurantService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Restaurants')]
 class RestaurantController extends Controller
 {
     public function __construct(
@@ -24,7 +26,7 @@ class RestaurantController extends Controller
     ) {}
 
     /**
-     * Get partner's restaurants.
+     * Get all restaurants.
      */
     public function getRestaurants(): JsonResponse
     {
@@ -47,7 +49,7 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Get a partner's restaurant.
+     * Get a restaurant.
      */
     public function getRestaurant(Restaurant $restaurant): JsonResponse
     {
@@ -70,7 +72,7 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Update a partner's restaurant status.
+     * Update status.
      */
     public function updateStatus(
         UpdateStatusRequest $request,
@@ -98,7 +100,7 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Update a partner's restaurant approved status.
+     * Update approved status.
      */
     public function updateApprovedStatus(Restaurant $restaurant): JsonResponse
     {
@@ -128,7 +130,7 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Update a partner's restaurant fees.
+     * Update fees.
      */
     public function updateFees(
         UpdateFeesRequest $request,
@@ -156,7 +158,7 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Update a partner's restaurant delivery times.
+     * Update delivery times.
      */
     public function updateDeliveryTimes(
         UpdateDeliveryTimesRequest $request,
@@ -184,7 +186,7 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Update a partner's restaurant info.
+     * Update info.
      */
     public function updateInfo(
         UpdateInfoRequest $request,

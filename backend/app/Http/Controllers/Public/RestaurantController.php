@@ -9,10 +9,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\GetRestaurantsRequest;
 use App\Models\Restaurant;
 use App\Services\Public\RestaurantService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Public Restaurants')]
 class RestaurantController extends Controller
 {
     public function __construct(
@@ -20,7 +22,7 @@ class RestaurantController extends Controller
     ) {}
 
     /**
-     * Get restaurants.
+     * Get all restaurants.
      */
     public function getRestaurants(GetRestaurantsRequest $request): JsonResponse
     {
@@ -70,7 +72,7 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Get restaurant's delivery slots.
+     * Get delivery slots.
      */
     public function getDeliverySlots(Restaurant $restaurant): JsonResponse
     {
@@ -97,7 +99,7 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Get a restaurant logo as base64.
+     * Get a restaurant logo.
      */
     public function getBase64Logo(Restaurant $restaurant): JsonResponse
     {

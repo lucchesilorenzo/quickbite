@@ -7,9 +7,11 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use App\Services\Public\ReviewService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Public Reviews')]
 class ReviewController extends Controller
 {
     public function __construct(
@@ -17,7 +19,7 @@ class ReviewController extends Controller
     ) {}
 
     /**
-     * Get restaurant's reviews.
+     * Get all reviews.
      */
     public function getReviews(Restaurant $restaurant): JsonResponse
     {

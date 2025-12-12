@@ -11,11 +11,13 @@ use App\Http\Requests\Private\Partner\Menu\MenuItems\UpdateMenuItemsOrderRequest
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Services\Private\Partner\MenuItemService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Menu Items')]
 class MenuItemController extends Controller
 {
     public function __construct(
@@ -23,7 +25,7 @@ class MenuItemController extends Controller
     ) {}
 
     /**
-     * Create a partner's restaurant menu item.
+     * Create a menu item.
      */
     public function createMenuItem(
         CreateMenuItemRequest $request,
@@ -54,7 +56,7 @@ class MenuItemController extends Controller
     }
 
     /**
-     * Update a partner's restaurant menu item.
+     * Update a menu item.
      */
     public function updateMenuItem(
         UpdateMenuItemRequest $request,
@@ -85,7 +87,7 @@ class MenuItemController extends Controller
     }
 
     /**
-     * Update a partner's restaurant menu items order.
+     * Update menu items order.
      */
     public function updateMenuItemsOrder(
         UpdateMenuItemsOrderRequest $request
@@ -125,7 +127,7 @@ class MenuItemController extends Controller
     }
 
     /**
-     * Delete a partner's restaurant menu item.
+     * Delete a menu item.
      */
     public function deleteMenuItem(MenuItem $menuItem): JsonResponse
     {

@@ -7,15 +7,20 @@ namespace App\Http\Controllers\Private\Partner;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\NotificationService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Partner Notifications')]
 class NotificationController extends Controller
 {
     public function __construct(
         private readonly NotificationService $notificationService,
     ) {}
 
+    /**
+     * Get all notifications.
+     */
     public function getNotifications(Restaurant $restaurant): JsonResponse
     {
         try {
@@ -38,6 +43,9 @@ class NotificationController extends Controller
         }
     }
 
+    /**
+     * Mark notifications as read.
+     */
     public function markNotificationsAsRead(Restaurant $restaurant): JsonResponse
     {
         try {

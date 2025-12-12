@@ -12,10 +12,12 @@ use App\Http\Requests\Private\Partner\Stats\GetKpiSummaryRequest;
 use App\Http\Requests\Private\Partner\Stats\GetStatsRequest;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\StatsService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Stats')]
 class StatsController extends Controller
 {
     public function __construct(
@@ -23,7 +25,7 @@ class StatsController extends Controller
     ) {}
 
     /**
-     * Get restaurant's dashboard stats.
+     * Get all dashboard statistics.
      */
     public function getDashboardStats(
         Restaurant $restaurant
@@ -49,6 +51,9 @@ class StatsController extends Controller
         }
     }
 
+    /**
+     * Get KPI summary.
+     */
     public function getKpiSummary(
         GetKpiSummaryRequest $request,
         Restaurant $restaurant
@@ -83,6 +88,9 @@ class StatsController extends Controller
         }
     }
 
+    /**
+     * Get all detailed statistics.
+     */
     public function getStats(
         GetStatsRequest $request,
         Restaurant $restaurant

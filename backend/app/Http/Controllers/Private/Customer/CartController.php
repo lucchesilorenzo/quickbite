@@ -10,10 +10,12 @@ use App\Http\Requests\Private\Customer\Cart\CreateOrUpdateCartsRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Services\Private\Customer\CartService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Customer Carts')]
 class CartController extends Controller
 {
     public function __construct(
@@ -21,7 +23,7 @@ class CartController extends Controller
     ) {}
 
     /**
-     * Get customer's carts.
+     * Get all carts.
      */
     public function getCarts(): JsonResponse
     {
@@ -44,7 +46,7 @@ class CartController extends Controller
     }
 
     /**
-     * Get customer's cart.
+     * Get a cart.
      */
     public function getCart(Cart $cart): JsonResponse
     {
@@ -67,7 +69,7 @@ class CartController extends Controller
     }
 
     /**
-     * Create or update multiple carts for customer.
+     * Create or update multiple carts.
      */
     public function createOrUpdateCarts(
         CreateOrUpdateCartsRequest $request
@@ -103,7 +105,7 @@ class CartController extends Controller
     }
 
     /**
-     * Update a customer's cart.
+     * Update a cart.
      */
     public function createOrUpdateCart(
         CreateOrUpdateCartRequest $request
@@ -146,7 +148,7 @@ class CartController extends Controller
     }
 
     /**
-     * Delete a customer's cart.
+     * Delete a cart.
      */
     public function deleteCart(Cart $cart): JsonResponse
     {

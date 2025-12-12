@@ -10,11 +10,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Order\CreateOrderRequest;
 use App\Models\Order;
 use App\Services\Private\Customer\OrderService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Customer Orders')]
 class OrderController extends Controller
 {
     public function __construct(
@@ -22,7 +24,7 @@ class OrderController extends Controller
     ) {}
 
     /**
-     * Get all customer's orders.
+     * Get all orders.
      */
     public function getOrders(): JsonResponse
     {
@@ -45,7 +47,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Get a customer's order.
+     * Get a order.
      */
     public function getOrder(Order $order): JsonResponse
     {
@@ -68,7 +70,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Create a new customer's order.
+     * Create an order.
      */
     public function createOrder(CreateOrderRequest $request): JsonResponse
     {

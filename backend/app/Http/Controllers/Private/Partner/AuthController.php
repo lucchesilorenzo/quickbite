@@ -11,9 +11,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Auth\LoginRequest;
 use App\Http\Requests\Private\Partner\Auth\RegisterRequest;
 use App\Services\Private\Partner\AuthService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Partner Auth')]
 class AuthController extends Controller
 {
     public function __construct(

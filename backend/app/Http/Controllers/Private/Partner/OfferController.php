@@ -11,10 +11,12 @@ use App\Http\Requests\Private\Partner\Offer\UpdateOfferRequest;
 use App\Models\Offer;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\OfferService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Offers')]
 class OfferController extends Controller
 {
     public function __construct(
@@ -22,7 +24,7 @@ class OfferController extends Controller
     ) {}
 
     /**
-     * Get a partner's offers.
+     * Get all offers.
      */
     public function getOffers(Restaurant $restaurant): JsonResponse
     {
@@ -45,7 +47,7 @@ class OfferController extends Controller
     }
 
     /**
-     * Create a partner's offer.
+     * Create an offer.
      */
     public function createOffer(
         CreateOfferRequest $request,
@@ -78,7 +80,7 @@ class OfferController extends Controller
     }
 
     /**
-     * Update a partner's offer.
+     * Update an offer.
      */
     public function updateOffer(
         UpdateOfferRequest $request,
@@ -113,7 +115,7 @@ class OfferController extends Controller
     }
 
     /**
-     * Delete a partner's offer.
+     * Delete an offer.
      */
     public function deleteOffer(Offer $offer): JsonResponse
     {

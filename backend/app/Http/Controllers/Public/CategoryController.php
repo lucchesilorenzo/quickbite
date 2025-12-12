@@ -6,9 +6,11 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Services\Public\CategoryService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Public Categories')]
 class CategoryController extends Controller
 {
     public function __construct(

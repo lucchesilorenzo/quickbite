@@ -10,9 +10,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Auth\LoginRequest;
 use App\Http\Requests\Private\Customer\Auth\RegisterRequest;
 use App\Services\Private\Customer\AuthService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Customer Auth')]
 class AuthController extends Controller
 {
     public function __construct(

@@ -11,10 +11,12 @@ use App\Http\Requests\Private\Partner\Order\UpdateOrderStatus;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\OrderService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Orders')]
 class OrderController extends Controller
 {
     public function __construct(
@@ -22,7 +24,7 @@ class OrderController extends Controller
     ) {}
 
     /**
-     * Get restaurant's orders.
+     * Get all orders.
      */
     public function getOrders(
         GetOrdersRequest $request,

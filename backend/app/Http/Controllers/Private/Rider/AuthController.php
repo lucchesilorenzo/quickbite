@@ -8,15 +8,20 @@ use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Rider\Auth\RegisterRequest;
 use App\Services\Private\Rider\AuthService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Rider Auth')]
 class AuthController extends Controller
 {
     public function __construct(
         private readonly AuthService $authService
     ) {}
 
+    /**
+     * Register a new rider.
+     */
     public function register(RegisterRequest $request): JsonResponse
     {
         try {

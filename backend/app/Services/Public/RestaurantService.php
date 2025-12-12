@@ -208,7 +208,7 @@ class RestaurantService
         }
 
         // === Search ===
-        if ($search !== null && $search !== '' && $search !== '0') {
+        if (! in_array($search, [null, '', '0'], true)) {
             $query->where(function ($q) use ($search): void {
                 $q->whereLike('name', "%{$search}%")
                     ->orWhereHas('categories', fn ($q) => $q->whereLike('name', "%{$search}%"))

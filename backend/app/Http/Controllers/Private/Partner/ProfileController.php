@@ -9,15 +9,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Profile\UpdateProfileGeneralInformationRequest;
 use App\Http\Requests\Private\Partner\Profile\UpdateProfileNotificationsRequest;
 use App\Services\Private\Partner\ProfileService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Partner Profile')]
 class ProfileController extends Controller
 {
     public function __construct(
         private readonly ProfileService $profileService
     ) {}
 
+    /**
+     * Update profile's general information.
+     */
     public function updateProfileGeneralInformation(
         UpdateProfileGeneralInformationRequest $request
     ): JsonResponse {
@@ -45,6 +50,9 @@ class ProfileController extends Controller
         }
     }
 
+    /**
+     * Update profile's notification preferences.
+     */
     public function updateProfileNotifications(
         UpdateProfileNotificationsRequest $request
     ): JsonResponse {

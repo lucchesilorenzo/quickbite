@@ -13,16 +13,21 @@ use App\Http\Requests\Private\Partner\JobPost\UpdateJobPostRequest;
 use App\Models\JobPost;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\JobPostService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Job Posts')]
 class JobPostController extends Controller
 {
     public function __construct(
         private readonly JobPostService $jobPostService
     ) {}
 
+    /**
+     * Get all job posts.
+     */
     public function getJobPosts(
         GetJobPostsRequest $request,
         Restaurant $restaurant
@@ -48,6 +53,9 @@ class JobPostController extends Controller
         }
     }
 
+    /**
+     * Get a job post.
+     */
     public function getJobPost(Restaurant $restaurant, JobPost $jobPost): JsonResponse
     {
         Gate::authorize('view', $jobPost);
@@ -68,6 +76,9 @@ class JobPostController extends Controller
         }
     }
 
+    /**
+     * Create a job post.
+     */
     public function createJobPost(
         CreateJobPostRequest $request,
         Restaurant $restaurant
@@ -93,6 +104,9 @@ class JobPostController extends Controller
         }
     }
 
+    /**
+     * Update a job post.
+     */
     public function updateJobPost(
         UpdateJobPostRequest $request,
         Restaurant $restaurant,
@@ -119,6 +133,9 @@ class JobPostController extends Controller
         }
     }
 
+    /**
+     * Delete a job post.
+     */
     public function deleteJobPost(Restaurant $restaurant, JobPost $jobPost): JsonResponse
     {
         Gate::authorize('delete', $jobPost);
@@ -143,6 +160,9 @@ class JobPostController extends Controller
         }
     }
 
+    /**
+     * Delete job posts.
+     */
     public function deleteJobPosts(
         DeleteJobPostsRequest $request,
         Restaurant $restaurant

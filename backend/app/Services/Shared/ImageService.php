@@ -29,7 +29,7 @@ class ImageService
         ?string $defaultSubpath = null
     ): string {
         // Delete old image if it exists and is not a default image
-        if ($currentPath !== null && $currentPath !== '' && $currentPath !== '0') {
+        if (! in_array($currentPath, [null, '', '0'], true)) {
             $this->deleteIfNotDefault($currentPath, $defaultSubpath);
         }
 
@@ -43,7 +43,7 @@ class ImageService
         ?string $currentPath,
         ?string $defaultSubpath = null
     ): void {
-        if ($currentPath !== null && $currentPath !== '' && $currentPath !== '0') {
+        if (! in_array($currentPath, [null, '', '0'], true)) {
             $this->deleteIfNotDefault($currentPath, $defaultSubpath);
         }
     }

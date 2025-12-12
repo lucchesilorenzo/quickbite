@@ -66,6 +66,6 @@ class OrderService
             ->riders()
             ->where('is_active', true)
             ->get()
-            ->first(fn ($rider): bool => ! Delivery::isRiderBusy($rider));
+            ->first(fn (User $rider): bool => ! Delivery::isRiderBusy($rider));
     }
 }
