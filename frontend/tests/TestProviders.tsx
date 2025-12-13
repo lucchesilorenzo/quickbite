@@ -17,7 +17,7 @@ export default function TestProviders({ children }: TestProvidersProps) {
           queries: { retry: false },
           mutations: { retry: false },
         },
-      })
+      }),
   );
 
   const theme = createTheme();
