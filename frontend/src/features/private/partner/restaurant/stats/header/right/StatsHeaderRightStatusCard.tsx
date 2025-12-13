@@ -1,11 +1,11 @@
 import { Cancel, CheckCircle } from "@mui/icons-material";
 import { Card, Chip, Stack, Typography } from "@mui/material";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 export default function StatsHeaderRightStatusCard() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const status = restaurant.is_open
+  const status = restaurantData.restaurant.is_open
     ? {
         label: "Open",
         color: "success" as const,
@@ -27,7 +27,7 @@ export default function StatsHeaderRightStatusCard() {
 
           <Typography
             variant="body2"
-            color={restaurant.is_open ? "success" : "error"}
+            color={restaurantData.restaurant.is_open ? "success" : "error"}
           >
             {status.label}
           </Typography>

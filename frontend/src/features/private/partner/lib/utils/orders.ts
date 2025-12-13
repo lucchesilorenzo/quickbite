@@ -1,4 +1,4 @@
-import { OrderStatus } from "@private/types/order-types";
+import { OrderStatus } from "@private/shared/types/order.types";
 
 import { statusTransitions } from "../constants/orders";
 

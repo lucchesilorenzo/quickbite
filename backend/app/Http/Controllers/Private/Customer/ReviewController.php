@@ -8,10 +8,12 @@ use App\Exceptions\Private\Customer\CustomerAlreadyReviewedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Review\CreateReviewRequest;
 use App\Services\Private\Customer\ReviewService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Customer Reviews')]
 class ReviewController extends Controller
 {
     public function __construct(
@@ -19,7 +21,7 @@ class ReviewController extends Controller
     ) {}
 
     /**
-     * Create a customer's review.
+     * Create a review.
      */
     public function createReview(
         CreateReviewRequest $request,
@@ -33,19 +35,23 @@ class ReviewController extends Controller
             );
 
             return response()->json([
-                'review' => $review,
+                'success' => true,
                 'message' => 'Review created successfully.',
+                'review' => $review,
             ], 201);
         } catch (ModelNotFoundException) {
             return response()->json([
+                'success' => false,
                 'message' => 'Restaurant not found.',
             ], 404);
         } catch (CustomerAlreadyReviewedException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create review.',
             ], 500);
         }

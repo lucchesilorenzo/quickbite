@@ -9,10 +9,10 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteOffer } from "@partner/hooks/restaurants/offers/useDeleteOffer";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
-import { Offer } from "@/types/offer-types";
+import { Offer } from "@/types/offers/offer.types";
 
 type DeleteOfferDialogProps = {
   offer: Offer;
@@ -25,18 +25,18 @@ export default function DeleteOfferDialog({
   openDeleteOfferDialog,
   setOpenDeleteOfferDialog,
 }: DeleteOfferDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: deleteOffer, isPending: isDeleting } = useDeleteOffer(
-    restaurant.id,
-    offer.id,
-  );
+  const { mutate: deleteOffer, isPending: isDeleting } = useDeleteOffer({
+    restaurantId: restaurantData.restaurant.id,
+    offerId: offer.id,
+    setOpenDeleteOfferDialog,
+  });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  async function handleDeleteOffer() {
-    await deleteOffer();
-    setOpenDeleteOfferDialog(false);
+  function handleDeleteOffer() {
+    deleteOffer();
   }
 
   return (

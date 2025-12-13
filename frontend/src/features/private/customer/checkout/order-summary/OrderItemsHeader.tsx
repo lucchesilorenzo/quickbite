@@ -4,7 +4,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import env from "@/lib/env";
 
 export default function OrderItemsHeader() {
-  const { cart } = useCheckout();
+  const { cartData } = useCheckout();
 
   return (
     <Stack
@@ -13,18 +13,22 @@ export default function OrderItemsHeader() {
     >
       <Stack spacing={0.5}>
         <Typography variant="body1" sx={{ fontWeight: 500 }}>
-          {cart.restaurant.name}
+          {cartData.cart.restaurant.name}
         </Typography>
 
-        <Typography variant="body2">{cart.restaurant.full_address}</Typography>
+        <Typography variant="body2">
+          {cartData.cart.restaurant.full_address}
+        </Typography>
 
-        <Typography variant="body1">{cart.total_items} articles</Typography>
+        <Typography variant="body1">
+          {cartData.cart.total_items} articles
+        </Typography>
       </Stack>
 
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${cart.restaurant.logo}`}
-        alt={cart.restaurant.name}
+        src={`${env.VITE_BASE_URL}${cartData.cart.restaurant.logo}`}
+        alt={cartData.cart.restaurant.name}
         sx={{
           objectFit: "cover",
           width: 50,

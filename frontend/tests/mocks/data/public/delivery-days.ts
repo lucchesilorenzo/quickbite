@@ -1,4 +1,4 @@
-import { DeliveryDay } from "@/types/delivery-types";
+import { DeliveryDay } from "@/types/deliveries/delivery.types";
 
 export const deliveryDays: DeliveryDay[] = [
   {

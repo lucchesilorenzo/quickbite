@@ -94,10 +94,7 @@ class RestaurantService
         $restaurants = $query->cursorPaginate(self::PER_PAGE);
         $meta = $this->buildMeta($baseQuery, $total);
 
-        return [
-            'restaurants' => $restaurants,
-            'meta' => $meta,
-        ];
+        return [$restaurants, $meta];
     }
 
     public function getRestaurant(string $restaurantSlug): Restaurant
@@ -136,13 +133,10 @@ class RestaurantService
 
         $isAsapAvailable = $restaurant->is_open && now()->between($startTimeDay, $endTimeDay);
 
-        return [
-            'is_asap_available' => $isAsapAvailable,
-            'delivery_slots' => $deliverySlots,
-        ];
+        return [$isAsapAvailable, $deliverySlots];
     }
 
-    public function getBase64Logo(Restaurant $restaurant): array
+    public function getBase64Logo(Restaurant $restaurant): string
     {
         if (! $restaurant->logo) {
             throw new RestaurantLogoNotFoundException;
@@ -157,9 +151,7 @@ class RestaurantService
         $logo = Storage::disk('public')->get($relativePath);
         $mimeType = Storage::disk('public')->mimeType($relativePath);
 
-        return [
-            'logo' => 'data:' . $mimeType . ';base64,' . base64_encode((string) $logo),
-        ];
+        return 'data:' . $mimeType . ';base64,' . base64_encode((string) $logo);
     }
 
     private function applyFilters(Builder $query, array $filters, ?string $search): void
@@ -216,7 +208,7 @@ class RestaurantService
         }
 
         // === Search ===
-        if ($search !== null && $search !== '' && $search !== '0') {
+        if (! in_array($search, [null, '', '0'], true)) {
             $query->where(function ($q) use ($search): void {
                 $q->whereLike('name', "%{$search}%")
                     ->orWhereHas('categories', fn ($q) => $q->whereLike('name', "%{$search}%"))

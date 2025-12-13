@@ -10,11 +10,11 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { PartnerMenu } from "@partner/types/menu-types";
+import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import MenuCategoryNavigationItem from "../MenuCategoryNavigationItem";
 
-import { MenuCategory } from "@/types/menu-types";
+import { MenuCategory } from "@/types/menu/menu.types";
 
 type MenuCategoryNavigationDialogProps = {
   menuCategories: MenuCategory[] | PartnerMenu[];

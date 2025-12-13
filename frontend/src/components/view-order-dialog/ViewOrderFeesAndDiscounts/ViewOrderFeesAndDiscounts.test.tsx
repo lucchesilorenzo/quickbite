@@ -1,4 +1,4 @@
-import { Order } from "@private/types/order-types";
+import { Order } from "@private/shared/types/order.types";
 import { render, screen } from "@testing-library/react";
 import { order } from "@tests/mocks/data/private/orders";
 import { vi } from "vitest";

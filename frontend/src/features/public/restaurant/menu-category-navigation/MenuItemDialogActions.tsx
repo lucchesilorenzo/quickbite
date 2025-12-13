@@ -15,8 +15,8 @@ import { grey } from "@mui/material/colors";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
-import { CartItem } from "@/types/cart-types";
-import { MenuItem } from "@/types/menu-types";
+import { CartItem } from "@/types/cart.types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemDialogActionsProps = {
   menuItem: MenuItem | CartItem;
@@ -27,7 +27,7 @@ export default function MenuItemDialogActions({
   menuItem,
   setOpenMenuItemDialog,
 }: MenuItemDialogActionsProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { addItem } = useMultiCart();
 
   const [menuItemQuantity, setMenuItemQuantity] = useState(1);
@@ -35,7 +35,7 @@ export default function MenuItemDialogActions({
   const totalPrice = menuItem.price * menuItemQuantity;
 
   function handleAddToCart() {
-    addItem(restaurant, menuItem, menuItemQuantity);
+    addItem(restaurantData.restaurant, menuItem, menuItemQuantity);
 
     setMenuItemQuantity(1);
     setOpenMenuItemDialog(false);

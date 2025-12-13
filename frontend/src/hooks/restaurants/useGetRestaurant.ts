@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { SingleRestaurantDetail } from "@/types/restaurant-types";
+import { GetRestaurantResponse } from "@/types/restaurants/restaurant.api.types";
 
-export function useGetRestaurant(restaurantSlug?: string) {
-  return useQuery({
+type UseGetRestaurantOptions = {
+  restaurantSlug?: string;
+};
+
+export function useGetRestaurant({ restaurantSlug }: UseGetRestaurantOptions) {
+  return useQuery<GetRestaurantResponse>({
     queryKey: ["restaurant", restaurantSlug],
-    queryFn: (): Promise<SingleRestaurantDetail> =>
-      fetchData(`/restaurants/${restaurantSlug}`),
+    queryFn: () => fetchData(`/restaurants/${restaurantSlug}`),
   });
 }

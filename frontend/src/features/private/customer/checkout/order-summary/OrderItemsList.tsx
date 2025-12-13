@@ -4,15 +4,15 @@ import { Box } from "@mui/material";
 import OrderItem from "./OrderItem";
 
 export default function OrderItemsList() {
-  const { cart } = useCheckout();
+  const { cartData } = useCheckout();
 
   return (
     <Box>
-      {cart.items.map((item, index) => (
+      {cartData.cart.items.map((item, index) => (
         <OrderItem
           key={item.id}
           item={item}
-          isLast={index === cart.items.length - 1}
+          isLast={index === cartData.cart.items.length - 1}
         />
       ))}
     </Box>

@@ -1,4 +1,4 @@
-import { OrderStatusWithAll } from "@private/types/order-types";
+import { OrderStatusWithAll } from "@private/shared/types/order.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { customRender } from "@tests/utils/custom-render";
@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 
 import CustomPagination from "./CustomPagination";
 
-import { PaginationContext } from "@/types/pagination-types";
+import { PaginationContext } from "@/types/pagination.types";
 
 vi.mock("react-router-dom", async (importOriginal) => {
   const original = await importOriginal<typeof import("react-router-dom")>();

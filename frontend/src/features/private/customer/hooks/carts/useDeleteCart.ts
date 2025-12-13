@@ -2,12 +2,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { deleteData } from "@/lib/api-client";
+import { ApiResponse } from "@/types/api.types";
 
-export function useDeleteCart(cartId?: string) {
+type UseDeleteCartOptions = {
+  cartId?: string;
+};
+
+export function useDeleteCart({ cartId }: UseDeleteCartOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
+  return useMutation<ApiResponse>({
     mutationFn: () => deleteData(`/customer/carts/${cartId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customer-carts"] });

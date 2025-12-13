@@ -1,4 +1,4 @@
-import { StatRange } from "@partner/types/stat-types";
+import { StatRange } from "@partner/types/stats/stats.types";
 import { format, subDays } from "date-fns";
 
 export function getComputedRangeLabel(range: StatRange) {

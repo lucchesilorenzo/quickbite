@@ -11,10 +11,12 @@ use App\Http\Requests\Private\Partner\Order\UpdateOrderStatus;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\OrderService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Orders')]
 class OrderController extends Controller
 {
     public function __construct(
@@ -22,13 +24,13 @@ class OrderController extends Controller
     ) {}
 
     /**
-     * Get restaurant's orders.
+     * Get all orders.
      */
     public function getOrders(
         GetOrdersRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('viewPartnerOrders', $restaurant);
+        Gate::authorize('viewAny', [Order::class, $restaurant]);
 
         try {
             $orders = $this->orderService->getOrders(
@@ -36,9 +38,14 @@ class OrderController extends Controller
                 $restaurant
             );
 
-            return response()->json($orders, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Orders retrieved successfully.',
+                'orders' => $orders,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get orders.',
             ], 500);
         }
@@ -51,7 +58,7 @@ class OrderController extends Controller
         UpdateOrderStatus $request,
         Order $order,
     ): JsonResponse {
-        Gate::authorize('updatePartnerOrder', $order);
+        Gate::authorize('update', $order);
 
         try {
             $order = $this->orderService->updateOrderStatus(
@@ -60,15 +67,18 @@ class OrderController extends Controller
             );
 
             return response()->json([
-                'order' => $order,
+                'success' => true,
                 'message' => 'Order status updated successfully.',
+                'order' => $order,
             ], 200);
         } catch (NoAvailableRidersException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update order status.',
             ], 500);
         }

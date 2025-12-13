@@ -1,6 +1,6 @@
 import { Stack, TextField, useMediaQuery } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { TProfileGeneralFormSchema } from "@partner/validations/profile-general-validations";
+import { TProfileGeneralFormSchema } from "@partner/schemas/profile-general.schema";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useFormContext } from "react-hook-form";

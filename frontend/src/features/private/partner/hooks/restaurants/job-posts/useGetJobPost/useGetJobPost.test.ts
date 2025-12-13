@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import TestQueryWrapper from "@tests/TestQueryWrapper";
-import { jobPost } from "@tests/mocks/data/private/partner/job-posts";
+import { jobPostResponse } from "@tests/mocks/data/private/partner/job-posts";
 import { simulateError } from "@tests/utils/msw";
 
 import { useGetJobPost } from "./useGetJobPost";
@@ -21,7 +21,7 @@ describe("useGetJobPost", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPost);
+    expect(result.current.data).toEqual(jobPostResponse);
   });
 
   it("should fail to fetch data", async () => {

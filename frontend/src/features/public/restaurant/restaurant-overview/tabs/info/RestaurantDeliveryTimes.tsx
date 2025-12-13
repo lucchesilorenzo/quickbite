@@ -6,7 +6,7 @@ import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { capitalize } from "@/lib/utils/formatting";
 
 export default function RestaurantDeliveryTimes() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -25,7 +25,7 @@ export default function RestaurantDeliveryTimes() {
       </Stack>
 
       <Card variant="outlined" sx={{ bgcolor: grey[100], p: 2 }}>
-        {restaurant.delivery_days.map((d) => (
+        {restaurantData.restaurant.delivery_days.map((d) => (
           <Stack
             key={d.id}
             direction="row"

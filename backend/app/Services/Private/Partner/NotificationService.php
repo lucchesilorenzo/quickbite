@@ -20,7 +20,6 @@ class NotificationService
             'unread_count' => $partner->unreadNotifications()
                 ->whereRaw("data::jsonb->'meta'->>'restaurant_id' = ?", [$restaurant->id])
                 ->count(),
-
         ];
     }
 

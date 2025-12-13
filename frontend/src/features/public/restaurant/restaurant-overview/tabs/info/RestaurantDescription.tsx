@@ -5,7 +5,7 @@ import { grey } from "@mui/material/colors";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 export default function RestaurantDescription() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -25,7 +25,7 @@ export default function RestaurantDescription() {
 
       <Card variant="outlined" sx={{ bgcolor: grey[100] }}>
         <Typography variant={isMobile ? "body2" : "body1"} sx={{ p: 2 }}>
-          {restaurant.description}
+          {restaurantData.restaurant.description}
         </Typography>
       </Card>
     </Box>

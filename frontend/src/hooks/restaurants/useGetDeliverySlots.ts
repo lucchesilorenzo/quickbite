@@ -1,13 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { DeliverySlots } from "@/types/delivery-types";
+import { GetDeliverySlotsResponse } from "@/types/deliveries/delivery.api.types";
 
-export function useGetDeliverySlots(restaurantId: string, enabled: boolean) {
-  return useQuery({
+type UseGetDeliverySlotsOptions = {
+  restaurantId: string;
+};
+
+export function useGetDeliverySlots({
+  restaurantId,
+}: UseGetDeliverySlotsOptions) {
+  return useQuery<GetDeliverySlotsResponse>({
     queryKey: ["delivery-slots", restaurantId],
-    queryFn: (): Promise<DeliverySlots> =>
-      fetchData(`/restaurants/${restaurantId}/delivery-slots`),
-    enabled: !!restaurantId && enabled,
+    queryFn: () => fetchData(`/restaurants/${restaurantId}/delivery-slots`),
+    enabled: !!restaurantId,
   });
 }

@@ -1,14 +1,14 @@
+import { GetStatsResponse } from "@partner/types/stats/stats.api.types";
 import {
   Kpi,
   PaymentMethodFilter,
   StatRange,
-  StatsWithFilters,
-} from "@partner/types/stat-types";
+} from "@partner/types/stats/stats.types";
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
 
-type GetStats = {
+type UseGetStatsOptions = {
   restaurantId: string;
   kpi: Kpi;
   range: StatRange;
@@ -22,10 +22,10 @@ export function useGetStats({
   range,
   paymentMethod,
   year,
-}: GetStats) {
-  return useQuery({
+}: UseGetStatsOptions) {
+  return useQuery<GetStatsResponse>({
     queryKey: ["partner-stats", restaurantId, kpi, range, paymentMethod, year],
-    queryFn: (): Promise<StatsWithFilters> => {
+    queryFn: () => {
       const params = new URLSearchParams();
 
       if (kpi) params.set("kpi", kpi);

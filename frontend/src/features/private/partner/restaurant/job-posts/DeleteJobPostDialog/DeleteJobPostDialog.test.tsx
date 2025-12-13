@@ -1,14 +1,14 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
+import { restaurantResponse } from "@tests/mocks/data/private/partner/restaurants";
 import { customRender } from "@tests/utils/custom-render";
 import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
 import DeleteJobPostDialog from "./DeleteJobPostDialog";
 
 import env from "@/lib/env";
-import { baseOffsetPaginationDefaults } from "@/lib/query-defaults";
+import { notificationsDefaults } from "@/lib/query-defaults";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
   useRestaurant: vi.fn(),
@@ -21,11 +21,14 @@ describe("DeleteJobPostDialog", () => {
     const mockSetOpenDeleteJobPostDialog = vi.fn();
 
     vi.mocked(useRestaurant).mockReturnValue({
-      restaurant,
-      partnerNotifications: {
-        notifications: baseOffsetPaginationDefaults,
+      restaurantData: restaurantResponse,
+      notificationsData: {
+        success: false,
+        message: "",
+        notifications: notificationsDefaults,
         unread_count: 0,
       },
+      notificationsError: null,
       page: 1,
       setPage: vi.fn(),
     });
@@ -86,7 +89,7 @@ describe("DeleteJobPostDialog", () => {
 
   it("should render the loading indicator upon deletion", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/1`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
       "delete",
     );
     const { user, getConfirmButton } = renderComponent(true);
@@ -104,7 +107,7 @@ describe("DeleteJobPostDialog", () => {
 
   it("should not render the loading indicator if deletion fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts/1`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
       "delete",
     );
     const { getConfirmButton } = renderComponent(true);

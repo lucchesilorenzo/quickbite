@@ -22,7 +22,7 @@ import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
-import { MenuItem } from "@/types/menu-types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemRowProps = {
   menuItem: MenuItem;
@@ -30,7 +30,7 @@ type MenuItemRowProps = {
 };
 
 export default function MenuItemRow({ menuItem, isLast }: MenuItemRowProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { inCart } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
@@ -138,7 +138,8 @@ export default function MenuItemRow({ menuItem, isLast }: MenuItemRowProps) {
                 <Box sx={{ height: 100, width: 150 }}></Box>
               )}
 
-              {menuItem.is_available && inCart(restaurant.id, menuItem.id) ? (
+              {menuItem.is_available &&
+              inCart(restaurantData.restaurant.id, menuItem.id) ? (
                 <MenuItemQuantityInCartBadge
                   type="from-list"
                   menuItem={menuItem}

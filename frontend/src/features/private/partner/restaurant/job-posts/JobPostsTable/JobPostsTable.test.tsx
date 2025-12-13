@@ -1,8 +1,8 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { jobPosts } from "@tests/mocks/data/private/partner/job-posts";
-import { restaurant } from "@tests/mocks/data/private/partner/restaurants";
+import { jobPostsResponse } from "@tests/mocks/data/private/partner/job-posts";
+import { restaurantResponse } from "@tests/mocks/data/private/partner/restaurants";
 import { server } from "@tests/mocks/server";
 import { customRender } from "@tests/utils/custom-render";
 import { simulateError } from "@tests/utils/msw";
@@ -12,7 +12,7 @@ import { HttpResponse, http } from "msw";
 import JobPostsTable from "./JobPostsTable";
 
 import env from "@/lib/env";
-import { baseOffsetPaginationDefaults } from "@/lib/query-defaults";
+import { notificationsDefaults } from "@/lib/query-defaults";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
   useRestaurant: vi.fn(),
@@ -49,11 +49,14 @@ describe("JobPostsTable", () => {
     const mockShow = vi.fn();
 
     vi.mocked(useRestaurant).mockReturnValue({
-      restaurant,
-      partnerNotifications: {
-        notifications: baseOffsetPaginationDefaults,
+      restaurantData: restaurantResponse,
+      notificationsData: {
+        success: false,
+        message: "",
+        notifications: notificationsDefaults,
         unread_count: 0,
       },
+      notificationsError: null,
       page: 1,
       setPage: vi.fn(),
     });
@@ -104,8 +107,8 @@ describe("JobPostsTable", () => {
   it("should open the EditJobPostDialog when clicking the edit button", async () => {
     server.use(
       http.get(
-        `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
-        async () => HttpResponse.json(jobPosts),
+        `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+        async () => HttpResponse.json(jobPostsResponse),
       ),
     );
     const { user, getEditJobPostButtons } = renderComponent();
@@ -123,8 +126,8 @@ describe("JobPostsTable", () => {
   it("should open the DeleteJobPostDialog when clicking the delete button", async () => {
     server.use(
       http.get(
-        `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
-        async () => HttpResponse.json(jobPosts),
+        `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+        async () => HttpResponse.json(jobPostsResponse),
       ),
     );
     const { user, getDeleteJobPostButtons } = renderComponent();
@@ -142,8 +145,8 @@ describe("JobPostsTable", () => {
   it("should show 'Delete job posts' button when selecting multiple rows", async () => {
     server.use(
       http.get(
-        `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
-        () => HttpResponse.json(jobPosts),
+        `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+        () => HttpResponse.json(jobPostsResponse),
       ),
     );
     const { user, getDeleteJobPostsButton } = renderComponent();
@@ -159,8 +162,8 @@ describe("JobPostsTable", () => {
   it("should open the DeleteJobPostsDialog when clicking the 'Delete job posts' button", async () => {
     server.use(
       http.get(
-        `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
-        () => HttpResponse.json(jobPosts),
+        `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+        () => HttpResponse.json(jobPostsResponse),
       ),
     );
     const { user, getDeleteJobPostsButton } = renderComponent();
@@ -176,7 +179,7 @@ describe("JobPostsTable", () => {
 
   it("should render a toast when there are no job posts", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurant.id}/job-posts`,
+      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
     );
     const { mockShow } = renderComponent();
 

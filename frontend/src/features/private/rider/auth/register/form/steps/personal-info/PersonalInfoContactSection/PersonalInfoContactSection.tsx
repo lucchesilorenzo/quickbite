@@ -1,5 +1,5 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
+import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useFormContext } from "react-hook-form";
 

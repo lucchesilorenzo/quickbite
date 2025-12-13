@@ -1,7 +1,7 @@
 import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useStats } from "@partner/contexts/StatsProvider";
 import { statRanges } from "@partner/lib/constants/stats";
-import { StatRange } from "@partner/types/stat-types";
+import { StatRange } from "@partner/types/stats/stats.types";
 import { useSearchParams } from "react-router-dom";
 
 export default function StatsRangeSelect() {

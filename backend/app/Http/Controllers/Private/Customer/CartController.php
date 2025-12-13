@@ -10,10 +10,12 @@ use App\Http\Requests\Private\Customer\Cart\CreateOrUpdateCartsRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Services\Private\Customer\CartService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Customer Carts')]
 class CartController extends Controller
 {
     public function __construct(
@@ -21,7 +23,7 @@ class CartController extends Controller
     ) {}
 
     /**
-     * Get customer's carts.
+     * Get all carts.
      */
     public function getCarts(): JsonResponse
     {
@@ -30,18 +32,21 @@ class CartController extends Controller
                 auth()->user()
             );
 
-            return CartResource::collection($carts)
-                ->response()
-                ->setStatusCode(200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Carts retrieved successfully.',
+                'carts' => CartResource::collection($carts),
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get carts.',
             ], 500);
         }
     }
 
     /**
-     * Get customer's cart.
+     * Get a cart.
      */
     public function getCart(Cart $cart): JsonResponse
     {
@@ -50,18 +55,21 @@ class CartController extends Controller
         try {
             $cart = $this->cartService->getCart($cart);
 
-            return new CartResource($cart)
-                ->response()
-                ->setStatusCode(200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Cart retrieved successfully.',
+                'cart' => new CartResource($cart),
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get cart.',
             ], 500);
         }
     }
 
     /**
-     * Create or update multiple carts for customer.
+     * Create or update multiple carts.
      */
     public function createOrUpdateCarts(
         CreateOrUpdateCartsRequest $request
@@ -83,21 +91,21 @@ class CartController extends Controller
 
             $carts = $this->cartService->createOrUpdateCarts($user, $data);
 
-            return CartResource::collection($carts)
-                ->additional([
-                    'message' => 'Carts merged successfully.',
-                ])
-                ->response()
-                ->setStatusCode(200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Carts merged successfully.',
+                'carts' => CartResource::collection($carts),
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not merge carts.',
             ], 500);
         }
     }
 
     /**
-     * Update a customer's cart.
+     * Update a cart.
      */
     public function createOrUpdateCart(
         CreateOrUpdateCartRequest $request
@@ -119,27 +127,28 @@ class CartController extends Controller
 
             if (! $cart instanceof Cart) {
                 return response()->json([
+                    'success' => true,
                     'message' => 'Cart has been successfully deleted as it contained no items.',
                 ], 200);
             }
 
             $status = $existingCart ? 200 : 201;
 
-            return new CartResource($cart)
-                ->additional([
-                    'message' => $existingCart ? 'Cart updated successfully.' : 'Cart created successfully.',
-                ])
-                ->response()
-                ->setStatusCode($status);
+            return response()->json([
+                'success' => true,
+                'message' => $existingCart ? 'Cart updated successfully.' : 'Cart created successfully.',
+                'cart' => new CartResource($cart),
+            ], $status);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create or update cart.',
             ], 500);
         }
     }
 
     /**
-     * Delete a customer's cart.
+     * Delete a cart.
      */
     public function deleteCart(Cart $cart): JsonResponse
     {
@@ -149,10 +158,12 @@ class CartController extends Controller
             $this->cartService->deleteCart($cart);
 
             return response()->json([
+                'success' => true,
                 'message' => 'Cart deleted successfully.',
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete cart.',
             ], 500);
         }

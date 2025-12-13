@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Box, Container, Fade, IconButton } from "@mui/material";
+import { Alert, Box, Container, Fade, IconButton, Stack } from "@mui/material";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 
@@ -13,8 +13,12 @@ import CuisineFilterSlide from "./CategoryFilterSlide";
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
 
 export default function CategoryFilters() {
-  const { visibleCategories, allCategories, isLoadingCategories } =
-    useCategoryFilters();
+  const {
+    visibleCategories,
+    allCategories,
+    isLoadingCategories,
+    categoriesError,
+  } = useCategoryFilters();
 
   const swiperRef = useRef<SwiperClass>(null);
 
@@ -60,13 +64,20 @@ export default function CategoryFilters() {
             1200: { slidesPerView: 8 },
           }}
         >
-          {isLoadingCategories ? (
+          {isLoadingCategories &&
             Array.from({ length: 8 }).map((_, i) => (
               <SwiperSlide key={i}>
                 <CategoryFilterSkeleton />
               </SwiperSlide>
-            ))
-          ) : (
+            ))}
+
+          {categoriesError && (
+            <Stack sx={{ justifyContent: "center", alignItems: "center" }}>
+              <Alert severity="error">{categoriesError.message}</Alert>
+            </Stack>
+          )}
+
+          {!isLoadingCategories && !categoriesError && (
             <>
               {visibleCategories.map((category) => (
                 <SwiperSlide key={category.id}>

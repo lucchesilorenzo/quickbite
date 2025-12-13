@@ -18,7 +18,7 @@ import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
-import { CartItem } from "@/types/cart-types";
+import { CartItem } from "@/types/cart.types";
 
 type RestaurantCartItemProps = {
   item: CartItem;
@@ -29,7 +29,7 @@ export default function RestaurantCartItem({
   item,
   index,
 }: RestaurantCartItemProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const {
     isCartUpdating,
     totalUniqueItems,
@@ -40,8 +40,9 @@ export default function RestaurantCartItem({
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
 
-  const totalUniqueCartItems = totalUniqueItems(restaurant.id);
-  const itemTotal = getItem(restaurant.id, item.id)?.item_total ?? 0;
+  const totalUniqueCartItems = totalUniqueItems(restaurantData.restaurant.id);
+  const itemTotal =
+    getItem(restaurantData.restaurant.id, item.id)?.item_total ?? 0;
 
   return (
     <Box>
@@ -82,7 +83,9 @@ export default function RestaurantCartItem({
           <IconButton
             color="inherit"
             aria-label="remove"
-            onClick={() => decrementItemQuantity(restaurant.id, item.id)}
+            onClick={() =>
+              decrementItemQuantity(restaurantData.restaurant.id, item.id)
+            }
             disabled={isCartUpdating}
           >
             {item.quantity === 1 ? (
@@ -99,7 +102,9 @@ export default function RestaurantCartItem({
           <IconButton
             color="inherit"
             aria-label="add"
-            onClick={() => incrementItemQuantity(restaurant.id, item.id)}
+            onClick={() =>
+              incrementItemQuantity(restaurantData.restaurant.id, item.id)
+            }
             disabled={isCartUpdating}
           >
             <AddIcon fontSize="small" />

@@ -9,17 +9,17 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateOffer } from "@partner/hooks/restaurants/offers/useUpdateOffer";
 import { discountRates } from "@partner/lib/constants/offers";
 import {
   TRestaurantSettingsOffersFormSchema,
   restaurantSettingsOffersFormSchema,
-} from "@partner/validations/restaurant-settings-validations";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+} from "@partner/schemas/restaurant-settings.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
-import { Offer } from "@/types/offer-types";
+import { Offer } from "@/types/offers/offer.types";
 
 type EditOfferFormProps = {
   offer: Offer;
@@ -30,9 +30,13 @@ export default function EditOfferForm({
   offer,
   setOpenEditOfferDialog,
 }: EditOfferFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateOffer } = useUpdateOffer(restaurant.id, offer.id);
+  const { mutate: updateOffer, isPending: isUpdating } = useUpdateOffer({
+    restaurantId: restaurantData.restaurant.id,
+    offerId: offer.id,
+    setOpenEditOfferDialog,
+  });
 
   const {
     handleSubmit,
@@ -40,7 +44,7 @@ export default function EditOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      restaurantSettingsOffersFormSchema(restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurantData.restaurant.min_amount),
     ),
     defaultValues: {
       discount_rate: offer.discount_rate,
@@ -48,9 +52,8 @@ export default function EditOfferForm({
     },
   });
 
-  async function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    await updateOffer(data);
-    setOpenEditOfferDialog(false);
+  function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
+    updateOffer(data);
   }
 
   return (
@@ -112,7 +115,7 @@ export default function EditOfferForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isUpdating}
         loadingIndicator="Editing..."
         variant="contained"
       >

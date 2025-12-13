@@ -16,7 +16,7 @@ import EditLocationDialog from "@/components/common/EditLocationDialog";
 import { useAddress } from "@/contexts/AddressProvider";
 import env from "@/lib/env";
 import { generateSlug } from "@/lib/utils/formatting";
-import { Address } from "@/types/address-types";
+import { Address } from "@/types/address.types";
 
 export default function LocationSearch() {
   const { setCurrentAddress } = useAddress();

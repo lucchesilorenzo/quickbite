@@ -1,5 +1,5 @@
-import { PartnerOrder } from "@partner/types/order-types";
-import { Order } from "@private/types/order-types";
+import { PartnerOrder } from "@partner/types/orders/order.types";
+import { Order } from "@private/shared/types/order.types";
 import {
   Document,
   Image,

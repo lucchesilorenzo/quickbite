@@ -2,7 +2,7 @@ import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import {
   TOrderNotesFormSchema,
   orderNotesFormSchema,
-} from "@customer/validations/checkout-validations";
+} from "@customer/schemas/checkout.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";

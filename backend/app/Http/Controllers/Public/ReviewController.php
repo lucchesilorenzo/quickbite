@@ -7,9 +7,11 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use App\Services\Public\ReviewService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Public Reviews')]
 class ReviewController extends Controller
 {
     public function __construct(
@@ -17,16 +19,23 @@ class ReviewController extends Controller
     ) {}
 
     /**
-     * Get restaurant's reviews.
+     * Get all reviews.
      */
     public function getReviews(Restaurant $restaurant): JsonResponse
     {
         try {
-            $reviews = $this->reviewService->getReviews($restaurant);
+            $reviewsData = $this->reviewService->getReviews($restaurant);
 
-            return response()->json($reviews, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Reviews retrieved successfully.',
+                'reviews' => $reviewsData['reviews'],
+                'avg_rating' => $reviewsData['avg_rating'],
+                'count' => $reviewsData['count'],
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get reviews.',
             ], 500);
         }

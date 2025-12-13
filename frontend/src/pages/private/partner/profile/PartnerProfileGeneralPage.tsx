@@ -9,7 +9,7 @@ import GeneralPersonalInfoCard from "@partner/profile/general/GeneralPersonalInf
 import {
   TProfileGeneralFormSchema,
   profileGeneralFormSchema,
-} from "@partner/validations/profile-general-validations";
+} from "@partner/schemas/profile-general.schema";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { useAuth } from "@/contexts/AuthProvider";
@@ -20,10 +20,8 @@ export default function PartnerProfileGeneralPage() {
   }, []);
 
   const { user } = useAuth();
-  const {
-    mutateAsync: updateProfileGeneralInformation,
-    isPending: isUpdating,
-  } = useUpdateProfileGeneralInformation();
+  const { mutate: updateProfileGeneralInformation, isPending: isUpdating } =
+    useUpdateProfileGeneralInformation();
 
   const methods = useForm({
     resolver: zodResolver(profileGeneralFormSchema),
@@ -45,8 +43,8 @@ export default function PartnerProfileGeneralPage() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: TProfileGeneralFormSchema) {
-    await updateProfileGeneralInformation(data);
+  function onSubmit(data: TProfileGeneralFormSchema) {
+    updateProfileGeneralInformation(data);
   }
 
   return (

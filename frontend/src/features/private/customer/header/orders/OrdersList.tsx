@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Order } from "@private/types/order-types";
+import { Order } from "@private/shared/types/order.types";
 
 import OrderItem from "./OrderItem";
 

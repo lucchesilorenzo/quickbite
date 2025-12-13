@@ -13,16 +13,21 @@ use App\Http\Requests\Private\Partner\JobPost\UpdateJobPostRequest;
 use App\Models\JobPost;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\JobPostService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Job Posts')]
 class JobPostController extends Controller
 {
     public function __construct(
         private readonly JobPostService $jobPostService
     ) {}
 
+    /**
+     * Get all job posts.
+     */
     public function getJobPosts(
         GetJobPostsRequest $request,
         Restaurant $restaurant
@@ -35,14 +40,22 @@ class JobPostController extends Controller
                 $restaurant
             );
 
-            return response()->json($jobPosts, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Job posts retrieved successfully.',
+                'job_posts' => $jobPosts,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get job posts.',
             ], 500);
         }
     }
 
+    /**
+     * Get a job post.
+     */
     public function getJobPost(Restaurant $restaurant, JobPost $jobPost): JsonResponse
     {
         Gate::authorize('view', $jobPost);
@@ -50,14 +63,22 @@ class JobPostController extends Controller
         try {
             $jobPost = $this->jobPostService->getJobPost($jobPost);
 
-            return response()->json($jobPost, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Job post retrieved successfully.',
+                'job_post' => $jobPost,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get job post.',
             ], 500);
         }
     }
 
+    /**
+     * Create a job post.
+     */
     public function createJobPost(
         CreateJobPostRequest $request,
         Restaurant $restaurant
@@ -71,16 +92,21 @@ class JobPostController extends Controller
             );
 
             return response()->json([
-                'job_post' => $jobPost,
+                'success' => true,
                 'message' => 'Job post created successfully.',
+                'job_post' => $jobPost,
             ], 201);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create job post.',
             ], 500);
         }
     }
 
+    /**
+     * Update a job post.
+     */
     public function updateJobPost(
         UpdateJobPostRequest $request,
         Restaurant $restaurant,
@@ -95,16 +121,21 @@ class JobPostController extends Controller
             );
 
             return response()->json([
-                'job_post' => $jobPost,
+                'success' => true,
                 'message' => 'Job post updated successfully.',
+                'job_post' => $jobPost,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update job post.',
             ], 500);
         }
     }
 
+    /**
+     * Delete a job post.
+     */
     public function deleteJobPost(Restaurant $restaurant, JobPost $jobPost): JsonResponse
     {
         Gate::authorize('delete', $jobPost);
@@ -113,19 +144,25 @@ class JobPostController extends Controller
             $this->jobPostService->deleteJobPost($jobPost);
 
             return response()->json([
+                'success' => true,
                 'message' => 'Job post deleted successfully.',
             ], 200);
         } catch (JobPostHasApplicationsException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete job post.',
             ], 500);
         }
     }
 
+    /**
+     * Delete job posts.
+     */
     public function deleteJobPosts(
         DeleteJobPostsRequest $request,
         Restaurant $restaurant
@@ -138,14 +175,17 @@ class JobPostController extends Controller
             );
 
             return response()->json([
+                'success' => true,
                 'message' => 'Job posts deleted successfully.',
             ], 200);
         } catch (JobPostHasApplicationsException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete job posts.',
             ], 500);
         }

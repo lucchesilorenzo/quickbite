@@ -44,19 +44,23 @@ export default function JobPostsTable() {
 
   const notifications = useNotifications();
 
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const {
-    data: jobPosts = jobPostsDefaults,
+    data: jobPostsData = {
+      success: false,
+      message: "",
+      job_posts: jobPostsDefaults,
+    },
     isLoading: isLoadingJobPosts,
     error: jobPostsError,
-  } = useGetJobPosts(
-    restaurant.id,
-    paginationModel.page + 1,
-    paginationModel.pageSize,
-    sortModel,
-    filterModel,
-  );
+  } = useGetJobPosts({
+    restaurantId: restaurantData.restaurant.id,
+    page: paginationModel.page + 1,
+    pageSize: paginationModel.pageSize,
+    sortBy: sortModel,
+    filters: filterModel,
+  });
 
   const columns: GridColDef[] = [
     {
@@ -124,7 +128,7 @@ export default function JobPostsTable() {
     },
   ];
 
-  const rows: GridRowsProp = jobPosts.data.map((jobPost) => ({
+  const rows: GridRowsProp = jobPostsData.job_posts.data.map((jobPost) => ({
     id: jobPost.id,
     title: jobPost.title,
     status: jobPost.status,
@@ -176,7 +180,7 @@ export default function JobPostsTable() {
           paginationMode="server"
           sortingMode="server"
           filterMode="server"
-          rowCount={jobPosts.total}
+          rowCount={jobPostsData.job_posts.total}
           paginationModel={paginationModel}
           sortModel={sortModel}
           filterModel={filterModel}

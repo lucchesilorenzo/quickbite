@@ -4,45 +4,46 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Container } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateInfo } from "@partner/hooks/restaurants/settings/useUpdateInfo";
+import InfoProvider from "@partner/restaurant/settings/contexts/InfoProvider";
 import InfoContainer from "@partner/restaurant/settings/info/InfoContainer";
 import {
   TRestaurantSettingsInfoFormSchema,
   restaurantSettingsInfoFormSchema,
-} from "@partner/validations/restaurant-settings-validations";
+} from "@partner/schemas/restaurant-settings.schema";
 import { FormProvider, useForm } from "react-hook-form";
-
-import InfoProvider from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
 
 export default function PartnerSettingsInfoPage() {
   useEffect(() => {
     document.title = "Restaurant info | QuickBite";
   }, []);
 
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateInfo } = useUpdateInfo(restaurant.id);
+  const { mutate: updateInfo, isPending: isUpdating } = useUpdateInfo({
+    restaurantId: restaurantData.restaurant.id,
+  });
 
   const methods = useForm({
     resolver: zodResolver(restaurantSettingsInfoFormSchema),
     defaultValues: {
-      name: restaurant.name || "",
-      description: restaurant.description || "",
-      street_address: restaurant.street_address || "",
-      building_number: restaurant.building_number || "",
-      postcode: restaurant.postcode || "",
-      city: restaurant.city || "",
-      state: restaurant.state || "",
-      email: restaurant.email || "",
-      phone_number: restaurant.phone_number || "",
-      categories: restaurant.categories.map((c) => c.id),
-      logo: restaurant.logo,
-      cover: restaurant.cover,
+      name: restaurantData.restaurant.name || "",
+      description: restaurantData.restaurant.description || "",
+      street_address: restaurantData.restaurant.street_address || "",
+      building_number: restaurantData.restaurant.building_number || "",
+      postcode: restaurantData.restaurant.postcode || "",
+      city: restaurantData.restaurant.city || "",
+      state: restaurantData.restaurant.state || "",
+      email: restaurantData.restaurant.email || "",
+      phone_number: restaurantData.restaurant.phone_number || "",
+      categories: restaurantData.restaurant.categories.map((c) => c.id),
+      logo: restaurantData.restaurant.logo,
+      cover: restaurantData.restaurant.cover,
     },
   });
 
   const { handleSubmit } = methods;
 
-  async function onSubmit(data: TRestaurantSettingsInfoFormSchema) {
+  function onSubmit(data: TRestaurantSettingsInfoFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);
@@ -68,7 +69,7 @@ export default function PartnerSettingsInfoPage() {
       formData.append("cover", data.cover);
     }
 
-    await updateInfo(formData);
+    updateInfo(formData);
   }
 
   return (
@@ -81,7 +82,7 @@ export default function PartnerSettingsInfoPage() {
             autoComplete="off"
             noValidate
           >
-            <InfoContainer />
+            <InfoContainer isUpdating={isUpdating} />
           </Box>
         </Container>
       </InfoProvider>

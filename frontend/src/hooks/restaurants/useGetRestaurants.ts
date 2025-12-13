@@ -1,9 +1,9 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
-import { RestaurantWithPagination } from "@/types/restaurant-types";
+import { GetRestaurantsResponse } from "@/types/restaurants/restaurant.api.types";
 
-type GetRestaurants = {
+type UseGetRestaurantsOptions = {
   lat?: string;
   lon?: string;
   filters: string[];
@@ -19,8 +19,8 @@ export function useGetRestaurants({
   sortBy,
   mov,
   search,
-}: GetRestaurants) {
-  return useInfiniteQuery<RestaurantWithPagination>({
+}: UseGetRestaurantsOptions) {
+  return useInfiniteQuery<GetRestaurantsResponse>({
     queryKey: ["restaurants", lat, lon, filters, sortBy, mov, search],
     queryFn: ({ pageParam }) => {
       const params = new URLSearchParams();

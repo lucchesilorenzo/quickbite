@@ -6,9 +6,11 @@ namespace App\Http\Controllers\Private;
 
 use App\Http\Controllers\Controller;
 use App\Services\Private\AuthService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
+#[Group('Private Auth')]
 class AuthController extends Controller
 {
     public function __construct(
@@ -25,9 +27,14 @@ class AuthController extends Controller
                 auth()->user()
             );
 
-            return response()->json($user, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'User retrieved successfully.',
+                'user' => $user,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get user.',
             ], 500);
         }

@@ -4,13 +4,20 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import RestaurantInfo from "../RestaurantInfo";
 import MenuCategoryItem from "./MenuCategoryItem";
 
+import ErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 import { useMenu } from "@/contexts/MenuProvider";
 
 export default function MenuCategoriesList() {
-  const { menuData, isLoadingMenu } = useMenu();
+  const { menuData, isLoadingMenu, menuError } = useMenu();
 
-  if (isLoadingMenu) return <Spinner />;
+  if (isLoadingMenu) {
+    return <Spinner />;
+  }
+
+  if (menuError) {
+    return <ErrorMessage message={menuError.message} />;
+  }
 
   return (
     <>
@@ -19,7 +26,7 @@ export default function MenuCategoriesList() {
         sx={{ display: { xs: "none", lg: "block" }, my: 4 }}
       >
         <Container maxWidth="md">
-          {menuData.map((menuCategory) => (
+          {menuData.menu.map((menuCategory) => (
             <MenuCategoryItem
               key={menuCategory.id}
               menuCategory={menuCategory}
@@ -41,7 +48,7 @@ export default function MenuCategoriesList() {
         component="section"
         sx={{ display: { xs: "block", lg: "none" }, mt: 4 }}
       >
-        {menuData.map((menuCategory) => (
+        {menuData.menu.map((menuCategory) => (
           <MenuCategoryItem key={menuCategory.id} menuCategory={menuCategory} />
         ))}
 

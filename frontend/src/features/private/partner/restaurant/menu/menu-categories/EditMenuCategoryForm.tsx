@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuCategory } from "@partner/hooks/restaurants/menu/categories/useUpdateMenuCategory";
-import { PartnerMenu } from "@partner/types/menu-types";
 import {
   TEditMenuCategoryFormSchema,
   editMenuCategoryFormSchema,
-} from "@partner/validations/menu-validations";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+} from "@partner/schemas/menu.schema";
+import { PartnerMenu } from "@partner/types/menu/menu.types";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
@@ -20,12 +20,14 @@ export default function EditMenuCategoryForm({
   menuCategory,
   setOpenEditMenuCategoryDialog,
 }: EditMenuCategoryFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateMenuCategory } = useUpdateMenuCategory(
-    restaurant.id,
-    menuCategory.id,
-  );
+  const { mutate: updateMenuCategory, isPending: isUpdating } =
+    useUpdateMenuCategory({
+      restaurantId: restaurantData.restaurant.id,
+      menuCategoryId: menuCategory.id,
+      setOpenEditMenuCategoryDialog,
+    });
 
   const {
     handleSubmit,
@@ -39,9 +41,8 @@ export default function EditMenuCategoryForm({
     },
   });
 
-  async function onSubmit(data: TEditMenuCategoryFormSchema) {
-    await updateMenuCategory(data);
-    setOpenEditMenuCategoryDialog(false);
+  function onSubmit(data: TEditMenuCategoryFormSchema) {
+    updateMenuCategory(data);
   }
 
   return (
@@ -97,7 +98,7 @@ export default function EditMenuCategoryForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isUpdating}
         loadingIndicator="Saving..."
         variant="contained"
       >

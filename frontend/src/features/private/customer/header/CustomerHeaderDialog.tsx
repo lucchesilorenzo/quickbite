@@ -31,7 +31,7 @@ export default function CustomerHeaderDialog() {
   const { user } = useAuth();
   const { emptyCarts } = useMultiCart();
 
-  const { mutateAsync: logoutCustomer } = useLogout();
+  const { mutateAsync: logoutCustomer, isPending: isLoggingOut } = useLogout();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -140,7 +140,10 @@ export default function CustomerHeaderDialog() {
             <Divider />
 
             <ListItem disablePadding>
-              <ListItemButton onClick={handleLogoutCustomer}>
+              <ListItemButton
+                onClick={handleLogoutCustomer}
+                disabled={isLoggingOut}
+              >
                 <ListItemIcon sx={{ color: grey[900] }}>
                   <PowerSettingsNewIcon />
                 </ListItemIcon>

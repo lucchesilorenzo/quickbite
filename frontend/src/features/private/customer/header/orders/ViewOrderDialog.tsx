@@ -8,7 +8,7 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { Order } from "@private/types/order-types";
+import { Order } from "@private/shared/types/order.types";
 
 import ViewOrderFeesAndDiscounts from "@/components/view-order-dialog/ViewOrderFeesAndDiscounts";
 import ViewOrderItemsList from "@/components/view-order-dialog/ViewOrderItemsList";

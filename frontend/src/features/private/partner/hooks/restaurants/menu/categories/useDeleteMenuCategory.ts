@@ -2,15 +2,21 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { deleteData } from "@/lib/api-client";
+import { ApiResponse } from "@/types/api.types";
 
-export function useDeleteMenuCategory(
-  restaurantId: string,
-  menuCategoryId: string,
-) {
+type UseDeleteMenuCategoryOptions = {
+  restaurantId: string;
+  menuCategoryId: string;
+};
+
+export function useDeleteMenuCategory({
+  restaurantId,
+  menuCategoryId,
+}: UseDeleteMenuCategoryOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
+  return useMutation<ApiResponse>({
     mutationFn: () =>
       deleteData(`/partner/restaurants/menu/categories/${menuCategoryId}`),
     onSuccess: (response) => {

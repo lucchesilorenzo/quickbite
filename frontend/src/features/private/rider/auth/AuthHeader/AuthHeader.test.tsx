@@ -1,4 +1,4 @@
-import AuthHeader from "@private/rider/auth/AuthHeader";
+import AuthHeader from "@rider/auth/AuthHeader";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { customRender } from "@tests/utils/custom-render";

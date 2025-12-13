@@ -1,4 +1,4 @@
-import { CategoryWithPivot } from "@/types/category-types";
+import { CategoryWithPivot } from "@/types/categories/category.types";
 
 export const category: CategoryWithPivot = {
   id: "0199e1dc-793e-7228-a014-9d989b34081a",

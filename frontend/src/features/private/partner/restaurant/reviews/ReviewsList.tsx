@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Alert, Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useReviews } from "@partner/contexts/ReviewsProvider";
 
 import ReviewItem from "./ReviewItem";
@@ -6,7 +6,20 @@ import ReviewItem from "./ReviewItem";
 import CustomPagination from "@/components/common/CustomPagination";
 
 export default function ReviewsList() {
-  const { reviewsData, page, setPage } = useReviews();
+  const { page, reviewsData, isLoadingReviews, reviewsError, setPage } =
+    useReviews();
+
+  if (isLoadingReviews) {
+    return (
+      <Stack sx={{ alignItems: "center" }}>
+        <CircularProgress color="primary" size={30} />
+      </Stack>
+    );
+  }
+
+  if (reviewsError) {
+    return <Alert severity="error">{reviewsError.message}</Alert>;
+  }
 
   if (!reviewsData.count) {
     return (

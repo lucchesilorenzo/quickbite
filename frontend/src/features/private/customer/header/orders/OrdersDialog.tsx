@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useGetOrders } from "@customer/hooks/orders/useGetOrders";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {
+  Alert,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -10,7 +11,7 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { ordersDefaults } from "@private/lib/query-defaults";
+import { ordersDefaults } from "@private/shared/lib/query-defaults";
 import { useSearchParams } from "react-router-dom";
 
 import EmptyOrders from "./EmptyOrders";
@@ -27,9 +28,10 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
   const [page, setPage] = useState(1);
 
   const {
-    data: ordersWithPagination = ordersDefaults,
+    data: ordersData = { success: false, message: "", orders: ordersDefaults },
     isLoading: isLoadingOrders,
-  } = useGetOrders(page);
+    error: ordersError,
+  } = useGetOrders({ page });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
@@ -75,18 +77,26 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
       </Stack>
 
       <DialogContent sx={{ p: 0 }}>
-        {isLoadingOrders ? (
-          <Spinner />
-        ) : !ordersWithPagination.data.length ? (
-          <EmptyOrders />
-        ) : (
-          <OrdersList
-            orders={ordersWithPagination.data}
-            totalPages={ordersWithPagination.last_page}
-            page={page}
-            setPage={setPage}
-          />
+        {isLoadingOrders && <Spinner />}
+
+        {!isLoadingOrders && ordersError && (
+          <Alert severity="error">{ordersError.message}</Alert>
         )}
+
+        {!isLoadingOrders &&
+          !ordersError &&
+          ordersData.orders.data.length === 0 && <EmptyOrders />}
+
+        {!isLoadingOrders &&
+          !ordersError &&
+          ordersData.orders.data.length > 0 && (
+            <OrdersList
+              orders={ordersData.orders.data}
+              totalPages={ordersData.orders.last_page}
+              page={page}
+              setPage={setPage}
+            />
+          )}
       </DialogContent>
     </Dialog>
   );

@@ -18,14 +18,14 @@ import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
-import { MenuItem } from "@/types/menu-types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemCardProps = {
   menuItem: MenuItem;
 };
 
 export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { inCart } = useMultiCart();
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
@@ -67,7 +67,8 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
           </Box>
 
           <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
-            {menuItem.is_available && inCart(restaurant.id, menuItem.id) ? (
+            {menuItem.is_available &&
+            inCart(restaurantData.restaurant.id, menuItem.id) ? (
               <MenuItemQuantityInCartBadge
                 type="from-search"
                 menuItem={menuItem}

@@ -1,5 +1,5 @@
 import { Divider, Stack, Typography } from "@mui/material";
-import { TProfileNotificationsFormSchema } from "@partner/validations/profile-notifications-validations";
+import { TProfileNotificationsFormSchema } from "@partner/schemas/profile-notifications.schema";
 import { Controller, useFormContext } from "react-hook-form";
 import { Fragment } from "react/jsx-runtime";
 

@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { useDeleteCart } from "@customer/hooks/carts/useDeleteCart";
 import { useCreateOrder } from "@customer/hooks/orders/useCreateOrder";
-import { CreateOrder } from "@customer/types/order-types";
+import { CreateOrder } from "@customer/types/orders/order.types";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import {
+  Alert,
   Box,
   Button,
   Divider,
@@ -23,10 +24,15 @@ import { formatCurrency } from "@/lib/utils/formatting";
 import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
 
 export default function CheckoutOrderFooter() {
-  const { cart, checkoutData, restaurantId, offersData } = useCheckout();
+  const { cartData, checkoutData, restaurantId, offersData, offersError } =
+    useCheckout();
 
-  const { mutateAsync: createOrder } = useCreateOrder(restaurantId);
-  const { mutateAsync: deleteCart } = useDeleteCart(cart.id);
+  const { mutateAsync: createOrder, isPending: isCreating } = useCreateOrder({
+    restaurantId,
+  });
+  const { mutateAsync: deleteCart, isPending: isDeleting } = useDeleteCart({
+    cartId: cartData.cart.id,
+  });
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
@@ -35,19 +41,23 @@ export default function CheckoutOrderFooter() {
   const navigate = useNavigate();
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offersData.data,
-    cart.cart_total,
+    offersData.offers.data,
+    cartData.cart.cart_total,
   );
 
-  const isDeliveryFeeFree = cart.restaurant.delivery_fee === 0;
+  const isDeliveryFeeFree = cartData.cart.restaurant.delivery_fee === 0;
 
-  const discount = cart.cart_total * (bestOffer?.discount_rate || 0);
+  const discount = cartData.cart.cart_total * (bestOffer?.discount_rate || 0);
 
   const total =
-    cart.cart_total +
-    cart.restaurant.delivery_fee +
-    cart.restaurant.service_fee -
+    cartData.cart.cart_total +
+    cartData.cart.restaurant.delivery_fee +
+    cartData.cart.restaurant.service_fee -
     discount;
+
+  if (offersError) {
+    return <Alert severity="error">{offersError.message}</Alert>;
+  }
 
   async function handleOrderCheckout() {
     const restaurantCheckoutData = checkoutData[restaurantId];
@@ -89,16 +99,16 @@ export default function CheckoutOrderFooter() {
           ? restaurantCheckoutData.delivery_time.type
           : restaurantCheckoutData.delivery_time.value,
       notes: restaurantCheckoutData.notes,
-      restaurant_id: cart.restaurant.id,
-      order_items: cart.items.map((i) => ({
+      restaurant_id: cartData.cart.restaurant.id,
+      order_items: cartData.cart.items.map((i) => ({
         menu_item_id: i.id,
         name: i.name,
         quantity: i.quantity,
         item_total: i.item_total,
       })),
-      subtotal: cart.cart_total,
-      delivery_fee: cart.restaurant.delivery_fee,
-      service_fee: cart.restaurant.service_fee,
+      subtotal: cartData.cart.cart_total,
+      delivery_fee: cartData.cart.restaurant.delivery_fee,
+      service_fee: cartData.cart.restaurant.service_fee,
       discount_rate: bestOffer?.discount_rate || 0,
       discount,
       total,
@@ -121,7 +131,7 @@ export default function CheckoutOrderFooter() {
         </Typography>
 
         <Typography variant="body2" sx={{ fontWeight: 500 }}>
-          {formatCurrency(cart.cart_total)}
+          {formatCurrency(cartData.cart.cart_total)}
         </Typography>
       </Stack>
 
@@ -144,12 +154,12 @@ export default function CheckoutOrderFooter() {
 
         <Typography variant="body2">
           {!isDeliveryFeeFree
-            ? formatCurrency(cart.restaurant.delivery_fee)
+            ? formatCurrency(cartData.cart.restaurant.delivery_fee)
             : "Free"}
         </Typography>
       </Stack>
 
-      {cart.restaurant.service_fee > 0 && (
+      {cartData.cart.restaurant.service_fee > 0 && (
         <Stack
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
@@ -170,7 +180,7 @@ export default function CheckoutOrderFooter() {
           </Stack>
 
           <Typography variant="body2" component="div">
-            {formatCurrency(cart.restaurant.service_fee)}
+            {formatCurrency(cartData.cart.restaurant.service_fee)}
           </Typography>
         </Stack>
       )}
@@ -210,6 +220,8 @@ export default function CheckoutOrderFooter() {
           variant="contained"
           size="large"
           fullWidth
+          loading={isCreating || isDeleting}
+          loadingIndicator="Placing order..."
           onClick={handleOrderCheckout}
         >
           Order and pay

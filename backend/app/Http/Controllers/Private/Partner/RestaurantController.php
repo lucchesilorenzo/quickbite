@@ -13,10 +13,12 @@ use App\Http\Requests\Private\Partner\Restaurant\UpdateInfoRequest;
 use App\Http\Requests\Private\Partner\Restaurant\UpdateStatusRequest;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\RestaurantService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Restaurants')]
 class RestaurantController extends Controller
 {
     public function __construct(
@@ -24,7 +26,7 @@ class RestaurantController extends Controller
     ) {}
 
     /**
-     * Get partner's restaurants.
+     * Get all restaurants.
      */
     public function getRestaurants(): JsonResponse
     {
@@ -33,34 +35,44 @@ class RestaurantController extends Controller
                 auth()->user()
             );
 
-            return response()->json($restaurants, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Restaurants retrieved successfully.',
+                'restaurants' => $restaurants,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get restaurants.',
             ], 500);
         }
     }
 
     /**
-     * Get a partner's restaurant.
+     * Get a restaurant.
      */
     public function getRestaurant(Restaurant $restaurant): JsonResponse
     {
-        Gate::authorize('viewPartnerRestaurant', $restaurant);
+        Gate::authorize('view', $restaurant);
 
         try {
             $restaurant = $this->restaurantService->getRestaurant($restaurant);
 
-            return response()->json($restaurant, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Restaurant retrieved successfully.',
+                'restaurant' => $restaurant,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get restaurant.',
             ], 500);
         }
     }
 
     /**
-     * Update a partner's restaurant status.
+     * Update status.
      */
     public function updateStatus(
         UpdateStatusRequest $request,
@@ -75,18 +87,20 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant status updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant status.',
             ], 500);
         }
     }
 
     /**
-     * Update a partner's restaurant approved status.
+     * Update approved status.
      */
     public function updateApprovedStatus(Restaurant $restaurant): JsonResponse
     {
@@ -98,22 +112,25 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant approved status updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (RestaurantApprovalException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant approved status.',
             ], 500);
         }
     }
 
     /**
-     * Update a partner's restaurant fees.
+     * Update fees.
      */
     public function updateFees(
         UpdateFeesRequest $request,
@@ -128,18 +145,20 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant fees updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant fees.',
             ], 500);
         }
     }
 
     /**
-     * Update a partner's restaurant delivery times.
+     * Update delivery times.
      */
     public function updateDeliveryTimes(
         UpdateDeliveryTimesRequest $request,
@@ -154,18 +173,20 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant delivery times updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant delivery times.',
             ], 500);
         }
     }
 
     /**
-     * Update a partner's restaurant info.
+     * Update info.
      */
     public function updateInfo(
         UpdateInfoRequest $request,
@@ -185,15 +206,18 @@ class RestaurantController extends Controller
             );
 
             return response()->json([
-                'restaurant' => $restaurant,
+                'success' => true,
                 'message' => 'Restaurant info updated successfully.',
+                'restaurant' => $restaurant,
             ], 200);
         } catch (LocationNotFoundException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update restaurant info.',
             ], 500);
         }

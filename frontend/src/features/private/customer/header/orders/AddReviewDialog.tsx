@@ -7,7 +7,7 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { Order } from "@private/types/order-types";
+import { Order } from "@private/shared/types/order.types";
 
 import AddReviewForm from "./AddReviewForm";
 

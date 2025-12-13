@@ -1,6 +1,7 @@
 import { LineChart } from "@mui/x-charts";
 import { useStats } from "@partner/contexts/StatsProvider";
 
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type StatsDetailsLineChartProps = {
@@ -14,9 +15,13 @@ export default function StatsDetailsLineChart({
   lineId,
   lineLabel,
 }: StatsDetailsLineChartProps) {
-  const { statsData, range, isLoadingStats } = useStats();
+  const { statsData, range, isLoadingStats, statsError } = useStats();
 
   const label = range === "all" ? "Month" : "Day of the month";
+
+  if (statsError) {
+    return <FullPageErrorMessage message={statsError.message} />;
+  }
 
   return (
     <LineChart

@@ -1,11 +1,14 @@
-import { restaurantLogo } from "@tests/mocks/data/public/restaurants";
+import { restaurantLogoResponse } from "@tests/mocks/data/public/restaurants";
 import { http, HttpResponse } from "msw";
 
 import env from "@/lib/env";
 import { addJobPostFormResponse } from "@tests/mocks/data/private/partner/forms/add-job-post";
 import { address } from "@tests/mocks/data/public/addresses";
 import { editJobPostFormResponse } from "./data/private/partner/forms/edit-job-post";
-import { jobPost, jobPosts } from "./data/private/partner/job-posts";
+import {
+  jobPostResponse,
+  jobPostsResponse,
+} from "./data/private/partner/job-posts";
 
 export const handlers = [
   http.get(
@@ -24,7 +27,7 @@ export const handlers = [
   http.get(
     `${env.VITE_BASE_URL}/api/restaurants/:restaurantId/base64-logo`,
     async () => {
-      return HttpResponse.json(restaurantLogo);
+      return HttpResponse.json(restaurantLogoResponse);
     }
   ),
   http.post(`${env.VITE_BASE_URL}/api/rider/auth/register`, async () => {
@@ -47,13 +50,13 @@ export const handlers = [
         return HttpResponse.json(null, { status: 400 });
       }
 
-      return HttpResponse.json(jobPosts);
+      return HttpResponse.json(jobPostsResponse);
     }
   ),
   http.get(
     `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
     async () => {
-      return HttpResponse.json(jobPost);
+      return HttpResponse.json(jobPostResponse);
     }
   ),
   http.post(

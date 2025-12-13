@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import AuthHeader from "@private/rider/auth/AuthHeader";
+import AuthHeader from "@rider/auth/AuthHeader";
 import { Outlet } from "react-router-dom";
 
 import Footer from "@/components/common/Footer";

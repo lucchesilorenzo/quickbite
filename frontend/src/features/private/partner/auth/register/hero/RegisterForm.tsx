@@ -18,7 +18,7 @@ import { useRegister } from "@partner/hooks/auth/useRegister";
 import {
   TRegisterFormSchema,
   registerFormSchema,
-} from "@partner/validations/auth-validations";
+} from "@partner/schemas/auth.schema";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm, useWatch } from "react-hook-form";
@@ -28,8 +28,7 @@ import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndic
 import { calculatePasswordStrength } from "@/lib/utils/validation";
 
 export default function RegisterForm() {
-  const { mutateAsync: registerPartner, isPending: isRegistering } =
-    useRegister();
+  const { mutate: registerPartner, isPending: isRegistering } = useRegister();
 
   const {
     handleSubmit,
@@ -61,8 +60,8 @@ export default function RegisterForm() {
   const password = useWatch({ control, name: "password" });
   const strength = calculatePasswordStrength(password);
 
-  async function onSubmit(data: TRegisterFormSchema) {
-    await registerPartner(data);
+  function onSubmit(data: TRegisterFormSchema) {
+    registerPartner(data);
   }
 
   return (

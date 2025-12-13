@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
+import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";

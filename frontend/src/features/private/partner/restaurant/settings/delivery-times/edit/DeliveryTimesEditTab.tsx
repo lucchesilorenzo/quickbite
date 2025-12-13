@@ -9,12 +9,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
-import { useUpdateDeliveryTimes } from "@private/partner/hooks/restaurants/settings/useUpdateDeliveryTimes";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
+import { useUpdateDeliveryTimes } from "@partner/hooks/restaurants/settings/useUpdateDeliveryTimes";
 import {
   TRestaurantSettingsDeliveryTimesFormSchema,
   restaurantSettingsDeliveryTimesFormSchema,
-} from "@private/partner/validations/restaurant-settings-validations";
+} from "@partner/schemas/restaurant-settings.schema";
 import { format } from "date-fns";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
@@ -23,10 +23,10 @@ import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { capitalize } from "@/lib/utils/formatting";
 
 export default function DeliveryTimesEditTab() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateDeliveryTimes, isPending: isUpdating } =
-    useUpdateDeliveryTimes(restaurant.id);
+  const { mutate: updateDeliveryTimes, isPending: isUpdating } =
+    useUpdateDeliveryTimes({ restaurantId: restaurantData.restaurant.id });
 
   const {
     handleSubmit,
@@ -37,7 +37,7 @@ export default function DeliveryTimesEditTab() {
   } = useForm<TRestaurantSettingsDeliveryTimesFormSchema>({
     resolver: zodResolver(restaurantSettingsDeliveryTimesFormSchema),
     defaultValues: {
-      delivery_days: restaurant.delivery_days.map((d) => ({
+      delivery_days: restaurantData.restaurant.delivery_days.map((d) => ({
         day: d.day,
         start_time: d.start_time
           ? new Date(`1970-01-01T${d.start_time}`)
@@ -66,7 +66,7 @@ export default function DeliveryTimesEditTab() {
     }
   }
 
-  async function onSubmit(data: TRestaurantSettingsDeliveryTimesFormSchema) {
+  function onSubmit(data: TRestaurantSettingsDeliveryTimesFormSchema) {
     const normalized = {
       delivery_days: data.delivery_days.map((d) => ({
         day: d.day,
@@ -75,7 +75,7 @@ export default function DeliveryTimesEditTab() {
       })),
     };
 
-    await updateDeliveryTimes(normalized);
+    updateDeliveryTimes(normalized);
   }
 
   return (
@@ -85,7 +85,7 @@ export default function DeliveryTimesEditTab() {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
-      {restaurant.delivery_days.map((d, index) => (
+      {restaurantData.restaurant.delivery_days.map((d, index) => (
         <Box key={d.id}>
           <Stack
             direction="row"

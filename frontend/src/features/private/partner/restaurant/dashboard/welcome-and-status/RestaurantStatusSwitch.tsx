@@ -1,25 +1,36 @@
 import { useState } from "react";
 
 import { Card, Stack, Typography } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateRestaurantStatus } from "@partner/hooks/restaurants/restaurant/useUpdateRestaurantStatus";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { format } from "date-fns";
 
 import AntSwitch from "@/components/common/AntSwitch";
 
 export default function RestaurantStatusSwitch() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateRestaurantStatus } = useUpdateRestaurantStatus(
-    restaurant.id,
+  const { mutate: updateRestaurantStatus, isPending: isUpdating } =
+    useUpdateRestaurantStatus({ restaurantId: restaurantData.restaurant.id });
+
+  const [restaurantStatus, setRestaurantStatus] = useState(
+    restaurantData.restaurant.is_open,
   );
 
-  const [restaurantStatus, setRestaurantStatus] = useState(restaurant.is_open);
+  const currentDay = format(new Date(), "EEEE").toLowerCase();
 
-  async function handleUpdateRestaurantStatus(
+  const hasDeliveryTimes = restaurantData.restaurant.delivery_days.some(
+    (deliveryDay) =>
+      deliveryDay.day === currentDay &&
+      deliveryDay.start_time &&
+      deliveryDay.end_time,
+  );
+
+  function handleUpdateRestaurantStatus(
     e: React.ChangeEvent<HTMLInputElement>,
   ) {
     setRestaurantStatus(e.target.checked);
-    await updateRestaurantStatus({ force_close: !e.target.checked });
+    updateRestaurantStatus({ force_close: !e.target.checked });
   }
 
   return (
@@ -36,6 +47,7 @@ export default function RestaurantStatusSwitch() {
         </Typography>
 
         <AntSwitch
+          disabled={!hasDeliveryTimes || isUpdating}
           checked={restaurantStatus}
           onChange={handleUpdateRestaurantStatus}
         />

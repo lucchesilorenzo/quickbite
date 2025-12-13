@@ -5,9 +5,15 @@ import { Link } from "react-router-dom";
 
 type ErrorPageProps = {
   error?: Error | null;
+  secondaryMessage?: string;
+  showExploreButton?: boolean;
 };
 
-export default function ErrorPage({ error }: ErrorPageProps) {
+export default function ErrorPage({
+  error,
+  secondaryMessage = "But there's loads more to see!",
+  showExploreButton = true,
+}: ErrorPageProps) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   useEffect(() => {
@@ -33,13 +39,15 @@ export default function ErrorPage({ error }: ErrorPageProps) {
         </Typography>
 
         <Typography variant={isMobile ? "h6" : "h5"} component="p">
-          But there's loads more to see!
+          {secondaryMessage}
         </Typography>
       </Stack>
 
-      <Button variant="contained" component={Link} to="/">
-        Explore
-      </Button>
+      {showExploreButton && (
+        <Button variant="contained" component={Link} to="/">
+          Explore
+        </Button>
+      )}
     </Stack>
   );
 }

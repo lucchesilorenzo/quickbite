@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Box, Button, InputAdornment, Stack, TextField } from "@mui/material";
+import { useMenu } from "@partner/contexts/MenuProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateMenuItem } from "@partner/hooks/restaurants/menu/items/useCreateMenuItem";
 import {
   TAddMenuItemFormSchema,
   addMenuItemFormSchema,
-} from "@partner/validations/menu-validations";
-import { useMenu } from "@private/partner/contexts/MenuProvider";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+} from "@partner/schemas/menu.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
@@ -20,13 +20,14 @@ type AddMenuItemFormProps = {
 export default function AddMenuItemForm({
   setOpenAddMenuItemDialog,
 }: AddMenuItemFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { selectedMenuCategoryId } = useMenu();
 
-  const { mutateAsync: createMenuItem } = useCreateMenuItem(
-    restaurant.id,
-    selectedMenuCategoryId,
-  );
+  const { mutate: createMenuItem, isPending: isCreating } = useCreateMenuItem({
+    restaurantId: restaurantData.restaurant.id,
+    menuCategoryId: selectedMenuCategoryId,
+    setOpenAddMenuItemDialog,
+  });
 
   const {
     handleSubmit,
@@ -42,7 +43,7 @@ export default function AddMenuItemForm({
     },
   });
 
-  async function onSubmit(data: TAddMenuItemFormSchema) {
+  function onSubmit(data: TAddMenuItemFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);
@@ -50,8 +51,7 @@ export default function AddMenuItemForm({
     formData.append("price", String(data.price));
     if (data.image) formData.append("image", data.image[0]);
 
-    await createMenuItem(formData);
-    setOpenAddMenuItemDialog(false);
+    createMenuItem(formData);
   }
 
   function handleFileUpload(
@@ -164,7 +164,7 @@ export default function AddMenuItemForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isCreating}
         loadingIndicator="Adding..."
         variant="contained"
       >

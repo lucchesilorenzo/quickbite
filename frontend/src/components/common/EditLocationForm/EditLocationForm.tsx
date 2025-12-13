@@ -10,11 +10,11 @@ import FormHelperTextError from "../FormHelperTextError";
 import { useAddress } from "@/contexts/AddressProvider";
 import env from "@/lib/env";
 import { generateSlug } from "@/lib/utils/formatting";
-import { Address } from "@/types/address-types";
 import {
   TEditLocationFormSchema,
   editLocationFormSchema,
-} from "@/validations/location-validations";
+} from "@/schemas/location.schema";
+import { Address } from "@/types/address.types";
 
 type EditLocationFormProps = {
   onCloseDialogs: () => void;

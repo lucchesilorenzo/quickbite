@@ -1,30 +1,34 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
-import { CheckoutData } from "@customer/types/order-types";
-import { useParams } from "react-router-dom";
+import { useGetCart } from "@customer/hooks/carts/useGetCart";
+import { CheckoutData } from "@customer/types/orders/order.types";
+import { useNotifications } from "@toolpad/core/useNotifications";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { cartDefaults } from "../lib/query-defaults";
+import { GetCartResponse } from "../types/carts/cart.api.types";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
-import { useGetCart } from "@/features/private/customer/hooks/carts/useGetCart";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
-import { deliverySlotsDefaults, offersDefaults } from "@/lib/query-defaults";
-import { RestaurantCart } from "@/types/cart-types";
-import { DeliverySlots } from "@/types/delivery-types";
-import { OfferWithPagination } from "@/types/offer-types";
+import { offersDefaults } from "@/lib/query-defaults";
+import { GetDeliverySlotsResponse } from "@/types/deliveries/delivery.api.types";
+import { GetOffersResponse } from "@/types/offers/offer.api.types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
 };
 
 type CheckoutContext = {
-  cart: RestaurantCart;
+  cartData: GetCartResponse;
   checkoutData: CheckoutData;
   restaurantId: string;
-  offersData: OfferWithPagination;
-  deliverySlots: DeliverySlots;
+  offersData: GetOffersResponse;
+  offersError: Error | null;
+  deliverySlotsData: GetDeliverySlotsResponse;
   isLoadingDeliverySlots: boolean;
-  setFetchDeliverySlots: React.Dispatch<React.SetStateAction<boolean>>;
+  deliverySlotsError: Error | null;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
   emptyCheckoutData: (restaurantId: string) => void;
 };
@@ -35,27 +39,74 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const { cartId } = useParams();
   const { user } = useAuth();
 
-  const [fetchDeliverySlots, setFetchDeliverySlots] = useState(false);
-
-  const { data: cart, isLoading: isLoadingCart } = useGetCart(cartId);
-  const restaurantId = cart?.restaurant.id;
-
-  const { data: offersData = offersDefaults, isLoading: isLoadingOffers } =
-    useGetOffers(restaurantId!);
+  const navigate = useNavigate();
+  const notifications = useNotifications();
 
   const {
-    data: deliverySlots = deliverySlotsDefaults,
+    data: cartData = { success: false, message: "", cart: cartDefaults },
+    isLoading: isLoadingCart,
+    error: cartError,
+  } = useGetCart({ cartId });
+
+  const restaurantId = cartData.cart.restaurant.id;
+
+  const {
+    data: offersData = { success: false, message: "", offers: offersDefaults },
+    isLoading: isLoadingOffers,
+    error: offersError,
+  } = useGetOffers({ restaurantId });
+
+  const {
+    data: deliverySlotsData = {
+      success: false,
+      message: "",
+      is_asap_available: false,
+      delivery_slots: [],
+    },
     isLoading: isLoadingDeliverySlots,
-  } = useGetDeliverySlots(restaurantId!, fetchDeliverySlots);
+    error: deliverySlotsError,
+  } = useGetDeliverySlots({ restaurantId });
 
   const [checkoutData, setCheckoutData] = useState<CheckoutData>(() => {
     const stored = localStorage.getItem("checkout_data_by_restaurant");
     return stored ? JSON.parse(stored) : {};
   });
 
+  const initialized = useRef(false);
   const isCheckoutReady = !!(restaurantId && checkoutData[restaurantId]);
 
-  const initialized = useRef(false);
+  useEffect(() => {
+    if (isLoadingCart || !cartError) return;
+
+    const lastRestaurantUrl = localStorage.getItem("last_restaurant_url");
+
+    if (lastRestaurantUrl) {
+      navigate(lastRestaurantUrl, { replace: true });
+    } else {
+      navigate("/", { replace: true });
+    }
+
+    notifications.show(cartError.message, {
+      key: "cart-error",
+      severity: "error",
+    });
+
+    return () => {
+      localStorage.removeItem("last_restaurant_url");
+    };
+  }, [isLoadingCart, cartError, notifications, navigate]);
+
+  useEffect(() => {
+    if (isLoadingDeliverySlots || !deliverySlotsError) return;
+
+    setCheckoutData((prev) => ({
+      ...prev,
+      [restaurantId]: {
+        ...prev[restaurantId],
+        delivery_time: { type: null, value: "" },
+      },
+    }));
+  }, [deliverySlotsError, restaurantId]);
 
   useEffect(() => {
     if (!restaurantId) return;
@@ -111,13 +162,14 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   return (
     <CheckoutContext.Provider
       value={{
-        cart,
+        cartData,
         checkoutData,
         restaurantId,
         offersData,
-        deliverySlots,
+        offersError,
+        deliverySlotsData,
         isLoadingDeliverySlots,
-        setFetchDeliverySlots,
+        deliverySlotsError,
         setCheckoutData,
         emptyCheckoutData,
       }}

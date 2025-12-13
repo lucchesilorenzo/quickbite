@@ -3,7 +3,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { Box, MobileStepper as MuiMobileStepper, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
 import { steps } from "@rider/lib/constants/register-wizard/steps";
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
+import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { useFormContext } from "react-hook-form";
 
 import AccountSecurityStep from "../../steps/account-security/AccountSecurityStep";

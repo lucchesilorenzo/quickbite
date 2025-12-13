@@ -14,6 +14,38 @@ export const baseOffsetPaginationDefaults = {
   total: 0,
 };
 
+export const restaurantDefaults = {
+  id: "",
+  name: "",
+  slug: "",
+  description: "",
+  street_address: "",
+  building_number: "",
+  postcode: "",
+  city: "",
+  state: "",
+  country: "",
+  latitude: 0,
+  longitude: 0,
+  phone_number: "",
+  email: "",
+  min_amount: 0,
+  delivery_fee: 0,
+  service_fee: 0,
+  min_delivery_time: 0,
+  max_delivery_time: 0,
+  logo: "",
+  cover: "",
+  is_approved: false,
+  force_close: false,
+  created_at: "",
+  updated_at: "",
+  full_address: "",
+  is_open: false,
+  categories: [],
+  delivery_days: [],
+};
+
 export const restaurantsDefaults = {
   pageParams: [],
   pages: [
@@ -42,20 +74,8 @@ export const restaurantsDefaults = {
   ],
 };
 
-export const userNotificationsDefaults = {
-  notifications: baseOffsetPaginationDefaults,
-  unread_count: 0,
-};
+export const notificationsDefaults = baseOffsetPaginationDefaults;
 
 export const offersDefaults = baseOffsetPaginationDefaults;
 
-export const reviewsDefaults = {
-  reviews: baseOffsetPaginationDefaults,
-  avg_rating: 0,
-  count: 0,
-};
-
-export const deliverySlotsDefaults = {
-  is_asap_available: false,
-  delivery_slots: [],
-};
+export const reviewsDefaults = baseOffsetPaginationDefaults;

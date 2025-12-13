@@ -101,7 +101,8 @@ class RestaurantFactory extends Factory
     private function assignPartnersToRestaurant(Restaurant $restaurant): void
     {
         // Get partners
-        $partners = User::role(UserRole::PARTNER)
+        $partners = User::query()
+            ->role(UserRole::PARTNER)
             ->inRandomOrder()
             ->pluck('id');
 
@@ -143,7 +144,8 @@ class RestaurantFactory extends Factory
     private function assignRidersToRestaurant(Restaurant $restaurant): void
     {
         // Get riders
-        $riders = User::role(UserRole::RIDER)
+        $riders = User::query()
+            ->role(UserRole::RIDER)
             ->inRandomOrder()
             ->pluck('id');
 

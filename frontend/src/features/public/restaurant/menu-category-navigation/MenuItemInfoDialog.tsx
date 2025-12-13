@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { CartItem } from "@/types/cart-types";
-import { MenuItem } from "@/types/menu-types";
+import { CartItem } from "@/types/cart.types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemInfoDialogProps = {
   type: "from-list" | "from-search";
@@ -32,7 +32,7 @@ export default function MenuItemInfoDialog({
   setOpenMenuItemDialog,
   setOpenMenuItemInfoDialog,
 }: MenuItemInfoDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -85,11 +85,11 @@ export default function MenuItemInfoDialog({
               If you have a food allergy or intolerance (or someone you're
               ordering for has), phone the restaurant on{" "}
               <Link
-                href={`tel:${restaurant.phone_number}`}
+                href={`tel:${restaurantData.restaurant.phone_number}`}
                 color="inherit"
                 sx={{ textDecoration: "underline" }}
               >
-                {restaurant.phone_number}
+                {restaurantData.restaurant.phone_number}
               </Link>
               . Do not order if you cannot get the allergy information you need.
             </Typography>
@@ -153,11 +153,11 @@ export default function MenuItemInfoDialog({
               If you have a food allergy or intolerance (or someone you're
               ordering for has), phone the restaurant on{" "}
               <Link
-                href={`tel:${restaurant.phone_number}`}
+                href={`tel:${restaurantData.restaurant.phone_number}`}
                 color="inherit"
                 sx={{ textDecoration: "underline" }}
               >
-                {restaurant.phone_number}
+                {restaurantData.restaurant.phone_number}
               </Link>
               . Do not order if you cannot get the allergy information you need.
             </Typography>

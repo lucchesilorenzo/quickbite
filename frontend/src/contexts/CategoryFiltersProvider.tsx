@@ -3,7 +3,7 @@ import { createContext, useContext, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { useGetCategories } from "@/hooks/categories/useGetCategories";
-import { CategoryWithSelected } from "@/types/category-types";
+import { CategoryWithSelected } from "@/types/categories/category.types";
 
 type CategoryFiltersProviderProps = {
   children: React.ReactNode;
@@ -14,6 +14,7 @@ type CategoryFiltersContext = {
   allCategories: CategoryWithSelected[];
   openCategoriesDialog: boolean;
   isLoadingCategories: boolean;
+  categoriesError: Error | null;
   setOpenCategoriesDialog: React.Dispatch<React.SetStateAction<boolean>>;
   handleStatusChange: (category: CategoryWithSelected) => void;
 };
@@ -25,8 +26,11 @@ const CategoryFiltersContext = createContext<CategoryFiltersContext | null>(
 export default function CategoryFiltersProvider({
   children,
 }: CategoryFiltersProviderProps) {
-  const { data: categories = [], isLoading: isLoadingCategories } =
-    useGetCategories();
+  const {
+    data: categoriesData = { success: false, message: "", categories: [] },
+    isLoading: isLoadingCategories,
+    error: categoriesError,
+  } = useGetCategories();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [openCategoriesDialog, setOpenCategoriesDialog] = useState(false);
@@ -34,11 +38,11 @@ export default function CategoryFiltersProvider({
   const activeFilters = searchParams.getAll("filter");
 
   const allCategories = useMemo<CategoryWithSelected[]>(() => {
-    return categories.map((c) => ({
+    return categoriesData.categories.map((c) => ({
       ...c,
       selected: activeFilters.includes(c.slug),
     }));
-  }, [categories, activeFilters]);
+  }, [categoriesData.categories, activeFilters]);
 
   const visibleCategories = useMemo(
     () => allCategories.filter((c) => c.is_default || c.selected),
@@ -78,6 +82,7 @@ export default function CategoryFiltersProvider({
         allCategories,
         openCategoriesDialog,
         isLoadingCategories,
+        categoriesError,
         setOpenCategoriesDialog,
         handleStatusChange,
       }}

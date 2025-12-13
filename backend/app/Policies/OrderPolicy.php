@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Policies;
 
 use App\Models\Order;
+use App\Models\Restaurant;
 use App\Models\User;
 use App\Traits\HasRestaurantAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -24,7 +25,14 @@ class OrderPolicy
 
     // === PARTNER ===
 
-    public function updatePartnerOrder(User $user, Order $order): Response
+    public function viewAny(User $user, Restaurant $restaurant): Response
+    {
+        return $this->isPartner($user, $restaurant)
+            ? Response::allow()
+            : Response::deny('You are not authorized to view any orders.');
+    }
+
+    public function update(User $user, Order $order): Response
     {
         return $this->isPartner($user, $order->restaurant)
             ? Response::allow()

@@ -11,19 +11,20 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Stack, Typography, debounce } from "@mui/material";
+import { useMenu } from "@partner/contexts/MenuProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuItemsOrder } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItemsOrder";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
 import { menuDefaults } from "@partner/lib/query-defaults";
-import { useMenu } from "@private/partner/contexts/MenuProvider";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import MenuItem from "./MenuItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 
 export default function MenuItemsList() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { selectedMenuCategoryId } = useMenu();
 
   const [page, setPage] = useState(1);
@@ -34,13 +35,15 @@ export default function MenuItemsList() {
   );
 
   const {
-    data: menuCategoriesWithMenuItemsPagination = menuDefaults,
-    isLoading: isLoadingMenuCategories,
-  } = useGetMenu(restaurant.id, page);
+    data: menuData = { success: false, message: "", menu: menuDefaults },
+    isLoading: isLoadingMenu,
+    error: menuError,
+  } = useGetMenu({ restaurantId: restaurantData.restaurant.id, page });
 
-  const { mutateAsync: updateMenuItemsOrder } = useUpdateMenuItemsOrder(
-    restaurant.id,
-  );
+  const { mutate: updateMenuItemsOrder, isPending: isUpdating } =
+    useUpdateMenuItemsOrder({
+      restaurantId: restaurantData.restaurant.id,
+    });
 
   const debounceUpdateRestaurantMenuItemsOrder = useMemo(
     () => debounce(updateMenuItemsOrder, 500),
@@ -48,11 +51,8 @@ export default function MenuItemsList() {
   );
 
   const selectedMenuCategory = useMemo(
-    () =>
-      menuCategoriesWithMenuItemsPagination.find(
-        (c) => c.id === selectedMenuCategoryId,
-      ),
-    [menuCategoriesWithMenuItemsPagination, selectedMenuCategoryId],
+    () => menuData.menu.find((c) => c.id === selectedMenuCategoryId),
+    [menuData.menu, selectedMenuCategoryId],
   );
 
   const menuItems = useMemo(
@@ -66,7 +66,13 @@ export default function MenuItemsList() {
     setItems(menuItems);
   }, [menuItems]);
 
-  if (isLoadingMenuCategories) return <Spinner />;
+  if (isLoadingMenu) {
+    return <Spinner />;
+  }
+
+  if (menuError) {
+    return <FullPageErrorMessage message={menuError.message} />;
+  }
 
   async function handleMenuItemSort({ active, over }: DragEndEvent) {
     if (active.id === over?.id) return;
@@ -98,7 +104,7 @@ export default function MenuItemsList() {
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleMenuItemSort}>
-      <SortableContext items={items}>
+      <SortableContext items={items} disabled={isUpdating}>
         <Stack spacing={2} sx={{ my: 3 }}>
           {items.map((menuItem) => (
             <MenuItem key={menuItem.id} menuItem={menuItem} />

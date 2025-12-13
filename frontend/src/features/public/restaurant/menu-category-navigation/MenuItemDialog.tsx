@@ -20,8 +20,8 @@ import MenuItemInfoDialog from "./MenuItemInfoDialog";
 
 import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
-import { CartItem } from "@/types/cart-types";
-import { MenuItem } from "@/types/menu-types";
+import { CartItem } from "@/types/cart.types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemDialogProps = {
   menuItem: MenuItem | CartItem;

@@ -1,5 +1,5 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import { OrderItem } from "@private/types/order-types";
+import { OrderItem } from "@private/shared/types/order.types";
 
 import { formatCurrency } from "@/lib/utils/formatting";
 

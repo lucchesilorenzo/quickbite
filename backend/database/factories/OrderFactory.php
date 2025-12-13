@@ -24,7 +24,11 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::role(UserRole::CUSTOMER)->inRandomOrder()->first()->id,
+            'user_id' => User::query()
+                ->role(UserRole::CUSTOMER)
+                ->inRandomOrder()
+                ->first()
+                ->id,
             'order_code' => fake()->unique()->numberBetween(100000, 999999),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),

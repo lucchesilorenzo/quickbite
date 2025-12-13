@@ -7,10 +7,12 @@ namespace App\Http\Controllers\Private\Partner;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\MenuService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Menu')]
 class MenuController extends Controller
 {
     public function __construct(
@@ -18,7 +20,7 @@ class MenuController extends Controller
     ) {}
 
     /**
-     * Get partner's restaurant menu.
+     * Get menu.
      */
     public function getMenu(Restaurant $restaurant): JsonResponse
     {
@@ -27,9 +29,14 @@ class MenuController extends Controller
         try {
             $menu = $this->menuService->getMenu($restaurant);
 
-            return response()->json($menu, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Menu retrieved successfully.',
+                'menu' => $menu,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get menu.',
             ], 500);
         }

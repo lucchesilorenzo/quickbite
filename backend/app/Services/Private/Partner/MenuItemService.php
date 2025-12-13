@@ -34,7 +34,7 @@ class MenuItemService
             ...$data,
             'menu_category_id' => $menuCategory->id,
             'order' => $data['order'],
-        ]);
+        ])->refresh();
     }
 
     public function updateMenuItem(
@@ -52,6 +52,7 @@ class MenuItemService
         }
 
         $menuItem->update($data);
+        $menuItem->unsetRelation('menuCategory');
 
         return $menuItem;
     }
@@ -63,7 +64,9 @@ class MenuItemService
                 $menuItem->save();
             }
 
-            return $menuItems;
+            return collect($menuItems)
+                ->pluck('id')
+                ->all();
         });
     }
 

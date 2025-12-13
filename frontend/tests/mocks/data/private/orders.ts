@@ -1,4 +1,4 @@
-import { Order, OrderItem } from "@private/types/order-types";
+import { Order, OrderItem } from "@private/shared/types/order.types";
 
 export const orderItem: OrderItem = {
   id: "019a30a7-d967-7187-9ba9-76caf801f7cb",

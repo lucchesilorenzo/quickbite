@@ -2,15 +2,17 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { useCreateOrUpdateCart } from "@customer/hooks/carts/useCreateOrUpdateCart";
 import { useGetCarts } from "@customer/hooks/carts/useGetCarts";
+import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { useAuth } from "./AuthProvider";
 
+import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { emptyRestaurant } from "@/lib/constants/restaurants";
 import { isCustomer } from "@/lib/utils/auth";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants";
-import { Cart, CartItem, RestaurantCart } from "@/types/cart-types";
-import { MenuItem } from "@/types/menu-types";
-import { SingleRestaurantDetail } from "@/types/restaurant-types";
+import { Cart, CartItem, RestaurantCart } from "@/types/cart.types";
+import { MenuItem } from "@/types/menu/menu.types";
+import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
 
 type MultiCartProviderProps = {
   children: React.ReactNode;
@@ -62,8 +64,13 @@ export default function MultiCartProvider({
 }: MultiCartProviderProps) {
   const { user } = useAuth();
 
-  const { data: updatedCarts = [] } = useGetCarts(isCustomer(user));
-  const { mutateAsync: createOrUpdateCart, isPending: isCartUpdating } =
+  const {
+    data: cartsData = { success: false, message: "", carts: [] },
+    isLoading: isLoadingCarts,
+    error: cartsError,
+  } = useGetCarts({ isCustomer: isCustomer(user) });
+
+  const { mutate: createOrUpdateCart, isPending: isCartUpdating } =
     useCreateOrUpdateCart();
 
   const [carts, setCarts] = useState<Cart>(() => {
@@ -76,11 +83,14 @@ export default function MultiCartProvider({
   });
 
   const inizialized = useRef(false);
+  const errorShown = useRef(false);
+
+  const notifications = useNotifications();
 
   useEffect(() => {
     if (!isCustomer(user)) return;
 
-    const cartsWithRestaurantKey = addRestaurantIdAsKey(updatedCarts);
+    const cartsWithRestaurantKey = addRestaurantIdAsKey(cartsData.carts);
 
     setCarts((prev) => {
       const prevString = JSON.stringify(prev);
@@ -92,13 +102,28 @@ export default function MultiCartProvider({
 
       return cartsWithRestaurantKey;
     });
-  }, [user, updatedCarts]);
+  }, [user, cartsData.carts]);
 
   useEffect(() => {
     if (user === null) {
       localStorage.setItem("carts", JSON.stringify(carts));
     }
   }, [user, carts]);
+
+  useEffect(() => {
+    if (isCustomer(user) && cartsError && !errorShown.current) {
+      notifications.show(cartsError.message, {
+        key: "multi-cart-error",
+        severity: "error",
+      });
+
+      errorShown.current = true;
+    }
+  }, [user, cartsError]);
+
+  useEffect(() => {
+    errorShown.current = false;
+  }, [user]);
 
   // Helper function to calculate cart totals
   function calculateCartTotals(items: CartItem[]) {
@@ -185,7 +210,7 @@ export default function MultiCartProvider({
     });
 
     if (isCustomer(user) && updatedCart) {
-      await createOrUpdateCart(updatedCart);
+      createOrUpdateCart(updatedCart);
     }
   }
 
@@ -251,7 +276,7 @@ export default function MultiCartProvider({
     });
 
     if (isCustomer(user) && updatedCart) {
-      await createOrUpdateCart(updatedCart);
+      createOrUpdateCart(updatedCart);
     }
   }
 
@@ -297,7 +322,7 @@ export default function MultiCartProvider({
     });
 
     if (isCustomer(user) && updatedCart) {
-      await createOrUpdateCart(updatedCart);
+      createOrUpdateCart(updatedCart);
     }
   }
 
@@ -332,6 +357,10 @@ export default function MultiCartProvider({
 
   function emptyCarts() {
     setCarts({});
+  }
+
+  if (isLoadingCarts) {
+    return <FullPageSpinner />;
   }
 
   return (

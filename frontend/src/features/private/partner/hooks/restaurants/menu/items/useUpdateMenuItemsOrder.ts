@@ -1,15 +1,28 @@
+import {
+  UpdateMenuItemsOrderPayload,
+  UpdateMenuItemsOrderResponse,
+} from "@partner/types/menu/menu.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
-import { MenuItem } from "@/types/menu-types";
 
-export function useUpdateMenuItemsOrder(restaurantId: string) {
+type UseUpdateMenuItemsOrderOptions = {
+  restaurantId: string;
+};
+
+export function useUpdateMenuItemsOrder({
+  restaurantId,
+}: UseUpdateMenuItemsOrderOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: MenuItem[]) =>
+  return useMutation<
+    UpdateMenuItemsOrderResponse,
+    Error,
+    UpdateMenuItemsOrderPayload
+  >({
+    mutationFn: (data) =>
       updateData(`/partner/restaurants/menu/items/order`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({

@@ -1,20 +1,34 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { TAddReviewFormSchema } from "@/features/private/customer/validations/review-validations";
+import {
+  CreateReviewPayload,
+  CreateReviewResponse,
+} from "../../types/reviews/review.api.types";
+
 import { postData } from "@/lib/api-client";
 
-export function useCreateReview(restaurantSlug: string) {
+type UseCreateReviewOptions = {
+  restaurantSlug: string;
+  setOpenAddReviewDialog: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function useCreateReview({
+  restaurantSlug,
+  setOpenAddReviewDialog,
+}: UseCreateReviewOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TAddReviewFormSchema & { order_id: string }) =>
+  return useMutation<CreateReviewResponse, Error, CreateReviewPayload>({
+    mutationFn: (data) =>
       postData(`/customer/restaurants/${restaurantSlug}/reviews`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["restaurants"] });
       queryClient.invalidateQueries({ queryKey: ["reviews"] });
       queryClient.invalidateQueries({ queryKey: ["customer-orders"] });
+
+      setOpenAddReviewDialog(false);
 
       notifications.show(response.message, {
         key: "customer-create-review-success",

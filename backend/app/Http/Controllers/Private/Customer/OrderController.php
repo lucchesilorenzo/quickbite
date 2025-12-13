@@ -10,11 +10,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Order\CreateOrderRequest;
 use App\Models\Order;
 use App\Services\Private\Customer\OrderService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Customer Orders')]
 class OrderController extends Controller
 {
     public function __construct(
@@ -22,7 +24,7 @@ class OrderController extends Controller
     ) {}
 
     /**
-     * Get all customer's orders.
+     * Get all orders.
      */
     public function getOrders(): JsonResponse
     {
@@ -31,16 +33,21 @@ class OrderController extends Controller
                 auth()->user()
             );
 
-            return response()->json($orders, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Orders retrieved successfully.',
+                'orders' => $orders,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get orders.',
             ], 500);
         }
     }
 
     /**
-     * Get a customer's order.
+     * Get a order.
      */
     public function getOrder(Order $order): JsonResponse
     {
@@ -49,16 +56,21 @@ class OrderController extends Controller
         try {
             $order = $this->orderService->getOrder($order);
 
-            return response()->json($order, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Order retrieved successfully.',
+                'order' => $order,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get order.',
             ], 500);
         }
     }
 
     /**
-     * Create a new customer's order.
+     * Create an order.
      */
     public function createOrder(CreateOrderRequest $request): JsonResponse
     {
@@ -69,19 +81,23 @@ class OrderController extends Controller
             );
 
             return response()->json([
-                'order' => $order,
+                'success' => true,
                 'message' => 'Order created successfully.',
+                'order' => $order,
             ], 201);
         } catch (ModelNotFoundException) {
             return response()->json([
+                'success' => false,
                 'message' => 'Restaurant not found.',
             ], 404);
         } catch (LocationNotFoundException|RestaurantNotAvailableException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create order.',
             ], 500);
         }

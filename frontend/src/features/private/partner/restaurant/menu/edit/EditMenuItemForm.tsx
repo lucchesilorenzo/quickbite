@@ -9,18 +9,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuItem } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItem";
 import {
   TEditMenuItemFormSchema,
   editMenuItemFormSchema,
-} from "@partner/validations/menu-validations";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+} from "@partner/schemas/menu.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
-import { MenuItem } from "@/types/menu-types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type EditMenuItemFormProps = {
   menuItem: MenuItem;
@@ -31,12 +31,13 @@ export default function EditMenuItemForm({
   menuItem,
   setOpenEditMenuItemDialog,
 }: EditMenuItemFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: updateMenuItem } = useUpdateMenuItem(
-    restaurant.id,
-    menuItem.id,
-  );
+  const { mutate: updateMenuItem, isPending: isUpdating } = useUpdateMenuItem({
+    restaurantId: restaurantData.restaurant.id,
+    menuItemId: menuItem.id,
+    setOpenEditMenuItemDialog,
+  });
 
   const {
     handleSubmit,
@@ -53,7 +54,7 @@ export default function EditMenuItemForm({
     },
   });
 
-  async function onSubmit(data: TEditMenuItemFormSchema) {
+  function onSubmit(data: TEditMenuItemFormSchema) {
     const formData = new FormData();
 
     formData.append("name", data.name);
@@ -62,8 +63,7 @@ export default function EditMenuItemForm({
     if (data.image) formData.append("image", data.image[0]);
     formData.append("is_available", data.is_available ? "1" : "0");
 
-    await updateMenuItem(formData);
-    setOpenEditMenuItemDialog(false);
+    updateMenuItem(formData);
   }
 
   function handleFileUpload(
@@ -202,7 +202,7 @@ export default function EditMenuItemForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isUpdating}
         loadingIndicator="Editing..."
         variant="contained"
       >

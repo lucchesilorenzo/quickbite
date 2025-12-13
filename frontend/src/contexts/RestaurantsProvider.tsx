@@ -12,12 +12,12 @@ import { useAddress } from "./AddressProvider";
 
 import { useGetRestaurants } from "@/hooks/restaurants/useGetRestaurants";
 import { restaurantsDefaults } from "@/lib/query-defaults";
+import { GetRestaurantsResponse } from "@/types/restaurants/restaurant.api.types";
 import {
   RestaurantListItem,
   RestaurantMeta,
   RestaurantSearchOption,
-  RestaurantWithPagination,
-} from "@/types/restaurant-types";
+} from "@/types/restaurants/restaurant.types";
 
 type RestaurantsProviderProps = {
   children: React.ReactNode;
@@ -41,7 +41,7 @@ type RestaurantsContext = {
   fetchNextPage: (
     options?: FetchNextPageOptions,
   ) => Promise<
-    InfiniteQueryObserverResult<InfiniteData<RestaurantWithPagination>>
+    InfiniteQueryObserverResult<InfiniteData<GetRestaurantsResponse>>
   >;
 };
 

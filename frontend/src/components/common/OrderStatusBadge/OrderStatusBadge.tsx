@@ -1,5 +1,5 @@
 import { Chip } from "@mui/material";
-import { OrderStatus } from "@private/types/order-types";
+import { OrderStatus } from "@private/shared/types/order.types";
 
 import { orderStatuses } from "@/lib/constants/orders";
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { Button, useMediaQuery } from "@mui/material";
+import RestaurantCardMobile from "@public/area/restaurants/mobile/RestaurantCardMobile";
 import { Icon, LatLngTuple } from "leaflet";
 import {
   CircleMarker,
@@ -19,7 +20,6 @@ import ZoomGestureHandling from "./ZoomGestureHandling";
 
 import { useAddress } from "@/contexts/AddressProvider";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
-import RestaurantCardMobile from "@/features/public/area/restaurants/mobile/RestaurantCardMobile";
 
 export default function RestaurantMap() {
   const { restaurantsData } = useRestaurants();

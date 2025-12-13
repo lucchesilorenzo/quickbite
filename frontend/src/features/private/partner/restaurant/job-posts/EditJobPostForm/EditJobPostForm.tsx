@@ -16,11 +16,11 @@ import {
   employmentTypes,
   jobPostStatuses,
 } from "@partner/lib/constants/job-posts";
-import { GetJobPostResponse } from "@partner/types/job-posts/job-posts.api-types";
 import {
   TEditJobPostFormSchema,
   editJobPostFormSchema,
-} from "@partner/validations/job-posts-validations";
+} from "@partner/schemas/job-posts.schema";
+import { JobPost } from "@partner/types/job-posts/job-post.types";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";
@@ -28,7 +28,7 @@ import JobPostEditor from "../job-description-editor/JobPostEditor";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type EditJobPostFormProps = {
-  jobPost?: GetJobPostResponse;
+  jobPost?: JobPost;
   setOpenEditJobPostDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -36,10 +36,10 @@ export default function EditJobPostForm({
   jobPost,
   setOpenEditJobPostDialog,
 }: EditJobPostFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const { mutate: updateJobPost, isPending: isUpdating } = useUpdateJobPost({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     jobPostId: jobPost?.id,
     setOpenEditJobPostDialog,
   });

@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 
 import { getRestaurantOpeningTime } from "@/lib/utils/restaurants";
-import { SingleRestaurantDetail } from "@/types/restaurant-types";
+import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
 
 type RestaurantLocationInfoProps = {
   restaurant: SingleRestaurantDetail;

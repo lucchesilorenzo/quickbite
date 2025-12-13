@@ -5,20 +5,21 @@ import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { getRestaurantOpeningTime } from "@/lib/utils/restaurants";
 
 export default function RestaurantCartShippingInfo() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const isSameDeliveryTime =
-    restaurant.min_delivery_time === restaurant.max_delivery_time;
+    restaurantData.restaurant.min_delivery_time ===
+    restaurantData.restaurant.max_delivery_time;
 
-  const openingTime = getRestaurantOpeningTime(restaurant);
+  const openingTime = getRestaurantOpeningTime(restaurantData.restaurant);
 
   const deliveryTime = isSameDeliveryTime
-    ? `${restaurant.min_delivery_time} min`
-    : `${restaurant.min_delivery_time}-${restaurant.max_delivery_time} min`;
+    ? `${restaurantData.restaurant.min_delivery_time} min`
+    : `${restaurantData.restaurant.min_delivery_time}-${restaurantData.restaurant.max_delivery_time} min`;
 
-  const openingInfo = restaurant.force_close
+  const openingInfo = restaurantData.restaurant.force_close
     ? "Temporarily unavailable"
-    : restaurant.is_open
+    : restaurantData.restaurant.is_open
       ? deliveryTime
       : openingTime
         ? `From ${openingTime}`

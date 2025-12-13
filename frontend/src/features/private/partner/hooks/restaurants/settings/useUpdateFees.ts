@@ -1,15 +1,22 @@
-import { TRestaurantSettingsFeesFormSchema } from "@partner/validations/restaurant-settings-validations";
+import {
+  UpdateFeesPayload,
+  UpdateFeesResponse,
+} from "@partner/types/settings/settings.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { updateData } from "@/lib/api-client";
 
-export function useUpdateFees(restaurantId: string) {
+type UseUpdateFeesOptions = {
+  restaurantId: string;
+};
+
+export function useUpdateFees({ restaurantId }: UseUpdateFeesOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation({
-    mutationFn: (data: TRestaurantSettingsFeesFormSchema) =>
+  return useMutation<UpdateFeesResponse, Error, UpdateFeesPayload>({
+    mutationFn: (data) =>
       updateData(`/partner/restaurants/${restaurantId}/settings/fees`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({

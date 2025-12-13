@@ -2,7 +2,7 @@ import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import {
   TPaymentMethodFormSchema,
   paymentMethodFormSchema,
-} from "@customer/validations/checkout-validations";
+} from "@customer/schemas/checkout.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import EuroOutlinedIcon from "@mui/icons-material/EuroOutlined";

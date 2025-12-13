@@ -8,7 +8,7 @@ import Divider from "@mui/material/Divider";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useLogout } from "@private/partner/hooks/auth/useLogout";
+import { useLogout } from "@partner/hooks/auth/useLogout";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "@/contexts/AuthProvider";
@@ -17,7 +17,7 @@ import { getColorByName } from "@/lib/utils/colors";
 export default function ProfileMenu() {
   const { user } = useAuth();
 
-  const { mutateAsync: logoutPartner } = useLogout();
+  const { mutate: logoutPartner, isPending: isLoggingOut } = useLogout();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -27,8 +27,8 @@ export default function ProfileMenu() {
     setAnchorEl(e.currentTarget);
   }
 
-  async function handleLogoutPartner() {
-    await logoutPartner();
+  function handleLogoutPartner() {
+    logoutPartner();
   }
 
   return (
@@ -72,7 +72,7 @@ export default function ProfileMenu() {
 
         <Divider />
 
-        <MenuItem onClick={handleLogoutPartner}>
+        <MenuItem onClick={handleLogoutPartner} disabled={isLoggingOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

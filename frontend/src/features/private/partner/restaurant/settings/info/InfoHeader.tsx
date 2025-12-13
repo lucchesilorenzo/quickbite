@@ -3,12 +3,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
 import HeadingBlock from "@partner/components/HeadingBlock";
-import { TRestaurantSettingsInfoFormSchema } from "@partner/validations/restaurant-settings-validations";
+import { useInfo } from "@partner/restaurant/settings/contexts/InfoProvider";
+import { TRestaurantSettingsInfoFormSchema } from "@partner/schemas/restaurant-settings.schema";
 import { useFormContext } from "react-hook-form";
 
-import { useInfo } from "@/features/private/partner/restaurant/settings/contexts/InfoProvider";
+type InfoHeaderProps = {
+  isUpdating: boolean;
+};
 
-export default function InfoHeader() {
+export default function InfoHeader({ isUpdating }: InfoHeaderProps) {
   const { editMode, setEditMode } = useInfo();
 
   const {
@@ -51,7 +54,7 @@ export default function InfoHeader() {
         <Button
           type={editMode ? "submit" : "button"}
           variant="contained"
-          loading={isSubmitting}
+          loading={isSubmitting || isUpdating}
           loadingIndicator="Saving..."
           startIcon={editMode ? <Save /> : <EditIcon />}
           onClick={handleEditMode}

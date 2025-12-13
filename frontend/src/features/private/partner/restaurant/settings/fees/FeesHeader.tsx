@@ -3,12 +3,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
 import HeadingBlock from "@partner/components/HeadingBlock";
-import { TRestaurantSettingsFeesFormSchema } from "@partner/validations/restaurant-settings-validations";
+import { useFees } from "@partner/restaurant/settings/contexts/FeesProvider";
+import { TRestaurantSettingsFeesFormSchema } from "@partner/schemas/restaurant-settings.schema";
 import { useFormContext } from "react-hook-form";
 
-import { useFees } from "@/features/private/partner/restaurant/settings/contexts/FeesProvider";
+type FeesHeaderProps = {
+  isUpdating: boolean;
+};
 
-export default function FeesHeader() {
+export default function FeesHeader({ isUpdating }: FeesHeaderProps) {
   const { editMode, setEditMode } = useFees();
 
   const {
@@ -51,7 +54,7 @@ export default function FeesHeader() {
         <Button
           type={editMode ? "submit" : "button"}
           variant="contained"
-          loading={isSubmitting}
+          loading={isSubmitting || isUpdating}
           loadingIndicator="Saving..."
           startIcon={editMode ? <Save /> : <EditIcon />}
           onClick={handleEditMode}

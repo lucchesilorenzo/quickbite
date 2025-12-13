@@ -22,7 +22,8 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::role(UserRole::CUSTOMER)
+            'user_id' => User::query()
+                ->role(UserRole::CUSTOMER)
                 ->inRandomOrder()
                 ->first()
                 ->id,

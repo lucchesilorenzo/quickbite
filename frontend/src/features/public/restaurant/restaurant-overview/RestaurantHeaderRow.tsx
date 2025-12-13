@@ -4,26 +4,25 @@ import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlin
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import StarIcon from "@mui/icons-material/Star";
-import { IconButton, Link, Stack, Typography } from "@mui/material";
+import { IconButton, Link, Skeleton, Stack, Typography } from "@mui/material";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
-import Spinner from "@/components/common/Spinner";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { useReviews } from "@/contexts/ReviewsProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function RestaurantHeaderRow() {
   const {
-    restaurant,
+    restaurantData,
     setOpenRestaurantAboutDialog,
     setTabToOpen,
     setScrollToDeliveryFee,
   } = useRestaurant();
-  const { reviewsData, isLoadingReviews } = useReviews();
+  const { reviewsData, isLoadingReviews, reviewsError } = useReviews();
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const isDeliveryFeeFree = restaurant.delivery_fee === 0;
+  const isDeliveryFeeFree = restaurantData.restaurant.delivery_fee === 0;
 
   function handleOpenDialogAndScroll() {
     setTabToOpen("info");
@@ -31,42 +30,54 @@ export default function RestaurantHeaderRow() {
     setOpenRestaurantAboutDialog(true);
   }
 
-  if (isLoadingReviews) return <Spinner />;
-
   return (
     <Stack
       direction="row"
       spacing={1}
       sx={{ alignItems: "center", mb: 2, flexWrap: "wrap" }}
     >
-      <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-        <StarIcon fontSize="small" color="primary" />
+      {isLoadingReviews && <Skeleton width={70} height={35} />}
 
-        <Link
-          color="inherit"
-          underline="always"
-          sx={{ "&:hover": { textDecoration: "none" } }}
-        >
-          <Typography
-            component="span"
-            variant="body2"
-            color="textPrimary"
-            sx={{ fontWeight: 500, mr: 0.5 }}
-          >
-            {reviewsData.avg_rating?.toLocaleString("it-IT", {
-              maximumFractionDigits: 1,
-            }) || "N/A"}
+      {!isLoadingReviews && reviewsError && (
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <StarIcon fontSize="small" color="disabled" />
+
+          <Typography variant="body2" color="textSecondary">
+            N/A
           </Typography>
+        </Stack>
+      )}
 
-          {reviewsData.count > 0 && (
-            <Typography component="span" variant="body2" color="textPrimary">
-              ({reviewsData.count})
+      {!isLoadingReviews && !reviewsError && (
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+          <StarIcon fontSize="small" color="primary" />
+
+          <Link
+            color="inherit"
+            underline="always"
+            sx={{ "&:hover": { textDecoration: "none" } }}
+          >
+            <Typography
+              component="span"
+              variant="body2"
+              color="textPrimary"
+              sx={{ fontWeight: 500, mr: 0.5 }}
+            >
+              {reviewsData.avg_rating?.toLocaleString("it-IT", {
+                maximumFractionDigits: 1,
+              }) || "N/A"}
             </Typography>
-          )}
-        </Link>
-      </Stack>
 
-      {restaurant.min_amount > 0 && (
+            {reviewsData.count > 0 && (
+              <Typography component="span" variant="body2" color="textPrimary">
+                ({reviewsData.count})
+              </Typography>
+            )}
+          </Link>
+        </Stack>
+      )}
+
+      {restaurantData.restaurant.min_amount > 0 && (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <Typography component="span">&bull;</Typography>
 
@@ -74,7 +85,7 @@ export default function RestaurantHeaderRow() {
             <ShoppingBagOutlinedIcon fontSize="small" />
 
             <Typography component="span" variant="body2" color="textPrimary">
-              Min. {formatCurrency(restaurant.min_amount)}
+              Min. {formatCurrency(restaurantData.restaurant.min_amount)}
             </Typography>
           </Stack>
         </Stack>
@@ -87,7 +98,7 @@ export default function RestaurantHeaderRow() {
 
         <Typography component="span" variant="body2" color="textPrimary">
           {!isDeliveryFeeFree
-            ? formatCurrency(restaurant.delivery_fee)
+            ? formatCurrency(restaurantData.restaurant.delivery_fee)
             : "Free"}
         </Typography>
 
@@ -101,7 +112,7 @@ export default function RestaurantHeaderRow() {
         </IconButton>
       </Stack>
 
-      {restaurant.service_fee > 0 && (
+      {restaurantData.restaurant.service_fee > 0 && (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <Typography component="span">&bull;</Typography>
 
@@ -111,7 +122,7 @@ export default function RestaurantHeaderRow() {
             </Typography>
 
             <Typography component="span" variant="body2" color="textPrimary">
-              {formatCurrency(restaurant.service_fee)}
+              {formatCurrency(restaurantData.restaurant.service_fee)}
             </Typography>
 
             <IconButton

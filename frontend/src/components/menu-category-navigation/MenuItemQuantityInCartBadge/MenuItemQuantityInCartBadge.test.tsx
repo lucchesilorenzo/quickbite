@@ -1,14 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { cartItem } from "@tests/mocks/data/public/carts";
 import { menuCategories, menuItem } from "@tests/mocks/data/public/menu";
-import { restaurant } from "@tests/mocks/data/public/restaurants";
+import { restaurantData } from "@tests/mocks/data/public/restaurants";
 
 import MenuItemQuantityInCartBadge from "./MenuItemQuantityInCartBadge";
 
 const mockGetItem = vi.fn();
 
 vi.mock("@/contexts/RestaurantProvider", () => ({
-  useRestaurant: () => ({ restaurant }),
+  useRestaurant: () => ({ restaurantData }),
 }));
 
 vi.mock("@/contexts/MultiCartProvider", () => ({

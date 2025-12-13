@@ -5,7 +5,7 @@ import { CSS } from "@dnd-kit/utilities";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { Chip, IconButton, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { PartnerMenu } from "@partner/types/menu-types";
+import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import DeleteMenuCategoryDialog from "./DeleteMenuCategoryDialog";
 import EditMenuCategoryDialog from "./EditMenuCategoryDialog";

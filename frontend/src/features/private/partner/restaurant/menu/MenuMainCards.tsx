@@ -1,25 +1,25 @@
 import FastfoodOutlinedIcon from "@mui/icons-material/FastfoodOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import { Stack } from "@mui/material";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 import MainCard from "../components/MainCard";
 
 export default function MenuMainCards() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const cards = [
     {
       title: "Menu categories",
       description: "View and update your categories",
       icon: MenuBookOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/menu/categories`,
+      href: `/partner/restaurants/${restaurantData.restaurant.id}/menu/categories`,
     },
     {
       title: "Menu items",
       description: "View and update your products",
       icon: FastfoodOutlinedIcon,
-      href: `/partner/restaurants/${restaurant.id}/menu/edit`,
+      href: `/partner/restaurants/${restaurantData.restaurant.id}/menu/edit`,
     },
   ];
 

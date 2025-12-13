@@ -10,7 +10,7 @@ import {
 
 import EditMenuItemForm from "./EditMenuItemForm";
 
-import { MenuItem } from "@/types/menu-types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type EditMenuItemDialogProps = {
   menuItem: MenuItem;

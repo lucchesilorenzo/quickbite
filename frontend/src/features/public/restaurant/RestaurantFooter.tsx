@@ -15,7 +15,7 @@ import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { footerLinks } from "@/lib/constants/navigation";
 
 export default function RestaurantFooter() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
   const { isEmpty } = useMultiCart();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
@@ -27,7 +27,7 @@ export default function RestaurantFooter() {
       sx={{
         mt: "auto",
         bgcolor: grey[200],
-        pb: isMobile && !isEmpty(restaurant.id) ? 10 : "",
+        pb: isMobile && !isEmpty(restaurantData.restaurant.id) ? 10 : "",
       }}
     >
       <Container>

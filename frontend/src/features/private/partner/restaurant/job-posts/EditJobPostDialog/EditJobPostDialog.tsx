@@ -1,5 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
+  Alert,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -9,7 +10,6 @@ import {
 } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetJobPost } from "@partner/hooks/restaurants/job-posts/useGetJobPost";
-import { useNotifications } from "@toolpad/core/useNotifications";
 
 import EditJobPostForm from "../EditJobPostForm";
 
@@ -26,29 +26,19 @@ export default function EditJobPostDialog({
   openEditJobPostDialog,
   setOpenEditJobPostDialog,
 }: EditJobPostDialogProps) {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
-  const notifications = useNotifications();
-
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const {
-    data: jobPost,
+    data: jobPostData,
     isLoading: isJobPostLoading,
     error: jobPostError,
   } = useGetJobPost({
-    restaurantId: restaurant.id,
+    restaurantId: restaurantData.restaurant.id,
     jobPostId,
     enabled: openEditJobPostDialog,
   });
 
-  if (jobPostError) {
-    notifications.show(jobPostError.message, {
-      key: "partner-get-job-post-error",
-      severity: "error",
-    });
-
-    return null;
-  }
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
     <Dialog
@@ -58,8 +48,8 @@ export default function EditJobPostDialog({
       fullScreen={isMobile}
       disableRestoreFocus
     >
-      <Stack spacing={2} sx={{ p: 2 }}>
-        <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+      <Stack spacing={2} sx={{ p: 0 }}>
+        <Stack direction="row" sx={{ justifyContent: "space-between", p: 2 }}>
           <DialogTitle sx={{ p: 0, fontWeight: 700 }}>
             Edit job post
           </DialogTitle>
@@ -74,12 +64,16 @@ export default function EditJobPostDialog({
           </IconButton>
         </Stack>
 
-        <DialogContent sx={{ p: 1 }}>
-          {isJobPostLoading ? (
-            <Spinner />
-          ) : (
+        <DialogContent sx={{ p: 2 }}>
+          {isJobPostLoading && <Spinner />}
+
+          {!isJobPostLoading && jobPostError && (
+            <Alert severity="error">{jobPostError.message}</Alert>
+          )}
+
+          {!isJobPostLoading && !jobPostError && (
             <EditJobPostForm
-              jobPost={jobPost}
+              jobPost={jobPostData?.job_post}
               setOpenEditJobPostDialog={setOpenEditJobPostDialog}
             />
           )}

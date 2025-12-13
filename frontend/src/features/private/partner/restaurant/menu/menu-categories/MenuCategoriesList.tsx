@@ -11,32 +11,36 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box, Grid, Typography, debounce } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuCategoriesOrder } from "@partner/hooks/restaurants/menu/categories/useUpdateMenuCategoriesOrder";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
 import { menuDefaults } from "@partner/lib/query-defaults";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
 
 import MenuCategoryItem from "./MenuCategoryItem";
 
+import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
 
 export default function MenuCategoriesList() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const {
-    data: menuCategories = menuDefaults,
-    isLoading: isLoadingMenuCategories,
-  } = useGetMenu(restaurant.id);
+    data: menuData = { success: false, message: "", menu: menuDefaults },
+    isLoading: isLoadingMenu,
+    error: menuError,
+  } = useGetMenu({ restaurantId: restaurantData.restaurant.id });
 
-  const { mutateAsync: updateMenuCategoriesOrder } =
-    useUpdateMenuCategoriesOrder(restaurant.id);
+  const { mutate: updateMenuCategoriesOrder, isPending: isUpdating } =
+    useUpdateMenuCategoriesOrder({
+      restaurantId: restaurantData.restaurant.id,
+    });
 
   const debounceUpdateRestaurantMenuCategoriesOrder = useMemo(
     () => debounce(updateMenuCategoriesOrder, 500),
     [updateMenuCategoriesOrder],
   );
 
-  const [items, setItems] = useState(menuCategories);
+  const [items, setItems] = useState(menuData.menu);
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -44,8 +48,8 @@ export default function MenuCategoriesList() {
   );
 
   useEffect(() => {
-    setItems(menuCategories);
-  }, [menuCategories]);
+    setItems(menuData.menu);
+  }, [menuData.menu]);
 
   async function handleMenuCategorySort({ active, over }: DragEndEvent) {
     if (active.id === over?.id) return;
@@ -66,9 +70,15 @@ export default function MenuCategoriesList() {
     });
   }
 
-  if (isLoadingMenuCategories) return <Spinner />;
+  if (isLoadingMenu) {
+    return <Spinner />;
+  }
 
-  if (!menuCategories.length) {
+  if (menuError) {
+    return <FullPageErrorMessage message={menuError.message} />;
+  }
+
+  if (!menuData.menu.length) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center", mt: 3 }}>
         Start adding your menu categories here.
@@ -84,7 +94,7 @@ export default function MenuCategoriesList() {
       </Typography>
 
       <DndContext sensors={sensors} onDragEnd={handleMenuCategorySort}>
-        <SortableContext items={items}>
+        <SortableContext items={items} disabled={isUpdating}>
           <Grid container spacing={1}>
             {items.map((menuCategory) => (
               <Grid key={menuCategory.id} size={{ xs: 6, sm: 4 }}>

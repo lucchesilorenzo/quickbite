@@ -9,9 +9,9 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteMenuCategory } from "@partner/hooks/restaurants/menu/categories/useDeleteMenuCategory";
-import { PartnerMenu } from "@partner/types/menu-types";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 type DeleteMenuCategoryDialogProps = {
   menuCategory: PartnerMenu;
@@ -26,12 +26,13 @@ export default function DeleteMenuCategoryDialog({
   openDeleteMenuCategoryDialog,
   setOpenDeleteMenuCategoryDialog,
 }: DeleteMenuCategoryDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const {
-    mutateAsync: deletePartnerRestaurantMenuCategory,
-    isPending: isDeleting,
-  } = useDeleteMenuCategory(restaurant.id, menuCategory.id);
+  const { mutate: deleteRestaurantMenuCategory, isPending: isDeleting } =
+    useDeleteMenuCategory({
+      restaurantId: restaurantData.restaurant.id,
+      menuCategoryId: menuCategory.id,
+    });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -69,7 +70,7 @@ export default function DeleteMenuCategoryDialog({
           </Button>
 
           <Button
-            onClick={async () => await deletePartnerRestaurantMenuCategory()}
+            onClick={() => deleteRestaurantMenuCategory()}
             disabled={isDeleting}
             loading={isDeleting}
             loadingIndicator="Deleting..."

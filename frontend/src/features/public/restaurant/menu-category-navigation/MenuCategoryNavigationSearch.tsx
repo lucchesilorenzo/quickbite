@@ -18,12 +18,12 @@ import { useMenu } from "@/contexts/MenuProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 export default function MenuCategoryNavigationSearch() {
-  const { restaurant, searchTerm, setSearchTerm } = useRestaurant();
+  const { restaurantData, searchTerm, setSearchTerm } = useRestaurant();
   const { menuData } = useMenu();
 
-  const menuItems = menuData.flatMap((menuCategory) => menuCategory.menu_items);
-
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+  const menuItems = menuData.menu.flatMap(
+    (menuCategory) => menuCategory.menu_items,
+  );
 
   const filteredMenuItems = useMemo(
     () =>
@@ -33,12 +33,14 @@ export default function MenuCategoryNavigationSearch() {
     [searchTerm, menuItems],
   );
 
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
+
   return (
     <Stack spacing={4}>
       <TextField
         autoComplete="off"
         size={isMobile ? "small" : "medium"}
-        placeholder={`Search in ${restaurant.name}`}
+        placeholder={`Search in ${restaurantData.restaurant.name}`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         sx={{

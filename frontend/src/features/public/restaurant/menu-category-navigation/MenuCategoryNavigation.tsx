@@ -77,7 +77,7 @@ export default function MenuCategoryNavigation() {
             800: { slidesPerView: 6 },
           }}
         >
-          {menuData.map((menuCategory) => (
+          {menuData.menu.map((menuCategory) => (
             <SwiperSlide key={menuCategory.id}>
               <MenuCategoryNavigationSlide
                 menuCategory={menuCategory}
@@ -105,7 +105,7 @@ export default function MenuCategoryNavigation() {
       </Fade>
 
       <ShowMoreMenuCategoriesButton
-        menuCategories={menuData}
+        menuCategories={menuData.menu}
         onSlideClick={handleSlideClick}
       />
     </Stack>

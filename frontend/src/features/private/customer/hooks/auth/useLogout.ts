@@ -3,13 +3,14 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import { postData } from "@/lib/api-client";
+import { ApiResponse } from "@/types/api.types";
 
 export function useLogout() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation({
+  return useMutation<ApiResponse, Error, void>({
     mutationFn: () => postData("/customer/auth/logout"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });

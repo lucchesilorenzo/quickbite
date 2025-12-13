@@ -11,10 +11,12 @@ use App\Http\Requests\Private\Partner\Offer\UpdateOfferRequest;
 use App\Models\Offer;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\OfferService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
 
+#[Group('Partner Offers')]
 class OfferController extends Controller
 {
     public function __construct(
@@ -22,31 +24,36 @@ class OfferController extends Controller
     ) {}
 
     /**
-     * Get a partner's offers.
+     * Get all offers.
      */
     public function getOffers(Restaurant $restaurant): JsonResponse
     {
-        Gate::authorize('viewPartnerRestaurant', $restaurant);
+        Gate::authorize('viewAny', [Offer::class, $restaurant]);
 
         try {
             $offers = $this->offerService->getOffers($restaurant);
 
-            return response()->json($offers, 200);
+            return response()->json([
+                'success' => true,
+                'message' => 'Offers retrieved successfully.',
+                'offers' => $offers,
+            ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not get offers.',
             ], 500);
         }
     }
 
     /**
-     * Create a partner's offer.
+     * Create an offer.
      */
     public function createOffer(
         CreateOfferRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('createPartnerOffer', $restaurant);
+        Gate::authorize('create', [Offer::class, $restaurant]);
 
         try {
             $offer = $this->offerService->createOffer(
@@ -55,22 +62,25 @@ class OfferController extends Controller
             );
 
             return response()->json([
-                'offer' => $offer,
+                'success' => true,
                 'message' => 'Offer created successfully.',
+                'offer' => $offer,
             ], 201);
         } catch (OfferAlreadyExistsException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not create offer.',
             ], 500);
         }
     }
 
     /**
-     * Update a partner's offer.
+     * Update an offer.
      */
     public function updateOffer(
         UpdateOfferRequest $request,
@@ -87,22 +97,25 @@ class OfferController extends Controller
             );
 
             return response()->json([
-                'offer' => $offer,
+                'success' => true,
                 'message' => 'Offer updated successfully.',
+                'offer' => $offer,
             ], 200);
         } catch (OfferAlreadyExistsException $e) {
             return response()->json([
+                'success' => false,
                 'message' => $e->getMessage(),
             ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not update offer.',
             ], 500);
         }
     }
 
     /**
-     * Delete a partner's offer.
+     * Delete an offer.
      */
     public function deleteOffer(Offer $offer): JsonResponse
     {
@@ -112,10 +125,12 @@ class OfferController extends Controller
             $this->offerService->deleteOffer($offer);
 
             return response()->json([
+                'success' => true,
                 'message' => 'Offer deleted successfully.',
             ], 200);
         } catch (Throwable) {
             return response()->json([
+                'success' => false,
                 'message' => 'Could not delete offer.',
             ], 500);
         }

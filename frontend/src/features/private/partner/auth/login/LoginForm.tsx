@@ -14,13 +14,13 @@ import { useLogin } from "@partner/hooks/auth/useLogin";
 import {
   TLoginFormSchema,
   loginFormSchema,
-} from "@partner/validations/auth-validations";
+} from "@partner/schemas/auth.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 export default function LoginForm() {
-  const { mutateAsync: loginPartner } = useLogin();
+  const { mutate: loginPartner, isPending: isLogging } = useLogin();
 
   const {
     handleSubmit,
@@ -36,8 +36,8 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  async function onSubmit(data: TLoginFormSchema) {
-    await loginPartner(data);
+  function onSubmit(data: TLoginFormSchema) {
+    loginPartner(data);
   }
 
   return (
@@ -114,7 +114,7 @@ export default function LoginForm() {
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isLogging}
         loadingIndicator="Logging in..."
         variant="contained"
       >

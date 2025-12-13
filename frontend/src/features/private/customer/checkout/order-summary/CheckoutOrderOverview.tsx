@@ -8,7 +8,7 @@ import OrderItemsDialog from "./OrderItemsDialog";
 import env from "@/lib/env";
 
 export default function CheckoutOrderOverview() {
-  const { cart } = useCheckout();
+  const { cartData } = useCheckout();
 
   const [openOrderItemsDialog, setOpenOrderItemsDialog] = useState(false);
 
@@ -19,7 +19,7 @@ export default function CheckoutOrderOverview() {
     >
       <Box>
         <Typography variant="body1" sx={{ fontWeight: 500 }}>
-          {cart.restaurant.name}
+          {cartData.cart.restaurant.name}
         </Typography>
 
         <Typography
@@ -32,14 +32,14 @@ export default function CheckoutOrderOverview() {
           }}
           onClick={() => setOpenOrderItemsDialog(true)}
         >
-          Show {cart.total_items} articles
+          Show {cartData.cart.total_items} articles
         </Typography>
       </Box>
 
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${cart.restaurant.logo}`}
-        alt={cart.restaurant.name}
+        src={`${env.VITE_BASE_URL}${cartData.cart.restaurant.logo}`}
+        alt={cartData.cart.restaurant.name}
         sx={{
           objectFit: "cover",
           width: 50,

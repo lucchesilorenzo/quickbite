@@ -5,7 +5,7 @@ import { useCreateOrUpdateCarts } from "@customer/hooks/carts/useCreateOrUpdateC
 import {
   TRegisterFormSchema,
   registerFormSchema,
-} from "@customer/validations/auth-validations";
+} from "@customer/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -31,7 +31,8 @@ export default function RegisterForm() {
 
   const { mutateAsync: registerCustomer, isPending: isRegistering } =
     useRegister();
-  const { mutateAsync: createOrUpdateCarts } = useCreateOrUpdateCarts();
+  const { mutateAsync: createOrUpdateCarts, isPending: isCreating } =
+    useCreateOrUpdateCarts();
 
   const {
     handleSubmit,
@@ -285,8 +286,7 @@ export default function RegisterForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting || isRegistering}
-        loading={isSubmitting || isRegistering}
+        loading={isSubmitting || isRegistering || isCreating}
         loadingIndicator="Creating account..."
         variant="contained"
       >

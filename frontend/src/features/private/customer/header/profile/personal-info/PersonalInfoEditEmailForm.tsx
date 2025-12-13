@@ -2,7 +2,7 @@ import { useUpdatePersonalInfo } from "@customer/hooks/profile/useUpdatePersonal
 import {
   TEditEmailFormSchema,
   editEmailFormSchema,
-} from "@customer/validations/profile-validations";
+} from "@customer/schemas/profile.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
@@ -12,7 +12,8 @@ import { useAuth } from "@/contexts/AuthProvider";
 
 export default function PersonalInfoEditEmailForm() {
   const { user } = useAuth();
-  const { mutateAsync: updateCustomerEmail } = useUpdatePersonalInfo();
+  const { mutate: updateCustomerEmail, isPending: isUpdating } =
+    useUpdatePersonalInfo();
 
   const {
     handleSubmit,
@@ -25,8 +26,8 @@ export default function PersonalInfoEditEmailForm() {
     },
   });
 
-  async function onSubmit(data: TEditEmailFormSchema) {
-    await updateCustomerEmail(data);
+  function onSubmit(data: TEditEmailFormSchema) {
+    updateCustomerEmail(data);
   }
 
   return (
@@ -62,7 +63,7 @@ export default function PersonalInfoEditEmailForm() {
       {isDirty && (
         <Button
           type="submit"
-          loading={isSubmitting}
+          loading={isSubmitting || isUpdating}
           loadingIndicator="Editing..."
           variant="contained"
         >

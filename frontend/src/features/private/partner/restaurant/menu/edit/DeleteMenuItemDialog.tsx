@@ -12,7 +12,7 @@ import {
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteMenuItem } from "@partner/hooks/restaurants/menu/items/useDeleteMenuItem";
 
-import { MenuItem } from "@/types/menu-types";
+import { MenuItem } from "@/types/menu/menu.types";
 
 type DeleteMenuItemDialogProps = {
   menuItem: MenuItem;
@@ -25,16 +25,18 @@ export default function DeleteMenuItemDialog({
   openDeleteMenuItemDialog,
   setOpenDeleteMenuItemDialog,
 }: DeleteMenuItemDialogProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: deleteMenuItem, isPending: isDeleting } =
-    useDeleteMenuItem(restaurant.id, menuItem.id);
+  const { mutate: deleteMenuItem, isPending: isDeleting } = useDeleteMenuItem({
+    restaurantId: restaurantData.restaurant.id,
+    menuItemId: menuItem.id,
+    setOpenDeleteMenuItemDialog,
+  });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  async function handleDeleteMenuItem() {
-    await deleteMenuItem();
-    setOpenDeleteMenuItemDialog(false);
+  function handleDeleteMenuItem() {
+    deleteMenuItem();
   }
 
   return (

@@ -1,4 +1,4 @@
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
+import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { registerFormWithoutPasswordAndConfirmation } from "@tests/mocks/data/private/rider/forms/register";

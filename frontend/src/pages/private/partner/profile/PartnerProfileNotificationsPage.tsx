@@ -2,17 +2,17 @@ import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
-
-import { useAuth } from "@/contexts/AuthProvider";
-import HeadingBlock from "@/features/private/partner/components/HeadingBlock";
-import { useUpdateProfileNotifications } from "@/features/private/partner/hooks/profile/useUpdateProfileNotifications";
-import NotificationsCard from "@/features/private/partner/profile/notifications/NotificationsCard";
+import HeadingBlock from "@partner/components/HeadingBlock";
+import { useUpdateProfileNotifications } from "@partner/hooks/profile/useUpdateProfileNotifications";
+import NotificationsCard from "@partner/profile/notifications/NotificationsCard";
 import {
   TProfileNotificationsFormSchema,
   profileNotificationsFormSchema,
-} from "@/features/private/partner/validations/profile-notifications-validations";
-import { NotificationType } from "@/types/user-types";
+} from "@partner/schemas/profile-notifications.schema";
+import { FormProvider, useForm } from "react-hook-form";
+
+import { useAuth } from "@/contexts/AuthProvider";
+import { NotificationType } from "@/types/user.types";
 
 export default function PartnerProfileNotificationsPage() {
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function PartnerProfileNotificationsPage() {
 
   const { user } = useAuth();
 
-  const { mutateAsync: updateProfileNotifications } =
+  const { mutate: updateProfileNotifications, isPending: isUpdating } =
     useUpdateProfileNotifications();
 
   const defaultValues = user?.notification_preferences.reduce(
@@ -42,8 +42,8 @@ export default function PartnerProfileNotificationsPage() {
     formState: { isSubmitting },
   } = methods;
 
-  async function onSubmit(data: TProfileNotificationsFormSchema) {
-    await updateProfileNotifications(data);
+  function onSubmit(data: TProfileNotificationsFormSchema) {
+    updateProfileNotifications(data);
   }
 
   return (
@@ -65,7 +65,7 @@ export default function PartnerProfileNotificationsPage() {
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button
             type="submit"
-            loading={isSubmitting}
+            loading={isSubmitting || isUpdating}
             loadingIndicator="Saving..."
             variant="contained"
             sx={{

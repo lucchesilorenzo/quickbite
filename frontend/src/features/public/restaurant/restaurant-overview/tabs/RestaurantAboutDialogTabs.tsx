@@ -14,7 +14,7 @@ import ReviewsTab from "./reviews/ReviewsTab";
 import { useOffers } from "@/contexts/OffersProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { restaurantTabs } from "@/lib/constants/restaurants";
-import { RestaurantTab } from "@/types/restaurant-types";
+import { RestaurantTab } from "@/types/restaurants/restaurant.types";
 
 export default function RestaurantAboutDialogTabs() {
   const { tabToOpen, setTabToOpen } = useRestaurant();
@@ -63,7 +63,9 @@ export default function RestaurantAboutDialogTabs() {
       >
         <Tab label="Reviews" value="reviews" />
         <Tab label="Info" value="info" />
-        {offersData.data.length > 0 && <Tab label="Offers" value="offers" />}
+        {offersData.offers.data.length > 0 && (
+          <Tab label="Offers" value="offers" />
+        )}
       </TabList>
 
       <TabPanel

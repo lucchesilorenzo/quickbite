@@ -1,4 +1,7 @@
-import { BaseRestaurant, RestaurantTab } from "@/types/restaurant-types";
+import {
+  BaseRestaurant,
+  RestaurantTab,
+} from "@/types/restaurants/restaurant.types";
 
 export const emptyRestaurant = {
   id: "",

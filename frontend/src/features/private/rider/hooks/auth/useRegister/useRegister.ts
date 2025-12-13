@@ -1,4 +1,7 @@
-import { TRegisterFormSchema } from "@rider/validations/auth-validations";
+import {
+  RegisterPayload,
+  RegisterResponse,
+} from "@rider/types/auth/auth.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +13,13 @@ export function useRegister() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation({
-    mutationFn: (data: TRegisterFormSchema) =>
-      postData("/rider/auth/register", data),
+  return useMutation<RegisterResponse, Error, RegisterPayload>({
+    mutationFn: (data) => postData("/rider/auth/register", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
+
+      localStorage.removeItem("rider_registration_data");
+
       navigate("/rider/dashboard");
     },
     onError: (error) => {

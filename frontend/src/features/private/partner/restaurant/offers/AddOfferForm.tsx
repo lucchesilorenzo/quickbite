@@ -9,13 +9,13 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateOffer } from "@partner/hooks/restaurants/offers/useCreateOffer";
 import { discountRates } from "@partner/lib/constants/offers";
 import {
   TRestaurantSettingsOffersFormSchema,
   restaurantSettingsOffersFormSchema,
-} from "@partner/validations/restaurant-settings-validations";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+} from "@partner/schemas/restaurant-settings.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
@@ -27,11 +27,12 @@ type AddOfferFormProps = {
 export default function AddOfferForm({
   setOpenAddOfferDialog,
 }: AddOfferFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: createOffer, isPending: isAdding } = useCreateOffer(
-    restaurant.id,
-  );
+  const { mutate: createOffer, isPending: isAdding } = useCreateOffer({
+    restaurantId: restaurantData.restaurant.id,
+    setOpenAddOfferDialog,
+  });
 
   const {
     handleSubmit,
@@ -39,7 +40,7 @@ export default function AddOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      restaurantSettingsOffersFormSchema(restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurantData.restaurant.min_amount),
     ),
     defaultValues: {
       discount_rate: "",
@@ -47,9 +48,8 @@ export default function AddOfferForm({
     },
   });
 
-  async function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    await createOffer(data);
-    setOpenAddOfferDialog(false);
+  function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
+    createOffer(data);
   }
 
   return (

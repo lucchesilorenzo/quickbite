@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 
+import { useGetOrder } from "@customer/hooks/orders/useGetOrder";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
+import { orderDefaults } from "@private/shared/lib/query-defaults";
 import { Link, useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { useGetOrder } from "@/features/private/customer/hooks/orders/useGetOrder";
 
 export default function CheckoutSuccessPage() {
   useEffect(() => {
@@ -14,15 +15,18 @@ export default function CheckoutSuccessPage() {
   }, []);
 
   const { orderId } = useParams();
+
   const {
-    data: order,
+    data: orderData = { success: false, message: "", order: orderDefaults },
     isLoading: isOrderLoading,
     error: orderError,
-  } = useGetOrder(orderId);
+  } = useGetOrder({ orderId });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
-  if (isOrderLoading) return <FullPageSpinner />;
+  if (isOrderLoading) {
+    return <FullPageSpinner />;
+  }
 
   if (orderError) {
     return (
@@ -70,7 +74,7 @@ export default function CheckoutSuccessPage() {
             component="span"
             sx={{ fontWeight: 700 }}
           >
-            # {order?.order_code}
+            # {orderData.order.order_code}
           </Typography>{" "}
           has been placed successfully!
         </Typography>

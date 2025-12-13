@@ -1,4 +1,4 @@
-import { Address } from "@/types/address-types";
+import { Address } from "@/types/address.types";
 
 export const address: Address = {
   place_id: "322783584703",

@@ -7,7 +7,7 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { PartnerMenu } from "@partner/types/menu-types";
+import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import EditMenuCategoryForm from "./EditMenuCategoryForm";
 

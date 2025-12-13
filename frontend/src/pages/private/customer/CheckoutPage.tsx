@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-import CheckoutLayoutDesktop from "@/features/private/customer/checkout/layouts/CheckoutLayoutDesktop";
-import CheckoutLayoutMobile from "@/features/private/customer/checkout/layouts/CheckoutLayoutMobile";
-import CustomerCheckoutProvider from "@/features/private/customer/contexts/CheckoutProvider";
+import CheckoutLayoutDesktop from "@customer/checkout/layouts/CheckoutLayoutDesktop";
+import CheckoutLayoutMobile from "@customer/checkout/layouts/CheckoutLayoutMobile";
+import CustomerCheckoutProvider from "@customer/contexts/CheckoutProvider";
 
 export default function CheckoutPage() {
   useEffect(() => {

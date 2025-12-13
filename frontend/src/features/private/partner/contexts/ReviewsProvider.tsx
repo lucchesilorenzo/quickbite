@@ -1,22 +1,23 @@
 import { createContext, useContext, useState } from "react";
 
 import { useGetReviews } from "@partner/hooks/restaurants/reviews/useGetReviews";
-import { OrderStatusWithAll } from "@private/types/order-types";
+import { OrderStatusWithAll } from "@private/shared/types/order.types";
 
+import { GetReviewsResponse } from "../types/reviews/review.api.types";
 import { useRestaurant } from "./RestaurantProvider";
 
-import Spinner from "@/components/common/Spinner";
 import { reviewsDefaults } from "@/lib/query-defaults";
-import { ReviewStats } from "@/types/review-types";
 
 type ReviewsProviderProps = {
   children: React.ReactNode;
 };
 
 type ReviewsContext = {
-  status: OrderStatusWithAll;
-  reviewsData: ReviewStats;
   page: number;
+  status: OrderStatusWithAll;
+  reviewsData: GetReviewsResponse;
+  isLoadingReviews: boolean;
+  reviewsError: Error | null;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setStatus: React.Dispatch<React.SetStateAction<OrderStatusWithAll>>;
 };
@@ -24,19 +25,34 @@ type ReviewsContext = {
 const ReviewsContext = createContext<ReviewsContext | null>(null);
 
 export default function ReviewsProvider({ children }: ReviewsProviderProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState<OrderStatusWithAll>("all");
 
-  const { data: reviewsData = reviewsDefaults, isLoading: isLoadingReviews } =
-    useGetReviews(restaurant.id, page);
-
-  if (isLoadingReviews) return <Spinner />;
+  const {
+    data: reviewsData = {
+      success: false,
+      message: "",
+      reviews: reviewsDefaults,
+      avg_rating: null,
+      count: 0,
+    },
+    isLoading: isLoadingReviews,
+    error: reviewsError,
+  } = useGetReviews({ restaurantId: restaurantData.restaurant.id, page });
 
   return (
     <ReviewsContext.Provider
-      value={{ status, reviewsData, page, setPage, setStatus }}
+      value={{
+        page,
+        status,
+        reviewsData,
+        isLoadingReviews,
+        reviewsError,
+        setPage,
+        setStatus,
+      }}
     >
       {children}
     </ReviewsContext.Provider>

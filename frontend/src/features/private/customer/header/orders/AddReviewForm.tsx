@@ -2,12 +2,12 @@ import { useCreateReview } from "@customer/hooks/reviews/useCreateReview";
 import {
   TAddReviewFormSchema,
   addReviewFormSchema,
-} from "@customer/validations/review-validations";
+} from "@customer/schemas/review.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Button, Rating, Stack, TextField, Typography } from "@mui/material";
-import { Order } from "@private/types/order-types";
+import { Order } from "@private/shared/types/order.types";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
@@ -21,7 +21,10 @@ export default function AddReviewForm({
   order,
   setOpenAddReviewDialog,
 }: AddReviewFormProps) {
-  const { mutateAsync: createReview } = useCreateReview(order.restaurant.slug);
+  const { mutate: createReview, isPending: isCreating } = useCreateReview({
+    restaurantSlug: order.restaurant.slug,
+    setOpenAddReviewDialog,
+  });
 
   const {
     handleSubmit,
@@ -35,9 +38,8 @@ export default function AddReviewForm({
     },
   });
 
-  async function onSubmit(data: TAddReviewFormSchema) {
-    await createReview({ ...data, order_id: order.id });
-    setOpenAddReviewDialog(false);
+  function onSubmit(data: TAddReviewFormSchema) {
+    createReview({ ...data, order_id: order.id });
   }
 
   return (
@@ -94,7 +96,7 @@ export default function AddReviewForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isCreating}
         loadingIndicator="Saving..."
         variant="contained"
       >

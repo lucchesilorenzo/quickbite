@@ -4,18 +4,17 @@ import { useParams } from "react-router-dom";
 
 import Spinner from "@/components/common/Spinner";
 import { useGetRestaurant } from "@/hooks/restaurants/useGetRestaurant";
+import { restaurantDefaults } from "@/lib/query-defaults";
 import ErrorPage from "@/pages/public/ErrorPage";
-import {
-  RestaurantTab,
-  SingleRestaurantDetail,
-} from "@/types/restaurant-types";
+import { GetRestaurantResponse } from "@/types/restaurants/restaurant.api.types";
+import { RestaurantTab } from "@/types/restaurants/restaurant.types";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;
 };
 
 type RestaurantContext = {
-  restaurant: SingleRestaurantDetail;
+  restaurantData: GetRestaurantResponse;
   openRestaurantAboutDialog: boolean;
   searchTerm: string;
   tabToOpen: RestaurantTab;
@@ -36,10 +35,14 @@ export default function RestaurantProvider({
   const { restaurantSlug } = useParams();
 
   const {
-    data: restaurant,
+    data: restaurantData = {
+      success: false,
+      message: "",
+      restaurant: restaurantDefaults,
+    },
     isLoading: isRestaurantLoading,
     error: restaurantError,
-  } = useGetRestaurant(restaurantSlug);
+  } = useGetRestaurant({ restaurantSlug });
 
   const [openRestaurantClosedDialog, setOpenRestaurantClosedDialog] =
     useState(false);
@@ -50,21 +53,21 @@ export default function RestaurantProvider({
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    if (restaurant?.name && restaurant?.city) {
-      document.title = `${restaurant.name} restaurant menu in ${restaurant.city} - Order from QuickBite`;
+    if (restaurantData.restaurant?.name && restaurantData.restaurant?.city) {
+      document.title = `${restaurantData.restaurant.name} restaurant menu in ${restaurantData.restaurant.city} - Order from QuickBite`;
     }
-  }, [restaurant?.name, restaurant?.city]);
+  }, [restaurantData.restaurant?.name, restaurantData.restaurant?.city]);
 
   if (isRestaurantLoading) return <Spinner />;
 
-  if (!restaurant || restaurantError) {
+  if (!restaurantData.restaurant || restaurantError) {
     return <ErrorPage error={restaurantError} />;
   }
 
   return (
     <RestaurantContext.Provider
       value={{
-        restaurant,
+        restaurantData,
         openRestaurantAboutDialog,
         searchTerm,
         tabToOpen,

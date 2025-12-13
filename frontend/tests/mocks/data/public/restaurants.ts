@@ -1,6 +1,11 @@
-import { deliveryDays } from "@tests/mocks/data/public/delivery-days";
+import {
+  GetBase64RestaurantLogoResponse,
+  GetRestaurantResponse,
+} from "@/types/restaurants/restaurant.api.types";
+import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
 import { category } from "@tests/mocks/data/public/categories";
-import { SingleRestaurantDetail } from "@/types/restaurant-types";
+import { deliveryDays } from "@tests/mocks/data/public/delivery-days";
+import { apiResponse } from "../shared/common";
 
 export const restaurant: SingleRestaurantDetail = {
   id: "a01c3a1f-5f95-45e7-8cc8-4c7bcda56d46",
@@ -34,6 +39,12 @@ export const restaurant: SingleRestaurantDetail = {
   delivery_days: deliveryDays,
 };
 
-export const restaurantLogo: { logo: string } = {
+export const restaurantData: GetRestaurantResponse = {
+  ...apiResponse,
+  restaurant,
+};
+
+export const restaurantLogoResponse: GetBase64RestaurantLogoResponse = {
+  ...apiResponse,
   logo: "data:image/jpeg;mock",
 };

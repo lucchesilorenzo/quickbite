@@ -4,7 +4,7 @@ import RegisterWizard from "./RegisterWizard";
 
 vi.mock("@rider/hooks/auth/useRegister", () => ({
   useRegister: () => ({
-    mutateAsync: vi.fn(),
+    mutate: vi.fn(),
     isPending: false,
   }),
 }));

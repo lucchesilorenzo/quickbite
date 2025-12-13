@@ -1,5 +1,5 @@
 import { steps } from "@rider/lib/constants/register-wizard/steps";
-import { registerFormSchema } from "@rider/validations/auth-validations";
+import { registerFormSchema } from "@rider/schemas/auth.schema";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FormWrapper from "@tests/FormWrapper";

@@ -1,12 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
-import { RestaurantCart } from "@/types/cart-types";
+import { GetCartsResponse } from "../../types/carts/cart.api.types";
 
-export function useGetCarts(isCustomer: boolean) {
-  return useQuery({
+import { fetchData } from "@/lib/api-client";
+
+type UseGetCartsOptions = {
+  isCustomer: boolean;
+};
+
+export function useGetCarts({ isCustomer }: UseGetCartsOptions) {
+  return useQuery<GetCartsResponse>({
     queryKey: ["customer-carts"],
-    queryFn: (): Promise<RestaurantCart[]> => fetchData("/customer/carts"),
+    queryFn: () => fetchData("/customer/carts"),
     enabled: !!isCustomer,
   });
 }

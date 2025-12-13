@@ -1,5 +1,5 @@
 import { Stack, TextField, useMediaQuery } from "@mui/material";
-import { TProfileGeneralFormSchema } from "@partner/validations/profile-general-validations";
+import { TProfileGeneralFormSchema } from "@partner/schemas/profile-general.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";

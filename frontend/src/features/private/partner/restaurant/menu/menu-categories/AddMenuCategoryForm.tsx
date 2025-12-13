@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack, TextField } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateMenuCategory } from "@partner/hooks/restaurants/menu/categories/useCreateMenuCategory";
 import {
   TAddMenuCategoryFormSchema,
   addMenuCategoryFormSchema,
-} from "@partner/validations/menu-validations";
-import { useRestaurant } from "@private/partner/contexts/RestaurantProvider";
+} from "@partner/schemas/menu.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
@@ -17,11 +17,13 @@ type AddMenuCategoryFormProps = {
 export default function AddMenuCategoryForm({
   setOpenAddMenuCategoryDialog,
 }: AddMenuCategoryFormProps) {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
-  const { mutateAsync: createMenuCategory } = useCreateMenuCategory(
-    restaurant.id,
-  );
+  const { mutate: createMenuCategory, isPending: isCreating } =
+    useCreateMenuCategory({
+      restaurantId: restaurantData.restaurant.id,
+      setOpenAddMenuCategoryDialog,
+    });
 
   const {
     handleSubmit,
@@ -35,9 +37,8 @@ export default function AddMenuCategoryForm({
     },
   });
 
-  async function onSubmit(data: TAddMenuCategoryFormSchema) {
-    await createMenuCategory(data);
-    setOpenAddMenuCategoryDialog(false);
+  function onSubmit(data: TAddMenuCategoryFormSchema) {
+    createMenuCategory(data);
   }
 
   return (
@@ -93,7 +94,7 @@ export default function AddMenuCategoryForm({
 
       <Button
         type="submit"
-        loading={isSubmitting}
+        loading={isSubmitting || isCreating}
         loadingIndicator="Saving..."
         variant="contained"
       >

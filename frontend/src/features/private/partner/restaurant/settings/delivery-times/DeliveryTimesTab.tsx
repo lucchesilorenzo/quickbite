@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 import { capitalize } from "@/lib/utils/formatting";
 
 export default function DeliveryTimesTab() {
-  const { restaurant } = useRestaurant();
+  const { restaurantData } = useRestaurant();
 
   return (
     <>
       <Button
         component={Link}
-        to={`/partner/restaurants/${restaurant.id}/settings/delivery-times/edit`}
+        to={`/partner/restaurants/${restaurantData.restaurant.id}/settings/delivery-times/edit`}
         variant="contained"
         startIcon={<EditIcon />}
         sx={{ alignSelf: "flex-start", mb: 4 }}
@@ -23,7 +23,7 @@ export default function DeliveryTimesTab() {
       </Button>
 
       <Grid container spacing={2}>
-        {restaurant.delivery_days.map((d) => {
+        {restaurantData.restaurant.delivery_days.map((d) => {
           function formatTime(time: string | null) {
             return time?.slice(0, 5) ?? null;
           }
