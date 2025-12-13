@@ -47,7 +47,7 @@ describe("ViewOrderReceipt", () => {
     renderComponent();
 
     expect(
-      await screen.findByRole("button", { name: /saving/i }),
+      await screen.findByRole("button", { name: /loading/i }),
     ).toBeInTheDocument();
   });
 
