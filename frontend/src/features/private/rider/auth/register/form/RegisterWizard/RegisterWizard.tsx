@@ -58,6 +58,9 @@ export default function RegisterWizard() {
     if (!isValid) return;
 
     const { password, password_confirmation, ...rest } = methods.getValues();
+    void password;
+    void password_confirmation;
+
     localStorage.setItem("rider_registration_data", JSON.stringify(rest));
 
     setActiveStep((prev) => prev + 1);
