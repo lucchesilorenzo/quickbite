@@ -53,7 +53,7 @@ class RestaurantController extends Controller
      */
     public function getRestaurant(Restaurant $restaurant): JsonResponse
     {
-        Gate::authorize('viewPartnerRestaurant', $restaurant);
+        Gate::authorize('view', $restaurant);
 
         try {
             $restaurant = $this->restaurantService->getRestaurant($restaurant);

@@ -30,7 +30,7 @@ class OrderController extends Controller
         GetOrdersRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('viewPartnerOrders', $restaurant);
+        Gate::authorize('viewAny', [Order::class, $restaurant]);
 
         try {
             $orders = $this->orderService->getOrders(
@@ -58,7 +58,7 @@ class OrderController extends Controller
         UpdateOrderStatus $request,
         Order $order,
     ): JsonResponse {
-        Gate::authorize('updatePartnerOrder', $order);
+        Gate::authorize('update', $order);
 
         try {
             $order = $this->orderService->updateOrderStatus(

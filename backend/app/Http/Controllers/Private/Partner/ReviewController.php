@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use App\Models\Review;
 use App\Services\Private\Partner\ReviewService;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
@@ -24,7 +25,7 @@ class ReviewController extends Controller
      */
     public function getReviews(Restaurant $restaurant): JsonResponse
     {
-        Gate::authorize('viewPartnerReviews', $restaurant);
+        Gate::authorize('viewAny', [Review::class, $restaurant]);
 
         try {
             $reviewsData = $this->reviewService->getReviews($restaurant);

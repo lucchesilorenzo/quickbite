@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Models\User;
 use App\Traits\HasRestaurantAuthorization;
@@ -13,7 +14,12 @@ class MenuItemPolicy
 {
     use HasRestaurantAuthorization;
 
-    // === PARTNER ===
+    public function create(User $user, MenuCategory $menuCategory): Response
+    {
+        return $this->isPartner($user, $menuCategory->restaurant)
+            ? Response::allow()
+            : Response::deny('You are not authorized to create a menu item.');
+    }
 
     public function update(User $user, MenuItem $menuItem): Response
     {

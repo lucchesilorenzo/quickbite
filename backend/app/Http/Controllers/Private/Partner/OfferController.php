@@ -28,7 +28,7 @@ class OfferController extends Controller
      */
     public function getOffers(Restaurant $restaurant): JsonResponse
     {
-        Gate::authorize('viewPartnerRestaurant', $restaurant);
+        Gate::authorize('viewAny', [Offer::class, $restaurant]);
 
         try {
             $offers = $this->offerService->getOffers($restaurant);
@@ -53,7 +53,7 @@ class OfferController extends Controller
         CreateOfferRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('createPartnerOffer', $restaurant);
+        Gate::authorize('create', [Offer::class, $restaurant]);
 
         try {
             $offer = $this->offerService->createOffer(

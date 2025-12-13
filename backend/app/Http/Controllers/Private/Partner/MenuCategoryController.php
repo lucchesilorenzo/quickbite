@@ -32,7 +32,7 @@ class MenuCategoryController extends Controller
         CreateMenuCategoryRequest $request,
         Restaurant $restaurant
     ): JsonResponse {
-        Gate::authorize('createPartnerMenuCategory', $restaurant);
+        Gate::authorize('create', [MenuCategory::class, $restaurant]);
 
         try {
             $menuCategory = $this->menuCategoryService->createMenuCategory(

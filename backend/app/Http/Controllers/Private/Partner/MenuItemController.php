@@ -31,7 +31,7 @@ class MenuItemController extends Controller
         CreateMenuItemRequest $request,
         MenuCategory $menuCategory
     ): JsonResponse {
-        Gate::authorize('createPartnerMenuItem', $menuCategory);
+        Gate::authorize('create', [MenuItem::class, $menuCategory]);
 
         try {
             $image = $request->hasFile('image') ? $request->file('image') : null;
