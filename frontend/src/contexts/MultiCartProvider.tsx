@@ -119,7 +119,7 @@ export default function MultiCartProvider({
 
       errorShown.current = true;
     }
-  }, [user, cartsError]);
+  }, [user, cartsError, notifications]);
 
   useEffect(() => {
     errorShown.current = false;
