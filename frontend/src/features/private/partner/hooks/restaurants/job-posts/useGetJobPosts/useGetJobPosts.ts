@@ -19,13 +19,17 @@ export function useGetJobPosts({
   sortBy,
   filters,
 }: UseGetJobPostsOptions) {
+  const sortField = sortBy[0]?.field;
+  const sortOrder = sortBy[0]?.sort;
+
   return useQuery<GetJobPostsResponse>({
     queryKey: [
       "partner-job-posts",
       restaurantId,
       page,
       pageSize,
-      sortBy,
+      sortField,
+      sortOrder,
       filters,
     ],
     queryFn: () => {
@@ -39,11 +43,14 @@ export function useGetJobPosts({
         params.append("page_size", pageSize.toString());
       }
 
-      if (sortBy.length > 0 && sortBy[0].field && sortBy[0].sort) {
-        params.append("sort_by", JSON.stringify(sortBy[0]));
+      if (sortField && sortOrder) {
+        params.append(
+          "sort_by",
+          JSON.stringify({ field: sortField, sort: sortOrder }),
+        );
       }
 
-      if (filters.items?.length > 0) {
+      if (filters.items?.length && filters.items.length > 0) {
         params.append("filter", JSON.stringify(filters.items[0]));
       }
 
