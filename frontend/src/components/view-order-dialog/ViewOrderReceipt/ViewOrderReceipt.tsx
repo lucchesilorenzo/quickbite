@@ -40,7 +40,7 @@ export default function ViewOrderReceipt({ order }: ViewOrderReceiptProps) {
           variant="text"
           color={error ? "error" : "primary"}
           loading={loading}
-          loadingIndicator="Saving..."
+          loadingIndicator="Loading..."
           size="large"
           sx={{ fontWeight: 700 }}
         >
