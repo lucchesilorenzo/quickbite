@@ -1,16 +1,15 @@
 import { Stack, Typography } from "@mui/material";
-import { RichTextEditorRef } from "mui-tiptap";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type CharacterCountDisplayProps = {
   descriptionError?: string;
-  rteRef: React.RefObject<RichTextEditorRef | null>;
+  characterCount: number;
 };
 
 export default function CharacterCountDisplay({
   descriptionError,
-  rteRef,
+  characterCount,
 }: CharacterCountDisplayProps) {
   return (
     <Stack direction="row" sx={{ mt: 1, justifyContent: "space-between" }}>
@@ -20,10 +19,7 @@ export default function CharacterCountDisplay({
         <Typography sx={{ visibility: "hidden" }}></Typography>
       )}
 
-      <Typography variant="body2">
-        {rteRef.current?.editor?.storage.characterCount.characters() ?? 0} /
-        2000
-      </Typography>
+      <Typography variant="body2">{characterCount} / 2000</Typography>
     </Stack>
   );
 }

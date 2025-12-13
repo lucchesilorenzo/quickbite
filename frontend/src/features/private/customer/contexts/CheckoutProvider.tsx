@@ -97,18 +97,6 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   }, [isLoadingCart, cartError, notifications, navigate]);
 
   useEffect(() => {
-    if (isLoadingDeliverySlots || !deliverySlotsError) return;
-
-    setCheckoutData((prev) => ({
-      ...prev,
-      [restaurantId]: {
-        ...prev[restaurantId],
-        delivery_time: { type: null, value: "" },
-      },
-    }));
-  }, [deliverySlotsError, restaurantId]);
-
-  useEffect(() => {
     if (!restaurantId) return;
 
     setCheckoutData((prev) => {

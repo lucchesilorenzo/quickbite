@@ -5,13 +5,13 @@ type HttpMethod = "get" | "post" | "patch" | "delete";
 
 export function simulateInfiniteLoading(
   endpoint: string,
-  method: HttpMethod = "get"
+  method: HttpMethod = "get",
 ) {
   server.use(
     http[method](endpoint, async () => {
       await delay("infinite");
       return HttpResponse.json([]);
-    })
+    }),
   );
 }
 
@@ -20,7 +20,7 @@ export function simulateDelay(endpoint: string, method: HttpMethod = "get") {
     http[method](endpoint, async () => {
       await delay();
       return HttpResponse.json([]);
-    })
+    }),
   );
 }
 

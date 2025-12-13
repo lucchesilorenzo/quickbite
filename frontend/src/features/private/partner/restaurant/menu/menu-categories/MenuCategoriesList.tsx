@@ -49,7 +49,7 @@ export default function MenuCategoriesList() {
 
   useEffect(() => {
     setItems(menuData.menu);
-  }, [menuData.menu]);
+  }, [menuData]);
 
   async function handleMenuCategorySort({ active, over }: DragEndEvent) {
     if (active.id === over?.id) return;
