@@ -223,7 +223,7 @@ For detailed information about the database schema, models, and relationships, s
 
 ## API Documentation
 
-The API documentation is available at [http://localhost:8000/api/docs](http://localhost:8000/api/docs).
+The API documentation is available at [http://localhost:8000/docs/api](http://localhost:8000/docs/api).
 
 ## Roadmap
 
