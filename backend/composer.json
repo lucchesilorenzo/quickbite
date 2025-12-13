@@ -68,7 +68,12 @@
             "rector",
             "pint"
         ],
-        "test:types": "phpstan analyse --memory-limit=2G"
+        "test:types": "phpstan analyse --memory-limit=2G",
+        "test:format": "pint --test",
+        "test": [
+            "@test:types",
+            "@test:format"
+        ]
     },
     "extra": {
         "laravel": {
