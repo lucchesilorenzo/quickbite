@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 import { Box } from "@mui/material";
 import CharacterCount from "@tiptap/extension-character-count";
@@ -17,7 +17,6 @@ import {
   MenuSelectHeading,
   MenuSelectTextAlign,
   RichTextEditor,
-  type RichTextEditorRef,
 } from "mui-tiptap";
 import { UseFormSetValue } from "react-hook-form";
 
@@ -36,7 +35,7 @@ export default function JobPostEditor({
   onChange,
   setValue,
 }: JobPostEditorProps) {
-  const rteRef = useRef<RichTextEditorRef>(null);
+  const [characterCount, setCharacterCount] = useState(0);
 
   return (
     <Box>
@@ -46,7 +45,6 @@ export default function JobPostEditor({
             spellcheck: "false",
           },
         }}
-        ref={rteRef}
         extensions={[
           StarterKit,
           TextAlign.configure({
@@ -59,6 +57,7 @@ export default function JobPostEditor({
         onUpdate={({ editor }) => {
           onChange(editor.getHTML());
           setValue("description_text", editor.getText().trim());
+          setCharacterCount(editor.storage.characterCount.characters());
         }}
         renderControls={() => (
           <MenuControlsContainer>
@@ -92,7 +91,7 @@ export default function JobPostEditor({
 
       <CharacterCountDisplay
         descriptionError={descriptionError}
-        rteRef={rteRef}
+        characterCount={characterCount}
       />
     </Box>
   );
