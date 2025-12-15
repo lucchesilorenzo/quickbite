@@ -16,7 +16,7 @@ export default function BlockRoleRoute({ blockedRoles }: BlockRoleRouteProps) {
   if (isBlocked) {
     if (isCustomer(user)) return <Navigate to="/" replace />;
     if (isPartner(user)) return <Navigate to="/partner/restaurants" replace />;
-    if (isRider(user)) return <Navigate to="/rider/dashboard" replace />;
+    if (isRider(user)) return <Navigate to="/rider/job-posts" replace />;
   }
 
   return <Outlet />;
