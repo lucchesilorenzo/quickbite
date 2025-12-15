@@ -20,7 +20,7 @@ export function useRegister() {
 
       localStorage.removeItem("rider_registration_data");
 
-      navigate("/rider/dashboard");
+      navigate("/rider/job-posts");
     },
     onError: (error) => {
       notifications.show(error.message, {

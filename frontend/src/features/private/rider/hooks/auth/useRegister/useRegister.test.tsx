@@ -28,7 +28,7 @@ describe("useRegister", () => {
 
     expect(result.current.data).toBeDefined();
 
-    expect(mockNavigate).toHaveBeenCalledWith("/rider/dashboard");
+    expect(mockNavigate).toHaveBeenCalledWith("/rider/job-posts");
     expect(mockNavigate).toHaveBeenCalledTimes(1);
   });
 
