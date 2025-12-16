@@ -29,7 +29,7 @@ export default function RestaurantNavigationItemMobile({
         component={Link}
         to={route.href}
         selected={pathname === route.href}
-        onClick={() => setOpenDrawer?.(false)}
+        onClick={() => setOpenDrawer(false)}
         sx={{
           "&.Mui-selected": { bgcolor: grey[200] },
           "&.Mui-selected:hover": { bgcolor: grey[200] },
