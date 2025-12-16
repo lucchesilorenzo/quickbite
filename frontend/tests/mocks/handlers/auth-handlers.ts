@@ -1,0 +1,24 @@
+import env from "@/lib/env";
+import { http, HttpResponse } from "msw";
+
+export const authHandlers = [
+  http.post(`${env.VITE_BASE_URL}/api/rider/auth/register`, async () => {
+    return HttpResponse.json(
+      {
+        success: true,
+        message: "Rider registered successfully.",
+        token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
+      },
+      { status: 201 }
+    );
+  }),
+  http.post(`${env.VITE_BASE_URL}/api/rider/auth/logout`, async () => {
+    return HttpResponse.json(
+      {
+        success: true,
+        message: "Rider logged out successfully.",
+      },
+      { status: 200 }
+    );
+  }),
+];
