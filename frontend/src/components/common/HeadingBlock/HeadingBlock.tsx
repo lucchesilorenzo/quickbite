@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import BackButton from "./BackButton";
+import BackButton from "../BackButton";
 
 type HeadingBlockProps = {
   title: string;
