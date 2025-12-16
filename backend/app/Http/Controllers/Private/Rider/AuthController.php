@@ -53,4 +53,26 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Logout a rider.
+     */
+    public function logout(): JsonResponse
+    {
+        try {
+            $this->authService->logout(
+                auth()->user()
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Rider logged out successfully.',
+            ], 200);
+        } catch (Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not logout rider.',
+            ], 500);
+        }
+    }
 }
