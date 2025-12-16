@@ -41,4 +41,9 @@ class AuthService
 
         return $rider;
     }
+
+    public function logout(User $rider): void
+    {
+        $rider->currentAccessToken()->delete();
+    }
 }
