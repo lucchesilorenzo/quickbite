@@ -67,7 +67,6 @@ export default function PartnerProfileGeneralPage() {
         <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
           <Button
             type="submit"
-            disabled={isSubmitting || isUpdating}
             loading={isSubmitting || isUpdating}
             loadingIndicator="Saving..."
             variant="contained"
