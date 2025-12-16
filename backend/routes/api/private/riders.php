@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Private\Rider\AuthController;
+use App\Http\Controllers\Private\Rider\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('rider')->group(function (): void {
@@ -12,4 +13,11 @@ Route::prefix('rider')->group(function (): void {
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum', 'role:rider');
     });
+
+    // === PROFILE MANAGEMENT ===
+    Route::prefix('profile')
+        ->middleware(['auth:sanctum', 'role:rider'])
+        ->group(function (): void {
+            Route::patch('/general', [ProfileController::class, 'updateProfileGeneralInformation']);
+        });
 });
