@@ -1,3 +1,5 @@
+export type VehicleType = "car" | "scooter";
+
 export type User = {
   id: string;
   first_name: string;
@@ -13,6 +15,7 @@ export type User = {
   city: string | null;
   state: string | null;
   country: string | null;
+  vehicle_type: VehicleType | null;
   drivers_license: string | null;
   roles: {
     uuid: string;
