@@ -9,5 +9,6 @@ Route::prefix('rider')->group(function (): void {
     // === AUTH ===
     Route::prefix('auth')->group(function (): void {
         Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum', 'role:rider');
     });
 });
