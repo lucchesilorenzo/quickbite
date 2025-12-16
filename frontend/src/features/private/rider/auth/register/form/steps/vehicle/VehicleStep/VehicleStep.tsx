@@ -1,5 +1,3 @@
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import MopedIcon from "@mui/icons-material/Moped";
 import {
   Box,
   Card,
@@ -9,15 +7,11 @@ import {
   Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { vehicles } from "@rider/lib/constants/vehicles";
 import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
-
-const vehicles = [
-  { label: "Own Scooter", value: "scooter", icon: MopedIcon },
-  { label: "Own Car", value: "car", icon: DirectionsCarIcon },
-];
 
 export default function VehicleStep() {
   const {
@@ -65,7 +59,9 @@ export default function VehicleStep() {
                             justifyContent: "space-between",
                           }}
                         >
-                          <Typography variant="h6">{vehicle.label}</Typography>
+                          <Typography variant="h6">
+                            Own {vehicle.label}
+                          </Typography>
 
                           <vehicle.icon
                             fontSize="large"
