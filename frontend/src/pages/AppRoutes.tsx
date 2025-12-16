@@ -10,6 +10,7 @@ import { ErrorRoutes } from "./ErrorRoutes";
 import { PartnerRoutes } from "./PartnerRoutes";
 import Providers from "./Providers";
 import { PublicRoutes } from "./PublicRoutes";
+import { RiderRoutes } from "./RiderRoutes";
 
 export default function AppRoutes() {
   return (
@@ -20,6 +21,7 @@ export default function AppRoutes() {
           {PublicRoutes}
           {CustomerRoutes}
           {PartnerRoutes}
+          {RiderRoutes}
           {ErrorRoutes}
         </Routes>
       </Providers>
