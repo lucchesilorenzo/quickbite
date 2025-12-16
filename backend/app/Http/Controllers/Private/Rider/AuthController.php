@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Rider;
 
+use App\Exceptions\Private\InvalidCredentialsException;
+use App\Exceptions\Private\Rider\UnauthorizedException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Private\Rider\Auth\LoginRequest;
 use App\Http\Requests\Private\Rider\Auth\RegisterRequest;
 use App\Services\Private\Rider\AuthService;
 use Dedoc\Scramble\Attributes\Group;
@@ -55,6 +58,34 @@ class AuthController extends Controller
     }
 
     /**
+     * Login a rider.
+     */
+    public function login(LoginRequest $request): JsonResponse
+    {
+        try {
+            $token = $this->authService->login(
+                $request->validated()
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Rider logged in successfully.',
+                'token' => $token,
+            ], 200);
+        } catch (InvalidCredentialsException|UnauthorizedException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        } catch (Throwable) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not login rider.',
+            ], 500);
+        }
+    }
+
+    /**
      * Logout a rider.
      */
     public function logout(): JsonResponse
@@ -68,7 +99,7 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => 'Rider logged out successfully.',
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'success' => false,
                 'message' => 'Could not logout rider.',
