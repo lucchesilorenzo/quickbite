@@ -12,6 +12,16 @@ export const authHandlers = [
       { status: 201 }
     );
   }),
+  http.post(`${env.VITE_BASE_URL}/api/rider/auth/login`, async () => {
+    return HttpResponse.json(
+      {
+        success: true,
+        message: "Rider logged in successfully.",
+        token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
+      },
+      { status: 200 }
+    );
+  }),
   http.post(`${env.VITE_BASE_URL}/api/rider/auth/logout`, async () => {
     return HttpResponse.json(
       {
