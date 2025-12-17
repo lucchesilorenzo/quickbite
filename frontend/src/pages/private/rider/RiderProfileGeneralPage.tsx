@@ -1,0 +1,86 @@
+import { useEffect } from "react";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Stack } from "@mui/material";
+import GeneralAddressCard from "@rider/header/profile/general/GeneralAddressCard";
+import GeneralPersonalInfoCard from "@rider/header/profile/general/GeneralPersonalInfoCard";
+import { useUpdateProfileGeneralInformation } from "@rider/hooks/profile/useUpdateProfileGeneralInformation";
+import {
+  TProfileGeneralFormSchema,
+  profileGeneralFormSchema,
+} from "@rider/schemas/profile-general.schema";
+import { FormProvider, useForm } from "react-hook-form";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
+import { useAuth } from "@/contexts/AuthProvider";
+
+export default function RiderProfileGeneralPage() {
+  useEffect(() => {
+    document.title = "General information | QuickBite";
+  }, []);
+
+  const { user } = useAuth();
+  const { mutate: updateProfileGeneralInformation, isPending: isUpdating } =
+    useUpdateProfileGeneralInformation();
+
+  const methods = useForm({
+    resolver: zodResolver(profileGeneralFormSchema),
+    defaultValues: {
+      first_name: user?.first_name || "",
+      last_name: user?.last_name || "",
+      phone_number: user?.phone_number || "",
+      date_of_birth: user?.date_of_birth || "",
+      vehicle_type: user?.vehicle_type || "car",
+      street_address: user?.street_address || "",
+      building_number: user?.building_number || "",
+      postcode: user?.postcode || "",
+      city: user?.city || "",
+      state: user?.state || "",
+    },
+  });
+
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
+  function onSubmit(data: TProfileGeneralFormSchema) {
+    updateProfileGeneralInformation(data);
+  }
+
+  return (
+    <FormProvider {...methods}>
+      <HeadingBlock
+        title="General information"
+        description="Manage your general information of your profile"
+      />
+
+      <Stack
+        component="form"
+        spacing={2}
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
+        noValidate
+      >
+        <GeneralPersonalInfoCard />
+        <GeneralAddressCard />
+
+        <Stack direction="row" sx={{ justifyContent: "flex-end" }}>
+          <Button
+            type="submit"
+            loading={isSubmitting || isUpdating}
+            loadingIndicator="Saving..."
+            variant="contained"
+            sx={{
+              bgcolor: "#212121",
+              color: "white",
+              "&:hover": { bgcolor: "#333333" },
+            }}
+          >
+            Save changes
+          </Button>
+        </Stack>
+      </Stack>
+    </FormProvider>
+  );
+}
