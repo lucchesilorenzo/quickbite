@@ -1,8 +1,9 @@
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Card } from "@mui/material";
 
-import CardHeading from "../components/CardHeading";
 import GeneralPersonalInfoForm from "./GeneralPersonalInfoForm";
+
+import CardHeading from "@/components/common/CardHeading/CardHeading";
 
 export default function GeneralPersonalInfoCard() {
   return (

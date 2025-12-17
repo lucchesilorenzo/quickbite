@@ -1,8 +1,9 @@
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { Card } from "@mui/material";
 
-import CardHeading from "../components/CardHeading";
 import GeneralAddressForm from "./GeneralAddressForm";
+
+import CardHeading from "@/components/common/CardHeading/CardHeading";
 
 export default function GeneralAddressCard() {
   return (
