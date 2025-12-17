@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import SettingsMainCards from "@partner/restaurant/settings/SettingsMainCards";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 export default function PartnerSettingsPage() {
   useEffect(() => {

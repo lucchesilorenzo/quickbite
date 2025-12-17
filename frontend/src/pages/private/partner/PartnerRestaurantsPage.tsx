@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
 import { Container, Typography } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import { useGetRestaurants } from "@partner/hooks/restaurants/restaurant/useGetRestaurants";
 import RestaurantsSelection from "@partner/restaurants/RestaurantsSelection";
 import RestaurantsWelcome from "@partner/restaurants/RestaurantsWelcome";
 
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
+import HeadingBlock from "@/components/common/HeadingBlock";
 import Spinner from "@/components/common/Spinner";
 
 export default function PartnerRestaurantsPage() {

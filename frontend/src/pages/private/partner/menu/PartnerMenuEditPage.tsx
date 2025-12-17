@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import RestaurantMenuProvider from "@partner/contexts/MenuProvider";
 import MenuEditNavigation from "@partner/restaurant/menu/edit/MenuEditNavigation";
 import MenuItemsList from "@partner/restaurant/menu/edit/MenuItemsList";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 export default function PartnerMenuEditPage() {
   useEffect(() => {

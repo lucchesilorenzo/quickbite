@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import DeliveryTimesTabs from "@partner/restaurant/settings/delivery-times/DeliveryTimesTabs";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 export default function PartnerSettingsDeliveryTimesPage() {
   useEffect(() => {

@@ -2,9 +2,10 @@ import { useState } from "react";
 
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Box, Drawer, IconButton } from "@mui/material";
-import HeadingBlock from "@rider/components/HeadingBlock";
 
 import ProfileSidebarNavigation from "./ProfileSidebarNavigation";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 export default function ProfileDrawer() {
   const [openDrawer, setOpenDrawer] = useState(false);

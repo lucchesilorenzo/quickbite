@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import { useUpdateProfileGeneralInformation } from "@partner/hooks/profile/useUpdateProfileGeneralInformation";
 import GeneralAddressCard from "@partner/profile/general/GeneralAddressCard";
 import GeneralPersonalInfoCard from "@partner/profile/general/GeneralPersonalInfoCard";
@@ -12,6 +11,7 @@ import {
 } from "@partner/schemas/profile-general.schema";
 import { FormProvider, useForm } from "react-hook-form";
 
+import HeadingBlock from "@/components/common/HeadingBlock";
 import { useAuth } from "@/contexts/AuthProvider";
 
 export default function PartnerProfileGeneralPage() {
