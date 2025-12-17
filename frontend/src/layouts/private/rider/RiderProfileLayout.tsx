@@ -1,6 +1,6 @@
 import { Container, Grid, Stack, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import Header from "@rider/header/Header";
+import ProfileHeader from "@rider/header/profile/ProfileHeader";
 import ProfileSidebar from "@rider/header/profile/ProfileSidebar";
 import { Outlet } from "react-router-dom";
 
@@ -9,7 +9,7 @@ export default function RiderProfileLayout() {
 
   return (
     <Stack sx={{ minHeight: "100vh", bgcolor: grey[100] }}>
-      <Header />
+      <ProfileHeader />
 
       <Container component="main" maxWidth="md" sx={{ my: 3 }}>
         {!isMobile ? (
