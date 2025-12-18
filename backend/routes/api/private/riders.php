@@ -19,5 +19,15 @@ Route::prefix('rider')->group(function (): void {
         ->middleware(['auth:sanctum', 'role:rider'])
         ->group(function (): void {
             Route::patch('/general', [ProfileController::class, 'updateProfileGeneralInformation']);
+            Route::patch('/notifications', [ProfileController::class, 'updateProfileNotifications']);
+        });
+
+    // === RESTAURANTS ===
+    Route::prefix('restaurants')
+        ->middleware(['auth:sanctum', 'role:rider'])
+        ->group(function (): void {
+            // TODO: Restaurants
+
+            // TODO: Notifications
         });
 });
