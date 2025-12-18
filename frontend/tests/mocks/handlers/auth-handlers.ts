@@ -9,7 +9,7 @@ export const authHandlers = [
         message: "Rider registered successfully.",
         token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
       },
-      { status: 201 }
+      { status: 201 },
     );
   }),
   http.post(`${env.VITE_BASE_URL}/api/rider/auth/login`, async () => {
@@ -19,7 +19,7 @@ export const authHandlers = [
         message: "Rider logged in successfully.",
         token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
       },
-      { status: 200 }
+      { status: 200 },
     );
   }),
   http.post(`${env.VITE_BASE_URL}/api/rider/auth/logout`, async () => {
@@ -28,7 +28,7 @@ export const authHandlers = [
         success: true,
         message: "Rider logged out successfully.",
       },
-      { status: 200 }
+      { status: 200 },
     );
   }),
 ];
