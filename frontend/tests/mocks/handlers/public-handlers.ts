@@ -15,12 +15,12 @@ export const publicHandlers = [
       }
 
       return HttpResponse.json([address]);
-    }
+    },
   ),
   http.get(
     `${env.VITE_BASE_URL}/api/restaurants/:restaurantId/base64-logo`,
     async () => {
       return HttpResponse.json(restaurantLogoResponse);
-    }
+    },
   ),
 ];

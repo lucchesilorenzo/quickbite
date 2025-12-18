@@ -20,25 +20,25 @@ export const partnerHandlers = [
       }
 
       return HttpResponse.json(jobPostsResponse);
-    }
+    },
   ),
   http.get(
     `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
     async () => {
       return HttpResponse.json(jobPostResponse);
-    }
+    },
   ),
   http.post(
     `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
     async () => {
       return HttpResponse.json(addJobPostFormResponse, { status: 201 });
-    }
+    },
   ),
   http.patch(
     `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
     async () => {
       return HttpResponse.json(editJobPostFormResponse);
-    }
+    },
   ),
   http.delete(
     `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
@@ -52,17 +52,17 @@ export const partnerHandlers = [
 
       return HttpResponse.json(
         { success: true, message: "Job posts deleted successfully." },
-        { status: 200 }
+        { status: 200 },
       );
-    }
+    },
   ),
   http.delete(
     `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
     async () => {
       return HttpResponse.json(
         { success: true, message: "Job post deleted successfully." },
-        { status: 200 }
+        { status: 200 },
       );
-    }
+    },
   ),
 ];
