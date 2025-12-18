@@ -47,6 +47,6 @@ export type UserWithoutNotificationsAndRoles = Omit<
   "notification_preferences" | "roles"
 >;
 
-export type NotificationType = "new_order" | "new_review";
+export type NotificationType = "new_order" | "new_review" | "new_delivery";
 
 export type Role = "customer" | "partner" | "rider";
