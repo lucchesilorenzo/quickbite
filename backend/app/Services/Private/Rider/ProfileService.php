@@ -7,6 +7,7 @@ namespace App\Services\Private\Rider;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\User;
 use App\Services\Shared\LocationService;
+use Illuminate\Support\Facades\DB;
 
 class ProfileService
 {
@@ -25,5 +26,19 @@ class ProfileService
         $rider->update($data);
 
         return $rider;
+    }
+
+    public function updateProfileNotifications(array $data, User $rider): User
+    {
+        return DB::transaction(function () use ($data, $rider) {
+            foreach ($data as $type => $enabled) {
+                $rider->notificationPreferences()->updateOrCreate(
+                    ['type' => $type],
+                    ['enabled' => $enabled]
+                );
+            }
+
+            return $rider->load('notificationPreferences');
+        });
     }
 }
