@@ -95,7 +95,7 @@ class Restaurant extends Model
     public function riders(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
-            ->withPivot('role', 'contract_start', 'contract_end', 'is_active')
+            ->withPivot('role', 'is_active')
             ->wherePivot('role', RestaurantRole::RIDER);
     }
 

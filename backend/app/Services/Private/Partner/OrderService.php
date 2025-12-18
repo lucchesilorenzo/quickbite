@@ -62,8 +62,7 @@ class OrderService
 
     private function findAvailableRider(Order $order): ?User
     {
-        return $order->restaurant
-            ->riders()
+        return $order->restaurant->riders()
             ->where('is_active', true)
             ->get()
             ->first(fn (User $rider): bool => ! Delivery::isRiderBusy($rider));

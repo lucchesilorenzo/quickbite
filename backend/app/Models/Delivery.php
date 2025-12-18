@@ -31,6 +31,7 @@ class Delivery extends Model
         return self::query()
             ->where('rider_id', $rider->id)
             ->whereNull('delivered_at')
+            ->whereNull('cancelled_at')
             ->exists();
     }
 
