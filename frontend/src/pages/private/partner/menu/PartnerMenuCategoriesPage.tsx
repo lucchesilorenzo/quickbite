@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import AddMenuCategoryDialog from "@partner/restaurant/menu/menu-categories/AddMenuCategoryDialog";
 import MenuCategoriesList from "@partner/restaurant/menu/menu-categories/MenuCategoriesList";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 export default function PartnerMenuCategoriesPage() {
   useEffect(() => {

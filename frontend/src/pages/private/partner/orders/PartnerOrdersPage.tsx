@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import OrdersProvider from "@partner/contexts/OrdersProvider";
 import OrdersList from "@partner/restaurant/orders/OrdersList";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 export default function PartnerOrdersPage() {
   useEffect(() => {

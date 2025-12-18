@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import ReviewsProvider from "@partner/contexts/ReviewsProvider";
 import ReviewsLayout from "@partner/restaurant/reviews/layouts/ReviewsLayout";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 export default function PartnerReviewsPage() {
   useEffect(() => {

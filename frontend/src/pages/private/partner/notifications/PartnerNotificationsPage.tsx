@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 
 import { Container } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import NotificationsActionBar from "@partner/restaurant/notifications/NotificationsActionBar";
 import NotificationsList from "@partner/restaurant/notifications/NotificationsList";
 
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 export default function PartnerNotificationsPage() {
   const { notificationsError } = useRestaurant();

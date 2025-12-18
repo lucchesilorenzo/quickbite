@@ -6,6 +6,7 @@ import LoginForm from "./LoginForm";
 export default function LoginFormContainer() {
   return (
     <Container
+      component="main"
       maxWidth="xs"
       disableGutters
       sx={{
@@ -13,6 +14,7 @@ export default function LoginFormContainer() {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        p: 2,
       }}
     >
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 3 }}>

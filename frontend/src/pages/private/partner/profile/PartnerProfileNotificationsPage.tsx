@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Stack } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import { useUpdateProfileNotifications } from "@partner/hooks/profile/useUpdateProfileNotifications";
 import NotificationsCard from "@partner/profile/notifications/NotificationsCard";
 import {
@@ -11,6 +10,7 @@ import {
 } from "@partner/schemas/profile-notifications.schema";
 import { FormProvider, useForm } from "react-hook-form";
 
+import HeadingBlock from "@/components/common/HeadingBlock";
 import { useAuth } from "@/contexts/AuthProvider";
 import { NotificationType } from "@/types/user.types";
 

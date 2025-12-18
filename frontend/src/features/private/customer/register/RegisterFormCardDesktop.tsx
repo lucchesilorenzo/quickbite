@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import CustomerRegisterForm from "./RegisterForm";
+import RegisterForm from "./RegisterForm";
 
 export default function RegisterFormCardDesktop() {
   return (
@@ -10,7 +10,7 @@ export default function RegisterFormCardDesktop() {
         Create account
       </Typography>
 
-      <CustomerRegisterForm />
+      <RegisterForm />
 
       <Box sx={{ textAlign: "center", mt: 4 }}>
         <Typography variant="body2" component="div">

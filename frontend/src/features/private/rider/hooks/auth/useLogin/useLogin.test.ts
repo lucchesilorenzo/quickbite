@@ -1,10 +1,10 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import TestQueryWrapper from "@tests/TestQueryWrapper";
-import { registerForm } from "@tests/mocks/data/private/rider/forms/register";
+import { loginForm } from "@tests/mocks/data/private/rider/forms/login";
 import { simulateError } from "@tests/utils/msw";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { useRegister } from "./useRegister";
+import { useLogin } from "./useLogin";
 
 import env from "@/lib/env";
 
@@ -16,19 +16,19 @@ vi.mock("react-router-dom", async () => ({
   useNavigate: () => mockNavigate,
 }));
 
-describe("useRegister", () => {
+describe("useLogin", () => {
   it("should mutate and return data", async () => {
-    const { result } = renderHook(() => useRegister(), {
+    const { result } = renderHook(() => useLogin(), {
       wrapper: TestQueryWrapper,
     });
 
-    result.current.mutate(registerForm);
+    result.current.mutate(loginForm);
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
     expect(result.current.data).toBeDefined();
 
-    expect(mockNavigate).toHaveBeenCalledWith("/rider/dashboard");
+    expect(mockNavigate).toHaveBeenCalledWith("/rider/job-posts");
     expect(mockNavigate).toHaveBeenCalledTimes(1);
   });
 
@@ -37,13 +37,13 @@ describe("useRegister", () => {
       show: mockShow,
       close: vi.fn(),
     });
-    simulateError(`${env.VITE_BASE_URL}/api/rider/auth/register`, "post");
+    simulateError(`${env.VITE_BASE_URL}/api/rider/auth/login`, "post");
 
-    const { result } = renderHook(() => useRegister(), {
+    const { result } = renderHook(() => useLogin(), {
       wrapper: TestQueryWrapper,
     });
 
-    result.current.mutate(registerForm);
+    result.current.mutate(loginForm);
 
     await waitFor(() => expect(result.current.isError).toBeTruthy());
 
@@ -52,18 +52,18 @@ describe("useRegister", () => {
     expect(mockShow).toHaveBeenCalledWith(
       expect.any(String),
       expect.objectContaining({
-        key: "rider-register-error",
+        key: "rider-login-error",
         severity: "error",
       }),
     );
   });
 
   it("should not show notification on success", () => {
-    const { result } = renderHook(() => useRegister(), {
+    const { result } = renderHook(() => useLogin(), {
       wrapper: TestQueryWrapper,
     });
 
-    result.current.mutate(registerForm);
+    result.current.mutate(loginForm);
 
     expect(mockShow).not.toHaveBeenCalled();
   });

@@ -8,6 +8,7 @@ enum NotificationPreference: string
 {
     case NEW_ORDER = 'new_order';
     case NEW_REVIEW = 'new_review';
+    case NEW_DELIVERY = 'new_delivery';
 
     /**
      * Get the enum values.

@@ -2,10 +2,11 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import Save from "@mui/icons-material/Save";
 import { Button, Stack } from "@mui/material";
-import HeadingBlock from "@partner/components/HeadingBlock";
 import { useFees } from "@partner/restaurant/settings/contexts/FeesProvider";
 import { TRestaurantSettingsFeesFormSchema } from "@partner/schemas/restaurant-settings.schema";
 import { useFormContext } from "react-hook-form";
+
+import HeadingBlock from "@/components/common/HeadingBlock";
 
 type FeesHeaderProps = {
   isUpdating: boolean;
