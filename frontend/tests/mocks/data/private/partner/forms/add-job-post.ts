@@ -1,7 +1,9 @@
 import {
   CreateJobPostPayload,
   CreateJobPostResponse,
-} from "@/features/private/partner/types/job-posts/job-post.api.types";
+} from "@private/partner/types/job-posts/job-post.api.types";
+import { MIN_SALARY } from "@private/shared/lib/constants/job-posts";
+
 import { apiResponse } from "@tests/mocks/data/shared/common";
 
 export const addJobPostForm: CreateJobPostPayload = {
@@ -9,7 +11,7 @@ export const addJobPostForm: CreateJobPostPayload = {
   description_html: '<p style="text-align: left;">test</p>',
   description_text: "test",
   employment_type: "part_time",
-  salary: 10000,
+  salary: MIN_SALARY,
 };
 
 export const addJobPostFormResponse: CreateJobPostResponse = {
@@ -20,7 +22,7 @@ export const addJobPostFormResponse: CreateJobPostResponse = {
     description_html: '<p style="text-align: left;">test</p>',
     description_text: "test",
     employment_type: "part_time",
-    salary: 10000,
+    salary: MIN_SALARY,
     restaurant_id: "a0611650-d7f4-481f-ac39-de9c8d1073ed",
     status: "open",
     updated_at: "2025-11-17T14:10:42.000000Z",

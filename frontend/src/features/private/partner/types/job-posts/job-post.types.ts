@@ -1,7 +1,9 @@
-import { BaseOffsetPagination } from "@/types/pagination.types";
+import {
+  EmploymentType,
+  JobPostStatus,
+} from "@private/shared/types/job-posts/job-post.types";
 
-export type EmploymentType = "full_time" | "part_time" | "contract";
-export type JobPostStatus = "open" | "closed";
+import { BaseOffsetPagination } from "@/types/pagination.types";
 
 export type JobPost = {
   id: string;

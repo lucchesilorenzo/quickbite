@@ -1,10 +1,12 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
-import {
-  employmentTypes,
-  jobPostStatuses,
-} from "@partner/lib/constants/job-posts";
 import { TEditJobPostFormSchema } from "@partner/schemas/job-posts.schema";
 import { JobPost } from "@partner/types/job-posts/job-post.types";
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+  employmentTypes,
+  jobPostStatuses,
+} from "@private/shared/lib/constants/job-posts";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { editJobPostForm } from "@tests/mocks/data/private/partner/forms/edit-job-post";
@@ -288,12 +290,12 @@ describe("EditJobPostForm", () => {
     },
     {
       scenario: "below minimum",
-      salary: 9999,
+      salary: MIN_SALARY - 1,
       errorMessage: /between €10,000 and €100,000/i,
     },
     {
       scenario: "above maximum",
-      salary: 100001,
+      salary: MAX_SALARY + 1,
       errorMessage: /between €10,000 and €100,000/i,
     },
   ])(
