@@ -2,7 +2,7 @@ import { GridRowId } from "@mui/x-data-grid";
 import {
   GetJobPostResponse,
   GetJobPostsResponse,
-} from "@/features/private/partner/types/job-posts/job-post.api.types";
+} from "@private/partner/types/job-posts/job-post.api.types";
 import { apiResponse } from "../../shared/common";
 
 export const jobPostResponse: GetJobPostResponse = {
