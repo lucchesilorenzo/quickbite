@@ -38,7 +38,7 @@ export default function JobPostCountAndSort() {
           <Typography variant="body2">Sort by:</Typography>
 
           <Link
-            component={isDesc ? "span" : "button"}
+            component="button"
             color={isDesc ? "inherit" : "info"}
             underline={isDesc ? "none" : "hover"}
             variant="body2"
@@ -46,6 +46,7 @@ export default function JobPostCountAndSort() {
             sx={{
               textTransform: "lowercase",
               fontWeight: isDesc ? 500 : undefined,
+              cursor: isDesc ? "default" : "pointer",
             }}
           >
             Latest
@@ -60,7 +61,7 @@ export default function JobPostCountAndSort() {
           </Typography>
 
           <Link
-            component={isAsc ? "span" : "button"}
+            component="button"
             color={isAsc ? "inherit" : "info"}
             underline={isAsc ? "none" : "hover"}
             variant="body2"
@@ -68,6 +69,7 @@ export default function JobPostCountAndSort() {
             sx={{
               textTransform: "lowercase",
               fontWeight: isAsc ? 500 : undefined,
+              cursor: isAsc ? "default" : "pointer",
             }}
           >
             Oldest
