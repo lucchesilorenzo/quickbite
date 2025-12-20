@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-import { Container } from "@mui/material";
-import JobPostFilters from "@private/rider/job-posts/JobPostFilters/JobPostFilters";
+import { Box, Container, Divider } from "@mui/material";
+import JobPostFilters from "@rider/job-posts/JobPostFilters/JobPostFilters";
+import JobPostSplitLayout from "@rider/job-posts/layouts/JobPostSplitLayout";
 
 export default function RiderJobPostsPage() {
   useEffect(() => {
@@ -9,8 +10,16 @@ export default function RiderJobPostsPage() {
   }, []);
 
   return (
-    <Container component="main" maxWidth="md" sx={{ my: 3 }}>
-      <JobPostFilters />
-    </Container>
+    <Box component="main">
+      <Container maxWidth="md" sx={{ my: 3 }}>
+        <JobPostFilters />
+      </Container>
+
+      <Divider sx={{ my: 2 }} />
+
+      <Container maxWidth="lg" sx={{ my: 3 }}>
+        <JobPostSplitLayout />
+      </Container>
+    </Box>
   );
 }
