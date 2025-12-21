@@ -44,14 +44,15 @@ export default function JobPostFilters() {
   );
 
   function applyFilters() {
-    setSearchParams({
+    setSearchParams((prev) => ({
+      ...Object.fromEntries(prev),
       search: searchQuery !== "" ? searchQuery : [],
       min_salary:
         salaryRange[0] !== MIN_SALARY ? salaryRange[0].toString() : [],
       max_salary:
         salaryRange[1] !== MAX_SALARY ? salaryRange[1].toString() : [],
       employment_type: employmentType !== "all" ? employmentType : [],
-    });
+    }));
   }
 
   function resetFilters() {
