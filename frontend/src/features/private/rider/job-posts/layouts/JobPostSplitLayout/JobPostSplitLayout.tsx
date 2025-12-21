@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import JobPostCountAndSort from "@rider/job-posts/JobPostCountAndSort";
+import JobPostDetails from "@rider/job-posts/JobPostDetails";
 import JobPostList from "@rider/job-posts/JobPostList";
 
 export default function JobPostSplitLayout() {
@@ -10,7 +11,9 @@ export default function JobPostSplitLayout() {
         <JobPostList />
       </Grid>
 
-      <Grid size={7}>JobPostDetails</Grid>
+      <Grid size={7}>
+        <JobPostDetails />
+      </Grid>
     </Grid>
   );
 }

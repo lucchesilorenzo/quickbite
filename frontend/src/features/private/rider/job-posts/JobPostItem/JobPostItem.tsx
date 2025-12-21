@@ -13,7 +13,7 @@ import {
 export default function JobPostItem() {
   return (
     <Card variant="outlined">
-      <CardActionArea sx={{}}>
+      <CardActionArea>
         <CardContent sx={{ p: 2 }}>
           <Chip
             color="info"
