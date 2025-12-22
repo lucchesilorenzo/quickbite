@@ -1,21 +1,21 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import LocationDisplay from "@tests/LocationDisplay";
 import { customRender } from "@tests/utils/custom-render";
-import { MemoryRouter } from "react-router-dom";
 
 import JobPostCountAndSort from "./JobPostCountAndSort";
+
+let sortBy: "asc" | "desc" = "asc";
+const mockHandleApplySort = vi.fn();
+
+vi.mock("@rider/contexts/JobPostsProvider", () => ({
+  useJobPosts: () => ({ sortBy, handleApplySort: mockHandleApplySort }),
+}));
 
 describe("JobPostCountAndSort", () => {
   const user = userEvent.setup();
 
-  function renderComponent(queryParams?: string) {
-    customRender(
-      <MemoryRouter initialEntries={[`/rider/job-posts${queryParams}`]}>
-        <JobPostCountAndSort />
-        <LocationDisplay />
-      </MemoryRouter>,
-    );
+  function renderComponent() {
+    customRender(<JobPostCountAndSort />);
 
     return {
       user,
@@ -42,33 +42,21 @@ describe("JobPostCountAndSort", () => {
     expect(jobPostCountText).toBeInTheDocument();
   });
 
-  it("should populate search params if they exist", () => {
-    renderComponent("?sort_by=asc");
-
-    expect(screen.getByTestId("location")).toHaveTextContent("?sort_by=asc");
-  });
-
-  it("should populate 'sort_by=desc' when clicking the 'latest' button", async () => {
+  it("should call handleApplySort('desc') when clicking 'latest'", async () => {
+    sortBy = "desc";
     const { user, latestButton } = renderComponent();
 
     await user.click(latestButton);
 
-    expect(screen.getByTestId("location")).toHaveTextContent("?sort_by=desc");
+    expect(mockHandleApplySort).toHaveBeenCalledWith("desc");
   });
 
-  it("should populate 'sort_by=asc' when clicking the 'oldest' button", async () => {
+  it("should call handleApplySort('asc') when clicking 'oldest'", async () => {
+    sortBy = "asc";
     const { user, oldestButton } = renderComponent();
 
     await user.click(oldestButton);
 
-    expect(screen.getByTestId("location")).toHaveTextContent("?sort_by=asc");
-  });
-
-  it("should not update search params when clicking active sort", async () => {
-    const { user, latestButton } = renderComponent("?sort_by=desc");
-
-    await user.click(latestButton);
-
-    expect(screen.getByTestId("location")).toHaveTextContent("?sort_by=desc");
+    expect(mockHandleApplySort).toHaveBeenCalledWith("asc");
   });
 });
