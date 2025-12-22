@@ -1,23 +1,11 @@
 import { Box, Link, Stack, Typography } from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { useSearchParams } from "react-router-dom";
 
 export default function JobPostCountAndSort() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const { sortBy } = useJobPosts();
+  const { sortBy, handleApplySort } = useJobPosts();
 
   const isAsc = sortBy === "asc";
   const isDesc = sortBy === "desc";
-
-  function handleSortChange(sortBy: "asc" | "desc") {
-    if (searchParams.get("sort_by") === sortBy) return;
-
-    setSearchParams((prev) => ({
-      ...Object.fromEntries(prev),
-      sort_by: sortBy,
-    }));
-  }
 
   return (
     <Box sx={{ mb: 2 }}>
@@ -43,7 +31,7 @@ export default function JobPostCountAndSort() {
             color={isDesc ? "inherit" : "info"}
             underline={isDesc ? "none" : "hover"}
             variant="body2"
-            onClick={() => handleSortChange("desc")}
+            onClick={() => handleApplySort("desc")}
             sx={{
               textTransform: "lowercase",
               fontWeight: isDesc ? 500 : undefined,
@@ -66,7 +54,7 @@ export default function JobPostCountAndSort() {
             color={isAsc ? "inherit" : "info"}
             underline={isAsc ? "none" : "hover"}
             variant="body2"
-            onClick={() => handleSortChange("asc")}
+            onClick={() => handleApplySort("asc")}
             sx={{
               textTransform: "lowercase",
               fontWeight: isAsc ? 500 : undefined,

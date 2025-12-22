@@ -28,12 +28,15 @@ type JobPostsContext = {
   setEmploymentType: React.Dispatch<
     React.SetStateAction<EmploymentTypeWithAll>
   >;
+  handleApplyFilters: () => void;
+  handleResetFilters: () => void;
+  handleApplySort: (sortBy: "asc" | "desc") => void;
 };
 
 const JobPostsContext = createContext<JobPostsContext | null>(null);
 
 export default function JobPostsProvider({ children }: JobPostsProviderProps) {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(
     searchParams.get("search") || "",
   );
@@ -66,6 +69,36 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
     sortBy,
   });
 
+  function handleApplyFilters() {
+    const shouldApplySalaryFilter =
+      (salaryRange[0] !== MIN_SALARY && salaryRange[1] !== MAX_SALARY) ||
+      salaryRange[0] !== salaryRange[1];
+
+    setSearchParams((prev) => ({
+      ...Object.fromEntries(prev),
+      search: searchQuery !== "" ? searchQuery : [],
+      min_salary: shouldApplySalaryFilter ? salaryRange[0].toString() : [],
+      max_salary: shouldApplySalaryFilter ? salaryRange[1].toString() : [],
+      employment_type: employmentType !== "all" ? employmentType : [],
+    }));
+  }
+
+  function handleResetFilters() {
+    setSearchQuery("");
+    setSalaryRange([MIN_SALARY, MAX_SALARY]);
+    setEmploymentType("all");
+    setSearchParams({});
+  }
+
+  function handleApplySort(sortBy: "asc" | "desc") {
+    if (searchParams.get("sort_by") === sortBy) return;
+
+    setSearchParams((prev) => ({
+      ...Object.fromEntries(prev),
+      sort_by: sortBy,
+    }));
+  }
+
   return (
     <JobPostsContext.Provider
       value={{
@@ -79,6 +112,9 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
         setSearchQuery,
         setSalaryRange,
         setEmploymentType,
+        handleApplyFilters,
+        handleResetFilters,
+        handleApplySort,
       }}
     >
       {children}

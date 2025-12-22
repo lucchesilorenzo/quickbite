@@ -23,7 +23,6 @@ import {
 } from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { useSearchParams } from "react-router-dom";
 
 import { formatCurrency } from "@/lib/utils/formatting";
 
@@ -35,30 +34,9 @@ export default function JobPostFilters() {
     setSearchQuery,
     setSalaryRange,
     setEmploymentType,
+    handleApplyFilters,
+    handleResetFilters,
   } = useJobPosts();
-
-  const [, setSearchParams] = useSearchParams();
-
-  function applyFilters() {
-    const shouldApplySalaryFilter =
-      (salaryRange[0] !== MIN_SALARY && salaryRange[1] !== MAX_SALARY) ||
-      salaryRange[0] !== salaryRange[1];
-
-    setSearchParams((prev) => ({
-      ...Object.fromEntries(prev),
-      search: searchQuery !== "" ? searchQuery : [],
-      min_salary: shouldApplySalaryFilter ? salaryRange[0].toString() : [],
-      max_salary: shouldApplySalaryFilter ? salaryRange[1].toString() : [],
-      employment_type: employmentType !== "all" ? employmentType : [],
-    }));
-  }
-
-  function resetFilters() {
-    setSearchQuery("");
-    setSalaryRange([MIN_SALARY, MAX_SALARY]);
-    setEmploymentType("all");
-    setSearchParams({});
-  }
 
   return (
     <Paper variant="outlined" sx={{ p: 2 }}>
@@ -139,14 +117,15 @@ export default function JobPostFilters() {
           aria-label="Job post filter buttons"
           fullWidth
         >
-          <Button onClick={applyFilters}>Apply</Button>
+          <Button onClick={handleApplyFilters}>Apply</Button>
+
           <Button
             sx={{
               bgcolor: "#eeee",
               color: "#212121",
               "&:hover": { bgcolor: "#e0e0e0" },
             }}
-            onClick={resetFilters}
+            onClick={handleResetFilters}
           >
             Reset
           </Button>
