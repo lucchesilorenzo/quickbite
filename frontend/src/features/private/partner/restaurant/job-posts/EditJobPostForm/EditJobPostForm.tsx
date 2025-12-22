@@ -16,11 +16,11 @@ import {
   TEditJobPostFormSchema,
   editJobPostFormSchema,
 } from "@partner/schemas/job-posts.schema";
-import { JobPost } from "@partner/types/job-posts/job-post.types";
 import {
   employmentTypes,
   jobPostStatuses,
 } from "@private/shared/lib/constants/job-posts";
+import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";

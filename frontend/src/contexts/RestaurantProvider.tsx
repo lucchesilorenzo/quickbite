@@ -58,7 +58,9 @@ export default function RestaurantProvider({
     }
   }, [restaurantData.restaurant?.name, restaurantData.restaurant?.city]);
 
-  if (isRestaurantLoading) return <Spinner />;
+  if (isRestaurantLoading) {
+    return <Spinner />;
+  }
 
   if (!restaurantData.restaurant || restaurantError) {
     return <ErrorPage error={restaurantError} />;

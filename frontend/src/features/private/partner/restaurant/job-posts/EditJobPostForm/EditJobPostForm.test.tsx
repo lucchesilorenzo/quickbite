@@ -1,12 +1,12 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { TEditJobPostFormSchema } from "@partner/schemas/job-posts.schema";
-import { JobPost } from "@partner/types/job-posts/job-post.types";
 import {
   MAX_SALARY,
   MIN_SALARY,
   employmentTypes,
   jobPostStatuses,
 } from "@private/shared/lib/constants/job-posts";
+import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { editJobPostForm } from "@tests/mocks/data/private/partner/forms/edit-job-post";
