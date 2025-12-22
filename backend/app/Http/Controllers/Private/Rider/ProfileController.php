@@ -67,11 +67,10 @@ class ProfileController extends Controller
                 'message' => 'Profile notifications updated successfully.',
                 'rider' => $rider,
             ], 200);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return response()->json([
                 'success' => false,
                 'message' => 'Could not update profile notification preferences.',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }
