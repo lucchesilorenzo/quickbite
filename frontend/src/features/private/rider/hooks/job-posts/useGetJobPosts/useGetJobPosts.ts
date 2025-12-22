@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
 
-type UseGetJobPostsOptions = {
+export type UseGetJobPostsOptions = {
   page: number;
   search: string;
   minSalary: number;
