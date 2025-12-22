@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -24,33 +22,33 @@ import {
   employmentTypes,
 } from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
+import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { useSearchParams } from "react-router-dom";
 
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function JobPostFilters() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(
-    searchParams.get("search") || "",
-  );
-  const [salaryRange, setSalaryRange] = useState<number[]>([
-    Number(searchParams.get("min_salary")) || MIN_SALARY,
-    Number(searchParams.get("max_salary")) || MAX_SALARY,
-  ]);
-  const [employmentType, setEmploymentType] = useState<EmploymentTypeWithAll>(
-    (employmentTypes.find(
-      (type) => type.value === searchParams.get("employment_type"),
-    )?.value as EmploymentTypeWithAll) || "all",
-  );
+  const {
+    searchQuery,
+    salaryRange,
+    employmentType,
+    setSearchQuery,
+    setSalaryRange,
+    setEmploymentType,
+  } = useJobPosts();
+
+  const [, setSearchParams] = useSearchParams();
 
   function applyFilters() {
+    const shouldApplySalaryFilter =
+      (salaryRange[0] !== MIN_SALARY && salaryRange[1] !== MAX_SALARY) ||
+      salaryRange[0] !== salaryRange[1];
+
     setSearchParams((prev) => ({
       ...Object.fromEntries(prev),
       search: searchQuery !== "" ? searchQuery : [],
-      min_salary:
-        salaryRange[0] !== MIN_SALARY ? salaryRange[0].toString() : [],
-      max_salary:
-        salaryRange[1] !== MAX_SALARY ? salaryRange[1].toString() : [],
+      min_salary: shouldApplySalaryFilter ? salaryRange[0].toString() : [],
+      max_salary: shouldApplySalaryFilter ? salaryRange[1].toString() : [],
       employment_type: employmentType !== "all" ? employmentType : [],
     }));
   }

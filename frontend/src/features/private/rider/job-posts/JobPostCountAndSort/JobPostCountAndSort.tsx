@@ -1,10 +1,11 @@
 import { Box, Link, Stack, Typography } from "@mui/material";
+import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { useSearchParams } from "react-router-dom";
 
 export default function JobPostCountAndSort() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const sortBy = searchParams.get("sort_by");
+  const { sortBy } = useJobPosts();
 
   const isAsc = sortBy === "asc";
   const isDesc = sortBy === "desc";
