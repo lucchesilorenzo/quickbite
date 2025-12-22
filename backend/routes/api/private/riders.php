@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Private\Rider\AuthController;
+use App\Http\Controllers\Private\Rider\JobPostController;
 use App\Http\Controllers\Private\Rider\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,12 @@ Route::prefix('rider')->group(function (): void {
             // TODO: Restaurants
 
             // TODO: Notifications
+        });
+
+    // === JOB POSTS ===
+    Route::prefix('job-posts')
+        ->middleware(['auth:sanctum', 'role:rider'])
+        ->group(function (): void {
+            Route::get('/', [JobPostController::class, 'getJobPosts']);
         });
 });
