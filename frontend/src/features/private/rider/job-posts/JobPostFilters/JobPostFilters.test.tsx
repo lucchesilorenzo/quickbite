@@ -2,12 +2,12 @@ import {
   MAX_SALARY,
   MIN_SALARY,
 } from "@private/shared/lib/constants/job-posts";
+import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { jobPostsResponse } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 
-import { useJobPosts } from "../../contexts/JobPostsProvider";
 import JobPostFilters from "./JobPostFilters";
 
 const mockSetSearchQuery = vi.fn();

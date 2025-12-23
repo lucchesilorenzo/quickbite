@@ -6,10 +6,9 @@ import {
   employmentTypes,
 } from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
+import { useGetJobPosts } from "@rider/hooks/job-posts/useGetJobPosts/useGetJobPosts";
+import { jobPostsDefaults } from "@rider/lib/query-defaults";
 import { useSearchParams } from "react-router-dom";
-
-import { useGetJobPosts } from "../hooks/job-posts/useGetJobPosts/useGetJobPosts";
-import { jobPostsDefaults } from "../lib/query-defaults";
 
 type JobPostsProviderProps = {
   children: React.ReactNode;
