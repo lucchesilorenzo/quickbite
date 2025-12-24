@@ -37,5 +37,6 @@ Route::prefix('rider')->group(function (): void {
         ->middleware(['auth:sanctum', 'role:rider'])
         ->group(function (): void {
             Route::get('/', [JobPostController::class, 'getJobPosts']);
+            Route::get('/{jobPost}', [JobPostController::class, 'getJobPost']);
         });
 });
