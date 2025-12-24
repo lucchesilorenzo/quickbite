@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Services\Private\Rider;
 
 use App\Models\JobPost;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\CursorPaginator;
 
 class JobPostService
 {
     private const int PER_PAGE = 10;
 
-    public function getJobPosts(array $data): LengthAwarePaginator
+    public function getJobPosts(array $data): CursorPaginator
     {
         $minSalary = config('job_posts.salary.min');
         $maxSalary = config('job_posts.salary.max');
@@ -30,6 +30,6 @@ class JobPostService
             ->when($employmentType, fn ($query) => $query->where('employment_type', $employmentType))
             ->when($sortBy, fn ($query) => $query->orderBy('created_at', $sortBy))
             ->where('status', 'open')
-            ->paginate(self::PER_PAGE);
+            ->cursorPaginate(self::PER_PAGE);
     }
 }
