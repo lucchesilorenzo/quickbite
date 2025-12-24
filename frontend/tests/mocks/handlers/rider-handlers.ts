@@ -3,14 +3,20 @@ import { http, HttpResponse } from "msw";
 import { jobPostsResponse } from "../data/private/rider/job-posts";
 
 export const riderHandlers = [
-  http.get(`${env.VITE_BASE_URL}/api/rider/job-posts`, async ({ request }) => {
+  http.get(`${env.VITE_BASE_URL}/api/rider/job-posts`, ({ request }) => {
     const url = new URL(request.url);
-    const pageParam = url.searchParams.get("page");
+    const cursorParam = url.searchParams.get("cursor");
 
-    if (!pageParam) {
-      return HttpResponse.json(null, { status: 400 });
+    if (!cursorParam) {
+      return HttpResponse.json(jobPostsResponse);
     }
 
-    return HttpResponse.json(jobPostsResponse);
+    return HttpResponse.json({
+      ...jobPostsResponse,
+      job_posts: {
+        ...jobPostsResponse.job_posts,
+        next_cursor: null,
+      },
+    });
   }),
 ];
