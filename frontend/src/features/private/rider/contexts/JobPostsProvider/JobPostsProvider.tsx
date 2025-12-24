@@ -7,7 +7,13 @@ import {
 } from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { useGetJobPosts } from "@rider/hooks/job-posts/useGetJobPosts/useGetJobPosts";
-import { jobPostsDefaults } from "@rider/lib/query-defaults";
+import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
+import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
 type JobPostsProviderProps = {
@@ -15,13 +21,14 @@ type JobPostsProviderProps = {
 };
 
 type JobPostsContext = {
-  jobPostsData: any;
+  jobPostPages?: JobPostWithRestaurant[];
   isLoadingJobPosts: boolean;
   jobPostsError: Error | null;
   searchQuery: string;
   salaryRange: number[];
   employmentType: EmploymentTypeWithAll;
   sortBy: string | null;
+  isFetchingNextPage: boolean;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   setSalaryRange: React.Dispatch<React.SetStateAction<number[]>>;
   setEmploymentType: React.Dispatch<
@@ -30,6 +37,9 @@ type JobPostsContext = {
   handleApplyFilters: () => void;
   handleResetFilters: () => void;
   handleApplySort: (sortBy: "asc" | "desc") => void;
+  fetchNextPage: (
+    options?: FetchNextPageOptions,
+  ) => Promise<InfiniteQueryObserverResult<InfiniteData<GetJobPostsResponse>>>;
 };
 
 const JobPostsContext = createContext<JobPostsContext | null>(null);
@@ -52,21 +62,22 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
   const sortBy = searchParams.get("sort_by");
 
   const {
-    data: jobPostsData = {
-      success: false,
-      message: "",
-      job_posts: jobPostsDefaults,
-    },
+    data: jobPostsData,
     isLoading: isLoadingJobPosts,
     error: jobPostsError,
+    fetchNextPage,
+    isFetchingNextPage,
   } = useGetJobPosts({
-    page: 1,
     search: searchQuery,
     minSalary: salaryRange[0],
     maxSalary: salaryRange[1],
     employmentType,
     sortBy,
   });
+
+  const jobPostPages = jobPostsData?.pages.flatMap(
+    (page) => page.job_posts.data,
+  );
 
   function handleApplyFilters() {
     const shouldApplySalaryFilter =
@@ -101,19 +112,21 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
   return (
     <JobPostsContext.Provider
       value={{
-        jobPostsData,
+        jobPostPages,
         isLoadingJobPosts,
         jobPostsError,
         searchQuery,
         salaryRange,
         employmentType,
         sortBy,
+        isFetchingNextPage,
         setSearchQuery,
         setSalaryRange,
         setEmploymentType,
         handleApplyFilters,
         handleResetFilters,
         handleApplySort,
+        fetchNextPage,
       }}
     >
       {children}
