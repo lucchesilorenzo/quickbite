@@ -5,7 +5,7 @@ import {
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { jobPostsResponse } from "@tests/mocks/data/private/rider/job-posts";
+import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 
 import JobPostFilters from "./JobPostFilters";
@@ -16,6 +16,7 @@ const mockSetEmploymentType = vi.fn();
 const mockHandleApplyFilters = vi.fn();
 const mockHandleResetFilters = vi.fn();
 const mockHandleApplySort = vi.fn();
+const mockFetchNextPage = vi.fn();
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
   useJobPosts: vi.fn(),
@@ -40,19 +41,21 @@ describe("JobPostFilters", () => {
 
   it("should render the filters", () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "",
       salaryRange: [MIN_SALARY, MAX_SALARY],
       employmentType: "all",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
@@ -66,19 +69,21 @@ describe("JobPostFilters", () => {
 
   it("should render the filters with correct default values", async () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "",
       salaryRange: [MIN_SALARY, MAX_SALARY],
       employmentType: "all",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
@@ -92,19 +97,21 @@ describe("JobPostFilters", () => {
 
   it("should populate state with correct values", () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "Frontend",
       salaryRange: [20000, 50000],
       employmentType: "contract",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
@@ -118,19 +125,21 @@ describe("JobPostFilters", () => {
 
   it("should update 'searchQuery' while typing", async () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "",
       salaryRange: [MIN_SALARY, MAX_SALARY],
       employmentType: "all",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { user, searchInput } = renderComponent();
@@ -143,19 +152,21 @@ describe("JobPostFilters", () => {
 
   it("should update 'minSalary' while typing", () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "",
       salaryRange: [MIN_SALARY, MAX_SALARY],
       employmentType: "all",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { minSalarySlider } = renderComponent();
@@ -170,19 +181,21 @@ describe("JobPostFilters", () => {
 
   it("should update 'maxSalary' while typing", () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "",
       salaryRange: [MIN_SALARY, MAX_SALARY],
       employmentType: "all",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { maxSalarySlider } = renderComponent();
@@ -197,19 +210,21 @@ describe("JobPostFilters", () => {
 
   it("should update 'employmentType' while typing", async () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "",
       salaryRange: [MIN_SALARY, MAX_SALARY],
       employmentType: "all",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { user, employmentType } = renderComponent();
@@ -221,21 +236,23 @@ describe("JobPostFilters", () => {
     expect(mockSetEmploymentType).toHaveBeenCalledWith("contract");
   });
 
-  it("should call 'handleApplyFilters' when applying filters", async () => {
+  it("should call handleApplyFilters when applying filters", async () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "React",
       salaryRange: [30000, 40000],
       employmentType: "contract",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { user } = renderComponent();
@@ -247,19 +264,21 @@ describe("JobPostFilters", () => {
 
   it("should reset filters", async () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "React",
       salaryRange: [30000, 40000],
       employmentType: "contract",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { user } = renderComponent();
@@ -271,19 +290,21 @@ describe("JobPostFilters", () => {
 
   it("should clear the search input when clicking clear icon", async () => {
     vi.mocked(useJobPosts).mockReturnValue({
-      jobPostsData: jobPostsResponse,
+      jobPostPages: jobPostsWithRestaurant,
       isLoadingJobPosts: false,
       jobPostsError: null,
       searchQuery: "React",
       salaryRange: [MIN_SALARY, MAX_SALARY],
       employmentType: "all",
       sortBy: null,
+      isFetchingNextPage: false,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
+      fetchNextPage: mockFetchNextPage,
     });
 
     const { user } = renderComponent();
