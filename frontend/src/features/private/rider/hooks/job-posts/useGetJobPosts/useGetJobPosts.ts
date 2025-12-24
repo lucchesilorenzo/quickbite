@@ -4,12 +4,11 @@ import {
 } from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { fetchData } from "@/lib/api-client";
 
 export type UseGetJobPostsOptions = {
-  page: number;
   search: string;
   minSalary: number;
   maxSalary: number;
@@ -18,24 +17,22 @@ export type UseGetJobPostsOptions = {
 };
 
 export function useGetJobPosts({
-  page = 1,
   search,
   minSalary,
   maxSalary,
   employmentType,
   sortBy,
 }: UseGetJobPostsOptions) {
-  return useQuery<GetJobPostsResponse>({
+  return useInfiniteQuery<GetJobPostsResponse>({
     queryKey: [
       "rider-job-posts",
-      page,
       search,
       minSalary,
       maxSalary,
       employmentType,
       sortBy,
     ],
-    queryFn: () => {
+    queryFn: ({ pageParam }) => {
       const params = new URLSearchParams();
 
       const isDefaultRange =
@@ -60,11 +57,13 @@ export function useGetJobPosts({
         params.append("sort_by", sortBy);
       }
 
-      if (page) {
-        params.append("page", page.toString());
+      if (pageParam) {
+        params.append("cursor", pageParam.toString());
       }
 
       return fetchData(`/rider/job-posts?${params.toString()}`);
     },
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => lastPage.job_posts.next_cursor,
   });
 }
