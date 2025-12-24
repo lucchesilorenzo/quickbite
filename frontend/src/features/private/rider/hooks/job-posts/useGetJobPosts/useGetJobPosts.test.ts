@@ -11,7 +11,6 @@ import env from "@/lib/env";
 
 describe("useGetJobPosts", () => {
   const options: UseGetJobPostsOptions = {
-    page: 1,
     search: "",
     minSalary: 10000,
     maxSalary: 100000,
@@ -26,7 +25,10 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPostsResponse);
+    expect(result.current.data).toEqual({
+      pages: [jobPostsResponse],
+      pageParams: [null],
+    });
   });
 
   it("should send 'search' query parameter correctly", async () => {
@@ -48,7 +50,10 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPostsResponse);
+    expect(result.current.data).toEqual({
+      pages: [jobPostsResponse],
+      pageParams: [null],
+    });
   });
 
   it("should send 'min_salary' query parameter correctly", async () => {
@@ -70,7 +75,10 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPostsResponse);
+    expect(result.current.data).toEqual({
+      pages: [jobPostsResponse],
+      pageParams: [null],
+    });
   });
 
   it("should send 'max_salary' query parameter correctly", async () => {
@@ -92,7 +100,10 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPostsResponse);
+    expect(result.current.data).toEqual({
+      pages: [jobPostsResponse],
+      pageParams: [null],
+    });
   });
 
   it("should send 'employment_type' query parameter correctly", async () => {
@@ -114,7 +125,10 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPostsResponse);
+    expect(result.current.data).toEqual({
+      pages: [jobPostsResponse],
+      pageParams: [null],
+    });
   });
 
   it("should send 'sort_by' query parameter correctly", async () => {
@@ -136,7 +150,41 @@ describe("useGetJobPosts", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
 
-    expect(result.current.data).toEqual(jobPostsResponse);
+    expect(result.current.data).toEqual({
+      pages: [jobPostsResponse],
+      pageParams: [null],
+    });
+  });
+
+  it("should fetch next page when cursor is present", async () => {
+    const { result } = renderHook(() => useGetJobPosts(options), {
+      wrapper: TestQueryWrapper,
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBeTruthy());
+
+    expect(result.current.data).toEqual({
+      pages: [jobPostsResponse],
+      pageParams: [null],
+    });
+
+    await result.current.fetchNextPage();
+
+    await waitFor(() =>
+      expect(result.current.data).toEqual({
+        pages: [
+          jobPostsResponse,
+          {
+            ...jobPostsResponse,
+            job_posts: {
+              ...jobPostsResponse.job_posts,
+              next_cursor: null,
+            },
+          },
+        ],
+        pageParams: [null, "abc123"],
+      }),
+    );
   });
 
   it("should fail to fetch data", async () => {
