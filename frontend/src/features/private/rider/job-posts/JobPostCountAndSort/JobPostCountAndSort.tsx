@@ -2,7 +2,7 @@ import { Box, Link, Stack, Typography } from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 
 export default function JobPostCountAndSort() {
-  const { sortBy, handleApplySort } = useJobPosts();
+  const { jobPostPages, sortBy, handleApplySort } = useJobPosts();
 
   const isAsc = sortBy === "asc";
   const isDesc = sortBy === "desc";
@@ -67,7 +67,7 @@ export default function JobPostCountAndSort() {
 
         <Box>
           <Typography variant="body2" color="textSecondary">
-            4 job posts
+            {jobPostPages?.length} job posts
           </Typography>
         </Box>
       </Stack>
