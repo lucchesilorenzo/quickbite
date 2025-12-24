@@ -32,4 +32,9 @@ class JobPostService
             ->where('status', 'open')
             ->cursorPaginate(self::PER_PAGE);
     }
+
+    public function getJobPost(JobPost $jobPost): JobPost
+    {
+        return $jobPost->load(['restaurant']);
+    }
 }
