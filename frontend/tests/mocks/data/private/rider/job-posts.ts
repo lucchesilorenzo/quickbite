@@ -6,12 +6,12 @@ export const jobPostsWithRestaurant: JobPostWithRestaurant[] = [
   {
     id: "019b331e-413e-7206-b795-9898150d6b8d",
     restaurant_id: "019b31bb-06cc-7312-ab22-3a53371330a9",
-    title: "New job post",
+    title: "Frontend Developer",
     description_html:
       '<p style="text-align: left;"><strong>JOB TEST!</strong></p>',
     description_text: "JOB TEST!",
     employment_type: "full_time",
-    salary: 20000,
+    salary: null,
     status: "open",
     created_at: "2025-12-18T20:19:39.000000Z",
     updated_at: "2025-12-18T20:19:39.000000Z",
