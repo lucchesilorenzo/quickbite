@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 
 import JobPostCountAndSort from "./JobPostCountAndSort";
@@ -8,7 +9,11 @@ let sortBy: "asc" | "desc" = "asc";
 const mockHandleApplySort = vi.fn();
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
-  useJobPosts: () => ({ sortBy, handleApplySort: mockHandleApplySort }),
+  useJobPosts: () => ({
+    jobPostPages: jobPostsWithRestaurant,
+    sortBy,
+    handleApplySort: mockHandleApplySort,
+  }),
 }));
 
 describe("JobPostCountAndSort", () => {
@@ -58,5 +63,13 @@ describe("JobPostCountAndSort", () => {
     await user.click(oldestButton);
 
     expect(mockHandleApplySort).toHaveBeenCalledWith("asc");
+  });
+
+  it("should render the correct job post count", () => {
+    const { jobPostCountText } = renderComponent();
+
+    expect(jobPostCountText).toHaveTextContent(
+      new RegExp(jobPostsWithRestaurant.length.toString()),
+    );
   });
 });
