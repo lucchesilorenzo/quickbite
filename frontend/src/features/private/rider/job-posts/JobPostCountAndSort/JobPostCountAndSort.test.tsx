@@ -1,3 +1,9 @@
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+} from "@private/shared/lib/constants/job-posts";
+import { useJobPosts } from "@rider/contexts/JobPostsProvider";
+import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
@@ -5,21 +11,39 @@ import { customRender } from "@tests/utils/custom-render";
 
 import JobPostCountAndSort from "./JobPostCountAndSort";
 
-let sortBy: "asc" | "desc" = "asc";
 const mockHandleApplySort = vi.fn();
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
-  useJobPosts: () => ({
-    jobPostPages: jobPostsWithRestaurant,
-    sortBy,
-    handleApplySort: mockHandleApplySort,
-  }),
+  useJobPosts: vi.fn(),
 }));
 
 describe("JobPostCountAndSort", () => {
   const user = userEvent.setup();
 
-  function renderComponent() {
+  function renderComponent(
+    jobPosts: JobPostWithRestaurant[],
+    sortBy: "asc" | "desc" | null = null,
+  ) {
+    vi.mocked(useJobPosts).mockReturnValue({
+      jobPostPages: jobPosts,
+      isLoadingJobPosts: false,
+      jobPostsError: null,
+      searchQuery: "",
+      salaryRange: [MIN_SALARY, MAX_SALARY],
+      employmentType: "all",
+      sortBy,
+      jobPostId: null,
+      isFetchingNextPage: false,
+      setSearchQuery: vi.fn(),
+      setSalaryRange: vi.fn(),
+      setEmploymentType: vi.fn(),
+      handleApplyFilters: vi.fn(),
+      handleResetFilters: vi.fn(),
+      handleApplySort: mockHandleApplySort,
+      fetchNextPage: vi.fn(),
+      handleJobPostChange: vi.fn(),
+    });
+
     customRender(<JobPostCountAndSort />);
 
     return {
@@ -29,7 +53,7 @@ describe("JobPostCountAndSort", () => {
       }),
       latestButton: screen.getByRole("button", { name: /latest/i }),
       oldestButton: screen.getByRole("button", { name: /oldest/i }),
-      jobPostCountText: screen.getByText(/job posts/i),
+      getJobPostCountText: () => screen.queryByText(/job posts/i),
     };
   }
 
@@ -38,18 +62,20 @@ describe("JobPostCountAndSort", () => {
       searchResultsHeading,
       latestButton,
       oldestButton,
-      jobPostCountText,
-    } = renderComponent();
+      getJobPostCountText,
+    } = renderComponent(jobPostsWithRestaurant);
 
     expect(searchResultsHeading).toBeInTheDocument();
     expect(latestButton).toBeInTheDocument();
     expect(oldestButton).toBeInTheDocument();
-    expect(jobPostCountText).toBeInTheDocument();
+    expect(getJobPostCountText()).toBeInTheDocument();
   });
 
   it("should call handleApplySort('desc') when clicking 'latest'", async () => {
-    sortBy = "desc";
-    const { user, latestButton } = renderComponent();
+    const { user, latestButton } = renderComponent(
+      jobPostsWithRestaurant,
+      "desc",
+    );
 
     await user.click(latestButton);
 
@@ -57,8 +83,10 @@ describe("JobPostCountAndSort", () => {
   });
 
   it("should call handleApplySort('asc') when clicking 'oldest'", async () => {
-    sortBy = "asc";
-    const { user, oldestButton } = renderComponent();
+    const { user, oldestButton } = renderComponent(
+      jobPostsWithRestaurant,
+      "asc",
+    );
 
     await user.click(oldestButton);
 
@@ -66,10 +94,16 @@ describe("JobPostCountAndSort", () => {
   });
 
   it("should render the correct job post count", () => {
-    const { jobPostCountText } = renderComponent();
+    const { getJobPostCountText } = renderComponent(jobPostsWithRestaurant);
 
-    expect(jobPostCountText).toHaveTextContent(
+    expect(getJobPostCountText()).toHaveTextContent(
       new RegExp(jobPostsWithRestaurant.length.toString()),
     );
+  });
+
+  it("should not render the job post count if there are no job posts", () => {
+    const { getJobPostCountText } = renderComponent([]);
+
+    expect(getJobPostCountText()).not.toBeInTheDocument();
   });
 });
