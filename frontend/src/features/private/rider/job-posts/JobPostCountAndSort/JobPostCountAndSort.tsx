@@ -65,11 +65,13 @@ export default function JobPostCountAndSort() {
           </Link>
         </Stack>
 
-        <Box>
-          <Typography variant="body2" color="textSecondary">
-            {jobPostPages?.length} job posts
-          </Typography>
-        </Box>
+        {jobPostPages?.length && (
+          <Box>
+            <Typography variant="body2" color="textSecondary">
+              {jobPostPages.length} job posts
+            </Typography>
+          </Box>
+        )}
       </Stack>
     </Box>
   );
