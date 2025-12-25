@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { employmentTypes } from "@private/shared/lib/constants/job-posts";
+import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
 
 import { formatCurrency } from "@/lib/utils/formatting";
@@ -19,13 +20,15 @@ type JobPostItemProps = {
 };
 
 export default function JobPostItem({ jobPost }: JobPostItemProps) {
+  const { handleJobPostChange } = useJobPosts();
+
   const employmentType = employmentTypes.find(
     (option) => option.value === jobPost.employment_type,
   )?.label;
 
   return (
     <Card variant="outlined">
-      <CardActionArea>
+      <CardActionArea onClick={() => handleJobPostChange(jobPost.id)}>
         <CardContent sx={{ p: 2 }}>
           <Chip
             color="info"
