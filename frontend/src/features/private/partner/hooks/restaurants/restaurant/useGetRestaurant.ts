@@ -9,7 +9,7 @@ type UseGetRestaurantOptions = {
 
 export function useGetRestaurant({ restaurantId }: UseGetRestaurantOptions) {
   return useQuery<GetRestaurantResponse>({
-    queryKey: ["partner-restaurant", restaurantId],
+    queryKey: ["partner-restaurants", restaurantId],
     queryFn: () => fetchData(`/partner/restaurants/${restaurantId}`),
   });
 }
