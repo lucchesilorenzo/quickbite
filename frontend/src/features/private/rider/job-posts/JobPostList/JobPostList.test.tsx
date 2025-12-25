@@ -1,16 +1,15 @@
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+} from "@private/shared/lib/constants/job-posts";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
+import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
 import { screen, waitFor } from "@testing-library/react";
 import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 import { useInView } from "react-intersection-observer";
 
-import { JobPostWithRestaurant } from "../../types/job-posts/job-post.types";
 import JobPostList from "./JobPostList";
-
-import {
-  MAX_SALARY,
-  MIN_SALARY,
-} from "@/features/private/shared/lib/constants/job-posts";
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
   useJobPosts: vi.fn(),
@@ -38,6 +37,7 @@ describe("JobPostList", () => {
       employmentType: "all",
       sortBy: null,
       isFetchingNextPage,
+      jobPostId: null,
       setSearchQuery: vi.fn(),
       setSalaryRange: vi.fn(),
       setEmploymentType: vi.fn(),
@@ -45,6 +45,7 @@ describe("JobPostList", () => {
       handleResetFilters: vi.fn(),
       handleApplySort: vi.fn(),
       fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
     });
 
     customRender(<JobPostList />);
