@@ -16,7 +16,6 @@ const mockSetEmploymentType = vi.fn();
 const mockHandleApplyFilters = vi.fn();
 const mockHandleResetFilters = vi.fn();
 const mockHandleApplySort = vi.fn();
-const mockFetchNextPage = vi.fn();
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
   useJobPosts: vi.fn(),
@@ -49,13 +48,15 @@ describe("JobPostFilters", () => {
       employmentType: "all",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
@@ -77,13 +78,15 @@ describe("JobPostFilters", () => {
       employmentType: "all",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
@@ -105,13 +108,15 @@ describe("JobPostFilters", () => {
       employmentType: "contract",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
@@ -133,13 +138,15 @@ describe("JobPostFilters", () => {
       employmentType: "all",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { user, searchInput } = renderComponent();
@@ -160,13 +167,15 @@ describe("JobPostFilters", () => {
       employmentType: "all",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { minSalarySlider } = renderComponent();
@@ -189,13 +198,15 @@ describe("JobPostFilters", () => {
       employmentType: "all",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { maxSalarySlider } = renderComponent();
@@ -218,13 +229,15 @@ describe("JobPostFilters", () => {
       employmentType: "all",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { user, employmentType } = renderComponent();
@@ -246,13 +259,15 @@ describe("JobPostFilters", () => {
       employmentType: "contract",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { user } = renderComponent();
@@ -272,13 +287,15 @@ describe("JobPostFilters", () => {
       employmentType: "contract",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { user } = renderComponent();
@@ -298,13 +315,15 @@ describe("JobPostFilters", () => {
       employmentType: "all",
       sortBy: null,
       isFetchingNextPage: false,
+      jobPostId: null,
       setSearchQuery: mockSetSearchQuery,
       setSalaryRange: mockSetSalaryRange,
       setEmploymentType: mockSetEmploymentType,
       handleApplyFilters: mockHandleApplyFilters,
       handleResetFilters: mockHandleResetFilters,
       handleApplySort: mockHandleApplySort,
-      fetchNextPage: mockFetchNextPage,
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
     });
 
     const { user } = renderComponent();
