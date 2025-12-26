@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 import {
   MAX_SALARY,
@@ -8,7 +8,10 @@ import {
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { useGetJobPosts } from "@rider/hooks/job-posts/useGetJobPosts";
 import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import {
+  JobPostFilters,
+  JobPostWithRestaurant,
+} from "@rider/types/job-posts/job-post.types";
 import {
   FetchNextPageOptions,
   InfiniteData,
@@ -24,21 +27,13 @@ type JobPostsContext = {
   jobPostPages?: JobPostWithRestaurant[];
   isLoadingJobPosts: boolean;
   jobPostsError: Error | null;
-  searchQuery: string;
-  salaryRange: number[];
-  employmentType: EmploymentTypeWithAll;
   sortBy: string | null;
   jobPostId: string | null;
   isFetchingNextPage: boolean;
   fetchNextPage: (
     options?: FetchNextPageOptions,
   ) => Promise<InfiniteQueryObserverResult<InfiniteData<GetJobPostsResponse>>>;
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  setSalaryRange: React.Dispatch<React.SetStateAction<number[]>>;
-  setEmploymentType: React.Dispatch<
-    React.SetStateAction<EmploymentTypeWithAll>
-  >;
-  handleApplyFilters: () => void;
+  handleApplyFilters: (filters: JobPostFilters) => void;
   handleResetFilters: () => void;
   handleApplySort: (sortBy: "asc" | "desc") => void;
   handleJobPostChange: (jobPostId: string) => void;
@@ -48,18 +43,15 @@ const JobPostsContext = createContext<JobPostsContext | null>(null);
 
 export default function JobPostsProvider({ children }: JobPostsProviderProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(
-    searchParams.get("search") || "",
-  );
-  const [salaryRange, setSalaryRange] = useState<number[]>([
-    Number(searchParams.get("min_salary")) || MIN_SALARY,
-    Number(searchParams.get("max_salary")) || MAX_SALARY,
-  ]);
-  const [employmentType, setEmploymentType] = useState<EmploymentTypeWithAll>(
-    (employmentTypes.find(
-      (type) => type.value === searchParams.get("employment_type"),
-    )?.value as EmploymentTypeWithAll) || "all",
-  );
+  const [appliedFilters, setAppliedFilters] = useState<JobPostFilters>({
+    search: searchParams.get("search") || "",
+    minSalary: Number(searchParams.get("min_salary")) || MIN_SALARY,
+    maxSalary: Number(searchParams.get("max_salary")) || MAX_SALARY,
+    employmentType:
+      (employmentTypes.find(
+        (t) => t.value === searchParams.get("employment_type"),
+      )?.value as EmploymentTypeWithAll) || "all",
+  });
 
   const sortBy = searchParams.get("sort_by");
   const jobPostId = searchParams.get("job_post_id");
@@ -71,10 +63,10 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
     fetchNextPage,
     isFetchingNextPage,
   } = useGetJobPosts({
-    search: searchQuery,
-    minSalary: salaryRange[0],
-    maxSalary: salaryRange[1],
-    employmentType,
+    search: appliedFilters.search,
+    minSalary: appliedFilters.minSalary,
+    maxSalary: appliedFilters.maxSalary,
+    employmentType: appliedFilters.employmentType,
     sortBy,
   });
 
@@ -82,46 +74,31 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
     (page) => page.job_posts.data,
   );
 
-  useEffect(() => {
-    if (!jobPostPages?.length) return;
+  function handleApplyFilters(filters: JobPostFilters) {
+    setAppliedFilters(filters);
 
-    if (!jobPostId) {
-      setSearchParams((prev) => ({
-        ...Object.fromEntries(prev),
-        job_post_id: jobPostPages[0].id,
-      }));
-
-      return;
-    }
-
-    const exists = jobPostPages.some((job) => job.id === jobPostId);
-
-    if (!exists) {
-      setSearchParams((prev) => ({
-        ...Object.fromEntries(prev),
-        job_post_id: jobPostPages[0].id,
-      }));
-    }
-  }, [jobPostPages, searchParams, jobPostId, setSearchParams]);
-
-  function handleApplyFilters() {
     const shouldApplySalaryFilter =
-      (salaryRange[0] !== MIN_SALARY && salaryRange[1] !== MAX_SALARY) ||
-      salaryRange[0] !== salaryRange[1];
+      (filters.minSalary !== MIN_SALARY && filters.maxSalary !== MAX_SALARY) ||
+      filters.minSalary !== filters.maxSalary;
 
     setSearchParams((prev) => ({
       ...Object.fromEntries(prev),
-      search: searchQuery !== "" ? searchQuery : [],
-      min_salary: shouldApplySalaryFilter ? salaryRange[0].toString() : [],
-      max_salary: shouldApplySalaryFilter ? salaryRange[1].toString() : [],
-      employment_type: employmentType !== "all" ? employmentType : [],
+      job_post_id: [],
+      search: appliedFilters.search || [],
+      min_salary: shouldApplySalaryFilter ? filters.minSalary.toString() : [],
+      max_salary: shouldApplySalaryFilter ? filters.maxSalary.toString() : [],
+      employment_type:
+        filters.employmentType !== "all" ? filters.employmentType : [],
     }));
   }
 
   function handleResetFilters() {
-    setSearchQuery("");
-    setSalaryRange([MIN_SALARY, MAX_SALARY]);
-    setEmploymentType("all");
+    setAppliedFilters({
+      search: "",
+      minSalary: MIN_SALARY,
+      maxSalary: MAX_SALARY,
+      employmentType: "all",
+    });
     setSearchParams({});
   }
 
@@ -147,16 +124,10 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
         jobPostPages,
         isLoadingJobPosts,
         jobPostsError,
-        searchQuery,
-        salaryRange,
-        employmentType,
         sortBy,
         isFetchingNextPage,
         jobPostId,
         fetchNextPage,
-        setSearchQuery,
-        setSalaryRange,
-        setEmploymentType,
         handleApplyFilters,
         handleResetFilters,
         handleApplySort,
