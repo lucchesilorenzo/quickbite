@@ -3,8 +3,6 @@ import JobPostsProvider from "@rider/contexts/JobPostsProvider";
 import Header from "@rider/header/Header";
 import { Outlet } from "react-router-dom";
 
-import Footer from "@/components/common/Footer";
-
 export default function RiderLayout() {
   return (
     <JobPostsProvider>
@@ -12,8 +10,6 @@ export default function RiderLayout() {
         <Header />
 
         <Outlet />
-
-        <Footer />
       </Stack>
     </JobPostsProvider>
   );
