@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -27,16 +29,12 @@ import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function JobPostFilters() {
-  const {
-    searchQuery,
-    salaryRange,
-    employmentType,
-    setSearchQuery,
-    setSalaryRange,
-    setEmploymentType,
-    handleApplyFilters,
-    handleResetFilters,
-  } = useJobPosts();
+  const { handleApplyFilters, handleResetFilters } = useJobPosts();
+
+  const [search, setSearch] = useState("");
+  const [salary, setSalary] = useState([MIN_SALARY, MAX_SALARY]);
+  const [employmentType, setEmploymentType] =
+    useState<EmploymentTypeWithAll>("all");
 
   return (
     <Paper variant="outlined" sx={{ p: 2 }}>
@@ -46,8 +44,8 @@ export default function JobPostFilters() {
         sx={{ alignItems: "center" }}
       >
         <TextField
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Title"
           size="small"
           sx={{ minWidth: 150 }}
@@ -59,12 +57,9 @@ export default function JobPostFilters() {
                   <SearchIcon />
                 </InputAdornment>
               ),
-              endAdornment: searchQuery && (
+              endAdornment: search && (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="clear"
-                    onClick={() => setSearchQuery("")}
-                  >
+                  <IconButton aria-label="clear" onClick={() => setSearch("")}>
                     <ClearIcon />
                   </IconButton>
                 </InputAdornment>
@@ -80,8 +75,8 @@ export default function JobPostFilters() {
 
           <Slider
             data-testid="slider"
-            value={salaryRange}
-            onChange={(_, v) => setSalaryRange(v as number[])}
+            value={salary}
+            onChange={(_, v) => setSalary(v as number[])}
             min={MIN_SALARY}
             max={MAX_SALARY}
             step={1000}
@@ -114,10 +109,21 @@ export default function JobPostFilters() {
 
         <ButtonGroup
           variant="contained"
-          aria-label="Job post filter buttons"
+          aria-label="job post filter buttons"
           fullWidth
         >
-          <Button onClick={handleApplyFilters}>Apply</Button>
+          <Button
+            onClick={() => {
+              handleApplyFilters({
+                search,
+                minSalary: salary[0],
+                maxSalary: salary[1],
+                employmentType,
+              });
+            }}
+          >
+            Apply
+          </Button>
 
           <Button
             sx={{
