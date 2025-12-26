@@ -1,6 +1,9 @@
 import env from "@/lib/env";
 import { http, HttpResponse } from "msw";
-import { jobPostsResponse } from "../data/private/rider/job-posts";
+import {
+  jobPostResponse,
+  jobPostsResponse,
+} from "../data/private/rider/job-posts";
 
 export const riderHandlers = [
   http.get(`${env.VITE_BASE_URL}/api/rider/job-posts`, ({ request }) => {
@@ -18,5 +21,8 @@ export const riderHandlers = [
         next_cursor: null,
       },
     });
+  }),
+  http.get(`${env.VITE_BASE_URL}/api/rider/job-posts/:jobPostId`, () => {
+    return HttpResponse.json(jobPostResponse);
   }),
 ];
