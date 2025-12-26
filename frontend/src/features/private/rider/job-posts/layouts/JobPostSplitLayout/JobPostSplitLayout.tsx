@@ -18,7 +18,7 @@ export default function JobPostSplitLayout() {
 
   return (
     <Grid container spacing={4}>
-      <Grid size={5}>
+      <Grid size={5} sx={{ height: "100vh", overflowY: "auto", pr: 2 }}>
         <JobPostCountAndSort />
         <JobPostList />
       </Grid>
