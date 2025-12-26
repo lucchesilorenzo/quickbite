@@ -1,7 +1,3 @@
-import {
-  MAX_SALARY,
-  MIN_SALARY,
-} from "@private/shared/lib/constants/job-posts";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
@@ -28,15 +24,9 @@ describe("JobPostCountAndSort", () => {
       jobPostPages: jobPosts,
       isLoadingJobPosts: false,
       jobPostsError: null,
-      searchQuery: "",
-      salaryRange: [MIN_SALARY, MAX_SALARY],
-      employmentType: "all",
       sortBy,
       jobPostId: null,
       isFetchingNextPage: false,
-      setSearchQuery: vi.fn(),
-      setSalaryRange: vi.fn(),
-      setEmploymentType: vi.fn(),
       handleApplyFilters: vi.fn(),
       handleResetFilters: vi.fn(),
       handleApplySort: mockHandleApplySort,
