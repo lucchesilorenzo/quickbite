@@ -1,4 +1,7 @@
-import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
+import {
+  GetJobPostResponse,
+  GetJobPostsResponse,
+} from "@rider/types/job-posts/job-post.api.types";
 import { apiResponse } from "../../shared/common";
 import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
 
@@ -59,4 +62,9 @@ export const jobPostsResponse: GetJobPostsResponse = {
     prev_cursor: null,
     prev_page_url: null,
   },
+};
+
+export const jobPostResponse: GetJobPostResponse = {
+  ...apiResponse,
+  job_post: jobPostsWithRestaurant[0],
 };
