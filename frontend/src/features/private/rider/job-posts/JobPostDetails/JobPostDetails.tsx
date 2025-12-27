@@ -31,6 +31,7 @@ export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
   return (
     <Card variant="outlined">
       <CardHeader
+        data-testid="job-post-details-header"
         title={
           <Typography variant="h5" sx={{ my: 1, fontWeight: 500 }}>
             {jobPost?.title}
@@ -59,7 +60,10 @@ export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
 
       <Divider />
 
-      <Box sx={{ maxHeight: 600, overflowY: "auto" }}>
+      <Box
+        data-testid="job-post-details"
+        sx={{ maxHeight: 600, overflowY: "auto" }}
+      >
         <CardContent>
           <Box>
             <Typography variant="h6" gutterBottom>
