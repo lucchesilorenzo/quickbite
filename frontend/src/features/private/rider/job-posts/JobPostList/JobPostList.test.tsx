@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
 import { screen, waitFor } from "@testing-library/react";
@@ -7,12 +8,21 @@ import { useInView } from "react-intersection-observer";
 
 import JobPostList from "./JobPostList";
 
+vi.mock("@mui/material", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@mui/material")>()),
+  useMediaQuery: vi.fn(),
+}));
+
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
   useJobPosts: vi.fn(),
 }));
 
 vi.mock("../JobPostItem", () => ({
   default: () => <div data-testid="job-post-item" />,
+}));
+
+vi.mock("../ViewJobPostDetailsDialog", () => ({
+  default: () => <div data-testid="view-job-post-details-dialog" />,
 }));
 
 describe("JobPostList", () => {
@@ -90,5 +100,23 @@ describe("JobPostList", () => {
     expect(
       screen.getByRole("progressbar", { name: /fetching more job posts/i }),
     ).toBeInTheDocument();
+  });
+
+  it("should render ViewJobPostDetailDialog on mobile", () => {
+    vi.mocked(useMediaQuery).mockReturnValue(true);
+    renderComponent(jobPostsWithRestaurant);
+
+    expect(
+      screen.getByTestId("view-job-post-details-dialog"),
+    ).toBeInTheDocument();
+  });
+
+  it("should not render ViewJobPostDetailDialog on desktop", () => {
+    vi.mocked(useMediaQuery).mockReturnValue(false);
+    renderComponent(jobPostsWithRestaurant);
+
+    expect(
+      screen.queryByTestId("view-job-post-details-dialog"),
+    ).not.toBeInTheDocument();
   });
 });
