@@ -1,21 +1,22 @@
 import { Alert, Grid } from "@mui/material";
-import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { useGetJobPost } from "@rider/hooks/job-posts/useGetJobPost";
 import JobPostCountAndSort from "@rider/job-posts/JobPostCountAndSort";
 import JobPostDetails from "@rider/job-posts/JobPostDetails";
 import JobPostList from "@rider/job-posts/JobPostList";
+import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
 
 import Spinner from "@/components/common/Spinner";
 
-export default function JobPostSplitLayout() {
-  const { jobPostId } = useJobPosts();
+type JobPostSplitLayoutProps = {
+  jobPost?: JobPostWithRestaurant;
+  isLoadingJobPost: boolean;
+  jobPostError: Error | null;
+};
 
-  const {
-    data: jobPostData,
-    isLoading: isLoadingJobPost,
-    error: jobPostError,
-  } = useGetJobPost({ jobPostId });
-
+export default function JobPostSplitLayout({
+  jobPost,
+  isLoadingJobPost,
+  jobPostError,
+}: JobPostSplitLayoutProps) {
   return (
     <Grid container spacing={4}>
       <Grid size={5} sx={{ height: "100vh", overflowY: "auto", pr: 2 }}>
@@ -28,8 +29,8 @@ export default function JobPostSplitLayout() {
 
         {jobPostError && <Alert severity="error">{jobPostError.message}</Alert>}
 
-        {!isLoadingJobPost && !jobPostError && jobPostData?.job_post && (
-          <JobPostDetails jobPost={jobPostData?.job_post} />
+        {!isLoadingJobPost && !jobPostError && jobPost && (
+          <JobPostDetails jobPost={jobPost} />
         )}
       </Grid>
     </Grid>
