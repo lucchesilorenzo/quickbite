@@ -1,13 +1,16 @@
 import { useEffect } from "react";
 
-import { Box, Container, Divider } from "@mui/material";
+import { Box, Container, useMediaQuery } from "@mui/material";
 import JobPostFilters from "@rider/job-posts/JobPostFilters/JobPostFilters";
-import JobPostSplitLayout from "@rider/job-posts/layouts/JobPostSplitLayout";
+import JobPostsLayoutDesktop from "@rider/job-posts/layouts/JobPostsLayoutDesktop/JobPostsLayoutDesktop";
+import JobPostsLayoutMobile from "@rider/job-posts/layouts/JobPostsLayoutMobile";
 
 export default function RiderJobPostsPage() {
   useEffect(() => {
     document.title = "Job posts | QuickBite";
   }, []);
+
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   return (
     <Box component="main">
@@ -15,11 +18,7 @@ export default function RiderJobPostsPage() {
         <JobPostFilters />
       </Container>
 
-      <Divider sx={{ my: 2 }} />
-
-      <Container maxWidth="lg" sx={{ my: 3 }}>
-        <JobPostSplitLayout />
-      </Container>
+      {!isMobile ? <JobPostsLayoutDesktop /> : <JobPostsLayoutMobile />}
     </Box>
   );
 }
