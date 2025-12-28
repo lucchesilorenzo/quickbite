@@ -36,7 +36,7 @@ type JobPostsContext = {
   handleApplyFilters: (filters: JobPostFilters) => void;
   handleResetFilters: () => void;
   handleApplySort: (sortBy: "asc" | "desc") => void;
-  handleJobPostChange: (jobPostId: string) => void;
+  handleJobPostChange: (jobPostId: string | null) => void;
 };
 
 const JobPostsContext = createContext<JobPostsContext | null>(null);
@@ -111,11 +111,19 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
     }));
   }
 
-  function handleJobPostChange(jobPostId: string) {
-    setSearchParams((prev) => ({
-      ...Object.fromEntries(prev),
-      job_post_id: jobPostId,
-    }));
+  function handleJobPostChange(nextJobPostId: string | null) {
+    setSearchParams((prev) => {
+      const params = Object.fromEntries(prev);
+      const currentJobPostId = params.job_post_id;
+
+      if (!nextJobPostId || currentJobPostId === nextJobPostId) {
+        delete params.job_post_id;
+        return params;
+      }
+
+      params.job_post_id = nextJobPostId;
+      return params;
+    });
   }
 
   return (
