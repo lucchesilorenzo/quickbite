@@ -4,12 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 import BackButton from "./BackButton";
 
-vi.mock("react-router-dom", async (importOriginal) => {
-  return {
-    ...(await importOriginal<typeof import("react-router-dom")>()),
-    useNavigate: vi.fn(),
-  };
-});
+vi.mock("react-router-dom", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("react-router-dom")>()),
+  useNavigate: vi.fn(),
+}));
 
 describe("BackButton", () => {
   function renderComponent() {
