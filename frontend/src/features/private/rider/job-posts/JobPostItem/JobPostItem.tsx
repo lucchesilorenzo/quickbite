@@ -20,14 +20,17 @@ type JobPostItemProps = {
 };
 
 export default function JobPostItem({ jobPost }: JobPostItemProps) {
-  const { handleJobPostChange } = useJobPosts();
+  const { jobPostId, handleJobPostChange } = useJobPosts();
 
   const employmentType = employmentTypes.find(
     (option) => option.value === jobPost.employment_type,
   )?.label;
 
   return (
-    <Card variant="outlined">
+    <Card
+      variant="outlined"
+      sx={{ borderColor: jobPostId === jobPost.id ? "info.main" : "" }}
+    >
       <CardActionArea onClick={() => handleJobPostChange(jobPost.id)}>
         <CardContent sx={{ p: 2 }}>
           <Chip
