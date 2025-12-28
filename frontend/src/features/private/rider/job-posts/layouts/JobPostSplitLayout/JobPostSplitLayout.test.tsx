@@ -1,15 +1,9 @@
-import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { screen, waitForElementToBeRemoved } from "@testing-library/react";
+import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { screen } from "@testing-library/react";
+import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
-import { simulateDelay, simulateError } from "@tests/utils/msw";
 
 import JobPostSplitLayout from "./JobPostSplitLayout";
-
-import env from "@/lib/env";
-
-vi.mock("@rider/contexts/JobPostsProvider", () => ({
-  useJobPosts: vi.fn(),
-}));
 
 vi.mock("@rider/job-posts/JobPostCountAndSort", () => ({
   default: () => <div data-testid="job-post-count-and-sort" />,
@@ -24,22 +18,18 @@ vi.mock("@rider/job-posts/JobPostDetails", () => ({
 }));
 
 describe("JobPostSplitLayout", () => {
-  function renderComponent(jobPostId: string | null = null) {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: [],
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId,
-      handleApplyFilters: vi.fn(),
-      handleResetFilters: vi.fn(),
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    customRender(<JobPostSplitLayout />);
+  function renderComponent(
+    jobPost?: JobPostWithRestaurant,
+    isLoadingJobPost: boolean = false,
+    jobPostError: Error | null = null,
+  ) {
+    customRender(
+      <JobPostSplitLayout
+        jobPost={jobPost}
+        isLoadingJobPost={isLoadingJobPost}
+        jobPostError={jobPostError}
+      />,
+    );
 
     return {
       getSpinner: () => screen.queryByRole("progressbar"),
@@ -56,31 +46,29 @@ describe("JobPostSplitLayout", () => {
   });
 
   it("should render the spinner when fetching the job post", () => {
-    simulateDelay(`${env.VITE_BASE_URL}/api/rider/job-posts/1`);
-    const { getSpinner } = renderComponent("1");
+    const { getSpinner } = renderComponent(jobPostsWithRestaurant[0], true);
 
     expect(getSpinner()).toBeInTheDocument();
   });
 
   it("should render the error message if fetching the job post fails", async () => {
-    simulateError(`${env.VITE_BASE_URL}/api/rider/job-posts/1`);
-    const { getSpinner, getErrorText } = renderComponent("1");
-
-    await waitForElementToBeRemoved(getSpinner);
+    const { getErrorText } = renderComponent(
+      jobPostsWithRestaurant[0],
+      false,
+      new Error(),
+    );
 
     expect(getErrorText()).toBeInTheDocument();
   });
 
   it("should render JobPostDetails if there is a job post id", async () => {
-    const { getSpinner } = renderComponent("1");
-
-    await waitForElementToBeRemoved(getSpinner);
+    renderComponent(jobPostsWithRestaurant[0]);
 
     expect(screen.getByTestId("job-post-details")).toBeInTheDocument();
   });
 
   it("should not render JobPostDetails if there is no job post id", () => {
-    renderComponent(null);
+    renderComponent();
 
     expect(screen.queryByTestId("job-post-details")).not.toBeInTheDocument();
   });
