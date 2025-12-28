@@ -3,6 +3,15 @@ import { customRender } from "@tests/utils/custom-render";
 
 import JobPostDescription from "./JobPostDescription";
 
+vi.mock("mui-tiptap", () => ({
+  RichTextReadOnly: ({ content }: { content?: string }) => (
+    <div
+      data-testid="job-post-description"
+      dangerouslySetInnerHTML={{ __html: content ?? "" }}
+    />
+  ),
+}));
+
 describe("JobPostDescription", () => {
   const description = "Description";
 
