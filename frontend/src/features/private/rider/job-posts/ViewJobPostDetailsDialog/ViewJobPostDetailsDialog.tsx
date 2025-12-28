@@ -7,10 +7,10 @@ import {
   IconButton,
   Stack,
 } from "@mui/material";
+import { useJobPosts } from "@rider/contexts/JobPostsProvider";
+import { useGetJobPost } from "@rider/hooks/job-posts/useGetJobPost";
 
-import { useJobPosts } from "../contexts/JobPostsProvider";
-import { useGetJobPost } from "../hooks/job-posts/useGetJobPost";
-import JobPostDetails from "./JobPostDetails";
+import JobPostDetails from "../JobPostDetails";
 
 import Spinner from "@/components/common/Spinner";
 
@@ -25,7 +25,7 @@ export default function ViewJobPostDetailsDialog() {
 
   return (
     <Dialog
-      open={!!jobPostData?.job_post}
+      open={!!jobPostId}
       onClose={() => handleJobPostChange(null)}
       fullScreen
       disableRestoreFocus
