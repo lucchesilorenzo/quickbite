@@ -1,10 +1,17 @@
 import { useEffect } from "react";
 
-import { Alert, Box, CircularProgress, Stack } from "@mui/material";
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  Stack,
+  useMediaQuery,
+} from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { useInView } from "react-intersection-observer";
 
 import JobPostItem from "../JobPostItem";
+import ViewJobPostDetailsDialog from "../ViewJobPostDetailsDialog";
 
 import Spinner from "@/components/common/Spinner";
 
@@ -18,6 +25,7 @@ export default function JobPostList() {
   } = useJobPosts();
 
   const { ref, inView } = useInView();
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   useEffect(() => {
     if (inView) {
@@ -48,6 +56,8 @@ export default function JobPostList() {
           <CircularProgress aria-label="fetching more job posts" size={30} />
         )}
       </Box>
+
+      {isMobile && <ViewJobPostDetailsDialog />}
     </Stack>
   );
 }
