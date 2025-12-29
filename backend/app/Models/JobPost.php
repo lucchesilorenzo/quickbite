@@ -20,6 +20,7 @@ class JobPost extends Model
         'description_html',
         'description_text',
         'employment_type',
+        'vehicle_type',
         'salary',
         'status',
     ];

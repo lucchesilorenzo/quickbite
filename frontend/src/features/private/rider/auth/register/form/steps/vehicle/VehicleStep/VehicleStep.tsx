@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { vehicles } from "@rider/lib/constants/vehicles";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { Controller, useFormContext } from "react-hook-form";
 

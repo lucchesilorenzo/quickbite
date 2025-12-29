@@ -6,6 +6,7 @@ import {
   employmentTypes,
   jobPostStatuses,
 } from "@private/shared/lib/constants/job-posts";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -81,6 +82,9 @@ describe("EditJobPostForm", () => {
         const employmentType = screen.getByRole("combobox", {
           name: /employment type/i,
         });
+        const vehicleType = screen.getByRole("combobox", {
+          name: /vehicle type/i,
+        });
         const salary = screen.getByLabelText(/salary/i);
         const status = screen.getByRole("combobox", {
           name: /status/i,
@@ -116,6 +120,20 @@ describe("EditJobPostForm", () => {
             }
           }
 
+          if (data.vehicle_type !== undefined) {
+            const vehicleTypeLabel = vehicles.find(
+              (option) => option.value === data.vehicle_type,
+            )?.label;
+
+            await user.click(vehicleType);
+
+            if (vehicleTypeLabel) {
+              await user.click(
+                screen.getByRole("option", { name: vehicleTypeLabel }),
+              );
+            }
+          }
+
           if (data.salary !== undefined) {
             await user.type(salary, data.salary.toString());
           }
@@ -141,6 +159,7 @@ describe("EditJobPostForm", () => {
           title,
           description,
           employmentType,
+          vehicleType,
           salary,
           status,
           submitButton,
@@ -153,12 +172,19 @@ describe("EditJobPostForm", () => {
   it("should render the main form structure", async () => {
     const { getForm } = renderComponent();
 
-    const { title, employmentType, description, salary, submitButton } =
-      await getForm();
+    const {
+      title,
+      employmentType,
+      vehicleType,
+      description,
+      salary,
+      submitButton,
+    } = await getForm();
 
     expect(title).toBeInTheDocument();
     expect(description).toBeInTheDocument();
     expect(employmentType).toBeInTheDocument();
+    expect(vehicleType).toBeInTheDocument();
     expect(salary).toBeInTheDocument();
     expect(submitButton).toBeInTheDocument();
   });
@@ -172,6 +198,10 @@ describe("EditJobPostForm", () => {
       (option) => option.value === jobPostResponse.job_post.employment_type,
     )?.label;
 
+    const vehicleTypeLabel = vehicles.find(
+      (option) => option.value === jobPostResponse.job_post.vehicle_type,
+    )?.label;
+
     const statusLabel = jobPostStatuses.find(
       (option) => option.value === jobPostResponse.job_post.status,
     )?.label;
@@ -180,6 +210,10 @@ describe("EditJobPostForm", () => {
       expect(inputs.employmentType).toHaveTextContent(
         employmentTypeLabel.toString(),
       );
+    }
+
+    if (vehicleTypeLabel) {
+      expect(inputs.vehicleType).toHaveTextContent(vehicleTypeLabel.toString());
     }
 
     if (statusLabel) {
@@ -198,13 +232,24 @@ describe("EditJobPostForm", () => {
     );
   });
 
-  it("should render the correct select options", async () => {
+  it("should render the correct select options for employment type", async () => {
     const { user, getForm } = renderComponent(jobPostResponse.job_post);
     const { employmentType } = await getForm();
 
     await user.click(employmentType);
 
     employmentTypes.forEach(({ label }) => {
+      expect(screen.getByRole("option", { name: label })).toBeInTheDocument();
+    });
+  });
+
+  it("should render the correct select options for vehicle type", async () => {
+    const { user, getForm } = renderComponent(jobPostResponse.job_post);
+    const { vehicleType } = await getForm();
+
+    await user.click(vehicleType);
+
+    vehicles.forEach(({ label }) => {
       expect(screen.getByRole("option", { name: label })).toBeInTheDocument();
     });
   });
@@ -267,6 +312,24 @@ describe("EditJobPostForm", () => {
 
       const form = await getForm();
       await form.fill({ ...editJobPostForm, employment_type });
+
+      expectErrorToBeInTheDocument(errorMessage);
+    },
+  );
+
+  it.each([
+    {
+      scenario: "required",
+      vehicle_type: undefined,
+      errorMessage: /select a vehicle type/i,
+    },
+  ])(
+    "should display an error if vehicle_type is $scenario",
+    async ({ vehicle_type, errorMessage }) => {
+      const { getForm, expectErrorToBeInTheDocument } = renderComponent();
+
+      const form = await getForm();
+      await form.fill({ ...editJobPostForm, vehicle_type });
 
       expectErrorToBeInTheDocument(errorMessage);
     },

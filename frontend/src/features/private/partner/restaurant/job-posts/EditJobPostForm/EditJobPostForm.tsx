@@ -20,6 +20,7 @@ import {
   employmentTypes,
   jobPostStatuses,
 } from "@private/shared/lib/constants/job-posts";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { Controller, useForm } from "react-hook-form";
 
@@ -55,9 +56,10 @@ export default function EditJobPostForm({
       title: jobPost?.title || "",
       description_html: jobPost?.description_html || "",
       description_text: jobPost?.description_text || "",
-      employment_type: jobPost?.employment_type || "",
-      salary: jobPost?.salary?.toString() || "",
       status: jobPost?.status || "",
+      employment_type: jobPost?.employment_type || "",
+      vehicle_type: jobPost?.vehicle_type || "",
+      salary: jobPost?.salary?.toString() || "",
     },
   });
 
@@ -109,6 +111,35 @@ export default function EditJobPostForm({
         />
 
         <Controller
+          name="status"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth error={!!errors.status} required>
+              <InputLabel id="status-label">Status</InputLabel>
+
+              <Select
+                {...field}
+                labelId="status-label"
+                id="status"
+                label="Status"
+              >
+                {jobPostStatuses.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+
+              <Box sx={{ mt: 1 }}>
+                {errors.status?.message && (
+                  <FormHelperTextError message={errors.status.message} />
+                )}
+              </Box>
+            </FormControl>
+          )}
+        />
+
+        <Controller
           name="employment_type"
           control={control}
           render={({ field }) => (
@@ -142,6 +173,35 @@ export default function EditJobPostForm({
         />
 
         <Controller
+          name="vehicle_type"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth error={!!errors.vehicle_type} required>
+              <InputLabel id="vehicle-type-label">Vehicle type</InputLabel>
+
+              <Select
+                {...field}
+                labelId="vehicle-type-label"
+                id="vehicle-type"
+                label="Vehicle type"
+              >
+                {vehicles.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+
+              <Box sx={{ mt: 1 }}>
+                {errors.vehicle_type?.message && (
+                  <FormHelperTextError message={errors.vehicle_type.message} />
+                )}
+              </Box>
+            </FormControl>
+          )}
+        />
+
+        <Controller
           name="salary"
           control={control}
           render={({ field }) => (
@@ -165,35 +225,6 @@ export default function EditJobPostForm({
                 },
               }}
             />
-          )}
-        />
-
-        <Controller
-          name="status"
-          control={control}
-          render={({ field }) => (
-            <FormControl fullWidth error={!!errors.status} required>
-              <InputLabel id="status-label">Status</InputLabel>
-
-              <Select
-                {...field}
-                labelId="status-label"
-                id="status"
-                label="Status"
-              >
-                {jobPostStatuses.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-
-              <Box sx={{ mt: 1 }}>
-                {errors.status?.message && (
-                  <FormHelperTextError message={errors.status.message} />
-                )}
-              </Box>
-            </FormControl>
           )}
         />
       </Stack>

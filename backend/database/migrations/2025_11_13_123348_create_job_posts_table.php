@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\EmploymentType;
+use App\Enums\VehicleType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->longText('description_html');
             $table->longText('description_text');
             $table->enum('employment_type', EmploymentType::values());
+            $table->enum('vehicle_type', VehicleType::values());
             $table->decimal('salary', 10, 2)->nullable();
             $table->enum('status', ['open', 'closed'])->default('open');
             $table->timestamps();

@@ -17,6 +17,7 @@ import {
   addJobPostFormSchema,
 } from "@partner/schemas/job-posts.schema";
 import { employmentTypes } from "@private/shared/lib/constants/job-posts";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";
@@ -49,6 +50,7 @@ export default function AddJobPostForm({
       description_html: "",
       description_text: "",
       employment_type: "",
+      vehicle_type: "",
       salary: "",
     },
   });
@@ -127,6 +129,35 @@ export default function AddJobPostForm({
                   <FormHelperTextError
                     message={errors.employment_type.message}
                   />
+                )}
+              </Box>
+            </FormControl>
+          )}
+        />
+
+        <Controller
+          name="vehicle_type"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth error={!!errors.vehicle_type} required>
+              <InputLabel id="vehicle-type-label">Vehicle type</InputLabel>
+
+              <Select
+                {...field}
+                labelId="vehicle-type-label"
+                id="vehicle-type"
+                label="Vehicle type"
+              >
+                {vehicles.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+
+              <Box sx={{ mt: 1 }}>
+                {errors.vehicle_type?.message && (
+                  <FormHelperTextError message={errors.vehicle_type.message} />
                 )}
               </Box>
             </FormControl>
