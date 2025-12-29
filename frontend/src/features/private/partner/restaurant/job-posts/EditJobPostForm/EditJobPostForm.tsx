@@ -20,6 +20,7 @@ import {
   employmentTypes,
   jobPostStatuses,
 } from "@private/shared/lib/constants/job-posts";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { Controller, useForm } from "react-hook-form";
 
@@ -56,6 +57,7 @@ export default function EditJobPostForm({
       description_html: jobPost?.description_html || "",
       description_text: jobPost?.description_text || "",
       employment_type: jobPost?.employment_type || "",
+      vehicle_type: jobPost?.vehicle_type || "",
       salary: jobPost?.salary?.toString() || "",
       status: jobPost?.status || "",
     },
@@ -135,6 +137,35 @@ export default function EditJobPostForm({
                   <FormHelperTextError
                     message={errors.employment_type.message}
                   />
+                )}
+              </Box>
+            </FormControl>
+          )}
+        />
+
+        <Controller
+          name="vehicle_type"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth error={!!errors.vehicle_type} required>
+              <InputLabel id="vehicle-type-label">Vehicle type</InputLabel>
+
+              <Select
+                {...field}
+                labelId="vehicle-type-label"
+                id="vehicle-type"
+                label="Vehicle type"
+              >
+                {vehicles.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+
+              <Box sx={{ mt: 1 }}>
+                {errors.vehicle_type?.message && (
+                  <FormHelperTextError message={errors.vehicle_type.message} />
                 )}
               </Box>
             </FormControl>
