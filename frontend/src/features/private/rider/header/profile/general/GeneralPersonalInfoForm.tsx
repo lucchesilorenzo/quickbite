@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { vehicles } from "@rider/lib/constants/vehicles";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { TProfileGeneralFormSchema } from "@rider/schemas/profile-general.schema";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
