@@ -12,11 +12,11 @@ import {
 } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateJobPost } from "@partner/hooks/restaurants/job-posts/useCreateJobPost";
-import { employmentTypes } from "@partner/lib/constants/job-posts";
 import {
   TAddJobPostFormSchema,
   addJobPostFormSchema,
 } from "@partner/schemas/job-posts.schema";
+import { employmentTypes } from "@private/shared/lib/constants/job-posts";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";

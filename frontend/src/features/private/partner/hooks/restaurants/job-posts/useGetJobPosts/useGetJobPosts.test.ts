@@ -34,9 +34,11 @@ describe("useGetJobPosts", () => {
         `${env.VITE_BASE_URL}/api/partner/restaurants/1/job-posts`,
         ({ request }) => {
           const url = new URL(request.url);
-          const sort = url.searchParams.get("sort_by");
+          const sortByParam = url.searchParams.get("sort_by");
 
-          expect(sort).toBe(JSON.stringify({ field: "title", sort: "asc" }));
+          expect(sortByParam).toBe(
+            JSON.stringify({ field: "title", sort: "asc" }),
+          );
 
           return HttpResponse.json(jobPostsResponse);
         },
@@ -69,9 +71,9 @@ describe("useGetJobPosts", () => {
         `${env.VITE_BASE_URL}/api/partner/restaurants/1/job-posts`,
         ({ request }) => {
           const url = new URL(request.url);
-          const param = url.searchParams.get("filter");
+          const filterParam = url.searchParams.get("filter");
 
-          expect(param).toBe(JSON.stringify(filter));
+          expect(filterParam).toBe(JSON.stringify(filter));
 
           return HttpResponse.json(jobPostsResponse);
         },
@@ -94,9 +96,9 @@ describe("useGetJobPosts", () => {
         `${env.VITE_BASE_URL}/api/partner/restaurants/1/job-posts`,
         ({ request }) => {
           const url = new URL(request.url);
-          const search = url.searchParams.get("search");
+          const searchParam = url.searchParams.get("search");
 
-          expect(search).toBe("pizza");
+          expect(searchParam).toBe("pizza");
 
           return HttpResponse.json(jobPostsResponse);
         },

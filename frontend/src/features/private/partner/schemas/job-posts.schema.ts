@@ -1,6 +1,10 @@
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+  employmentTypes,
+  jobPostStatuses,
+} from "@private/shared/lib/constants/job-posts";
 import z from "zod";
-
-import { employmentTypes, jobPostStatuses } from "../lib/constants/job-posts";
 
 export const addJobPostFormSchema = z.object({
   title: z
@@ -34,7 +38,7 @@ export const addJobPostFormSchema = z.object({
     )
     .transform((data) => (data === "" ? null : Number(data)))
     .refine(
-      (data) => data === null || (data >= 10000 && data <= 100000),
+      (data) => data === null || (data >= MIN_SALARY && data <= MAX_SALARY),
       "Salary must be between €10,000 and €100,000 per year.",
     ),
 });

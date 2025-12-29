@@ -1,4 +1,4 @@
-import { EmploymentType } from "@partner/types/job-posts/job-post.types";
+import { EmploymentType } from "@private/shared/types/job-posts/job-post.types";
 
 export const employmentTypes: {
   value: EmploymentType | string;
@@ -13,3 +13,7 @@ export const jobPostStatuses: { value: "open" | "closed"; label: string }[] = [
   { value: "open", label: "Open" },
   { value: "closed", label: "Closed" },
 ];
+
+export const MIN_SALARY = 10000;
+
+export const MAX_SALARY = 100000;

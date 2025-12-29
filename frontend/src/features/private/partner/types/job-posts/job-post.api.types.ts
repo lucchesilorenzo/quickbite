@@ -1,6 +1,7 @@
 import { TAddJobPostFormSchema } from "@partner/schemas/job-posts.schema";
+import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 
-import { JobPost, JobPostsWithPagination } from "./job-post.types";
+import { JobPostsWithPagination } from "./job-post.types";
 
 import { ApiResponse } from "@/types/api.types";
 

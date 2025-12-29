@@ -25,3 +25,10 @@ vi.mock("@toolpad/core/useNotifications", () => ({
     close: vi.fn(),
   }),
 }));
+
+vi.mock("react-intersection-observer", () => ({
+  useInView: vi.fn().mockReturnValue({
+    ref: vi.fn(),
+    inView: false,
+  }),
+}));
