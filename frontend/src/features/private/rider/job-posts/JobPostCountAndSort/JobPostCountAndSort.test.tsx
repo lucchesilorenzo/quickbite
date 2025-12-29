@@ -43,7 +43,7 @@ describe("JobPostCountAndSort", () => {
       }),
       latestButton: screen.getByRole("button", { name: /latest/i }),
       oldestButton: screen.getByRole("button", { name: /oldest/i }),
-      getJobPostCountText: () => screen.queryByText(/job posts/i),
+      getJobPostCountText: () => screen.queryByText(/job post/i),
     };
   }
 
