@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Private\Partner\JobPost;
 
 use App\Enums\EmploymentType;
+use App\Enums\VehicleType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,6 +31,7 @@ class UpdateJobPostRequest extends FormRequest
             'description_html' => ['required', 'string', 'min:1'],
             'description_text' => ['required', 'string', 'min:1', 'max:2000'],
             'employment_type' => ['required', Rule::enum(EmploymentType::class)],
+            'vehicle_type' => ['required', Rule::enum(VehicleType::class)],
             'status' => ['required', Rule::in(['open', 'closed'])],
             'salary' => ['nullable', 'numeric', 'min:10000', 'max:1000000'],
         ];
