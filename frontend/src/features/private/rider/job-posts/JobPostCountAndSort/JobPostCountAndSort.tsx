@@ -68,7 +68,8 @@ export default function JobPostCountAndSort() {
         {jobPostPages && jobPostPages.length > 0 && (
           <Box>
             <Typography variant="body2" color="textSecondary">
-              {jobPostPages.length} job posts
+              {jobPostPages.length} job post
+              {jobPostPages.length === 1 ? "" : "s"}
             </Typography>
           </Box>
         )}
