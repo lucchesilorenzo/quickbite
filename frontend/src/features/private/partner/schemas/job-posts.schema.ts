@@ -4,6 +4,7 @@ import {
   employmentTypes,
   jobPostStatuses,
 } from "@private/shared/lib/constants/job-posts";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
 import z from "zod";
 
 export const addJobPostFormSchema = z.object({
@@ -28,6 +29,17 @@ export const addJobPostFormSchema = z.object({
     .or(z.literal(""))
     .refine((data) => data !== "", {
       error: "Please select an employment type.",
+    }),
+  vehicle_type: z
+    .enum(
+      vehicles.map((type) => type.value),
+      {
+        error: "The option you selected is not valid.",
+      },
+    )
+    .or(z.literal(""))
+    .refine((data) => data !== "", {
+      error: "Please select a vehicle type.",
     }),
   salary: z
     .string()
