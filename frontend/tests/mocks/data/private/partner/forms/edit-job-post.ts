@@ -1,7 +1,7 @@
 import {
   UpdateJobPostPayload,
   UpdateJobPostResponse,
-} from "@/features/private/partner/types/job-posts/job-post.api.types";
+} from "@partner/types/job-posts/job-post.api.types";
 import { MIN_SALARY } from "@private/shared/lib/constants/job-posts";
 
 import { apiResponse } from "@tests/mocks/data/shared/common";
@@ -11,6 +11,7 @@ export const editJobPostForm: UpdateJobPostPayload = {
   description_html: '<p style="text-align: left;">test</p>',
   description_text: "test",
   employment_type: "part_time",
+  vehicle_type: "scooter",
   salary: MIN_SALARY,
   status: "open",
 };
@@ -24,6 +25,7 @@ export const editJobPostFormResponse: UpdateJobPostResponse = {
     description_html: '<p style="text-align: left;">test</p>',
     description_text: "test",
     employment_type: "part_time",
+    vehicle_type: "scooter",
     salary: MIN_SALARY,
     status: "open",
     updated_at: "2025-11-17T14:10:42.000000Z",

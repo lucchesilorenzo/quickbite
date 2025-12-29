@@ -14,6 +14,7 @@ export const jobPostsWithRestaurant: JobPostWithRestaurant[] = [
       '<p style="text-align: left;"><strong>JOB TEST!</strong></p>',
     description_text: "JOB TEST!",
     employment_type: "full_time",
+    vehicle_type: "scooter",
     salary: null,
     status: "open",
     created_at: "2025-12-18T20:19:39.000000Z",

@@ -14,6 +14,7 @@ export const jobPostResponse: GetJobPostResponse = {
     description_html: '<p style="text-align: left;"><strong>test</strong></p>',
     description_text: "test",
     employment_type: "full_time",
+    vehicle_type: "scooter",
     salary: 60000.3,
     status: "open",
     created_at: "2025-11-17T14:09:52.000000Z",
