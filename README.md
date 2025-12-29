@@ -49,6 +49,7 @@
 
 ### 🛵 Rider (coming soon)
 
+- Job board for rider applications.
 - View assigned delivery orders.
 - Update pickup and delivery status.
 - Get real-time notifications for new deliveries.
