@@ -56,10 +56,10 @@ export default function EditJobPostForm({
       title: jobPost?.title || "",
       description_html: jobPost?.description_html || "",
       description_text: jobPost?.description_text || "",
+      status: jobPost?.status || "",
       employment_type: jobPost?.employment_type || "",
       vehicle_type: jobPost?.vehicle_type || "",
       salary: jobPost?.salary?.toString() || "",
-      status: jobPost?.status || "",
     },
   });
 
@@ -107,6 +107,35 @@ export default function EditJobPostForm({
               descriptionError={errors.description_text?.message}
               setValue={setValue}
             />
+          )}
+        />
+
+        <Controller
+          name="status"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth error={!!errors.status} required>
+              <InputLabel id="status-label">Status</InputLabel>
+
+              <Select
+                {...field}
+                labelId="status-label"
+                id="status"
+                label="Status"
+              >
+                {jobPostStatuses.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </Select>
+
+              <Box sx={{ mt: 1 }}>
+                {errors.status?.message && (
+                  <FormHelperTextError message={errors.status.message} />
+                )}
+              </Box>
+            </FormControl>
           )}
         />
 
@@ -196,35 +225,6 @@ export default function EditJobPostForm({
                 },
               }}
             />
-          )}
-        />
-
-        <Controller
-          name="status"
-          control={control}
-          render={({ field }) => (
-            <FormControl fullWidth error={!!errors.status} required>
-              <InputLabel id="status-label">Status</InputLabel>
-
-              <Select
-                {...field}
-                labelId="status-label"
-                id="status"
-                label="Status"
-              >
-                {jobPostStatuses.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </Select>
-
-              <Box sx={{ mt: 1 }}>
-                {errors.status?.message && (
-                  <FormHelperTextError message={errors.status.message} />
-                )}
-              </Box>
-            </FormControl>
           )}
         />
       </Stack>
