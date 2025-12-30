@@ -18,5 +18,6 @@ export type JobPostFilters = {
   search: string;
   minSalary: number;
   maxSalary: number;
+  salaryEnabled: boolean;
   employmentType: EmploymentTypeWithAll;
 };
