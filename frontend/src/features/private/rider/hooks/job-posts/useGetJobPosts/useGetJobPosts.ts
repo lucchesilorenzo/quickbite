@@ -1,7 +1,3 @@
-import {
-  MAX_SALARY,
-  MIN_SALARY,
-} from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -12,6 +8,7 @@ export type UseGetJobPostsOptions = {
   search: string;
   minSalary: number;
   maxSalary: number;
+  salaryEnabled: boolean;
   employmentType: EmploymentTypeWithAll;
   sortBy: string | null;
 };
@@ -20,6 +17,7 @@ export function useGetJobPosts({
   search,
   minSalary,
   maxSalary,
+  salaryEnabled,
   employmentType,
   sortBy,
 }: UseGetJobPostsOptions) {
@@ -29,22 +27,18 @@ export function useGetJobPosts({
       search,
       minSalary,
       maxSalary,
+      salaryEnabled,
       employmentType,
       sortBy,
     ],
     queryFn: ({ pageParam }) => {
       const params = new URLSearchParams();
 
-      const isDefaultRange =
-        minSalary === MIN_SALARY && maxSalary === MAX_SALARY;
-
-      const isValidRange = minSalary < maxSalary;
-
       if (search) {
         params.append("search", search);
       }
 
-      if (!isDefaultRange && isValidRange) {
+      if (salaryEnabled && minSalary && maxSalary) {
         params.append("min_salary", minSalary.toString());
         params.append("max_salary", maxSalary.toString());
       }
