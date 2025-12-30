@@ -15,6 +15,7 @@ class JobPostService
     {
         $minSalary = config('job_posts.salary.min');
         $maxSalary = config('job_posts.salary.max');
+        $hasSalaryFilter = isset($data['min_salary']) || isset($data['max_salary']);
 
         $search = $data['search'] ?? null;
         $minSalary = isset($data['min_salary']) ? (int) $data['min_salary'] : $minSalary;
@@ -25,8 +26,10 @@ class JobPostService
         return JobPost::query()
             ->with(['restaurant'])
             ->when($search, fn ($query) => $query->whereLike('title', "%{$search}%"))
-            ->when($minSalary, fn ($query) => $query->where('salary', '>=', $minSalary))
-            ->when($maxSalary, fn ($query) => $query->where('salary', '<=', $maxSalary))
+            ->when($hasSalaryFilter, function ($query) use ($minSalary, $maxSalary) {
+                return $query->whereNotNull('salary')
+                    ->whereBetween('salary', [$minSalary, $maxSalary]);
+            })
             ->when($employmentType, fn ($query) => $query->where('employment_type', $employmentType))
             ->when($sortBy, fn ($query) => $query->orderBy('created_at', $sortBy))
             ->where('status', 'open')
