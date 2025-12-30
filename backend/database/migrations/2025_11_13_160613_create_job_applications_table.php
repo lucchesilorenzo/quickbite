@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('resume');
             $table->enum('status', JobApplicationStatus::values())->default(JobApplicationStatus::PENDING);
+            $table->timestamp('declaration_accepted_at');
             $table->timestamps();
         });
     }

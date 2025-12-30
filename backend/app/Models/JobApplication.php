@@ -22,6 +22,7 @@ class JobApplication extends Model
         'phone_number',
         'resume',
         'status',
+        'declaration_accepted_at',
     ];
 
     /**
