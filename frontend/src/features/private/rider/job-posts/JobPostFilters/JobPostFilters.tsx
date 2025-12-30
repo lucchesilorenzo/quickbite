@@ -69,9 +69,17 @@ export default function JobPostFilters() {
         />
 
         <Box sx={{ minWidth: 250, width: 1 }}>
-          <Typography variant="body1" sx={{ textAlign: "center" }}>
-            Salary
-          </Typography>
+          <Box sx={{ textAlign: "center" }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={salaryEnabled}
+                  onChange={(e) => setSalaryEnabled(e.target.checked)}
+                />
+              }
+              label="Filter by salary"
+            />
+          </Box>
 
           <Slider
             data-testid="slider"
