@@ -1,8 +1,7 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
+import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useFormContext } from "react-hook-form";
-
-import { TJobPostApplicationFormSchema } from "../schemas/job-post-applications.schema";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 

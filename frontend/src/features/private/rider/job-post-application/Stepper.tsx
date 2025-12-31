@@ -13,8 +13,9 @@ import { steps } from "@rider/lib/constants/job-application-wizard/steps";
 import { useFormContext } from "react-hook-form";
 
 import { TJobPostApplicationFormSchema } from "../schemas/job-post-applications.schema";
-import ContactInfoStep from "./ContactInfoStep";
 import RestaurantInfoPanel from "./RestaurantInfoPanel";
+import ContactInfoStep from "./steps/contact-info/ContactInfoStep";
+import ResumeStep from "./steps/resume/ResumeStep";
 
 type StepperProps = {
   activeStep: number;
@@ -90,6 +91,7 @@ export default function Stepper({
           noValidate
         >
           {activeStep === 0 && <ContactInfoStep />}
+          {activeStep === 1 && <ResumeStep />}
 
           {isLastStep && (
             <Box sx={{ mt: 2, textAlign: "center" }}>
