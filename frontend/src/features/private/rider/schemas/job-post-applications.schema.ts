@@ -29,7 +29,7 @@ export const jobPostApplicationFormSchema = z.object({
     .refine((resume) => resume.length > 0, {
       message: "Please select a file (PDF).",
     }),
-  declaration_accepted_at: z.date({ error: "Declaration is required." }),
+  declaration_accepted_at: z.boolean({ error: "Declaration is required." }),
 });
 
 export type TJobPostApplicationFormSchema = z.infer<
