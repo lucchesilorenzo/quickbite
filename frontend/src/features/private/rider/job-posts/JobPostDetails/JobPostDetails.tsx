@@ -16,6 +16,7 @@ import {
 import { employmentTypes } from "@private/shared/lib/constants/job-posts";
 import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { Link } from "react-router-dom";
 
 import JobPostDescription from "../JobPostDescription";
 
@@ -75,7 +76,12 @@ export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
               </Typography>
             )}
 
-            <Button variant="contained" color="info">
+            <Button
+              component={Link}
+              to={`/rider/job-posts/${jobPost?.id}/apply`}
+              variant="contained"
+              color="info"
+            >
               Apply now
             </Button>
           </Box>
