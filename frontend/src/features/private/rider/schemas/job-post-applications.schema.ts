@@ -45,7 +45,9 @@ export const jobPostApplicationFormSchema = z.object({
       });
     }
   }),
-  declaration_accepted_at: z.boolean({ error: "Declaration is required." }),
+  declaration_accepted_at: z.boolean().refine((value) => value, {
+    error: "Declaration is required.",
+  }),
 });
 
 export type TJobPostApplicationFormSchema = z.infer<
