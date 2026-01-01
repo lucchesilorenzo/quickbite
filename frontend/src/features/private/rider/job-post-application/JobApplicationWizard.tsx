@@ -36,8 +36,8 @@ export default function JobApplicationWizard() {
     setActiveStep((prev) => prev + 1);
   }
 
-  function handleBack() {
-    setActiveStep((prev) => prev - 1);
+  function handleBack(step: number = 1) {
+    setActiveStep((prev) => prev - step);
   }
 
   return (
