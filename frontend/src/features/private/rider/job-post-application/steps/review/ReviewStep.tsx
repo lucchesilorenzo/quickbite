@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import ContactInfoSection from "./sections/ContactInfoSection";
 
 type ReviewStepProps = {
-  onBack: (step?: number) => void;
+  onBack: (step: number) => void;
 };
 
 export default function ReviewStep({ onBack }: ReviewStepProps) {

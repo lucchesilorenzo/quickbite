@@ -3,7 +3,7 @@ import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applicati
 import { useFormContext } from "react-hook-form";
 
 type ContactInfoSectionProps = {
-  onBack: (step?: number) => void;
+  onBack: (step: number) => void;
 };
 
 export default function ContactInfoSection({

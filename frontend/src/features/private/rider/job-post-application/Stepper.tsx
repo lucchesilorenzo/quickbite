@@ -22,7 +22,7 @@ type StepperProps = {
   activeStep: number;
   isApplying: boolean;
   onNext: () => void;
-  onBack: (step?: number) => void;
+  onBack: (step: number) => void;
   onSubmit: (data: TJobPostApplicationFormSchema) => void;
 };
 
@@ -76,7 +76,7 @@ export default function Stepper({
               <Button
                 startIcon={<KeyboardArrowLeft />}
                 size={isMobile ? "small" : "medium"}
-                onClick={() => onBack()}
+                onClick={() => onBack(1)}
                 disabled={activeStep === 0}
               >
                 Back
