@@ -16,11 +16,10 @@ export default function ResumePreview() {
   const { control } = useFormContext<TJobPostApplicationFormSchema>();
 
   const resume = useWatch({ control, name: "resume" });
-
-  const file = resume instanceof FileList ? resume[0] : resume;
+  const file = resume instanceof FileList ? resume[0] : undefined;
 
   const url = useMemo(() => {
-    if (!file || typeof file === "string" || file.type !== "application/pdf") {
+    if (!file || file.type !== "application/pdf") {
       return null;
     }
 
