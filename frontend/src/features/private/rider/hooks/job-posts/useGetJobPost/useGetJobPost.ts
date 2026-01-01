@@ -1,6 +1,5 @@
+import { GetJobPostResponse } from "@rider/types/job-posts/job-post.api.types";
 import { useQuery } from "@tanstack/react-query";
-
-import { GetJobPostResponse } from "../../types/job-posts/job-post.api.types";
 
 import { fetchData } from "@/lib/api-client";
 
