@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import ContactInfoSection from "./sections/ContactInfoSection";
+import ResumeSection from "./sections/ResumeSection";
 
 type ReviewStepProps = {
   onBack: (step: number) => void;
@@ -19,7 +20,10 @@ export default function ReviewStep({ onBack }: ReviewStepProps) {
         </Typography>
       </Box>
 
-      <ContactInfoSection onBack={onBack} />
+      <Stack spacing={2}>
+        <ContactInfoSection onBack={onBack} />
+        <ResumeSection onBack={onBack} />
+      </Stack>
     </Box>
   );
 }
