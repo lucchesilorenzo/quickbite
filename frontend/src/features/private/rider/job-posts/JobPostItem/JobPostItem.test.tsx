@@ -2,7 +2,10 @@ import { employmentTypes } from "@private/shared/lib/constants/job-posts";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
-import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
+import {
+  jobPostFilters,
+  jobPostsWithRestaurant,
+} from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 
 import JobPostItem from "./JobPostItem";
@@ -20,14 +23,13 @@ describe("JobPostItem", () => {
     const mockHandleApplySort = vi.fn();
 
     vi.mocked(useJobPosts).mockReturnValue({
+      filters: jobPostFilters,
       jobPostPages: [],
       isLoadingJobPosts: false,
       jobPostsError: null,
       sortBy: null,
       jobPostId: null,
       isFetchingNextPage: false,
-      handleApplyFilters: vi.fn(),
-      handleResetFilters: vi.fn(),
       handleApplySort: mockHandleApplySort,
       fetchNextPage: vi.fn(),
       handleJobPostChange: vi.fn(),

@@ -6,7 +6,10 @@ import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import LocationDisplay from "@tests/LocationDisplay";
-import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
+import {
+  jobPostFilters,
+  jobPostsWithRestaurant,
+} from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 import { MemoryRouter } from "react-router-dom";
 
@@ -25,16 +28,8 @@ describe("JobPostFilters", () => {
     jobPosts: JobPostWithRestaurant[],
     newFilters?: TJobPostFilters,
   ) {
-    const filters: TJobPostFilters = {
-      search: "",
-      minSalary: MIN_SALARY,
-      maxSalary: MAX_SALARY,
-      salaryEnabled: false,
-      employmentType: "all",
-    };
-
     vi.mocked(useJobPosts).mockReturnValue({
-      filters: { ...filters, ...newFilters },
+      filters: { ...jobPostFilters, ...newFilters },
       jobPostPages: jobPosts,
       isLoadingJobPosts: false,
       jobPostsError: null,
