@@ -3,7 +3,22 @@ import {
   GetJobPostsResponse,
 } from "@rider/types/job-posts/job-post.api.types";
 import { apiResponse } from "../../shared/common";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import {
+  JobPostFilters,
+  JobPostWithRestaurant,
+} from "@rider/types/job-posts/job-post.types";
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+} from "@private/shared/lib/constants/job-posts";
+
+export const jobPostFilters: JobPostFilters = {
+  search: "",
+  minSalary: MIN_SALARY,
+  maxSalary: MAX_SALARY,
+  employmentType: "all",
+  salaryEnabled: false,
+};
 
 export const jobPostsWithRestaurant: JobPostWithRestaurant[] = [
   {
