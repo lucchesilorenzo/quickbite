@@ -16,12 +16,13 @@ import { TJobPostApplicationFormSchema } from "../schemas/job-post-applications.
 import RestaurantInfoPanel from "./RestaurantInfoPanel";
 import ContactInfoStep from "./steps/contact-info/ContactInfoStep";
 import ResumeStep from "./steps/resume/ResumeStep";
+import ReviewStep from "./steps/review/ReviewStep";
 
 type StepperProps = {
   activeStep: number;
   isApplying: boolean;
   onNext: () => void;
-  onBack: () => void;
+  onBack: (step?: number) => void;
   onSubmit: (data: TJobPostApplicationFormSchema) => void;
 };
 
@@ -75,7 +76,7 @@ export default function Stepper({
               <Button
                 startIcon={<KeyboardArrowLeft />}
                 size={isMobile ? "small" : "medium"}
-                onClick={onBack}
+                onClick={() => onBack()}
                 disabled={activeStep === 0}
               >
                 Back
@@ -92,6 +93,7 @@ export default function Stepper({
         >
           {activeStep === 0 && <ContactInfoStep />}
           {activeStep === 1 && <ResumeStep />}
+          {activeStep === 2 && <ReviewStep onBack={onBack} />}
 
           {isLastStep && (
             <Box sx={{ mt: 2, textAlign: "center" }}>
@@ -99,7 +101,6 @@ export default function Stepper({
                 type="submit"
                 variant="contained"
                 color="primary"
-                size="large"
                 sx={{ px: 5, fontWeight: 700 }}
                 loading={isPending}
                 loadingIndicator="Submitting..."
