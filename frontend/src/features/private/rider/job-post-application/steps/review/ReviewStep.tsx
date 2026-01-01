@@ -1,13 +1,29 @@
-import { Box, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { Controller, useFormContext } from "react-hook-form";
 
 import ContactInfoSection from "./sections/ContactInfoSection";
 import ResumeSection from "./sections/ResumeSection";
+
+import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type ReviewStepProps = {
   onBack: (step: number) => void;
 };
 
 export default function ReviewStep({ onBack }: ReviewStepProps) {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<TJobPostApplicationFormSchema>();
+
   return (
     <Box>
       <Box>
@@ -23,6 +39,36 @@ export default function ReviewStep({ onBack }: ReviewStepProps) {
       <Stack spacing={2}>
         <ContactInfoSection onBack={onBack} />
         <ResumeSection onBack={onBack} />
+      </Stack>
+
+      <Divider sx={{ my: 2 }} />
+
+      <Stack spacing={2}>
+        <Controller
+          name="declaration_accepted_at"
+          control={control}
+          render={({ field }) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={field.value}
+                  onChange={field.onChange}
+                  sx={{ pl: 0, py: 0 }}
+                />
+              }
+              label="I declare that the information I have provided is accurate and complete."
+              slotProps={{
+                typography: { variant: "body2" },
+              }}
+            />
+          )}
+        />
+
+        {errors.declaration_accepted_at?.message && (
+          <FormHelperTextError
+            message={errors.declaration_accepted_at.message}
+          />
+        )}
       </Stack>
     </Box>
   );
