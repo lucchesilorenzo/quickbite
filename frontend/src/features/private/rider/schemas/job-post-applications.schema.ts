@@ -24,11 +24,27 @@ export const jobPostApplicationFormSchema = z.object({
         error: "Please enter a valid phone number.",
       },
     ),
-  resume: z
-    .union([z.string(), z.instanceof(FileList)])
-    .refine((resume) => resume.length > 0, {
-      message: "Please select a file (PDF).",
-    }),
+  resume: z.union([z.string(), z.instanceof(FileList)]).check((ctx) => {
+    if (!(ctx.value instanceof FileList) || ctx.value.length === 0) {
+      ctx.issues.push({
+        code: "custom",
+        message: "Please upload your resume.",
+        input: ctx.value,
+      });
+
+      return;
+    }
+
+    const file = ctx.value[0];
+
+    if (file.type !== "application/pdf") {
+      ctx.issues.push({
+        code: "custom",
+        message: "Only PDF files are allowed.",
+        input: ctx.value,
+      });
+    }
+  }),
   declaration_accepted_at: z.boolean({ error: "Declaration is required." }),
 });
 
