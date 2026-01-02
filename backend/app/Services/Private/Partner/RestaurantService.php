@@ -8,7 +8,7 @@ use App\Exceptions\Private\Partner\RestaurantApprovalException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
-use App\Services\Shared\ImageService;
+use App\Services\Shared\FileService;
 use App\Services\Shared\LocationService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
@@ -18,7 +18,7 @@ class RestaurantService
 {
     public function __construct(
         private readonly LocationService $locationService,
-        private readonly ImageService $imageService
+        private readonly FileService $fileService
     ) {}
 
     public function getRestaurants(User $partner): Collection
@@ -93,7 +93,7 @@ class RestaurantService
         ?UploadedFile $cover
     ): Restaurant {
         if ($logo instanceof UploadedFile) {
-            $data['logo'] = $this->imageService->update(
+            $data['logo'] = $this->fileService->update(
                 $restaurant->logo,
                 $logo,
                 'restaurants/logos',
@@ -102,7 +102,7 @@ class RestaurantService
         }
 
         if ($cover instanceof UploadedFile) {
-            $data['cover'] = $this->imageService->update(
+            $data['cover'] = $this->fileService->update(
                 $restaurant->cover,
                 $cover,
                 'restaurants/covers',

@@ -7,10 +7,10 @@ namespace App\Services\Shared;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class ImageService
+class FileService
 {
     /**
-     * Upload a new image.
+     * Upload a new file.
      */
     public function create(UploadedFile $file, string $folder): string
     {
@@ -20,7 +20,7 @@ class ImageService
     }
 
     /**
-     * Update an image: delete old one (if not default) and upload new one.
+     * Update a file: delete old one (if not default) and upload new one.
      */
     public function update(
         ?string $currentPath,
@@ -28,8 +28,7 @@ class ImageService
         string $folder,
         ?string $defaultSubpath = null
     ): string {
-        // Delete old image if it exists and is not a default image
-        if (! in_array($currentPath, [null, '', '0'], true)) {
+        if (! $this->isEmptyPath($currentPath)) {
             $this->deleteIfNotDefault($currentPath, $defaultSubpath);
         }
 
@@ -37,19 +36,19 @@ class ImageService
     }
 
     /**
-     * Delete an image.
+     * Delete a file.
      */
     public function delete(
         ?string $currentPath,
         ?string $defaultSubpath = null
     ): void {
-        if (! in_array($currentPath, [null, '', '0'], true)) {
+        if (! $this->isEmptyPath($currentPath)) {
             $this->deleteIfNotDefault($currentPath, $defaultSubpath);
         }
     }
 
     /**
-     * Delete image only if it's not a default image.
+     * Delete file only if it's not a default file.
      */
     private function deleteIfNotDefault(
         string $currentPath,
@@ -58,19 +57,24 @@ class ImageService
         // If no default subpath specified, always delete
         // If default subpath specified, delete only if current path doesn't contain it
         if ($defaultSubpath === null || ! str_contains($currentPath, $defaultSubpath)) {
-            $this->deleteImage($currentPath);
+            $this->deleteFile($currentPath);
         }
     }
 
     /**
-     * Delete an image from storage.
+     * Delete a file from storage.
      */
-    private function deleteImage(string $path): void
+    private function deleteFile(string $path): void
     {
         $storagePath = str_replace('/storage/', '', $path);
 
         if (Storage::disk('public')->exists($storagePath)) {
             Storage::disk('public')->delete($storagePath);
         }
+    }
+
+    private function isEmptyPath(?string $path): bool
+    {
+        return $path === null || $path === '';
     }
 }

@@ -6,14 +6,14 @@ namespace App\Services\Private\Partner;
 
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
-use App\Services\Shared\ImageService;
+use App\Services\Shared\FileService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
 class MenuItemService
 {
     public function __construct(
-        private readonly ImageService $imageService
+        private readonly FileService $fileService
     ) {}
 
     public function createMenuItem(
@@ -23,7 +23,7 @@ class MenuItemService
     ): MenuItem {
         // Handle image upload if provided
         if ($image instanceof UploadedFile) {
-            $this->imageService->create($image, 'restaurants/menu-items');
+            $this->fileService->create($image, 'restaurants/menu-items');
         }
 
         // Get menu item order
@@ -43,7 +43,7 @@ class MenuItemService
         ?UploadedFile $image,
     ): MenuItem {
         if ($image instanceof UploadedFile) {
-            $data['image'] = $this->imageService->update(
+            $data['image'] = $this->fileService->update(
                 $menuItem->image,
                 $image,
                 'restaurants/menu-items',
@@ -72,7 +72,7 @@ class MenuItemService
 
     public function deleteMenuItem(MenuItem $menuItem): void
     {
-        $this->imageService->delete($menuItem->image, 'menu-items/default');
+        $this->fileService->delete($menuItem->image, 'menu-items/default');
 
         $menuItem->delete();
 
