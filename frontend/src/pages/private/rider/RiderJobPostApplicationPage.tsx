@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Box } from "@mui/material";
 import JobPostApplicationProvider from "@rider/contexts/JobPostApplicationProvider";
-import JobApplicationWizard from "@rider/job-post-application/JobApplicationWizard";
+import JobApplicationWizard from "@rider/job-application/JobApplicationWizard";
 
 export default function RiderJobPostApplicationPage() {
   useEffect(() => {
