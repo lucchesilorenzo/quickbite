@@ -26,10 +26,8 @@ class JobPostService
         return JobPost::query()
             ->with(['restaurant'])
             ->when($search, fn ($query) => $query->whereLike('title', "%{$search}%"))
-            ->when($hasSalaryFilter, function ($query) use ($minSalary, $maxSalary) {
-                return $query->whereNotNull('salary')
-                    ->whereBetween('salary', [$minSalary, $maxSalary]);
-            })
+            ->when($hasSalaryFilter, fn ($query) => $query->whereNotNull('salary')
+                ->whereBetween('salary', [$minSalary, $maxSalary]))
             ->when($employmentType, fn ($query) => $query->where('employment_type', $employmentType))
             ->when($sortBy, fn ($query) => $query->orderBy('created_at', $sortBy))
             ->where('status', 'open')
