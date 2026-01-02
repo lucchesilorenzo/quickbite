@@ -42,6 +42,6 @@ class JobApplication extends Model
      */
     public function rider(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'rider_id');
     }
 }
