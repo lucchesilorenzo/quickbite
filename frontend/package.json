@@ -69,6 +69,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "@vitest/ui": "^4.0.15",
     "baseline-browser-mapping": "^2.9.7",
+    "blob-polyfill": "^9.0.20240710",
     "eslint": "^9.39.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
