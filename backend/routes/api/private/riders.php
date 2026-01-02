@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Private\Rider\AuthController;
+use App\Http\Controllers\Private\Rider\JobApplicationController;
 use App\Http\Controllers\Private\Rider\JobPostController;
 use App\Http\Controllers\Private\Rider\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -38,5 +39,6 @@ Route::prefix('rider')->group(function (): void {
         ->group(function (): void {
             Route::get('/', [JobPostController::class, 'getJobPosts']);
             Route::get('/{jobPost}', [JobPostController::class, 'getJobPost']);
+            Route::post('/{jobPost}/applications', [JobApplicationController::class, 'createJobApplication']);
         });
 });
