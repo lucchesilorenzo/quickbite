@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom/vitest";
 import { server } from "./mocks/server";
+import "blob-polyfill";
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
