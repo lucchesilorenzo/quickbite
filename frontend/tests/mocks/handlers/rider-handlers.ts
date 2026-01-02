@@ -4,6 +4,7 @@ import {
   jobPostResponse,
   jobPostsResponse,
 } from "../data/private/rider/job-posts";
+import { jobApplicationWizardFormResponse } from "../data/private/rider/forms/job-application-wizard";
 
 export const riderHandlers = [
   http.get(`${env.VITE_BASE_URL}/api/rider/job-posts`, ({ request }) => {
@@ -25,4 +26,12 @@ export const riderHandlers = [
   http.get(`${env.VITE_BASE_URL}/api/rider/job-posts/:jobPostId`, () => {
     return HttpResponse.json(jobPostResponse);
   }),
+  http.post(
+    `${env.VITE_BASE_URL}/api/rider/job-posts/:jobPostId/applications`,
+    () => {
+      return HttpResponse.json(jobApplicationWizardFormResponse, {
+        status: 201,
+      });
+    }
+  ),
 ];
