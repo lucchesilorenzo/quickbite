@@ -195,14 +195,11 @@ class RestaurantController extends Controller
         Gate::authorize('update', $restaurant);
 
         try {
-            $logo = $request->hasFile('logo') ? $request->file('logo') : null;
-            $cover = $request->hasFile('cover') ? $request->file('cover') : null;
-
             $restaurant = $this->restaurantService->updateInfo(
                 $request->validated(),
                 $restaurant,
-                $logo,
-                $cover
+                $request->file('logo'),
+                $request->file('cover')
             );
 
             return response()->json([

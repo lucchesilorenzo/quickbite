@@ -9,6 +9,7 @@ use App\Models\MenuItem;
 use App\Services\Shared\FileService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class MenuItemService
 {
@@ -19,42 +20,66 @@ class MenuItemService
     public function createMenuItem(
         array $data,
         MenuCategory $menuCategory,
-        ?UploadedFile $image,
     ): MenuItem {
-        // Handle image upload if provided
-        if ($image instanceof UploadedFile) {
-            $this->fileService->create($image, 'restaurants/menu-items');
+        $imagePath = null;
+
+        logger($data['image']);
+
+        try {
+            if ($data['image'] !== null) {
+                $imagePath = $this->fileService->create(
+                    $data['image'],
+                    'restaurants/menu-items'
+                );
+
+                $data['image'] = $imagePath;
+            }
+
+            $menuItemOrder = $menuCategory->menuItems()->max('order');
+            $data['order'] = $menuItemOrder === null ? 0 : $menuItemOrder + 1;
+
+            return MenuItem::query()->create([
+                ...$data,
+                'menu_category_id' => $menuCategory->id,
+                'order' => $data['order'],
+            ])->refresh();
+        } catch (Throwable $e) {
+            if ($imagePath !== null) {
+                $this->fileService->delete($imagePath, 'menu-items/default');
+            }
+
+            throw $e;
         }
-
-        // Get menu item order
-        $menuItemOrder = $menuCategory->menuItems()->max('order');
-        $data['order'] = $menuItemOrder === null ? 0 : $menuItemOrder + 1;
-
-        return MenuItem::query()->create([
-            ...$data,
-            'menu_category_id' => $menuCategory->id,
-            'order' => $data['order'],
-        ])->refresh();
     }
 
     public function updateMenuItem(
         array $data,
         MenuItem $menuItem,
-        ?UploadedFile $image,
+        ?UploadedFile $image = null,
     ): MenuItem {
-        if ($image instanceof UploadedFile) {
-            $data['image'] = $this->fileService->update(
-                $menuItem->image,
-                $image,
-                'restaurants/menu-items',
-                'menu-items/default'
-            );
+        $newImagePath = null;
+        $oldImagePath = $menuItem->image;
+
+        try {
+            if ($image) {
+                $newImagePath = $this->fileService->create($image, 'restaurants/menu-items');
+                $data['image'] = $newImagePath;
+            }
+
+            $menuItem->update($data);
+
+            if ($newImagePath && $oldImagePath) {
+                $this->fileService->delete($oldImagePath, 'menu-items/default');
+            }
+
+            return $menuItem;
+        } catch (Throwable $e) {
+            if ($newImagePath) {
+                $this->fileService->delete($newImagePath);
+            }
+
+            throw $e;
         }
-
-        $menuItem->update($data);
-        $menuItem->unsetRelation('menuCategory');
-
-        return $menuItem;
     }
 
     public function updateMenuItemsOrder(array $menuItems): array

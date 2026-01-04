@@ -89,45 +89,63 @@ class RestaurantService
     public function updateInfo(
         array $data,
         Restaurant $restaurant,
-        ?UploadedFile $logo,
-        ?UploadedFile $cover
+        ?UploadedFile $logo = null,
+        ?UploadedFile $cover = null
     ): Restaurant {
-        if ($logo instanceof UploadedFile) {
-            $data['logo'] = $this->fileService->update(
-                $restaurant->logo,
-                $logo,
-                'restaurants/logos',
-                'logos/default'
-            );
-        }
+        $newLogoPath = null;
+        $newCoverPath = null;
+        $oldLogoPath = $restaurant->logo;
+        $oldCoverPath = $restaurant->cover;
 
-        if ($cover instanceof UploadedFile) {
-            $data['cover'] = $this->fileService->update(
-                $restaurant->cover,
-                $cover,
-                'restaurants/covers',
-                'covers/default'
-            );
-        }
-
-        return DB::transaction(function () use ($restaurant, $data): Restaurant {
-            $locationData = $this->locationService->getLocationData($data);
-
-            if ($locationData === null) {
-                throw new LocationNotFoundException;
+        try {
+            if ($logo) {
+                $newLogoPath = $this->fileService->create($logo, 'restaurants/logos');
+                $data['logo'] = $newLogoPath;
             }
 
-            $restaurant->update([
-                ...$data,
-                'latitude' => $locationData['lat'],
-                'longitude' => $locationData['lon'],
-            ]);
+            if ($cover) {
+                $newCoverPath = $this->fileService->create($cover, 'restaurants/covers');
+                $data['cover'] = $newCoverPath;
+            }
 
-            // Create or update restaurant categories
-            $restaurant->categories()->sync($data['categories']);
+            $restaurant = DB::transaction(function () use ($restaurant, $data): Restaurant {
+                $locationData = $this->locationService->getLocationData($data);
 
-            return $this->loadRestaurantRelations($restaurant);
-        });
+                if ($locationData === null) {
+                    throw new LocationNotFoundException;
+                }
+
+                $restaurant->update([
+                    ...$data,
+                    'latitude' => $locationData['lat'],
+                    'longitude' => $locationData['lon'],
+                ]);
+
+                $restaurant->categories()->sync($data['categories']);
+
+                return $this->loadRestaurantRelations($restaurant);
+            });
+
+            if ($newLogoPath && $oldLogoPath) {
+                $this->fileService->delete($oldLogoPath, 'logos/default');
+            }
+
+            if ($newCoverPath && $oldCoverPath) {
+                $this->fileService->delete($oldCoverPath, 'covers/default');
+            }
+
+            return $restaurant;
+        } catch (Throwable $e) {
+            if ($newLogoPath) {
+                $this->fileService->delete($newLogoPath);
+            }
+
+            if ($newCoverPath) {
+                $this->fileService->delete($newCoverPath);
+            }
+
+            throw $e;
+        }
     }
 
     private function loadRestaurantRelations(Restaurant $restaurant): Restaurant
