@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen, waitFor } from "@testing-library/react";
 import {
   jobPostFilters,
@@ -30,7 +30,7 @@ vi.mock("../ViewJobPostDetailsDialog", () => ({
 
 describe("JobPostList", () => {
   function renderComponent(
-    jobPostPages: JobPostWithRestaurant[],
+    jobPostPages: JobPostWithRestaurantAndAlreadyApplied[],
     isLoadingJobPosts: boolean = false,
     jobPostsError: Error | null = null,
     isFetchingNextPage: boolean = false,

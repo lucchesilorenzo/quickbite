@@ -5,7 +5,7 @@ import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-post
 import { customRender } from "@tests/utils/custom-render";
 import { MemoryRouter } from "react-router-dom";
 
-import { JobPostWithRestaurant } from "../../types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "../../types/job-posts/job-post.types";
 import JobPostDetails from "./JobPostDetails";
 
 vi.mock("../JobPostDescription", () => ({
@@ -13,7 +13,7 @@ vi.mock("../JobPostDescription", () => ({
 }));
 
 describe("JobPostDetails", () => {
-  function renderComponent(jobPost: JobPostWithRestaurant) {
+  function renderComponent(jobPost: JobPostWithRestaurantAndAlreadyApplied) {
     customRender(
       <MemoryRouter>
         <JobPostDetails jobPost={jobPost} />

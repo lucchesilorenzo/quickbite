@@ -1,6 +1,6 @@
 import { employmentTypes } from "@private/shared/lib/constants/job-posts";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import {
   jobPostFilters,
@@ -15,7 +15,7 @@ vi.mock("@rider/contexts/JobPostsProvider", () => ({
 }));
 
 describe("JobPostItem", () => {
-  function renderComponent(jobPost: JobPostWithRestaurant) {
+  function renderComponent(jobPost: JobPostWithRestaurantAndAlreadyApplied) {
     customRender(<JobPostItem jobPost={jobPost} />);
   }
 

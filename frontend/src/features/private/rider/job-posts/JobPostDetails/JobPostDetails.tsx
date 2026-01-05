@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { employmentTypes } from "@private/shared/lib/constants/job-posts";
 import { vehicles } from "@private/shared/lib/constants/vehicles";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { Link } from "react-router-dom";
 
 import JobPostDescription from "../JobPostDescription";
@@ -23,7 +23,7 @@ import JobPostDescription from "../JobPostDescription";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type JobPostDetailsProps = {
-  jobPost?: JobPostWithRestaurant;
+  jobPost?: JobPostWithRestaurantAndAlreadyApplied;
 };
 
 export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
@@ -77,6 +77,7 @@ export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
             )}
 
             <Button
+              disabled={jobPost?.already_applied}
               component={Link}
               to={`/rider/job-posts/${jobPost?.id}/apply`}
               variant="contained"

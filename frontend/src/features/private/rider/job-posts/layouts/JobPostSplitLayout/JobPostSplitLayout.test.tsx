@@ -1,4 +1,4 @@
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
@@ -19,7 +19,7 @@ vi.mock("@rider/job-posts/JobPostDetails", () => ({
 
 describe("JobPostSplitLayout", () => {
   function renderComponent(
-    jobPost?: JobPostWithRestaurant,
+    jobPost?: JobPostWithRestaurantAndAlreadyApplied,
     isLoadingJobPost: boolean = false,
     jobPostError: Error | null = null,
   ) {

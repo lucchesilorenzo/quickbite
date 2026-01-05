@@ -11,12 +11,12 @@ import {
 } from "@mui/material";
 import { employmentTypes } from "@private/shared/lib/constants/job-posts";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type JobPostItemProps = {
-  jobPost: JobPostWithRestaurant;
+  jobPost: JobPostWithRestaurantAndAlreadyApplied;
 };
 
 export default function JobPostItem({ jobPost }: JobPostItemProps) {

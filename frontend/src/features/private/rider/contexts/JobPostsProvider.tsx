@@ -10,7 +10,7 @@ import { useGetJobPosts } from "@rider/hooks/job-posts/useGetJobPosts";
 import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
 import {
   JobPostFilters,
-  JobPostWithRestaurant,
+  JobPostWithRestaurantAndAlreadyApplied,
 } from "@rider/types/job-posts/job-post.types";
 import {
   FetchNextPageOptions,
@@ -25,7 +25,7 @@ type JobPostsProviderProps = {
 
 type JobPostsContext = {
   filters: JobPostFilters;
-  jobPostPages?: JobPostWithRestaurant[];
+  jobPostPages?: JobPostWithRestaurantAndAlreadyApplied[];
   isLoadingJobPosts: boolean;
   jobPostsError: Error | null;
   sortBy: string | null;

@@ -14,7 +14,7 @@ import { customRender } from "@tests/utils/custom-render";
 import { MemoryRouter } from "react-router-dom";
 
 import {
-  JobPostWithRestaurant,
+  JobPostWithRestaurantAndAlreadyApplied,
   JobPostFilters as TJobPostFilters,
 } from "../../types/job-posts/job-post.types";
 import JobPostFilters from "./JobPostFilters";
@@ -25,7 +25,7 @@ vi.mock("@rider/contexts/JobPostsProvider", () => ({
 
 describe("JobPostFilters", () => {
   function renderComponent(
-    jobPosts: JobPostWithRestaurant[],
+    jobPosts: JobPostWithRestaurantAndAlreadyApplied[],
     newFilters?: TJobPostFilters,
   ) {
     vi.mocked(useJobPosts).mockReturnValue({
