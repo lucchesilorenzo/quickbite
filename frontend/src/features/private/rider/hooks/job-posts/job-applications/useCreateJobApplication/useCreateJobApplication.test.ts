@@ -12,6 +12,12 @@ import { useCreateJobApplication } from "./useCreateJobApplication";
 import env from "@/lib/env";
 
 const mockShow = vi.fn();
+const mockNavigate = vi.fn();
+
+vi.mock("react-router-dom", async () => ({
+  ...(await vi.importActual("react-router-dom")),
+  useNavigate: () => mockNavigate,
+}));
 
 vi.mocked(useNotifications).mockReturnValue({
   show: mockShow,
@@ -83,5 +89,6 @@ describe("useCreateJobApplication", () => {
       }),
     );
     expect(mockShow).toHaveBeenCalledTimes(1);
+    expect(mockNavigate).toHaveBeenCalledWith("/rider/job-posts");
   });
 });
