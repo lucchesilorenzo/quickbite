@@ -198,8 +198,6 @@ class RestaurantController extends Controller
             $restaurant = $this->restaurantService->updateInfo(
                 $request->validated(),
                 $restaurant,
-                $request->file('logo'),
-                $request->file('cover')
             );
 
             return response()->json([

@@ -11,8 +11,8 @@ use App\Models\User;
 use App\Services\Shared\FileService;
 use App\Services\Shared\LocationService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class RestaurantService
 {
@@ -89,8 +89,6 @@ class RestaurantService
     public function updateInfo(
         array $data,
         Restaurant $restaurant,
-        ?UploadedFile $logo = null,
-        ?UploadedFile $cover = null
     ): Restaurant {
         $newLogoPath = null;
         $newCoverPath = null;
@@ -98,13 +96,13 @@ class RestaurantService
         $oldCoverPath = $restaurant->cover;
 
         try {
-            if ($logo) {
-                $newLogoPath = $this->fileService->create($logo, 'restaurants/logos');
+            if ($data['logo'] !== null) {
+                $newLogoPath = $this->fileService->create($data['logo'], 'restaurants/logos');
                 $data['logo'] = $newLogoPath;
             }
 
-            if ($cover) {
-                $newCoverPath = $this->fileService->create($cover, 'restaurants/covers');
+            if ($data['cover'] !== null) {
+                $newCoverPath = $this->fileService->create($data['cover'], 'restaurants/covers');
                 $data['cover'] = $newCoverPath;
             }
 

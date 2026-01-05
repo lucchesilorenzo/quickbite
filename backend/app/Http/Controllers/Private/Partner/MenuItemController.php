@@ -65,7 +65,6 @@ class MenuItemController extends Controller
             $menuItem = $this->menuItemService->updateMenuItem(
                 $request->validated(),
                 $menuItem,
-                $request->file('image'),
             );
 
             return response()->json([

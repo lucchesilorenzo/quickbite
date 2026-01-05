@@ -7,7 +7,6 @@ namespace App\Services\Private\Partner;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Services\Shared\FileService;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -22,8 +21,6 @@ class MenuItemService
         MenuCategory $menuCategory,
     ): MenuItem {
         $imagePath = null;
-
-        logger($data['image']);
 
         try {
             if ($data['image'] !== null) {
@@ -55,14 +52,13 @@ class MenuItemService
     public function updateMenuItem(
         array $data,
         MenuItem $menuItem,
-        ?UploadedFile $image = null,
     ): MenuItem {
         $newImagePath = null;
         $oldImagePath = $menuItem->image;
 
         try {
-            if ($image) {
-                $newImagePath = $this->fileService->create($image, 'restaurants/menu-items');
+            if ($data['image'] !== null) {
+                $newImagePath = $this->fileService->create($data['image'], 'restaurants/menu-items');
                 $data['image'] = $newImagePath;
             }
 
