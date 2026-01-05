@@ -4,8 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Container } from "@mui/material";
 import { steps } from "@rider/lib/constants/job-application-wizard/steps";
 import { FormProvider, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
+import { useJobApplication } from "../contexts/JobApplicationProvider";
 import { useCreateJobApplication } from "../hooks/job-posts/job-applications/useCreateJobApplication";
 import {
   TJobPostApplicationFormSchema,
@@ -13,8 +14,12 @@ import {
 } from "../schemas/job-post-applications.schema";
 import Stepper from "./Stepper";
 
+import Spinner from "@/components/common/Spinner";
+
 export default function JobApplicationWizard() {
   const { jobPostId } = useParams();
+  const { jobPostData, isLoadingJobPost, jobPostError } = useJobApplication();
+
   const { mutate: createJobApplication, isPending: isApplying } =
     useCreateJobApplication({ jobPostId: jobPostId! });
 
@@ -58,6 +63,18 @@ export default function JobApplicationWizard() {
 
   function handleBack(step: number) {
     setActiveStep((prev) => prev - step);
+  }
+
+  if (isLoadingJobPost) {
+    return <Spinner />;
+  }
+
+  if (
+    !jobPostData?.job_post ||
+    jobPostError ||
+    jobPostData?.job_post.already_applied
+  ) {
+    return <Navigate to="/rider/job-posts" replace />;
   }
 
   return (
