@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { Box } from "@mui/material";
-import JobPostApplicationProvider from "@rider/contexts/JobPostApplicationProvider";
+import JobApplicationProvider from "@rider/contexts/JobApplicationProvider";
 import JobApplicationWizard from "@rider/job-application/JobApplicationWizard";
 
 export default function RiderJobPostApplicationPage() {
@@ -10,10 +10,10 @@ export default function RiderJobPostApplicationPage() {
   }, []);
 
   return (
-    <JobPostApplicationProvider>
+    <JobApplicationProvider>
       <Box component="main">
         <JobApplicationWizard />
       </Box>
-    </JobPostApplicationProvider>
+    </JobApplicationProvider>
   );
 }

@@ -1,11 +1,11 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 
-import { useJobPostApplication } from "../contexts/JobPostApplicationProvider";
+import { useJobApplication } from "../contexts/JobApplicationProvider";
 
 import env from "@/lib/env";
 
 export default function RestaurantInfoPanel() {
-  const { jobPostData } = useJobPostApplication();
+  const { jobPostData } = useJobApplication();
 
   return (
     <Paper variant="outlined" sx={{ py: 2, px: 4 }}>

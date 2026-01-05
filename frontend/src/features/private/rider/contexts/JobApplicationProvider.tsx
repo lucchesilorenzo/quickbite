@@ -5,22 +5,21 @@ import { useParams } from "react-router-dom";
 import { useGetJobPost } from "../hooks/job-posts/useGetJobPost";
 import { GetJobPostResponse } from "../types/job-posts/job-post.api.types";
 
-type JobPostApplicationProviderProps = {
+type JobApplicationProviderProps = {
   children: React.ReactNode;
 };
 
-type JobPostApplicationContext = {
+type JobApplicationContext = {
   jobPostData?: GetJobPostResponse;
   isLoadingJobPost: boolean;
   jobPostError: Error | null;
 };
 
-const JobPostApplicationContext =
-  createContext<JobPostApplicationContext | null>(null);
+const JobApplicationContext = createContext<JobApplicationContext | null>(null);
 
-export default function JobPostApplicationProvider({
+export default function JobApplicationProvider({
   children,
-}: JobPostApplicationProviderProps) {
+}: JobApplicationProviderProps) {
   const { jobPostId } = useParams();
 
   const {
@@ -30,20 +29,20 @@ export default function JobPostApplicationProvider({
   } = useGetJobPost({ jobPostId: jobPostId! });
 
   return (
-    <JobPostApplicationContext.Provider
+    <JobApplicationContext.Provider
       value={{ jobPostData, isLoadingJobPost, jobPostError }}
     >
       {children}
-    </JobPostApplicationContext.Provider>
+    </JobApplicationContext.Provider>
   );
 }
 
-export function useJobPostApplication() {
-  const context = useContext(JobPostApplicationContext);
+export function useJobApplication() {
+  const context = useContext(JobApplicationContext);
 
   if (!context) {
     throw new Error(
-      "useJobPostApplication must be used within a JobPostApplicationProvider.",
+      "useJobApplication must be used within a JobApplicationProvider.",
     );
   }
 
