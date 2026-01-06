@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
-import ResumePreview from "./ResumePreview";
+import ResumePreview from "../ResumePreview";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
@@ -46,6 +46,7 @@ export default function ResumeStep() {
               {field.value.length > 0 ? "Upload a new file" : "Upload file"}
               <VisuallyHiddenInput
                 type="file"
+                aria-label="Upload resume"
                 accept="application/pdf"
                 onChange={(e) => handleFileUpload(e, field.onChange)}
               />
