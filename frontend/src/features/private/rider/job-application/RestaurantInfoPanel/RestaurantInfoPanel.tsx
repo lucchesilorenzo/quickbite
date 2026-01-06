@@ -1,11 +1,23 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Alert, Box, Paper, Skeleton, Stack, Typography } from "@mui/material";
 
-import { useJobApplication } from "../contexts/JobApplicationProvider";
+import { useJobApplication } from "../../contexts/JobApplicationProvider";
 
 import env from "@/lib/env";
 
 export default function RestaurantInfoPanel() {
-  const { jobPostData } = useJobApplication();
+  const { jobPostData, isLoadingJobPost, jobPostError } = useJobApplication();
+
+  if (isLoadingJobPost) {
+    return (
+      <Box role="region" aria-busy="true" aria-label="Restaurant info loading">
+        <Skeleton height={100} animation="wave" variant="rectangular" />
+      </Box>
+    );
+  }
+
+  if (jobPostError) {
+    return <Alert severity="error">{jobPostError.message} </Alert>;
+  }
 
   return (
     <Paper variant="outlined" sx={{ py: 2, px: 4 }}>
