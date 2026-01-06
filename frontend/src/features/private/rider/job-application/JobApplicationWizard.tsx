@@ -3,8 +3,9 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Container } from "@mui/material";
 import { steps } from "@rider/lib/constants/job-application-wizard/steps";
+import { useNotifications } from "@toolpad/core/useNotifications";
 import { FormProvider, useForm } from "react-hook-form";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useJobApplication } from "../contexts/JobApplicationProvider";
 import { useCreateJobApplication } from "../hooks/job-posts/job-applications/useCreateJobApplication";
@@ -14,16 +15,17 @@ import {
 } from "../schemas/job-post-applications.schema";
 import Stepper from "./Stepper";
 
-import Spinner from "@/components/common/Spinner";
-
 export default function JobApplicationWizard() {
   const { jobPostId } = useParams();
-  const { jobPostData, isLoadingJobPost, jobPostError } = useJobApplication();
+  const { jobPostData } = useJobApplication();
 
   const { mutate: createJobApplication, isPending: isApplying } =
     useCreateJobApplication({ jobPostId: jobPostId! });
 
   const [activeStep, setActiveStep] = useState(0);
+
+  const navigate = useNavigate();
+  const notifications = useNotifications();
 
   const methods = useForm({
     resolver: zodResolver(jobPostApplicationFormSchema),
@@ -65,16 +67,13 @@ export default function JobApplicationWizard() {
     setActiveStep((prev) => prev - step);
   }
 
-  if (isLoadingJobPost) {
-    return <Spinner />;
-  }
+  if (jobPostData?.job_post.already_applied) {
+    navigate("/rider/job-posts", { replace: true });
 
-  if (
-    !jobPostData?.job_post ||
-    jobPostError ||
-    jobPostData?.job_post.already_applied
-  ) {
-    return <Navigate to="/rider/job-posts" replace />;
+    notifications.show("You have already applied for this job.", {
+      key: "rider-job-application-already-applied",
+      severity: "error",
+    });
   }
 
   return (
