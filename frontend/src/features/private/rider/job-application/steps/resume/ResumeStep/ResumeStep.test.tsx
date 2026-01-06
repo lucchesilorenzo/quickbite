@@ -1,4 +1,4 @@
-import { jobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { jobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FormWrapper from "@tests/FormWrapper";
@@ -15,7 +15,7 @@ describe("ResumeStep", () => {
 
     render(
       <FormWrapper
-        schema={jobPostApplicationFormSchema}
+        schema={jobApplicationFormSchema}
         defaultValues={{ resume: "" }}
         formOptions={{ mode: "onChange" }}
       >

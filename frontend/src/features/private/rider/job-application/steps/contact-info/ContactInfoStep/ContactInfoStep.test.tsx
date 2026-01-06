@@ -1,9 +1,9 @@
-import { jobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { jobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FormWrapper from "@tests/FormWrapper";
 
-import ContactInfoStep from ".";
+import ContactInfoStep from "./ContactInfoStep";
 
 describe("ContactInfoStep", () => {
   function renderComponent() {
@@ -11,7 +11,7 @@ describe("ContactInfoStep", () => {
 
     render(
       <FormWrapper
-        schema={jobPostApplicationFormSchema}
+        schema={jobApplicationFormSchema}
         defaultValues={{
           first_name: "",
           last_name: "",

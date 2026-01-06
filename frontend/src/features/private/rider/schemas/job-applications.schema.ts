@@ -1,7 +1,7 @@
 import { matchIsValidTel } from "mui-tel-input";
 import z from "zod";
 
-export const jobPostApplicationFormSchema = z.object({
+export const jobApplicationFormSchema = z.object({
   first_name: z
     .string()
     .trim()
@@ -56,6 +56,6 @@ export const jobPostApplicationFormSchema = z.object({
   }),
 });
 
-export type TJobPostApplicationFormSchema = z.infer<
-  typeof jobPostApplicationFormSchema
+export type TJobApplicationFormSchema = z.infer<
+  typeof jobApplicationFormSchema
 >;

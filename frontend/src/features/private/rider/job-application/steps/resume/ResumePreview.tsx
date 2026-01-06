@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { Box } from "@mui/material";
-import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -13,7 +13,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 export default function ResumePreview() {
-  const { control } = useFormContext<TJobPostApplicationFormSchema>();
+  const { control } = useFormContext<TJobApplicationFormSchema>();
 
   const resume = useWatch({ control, name: "resume" });
   const file = resume instanceof FileList ? resume[0] : undefined;

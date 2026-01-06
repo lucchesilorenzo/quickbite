@@ -1,7 +1,7 @@
 import { Navigate, Route } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
-import RiderJobPostApplicationPage from "./private/rider/RiderJobPostApplicationPage";
+import RiderJobApplicationPage from "./private/rider/RiderJobApplicationPage";
 import RiderJobPostsPage from "./private/rider/RiderJobPostsPage";
 import RiderProfileGeneralPage from "./private/rider/RiderProfileGeneralPage";
 import RiderProfileNotificationsPage from "./private/rider/RiderProfileNotificationsPage";
@@ -16,7 +16,7 @@ export const RiderRoutes = [
       <Route path="job-posts" element={<RiderJobPostsPage />} />
       <Route
         path="job-posts/:jobPostId/apply"
-        element={<RiderJobPostApplicationPage />}
+        element={<RiderJobApplicationPage />}
       />
     </Route>
 

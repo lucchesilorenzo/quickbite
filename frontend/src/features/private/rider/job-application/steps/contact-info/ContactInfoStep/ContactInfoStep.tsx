@@ -1,5 +1,5 @@
 import { Box, Stack, TextField, Typography } from "@mui/material";
-import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -9,7 +9,7 @@ export default function ContactInfoStep() {
   const {
     control,
     formState: { errors },
-  } = useFormContext<TJobPostApplicationFormSchema>();
+  } = useFormContext<TJobApplicationFormSchema>();
 
   return (
     <Box>

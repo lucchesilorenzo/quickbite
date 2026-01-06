@@ -1,5 +1,5 @@
 import { Box, Button, Card, Divider, Stack, Typography } from "@mui/material";
-import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { useFormContext } from "react-hook-form";
 
 type ContactInfoSectionProps = {
@@ -9,7 +9,7 @@ type ContactInfoSectionProps = {
 export default function ContactInfoSection({
   onBack,
 }: ContactInfoSectionProps) {
-  const { getValues } = useFormContext<TJobPostApplicationFormSchema>();
+  const { getValues } = useFormContext<TJobApplicationFormSchema>();
 
   const firstName = getValues("first_name");
   const lastName = getValues("last_name");

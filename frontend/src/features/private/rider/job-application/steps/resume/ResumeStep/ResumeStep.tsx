@@ -1,6 +1,6 @@
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
 import ResumePreview from "../ResumePreview";
@@ -12,7 +12,7 @@ export default function ResumeStep() {
   const {
     control,
     formState: { errors },
-  } = useFormContext<TJobPostApplicationFormSchema>();
+  } = useFormContext<TJobApplicationFormSchema>();
 
   function handleFileUpload(
     e: React.ChangeEvent<HTMLInputElement>,

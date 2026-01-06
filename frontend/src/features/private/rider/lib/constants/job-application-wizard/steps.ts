@@ -1,7 +1,7 @@
-import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 
 export const steps: {
-  fields: (keyof TJobPostApplicationFormSchema)[];
+  fields: (keyof TJobApplicationFormSchema)[];
 }[] = [
   {
     fields: ["first_name", "last_name", "email", "phone_number"],

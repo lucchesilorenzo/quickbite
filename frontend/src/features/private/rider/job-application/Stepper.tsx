@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import { steps } from "@rider/lib/constants/job-application-wizard/steps";
 import { useFormContext } from "react-hook-form";
 
-import { TJobPostApplicationFormSchema } from "../schemas/job-post-applications.schema";
+import { TJobApplicationFormSchema } from "../schemas/job-applications.schema";
 import RestaurantInfoPanel from "./RestaurantInfoPanel";
 import ContactInfoStep from "./steps/contact-info/ContactInfoStep";
 import ResumeStep from "./steps/resume/ResumeStep";
@@ -23,7 +23,7 @@ type StepperProps = {
   isApplying: boolean;
   onNext: () => void;
   onBack: (step: number) => void;
-  onSubmit: (data: TJobPostApplicationFormSchema) => void;
+  onSubmit: (data: TJobApplicationFormSchema) => void;
 };
 
 export default function Stepper({
@@ -36,7 +36,7 @@ export default function Stepper({
   const {
     handleSubmit,
     formState: { isSubmitting },
-  } = useFormContext<TJobPostApplicationFormSchema>();
+  } = useFormContext<TJobApplicationFormSchema>();
 
   const isPending = isApplying || isSubmitting;
   const isLastStep = activeStep === steps.length - 1;

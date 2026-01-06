@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { TJobPostApplicationFormSchema } from "@rider/schemas/job-post-applications.schema";
+import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
 import ContactInfoSection from "./sections/ContactInfoSection";
@@ -22,7 +22,7 @@ export default function ReviewStep({ onBack }: ReviewStepProps) {
   const {
     control,
     formState: { errors },
-  } = useFormContext<TJobPostApplicationFormSchema>();
+  } = useFormContext<TJobApplicationFormSchema>();
 
   return (
     <Box>

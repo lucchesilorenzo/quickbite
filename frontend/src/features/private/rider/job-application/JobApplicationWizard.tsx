@@ -10,9 +10,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useJobApplication } from "../contexts/JobApplicationProvider";
 import { useCreateJobApplication } from "../hooks/job-posts/job-applications/useCreateJobApplication";
 import {
-  TJobPostApplicationFormSchema,
-  jobPostApplicationFormSchema,
-} from "../schemas/job-post-applications.schema";
+  TJobApplicationFormSchema,
+  jobApplicationFormSchema,
+} from "../schemas/job-applications.schema";
 import Stepper from "./Stepper";
 
 export default function JobApplicationWizard() {
@@ -28,7 +28,7 @@ export default function JobApplicationWizard() {
   const notifications = useNotifications();
 
   const methods = useForm({
-    resolver: zodResolver(jobPostApplicationFormSchema),
+    resolver: zodResolver(jobApplicationFormSchema),
     mode: "onChange",
     defaultValues: {
       first_name: "",
@@ -40,7 +40,7 @@ export default function JobApplicationWizard() {
     },
   });
 
-  function onSubmit(data: TJobPostApplicationFormSchema) {
+  function onSubmit(data: TJobApplicationFormSchema) {
     const formData = new FormData();
 
     formData.append("first_name", data.first_name);
