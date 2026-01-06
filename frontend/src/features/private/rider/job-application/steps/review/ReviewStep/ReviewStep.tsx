@@ -9,8 +9,8 @@ import {
 import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
-import ContactInfoSection from "./sections/ContactInfoSection";
-import ResumeSection from "./sections/ResumeSection";
+import ContactInfoSection from "../sections/ContactInfoSection";
+import ResumeSection from "../sections/ResumeSection";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
