@@ -1,9 +1,8 @@
 import DescriptionIcon from "@mui/icons-material/Description";
 import { Box, Button, Card, Stack, Typography } from "@mui/material";
+import ResumePreview from "@rider/job-application/steps/resume/ResumePreview";
 import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { useFormContext, useWatch } from "react-hook-form";
-
-import ResumePreview from "../../resume/ResumePreview";
 
 type ResumeSectionProps = {
   onBack: (step: number) => void;
