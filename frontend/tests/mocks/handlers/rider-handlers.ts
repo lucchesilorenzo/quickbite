@@ -32,6 +32,6 @@ export const riderHandlers = [
       return HttpResponse.json(jobApplicationWizardFormResponse, {
         status: 201,
       });
-    }
+    },
   ),
 ];
