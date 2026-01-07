@@ -144,7 +144,9 @@ describe("JobApplicationWizard (integration)", () => {
 
     await user.click(getSubmitButton()!);
 
-    expect(getSubmitButton()!).toHaveTextContent(/submitting/i);
+    await waitFor(() => {
+      expect(getSubmitButton()!).toHaveTextContent(/submitting/i);
+    });
   });
 
   it("should not render the loading indicator after submission", async () => {
