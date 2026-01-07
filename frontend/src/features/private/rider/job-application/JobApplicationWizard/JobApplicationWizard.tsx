@@ -7,13 +7,13 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useJobApplication } from "../contexts/JobApplicationProvider";
-import { useCreateJobApplication } from "../hooks/job-posts/job-applications/useCreateJobApplication";
+import { useJobApplication } from "../../contexts/JobApplicationProvider";
+import { useCreateJobApplication } from "../../hooks/job-posts/job-applications/useCreateJobApplication";
 import {
   TJobApplicationFormSchema,
   jobApplicationFormSchema,
-} from "../schemas/job-applications.schema";
-import Stepper from "./Stepper";
+} from "../../schemas/job-applications.schema";
+import Stepper from "../Stepper";
 
 export default function JobApplicationWizard() {
   const { jobPostId } = useParams();
