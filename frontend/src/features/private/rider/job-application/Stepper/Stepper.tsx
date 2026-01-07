@@ -10,13 +10,13 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { steps } from "@rider/lib/constants/job-application-wizard/steps";
+import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { useFormContext } from "react-hook-form";
 
-import { TJobApplicationFormSchema } from "../schemas/job-applications.schema";
-import RestaurantInfoPanel from "./RestaurantInfoPanel";
-import ContactInfoStep from "./steps/contact-info/ContactInfoStep";
-import ResumeStep from "./steps/resume/ResumeStep";
-import ReviewStep from "./steps/review/ReviewStep";
+import RestaurantInfoPanel from "../RestaurantInfoPanel";
+import ContactInfoStep from "../steps/contact-info/ContactInfoStep";
+import ResumeStep from "../steps/resume/ResumeStep";
+import ReviewStep from "../steps/review/ReviewStep";
 
 type StepperProps = {
   activeStep: number;
