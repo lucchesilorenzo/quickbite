@@ -34,12 +34,9 @@ class MenuItemController extends Controller
         Gate::authorize('create', [MenuItem::class, $menuCategory]);
 
         try {
-            $image = $request->hasFile('image') ? $request->file('image') : null;
-
             $menuItem = $this->menuItemService->createMenuItem(
                 $request->validated(),
                 $menuCategory,
-                $image
             );
 
             return response()->json([
@@ -65,12 +62,9 @@ class MenuItemController extends Controller
         Gate::authorize('update', $menuItem);
 
         try {
-            $image = $request->hasFile('image') ? $request->file('image') : null;
-
             $menuItem = $this->menuItemService->updateMenuItem(
                 $request->validated(),
                 $menuItem,
-                $image,
             );
 
             return response()->json([

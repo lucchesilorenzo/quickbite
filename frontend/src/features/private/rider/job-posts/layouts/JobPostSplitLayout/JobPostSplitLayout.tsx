@@ -2,12 +2,12 @@ import { Alert, Grid } from "@mui/material";
 import JobPostCountAndSort from "@rider/job-posts/JobPostCountAndSort";
 import JobPostDetails from "@rider/job-posts/JobPostDetails";
 import JobPostList from "@rider/job-posts/JobPostList";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 
 import Spinner from "@/components/common/Spinner";
 
 type JobPostSplitLayoutProps = {
-  jobPost?: JobPostWithRestaurant;
+  jobPost?: JobPostWithRestaurantAndAlreadyApplied;
   isLoadingJobPost: boolean;
   jobPostError: Error | null;
 };

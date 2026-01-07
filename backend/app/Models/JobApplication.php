@@ -22,6 +22,7 @@ class JobApplication extends Model
         'phone_number',
         'resume',
         'status',
+        'declaration_accepted_at',
     ];
 
     /**
@@ -41,6 +42,6 @@ class JobApplication extends Model
      */
     public function rider(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'rider_id');
     }
 }

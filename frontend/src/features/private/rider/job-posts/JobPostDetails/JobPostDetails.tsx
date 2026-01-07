@@ -1,5 +1,6 @@
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import CheckIcon from "@mui/icons-material/Check";
+import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import {
   Box,
@@ -13,20 +14,44 @@ import {
   Typography,
 } from "@mui/material";
 import { employmentTypes } from "@private/shared/lib/constants/job-posts";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
+import { Link } from "react-router-dom";
 
 import JobPostDescription from "../JobPostDescription";
 
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type JobPostDetailsProps = {
-  jobPost?: JobPostWithRestaurant;
+  jobPost?: JobPostWithRestaurantAndAlreadyApplied;
 };
 
 export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
   const employmentType = employmentTypes.find(
     (option) => option.value === jobPost?.employment_type,
   )?.label;
+
+  const vehicleType = vehicles.find(
+    (option) => option.value === jobPost?.vehicle_type,
+  )?.label;
+
+  const jobPostDetails = [
+    {
+      icon: PaymentsIcon,
+      label: "Salary",
+      value: jobPost?.salary && `${formatCurrency(jobPost.salary)} / year`,
+    },
+    {
+      icon: BusinessCenterIcon,
+      label: "Employment type",
+      value: employmentType,
+    },
+    {
+      icon: DeliveryDiningIcon,
+      label: "Vehicle type",
+      value: vehicleType,
+    },
+  ];
 
   return (
     <Card variant="outlined">
@@ -51,7 +76,13 @@ export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
               </Typography>
             )}
 
-            <Button variant="contained" color="info">
+            <Button
+              disabled={jobPost?.already_applied}
+              component={Link}
+              to={`/rider/job-posts/${jobPost?.id}/apply`}
+              variant="contained"
+              color="info"
+            >
               Apply now
             </Button>
           </Box>
@@ -71,43 +102,29 @@ export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
             </Typography>
 
             <Stack spacing={4}>
-              <Stack direction="row" spacing={1}>
-                <PaymentsIcon fontSize="inherit" />
+              {jobPostDetails.map(({ icon: Icon, label, value }) => {
+                if (!value) return null;
 
-                {jobPost?.salary && (
-                  <Stack spacing={1}>
-                    <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                      Salary
-                    </Typography>
+                return (
+                  <Stack key={label} direction="row" spacing={1}>
+                    <Icon fontSize="inherit" />
 
-                    <Chip
-                      icon={<CheckIcon />}
-                      color="success"
-                      label={`${formatCurrency(jobPost.salary)} / year`}
-                      size="small"
-                      sx={{ fontWeight: 500 }}
-                    />
+                    <Stack spacing={1}>
+                      <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                        {label}
+                      </Typography>
+
+                      <Chip
+                        icon={<CheckIcon />}
+                        color="success"
+                        label={value}
+                        size="small"
+                        sx={{ fontWeight: 500 }}
+                      />
+                    </Stack>
                   </Stack>
-                )}
-              </Stack>
-
-              <Stack direction="row" spacing={1}>
-                <BusinessCenterIcon fontSize="inherit" />
-
-                <Stack spacing={1}>
-                  <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                    Employment type
-                  </Typography>
-
-                  <Chip
-                    icon={<CheckIcon />}
-                    color="success"
-                    label={employmentType}
-                    size="small"
-                    sx={{ fontWeight: 500 }}
-                  />
-                </Stack>
-              </Stack>
+                );
+              })}
             </Stack>
           </Box>
         </CardContent>

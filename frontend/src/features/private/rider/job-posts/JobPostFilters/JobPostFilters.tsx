@@ -6,7 +6,9 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -16,7 +18,6 @@ import {
   Slider,
   Stack,
   TextField,
-  Typography,
 } from "@mui/material";
 import {
   MAX_SALARY,
@@ -25,16 +26,39 @@ import {
 } from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
+import { useSearchParams } from "react-router-dom";
 
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function JobPostFilters() {
-  const { handleApplyFilters, handleResetFilters } = useJobPosts();
+  const [, setSearchParams] = useSearchParams();
+  const { filters } = useJobPosts();
 
-  const [search, setSearch] = useState("");
-  const [salary, setSalary] = useState([MIN_SALARY, MAX_SALARY]);
-  const [employmentType, setEmploymentType] =
-    useState<EmploymentTypeWithAll>("all");
+  const [search, setSearch] = useState(filters.search);
+  const [salary, setSalary] = useState([filters.minSalary, filters.maxSalary]);
+  const [salaryEnabled, setSalaryEnabled] = useState(filters.salaryEnabled);
+  const [employmentType, setEmploymentType] = useState<EmploymentTypeWithAll>(
+    filters.employmentType,
+  );
+
+  function handleApplyFilters() {
+    setSearchParams((prev) => ({
+      ...Object.fromEntries(prev),
+      job_post_id: [],
+      search: search || [],
+      min_salary: salaryEnabled ? salary[0].toString() : [],
+      max_salary: salaryEnabled ? salary[1].toString() : [],
+      employment_type: employmentType !== "all" ? employmentType : [],
+    }));
+  }
+
+  function handleResetFilters() {
+    setSearch("");
+    setSalary([MIN_SALARY, MAX_SALARY]);
+    setSalaryEnabled(false);
+    setEmploymentType("all");
+    setSearchParams({});
+  }
 
   return (
     <Paper variant="outlined" sx={{ p: 2 }}>
@@ -69,12 +93,21 @@ export default function JobPostFilters() {
         />
 
         <Box sx={{ minWidth: 250, width: 1 }}>
-          <Typography variant="body1" sx={{ textAlign: "center" }}>
-            Salary
-          </Typography>
+          <Box sx={{ textAlign: "center" }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={salaryEnabled}
+                  onChange={(e) => setSalaryEnabled(e.target.checked)}
+                />
+              }
+              label="Filter by salary"
+            />
+          </Box>
 
           <Slider
             data-testid="slider"
+            disabled={!salaryEnabled}
             value={salary}
             onChange={(_, v) => setSalary(v as number[])}
             min={MIN_SALARY}
@@ -112,18 +145,7 @@ export default function JobPostFilters() {
           aria-label="job post filter buttons"
           fullWidth
         >
-          <Button
-            onClick={() => {
-              handleApplyFilters({
-                search,
-                minSalary: salary[0],
-                maxSalary: salary[1],
-                employmentType,
-              });
-            }}
-          >
-            Apply
-          </Button>
+          <Button onClick={handleApplyFilters}>Apply</Button>
 
           <Button
             sx={{

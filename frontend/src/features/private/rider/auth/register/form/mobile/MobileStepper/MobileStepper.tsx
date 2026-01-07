@@ -44,14 +44,22 @@ export default function MobileStepper({
         position="static"
         activeStep={activeStep}
         nextButton={
-          <Button size="small" onClick={onNext} disabled={isLastStep}>
+          <Button
+            endIcon={<KeyboardArrowRight />}
+            size="small"
+            onClick={onNext}
+            disabled={isLastStep}
+          >
             Next
-            <KeyboardArrowRight />
           </Button>
         }
         backButton={
-          <Button size="small" onClick={onBack} disabled={activeStep === 0}>
-            <KeyboardArrowLeft />
+          <Button
+            startIcon={<KeyboardArrowLeft />}
+            size="small"
+            onClick={onBack}
+            disabled={activeStep === 0}
+          >
             Back
           </Button>
         }

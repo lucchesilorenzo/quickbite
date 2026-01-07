@@ -14,6 +14,7 @@ describe("useGetJobPosts", () => {
     search: "",
     minSalary: 10000,
     maxSalary: 100000,
+    salaryEnabled: false,
     employmentType: "all",
     sortBy: null,
   };
@@ -69,7 +70,8 @@ describe("useGetJobPosts", () => {
     );
 
     const { result } = renderHook(
-      () => useGetJobPosts({ ...options, minSalary: 20000 }),
+      () =>
+        useGetJobPosts({ ...options, minSalary: 20000, salaryEnabled: true }),
       { wrapper: TestQueryWrapper },
     );
 
@@ -94,7 +96,8 @@ describe("useGetJobPosts", () => {
     );
 
     const { result } = renderHook(
-      () => useGetJobPosts({ ...options, maxSalary: 30000 }),
+      () =>
+        useGetJobPosts({ ...options, maxSalary: 30000, salaryEnabled: true }),
       { wrapper: TestQueryWrapper },
     );
 

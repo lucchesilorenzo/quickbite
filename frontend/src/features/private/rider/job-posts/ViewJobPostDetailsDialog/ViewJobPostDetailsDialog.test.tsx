@@ -1,6 +1,9 @@
 import { screen, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
+import {
+  jobPostFilters,
+  jobPostsWithRestaurant,
+} from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 import { simulateError } from "@tests/utils/msw";
 
@@ -22,14 +25,13 @@ describe("ViewJobPostDetailsDialog", () => {
     const mockHandleJobPostChange = vi.fn();
 
     vi.mocked(useJobPosts).mockReturnValue({
+      filters: jobPostFilters,
       jobPostPages: [],
       isLoadingJobPosts: false,
       jobPostsError: null,
       sortBy: null,
       jobPostId,
       isFetchingNextPage: false,
-      handleApplyFilters: vi.fn(),
-      handleResetFilters: vi.fn(),
       handleApplySort: vi.fn(),
       fetchNextPage: vi.fn(),
       handleJobPostChange: mockHandleJobPostChange,

@@ -5,23 +5,50 @@ import {
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
+import LocationDisplay from "@tests/LocationDisplay";
+import {
+  jobPostFilters,
+  jobPostsWithRestaurant,
+} from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
+import { MemoryRouter } from "react-router-dom";
 
+import {
+  JobPostWithRestaurantAndAlreadyApplied,
+  JobPostFilters as TJobPostFilters,
+} from "../../types/job-posts/job-post.types";
 import JobPostFilters from "./JobPostFilters";
-
-const mockHandleApplyFilters = vi.fn();
-const mockHandleResetFilters = vi.fn();
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
   useJobPosts: vi.fn(),
 }));
 
 describe("JobPostFilters", () => {
-  function renderComponent() {
+  function renderComponent(
+    jobPosts: JobPostWithRestaurantAndAlreadyApplied[],
+    newFilters?: TJobPostFilters,
+  ) {
+    vi.mocked(useJobPosts).mockReturnValue({
+      filters: { ...jobPostFilters, ...newFilters },
+      jobPostPages: jobPosts,
+      isLoadingJobPosts: false,
+      jobPostsError: null,
+      sortBy: null,
+      isFetchingNextPage: false,
+      jobPostId: null,
+      handleApplySort: vi.fn(),
+      handleJobPostChange: vi.fn(),
+      fetchNextPage: vi.fn(),
+    });
+
     const user = userEvent.setup();
 
-    customRender(<JobPostFilters />);
+    customRender(
+      <MemoryRouter initialEntries={["/rider/job-posts"]}>
+        <JobPostFilters />
+        <LocationDisplay />
+      </MemoryRouter>,
+    );
 
     const salarySliders = screen.getAllByRole("slider");
 
@@ -30,98 +57,51 @@ describe("JobPostFilters", () => {
       searchInput: screen.getByPlaceholderText(/title/i),
       minSalarySlider: salarySliders[0],
       maxSalarySlider: salarySliders[1],
+      salaryEnabledCheckbox: screen.getByRole("checkbox"),
       employmentType: screen.getByRole("combobox"),
     };
   }
 
   it("should render the filters", () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
-      renderComponent();
+    const {
+      searchInput,
+      minSalarySlider,
+      maxSalarySlider,
+      salaryEnabledCheckbox,
+      employmentType,
+    } = renderComponent(jobPostsWithRestaurant);
 
     expect(searchInput).toBeInTheDocument();
     expect(minSalarySlider).toBeInTheDocument();
     expect(maxSalarySlider).toBeInTheDocument();
+    expect(salaryEnabledCheckbox).toBeInTheDocument();
     expect(employmentType).toBeInTheDocument();
   });
 
-  it("should render the filters with correct default values", async () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
+  it("should render the filters with correct values", async () => {
+    const {
+      searchInput,
+      minSalarySlider,
+      maxSalarySlider,
+      salaryEnabledCheckbox,
+      employmentType,
+    } = renderComponent(jobPostsWithRestaurant, {
+      search: "React",
+      minSalary: MIN_SALARY,
+      maxSalary: MAX_SALARY,
+      salaryEnabled: false,
+      employmentType: "all",
     });
 
-    const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
-      renderComponent();
-
-    expect(searchInput).toHaveValue("");
+    expect(searchInput).toHaveValue("React");
     expect(minSalarySlider).toHaveValue(MIN_SALARY.toString());
     expect(maxSalarySlider).toHaveValue(MAX_SALARY.toString());
-    expect(employmentType).toHaveTextContent(/all/i);
-  });
-
-  it("should populate state with correct default values", () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { searchInput, minSalarySlider, maxSalarySlider, employmentType } =
-      renderComponent();
-
-    expect(searchInput).toHaveValue("");
-    expect(minSalarySlider).toHaveValue(MIN_SALARY.toString());
-    expect(maxSalarySlider).toHaveValue(MAX_SALARY.toString());
+    expect(salaryEnabledCheckbox).not.toBeChecked();
     expect(employmentType).toHaveTextContent(/all/i);
   });
 
   it("should update 'searchQuery' while typing", async () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { user, searchInput } = renderComponent();
+    const { user, searchInput } = renderComponent(jobPostsWithRestaurant);
 
     await user.type(searchInput, "React");
 
@@ -129,21 +109,7 @@ describe("JobPostFilters", () => {
   });
 
   it("should update 'minSalary' while typing", () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { minSalarySlider } = renderComponent();
+    const { minSalarySlider } = renderComponent(jobPostsWithRestaurant);
 
     fireEvent.change(minSalarySlider, {
       target: { value: "20000" },
@@ -153,21 +119,7 @@ describe("JobPostFilters", () => {
   });
 
   it("should update 'maxSalary' while typing", () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { maxSalarySlider } = renderComponent();
+    const { maxSalarySlider } = renderComponent(jobPostsWithRestaurant);
 
     fireEvent.change(maxSalarySlider, {
       target: { value: "20000" },
@@ -177,21 +129,7 @@ describe("JobPostFilters", () => {
   });
 
   it("should update 'employmentType' while typing", async () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { user, employmentType } = renderComponent();
+    const { user, employmentType } = renderComponent(jobPostsWithRestaurant);
 
     await user.click(employmentType);
     await user.click(screen.getByRole("option", { name: /contract/i }));
@@ -200,72 +138,24 @@ describe("JobPostFilters", () => {
   });
 
   it("should call handleApplyFilters when applying filters", async () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { user, searchInput } = renderComponent();
+    const { user, searchInput } = renderComponent(jobPostsWithRestaurant);
 
     await user.type(searchInput, "React");
     await user.click(screen.getByRole("button", { name: /apply/i }));
 
-    expect(mockHandleApplyFilters).toHaveBeenCalledTimes(1);
-    expect(mockHandleApplyFilters).toHaveBeenCalledWith({
-      search: "React",
-      minSalary: MIN_SALARY,
-      maxSalary: MAX_SALARY,
-      employmentType: "all",
-    });
+    expect(screen.getByTestId("location")).toHaveTextContent("?search=React");
   });
 
   it("should reset filters", async () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { user } = renderComponent();
+    const { user } = renderComponent(jobPostsWithRestaurant);
 
     await user.click(screen.getByRole("button", { name: /reset/i }));
 
-    expect(mockHandleResetFilters).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId("location")).toHaveTextContent("");
   });
 
   it("should clear the search input when clicking clear icon", async () => {
-    vi.mocked(useJobPosts).mockReturnValue({
-      jobPostPages: jobPostsWithRestaurant,
-      isLoadingJobPosts: false,
-      jobPostsError: null,
-      sortBy: null,
-      isFetchingNextPage: false,
-      jobPostId: null,
-      handleApplyFilters: mockHandleApplyFilters,
-      handleResetFilters: mockHandleResetFilters,
-      handleApplySort: vi.fn(),
-      handleJobPostChange: vi.fn(),
-      fetchNextPage: vi.fn(),
-    });
-
-    const { user, searchInput } = renderComponent();
+    const { user, searchInput } = renderComponent(jobPostsWithRestaurant);
 
     await user.type(searchInput, "Frontend");
     await user.click(screen.getByRole("button", { name: /clear/i }));

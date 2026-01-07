@@ -1,8 +1,11 @@
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
+import {
+  jobPostFilters,
+  jobPostsWithRestaurant,
+} from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 
 import JobPostCountAndSort from "./JobPostCountAndSort";
@@ -17,20 +20,19 @@ describe("JobPostCountAndSort", () => {
   const user = userEvent.setup();
 
   function renderComponent(
-    jobPosts: JobPostWithRestaurant[],
+    jobPosts: JobPostWithRestaurantAndAlreadyApplied[],
     sortBy: "asc" | "desc" | null = null,
   ) {
     vi.mocked(useJobPosts).mockReturnValue({
+      filters: jobPostFilters,
       jobPostPages: jobPosts,
       isLoadingJobPosts: false,
       jobPostsError: null,
       sortBy,
       jobPostId: null,
       isFetchingNextPage: false,
-      handleApplyFilters: vi.fn(),
-      handleResetFilters: vi.fn(),
-      handleApplySort: mockHandleApplySort,
       fetchNextPage: vi.fn(),
+      handleApplySort: mockHandleApplySort,
       handleJobPostChange: vi.fn(),
     });
 
@@ -43,7 +45,7 @@ describe("JobPostCountAndSort", () => {
       }),
       latestButton: screen.getByRole("button", { name: /latest/i }),
       oldestButton: screen.getByRole("button", { name: /oldest/i }),
-      getJobPostCountText: () => screen.queryByText(/job posts/i),
+      getJobPostCountText: () => screen.queryByText(/job post/i),
     };
   }
 

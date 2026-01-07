@@ -8,17 +8,17 @@ use App\Exceptions\Private\Partner\RestaurantApprovalException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
-use App\Services\Shared\ImageService;
+use App\Services\Shared\FileService;
 use App\Services\Shared\LocationService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class RestaurantService
 {
     public function __construct(
         private readonly LocationService $locationService,
-        private readonly ImageService $imageService
+        private readonly FileService $fileService
     ) {}
 
     public function getRestaurants(User $partner): Collection
@@ -89,45 +89,61 @@ class RestaurantService
     public function updateInfo(
         array $data,
         Restaurant $restaurant,
-        ?UploadedFile $logo,
-        ?UploadedFile $cover
     ): Restaurant {
-        if ($logo instanceof UploadedFile) {
-            $data['logo'] = $this->imageService->update(
-                $restaurant->logo,
-                $logo,
-                'restaurants/logos',
-                'logos/default'
-            );
-        }
+        $newLogoPath = null;
+        $newCoverPath = null;
+        $oldLogoPath = $restaurant->logo;
+        $oldCoverPath = $restaurant->cover;
 
-        if ($cover instanceof UploadedFile) {
-            $data['cover'] = $this->imageService->update(
-                $restaurant->cover,
-                $cover,
-                'restaurants/covers',
-                'covers/default'
-            );
-        }
-
-        return DB::transaction(function () use ($restaurant, $data): Restaurant {
-            $locationData = $this->locationService->getLocationData($data);
-
-            if ($locationData === null) {
-                throw new LocationNotFoundException;
+        try {
+            if ($data['logo'] !== null) {
+                $newLogoPath = $this->fileService->create($data['logo'], 'restaurants/logos');
+                $data['logo'] = $newLogoPath;
             }
 
-            $restaurant->update([
-                ...$data,
-                'latitude' => $locationData['lat'],
-                'longitude' => $locationData['lon'],
-            ]);
+            if ($data['cover'] !== null) {
+                $newCoverPath = $this->fileService->create($data['cover'], 'restaurants/covers');
+                $data['cover'] = $newCoverPath;
+            }
 
-            // Create or update restaurant categories
-            $restaurant->categories()->sync($data['categories']);
+            $restaurant = DB::transaction(function () use ($restaurant, $data): Restaurant {
+                $locationData = $this->locationService->getLocationData($data);
 
-            return $this->loadRestaurantRelations($restaurant);
-        });
+                if ($locationData === null) {
+                    throw new LocationNotFoundException;
+                }
+
+                $restaurant->update([
+                    ...$data,
+                    'latitude' => $locationData['lat'],
+                    'longitude' => $locationData['lon'],
+                ]);
+
+                $restaurant->categories()->sync($data['categories']);
+
+                return $this->loadRestaurantRelations($restaurant);
+            });
+
+            if ($newLogoPath && $oldLogoPath) {
+                $this->fileService->delete($oldLogoPath, 'logos/default');
+            }
+
+            if ($newCoverPath && $oldCoverPath) {
+                $this->fileService->delete($oldCoverPath, 'covers/default');
+            }
+
+            return $restaurant;
+        } catch (Throwable $e) {
+            if ($newLogoPath) {
+                $this->fileService->delete($newLogoPath);
+            }
+
+            if ($newCoverPath) {
+                $this->fileService->delete($newCoverPath);
+            }
+
+            throw $e;
+        }
     }
 
     private function loadRestaurantRelations(Restaurant $restaurant): Restaurant

@@ -72,11 +72,11 @@ describe("JobPostsTable", () => {
       user,
       getAddJobPostButton: () =>
         screen.queryByRole("button", { name: /add job post/i }),
-      getEditJobPostButtons: async () =>
+      getEditJobPostButtons: () =>
         screen.findAllByRole("button", { name: "edit" }),
-      getDeleteJobPostButtons: async () =>
+      getDeleteJobPostButtons: () =>
         screen.findAllByRole("button", { name: "delete" }),
-      getDeleteJobPostsButton: async () =>
+      getDeleteJobPostsButton: () =>
         screen.findByRole("button", { name: /delete job posts/i }),
       mockShow,
     };
@@ -96,7 +96,6 @@ describe("JobPostsTable", () => {
 
   it("should open the AddJobPostDialog when clicking the 'Add job post' button", async () => {
     const { user, getAddJobPostButton } = renderComponent();
-
     expect(screen.queryByTestId("add-job-post-dialog")).not.toBeInTheDocument();
 
     await user.click(getAddJobPostButton()!);

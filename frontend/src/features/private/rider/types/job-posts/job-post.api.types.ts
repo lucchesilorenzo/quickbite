@@ -1,5 +1,5 @@
 import {
-  JobPostWithRestaurant,
+  JobPostWithRestaurantAndAlreadyApplied,
   JobPostsWithRestaurantAndPagination,
 } from "./job-post.types";
 
@@ -10,5 +10,5 @@ export type GetJobPostsResponse = {
 } & ApiResponse;
 
 export type GetJobPostResponse = {
-  job_post: JobPostWithRestaurant;
+  job_post: JobPostWithRestaurantAndAlreadyApplied;
 } & ApiResponse;

@@ -1,19 +1,24 @@
+import { employmentTypes } from "@private/shared/lib/constants/job-posts";
+import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { screen, within } from "@testing-library/react";
 import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
+import { MemoryRouter } from "react-router-dom";
 
-import { JobPostWithRestaurant } from "../../types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "../../types/job-posts/job-post.types";
 import JobPostDetails from "./JobPostDetails";
-
-import { employmentTypes } from "@/features/private/shared/lib/constants/job-posts";
 
 vi.mock("../JobPostDescription", () => ({
   default: () => <div data-testid="job-post-description" />,
 }));
 
 describe("JobPostDetails", () => {
-  function renderComponent(jobPost: JobPostWithRestaurant) {
-    customRender(<JobPostDetails jobPost={jobPost} />);
+  function renderComponent(jobPost: JobPostWithRestaurantAndAlreadyApplied) {
+    customRender(
+      <MemoryRouter>
+        <JobPostDetails jobPost={jobPost} />
+      </MemoryRouter>,
+    );
 
     return {
       jobPostDetailsHeader: screen.getByTestId("job-post-details-header"),
@@ -43,6 +48,12 @@ describe("JobPostDetails", () => {
       expect(
         within(jobPostDetailsHeader).queryByText(/\/ year/i),
       ).not.toBeInTheDocument();
+      expect(
+        within(jobPostDetailsHeader).getByRole("link", { name: /apply now/i }),
+      ).toHaveAttribute(
+        "href",
+        `/rider/job-posts/${jobPostsWithRestaurant[0].id}/apply`,
+      );
     });
 
     it("should render the salary if present", () => {
@@ -65,11 +76,18 @@ describe("JobPostDetails", () => {
         (option) => option.value === jobPostsWithRestaurant[0].employment_type,
       )?.label;
 
+      const vehicleType = vehicles.find(
+        (option) => option.value === jobPostsWithRestaurant[0].vehicle_type,
+      )?.label;
+
       expect(
         within(jobPostDetails).queryByText(/\/ year/i),
       ).not.toBeInTheDocument();
       expect(
         within(jobPostDetails).getByText(employmentType!),
+      ).toBeInTheDocument();
+      expect(
+        within(jobPostDetails).getByText(vehicleType!),
       ).toBeInTheDocument();
       expect(
         within(jobPostDetails).getByTestId("job-post-description"),

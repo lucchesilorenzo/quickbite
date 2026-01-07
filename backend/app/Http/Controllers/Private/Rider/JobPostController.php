@@ -26,6 +26,7 @@ class JobPostController extends Controller
     {
         try {
             $jobPosts = $this->jobPostService->getJobPosts(
+                auth()->user(),
                 $request->validated(),
             );
 
@@ -49,6 +50,7 @@ class JobPostController extends Controller
     {
         try {
             $jobPost = $this->jobPostService->getJobPost(
+                auth()->user(),
                 $jobPost
             );
 

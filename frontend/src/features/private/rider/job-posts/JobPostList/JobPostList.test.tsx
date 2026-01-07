@@ -1,8 +1,11 @@
 import { useMediaQuery } from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurant } from "@rider/types/job-posts/job-post.types";
+import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen, waitFor } from "@testing-library/react";
-import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
+import {
+  jobPostFilters,
+  jobPostsWithRestaurant,
+} from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 import { useInView } from "react-intersection-observer";
 
@@ -27,7 +30,7 @@ vi.mock("../ViewJobPostDetailsDialog", () => ({
 
 describe("JobPostList", () => {
   function renderComponent(
-    jobPostPages: JobPostWithRestaurant[],
+    jobPostPages: JobPostWithRestaurantAndAlreadyApplied[],
     isLoadingJobPosts: boolean = false,
     jobPostsError: Error | null = null,
     isFetchingNextPage: boolean = false,
@@ -35,14 +38,13 @@ describe("JobPostList", () => {
     const mockFetchNextPage = vi.fn();
 
     vi.mocked(useJobPosts).mockReturnValue({
+      filters: jobPostFilters,
       jobPostPages,
       isLoadingJobPosts,
       jobPostsError,
       sortBy: null,
       isFetchingNextPage,
       jobPostId: null,
-      handleApplyFilters: vi.fn(),
-      handleResetFilters: vi.fn(),
       handleApplySort: vi.fn(),
       fetchNextPage: mockFetchNextPage,
       handleJobPostChange: vi.fn(),

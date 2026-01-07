@@ -6,17 +6,19 @@ import {
 import { BaseCursorPagination } from "@/types/pagination.types";
 import { BaseRestaurant } from "@/types/restaurants/restaurant.types";
 
-export type JobPostWithRestaurant = JobPost & {
+export type JobPostWithRestaurantAndAlreadyApplied = JobPost & {
+  already_applied: boolean;
   restaurant: BaseRestaurant;
 };
 
 export type JobPostsWithRestaurantAndPagination = BaseCursorPagination & {
-  data: JobPostWithRestaurant[];
+  data: JobPostWithRestaurantAndAlreadyApplied[];
 };
 
 export type JobPostFilters = {
   search: string;
   minSalary: number;
   maxSalary: number;
+  salaryEnabled: boolean;
   employmentType: EmploymentTypeWithAll;
 };
