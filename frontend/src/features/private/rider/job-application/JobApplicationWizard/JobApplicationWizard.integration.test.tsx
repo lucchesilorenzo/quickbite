@@ -143,7 +143,7 @@ describe("JobApplicationWizard (integration)", () => {
     await user.click(getDeclarationCheckbox()!);
 
     await user.click(getSubmitButton()!);
-    screen.debug(getSubmitButton()!);
+
     expect(getSubmitButton()!).toHaveTextContent(/submitting/i);
   });
 
