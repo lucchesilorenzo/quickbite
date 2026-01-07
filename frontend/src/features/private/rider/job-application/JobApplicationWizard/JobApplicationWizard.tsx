@@ -5,7 +5,7 @@ import { Container } from "@mui/material";
 import { steps } from "@rider/lib/constants/job-application-wizard/steps";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useJobApplication } from "../../contexts/JobApplicationProvider";
 import { useCreateJobApplication } from "../../hooks/job-posts/job-applications/useCreateJobApplication";
@@ -16,11 +16,10 @@ import {
 import Stepper from "../Stepper";
 
 export default function JobApplicationWizard() {
-  const { jobPostId } = useParams();
   const { jobPostData } = useJobApplication();
 
   const { mutate: createJobApplication, isPending: isApplying } =
-    useCreateJobApplication({ jobPostId: jobPostId! });
+    useCreateJobApplication({ jobPostId: jobPostData!.job_post.id });
 
   const [activeStep, setActiveStep] = useState(0);
 
