@@ -3,13 +3,15 @@ import { createContext, useContext, useState } from "react";
 import { useGetNotifications } from "../hooks/notifications/useGetNotifications";
 import { GetNotificationsResponse } from "../types/notifications/notification.api.types";
 
+import Spinner from "@/components/common/Spinner";
+import { useAuth } from "@/contexts/AuthProvider";
+
 type NotificationsProviderProps = {
   children: React.ReactNode;
 };
 
 type NotificationsContext = {
   notificationsData?: GetNotificationsResponse;
-  isLoadingNotifications: boolean;
   notificationsError: Error | null;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -20,19 +22,24 @@ const NotificationsContext = createContext<NotificationsContext | null>(null);
 export default function NotificationsProvider({
   children,
 }: NotificationsProviderProps) {
+  const { user } = useAuth();
+
   const [page, setPage] = useState(1);
 
   const {
     data: notificationsData,
     isLoading: isLoadingNotifications,
     error: notificationsError,
-  } = useGetNotifications({ page });
+  } = useGetNotifications({ userId: user?.id, page });
+
+  if (isLoadingNotifications) {
+    return <Spinner />;
+  }
 
   return (
     <NotificationsContext.Provider
       value={{
         notificationsData,
-        isLoadingNotifications,
         notificationsError,
         page,
         setPage,
