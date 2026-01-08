@@ -10,6 +10,7 @@ use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\User;
+use App\Notifications\NewDeliveryReceived;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -44,13 +45,15 @@ class OrderService
                     throw new NoAvailableRidersException;
                 }
 
-                Delivery::query()->create([
+                $delivery = Delivery::query()->create([
                     'order_id' => $order->id,
                     'rider_id' => $rider->id,
                     'rider_first_name' => $rider->first_name,
                     'rider_last_name' => $rider->last_name,
                     'rider_phone_number' => $rider->phone_number,
                 ]);
+
+                $rider->notify(new NewDeliveryReceived($order, $delivery));
             }
 
             $order->update($data);
