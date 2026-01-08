@@ -4,8 +4,6 @@ import {
 } from "@/types/notification.types";
 import { BaseOffsetPagination } from "@/types/pagination.types";
 
-// TODO: to be defined in the backend
-
 // === Broadcast ===
 
 export type NewDeliveryReceivedToBroadcast = BaseBroadcastNotification & {
@@ -18,8 +16,10 @@ export type NewDeliveryReceivedToDatabase = {
   title: string;
   description: string;
   meta: {
+    delivery_id: string;
     order_id: string;
     order_code: string;
+    delivery_time: string;
     first_name: string;
     last_name: string;
     total: number;
