@@ -4,12 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "@/lib/api-client";
 
 type UseGetNotificationsOptions = {
+  userId?: string;
   page: number;
 };
 
-export function useGetNotifications({ page }: UseGetNotificationsOptions) {
+export function useGetNotifications({
+  userId,
+  page,
+}: UseGetNotificationsOptions) {
   return useQuery<GetNotificationsResponse>({
-    queryKey: ["rider-notifications", page],
+    queryKey: ["rider-notifications", userId, page],
     queryFn: () => fetchData(`/rider/notifications?page=${page}`),
+    enabled: !!userId && !!page,
   });
 }
