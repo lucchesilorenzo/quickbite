@@ -1,5 +1,7 @@
 // === Broadcast ===
 export type BaseBroadcastNotification = {
+  id: string;
+  type: string;
   title: string;
   description: string;
 };
