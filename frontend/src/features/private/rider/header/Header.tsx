@@ -53,7 +53,7 @@ export default function Header() {
           sx={{ alignItems: "center" }}
         >
           <Tooltip title="Notifications">
-            <Link to={`/rider/restaurants/1/notifications`}>
+            <Link to="/rider/notifications">
               <IconButton aria-label="notifications">
                 <Badge badgeContent={0} color="error" max={20}>
                   <NotificationsIcon color="action" />
