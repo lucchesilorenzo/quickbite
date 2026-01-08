@@ -12,11 +12,14 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import { useNotifications } from "../contexts/NotificationsProvider";
 import HeaderDrawer from "./HeaderDrawer";
 import Navigation from "./Navigation";
 import ProfileMenu from "./profile/ProfileMenu";
 
 export default function Header() {
+  const { notificationsData } = useNotifications();
+
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   return (
@@ -53,9 +56,13 @@ export default function Header() {
           sx={{ alignItems: "center" }}
         >
           <Tooltip title="Notifications">
-            <Link to={`/rider/restaurants/1/notifications`}>
+            <Link to="/rider/notifications">
               <IconButton aria-label="notifications">
-                <Badge badgeContent={0} color="error" max={20}>
+                <Badge
+                  badgeContent={notificationsData?.unread_count}
+                  color="error"
+                  max={20}
+                >
                   <NotificationsIcon color="action" />
                 </Badge>
               </IconButton>

@@ -5,28 +5,25 @@ import { postData } from "@/lib/api-client";
 import { ApiResponse } from "@/types/api.types";
 
 type UseMarkNotificationsAsReadOptions = {
-  restaurantId: string;
-  setOpenMarkUserNotificationsAsRead: React.Dispatch<
+  setOpenMarkNotificationsAsReadDialog: React.Dispatch<
     React.SetStateAction<boolean>
   >;
 };
 
 export function useMarkNotificationsAsRead({
-  restaurantId,
-  setOpenMarkUserNotificationsAsRead,
+  setOpenMarkNotificationsAsReadDialog,
 }: UseMarkNotificationsAsReadOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation<ApiResponse, Error, void>({
-    mutationFn: () =>
-      postData(`/rider/restaurants/${restaurantId}/notifications/mark-as-read`),
+    mutationFn: () => postData("/rider/notifications/mark-as-read"),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["rider-notifications", restaurantId],
+        queryKey: ["rider-notifications"],
       });
 
-      setOpenMarkUserNotificationsAsRead(false);
+      setOpenMarkNotificationsAsReadDialog(false);
 
       notifications.show(response.message, {
         key: "rider-notifications-mark-as-read-success",

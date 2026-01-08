@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Private\Rider\AuthController;
 use App\Http\Controllers\Private\Rider\JobApplicationController;
 use App\Http\Controllers\Private\Rider\JobPostController;
+use App\Http\Controllers\Private\Rider\NotificationController;
 use App\Http\Controllers\Private\Rider\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,14 @@ Route::prefix('rider')->group(function (): void {
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum', 'role:rider');
     });
+
+    // === NOTIFICATIONS ===
+    Route::prefix('notifications')
+        ->middleware(['auth:sanctum', 'role:rider'])
+        ->group(function (): void {
+            Route::get('/', [NotificationController::class, 'getNotifications']);
+            Route::post('/mark-as-read', [NotificationController::class, 'markNotificationsAsRead']);
+        });
 
     // === PROFILE MANAGEMENT ===
     Route::prefix('profile')
@@ -29,8 +38,6 @@ Route::prefix('rider')->group(function (): void {
         ->middleware(['auth:sanctum', 'role:rider'])
         ->group(function (): void {
             // TODO: Restaurants
-
-            // TODO: Notifications
         });
 
     // === JOB POSTS ===
