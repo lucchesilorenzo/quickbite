@@ -3,7 +3,8 @@ import { useState } from "react";
 import PlusIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, Chip, IconButton, Stack } from "@mui/material";
+import PeopleIcon from "@mui/icons-material/People";
+import { Button, Chip, IconButton, Stack, Tooltip } from "@mui/material";
 import {
   DataGrid,
   GridColDef,
@@ -16,6 +17,7 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetJobPosts } from "@partner/hooks/restaurants/job-posts/useGetJobPosts";
 import { jobPostsDefaults } from "@partner/lib/query-defaults";
 import { useNotifications } from "@toolpad/core/useNotifications";
+import { Link } from "react-router-dom";
 
 import AddJobPostDialog from "../AddJobPostDialog";
 import DeleteJobPostDialog from "../DeleteJobPostDialog";
@@ -100,29 +102,45 @@ export default function JobPostsTable() {
       type: "actions",
       renderCell: ({ row }) => (
         <>
-          <IconButton
-            aria-label="edit"
-            size="small"
-            color="primary"
-            onClick={() => {
-              setSelectedJobPostId(row.id);
-              setOpenEditJobPostDialog(true);
-            }}
-          >
-            <EditIcon />
-          </IconButton>
+          <Tooltip title="View applications">
+            <IconButton
+              aria-label="View applications"
+              size="small"
+              component={Link}
+              to={`/partner/restaurants/${restaurantData.restaurant.id}/job-posts/${row.id}/applications`}
+              disabled={row.applications_count === 0}
+            >
+              <PeopleIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
 
-          <IconButton
-            aria-label="delete"
-            size="small"
-            color="error"
-            onClick={() => {
-              setSelectedJobPostId(row.id);
-              setOpenDeleteJobPostDialog(true);
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
+          <Tooltip title="Edit">
+            <IconButton
+              aria-label="edit"
+              size="small"
+              color="primary"
+              onClick={() => {
+                setSelectedJobPostId(row.id);
+                setOpenEditJobPostDialog(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Delete">
+            <IconButton
+              aria-label="delete"
+              size="small"
+              color="error"
+              onClick={() => {
+                setSelectedJobPostId(row.id);
+                setOpenDeleteJobPostDialog(true);
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
         </>
       ),
     },
@@ -167,7 +185,7 @@ export default function JobPostsTable() {
 
       <Stack>
         <DataGrid
-          aria-label="job-posts-table"
+          aria-label="Job posts table"
           sx={{
             "& .MuiDataGrid-cell:focus": { outline: "none" },
             "& .MuiDataGrid-cell:focus-within": { outline: "none" },
