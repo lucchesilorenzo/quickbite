@@ -155,7 +155,7 @@ export default function JobPostsTable() {
 
   if (jobPostsError) {
     notifications.show(jobPostsError.message, {
-      key: "partner-get-job-posts-error",
+      key: "partner-job-posts-error",
       severity: "error",
     });
   }
