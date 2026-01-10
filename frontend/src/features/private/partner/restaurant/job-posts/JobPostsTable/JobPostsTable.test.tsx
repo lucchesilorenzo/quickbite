@@ -229,7 +229,7 @@ describe("JobPostsTable", () => {
       expect(mockShow).toHaveBeenCalledWith(
         expect.any(String),
         expect.objectContaining({
-          key: "partner-get-job-posts-error",
+          key: "partner-job-posts-error",
           severity: "error",
         }),
       );
