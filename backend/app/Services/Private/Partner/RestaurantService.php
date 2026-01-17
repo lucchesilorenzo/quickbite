@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\Shared\FileService;
 use App\Services\Shared\LocationService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -96,13 +97,13 @@ class RestaurantService
         $oldCoverPath = $restaurant->cover;
 
         try {
-            if ($data['logo'] !== null) {
-                $newLogoPath = $this->fileService->create($data['logo'], 'restaurants/logos');
+            if ($data['logo'] instanceof UploadedFile) {
+                $newLogoPath = $data['logo']->store('restaurants/logos', 'public');
                 $data['logo'] = $newLogoPath;
             }
 
-            if ($data['cover'] !== null) {
-                $newCoverPath = $this->fileService->create($data['cover'], 'restaurants/covers');
+            if ($data['cover'] instanceof UploadedFile) {
+                $newCoverPath = $data['cover']->store('restaurants/covers', 'public');
                 $data['cover'] = $newCoverPath;
             }
 
@@ -125,21 +126,21 @@ class RestaurantService
             });
 
             if ($newLogoPath && $oldLogoPath) {
-                $this->fileService->delete($oldLogoPath, 'logos/default');
+                $this->fileService->delete($oldLogoPath, 'public', 'logos/default');
             }
 
             if ($newCoverPath && $oldCoverPath) {
-                $this->fileService->delete($oldCoverPath, 'covers/default');
+                $this->fileService->delete($oldCoverPath, 'public', 'covers/default');
             }
 
             return $restaurant;
         } catch (Throwable $e) {
             if ($newLogoPath) {
-                $this->fileService->delete($newLogoPath);
+                $this->fileService->delete($newLogoPath, 'public');
             }
 
             if ($newCoverPath) {
-                $this->fileService->delete($newCoverPath);
+                $this->fileService->delete($newCoverPath, 'public');
             }
 
             throw $e;
