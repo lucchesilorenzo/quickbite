@@ -56,8 +56,12 @@ export const jobPostsWithRestaurant: JobPostWithRestaurantAndAlreadyApplied[] =
         service_fee: 2,
         min_delivery_time: 1,
         max_delivery_time: 10,
-        logo: "/storage/restaurants/logos/De8ZYNpxIlpsHzUy5fhHhqK0F7DZlyrQwFE1Jkuw.jpg",
+        logo: "restaurants/logos/De8ZYNpxIlpsHzUy5fhHhqK0F7DZlyrQwFE1Jkuw.jpg",
+        logo_url:
+          "/storage/restaurants/logos/De8ZYNpxIlpsHzUy5fhHhqK0F7DZlyrQwFE1Jkuw.jpg",
         cover:
+          "restaurants/covers/ul2tjR5u7AKGNdCl86Ie5IfvOi2WFzzndYudN0Ie.jpg",
+        cover_url:
           "/storage/restaurants/covers/ul2tjR5u7AKGNdCl86Ie5IfvOi2WFzzndYudN0Ie.jpg",
         is_approved: true,
         force_close: false,
