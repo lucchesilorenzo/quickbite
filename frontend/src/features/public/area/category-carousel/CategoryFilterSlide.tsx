@@ -4,7 +4,6 @@ import CheckIcon from "@mui/icons-material/Check";
 import { Box, Button, Fade, Stack, Typography } from "@mui/material";
 
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
-import env from "@/lib/env";
 import { CategoryWithSelected } from "@/types/categories/category.types";
 
 type CategoryFilterSlideProps = {
@@ -34,7 +33,7 @@ export default function CategoryFilterSlide({
       >
         <Box
           component="img"
-          src={`${env.VITE_BASE_URL}${category.image}`}
+          src={category.image_url}
           alt={category.name}
           sx={{
             width: 120,

@@ -16,7 +16,6 @@ import MenuItemDialog from "./MenuItemDialog";
 import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { MenuItem } from "@/types/menu/menu.types";
 
@@ -57,7 +56,7 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
               <CardMedia
                 component="img"
                 sx={{ height: 100, position: "relative" }}
-                image={`${env.VITE_BASE_URL}${menuItem.image}`}
+                image={menuItem.image_url || ""}
                 alt={menuItem.name}
                 title={menuItem.name}
               />

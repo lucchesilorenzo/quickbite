@@ -5,8 +5,6 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import OrderItemsDialog from "./OrderItemsDialog";
 
-import env from "@/lib/env";
-
 export default function CheckoutOrderOverview() {
   const { cartData } = useCheckout();
 
@@ -38,7 +36,7 @@ export default function CheckoutOrderOverview() {
 
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${cartData.cart.restaurant.logo}`}
+        src={cartData.cart.restaurant.logo_url || ""}
         alt={cartData.cart.restaurant.name}
         sx={{
           objectFit: "cover",

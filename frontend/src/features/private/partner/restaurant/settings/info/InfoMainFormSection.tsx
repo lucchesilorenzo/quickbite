@@ -16,6 +16,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useInfo } from "@partner/restaurant/settings/contexts/InfoProvider";
 import { TRestaurantSettingsInfoFormSchema } from "@partner/schemas/restaurant-settings.schema";
 import { MuiTelInput } from "mui-tel-input";
@@ -26,9 +27,9 @@ import PreviewImageDialog from "./PreviewImageDialog";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
 import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
-import env from "@/lib/env";
 
 export default function InfoMainFormSection() {
+  const { restaurantData } = useRestaurant();
   const { allCategories } = useCategoryFilters();
   const { editMode } = useInfo();
 
@@ -46,11 +47,18 @@ export default function InfoMainFormSection() {
   const logo = watch("logo");
   const cover = watch("cover");
 
-  function handlePreviewImage(fileOrPath?: FileList | string | null) {
+  function handlePreviewImage(
+    type: "logo" | "cover",
+    fileOrPath?: FileList | string | null,
+  ) {
     if (fileOrPath && fileOrPath instanceof FileList && fileOrPath.length > 0) {
       setPreviewImageFile(fileOrPath[0]);
     } else if (typeof fileOrPath === "string") {
-      setPreviewImageFile(`${env.VITE_BASE_URL}${fileOrPath}`);
+      setPreviewImageFile(
+        type === "logo"
+          ? restaurantData.restaurant.logo_url
+          : restaurantData.restaurant.cover_url,
+      );
     }
 
     setOpenPreviewImageDialog(true);
@@ -264,7 +272,7 @@ export default function InfoMainFormSection() {
             <Box component="span">
               <IconButton
                 disabled={!editMode || !logo || !logo.length}
-                onClick={() => handlePreviewImage(logo)}
+                onClick={() => handlePreviewImage("logo", logo)}
               >
                 <PreviewIcon />
               </IconButton>
@@ -305,7 +313,7 @@ export default function InfoMainFormSection() {
             <Box component="span">
               <IconButton
                 disabled={!editMode || !cover || !cover.length}
-                onClick={() => handlePreviewImage(cover)}
+                onClick={() => handlePreviewImage("cover", cover)}
               >
                 <PreviewIcon />
               </IconButton>

@@ -19,7 +19,6 @@ import { grey } from "@mui/material/colors";
 import DeleteMenuItemDialog from "./DeleteMenuItemDialog";
 import EditMenuItemDialog from "./EditMenuItemDialog";
 
-import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
 import { type MenuItem } from "@/types/menu/menu.types";
 
@@ -133,7 +132,7 @@ export default function MenuItem({ menuItem }: MenuItemProps) {
                       border: "1px solid #EDEDEC",
                       borderRadius: 2,
                     }}
-                    image={`${env.VITE_BASE_URL}${menuItem.image}`}
+                    image={menuItem.image_url || ""}
                     alt={menuItem.name}
                     title={menuItem.name}
                   />

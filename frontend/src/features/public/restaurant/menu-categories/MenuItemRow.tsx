@@ -20,7 +20,6 @@ import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import env from "@/lib/env";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
 import { MenuItem } from "@/types/menu/menu.types";
 
@@ -130,7 +129,7 @@ export default function MenuItemRow({ menuItem, isLast }: MenuItemRowProps) {
                     border: "1px solid #EDEDEC",
                     borderRadius: 2,
                   }}
-                  image={`${env.VITE_BASE_URL}${menuItem.image}`}
+                  image={menuItem.image_url || ""}
                   alt={menuItem.name}
                   title={menuItem.name}
                 />

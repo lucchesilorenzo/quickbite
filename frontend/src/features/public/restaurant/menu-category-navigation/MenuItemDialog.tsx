@@ -18,7 +18,6 @@ import { grey } from "@mui/material/colors";
 import MenuItemDialogActions from "./MenuItemDialogActions";
 import MenuItemInfoDialog from "./MenuItemInfoDialog";
 
-import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { CartItem } from "@/types/cart.types";
 import { MenuItem } from "@/types/menu/menu.types";
@@ -62,7 +61,7 @@ export default function MenuItemDialog({
                   borderRadius: 2,
                   mb: 2,
                 }}
-                src={`${env.VITE_BASE_URL}${menuItem.image}`}
+                src={menuItem.image_url || ""}
                 alt={menuItem.name}
                 title={menuItem.name}
               />

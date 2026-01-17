@@ -25,6 +25,8 @@ import DeleteJobPostsDialog from "../DeleteJobPostsDialog";
 import EditJobPostDialog from "../EditJobPostDialog";
 
 export default function JobPostsTable() {
+  const { restaurantData } = useRestaurant();
+
   const [openAddJobPostDialog, setOpenAddJobPostDialog] = useState(false);
   const [openEditJobPostDialog, setOpenEditJobPostDialog] = useState(false);
   const [openDeleteJobPostDialog, setOpenDeleteJobPostDialog] = useState(false);
@@ -45,8 +47,6 @@ export default function JobPostsTable() {
   });
 
   const notifications = useNotifications();
-
-  const { restaurantData } = useRestaurant();
 
   const {
     data: jobPostsData = {
