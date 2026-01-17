@@ -6,8 +6,6 @@ import { useJobApplication } from "../../contexts/JobApplicationProvider";
 import { GetJobPostResponse } from "../../types/job-posts/job-post.api.types";
 import RestaurantInfoPanel from "./RestaurantInfoPanel";
 
-import env from "@/lib/env";
-
 vi.mock("../../contexts/JobApplicationProvider", () => ({
   useJobApplication: vi.fn(),
 }));
@@ -32,7 +30,7 @@ describe("RestaurantInfoPanel", () => {
 
     expect(screen.getByRole("img")).toHaveAttribute(
       "src",
-      `${env.VITE_BASE_URL}${jobPostResponse.job_post.restaurant.logo}`,
+      `${jobPostResponse.job_post.restaurant.logo_url}`,
     );
   });
 
