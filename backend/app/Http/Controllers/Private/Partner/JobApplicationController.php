@@ -6,11 +6,16 @@ namespace App\Http\Controllers\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\JobApplication\GetJobApplicationsRequest;
+use App\Models\JobApplication;
 use App\Models\JobPost;
 use App\Services\Private\Partner\JobApplicationService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
+#[Group('Partner Job Applications')]
 class JobApplicationController extends Controller
 {
     public function __construct(
@@ -38,5 +43,16 @@ class JobApplicationController extends Controller
                 'message' => 'Could not get job applications.',
             ], 500);
         }
+    }
+
+    /**
+     * Download the resume of a job application.
+     */
+    public function downloadResume(JobApplication $jobApplication): StreamedResponse
+    {
+        return Storage::disk('local')->download(
+            $jobApplication->resume,
+            "CV_{$jobApplication->first_name}_{$jobApplication->last_name}.pdf"
+        );
     }
 }
