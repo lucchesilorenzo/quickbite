@@ -16,6 +16,7 @@ export type MenuItem = {
   description: string | null;
   price: number;
   image: string | null;
+  image_url: string | null;
   is_available: boolean;
   order: number;
   created_at: string;
