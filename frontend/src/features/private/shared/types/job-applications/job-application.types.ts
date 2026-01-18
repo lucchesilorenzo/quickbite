@@ -7,7 +7,7 @@ export type JobApplication = {
   email: string;
   phone_number: string;
   resume: string;
-  status: string;
+  status: "pending" | "accepted" | "rejected";
   declaration_accepted_at: string;
   created_at: string;
   updated_at: string;
