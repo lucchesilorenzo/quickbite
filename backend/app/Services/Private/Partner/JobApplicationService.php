@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
+use App\Models\JobApplication;
 use App\Models\JobPost;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -58,5 +59,12 @@ class JobApplicationService
         }
 
         return $query->paginate($data['page_size']);
+    }
+
+    public function updateJobApplicationStatus(array $data, JobApplication $jobApplication): JobApplication
+    {
+        $jobApplication->update($data);
+
+        return $jobApplication->refresh();
     }
 }
