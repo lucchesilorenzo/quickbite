@@ -11,6 +11,7 @@ use App\Models\JobPost;
 use App\Services\Private\Partner\JobApplicationService;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
@@ -50,6 +51,8 @@ class JobApplicationController extends Controller
      */
     public function downloadResume(JobApplication $jobApplication): StreamedResponse
     {
+        Gate::authorize('downloadResume', $jobApplication);
+
         return Storage::disk('local')->download(
             $jobApplication->resume,
             "CV_{$jobApplication->first_name}_{$jobApplication->last_name}.pdf"

@@ -81,7 +81,7 @@ class Restaurant extends Model
     }
 
     /**
-     * Get the restaurant's partners (owners and co-owners).
+     * Get the restaurant's partners (owner and co-owner).
      *
      * @return BelongsToMany<User, $this>
      */
