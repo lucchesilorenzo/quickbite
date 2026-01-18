@@ -14,6 +14,13 @@ class JobApplicationPolicy
 {
     use HasRestaurantAuthorization;
 
+    public function viewAny(User $partner, JobPost $jobPost): Response
+    {
+        return $this->isPartner($partner, $jobPost->restaurant)
+            ? Response::allow()
+            : Response::deny('You are not authorized to view these job applications.');
+    }
+
     public function create(User $rider, JobPost $jobPost): Response
     {
         return JobApplication::query()

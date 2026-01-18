@@ -27,6 +27,8 @@ class JobApplicationController extends Controller
         GetJobApplicationsRequest $request,
         JobPost $jobPost
     ): JsonResponse {
+        Gate::authorize('viewAny', [JobApplication::class, $jobPost]);
+        
         try {
             $jobApplications = $this->jobApplicationService->getJobApplications(
                 $request->validated(),
