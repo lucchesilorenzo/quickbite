@@ -8,7 +8,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { updateData } from "@/lib/api-client";
 
 type UseUpdateJobApplicationStatusOptions = {
-  jobApplicationId: string;
+  jobApplicationId: string | null;
   setOpenConfirmJobApplicationDialog: React.Dispatch<
     React.SetStateAction<boolean>
   >;
