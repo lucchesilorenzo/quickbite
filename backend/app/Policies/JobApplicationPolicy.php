@@ -37,4 +37,11 @@ class JobApplicationPolicy
             ? Response::allow()
             : Response::deny('You are not authorized to download this resume.');
     }
+
+    public function update(User $partner, JobApplication $jobApplication): Response
+    {
+        return $this->isPartner($partner, $jobApplication->jobPost->restaurant)
+            ? Response::allow()
+            : Response::deny('You are not authorized to update this job application.');
+    }
 }
