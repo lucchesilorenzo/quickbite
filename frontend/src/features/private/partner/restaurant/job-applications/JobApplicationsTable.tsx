@@ -19,6 +19,7 @@ import { Link, useParams } from "react-router-dom";
 import { useGetJobApplications } from "../../hooks/restaurants/job-applications/useGetJobApplications";
 import { jobApplicationsDefaults } from "../../lib/query-defaults";
 import ConfirmJobApplicationDialog from "./ConfirmJobApplicationDialog";
+import RejectJobApplicationDialog from "./RejectJobApplicationDialog";
 
 import env from "@/lib/env";
 
@@ -235,6 +236,12 @@ export default function JobApplicationsTable() {
         jobApplicationId={selectedJobApplicationId}
         openConfirmJobApplicationDialog={openConfirmJobApplicationDialog}
         setOpenConfirmJobApplicationDialog={setOpenConfirmJobApplicationDialog}
+      />
+
+      <RejectJobApplicationDialog
+        jobApplicationId={selectedJobApplicationId}
+        openRejectJobApplicationDialog={openRejectJobApplicationDialog}
+        setOpenRejectJobApplicationDialog={setOpenRejectJobApplicationDialog}
       />
     </Stack>
   );
