@@ -9,14 +9,12 @@ import { updateData } from "@/lib/api-client";
 
 type UseUpdateJobApplicationStatusOptions = {
   jobApplicationId: string | null;
-  setOpenConfirmJobApplicationDialog: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
+  onCloseDialog: () => void;
 };
 
 export function useUpdateJobApplicationStatus({
   jobApplicationId,
-  setOpenConfirmJobApplicationDialog,
+  onCloseDialog,
 }: UseUpdateJobApplicationStatusOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
@@ -30,10 +28,10 @@ export function useUpdateJobApplicationStatus({
       updateData(`/partner/job-applications/${jobApplicationId}/status`, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-job-applications", jobApplicationId],
+        queryKey: ["partner-job-applications"],
       });
 
-      setOpenConfirmJobApplicationDialog(false);
+      onCloseDialog();
 
       notifications.show(response.message, {
         key: "partner-update-job-application-status-success",
