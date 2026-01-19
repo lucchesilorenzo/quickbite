@@ -28,7 +28,7 @@ export default function ConfirmJobApplicationDialog({
   const { mutate: updateJobApplicationStatus, isPending: isConfirming } =
     useUpdateJobApplicationStatus({
       jobApplicationId,
-      setOpenConfirmJobApplicationDialog,
+      onCloseDialog: () => setOpenConfirmJobApplicationDialog(false),
     });
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
