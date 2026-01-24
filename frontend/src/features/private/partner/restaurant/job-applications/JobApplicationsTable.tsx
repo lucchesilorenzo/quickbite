@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
@@ -19,7 +18,6 @@ import { Link, useParams } from "react-router-dom";
 import { useGetJobApplications } from "../../hooks/restaurants/job-applications/useGetJobApplications";
 import { jobApplicationsDefaults } from "../../lib/query-defaults";
 import ConfirmJobApplicationDialog from "./ConfirmJobApplicationDialog";
-import RejectJobApplicationDialog from "./RejectJobApplicationDialog";
 
 import env from "@/lib/env";
 
@@ -27,8 +25,6 @@ export default function JobApplicationsTable() {
   const { jobPostId } = useParams();
 
   const [openConfirmJobApplicationDialog, setOpenConfirmJobApplicationDialog] =
-    useState(false);
-  const [openRejectJobApplicationDialog, setOpenRejectJobApplicationDialog] =
     useState(false);
   const [selectedJobApplicationId, setSelectedJobApplicationId] = useState<
     string | null
@@ -147,33 +143,18 @@ export default function JobApplicationsTable() {
         }
 
         return (
-          <>
-            <Tooltip title="Confirm application">
-              <IconButton
-                aria-label="Confirm application"
-                size="small"
-                onClick={() => {
-                  setSelectedJobApplicationId(row.id);
-                  setOpenConfirmJobApplicationDialog(true);
-                }}
-              >
-                <ThumbUpOffAltIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Reject application">
-              <IconButton
-                aria-label="Reject application"
-                size="small"
-                onClick={() => {
-                  setSelectedJobApplicationId(row.id);
-                  setOpenRejectJobApplicationDialog(true);
-                }}
-              >
-                <ThumbDownOffAltIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          </>
+          <Tooltip title="Confirm application">
+            <IconButton
+              aria-label="Confirm application"
+              size="small"
+              onClick={() => {
+                setSelectedJobApplicationId(row.id);
+                setOpenConfirmJobApplicationDialog(true);
+              }}
+            >
+              <ThumbUpOffAltIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
         );
       },
     },
@@ -236,12 +217,6 @@ export default function JobApplicationsTable() {
         jobApplicationId={selectedJobApplicationId}
         openConfirmJobApplicationDialog={openConfirmJobApplicationDialog}
         setOpenConfirmJobApplicationDialog={setOpenConfirmJobApplicationDialog}
-      />
-
-      <RejectJobApplicationDialog
-        jobApplicationId={selectedJobApplicationId}
-        openRejectJobApplicationDialog={openRejectJobApplicationDialog}
-        setOpenRejectJobApplicationDialog={setOpenRejectJobApplicationDialog}
       />
     </Stack>
   );
