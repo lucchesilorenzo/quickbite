@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Rider;
 
+use App\Enums\JobPostStatus;
 use App\Models\JobPost;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\CursorPaginator;
@@ -32,7 +33,7 @@ class JobPostService
                 ->whereBetween('salary', [$minSalary, $maxSalary]))
             ->when($employmentType, fn ($query) => $query->where('employment_type', $employmentType))
             ->when($sortBy, fn ($query) => $query->orderBy('created_at', $sortBy))
-            ->where('status', 'open')
+            ->where('status', JobPostStatus::OPEN->value)
             ->cursorPaginate(self::PER_PAGE);
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Partner;
 
+use App\Exceptions\Private\Partner\AlreadyEmployedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\JobApplication\GetJobApplicationsRequest;
 use App\Http\Requests\Private\Partner\JobApplication\UpdateJobApplicationRequest;
@@ -84,6 +85,11 @@ class JobApplicationController extends Controller
                 'message' => 'Job application status updated successfully.',
                 'job_application' => $jobApplication,
             ]);
+        } catch (AlreadyEmployedException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

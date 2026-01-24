@@ -29,7 +29,11 @@ class UpdateOrderStatus extends FormRequest
         $order = $this->route('order');
 
         return [
-            'status' => ['required', Rule::in(OrderStatus::values()), new IsOrderStatusValid($order)],
+            'status' => [
+                'required',
+                Rule::enum(OrderStatus::class),
+                new IsOrderStatusValid($order),
+            ],
         ];
     }
 }
