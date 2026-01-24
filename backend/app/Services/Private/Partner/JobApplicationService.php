@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Partner;
 
+use App\Enums\JobApplicationStatus;
+use App\Enums\JobPostStatus;
+use App\Enums\RestaurantRole;
+use App\Exceptions\Private\Partner\AlreadyEmployedException;
 use App\Models\JobApplication;
 use App\Models\JobPost;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class JobApplicationService
 {
@@ -63,7 +68,36 @@ class JobApplicationService
 
     public function updateJobApplicationStatus(array $data, JobApplication $jobApplication): JobApplication
     {
-        $jobApplication->update($data);
+        DB::transaction(function () use ($data, $jobApplication): void {
+            $alreadyEmployed = DB::table('restaurant_user')
+                ->where('user_id', $jobApplication->rider_id)
+                ->where('role', RestaurantRole::RIDER->value)
+                ->where('is_active', true)
+                ->exists();
+
+            if ($alreadyEmployed) {
+                throw new AlreadyEmployedException;
+            }
+
+            JobApplication::query()
+                ->where('job_post_id', $jobApplication->job_post_id)
+                ->whereNot('id', $jobApplication->id)
+                ->update([
+                    'status' => JobApplicationStatus::REJECTED->value,
+                ]);
+
+            $jobApplication->jobPost->update([
+                'status' => JobPostStatus::CLOSED->value,
+            ]);
+
+            $jobApplication->update($data);
+
+            $jobApplication->rider->restaurants()
+                ->attach($jobApplication->jobPost->restaurant->id, [
+                    'role' => RestaurantRole::RIDER->value,
+                    'is_active' => true,
+                ]);
+        });
 
         return $jobApplication->refresh();
     }
