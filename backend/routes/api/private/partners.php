@@ -94,7 +94,9 @@ Route::prefix('partner')->group(function (): void {
         });
 
     // Job Applications
-    Route::get('/job-posts/{jobPost}/applications', [JobApplicationController::class, 'getJobApplications']);
-    Route::get('/job-applications/{jobApplication}/resume', [JobApplicationController::class, 'downloadResume']);
-    Route::patch('/job-applications/{jobApplication}/status', [JobApplicationController::class, 'updateJobApplicationStatus']);
+    Route::middleware(['auth:sanctum', 'role:partner'])->group(function (): void {
+        Route::get('/job-posts/{jobPost}/applications', [JobApplicationController::class, 'getJobApplications']);
+        Route::get('/job-applications/{jobApplication}/resume', [JobApplicationController::class, 'downloadResume']);
+        Route::patch('/job-applications/{jobApplication}/status', [JobApplicationController::class, 'updateJobApplicationStatus']);
+    });
 });
