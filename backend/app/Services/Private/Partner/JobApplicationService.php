@@ -68,17 +68,17 @@ class JobApplicationService
 
     public function updateJobApplicationStatus(array $data, JobApplication $jobApplication): JobApplication
     {
+        $alreadyEmployed = DB::table('restaurant_user')
+            ->where('user_id', $jobApplication->rider_id)
+            ->where('role', RestaurantRole::RIDER->value)
+            ->where('is_active', true)
+            ->exists();
+
+        if ($alreadyEmployed) {
+            throw new AlreadyEmployedException;
+        }
+
         DB::transaction(function () use ($data, $jobApplication): void {
-            $alreadyEmployed = DB::table('restaurant_user')
-                ->where('user_id', $jobApplication->rider_id)
-                ->where('role', RestaurantRole::RIDER->value)
-                ->where('is_active', true)
-                ->exists();
-
-            if ($alreadyEmployed) {
-                throw new AlreadyEmployedException;
-            }
-
             JobApplication::query()
                 ->where('job_post_id', $jobApplication->job_post_id)
                 ->whereNot('id', $jobApplication->id)

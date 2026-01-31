@@ -32,7 +32,6 @@ class JobApplicationController extends Controller
         Gate::authorize('viewAny', [JobApplication::class, $jobPost]);
 
         try {
-
             $jobApplications = $this->jobApplicationService->getJobApplications(
                 $request->validated(),
                 $jobPost,
