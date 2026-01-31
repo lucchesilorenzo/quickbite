@@ -13,6 +13,7 @@ use App\Models\JobPost;
 use App\Services\Private\Partner\JobApplicationService;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
@@ -28,10 +29,10 @@ class JobApplicationController extends Controller
         GetJobApplicationsRequest $request,
         JobPost $jobPost
     ): JsonResponse {
-        // TODO: not working as expected
-        // Gate::authorize('viewAny', [JobApplication::class, $jobPost]);
+        Gate::authorize('viewAny', [JobApplication::class, $jobPost]);
 
         try {
+
             $jobApplications = $this->jobApplicationService->getJobApplications(
                 $request->validated(),
                 $jobPost,
@@ -55,12 +56,11 @@ class JobApplicationController extends Controller
      */
     public function downloadResume(JobApplication $jobApplication): StreamedResponse
     {
-        // TODO: not working as expected
-        // Gate::authorize('downloadResume', $jobApplication);
+        Gate::authorize('downloadResume', $jobApplication);
 
         return Storage::disk('local')->download(
             $jobApplication->resume,
-            "CV_{$jobApplication->first_name}_{$jobApplication->last_name}.pdf"
+            "CV_{$jobApplication->first_name}_{$jobApplication->last_name}.pdf",
         );
     }
 
@@ -71,8 +71,7 @@ class JobApplicationController extends Controller
         UpdateJobApplicationRequest $request,
         JobApplication $jobApplication
     ): JsonResponse {
-        // TODO: not working as expected
-        // Gate::authorize('update', $jobApplication);
+        Gate::authorize('update', $jobApplication);
 
         try {
             $jobApplication = $this->jobApplicationService->updateJobApplicationStatus(
