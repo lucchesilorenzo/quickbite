@@ -17,7 +17,6 @@ import ViewOrderDialog from "./ViewOrderDialog";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { useAuth } from "@/contexts/AuthProvider";
-import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type OrderItemProps = {
@@ -61,7 +60,7 @@ export default function OrderItem({ order }: OrderItemProps) {
         <Stack direction="row" spacing={2}>
           <Box
             component="img"
-            src={`${env.VITE_BASE_URL}${order.restaurant.logo}`}
+            src={order.restaurant.logo_url || ""}
             alt={order.restaurant.name}
             sx={{
               objectFit: "cover",

@@ -2,7 +2,6 @@ import SellIcon from "@mui/icons-material/Sell";
 import { Box, Stack, Typography } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
-import env from "@/lib/env";
 import { formatCurrency } from "@/lib/utils/formatting";
 import { RestaurantListItem } from "@/types/restaurants/restaurant.types";
 
@@ -17,7 +16,7 @@ export default function RestaurantCardImage({
     <Box sx={{ position: "relative" }}>
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${restaurant.cover}`}
+        src={restaurant.cover_url || ""}
         alt={restaurant.name}
         sx={{
           objectFit: "cover",
@@ -29,7 +28,7 @@ export default function RestaurantCardImage({
 
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${restaurant.logo}`}
+        src={restaurant.logo_url || ""}
         alt={restaurant.name}
         sx={{
           objectFit: "cover",

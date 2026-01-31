@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Private\Partner\AuthController;
+use App\Http\Controllers\Private\Partner\JobApplicationController;
 use App\Http\Controllers\Private\Partner\JobPostController;
 use App\Http\Controllers\Private\Partner\MenuCategoryController;
 use App\Http\Controllers\Private\Partner\MenuController;
@@ -91,4 +92,11 @@ Route::prefix('partner')->group(function (): void {
             Route::delete('/{restaurant}/job-posts', [JobPostController::class, 'deleteJobPosts']);
             Route::delete('/{restaurant}/job-posts/{jobPost}', [JobPostController::class, 'deleteJobPost']);
         });
+
+    // Job Applications
+    Route::middleware(['auth:sanctum', 'role:partner'])->group(function (): void {
+        Route::get('/job-posts/{jobPost}/applications', [JobApplicationController::class, 'getJobApplications']);
+        Route::get('/job-applications/{jobApplication}/resume', [JobApplicationController::class, 'downloadResume']);
+        Route::patch('/job-applications/{jobApplication}/status', [JobApplicationController::class, 'updateJobApplicationStatus']);
+    });
 });

@@ -27,8 +27,11 @@ export const restaurant: SingleRestaurantDetail = {
   service_fee: 0,
   min_delivery_time: 10,
   max_delivery_time: 25,
-  logo: "/storage/restaurants/logos/C9ceZMIVUlml33WDsFZhdeaN1WoE4KZVeGwS4CQV.jpg",
-  cover: "/storage/restaurants/covers/default/cover1.jpg",
+  logo: "restaurants/logos/C9ceZMIVUlml33WDsFZhdeaN1WoE4KZVeGwS4CQV.jpg",
+  logo_url:
+    "/storage/restaurants/logos/C9ceZMIVUlml33WDsFZhdeaN1WoE4KZVeGwS4CQV.jpg",
+  cover: "restaurants/covers/default/cover1.jpg",
+  cover_url: "/storage/restaurants/covers/default/cover1.jpg",
   is_approved: true,
   force_close: false,
   created_at: "2025-10-14T08:35:46.000000Z",

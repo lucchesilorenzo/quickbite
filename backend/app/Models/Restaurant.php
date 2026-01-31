@@ -11,10 +11,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property-read string $full_address
  * @property-read bool $is_open
+ * @property-read string|null $logo_url
+ * @property-read string|null $cover_url
  */
 class Restaurant extends Model
 {
@@ -56,6 +59,8 @@ class Restaurant extends Model
     protected $appends = [
         'full_address',
         'is_open',
+        'logo_url',
+        'cover_url',
     ];
 
     /**
@@ -76,7 +81,7 @@ class Restaurant extends Model
     }
 
     /**
-     * Get the restaurant's partners (owners and co-owners).
+     * Get the restaurant's partners (owner and co-owner).
      *
      * @return BelongsToMany<User, $this>
      */
@@ -198,6 +203,30 @@ class Restaurant extends Model
             get: fn (): bool => $this->force_close
                 ? false
                 : $this->calculateIsOpen()
+        );
+    }
+
+    /**
+     * Get the logo URL attribute.
+     */
+    protected function logoUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->logo
+                ? Storage::disk('public')->url($this->logo)
+                : null
+        );
+    }
+
+    /**
+     * Get the cover URL attribute.
+     */
+    protected function coverUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->cover
+                ? Storage::disk('public')->url($this->cover)
+                : null
         );
     }
 }

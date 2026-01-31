@@ -1,13 +1,17 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { jobPostsResponse } from "@tests/mocks/data/private/partner/job-posts";
+import {
+  jobPostResponse,
+  jobPostsResponse,
+} from "@tests/mocks/data/private/partner/job-posts";
 import { restaurantResponse } from "@tests/mocks/data/private/partner/restaurants";
 import { server } from "@tests/mocks/server";
 import { customRender } from "@tests/utils/custom-render";
 import { simulateError } from "@tests/utils/msw";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { HttpResponse, http } from "msw";
+import { MemoryRouter } from "react-router-dom";
 
 import JobPostsTable from "./JobPostsTable";
 
@@ -66,12 +70,18 @@ describe("JobPostsTable", () => {
       close: vi.fn(),
     });
 
-    customRender(<JobPostsTable />);
+    customRender(
+      <MemoryRouter>
+        <JobPostsTable />
+      </MemoryRouter>,
+    );
 
     return {
       user,
       getAddJobPostButton: () =>
         screen.queryByRole("button", { name: /add job post/i }),
+      getViewApplicationsLinks: () =>
+        screen.findAllByRole("link", { name: /view applications/i }),
       getEditJobPostButtons: () =>
         screen.findAllByRole("button", { name: "edit" }),
       getDeleteJobPostButtons: () =>
@@ -85,13 +95,46 @@ describe("JobPostsTable", () => {
   it("should render the table", () => {
     renderComponent();
 
-    expect(screen.getByLabelText("job-posts-table")).toBeInTheDocument();
+    expect(screen.getByLabelText(/job posts table/i)).toBeInTheDocument();
   });
 
   it("should render the 'Add job post' button", () => {
     const { getAddJobPostButton } = renderComponent();
 
     expect(getAddJobPostButton()).toBeInTheDocument();
+  });
+
+  it("should render the 'View applications' icon button", async () => {
+    const { getViewApplicationsLinks } = renderComponent();
+
+    const viewLinks = await getViewApplicationsLinks();
+    expect(viewLinks[0]).toBeInTheDocument();
+  });
+
+  it("should render the 'Edit job post' icon button", async () => {
+    const { getEditJobPostButtons } = renderComponent();
+
+    const editButtons = await getEditJobPostButtons();
+    expect(editButtons[0]).toBeInTheDocument();
+  });
+
+  it("should render the 'Delete job post' icon button", async () => {
+    const { getDeleteJobPostButtons } = renderComponent();
+
+    const deleteButtons = await getDeleteJobPostButtons();
+    expect(deleteButtons[0]).toBeInTheDocument();
+  });
+
+  it("should navigate to job applications for the selected job post", async () => {
+    const { user, getViewApplicationsLinks } = renderComponent();
+
+    const viewLinks = await getViewApplicationsLinks();
+    await user.click(viewLinks[0]);
+
+    expect(viewLinks[0]).toHaveAttribute(
+      "href",
+      `/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}/applications`,
+    );
   });
 
   it("should open the AddJobPostDialog when clicking the 'Add job post' button", async () => {
@@ -103,7 +146,7 @@ describe("JobPostsTable", () => {
     expect(screen.getByTestId("add-job-post-dialog")).toBeInTheDocument();
   });
 
-  it("should open the EditJobPostDialog when clicking the edit button", async () => {
+  it("should open EditJobPostDialog when clicking the edit button", async () => {
     server.use(
       http.get(
         `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
@@ -122,7 +165,7 @@ describe("JobPostsTable", () => {
     expect(screen.getByTestId("edit-job-post-dialog")).toBeInTheDocument();
   });
 
-  it("should open the DeleteJobPostDialog when clicking the delete button", async () => {
+  it("should open DeleteJobPostDialog when clicking the delete button", async () => {
     server.use(
       http.get(
         `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
@@ -150,7 +193,7 @@ describe("JobPostsTable", () => {
     );
     const { user, getDeleteJobPostsButton } = renderComponent();
 
-    await screen.findByLabelText("job-posts-table");
+    await screen.findByLabelText(/job posts table/i);
     const checkboxes = await screen.findAllByLabelText(/select row/i);
     await user.click(checkboxes[0]);
     await user.click(checkboxes[1]);
@@ -158,7 +201,7 @@ describe("JobPostsTable", () => {
     expect(await getDeleteJobPostsButton()).toBeInTheDocument();
   });
 
-  it("should open the DeleteJobPostsDialog when clicking the 'Delete job posts' button", async () => {
+  it("should open DeleteJobPostsDialog when clicking the 'Delete job posts' button", async () => {
     server.use(
       http.get(
         `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
@@ -167,7 +210,7 @@ describe("JobPostsTable", () => {
     );
     const { user, getDeleteJobPostsButton } = renderComponent();
 
-    await screen.findByLabelText("job-posts-table");
+    await screen.findByLabelText(/job posts table/i);
     const checkboxes = await screen.findAllByLabelText(/select row/i);
     await user.click(checkboxes[0]);
     await user.click(checkboxes[1]);
@@ -186,7 +229,7 @@ describe("JobPostsTable", () => {
       expect(mockShow).toHaveBeenCalledWith(
         expect.any(String),
         expect.objectContaining({
-          key: "partner-get-job-posts-error",
+          key: "partner-job-posts-error",
           severity: "error",
         }),
       );

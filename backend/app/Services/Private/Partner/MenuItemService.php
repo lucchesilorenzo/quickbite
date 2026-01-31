@@ -7,6 +7,7 @@ namespace App\Services\Private\Partner;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Services\Shared\FileService;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -23,12 +24,8 @@ class MenuItemService
         $imagePath = null;
 
         try {
-            if ($data['image'] !== null) {
-                $imagePath = $this->fileService->create(
-                    $data['image'],
-                    'restaurants/menu-items'
-                );
-
+            if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
+                $imagePath = $data['image']->store('restaurants/menu-items', 'public');
                 $data['image'] = $imagePath;
             }
 
@@ -42,7 +39,7 @@ class MenuItemService
             ])->refresh();
         } catch (Throwable $e) {
             if ($imagePath !== null) {
-                $this->fileService->delete($imagePath, 'menu-items/default');
+                $this->fileService->delete($imagePath, 'public');
             }
 
             throw $e;
@@ -57,21 +54,25 @@ class MenuItemService
         $oldImagePath = $menuItem->image;
 
         try {
-            if ($data['image'] !== null) {
-                $newImagePath = $this->fileService->create($data['image'], 'restaurants/menu-items');
+            if ($data['image'] instanceof UploadedFile) {
+                $newImagePath = $data['image']->store('restaurants/menu-items', 'public');
                 $data['image'] = $newImagePath;
             }
 
             $menuItem->update($data);
 
             if ($newImagePath && $oldImagePath) {
-                $this->fileService->delete($oldImagePath, 'menu-items/default');
+                $this->fileService->delete(
+                    $oldImagePath,
+                    'public',
+                    'menu-items/default'
+                );
             }
 
             return $menuItem;
         } catch (Throwable $e) {
             if ($newImagePath) {
-                $this->fileService->delete($newImagePath);
+                $this->fileService->delete($newImagePath, 'public');
             }
 
             throw $e;
@@ -93,7 +94,7 @@ class MenuItemService
 
     public function deleteMenuItem(MenuItem $menuItem): void
     {
-        $this->fileService->delete($menuItem->image, 'menu-items/default');
+        $this->fileService->delete($menuItem->image, 'public', 'menu-items/default');
 
         $menuItem->delete();
 

@@ -1,8 +1,6 @@
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { Box, Stack, Typography } from "@mui/material";
 
-import env from "@/lib/env";
-
 export default function OrderItemsHeader() {
   const { cartData } = useCheckout();
 
@@ -27,7 +25,7 @@ export default function OrderItemsHeader() {
 
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${cartData.cart.restaurant.logo}`}
+        src={cartData.cart.restaurant.logo_url || ""}
         alt={cartData.cart.restaurant.name}
         sx={{
           objectFit: "cover",

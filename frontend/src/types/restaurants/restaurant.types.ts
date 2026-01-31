@@ -26,7 +26,9 @@ export type BaseRestaurant = {
   min_delivery_time: number;
   max_delivery_time: number;
   logo: string | null;
+  logo_url: string | null;
   cover: string | null;
+  cover_url: string | null;
   is_approved: boolean;
   is_open: boolean;
   force_close: boolean;

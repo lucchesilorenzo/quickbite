@@ -1,7 +1,6 @@
 import { Box, Container } from "@mui/material";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import env from "@/lib/env";
 
 export default function RestaurantCoverImage() {
   const { restaurantData } = useRestaurant();
@@ -17,7 +16,7 @@ export default function RestaurantCoverImage() {
     >
       <Box
         component="img"
-        src={`${env.VITE_BASE_URL}${restaurantData.restaurant.cover}`}
+        src={restaurantData.restaurant.cover_url || ""}
         alt={restaurantData.restaurant.name}
         sx={{
           objectFit: "cover",
@@ -39,7 +38,7 @@ export default function RestaurantCoverImage() {
       >
         <Box
           component="img"
-          src={`${env.VITE_BASE_URL}${restaurantData.restaurant.logo}`}
+          src={restaurantData.restaurant.logo_url || ""}
           alt={restaurantData.restaurant.name}
           sx={{
             objectFit: "cover",
@@ -62,7 +61,7 @@ export default function RestaurantCoverImage() {
       >
         <Box
           component="img"
-          src={`${env.VITE_BASE_URL}${restaurantData.restaurant.logo}`}
+          src={restaurantData.restaurant.logo_url || ""}
           alt={restaurantData.restaurant.name}
           sx={{
             objectFit: "cover",

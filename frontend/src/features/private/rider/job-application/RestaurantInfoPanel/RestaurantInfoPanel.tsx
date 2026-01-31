@@ -2,8 +2,6 @@ import { Alert, Box, Paper, Skeleton, Stack, Typography } from "@mui/material";
 
 import { useJobApplication } from "../../contexts/JobApplicationProvider";
 
-import env from "@/lib/env";
-
 export default function RestaurantInfoPanel() {
   const { jobPostData, isLoadingJobPost, jobPostError } = useJobApplication();
 
@@ -24,7 +22,7 @@ export default function RestaurantInfoPanel() {
       <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
         <Box
           component="img"
-          src={`${env.VITE_BASE_URL}${jobPostData?.job_post.restaurant.logo}`}
+          src={jobPostData?.job_post.restaurant.logo_url || ""}
           alt={jobPostData?.job_post.restaurant.name}
           sx={{
             objectFit: "cover",

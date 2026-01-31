@@ -21,19 +21,21 @@ class JobApplicationService
         array $data,
         JobPost $jobPost
     ): JobApplication {
+        $resumePath = null;
+
         try {
-            $data['resume'] = $this->fileService->create(
-                $data['resume'],
-                'job-applications'
-            );
+            $resumePath = $data['resume']->store('job-applications', 'local');
 
             return $rider->jobApplications()->create([
                 ...$data,
+                'resume' => $resumePath,
                 'job_post_id' => $jobPost->id,
                 'declaration_accepted_at' => now(),
             ])->refresh();
         } catch (Throwable $e) {
-            $this->fileService->delete($data['resume']);
+            if ($resumePath !== null) {
+                $this->fileService->delete($resumePath);
+            }
 
             throw $e;
         }
