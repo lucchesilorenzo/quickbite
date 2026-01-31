@@ -13,7 +13,8 @@ import {
   GridSortModel,
 } from "@mui/x-data-grid";
 import { useNotifications } from "@toolpad/core/useNotifications";
-import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import { useGetJobApplications } from "../../hooks/restaurants/job-applications/useGetJobApplications";
 import { jobApplicationsDefaults } from "../../lib/query-defaults";
@@ -55,6 +56,38 @@ export default function JobApplicationsTable() {
     sortBy: sortModel,
     filters: filterModel,
   });
+
+  async function downloadResume(jobApplicationId: string) {
+    try {
+      const response = await axios.get<Blob>(
+        `${env.VITE_BASE_URL}/api/partner/job-applications/${jobApplicationId}/resume`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/pdf",
+          },
+          responseType: "blob",
+        },
+      );
+
+      const url = URL.createObjectURL(response.data);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download =
+        response.headers["content-disposition"].split("filename=")[1];
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      URL.revokeObjectURL(url);
+    } catch {
+      notifications.show("Failed to download resume.", {
+        key: "download-resume-error",
+        severity: "error",
+      });
+    }
+  }
 
   const resumeStatuses: Record<
     string,
@@ -102,8 +135,7 @@ export default function JobApplicationsTable() {
       renderCell: ({ row }) => (
         <Tooltip title="Download resume">
           <IconButton
-            component={Link}
-            to={`${env.VITE_BASE_URL}/api/partner/job-applications/${row.id}/resume`}
+            onClick={() => downloadResume(row.id)}
             aria-label="Download resume"
             size="small"
           >
