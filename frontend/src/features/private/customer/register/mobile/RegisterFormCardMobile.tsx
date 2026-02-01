@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import SocialButtonGroup from "../../components/SocialButtonGroup";
 import RegisterForm from "../RegisterForm";
 
 export default function RegisterFormCardMobile() {
@@ -29,6 +30,8 @@ export default function RegisterFormCardMobile() {
           </Typography>
         </Typography>
       </Box>
+
+      <SocialButtonGroup />
 
       <Box sx={{ textAlign: "center", mt: 4 }}>
         <Typography variant="caption" component="div">
