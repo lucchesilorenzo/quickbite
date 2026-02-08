@@ -46,7 +46,6 @@ export default function PersonalInfoEditPhoneNumberForm() {
         render={({ field }) => (
           <MuiTelInput
             {...field}
-            required
             label="Phone number"
             defaultCountry="IT"
             onlyCountries={["IT"]}
