@@ -56,7 +56,6 @@ export default function PersonalInfoEditDateOfBirthForm() {
             }
             slotProps={{
               textField: {
-                required: true,
                 error: !!errors.date_of_birth,
                 helperText: errors.date_of_birth?.message && (
                   <FormHelperTextError message={errors.date_of_birth.message} />
