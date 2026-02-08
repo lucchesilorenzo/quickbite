@@ -7,6 +7,7 @@ namespace App\Http\Requests\Private\Customer\Profile;
 use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UpdatePersonalInfoRequest extends FormRequest
 {
@@ -29,6 +30,15 @@ class UpdatePersonalInfoRequest extends FormRequest
             'first_name' => ['sometimes', 'string', 'min:1', 'max:50'],
             'last_name' => ['sometimes', 'string', 'min:1', 'max:50'],
             'email' => ['sometimes', 'email'],
+            'password' => [
+                'sometimes',
+                'string',
+                Password::min(8)
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols(),
+                'confirmed',
+            ],
             'phone_number' => ['sometimes', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
             'date_of_birth' => ['sometimes', 'string', 'min:1', new IsAdult],
         ];
