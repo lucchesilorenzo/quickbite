@@ -64,6 +64,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the user's social providers.
+     *
+     * @return HasMany<SocialProvider, $this>
+     */
+    public function socialProviders(): HasMany
+    {
+        return $this->hasMany(SocialProvider::class);
+    }
+
+    /**
      * Get the user's restaurants.
      *
      * @return BelongsToMany<Restaurant, $this>
