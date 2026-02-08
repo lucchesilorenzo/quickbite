@@ -16,9 +16,6 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { format, parseISO } from "date-fns";
-import { MuiTelInput } from "mui-tel-input";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
@@ -44,8 +41,6 @@ export default function RegisterForm() {
       first_name: "",
       last_name: "",
       email: "",
-      phone_number: "",
-      date_of_birth: "",
       password: "",
       password_confirmation: "",
     },
@@ -139,57 +134,6 @@ export default function RegisterForm() {
             }
             fullWidth
             sx={{ minWidth: 150 }}
-          />
-        )}
-      />
-
-      <Controller
-        name="phone_number"
-        control={control}
-        render={({ field }) => (
-          <MuiTelInput
-            {...field}
-            required
-            label="Phone number"
-            defaultCountry="IT"
-            onlyCountries={["IT"]}
-            forceCallingCode
-            disableDropdown
-            error={!!errors.phone_number}
-            helperText={
-              errors.phone_number?.message && (
-                <FormHelperTextError message={errors.phone_number.message} />
-              )
-            }
-          />
-        )}
-      />
-
-      <Controller
-        name="date_of_birth"
-        control={control}
-        render={({ field }) => (
-          <DatePicker
-            minDate={new Date("1900-01-01")}
-            maxDate={new Date()}
-            format="dd/MM/yyyy"
-            label="Date of birth"
-            value={field.value ? parseISO(field.value) : null}
-            onChange={(date: Date | null) =>
-              field.onChange(date ? format(date, "yyyy-MM-dd") : "")
-            }
-            slotProps={{
-              textField: {
-                required: true,
-                error: !!errors.date_of_birth,
-                helperText: errors.date_of_birth?.message && (
-                  <FormHelperTextError message={errors.date_of_birth.message} />
-                ),
-                fullWidth: true,
-                sx: { minWidth: 150 },
-              },
-              field: { clearable: true },
-            }}
           />
         )}
       />
