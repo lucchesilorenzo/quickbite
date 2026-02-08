@@ -97,6 +97,7 @@ export const order: Order = {
           vehicle_type: null,
           drivers_license: null,
           is_approved: true,
+          has_password: true,
           created_at: "2025-10-14T08:35:46.000000Z",
           updated_at: "2025-10-14T08:35:46.000000Z",
         },
