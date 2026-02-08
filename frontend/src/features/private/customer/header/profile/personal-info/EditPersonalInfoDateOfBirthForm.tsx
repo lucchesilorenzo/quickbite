@@ -12,10 +12,10 @@ import { Controller, useForm } from "react-hook-form";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
 
-export default function PersonalInfoEditDateOfBirthForm() {
+export default function EditPersonalInfoDateOfBirthForm() {
   const { user } = useAuth();
 
-  const { mutate: updateCustomerDateOfBirth, isPending: isUpdating } =
+  const { mutate: updateDateOfBirth, isPending: isUpdating } =
     useUpdatePersonalInfo();
 
   const {
@@ -30,7 +30,7 @@ export default function PersonalInfoEditDateOfBirthForm() {
   });
 
   function onSubmit(data: TEditDateOfBirthFormSchema) {
-    updateCustomerDateOfBirth(data);
+    updateDateOfBirth(data);
   }
 
   return (

@@ -10,10 +10,10 @@ import { Controller, useForm } from "react-hook-form";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
 
-export default function PersonalInfoEditFullNameForm() {
+export default function EditPersonalInfoFullNameForm() {
   const { user } = useAuth();
 
-  const { mutate: updateCustomerFullName, isPending: isUpdating } =
+  const { mutate: updateFullName, isPending: isUpdating } =
     useUpdatePersonalInfo();
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
@@ -31,7 +31,7 @@ export default function PersonalInfoEditFullNameForm() {
   });
 
   function onSubmit(data: TEditFullNameFormSchema) {
-    updateCustomerFullName(data);
+    updateFullName(data);
   }
 
   return (

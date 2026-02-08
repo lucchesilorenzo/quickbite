@@ -1,20 +1,18 @@
 import { useUpdatePersonalInfo } from "@customer/hooks/profile/useUpdatePersonalInfo";
 import {
-  TEditPhoneNumberFormSchema,
-  editPhoneNumberFormSchema,
+  TEditEmailFormSchema,
+  editEmailFormSchema,
 } from "@customer/schemas/profile.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Stack } from "@mui/material";
-import { MuiTelInput } from "mui-tel-input";
+import { Button, Stack, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
 
-export default function PersonalInfoEditPhoneNumberForm() {
+export default function EditPersonalInfoEmailForm() {
   const { user } = useAuth();
-
-  const { mutate: updateCustomerPhoneNumber, isPending: isUpdating } =
+  const { mutate: updateEmail, isPending: isUpdating } =
     useUpdatePersonalInfo();
 
   const {
@@ -22,14 +20,14 @@ export default function PersonalInfoEditPhoneNumberForm() {
     control,
     formState: { isSubmitting, errors, isDirty },
   } = useForm({
-    resolver: zodResolver(editPhoneNumberFormSchema),
+    resolver: zodResolver(editEmailFormSchema),
     defaultValues: {
-      phone_number: user?.phone_number || "",
+      email: user?.email || "",
     },
   });
 
-  function onSubmit(data: TEditPhoneNumberFormSchema) {
-    updateCustomerPhoneNumber(data);
+  function onSubmit(data: TEditEmailFormSchema) {
+    updateEmail(data);
   }
 
   return (
@@ -41,22 +39,23 @@ export default function PersonalInfoEditPhoneNumberForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Controller
-        name="phone_number"
+        name="email"
         control={control}
         render={({ field }) => (
-          <MuiTelInput
+          <TextField
             {...field}
-            label="Phone number"
-            defaultCountry="IT"
-            onlyCountries={["IT"]}
-            forceCallingCode
-            disableDropdown
-            error={!!errors.phone_number}
+            type="email"
+            autoComplete="off"
+            required
+            label="Email address"
+            error={!!errors.email}
             helperText={
-              errors.phone_number?.message && (
-                <FormHelperTextError message={errors.phone_number.message} />
+              errors.email?.message && (
+                <FormHelperTextError message={errors.email.message} />
               )
             }
+            fullWidth
+            sx={{ minWidth: 150 }}
           />
         )}
       />
@@ -68,7 +67,7 @@ export default function PersonalInfoEditPhoneNumberForm() {
           loadingIndicator="Editing..."
           variant="contained"
         >
-          Edit phone number
+          Edit email
         </Button>
       )}
     </Stack>

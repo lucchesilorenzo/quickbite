@@ -10,7 +10,7 @@ import { Controller, useForm } from "react-hook-form";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
 
-export default function AddressInfoEditForm() {
+export default function EditAddressInfoForm() {
   const { user } = useAuth();
 
   const { mutate: updateAddressInfo, isPending: isUpdating } =
