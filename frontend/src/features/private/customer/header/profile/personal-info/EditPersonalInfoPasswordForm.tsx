@@ -21,7 +21,7 @@ import FormHelperTextError from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
 import { calculatePasswordStrength } from "@/lib/utils/validation";
 
-export default function EditPersonalInfoPassswordForm() {
+export default function EditPersonalInfoPasswordForm() {
   const { mutate: updatePassword, isPending: isUpdating } =
     useUpdatePersonalInfo();
 
