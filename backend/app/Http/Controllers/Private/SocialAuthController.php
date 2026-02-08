@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Private;
+
+use App\Http\Controllers\Controller;
+use App\Services\Private\SocialAuthService;
+use Illuminate\Http\RedirectResponse;
+use Laravel\Socialite\Socialite;
+
+class SocialAuthController extends Controller
+{
+    public function __construct(
+        private readonly SocialAuthService $socialAuthService
+    ) {}
+
+    public function redirect(string $provider): RedirectResponse
+    {
+        return Socialite::driver($provider)
+            ->stateless()
+            ->redirect();
+    }
+
+    public function callback(string $provider): RedirectResponse
+    {
+        $providerUser = Socialite::driver($provider)
+            ->stateless()
+            ->user();
+
+        $token = $this->socialAuthService->handleSocialLogin($providerUser, $provider);
+
+        return redirect(config('app.frontend_url') . '?token=' . $token);
+    }
+}
