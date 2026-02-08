@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Private\Customer\Auth;
 
-use App\Rules\IsAdult;
-use App\Rules\ValidPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -30,8 +28,6 @@ class RegisterRequest extends FormRequest
             'first_name' => ['required', 'string', 'min:1', 'max:50'],
             'last_name' => ['required', 'string', 'min:1', 'max:50'],
             'email' => ['required', 'email'],
-            'phone_number' => ['required', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
-            'date_of_birth' => ['required', 'string', 'min:1', new IsAdult],
             'password' => [
                 'required',
                 'string',
