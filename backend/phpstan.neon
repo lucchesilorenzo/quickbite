@@ -1,17 +1,16 @@
 includes:
-    - vendor/larastan/larastan/extension.neon
-    - vendor/nesbot/carbon/extension.neon
+  - vendor/larastan/larastan/extension.neon
+  - vendor/nesbot/carbon/extension.neon
 
 parameters:
+  paths:
+    - app/
 
-    paths:
-        - app/
+  # Level 10 is the highest level
+  level: 5
 
-    # Level 10 is the highest level
-    level: 5
+  ignoreErrors:
+    - '#Call to an undefined method Laravel\\Socialite\\Contracts\\Provider::stateless\(\)#'
 
-#    ignoreErrors:
-#        - '#PHPDoc tag @var#'
-#
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
+# excludePaths:
+#   - ./*/*/FileToBeExcluded.php

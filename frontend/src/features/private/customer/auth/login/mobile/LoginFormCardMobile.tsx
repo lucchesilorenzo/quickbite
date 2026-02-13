@@ -1,20 +1,21 @@
-import { Box, Button, Divider, Paper, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import LoginForm from "./LoginForm";
+import SocialButtonGroup from "../../components/SocialButtonGroup";
+import LoginForm from "../LoginForm";
 
-export default function LoginFormCardDesktop() {
+export default function LoginFormCardMobile() {
   return (
-    <Paper elevation={3} sx={{ display: { xs: "none", lg: "block" }, p: 3 }}>
+    <Box sx={{ display: { xs: "block", lg: "none" }, p: 3 }}>
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 4 }}>
         Log in
       </Typography>
 
       <LoginForm />
 
-      <Divider sx={{ my: 4 }}>Not registered yet?</Divider>
-
       <Box sx={{ mt: 4 }}>
+        <Divider sx={{ my: 2 }}>Not registered yet?</Divider>
+
         <Button
           component={Link}
           to="/customer/auth/register"
@@ -26,6 +27,8 @@ export default function LoginFormCardDesktop() {
           Create an account
         </Button>
       </Box>
+
+      <SocialButtonGroup />
 
       <Box sx={{ textAlign: "center", mt: 4 }}>
         <Typography variant="caption" component="div">
@@ -52,6 +55,6 @@ export default function LoginFormCardDesktop() {
           .
         </Typography>
       </Box>
-    </Paper>
+    </Box>
   );
 }

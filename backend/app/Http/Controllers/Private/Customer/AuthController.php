@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Customer;
 
+use App\Exceptions\Private\Customer\CustomerHasSocialLoginException;
 use App\Exceptions\Private\Customer\UnauthorizedException;
 use App\Exceptions\Private\InvalidCredentialsException;
 use App\Http\Controllers\Controller;
@@ -36,14 +37,12 @@ class AuthController extends Controller
                 'message' => 'Customer registered successfully.',
                 'token' => $token,
             ], 201);
-        } catch (Throwable $e) {
-            if ($e->getCode() === '23505') {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'User already exists.',
-                ], 409);
-            }
-
+        } catch (InvalidCredentialsException|CustomerHasSocialLoginException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        } catch (Throwable) {
             return response()->json([
                 'success' => false,
                 'message' => 'Could not register customer.',
@@ -66,7 +65,7 @@ class AuthController extends Controller
                 'message' => 'Customer logged in successfully.',
                 'token' => $token,
             ], 200);
-        } catch (InvalidCredentialsException|UnauthorizedException $e) {
+        } catch (InvalidCredentialsException|UnauthorizedException|CustomerHasSocialLoginException $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),

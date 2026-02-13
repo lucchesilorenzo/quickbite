@@ -1,7 +1,4 @@
-import { matchIsValidTel } from "mui-tel-input";
 import z from "zod";
-
-import { isAdult } from "@/lib/utils/validation";
 
 export const registerFormSchema = z
   .object({
@@ -16,24 +13,6 @@ export const registerFormSchema = z
       .min(1, "Please fill out your last name.")
       .max(50, "Last name is too long."),
     email: z.email({ error: "Please enter a valid email address." }),
-    phone_number: z
-      .string()
-      .trim()
-      .min(1, "Please fill out your phone number.")
-      .refine(
-        (phone_number) =>
-          matchIsValidTel(phone_number, { onlyCountries: ["IT"] }),
-        {
-          error: "Please enter a valid phone number.",
-        },
-      ),
-    date_of_birth: z
-      .string()
-      .trim()
-      .min(1, "Please fill out your date of birth.")
-      .refine((data_of_birth) => isAdult(data_of_birth), {
-        error: "You must be at least 18 years old.",
-      }),
     password: z
       .string()
       .trim()

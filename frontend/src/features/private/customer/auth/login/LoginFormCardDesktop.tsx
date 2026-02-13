@@ -1,35 +1,38 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Button, Divider, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import RegisterForm from "./RegisterForm";
+import SocialButtonGroup from "../components/SocialButtonGroup";
+import LoginForm from "./LoginForm";
 
-export default function RegisterFormCardDesktop() {
+export default function LoginFormCardDesktop() {
   return (
     <Paper elevation={3} sx={{ display: { xs: "none", lg: "block" }, p: 3 }}>
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 4 }}>
-        Create account
+        Log in
       </Typography>
 
-      <RegisterForm />
+      <LoginForm />
 
-      <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant="body2" component="div">
-          Already have an account?{" "}
-          <Typography
-            component={Link}
-            to="/customer/auth/login"
-            variant="body2"
-            color="inherit"
-            sx={{ "&:hover": { textDecoration: "none" } }}
-          >
-            Log in
-          </Typography>
-        </Typography>
+      <Box sx={{ mt: 4 }}>
+        <Divider sx={{ my: 2 }}>Not registered yet?</Divider>
+
+        <Button
+          component={Link}
+          to="/customer/auth/register"
+          variant="outlined"
+          color="inherit"
+          fullWidth
+          sx={{ border: "1px solid #dbd9d7", fontWeight: 700 }}
+        >
+          Create an account
+        </Button>
       </Box>
+
+      <SocialButtonGroup />
 
       <Box sx={{ textAlign: "center", mt: 4 }}>
         <Typography variant="caption" component="div">
-          By creating an account, you agree to our{" "}
+          By logging in, you agree to our{" "}
           <Typography
             component={Link}
             to="/terms-and-conditions"

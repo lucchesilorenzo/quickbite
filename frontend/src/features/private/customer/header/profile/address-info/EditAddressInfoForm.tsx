@@ -10,10 +10,10 @@ import { Controller, useForm } from "react-hook-form";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useAuth } from "@/contexts/AuthProvider";
 
-export default function AddressInfoEditForm() {
+export default function EditAddressInfoForm() {
   const { user } = useAuth();
 
-  const { mutate: updateCustomerAddressInfo, isPending: isUpdating } =
+  const { mutate: updateAddressInfo, isPending: isUpdating } =
     useUpdateAddressInfo();
 
   const {
@@ -32,7 +32,7 @@ export default function AddressInfoEditForm() {
   });
 
   function onSubmit(data: TEditAddressFormSchema) {
-    updateCustomerAddressInfo(data);
+    updateAddressInfo(data);
   }
 
   return (

@@ -7,6 +7,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\RestaurantRole;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -16,6 +17,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @property-read bool $has_password
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -45,6 +49,10 @@ class User extends Authenticatable
         'is_approved',
     ];
 
+    protected $appends = [
+        'has_password',
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -54,6 +62,16 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * Get the user's social providers.
+     *
+     * @return HasMany<SocialProvider, $this>
+     */
+    public function socialProviders(): HasMany
+    {
+        return $this->hasMany(SocialProvider::class);
+    }
 
     /**
      * Get the user's restaurants.
@@ -167,5 +185,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the has_password attribute.
+     */
+    protected function hasPassword(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->password !== null,
+        );
     }
 }

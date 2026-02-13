@@ -1,15 +1,13 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import RegisterForm from "../RegisterForm";
+import SocialButtonGroup from "../components/SocialButtonGroup";
+import RegisterForm from "./RegisterForm";
 
-export default function RegisterFormCardMobile() {
+export default function RegisterFormCardDesktop() {
   return (
-    <Box sx={{ display: { xs: "block", lg: "none" }, p: 3 }}>
-      <Typography
-        variant="h5"
-        sx={{ textAlign: "center", fontWeight: 700, mb: 4 }}
-      >
+    <Paper elevation={3} sx={{ display: { xs: "none", lg: "block" }, p: 3 }}>
+      <Typography variant="h5" sx={{ fontWeight: 700, mb: 4 }}>
         Create account
       </Typography>
 
@@ -29,6 +27,8 @@ export default function RegisterFormCardMobile() {
           </Typography>
         </Typography>
       </Box>
+
+      <SocialButtonGroup />
 
       <Box sx={{ textAlign: "center", mt: 4 }}>
         <Typography variant="caption" component="div">
@@ -55,6 +55,6 @@ export default function RegisterFormCardMobile() {
           .
         </Typography>
       </Box>
-    </Box>
+    </Paper>
   );
 }

@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('profile_picture')->nullable();
             $table->date('date_of_birth')->nullable();
-            $table->string('phone_number')->unique();
+            $table->string('phone_number')->unique()->nullable();
             $table->string('street_address')->nullable();
             $table->string('building_number')->nullable();
             $table->string('postcode')->nullable();
