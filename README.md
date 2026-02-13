@@ -30,6 +30,7 @@
 ### 🛒 Customer
 
 - All Guest features.
+- OAuth2 login with Google.
 - Checkout and place orders.
 - View order history and track status.
 
@@ -228,7 +229,6 @@ The API documentation is available at [http://localhost:8000/docs/api](http://lo
 
 ## Roadmap
 
-- OAuth integration for social media login.
 - Reset password functionality.
 - Integrate Stripe for payment processing.
 - Add more tests.
