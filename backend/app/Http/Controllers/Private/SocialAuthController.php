@@ -6,9 +6,11 @@ namespace App\Http\Controllers\Private;
 
 use App\Http\Controllers\Controller;
 use App\Services\Private\SocialAuthService;
+use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Socialite;
 
+#[Group('Social Auth')]
 class SocialAuthController extends Controller
 {
     public function __construct(
