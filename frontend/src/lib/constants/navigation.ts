@@ -12,11 +12,11 @@ export const headerDialogOptions = [
     label: "Become a partner",
     icon: RestaurantOutlinedIcon,
   },
-];
+] as const;
 
 export const footerLinks = [
   { href: "/rider/auth/register", label: "Jobs" },
   { href: "/partner/auth/register", label: "Sign up a restaurant" },
   { href: "/terms-and-conditions", label: "Terms of Service" },
   { href: "/privacy-policy", label: "Privacy statement" },
-];
+] as const;

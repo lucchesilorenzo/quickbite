@@ -7,45 +7,47 @@ import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-export const partnerRestaurantRoutes = (restaurantId?: string) => [
-  {
-    href: `/partner/restaurants/${restaurantId}/dashboard`,
-    label: "Dashboard",
-    icon: DashboardIcon,
-  },
-  {
-    href: `/partner/restaurants/${restaurantId}/settings`,
-    label: "Settings",
-    icon: SettingsIcon,
-  },
-  {
-    href: `/partner/restaurants/${restaurantId}/menu`,
-    label: "Menu",
-    icon: RestaurantMenuIcon,
-  },
-  {
-    href: `/partner/restaurants/${restaurantId}/orders`,
-    label: "Orders",
-    icon: ReceiptLongIcon,
-  },
-  {
-    href: `/partner/restaurants/${restaurantId}/offers`,
-    label: "Offers",
-    icon: LocalOfferIcon,
-  },
-  {
-    href: `/partner/restaurants/${restaurantId}/reviews`,
-    label: "Reviews",
-    icon: RateReviewIcon,
-  },
-  {
-    href: `/partner/restaurants/${restaurantId}/stats`,
-    label: "Stats",
-    icon: BarChartIcon,
-  },
-  {
-    href: `/partner/restaurants/${restaurantId}/job-posts`,
-    label: "Job posts",
-    icon: BusinessCenterIcon,
-  },
-];
+export function partnerRestaurantRoutes(restaurantId?: string) {
+  return [
+    {
+      href: `/partner/restaurants/${restaurantId}/dashboard`,
+      label: "Dashboard",
+      icon: DashboardIcon,
+    },
+    {
+      href: `/partner/restaurants/${restaurantId}/settings`,
+      label: "Settings",
+      icon: SettingsIcon,
+    },
+    {
+      href: `/partner/restaurants/${restaurantId}/menu`,
+      label: "Menu",
+      icon: RestaurantMenuIcon,
+    },
+    {
+      href: `/partner/restaurants/${restaurantId}/orders`,
+      label: "Orders",
+      icon: ReceiptLongIcon,
+    },
+    {
+      href: `/partner/restaurants/${restaurantId}/offers`,
+      label: "Offers",
+      icon: LocalOfferIcon,
+    },
+    {
+      href: `/partner/restaurants/${restaurantId}/reviews`,
+      label: "Reviews",
+      icon: RateReviewIcon,
+    },
+    {
+      href: `/partner/restaurants/${restaurantId}/stats`,
+      label: "Stats",
+      icon: BarChartIcon,
+    },
+    {
+      href: `/partner/restaurants/${restaurantId}/job-posts`,
+      label: "Job posts",
+      icon: BusinessCenterIcon,
+    },
+  ] as const;
+}
