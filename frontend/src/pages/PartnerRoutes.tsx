@@ -1,6 +1,6 @@
 import { Navigate, Route } from "react-router-dom";
 
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./private/guards/ProtectedRoute";
 import PartnerDashboardPage from "./private/partner/dashboard/PartnerDashboardPage";
 import PartnerJobApplicationsPage from "./private/partner/job-applications/PartnerJobApplicationsPage";
 import PartnerJobPostsPage from "./private/partner/job-posts/PartnerJobPostsPage";
