@@ -7,6 +7,7 @@ use App\Http\Controllers\Private\Rider\JobApplicationController;
 use App\Http\Controllers\Private\Rider\JobPostController;
 use App\Http\Controllers\Private\Rider\NotificationController;
 use App\Http\Controllers\Private\Rider\ProfileController;
+use App\Http\Controllers\Private\Rider\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('rider')->group(function (): void {
@@ -33,11 +34,11 @@ Route::prefix('rider')->group(function (): void {
             Route::patch('/notifications', [ProfileController::class, 'updateProfileNotifications']);
         });
 
-    // === RESTAURANTS ===
-    Route::prefix('restaurants')
+    // === RESTAURANT ===
+    Route::prefix('restaurant')
         ->middleware(['auth:sanctum', 'role:rider'])
         ->group(function (): void {
-            // TODO: Restaurants
+            Route::get('/', [RestaurantController::class, 'getRestaurant']);
         });
 
     // === JOB POSTS ===
