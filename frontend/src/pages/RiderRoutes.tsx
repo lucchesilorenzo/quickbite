@@ -3,6 +3,7 @@ import { Navigate, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import RiderJobApplicationPage from "./private/rider/RiderJobApplicationPage";
 import RiderJobPostsPage from "./private/rider/RiderJobPostsPage";
+import RiderMyRestaurantPage from "./private/rider/RiderMyRestaurantPage";
 import RiderNotificationsPage from "./private/rider/RiderNotificationsPage";
 import RiderProfileGeneralPage from "./private/rider/RiderProfileGeneralPage";
 import RiderProfileNotificationsPage from "./private/rider/RiderProfileNotificationsPage";
@@ -19,6 +20,7 @@ export const RiderRoutes = [
         path="job-posts/:jobPostId/apply"
         element={<RiderJobApplicationPage />}
       />
+      <Route path="my-restaurant" element={<RiderMyRestaurantPage />} />
       <Route path="notifications" element={<RiderNotificationsPage />} />
     </Route>
 
