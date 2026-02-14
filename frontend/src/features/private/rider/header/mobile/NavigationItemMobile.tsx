@@ -8,10 +8,12 @@ import {
 import { grey } from "@mui/material/colors";
 import { Link, useLocation } from "react-router-dom";
 
+import { riderRoutes } from "../../lib/constants/navigation";
+
 type NavigationItemMobileProps = {
   route: {
-    href: string;
-    label: string;
+    href: (typeof riderRoutes)[number]["href"];
+    label: (typeof riderRoutes)[number]["label"];
     icon: SvgIconComponent;
   };
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
