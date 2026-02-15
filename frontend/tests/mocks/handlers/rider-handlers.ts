@@ -5,6 +5,7 @@ import {
   jobPostsResponse,
 } from "../data/private/rider/job-posts";
 import { jobApplicationWizardFormResponse } from "../data/private/rider/forms/job-application-wizard";
+import { restaurantResponse } from "../data/private/rider/restaurant";
 
 export const riderHandlers = [
   http.get(`${env.VITE_BASE_URL}/api/rider/job-posts`, ({ request }) => {
@@ -34,4 +35,7 @@ export const riderHandlers = [
       });
     },
   ),
+  http.get(`${env.VITE_BASE_URL}/api/rider/restaurant`, () => {
+    return HttpResponse.json(restaurantResponse);
+  }),
 ];
