@@ -39,6 +39,7 @@ Route::prefix('rider')->group(function (): void {
         ->middleware(['auth:sanctum', 'role:rider'])
         ->group(function (): void {
             Route::get('/', [RestaurantController::class, 'getRestaurant']);
+            Route::get('/deliveries', [RestaurantController::class, 'getDeliveries']);
         });
 
     // === JOB POSTS ===
