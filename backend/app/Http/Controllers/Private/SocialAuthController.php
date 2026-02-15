@@ -17,6 +17,9 @@ class SocialAuthController extends Controller
         private readonly SocialAuthService $socialAuthService
     ) {}
 
+    /**
+     * Redirect the user to the provider authentication page.
+     */
     public function redirect(string $provider): RedirectResponse
     {
         return Socialite::driver($provider)
@@ -24,6 +27,9 @@ class SocialAuthController extends Controller
             ->redirect();
     }
 
+    /**
+     * Obtain the user information from provider.
+     */
     public function callback(string $provider): RedirectResponse
     {
         $providerUser = Socialite::driver($provider)
@@ -32,6 +38,6 @@ class SocialAuthController extends Controller
 
         $token = $this->socialAuthService->handleSocialLogin($providerUser, $provider);
 
-        return redirect(config('app.frontend_url') . '?token=' . $token);
+        return redirect(config('app.frontend_url').'?token='.$token);
     }
 }
