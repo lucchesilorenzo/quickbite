@@ -41,7 +41,7 @@ export default function RestaurantDeliveryFee() {
       </Stack>
 
       <Card variant="outlined" sx={{ bgcolor: grey[100], p: 2 }}>
-        {restaurantData.restaurant.min_amount && (
+        {restaurantData.restaurant.min_amount > 0 && (
           <Stack
             direction="row"
             sx={{ alignItems: "center", justifyContent: "space-between" }}
