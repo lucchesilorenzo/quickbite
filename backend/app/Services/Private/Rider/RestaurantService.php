@@ -8,25 +8,28 @@ use App\Enums\RestaurantRole;
 use App\Models\Delivery;
 use App\Models\Restaurant;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class RestaurantService
 {
+    private const int PER_PAGE = 10;
+
     public function getRestaurant(User $rider): ?Restaurant
     {
         return $this->getActiveRestaurant($rider);
     }
 
-    public function getDeliveries(User $rider): Collection
+    public function getDeliveries(User $rider): LengthAwarePaginator
     {
         $restaurant = $this->getActiveRestaurant($rider);
 
         return Delivery::query()
+            ->with(['order.orderItems'])
             ->whereHas('order', function ($query) use ($restaurant) {
                 $query->where('restaurant_id', $restaurant->id);
             })
             ->where('rider_id', $rider->id)
-            ->get();
+            ->paginate(self::PER_PAGE);
     }
 
     private function getActiveRestaurant(User $rider): ?Restaurant
