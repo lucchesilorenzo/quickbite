@@ -1,7 +1,7 @@
-import { Delivery } from "./delivery.types";
+import { DeliveriesWithPagination } from "./delivery.types";
 
 import { ApiResponse } from "@/types/api.types";
 
 export type GetDeliveriesResponse = {
-  deliveries: Delivery[];
+  deliveries: DeliveriesWithPagination;
 } & ApiResponse;
