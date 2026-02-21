@@ -31,12 +31,12 @@ class RestaurantController extends Controller
                 'success' => true,
                 'message' => 'Restaurant retrieved successfully.',
                 'restaurant' => $restaurant,
-            ]);
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
                 'message' => 'Could not get restaurant.',
-            ]);
+            ], 500);
         }
     }
 
@@ -54,12 +54,12 @@ class RestaurantController extends Controller
                 'success' => true,
                 'message' => 'Deliveries retrieved successfully.',
                 'deliveries' => $deliveries,
-            ]);
+            ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
                 'message' => 'Could not get deliveries.',
-            ]);
+            ], 500);
         }
     }
 }
