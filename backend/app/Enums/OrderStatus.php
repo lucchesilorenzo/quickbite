@@ -25,7 +25,7 @@ enum OrderStatus: string
     }
 
     /**
-     * Get the partner transitions.
+     * Get partner transitions.
      */
     public static function partnerTransitions(): array
     {
@@ -35,6 +35,22 @@ enum OrderStatus: string
             self::REJECTED->value => [],
             self::PREPARING->value => [],
             self::DELIVERING->value => [],
+            self::DELIVERED->value => [],
+            self::CANCELLED->value => [],
+        ];
+    }
+
+    /**
+     * Get rider transitions.
+     */
+    public static function riderTransitions(): array
+    {
+        return [
+            self::PENDING->value => [],
+            self::ACCEPTED->value => [],
+            self::REJECTED->value => [],
+            self::PREPARING->value => [self::DELIVERING->value, self::CANCELLED->value],
+            self::DELIVERING->value => [self::DELIVERED->value],
             self::DELIVERED->value => [],
             self::CANCELLED->value => [],
         ];
