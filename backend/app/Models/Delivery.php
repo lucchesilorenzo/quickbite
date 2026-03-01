@@ -19,6 +19,7 @@ class Delivery extends Model
         'rider_first_name',
         'rider_last_name',
         'rider_phone_number',
+        'started_at',
         'delivered_at',
         'cancelled_at',
     ];
