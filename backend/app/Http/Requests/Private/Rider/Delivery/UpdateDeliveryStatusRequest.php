@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Private\Partner\Order;
+namespace App\Http\Requests\Private\Rider\Delivery;
 
 use App\Enums\OrderStatus;
 use App\Enums\UserRole;
@@ -10,7 +10,7 @@ use App\Rules\IsOrderStatusValid;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateOrderStatus extends FormRequest
+class UpdateDeliveryStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,13 +27,13 @@ class UpdateOrderStatus extends FormRequest
      */
     public function rules(): array
     {
-        $order = $this->route('order');
+        $delivery = $this->route('delivery');
 
         return [
             'status' => [
                 'required',
                 Rule::enum(OrderStatus::class),
-                new IsOrderStatusValid($order, UserRole::PARTNER),
+                new IsOrderStatusValid($delivery->order, UserRole::RIDER),
             ],
         ];
     }
