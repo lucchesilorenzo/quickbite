@@ -38,6 +38,6 @@ class SocialAuthController extends Controller
 
         $token = $this->socialAuthService->handleSocialLogin($providerUser, $provider);
 
-        return redirect(config('app.frontend_url').'?token='.$token);
+        return redirect(config('app.frontend_url') . '?token=' . $token);
     }
 }

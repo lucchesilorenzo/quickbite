@@ -64,6 +64,17 @@ class Restaurant extends Model
     ];
 
     /**
+     * Get the restaurant for the rider.
+     */
+    public static function getActiveRestaurantForRider(User $rider): ?self
+    {
+        return $rider->restaurants()
+            ->wherePivot('role', RestaurantRole::RIDER->value)
+            ->where('is_active', true)
+            ->first();
+    }
+
+    /**
      * Check if the restaurant is open.
      */
     public function calculateIsOpen(): bool
