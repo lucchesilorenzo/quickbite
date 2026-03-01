@@ -11,7 +11,7 @@ describe("ViewOrderItemsList", () => {
   it("should render the section title and order items", () => {
     renderComponent();
 
-    expect(screen.getByText(/your articles/i)).toBeInTheDocument();
+    expect(screen.getByText(/your items/i)).toBeInTheDocument();
     order.order_items.forEach((item) => {
       expect(screen.getByText(item.name)).toBeInTheDocument();
     });

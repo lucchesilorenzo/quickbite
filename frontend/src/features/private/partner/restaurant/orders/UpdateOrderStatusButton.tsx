@@ -12,9 +12,11 @@ import {
   Tooltip,
 } from "@mui/material";
 import { useUpdateOrderStatus } from "@partner/hooks/restaurants/orders/useUpdateOrderStatus";
-import { getDisabledOrderStatuses } from "@partner/lib/utils/orders";
-import { Order, OrderStatus } from "@private/shared/types/order.types";
+import { Order } from "@private/shared/types/order.types";
 
+import { statusTransitions } from "../../lib/constants/orders";
+
+import { getDisabledOrderStatuses } from "@/features/private/partner/lib/utils/orders";
 import { orderStatuses } from "@/lib/constants/orders";
 
 type UpdateOrderStatusButtonProps = {
@@ -29,6 +31,11 @@ export default function UpdateOrderStatusButton({
 
   const { mutate: updateOrderStatus, isPending: isUpdating } =
     useUpdateOrderStatus({ orderId: order.id, setAnchorEl });
+
+  const disabledStatuses = getDisabledOrderStatuses(
+    order.status,
+    statusTransitions,
+  );
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setAnchorEl(e.currentTarget);
@@ -71,11 +78,9 @@ export default function UpdateOrderStatusButton({
             >
               {Object.values(orderStatuses).map(({ value, label }) => (
                 <MenuItem
-                  disabled={getDisabledOrderStatuses(status).includes(
-                    value as OrderStatus,
-                  )}
                   key={value}
                   value={value}
+                  disabled={disabledStatuses.includes(value)}
                   selected={value === order.status}
                 >
                   {label}

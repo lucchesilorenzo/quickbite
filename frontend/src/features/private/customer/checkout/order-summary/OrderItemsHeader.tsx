@@ -19,7 +19,7 @@ export default function OrderItemsHeader() {
         </Typography>
 
         <Typography variant="body1">
-          {cartData.cart.total_items} articles
+          {cartData.cart.total_items} items
         </Typography>
       </Stack>
 
