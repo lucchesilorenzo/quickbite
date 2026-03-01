@@ -20,7 +20,7 @@ import JobPostDescription from "../JobPostDescription";
 
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type JobPostDetailsProps = {
   jobPost?: JobPostWithRestaurantAndAlreadyApplied;

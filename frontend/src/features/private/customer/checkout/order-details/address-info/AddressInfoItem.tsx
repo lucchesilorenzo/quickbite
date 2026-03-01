@@ -13,7 +13,7 @@ import {
 import AddressInfoDialog from "./AddressInfoDialog";
 
 import { useAuth } from "@/contexts/AuthProvider";
-import { formatAddress } from "@/lib/utils/formatting";
+import { formatAddress } from "@/lib/utils/formatting.utils";
 
 export default function AddressInfoItem() {
   const { user } = useAuth();

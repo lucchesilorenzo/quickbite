@@ -20,7 +20,7 @@ import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
+import { formatCurrency, truncateWords } from "@/lib/utils/formatting.utils";
 import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemRowProps = {

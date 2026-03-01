@@ -9,7 +9,7 @@ import { IconButton, Link, Skeleton, Stack, Typography } from "@mui/material";
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { useReviews } from "@/contexts/ReviewsProvider";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 export default function RestaurantHeaderRow() {
   const {

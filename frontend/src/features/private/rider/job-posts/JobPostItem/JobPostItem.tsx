@@ -13,7 +13,7 @@ import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type JobPostItemProps = {
   jobPost: JobPostWithRestaurantAndAlreadyApplied;

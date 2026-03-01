@@ -18,7 +18,7 @@ import { grey } from "@mui/material/colors";
 import MenuItemDialogActions from "./MenuItemDialogActions";
 import MenuItemInfoDialog from "./MenuItemInfoDialog";
 
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 import { CartItem } from "@/types/cart.types";
 import { MenuItem } from "@/types/menu/menu.types";
 

@@ -28,7 +28,7 @@ import {
   MIN_SALARY,
   employmentTypes,
 } from "@/features/private/shared/lib/data/job-posts.data";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 export default function JobPostFilters() {
   const [, setSearchParams] = useSearchParams();

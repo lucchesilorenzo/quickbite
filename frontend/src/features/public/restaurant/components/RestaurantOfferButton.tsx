@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 import { Offer } from "@/types/offers/offer.types";
 
 type RestaurantOfferButtonProps = {

@@ -13,7 +13,7 @@ import { yellow } from "@mui/material/colors";
 import DeleteOfferDialog from "./DeleteOfferDialog";
 import EditOfferDialog from "./EditOfferDialog";
 
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 import { Offer } from "@/types/offers/offer.types";
 
 type OffersItemProps = {

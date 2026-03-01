@@ -1,7 +1,7 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { OrderItem } from "@private/shared/types/order.types";
 
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type ViewOrderItemProps = {
   item: OrderItem;

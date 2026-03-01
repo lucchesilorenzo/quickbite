@@ -12,11 +12,11 @@ import {
   Tooltip,
 } from "@mui/material";
 import { useUpdateOrderStatus } from "@partner/hooks/restaurants/orders/useUpdateOrderStatus";
-import { getDisabledOrderStatuses } from "@partner/lib/utils/orders";
 import { Order } from "@private/shared/types/order.types";
 
 import { statusTransitions } from "../../lib/data/orders.data";
 
+import { getDisabledOrderStatuses } from "@/features/private/partner/lib/utils/orders.utils";
 import { orderStatuses } from "@/lib/data/orders.data";
 
 type UpdateOrderStatusButtonProps = {

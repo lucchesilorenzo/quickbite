@@ -5,7 +5,7 @@ import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 export default function RestaurantDeliveryFee() {
   const { restaurantData, scrollToDeliveryFee, setScrollToDeliveryFee } =

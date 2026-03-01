@@ -9,7 +9,7 @@ import FormHelperTextError from "../FormHelperTextError";
 
 import { useAddress } from "@/contexts/AddressProvider";
 import env from "@/lib/env";
-import { generateSlug } from "@/lib/utils/formatting";
+import { generateSlug } from "@/lib/utils/formatting.utils";
 import {
   TEditLocationFormSchema,
   editLocationFormSchema,

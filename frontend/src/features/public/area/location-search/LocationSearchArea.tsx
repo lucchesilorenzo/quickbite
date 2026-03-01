@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import EditLocationDialog from "@/components/common/EditLocationDialog";
 import { useAddress } from "@/contexts/AddressProvider";
 import env from "@/lib/env";
-import { generateSlug } from "@/lib/utils/formatting";
+import { generateSlug } from "@/lib/utils/formatting.utils";
 import { Address } from "@/types/address.types";
 
 type LocationSearchAreaProps = {

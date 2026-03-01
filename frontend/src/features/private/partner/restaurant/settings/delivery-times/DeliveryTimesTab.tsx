@@ -5,7 +5,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { Link } from "react-router-dom";
 
-import { capitalize } from "@/lib/utils/formatting";
+import { capitalize } from "@/lib/utils/formatting.utils";
 
 export default function DeliveryTimesTab() {
   const { restaurantData } = useRestaurant();

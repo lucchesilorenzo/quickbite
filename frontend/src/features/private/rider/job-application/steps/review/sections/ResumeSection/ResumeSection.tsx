@@ -4,7 +4,7 @@ import ResumePreview from "@rider/job-application/steps/resume/ResumePreview";
 import { TJobApplicationFormSchema } from "@rider/schemas/job-applications.schema";
 import { useFormContext, useWatch } from "react-hook-form";
 
-import { handleDownload } from "@/lib/utils/files";
+import { handleDownload } from "@/lib/utils/files.utils";
 
 type ResumeSectionProps = {
   onBack: (step: number) => void;

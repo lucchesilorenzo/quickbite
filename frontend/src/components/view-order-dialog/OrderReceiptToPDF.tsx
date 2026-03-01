@@ -10,7 +10,7 @@ import {
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
 
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type OrderReceiptToPDFProps = {
   order: Order | PartnerOrder;

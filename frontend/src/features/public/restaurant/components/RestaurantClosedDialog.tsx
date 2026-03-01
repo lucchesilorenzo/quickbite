@@ -13,7 +13,7 @@ import {
 import { Link } from "react-router-dom";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { getRestaurantOpeningTime } from "@/lib/utils/restaurants";
+import { getRestaurantOpeningTime } from "@/lib/utils/restaurants.utils";
 
 type RestaurantClosedDialogProps = {
   openRestaurantClosedDialog: boolean;

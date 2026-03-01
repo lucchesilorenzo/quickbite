@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import EditLocationForm from "./EditLocationForm";
 
 import { useAddress } from "@/contexts/AddressProvider";
-import { generateSlug } from "@/lib/utils/formatting";
+import { generateSlug } from "@/lib/utils/formatting.utils";
 import { TEditLocationFormSchema } from "@/schemas/location.schema";
 import { Address } from "@/types/address.types";
 

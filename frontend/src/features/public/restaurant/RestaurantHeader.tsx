@@ -7,7 +7,7 @@ import CustomerHeaderDialog from "../../private/customer/header/CustomerHeaderDi
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/contexts/AuthProvider";
-import { isCustomer } from "@/lib/utils/auth";
+import { isCustomer } from "@/lib/utils/auth.utils";
 
 export default function RestaurantHeader() {
   const { user } = useAuth();

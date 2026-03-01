@@ -21,7 +21,7 @@ import RestaurantSearchContainerMobile from "./search-bar/mobile/RestaurantSearc
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAddress } from "@/contexts/AddressProvider";
 import { useAuth } from "@/contexts/AuthProvider";
-import { isCustomer } from "@/lib/utils/auth";
+import { isCustomer } from "@/lib/utils/auth.utils";
 
 export default function AreaHeader() {
   const { user } = useAuth();
