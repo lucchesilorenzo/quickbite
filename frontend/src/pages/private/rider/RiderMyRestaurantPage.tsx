@@ -2,31 +2,33 @@ import { useEffect } from "react";
 
 import { Alert, Container } from "@mui/material";
 import { useRestaurant } from "@rider/contexts/RestaurantProvider";
+import DeliveriesList from "@rider/my-restaurant/DeliveriesList";
 
 import HeadingBlock from "@/components/common/HeadingBlock";
-import Spinner from "@/components/common/Spinner";
 
 export default function RiderMyRestaurantPage() {
-  const { isLoadingRestaurant, restaurantError } = useRestaurant();
+  const { restaurantData, restaurantError } = useRestaurant();
 
   useEffect(() => {
     document.title = "My restaurant | QuickBite";
   }, []);
 
-  if (isLoadingRestaurant) {
-    return <Spinner />;
-  }
-
   if (restaurantError) {
-    return <Alert severity="error">{restaurantError.message}</Alert>;
+    return (
+      <Container component="main" maxWidth="md" sx={{ my: 3 }}>
+        <Alert severity="error">{restaurantError.message}</Alert>
+      </Container>
+    );
   }
 
   return (
     <Container component="main" maxWidth="md" sx={{ my: 3 }}>
       <HeadingBlock
-        title="My restaurant"
+        title={restaurantData?.restaurant?.name || "My restaurant"}
         description="View and manage your deliveries"
       />
+
+      <DeliveriesList />
     </Container>
   );
 }
