@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Rider;
 
+use App\Enums\OrderStatus;
+use App\Exceptions\Private\Rider\InvalidDeliveryStatusException;
 use App\Models\Delivery;
 use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class DeliveryService
 {
@@ -24,5 +27,27 @@ class DeliveryService
             })
             ->where('rider_id', $rider->id)
             ->paginate(self::PER_PAGE);
+    }
+
+    public function updateDeliveryStatus(array $data, Delivery $delivery): Delivery
+    {
+        $deliveryStatus = match ($data['status']) {
+            OrderStatus::DELIVERING->value => 'started_at',
+            OrderStatus::DELIVERED->value => 'delivered_at',
+            OrderStatus::CANCELLED->value => 'cancelled_at',
+            default => throw new InvalidDeliveryStatusException
+        };
+
+        return DB::transaction(function () use ($data, $delivery, $deliveryStatus): Delivery {
+            $delivery->order->update([
+                'status' => $data['status'],
+            ]);
+
+            $delivery->update([
+                $deliveryStatus => now(),
+            ]);
+
+            return $delivery->refresh();
+        });
     }
 }
