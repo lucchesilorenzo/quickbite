@@ -1,11 +1,5 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { TAddJobPostFormSchema } from "@partner/schemas/job-posts.schema";
-import {
-  MAX_SALARY,
-  MIN_SALARY,
-  employmentTypes,
-} from "@private/shared/lib/constants/job-posts";
-import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { addJobPostForm } from "@tests/mocks/data/private/partner/forms/add-job-post";
@@ -15,6 +9,12 @@ import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
 import AddJobPostForm from "./AddJobPostForm";
 
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+  employmentTypes,
+} from "@/features/private/shared/lib/data/job-posts.data";
+import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 import env from "@/lib/env";
 import { notificationsDefaults } from "@/lib/query-defaults";
 

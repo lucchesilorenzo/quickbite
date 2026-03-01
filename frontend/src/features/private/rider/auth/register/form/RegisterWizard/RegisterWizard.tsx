@@ -3,7 +3,6 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Container } from "@mui/material";
 import { useRegister } from "@rider/hooks/auth/useRegister";
-import { steps } from "@rider/lib/constants/register-wizard/steps";
 import {
   TRegisterFormSchema,
   registerFormSchema,
@@ -12,6 +11,8 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import Stepper from "../Stepper";
 import MobileStepper from "../mobile/MobileStepper";
+
+import { steps } from "@/features/private/rider/lib/data/register-wizard/steps.data";
 
 export default function RegisterWizard() {
   const { mutate: registerRider, isPending: isRegistering } = useRegister();

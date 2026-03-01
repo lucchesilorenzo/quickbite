@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import HeaderDialog from "./HeaderDialog";
 
-import { headerDialogOptions } from "@/lib/constants/navigation";
+import { headerDialogOptions } from "@/lib/data/navigation.data";
 
 describe("HeaderDialog", () => {
   function renderComponent() {

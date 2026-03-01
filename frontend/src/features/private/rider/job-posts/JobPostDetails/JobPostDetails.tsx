@@ -13,13 +13,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { employmentTypes } from "@private/shared/lib/constants/job-posts";
-import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { Link } from "react-router-dom";
 
 import JobPostDescription from "../JobPostDescription";
 
+import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
+import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 type JobPostDetailsProps = {

@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { useGetKpiSummary } from "@partner/hooks/restaurants/stats/useGetKpiSummary";
 import { useGetStats } from "@partner/hooks/restaurants/stats/useGetStats";
-import { statRanges } from "@partner/lib/constants/stats";
 import {
   Kpi,
   KpiSummary,
@@ -14,6 +13,8 @@ import { useSearchParams } from "react-router-dom";
 
 import { kpiSummaryDefaults, statsDefaults } from "../lib/query-defaults";
 import { useRestaurant } from "./RestaurantProvider";
+
+import { statRanges } from "@/features/private/partner/lib/data/stats.data";
 
 type StatsProviderProps = {
   children: React.ReactNode;

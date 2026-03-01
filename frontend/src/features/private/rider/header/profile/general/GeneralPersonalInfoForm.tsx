@@ -9,13 +9,13 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { TProfileGeneralFormSchema } from "@rider/schemas/profile-general.schema";
 import { format, parseISO } from "date-fns";
 import { MuiTelInput } from "mui-tel-input";
 import { Controller, useFormContext } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 
 export default function GeneralPersonalInfoForm() {
   const {

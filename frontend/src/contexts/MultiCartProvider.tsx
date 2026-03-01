@@ -7,7 +7,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useAuth } from "./AuthProvider";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { emptyRestaurant } from "@/lib/constants/restaurants";
+import { emptyRestaurant } from "@/lib/data/restaurants.data";
 import { isCustomer } from "@/lib/utils/auth";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants";
 import { Cart, CartItem, RestaurantCart } from "@/types/cart.types";

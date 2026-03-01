@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/contexts/AuthProvider";
-import { headerDialogOptions } from "@/lib/constants/navigation";
+import { headerDialogOptions } from "@/lib/data/navigation.data";
 import { isCustomer } from "@/lib/utils/auth";
 
 export default function HomeHeader() {

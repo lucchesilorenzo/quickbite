@@ -1,4 +1,3 @@
-import { employmentTypes } from "@private/shared/lib/constants/job-posts";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
@@ -9,6 +8,8 @@ import {
 import { customRender } from "@tests/utils/custom-render";
 
 import JobPostItem from "./JobPostItem";
+
+import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
   useJobPosts: vi.fn(),

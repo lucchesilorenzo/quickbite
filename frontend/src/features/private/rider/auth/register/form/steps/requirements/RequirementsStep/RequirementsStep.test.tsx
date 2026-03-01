@@ -1,7 +1,8 @@
-import { requirements } from "@rider/lib/constants/register-wizard/requirements";
 import { render, screen } from "@testing-library/react";
 
 import RequirementsStep from "./RequirementsStep";
+
+import { requirements } from "@/features/private/rider/lib/data/register-wizard/requirements.data";
 
 describe("RequirementsStep", () => {
   function renderComponent() {

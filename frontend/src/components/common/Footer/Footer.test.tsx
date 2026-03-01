@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import Footer from "./Footer";
 
-import { footerLinks } from "@/lib/constants/navigation";
+import { footerLinks } from "@/lib/data/navigation.data";
 
 describe("Footer", () => {
   function renderComponent() {

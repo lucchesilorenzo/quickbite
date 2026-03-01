@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Container } from "@mui/material";
-import { steps } from "@rider/lib/constants/job-application-wizard/steps";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +13,8 @@ import {
   jobApplicationFormSchema,
 } from "../../schemas/job-applications.schema";
 import Stepper from "../Stepper";
+
+import { steps } from "@/features/private/rider/lib/data/job-application-wizard/steps.data";
 
 export default function JobApplicationWizard() {
   const { jobPostData } = useJobApplication();

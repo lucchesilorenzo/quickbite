@@ -7,11 +7,11 @@ import {
   Typography,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 
 export default function VehicleStep() {
   const {

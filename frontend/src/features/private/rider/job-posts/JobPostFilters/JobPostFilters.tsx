@@ -19,15 +19,15 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import {
-  MAX_SALARY,
-  MIN_SALARY,
-  employmentTypes,
-} from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { useSearchParams } from "react-router-dom";
 
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+  employmentTypes,
+} from "@/features/private/shared/lib/data/job-posts.data";
 import { formatCurrency } from "@/lib/utils/formatting";
 
 export default function JobPostFilters() {

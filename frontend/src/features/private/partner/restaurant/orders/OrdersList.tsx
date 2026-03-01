@@ -13,7 +13,7 @@ import OrdersFilters from "./OrdersFilters";
 import CustomPagination from "@/components/common/CustomPagination";
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
-import { orderStatuses } from "@/lib/constants/orders";
+import { orderStatuses } from "@/lib/data/orders.data";
 
 export default function OrdersList() {
   const { restaurantData } = useRestaurant();

@@ -17,7 +17,7 @@ import {
   Stack,
   Tooltip,
 } from "@mui/material";
-import { orderStatuses, statusTransitions } from "@rider/lib/constants/orders";
+import { orderStatuses, statusTransitions } from "@rider/lib/data/orders.data";
 import { OrderStatus } from "@rider/types/orders/order.types";
 
 import { useUpdateDeliveryStatus } from "../hooks/restaurant/deliveries/useUpdateDeliveryStatus";

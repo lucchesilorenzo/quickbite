@@ -1,4 +1,4 @@
-import { COLORS } from "../constants/colors";
+import { COLORS } from "../data/colors.data";
 
 export function getColorByName(name?: string) {
   if (!name) return COLORS[0];

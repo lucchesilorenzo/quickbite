@@ -13,7 +13,7 @@ import ReviewsTab from "./reviews/ReviewsTab";
 
 import { useOffers } from "@/contexts/OffersProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { restaurantTabs } from "@/lib/constants/restaurants";
+import { restaurantTabs } from "@/lib/data/restaurants.data";
 import { RestaurantTab } from "@/types/restaurants/restaurant.types";
 
 export default function RestaurantAboutDialogTabs() {

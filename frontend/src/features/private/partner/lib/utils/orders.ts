@@ -1,6 +1,6 @@
 import { OrderStatus } from "@private/shared/types/order.types";
 
-import { orderStatuses } from "@/lib/constants/orders";
+import { orderStatuses } from "@/lib/data/orders.data";
 
 export function getDisabledOrderStatuses(
   currentStatus: OrderStatus,

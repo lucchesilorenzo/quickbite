@@ -4,7 +4,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Box, Drawer, IconButton, List, Skeleton, Stack } from "@mui/material";
 
 import { useRestaurant } from "../contexts/RestaurantProvider";
-import { riderRoutes } from "../lib/constants/navigation";
+import { riderRoutes } from "../lib/data/navigation.data";
 import NavigationItemMobile from "./mobile/NavigationItemMobile";
 
 export default function HeaderDrawer() {

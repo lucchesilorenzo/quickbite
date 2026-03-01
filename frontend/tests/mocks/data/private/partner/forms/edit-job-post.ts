@@ -2,7 +2,7 @@ import {
   UpdateJobPostPayload,
   UpdateJobPostResponse,
 } from "@partner/types/job-posts/job-post.api.types";
-import { MIN_SALARY } from "@private/shared/lib/constants/job-posts";
+import { MIN_SALARY } from "@/features/private/shared/lib/data/job-posts.data";
 
 import { apiResponse } from "@tests/mocks/data/shared/common";
 

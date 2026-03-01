@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 import OrderStatusBadge from "./OrderStatusBadge";
 
-import { orderStatuses } from "@/lib/constants/orders";
+import { orderStatuses } from "@/lib/data/orders.data";
 
 describe("OrderStatusBadge", () => {
   function renderComponent(status: OrderStatus) {

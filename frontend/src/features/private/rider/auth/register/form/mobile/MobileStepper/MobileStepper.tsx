@@ -2,7 +2,6 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { Box, MobileStepper as MuiMobileStepper, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
-import { steps } from "@rider/lib/constants/register-wizard/steps";
 import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { useFormContext } from "react-hook-form";
 
@@ -12,6 +11,8 @@ import LocationStep from "../../steps/location/LocationStep";
 import PersonalInfoStep from "../../steps/personal-info/PersonalInfoStep";
 import RequirementsStep from "../../steps/requirements/RequirementsStep";
 import VehicleStep from "../../steps/vehicle/VehicleStep";
+
+import { steps } from "@/features/private/rider/lib/data/register-wizard/steps.data";
 
 type MobileStepperProps = {
   activeStep: number;

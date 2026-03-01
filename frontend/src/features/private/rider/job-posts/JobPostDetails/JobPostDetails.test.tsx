@@ -1,5 +1,3 @@
-import { employmentTypes } from "@private/shared/lib/constants/job-posts";
-import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { screen, within } from "@testing-library/react";
 import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
@@ -7,6 +5,9 @@ import { MemoryRouter } from "react-router-dom";
 
 import { JobPostWithRestaurantAndAlreadyApplied } from "../../types/job-posts/job-post.types";
 import JobPostDetails from "./JobPostDetails";
+
+import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
+import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 
 vi.mock("../JobPostDescription", () => ({
   default: () => <div data-testid="job-post-description" />,

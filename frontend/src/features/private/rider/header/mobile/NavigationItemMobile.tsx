@@ -8,7 +8,7 @@ import {
 import { grey } from "@mui/material/colors";
 import { Link, useLocation } from "react-router-dom";
 
-import { riderRoutes } from "../../lib/constants/navigation";
+import { riderRoutes } from "../../lib/data/navigation.data";
 
 type NavigationItemMobileProps = {
   route: {

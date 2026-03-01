@@ -9,7 +9,7 @@ import {
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
-import { footerLinks } from "@/lib/constants/navigation";
+import { footerLinks } from "@/lib/data/navigation.data";
 
 export default function Footer() {
   return (

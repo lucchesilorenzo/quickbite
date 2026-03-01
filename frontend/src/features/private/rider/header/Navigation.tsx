@@ -2,7 +2,7 @@ import { Skeleton, Stack, Tab, Tabs } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 
 import { useRestaurant } from "../contexts/RestaurantProvider";
-import { riderRoutes } from "../lib/constants/navigation";
+import { riderRoutes } from "../lib/data/navigation.data";
 
 export default function Navigation() {
   const { pathname } = useLocation();

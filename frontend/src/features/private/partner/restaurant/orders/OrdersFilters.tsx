@@ -3,7 +3,7 @@ import { useOrders } from "@partner/contexts/OrdersProvider";
 import { OrderStatusWithAll } from "@private/shared/types/order.types";
 import { useSearchParams } from "react-router-dom";
 
-import { orderStatuses } from "@/lib/constants/orders";
+import { orderStatuses } from "@/lib/data/orders.data";
 
 type OrdersFiltersProps = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
