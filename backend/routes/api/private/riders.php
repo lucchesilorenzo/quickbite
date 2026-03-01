@@ -41,9 +41,11 @@ Route::prefix('rider')->group(function (): void {
         ->group(function (): void {
             Route::get('/', [RestaurantController::class, 'getRestaurant']);
 
-            Route::prefix('deliveries')->group(function (): void {
-                Route::get('/', [DeliveryController::class, 'getDeliveries']);
-            });
+            Route::prefix('deliveries')
+                ->group(function (): void {
+                    Route::get('/', [DeliveryController::class, 'getDeliveries']);
+                    Route::patch('/{delivery}/status', [DeliveryController::class, 'updateDeliveryStatus']);
+                });
         });
 
     // === JOB POSTS ===
