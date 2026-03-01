@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Private\Rider\AuthController;
+use App\Http\Controllers\Private\Rider\DeliveryController;
 use App\Http\Controllers\Private\Rider\JobApplicationController;
 use App\Http\Controllers\Private\Rider\JobPostController;
 use App\Http\Controllers\Private\Rider\NotificationController;
@@ -39,7 +40,10 @@ Route::prefix('rider')->group(function (): void {
         ->middleware(['auth:sanctum', 'role:rider'])
         ->group(function (): void {
             Route::get('/', [RestaurantController::class, 'getRestaurant']);
-            Route::get('/deliveries', [RestaurantController::class, 'getDeliveries']);
+
+            Route::prefix('deliveries')->group(function (): void {
+                Route::get('/', [DeliveryController::class, 'getDeliveries']);
+            });
         });
 
     // === JOB POSTS ===

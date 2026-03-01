@@ -39,27 +39,4 @@ class RestaurantController extends Controller
             ], 500);
         }
     }
-
-    /**
-     * Get deliveries.
-     */
-    public function getDeliveries(): JsonResponse
-    {
-        try {
-            $deliveries = $this->restaurantService->getDeliveries(
-                auth()->user()
-            );
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Deliveries retrieved successfully.',
-                'deliveries' => $deliveries,
-            ], 200);
-        } catch (Throwable) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Could not get deliveries.',
-            ], 500);
-        }
-    }
 }
