@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 import { useRestaurant } from "./RestaurantProvider";
 
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
-import { offersDefaults } from "@/lib/query-defaults";
+import { offersDefaults } from "@/lib/data/defaults/query.defaults";
 import { GetOffersResponse } from "@/types/offers/offer.api.types";
 
 type OffersProviderProps = {

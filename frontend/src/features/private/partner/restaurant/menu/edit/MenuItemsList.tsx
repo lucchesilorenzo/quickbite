@@ -15,13 +15,13 @@ import { useMenu } from "@partner/contexts/MenuProvider";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuItemsOrder } from "@partner/hooks/restaurants/menu/items/useUpdateMenuItemsOrder";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
-import { menuDefaults } from "@partner/lib/query-defaults";
 
 import MenuItem from "./MenuItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
+import { menuDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
 
 export default function MenuItemsList() {
   const { restaurantData } = useRestaurant();

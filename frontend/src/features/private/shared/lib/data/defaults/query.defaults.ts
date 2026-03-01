@@ -1,4 +1,4 @@
-import { baseOffsetPaginationDefaults } from "@/lib/query-defaults";
+import { baseOffsetPaginationDefaults } from "@/lib/data/defaults/query.defaults";
 
 export const orderDefaults = {
   id: "",

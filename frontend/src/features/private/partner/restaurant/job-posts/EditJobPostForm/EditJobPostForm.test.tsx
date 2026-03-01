@@ -18,8 +18,8 @@ import {
   jobPostStatuses,
 } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
+import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 import env from "@/lib/env";
-import { notificationsDefaults } from "@/lib/query-defaults";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
   useRestaurant: vi.fn(),

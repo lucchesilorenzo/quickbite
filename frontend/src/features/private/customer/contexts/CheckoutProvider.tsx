@@ -5,14 +5,14 @@ import { CheckoutData } from "@customer/types/orders/order.types";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { cartDefaults } from "../lib/query-defaults";
+import { cartDefaults } from "../lib/data/defaults/query.defaults";
 import { GetCartResponse } from "../types/carts/cart.api.types";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
-import { offersDefaults } from "@/lib/query-defaults";
+import { offersDefaults } from "@/lib/data/defaults/query.defaults";
 import { GetDeliverySlotsResponse } from "@/types/deliveries/delivery.api.types";
 import { GetOffersResponse } from "@/types/offers/offer.api.types";
 

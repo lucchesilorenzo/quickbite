@@ -1,11 +1,11 @@
 import { Alert, Card, Grid } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetDashboardStats } from "@partner/hooks/restaurants/stats/useGetDashboardStats";
-import { dashboardStatsDefaults } from "@partner/lib/query-defaults";
 
 import StatsCardItem from "./StatsCardItem";
 
 import Spinner from "@/components/common/Spinner";
+import { dashboardStatsDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
 
 export default function StatsCard() {
   const { restaurantData } = useRestaurant();

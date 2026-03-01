@@ -4,7 +4,6 @@ import { Box, Stack, Typography } from "@mui/material";
 import { useOrders } from "@partner/contexts/OrdersProvider";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetOrders } from "@partner/hooks/restaurants/orders/useGetOrders";
-import { ordersDefaults } from "@private/shared/lib/query-defaults";
 import { useSearchParams } from "react-router-dom";
 
 import OrderItem from "./OrderItem";
@@ -13,6 +12,7 @@ import OrdersFilters from "./OrdersFilters";
 import CustomPagination from "@/components/common/CustomPagination";
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
+import { ordersDefaults } from "@/features/private/shared/lib/data/defaults/query.defaults";
 import { orderStatuses } from "@/lib/data/orders.data";
 
 export default function OrdersList() {

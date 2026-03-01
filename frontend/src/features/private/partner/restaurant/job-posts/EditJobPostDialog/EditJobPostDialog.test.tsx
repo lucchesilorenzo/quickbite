@@ -7,8 +7,8 @@ import { simulateDelay, simulateError } from "@tests/utils/msw";
 
 import EditJobPostDialog from "./EditJobPostDialog";
 
+import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 import env from "@/lib/env";
-import { notificationsDefaults } from "@/lib/query-defaults";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
   useRestaurant: vi.fn(),

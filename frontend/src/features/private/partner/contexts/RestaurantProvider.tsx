@@ -9,7 +9,7 @@ import { GetRestaurantResponse } from "../types/restaurants/restaurant.api.types
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
-import { notificationsDefaults } from "@/lib/query-defaults";
+import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;

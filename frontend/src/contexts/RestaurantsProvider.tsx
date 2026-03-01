@@ -11,7 +11,7 @@ import { useSearchParams } from "react-router-dom";
 import { useAddress } from "./AddressProvider";
 
 import { useGetRestaurants } from "@/hooks/restaurants/useGetRestaurants";
-import { restaurantsDefaults } from "@/lib/query-defaults";
+import { restaurantsDefaults } from "@/lib/data/defaults/query.defaults";
 import { GetRestaurantsResponse } from "@/types/restaurants/restaurant.api.types";
 import {
   RestaurantListItem,

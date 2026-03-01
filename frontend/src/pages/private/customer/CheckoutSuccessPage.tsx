@@ -4,10 +4,10 @@ import { useGetOrder } from "@customer/hooks/orders/useGetOrder";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
 import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
-import { orderDefaults } from "@private/shared/lib/query-defaults";
 import { Link, useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
+import { orderDefaults } from "@/features/private/shared/lib/data/defaults/query.defaults";
 
 export default function CheckoutSuccessPage() {
   useEffect(() => {
