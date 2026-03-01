@@ -1,4 +1,5 @@
-import { Order } from "@/features/private/shared/types/order.types";
+import { Order, OrderStatus } from "../orders/order.types";
+
 import { BaseOffsetPagination } from "@/types/pagination.types";
 
 export type Delivery = {
@@ -10,7 +11,7 @@ export type Delivery = {
   rider_phone_number: string;
   delivered_at: string | null;
   cancelled_at: string | null;
-  order: Omit<Order, "restaurant">;
+  order: Order;
   created_at: string;
   updated_at: string;
 };
@@ -18,3 +19,8 @@ export type Delivery = {
 export type DeliveriesWithPagination = BaseOffsetPagination & {
   data: Delivery[];
 };
+
+export type DeliveryStatus = Extract<
+  OrderStatus,
+  "delivering" | "delivered" | "cancelled"
+>;
