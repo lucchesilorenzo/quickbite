@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
 
-import { useGetDeliveries } from "../hooks/restaurant/deliveries/useGetDeliveries";
+import { useGetDeliveryHistory } from "../hooks/restaurant/deliveries/useGetDeliveryHistory";
 import DeliveryItem from "./DeliveryItem";
 
 import CustomPagination from "@/components/common/CustomPagination";
@@ -13,35 +13,35 @@ export default function DeliveriesList() {
   const [page, setPage] = useState(1);
 
   const {
-    data: deliveriesData,
-    isLoading: isLoadingDeliveries,
-    error: deliveriesError,
-  } = useGetDeliveries();
+    data: deliveryHistoryData,
+    isLoading: isLoadingDeliveryHistory,
+    error: deliveryHistoryError,
+  } = useGetDeliveryHistory({ page });
 
-  if (isLoadingDeliveries) {
+  if (isLoadingDeliveryHistory) {
     return <Spinner />;
   }
 
-  if (deliveriesError) {
-    return <FullPageErrorMessage message={deliveriesError.message} />;
+  if (deliveryHistoryError) {
+    return <FullPageErrorMessage message={deliveryHistoryError.message} />;
   }
 
   return (
     <Stack spacing={2} sx={{ my: 3 }}>
-      {!deliveriesData?.deliveries.data.length ? (
+      {!deliveryHistoryData?.deliveries.data.length ? (
         <Typography variant="body1" sx={{ textAlign: "center" }}>
           No deliveries found yet.
         </Typography>
       ) : (
         <Stack spacing={2}>
-          {deliveriesData?.deliveries.data.map((delivery) => (
+          {deliveryHistoryData?.deliveries.data.map((delivery) => (
             <DeliveryItem key={delivery.id} delivery={delivery} />
           ))}
 
           <Box sx={{ alignSelf: "center" }}>
             <CustomPagination
               page={page}
-              totalPages={deliveriesData?.deliveries.last_page}
+              totalPages={deliveryHistoryData?.deliveries.last_page}
               setPage={setPage}
             />
           </Box>
