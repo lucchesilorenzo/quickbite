@@ -34,6 +34,21 @@ class DeliveryService
             ->paginate(self::PER_PAGE);
     }
 
+    public function getActiveDelivery(User $rider): ?Delivery
+    {
+        $restaurant = Restaurant::getActiveRestaurantForRider($rider);
+
+        return Delivery::query()
+            ->with(['order.orderItems'])
+            ->whereHas('order', function ($query) use ($restaurant): void {
+                $query->where('restaurant_id', $restaurant->id);
+            })
+            ->where('rider_id', $rider->id)
+            ->whereNull('delivered_at')
+            ->whereNull('cancelled_at')
+            ->first();
+    }
+
     public function updateDeliveryStatus(array $data, Delivery $delivery): Delivery
     {
         $deliveryStatus = match ($data['status']) {

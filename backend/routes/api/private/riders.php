@@ -43,7 +43,8 @@ Route::prefix('rider')->group(function (): void {
 
             Route::prefix('deliveries')
                 ->group(function (): void {
-                    Route::get('/', [DeliveryController::class, 'getDeliveries']);
+                    Route::get('/history', [DeliveryController::class, 'getDeliveryHistory']);
+                    Route::get('/active', [DeliveryController::class, 'getActiveDelivery']);
                     Route::patch('/{delivery}/status', [DeliveryController::class, 'updateDeliveryStatus']);
                 });
         });

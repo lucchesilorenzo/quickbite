@@ -47,6 +47,31 @@ class DeliveryController extends Controller
     }
 
     /**
+     * Get active delivery.
+     */
+    public function getActiveDelivery(): JsonResponse
+    {
+        Gate::authorize('viewAny', Delivery::class);
+
+        try {
+            $activeDelivery = $this->deliveryService->getActiveDelivery(
+                auth()->user()
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Active delivery retrieved successfully.',
+                'delivery' => $activeDelivery,
+            ], 200);
+        } catch (Throwable) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not get active delivery.',
+            ], 500);
+        }
+    }
+
+    /**
      * Update delivery status.
      */
     public function updateDeliveryStatus(
