@@ -24,12 +24,12 @@ class DeliveryController extends Controller
     /**
      * Get deliveries.
      */
-    public function getDeliveries(): JsonResponse
+    public function getDeliveryHistory(): JsonResponse
     {
         Gate::authorize('viewAny', Delivery::class);
 
         try {
-            $deliveries = $this->deliveryService->getDeliveries(
+            $deliveries = $this->deliveryService->getDeliveryHistory(
                 auth()->user()
             );
 

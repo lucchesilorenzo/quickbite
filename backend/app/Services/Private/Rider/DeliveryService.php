@@ -16,7 +16,7 @@ class DeliveryService
 {
     private const int PER_PAGE = 10;
 
-    public function getDeliveries(User $rider): LengthAwarePaginator
+    public function getDeliveryHistory(User $rider): LengthAwarePaginator
     {
         $restaurant = Restaurant::getActiveRestaurantForRider($rider);
 
@@ -26,6 +26,11 @@ class DeliveryService
                 $query->where('restaurant_id', $restaurant->id);
             })
             ->where('rider_id', $rider->id)
+            ->where(function ($query) {
+                $query
+                    ->whereNotNull('delivered_at')
+                    ->orWhereNotNull('cancelled_at');
+            })
             ->paginate(self::PER_PAGE);
     }
 
