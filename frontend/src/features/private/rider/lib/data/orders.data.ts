@@ -8,7 +8,7 @@ export const orderStatuses = {
 };
 
 export const statusTransitions: Record<OrderStatus, OrderStatus[]> = {
-  preparing: ["delivering", "cancelled"],
+  preparing: ["cancelled"],
   delivering: [],
   delivered: [],
   cancelled: [],
