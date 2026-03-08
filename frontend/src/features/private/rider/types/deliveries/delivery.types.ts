@@ -9,6 +9,7 @@ export type Delivery = {
   rider_first_name: string;
   rider_last_name: string;
   rider_phone_number: string;
+  started_at: string | null;
   delivered_at: string | null;
   cancelled_at: string | null;
   order: Order;
