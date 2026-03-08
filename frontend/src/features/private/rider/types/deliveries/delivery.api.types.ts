@@ -10,6 +10,10 @@ export type GetDeliveriesResponse = {
   deliveries: DeliveriesWithPagination;
 } & ApiResponse;
 
+export type GetActiveDeliveryResponse = {
+  delivery: Delivery;
+} & ApiResponse;
+
 export type UpdateDeliveryStatusResponse = {
   delivery: Delivery;
 } & ApiResponse;
