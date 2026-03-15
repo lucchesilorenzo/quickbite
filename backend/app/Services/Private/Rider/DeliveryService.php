@@ -9,6 +9,7 @@ use App\Exceptions\Private\Rider\InvalidDeliveryStatusException;
 use App\Models\Delivery;
 use App\Models\Restaurant;
 use App\Models\User;
+use App\Notifications\Private\Customer\OrderCancelled;
 use App\Notifications\Private\Customer\OrderDelivered;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -59,11 +60,15 @@ class DeliveryService
             default => throw new InvalidDeliveryStatusException
         };
 
-        if ($data['status'] === OrderStatus::DELIVERED->value) {
-            $delivery->order->customer->notify(new OrderDelivered($delivery->order));
-        }
-
         return DB::transaction(function () use ($data, $delivery, $deliveryStatus): Delivery {
+            if ($data['status'] === OrderStatus::DELIVERED->value) {
+                $delivery->order->customer->notify(new OrderDelivered($delivery->order));
+            }
+
+            if ($data['status'] === OrderStatus::CANCELLED->value) {
+                $delivery->order->customer->notify(new OrderCancelled($delivery->order));
+            }
+
             $delivery->order->update([
                 'status' => $data['status'],
             ]);
