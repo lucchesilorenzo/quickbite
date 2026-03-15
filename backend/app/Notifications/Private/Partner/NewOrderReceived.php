@@ -2,18 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Notifications;
+namespace App\Notifications\Private\Partner;
 
 use App\Enums\NotificationPreference;
-use App\Models\Review;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Number;
 
-class NewReviewReceived extends Notification implements ShouldQueue
+class NewOrderReceived extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -21,7 +22,7 @@ class NewReviewReceived extends Notification implements ShouldQueue
      * Create a new notification instance.
      */
     public function __construct(
-        public Review $review,
+        public Order $order,
         public User $partner
     ) {}
 
@@ -41,7 +42,7 @@ class NewReviewReceived extends Notification implements ShouldQueue
     public function shouldSend(object $notifiable, string $channel): bool
     {
         return $notifiable->notificationPreferences()
-            ->where('type', NotificationPreference::NEW_REVIEW->value)
+            ->where('type', NotificationPreference::NEW_ORDER->value)
             ->where('enabled', true)
             ->exists();
     }
@@ -54,14 +55,20 @@ class NewReviewReceived extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'title' => 'New review received',
-            'description' => "Review from {$this->review->customer->first_name} {$this->review->customer->last_name} - {$this->review->rating} stars",
+            'title' => 'New order received',
+            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: ".Number::currency(
+                $this->order->total,
+                in: 'EUR',
+                locale: 'it-IT'
+            ),
             'meta' => [
-                'review_id' => $this->review->id,
-                'restaurant_id' => $this->review->restaurant_id,
-                'first_name' => $this->review->customer->first_name,
-                'last_name' => $this->review->customer->last_name,
-                'created_at' => $this->review->created_at,
+                'order_id' => $this->order->id,
+                'restaurant_id' => $this->order->restaurant_id,
+                'order_code' => $this->order->order_code,
+                'first_name' => $this->order->first_name,
+                'last_name' => $this->order->last_name,
+                'total' => $this->order->total,
+                'created_at' => $this->order->created_at,
             ],
         ];
     }
@@ -72,9 +79,13 @@ class NewReviewReceived extends Notification implements ShouldQueue
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
         return new BroadcastMessage([
-            'review_id' => $this->review->id,
-            'title' => 'New review received',
-            'description' => "Review from {$this->review->customer->first_name} {$this->review->customer->last_name} - {$this->review->rating} stars",
+            'order_id' => $this->order->id,
+            'title' => 'New order received',
+            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: ".Number::currency(
+                $this->order->total,
+                in: 'EUR',
+                locale: 'it-IT'
+            ),
         ]);
     }
 
@@ -83,7 +94,7 @@ class NewReviewReceived extends Notification implements ShouldQueue
      */
     public function broadcastType(): string
     {
-        return 'new.review.received';
+        return 'new.order.received';
     }
 
     /**
@@ -92,7 +103,8 @@ class NewReviewReceived extends Notification implements ShouldQueue
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel("App.Models.User.{$this->partner->id}.Restaurant.{$this->review->restaurant_id}"),
+            new PrivateChannel("App.Models.User.{$this->partner->id}.Restaurant.{$this->order->restaurant_id}"),
         ];
     }
 }
+

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Notifications;
+namespace App\Notifications\Private\Rider;
 
 use App\Enums\NotificationPreference;
 use App\Models\Delivery;
@@ -91,3 +91,4 @@ class NewDeliveryReceived extends Notification implements ShouldQueue
         return 'new.delivery.received';
     }
 }
+
