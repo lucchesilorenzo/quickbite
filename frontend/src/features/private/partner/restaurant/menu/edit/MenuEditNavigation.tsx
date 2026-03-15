@@ -7,7 +7,6 @@ import { grey } from "@mui/material/colors";
 import { useMenu } from "@partner/contexts/MenuProvider";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
-import { menuDefaults } from "@partner/lib/query-defaults";
 import { useSearchParams } from "react-router-dom";
 import { Keyboard, Mousewheel } from "swiper/modules";
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
@@ -17,6 +16,7 @@ import MenuEditNavigationSkeletons from "./MenuEditNavigationSkeletons";
 
 import MenuCategoryNavigationSlide from "@/components/menu-category-navigation/MenuCategoryNavigationSlide";
 import ShowMoreMenuCategoriesButton from "@/components/menu-category-navigation/ShowMoreMenuCategoriesButton";
+import { menuDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
 
 export default function MenuEditNavigation() {
   const { restaurantData } = useRestaurant();

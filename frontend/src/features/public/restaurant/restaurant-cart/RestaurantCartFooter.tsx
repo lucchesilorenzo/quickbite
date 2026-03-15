@@ -18,9 +18,9 @@ import { useAuth } from "@/contexts/AuthProvider";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useOffers } from "@/contexts/OffersProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { isCustomer } from "@/lib/utils/auth";
-import { formatCurrency } from "@/lib/utils/formatting";
-import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
+import { isCustomer } from "@/lib/utils/auth.utils";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
+import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants.utils";
 
 export default function RestaurantCartFooter() {
   const { user } = useAuth();

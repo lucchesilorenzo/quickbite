@@ -10,7 +10,9 @@ use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Models\User;
-use App\Notifications\NewDeliveryReceived;
+use App\Notifications\Private\Customer\OrderAccepted;
+use App\Notifications\Private\Customer\OrderRejected;
+use App\Notifications\Private\Rider\NewDeliveryReceived;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -31,11 +33,12 @@ class OrderService
     public function updateOrderStatus(array $data, Order $order): Order
     {
         return DB::transaction(function () use ($order, $data): Order {
-            // TODO: move to rider order controller
-            if ($data['status'] === OrderStatus::CANCELLED->value) {
-                $order->delivery?->update([
-                    'cancelled_at' => now(),
-                ]);
+            if ($data['status'] === OrderStatus::ACCEPTED->value) {
+                $order->customer->notify(new OrderAccepted($order));
+            }
+
+            if ($data['status'] === OrderStatus::REJECTED->value) {
+                $order->customer->notify(new OrderRejected($order));
             }
 
             if ($data['status'] === OrderStatus::PREPARING->value) {

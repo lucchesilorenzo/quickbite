@@ -30,7 +30,7 @@ export default function CheckoutOrderOverview() {
           }}
           onClick={() => setOpenOrderItemsDialog(true)}
         >
-          Show {cartData.cart.total_items} articles
+          Show {cartData.cart.total_items} items
         </Typography>
       </Box>
 

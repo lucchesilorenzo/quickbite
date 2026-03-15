@@ -4,7 +4,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Box, Drawer, IconButton, List } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-import { partnerRestaurantRoutes } from "../lib/constants/navigation";
+import { partnerRestaurantRoutes } from "../lib/data/navigation.data";
 import RestaurantNavigationItemMobile from "./mobile/RestaurantNavigationItemMobile";
 
 export default function RestaurantDrawer() {

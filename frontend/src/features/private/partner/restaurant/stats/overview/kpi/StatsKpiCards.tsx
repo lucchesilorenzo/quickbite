@@ -4,7 +4,7 @@ import { Kpi } from "@partner/types/stats/stats.types";
 
 import StatsKpiCard from "./StatsKpiCard";
 
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 export default function StatsKpiCards() {
   const { kpiSummary, activeKpi, kpiSummaryError } = useStats();

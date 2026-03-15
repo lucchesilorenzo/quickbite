@@ -16,17 +16,17 @@ import {
   TEditJobPostFormSchema,
   editJobPostFormSchema,
 } from "@partner/schemas/job-posts.schema";
-import {
-  employmentTypes,
-  jobPostStatuses,
-} from "@private/shared/lib/constants/job-posts";
-import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import {
+  employmentTypes,
+  jobPostStatuses,
+} from "@/features/private/shared/lib/data/job-posts.data";
+import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 
 type EditJobPostFormProps = {
   jobPost?: JobPost;

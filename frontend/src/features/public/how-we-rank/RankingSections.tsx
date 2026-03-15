@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import { rankingSections } from "@/lib/constants/content";
+import { rankingSections } from "@/lib/data/content.data";
 
 export default function RankingSections() {
   return (

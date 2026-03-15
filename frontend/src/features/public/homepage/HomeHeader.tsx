@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/contexts/AuthProvider";
-import { headerDialogOptions } from "@/lib/constants/navigation";
-import { isCustomer } from "@/lib/utils/auth";
+import { headerDialogOptions } from "@/lib/data/navigation.data";
+import { isCustomer } from "@/lib/utils/auth.utils";
 
 export default function HomeHeader() {
   const { user } = useAuth();

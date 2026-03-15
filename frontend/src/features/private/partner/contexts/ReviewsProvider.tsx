@@ -6,7 +6,7 @@ import { OrderStatusWithAll } from "@private/shared/types/order.types";
 import { GetReviewsResponse } from "../types/reviews/review.api.types";
 import { useRestaurant } from "./RestaurantProvider";
 
-import { reviewsDefaults } from "@/lib/query-defaults";
+import { reviewsDefaults } from "@/lib/data/defaults/query.defaults";
 
 type ReviewsProviderProps = {
   children: React.ReactNode;

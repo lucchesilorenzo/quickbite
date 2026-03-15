@@ -8,7 +8,7 @@ use App\Exceptions\Private\Customer\CustomerAlreadyReviewedException;
 use App\Models\Restaurant;
 use App\Models\Review;
 use App\Models\User;
-use App\Notifications\NewReviewReceived;
+use App\Notifications\Private\Partner\NewReviewReceived;
 
 class ReviewService
 {

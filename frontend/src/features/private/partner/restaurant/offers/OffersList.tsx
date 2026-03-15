@@ -9,7 +9,7 @@ import OffersItem from "./OffersItem";
 import CustomPagination from "@/components/common/CustomPagination";
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
-import { offersDefaults } from "@/lib/query-defaults";
+import { offersDefaults } from "@/lib/data/defaults/query.defaults";
 
 export default function OffersList() {
   const { restaurantData } = useRestaurant();

@@ -17,7 +17,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import { useGetJobApplications } from "../../hooks/restaurants/job-applications/useGetJobApplications";
-import { jobApplicationsDefaults } from "../../lib/query-defaults";
+import { jobApplicationsDefaults } from "../../lib/data/defaults/query.defaults";
 import ConfirmJobApplicationDialog from "./ConfirmJobApplicationDialog";
 
 import env from "@/lib/env";

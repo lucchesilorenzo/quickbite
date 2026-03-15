@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Private\Partner\Order;
 
 use App\Enums\OrderStatus;
+use App\Enums\UserRole;
 use App\Rules\IsOrderStatusValid;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -32,7 +33,7 @@ class UpdateOrderStatus extends FormRequest
             'status' => [
                 'required',
                 Rule::enum(OrderStatus::class),
-                new IsOrderStatusValid($order),
+                new IsOrderStatusValid($order, UserRole::PARTNER),
             ],
         ];
     }

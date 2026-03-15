@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import RestaurantAboutDialog from "./RestaurantAboutDialog";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { restaurantTabs } from "@/lib/constants/restaurants";
+import { restaurantTabs } from "@/lib/data/restaurants.data";
 import { RestaurantTab } from "@/types/restaurants/restaurant.types";
 
 export default function RestaurantHeader() {

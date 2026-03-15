@@ -2,7 +2,7 @@ import { LineChart } from "@mui/x-charts";
 import { useStats } from "@partner/contexts/StatsProvider";
 
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type StatsDetailsLineChartProps = {
   linePrimaryColor: string;

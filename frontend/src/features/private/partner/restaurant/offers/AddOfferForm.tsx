@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateOffer } from "@partner/hooks/restaurants/offers/useCreateOffer";
-import { discountRates } from "@partner/lib/constants/offers";
 import {
   TRestaurantSettingsOffersFormSchema,
   restaurantSettingsOffersFormSchema,
@@ -19,6 +18,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
+import { discountRates } from "@/features/private/partner/lib/data/offers.data";
 
 type AddOfferFormProps = {
   setOpenAddOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;

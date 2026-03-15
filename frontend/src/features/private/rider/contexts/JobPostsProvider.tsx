@@ -1,10 +1,5 @@
 import { createContext, useContext } from "react";
 
-import {
-  MAX_SALARY,
-  MIN_SALARY,
-  employmentTypes,
-} from "@private/shared/lib/constants/job-posts";
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { useGetJobPosts } from "@rider/hooks/job-posts/useGetJobPosts";
 import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
@@ -18,6 +13,12 @@ import {
   InfiniteQueryObserverResult,
 } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
+
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+  employmentTypes,
+} from "@/features/private/shared/lib/data/job-posts.data";
 
 type JobPostsProviderProps = {
   children: React.ReactNode;

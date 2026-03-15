@@ -17,7 +17,7 @@ import ViewOrderDialog from "./ViewOrderDialog";
 
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { useAuth } from "@/contexts/AuthProvider";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type OrderItemProps = {
   order: Order;

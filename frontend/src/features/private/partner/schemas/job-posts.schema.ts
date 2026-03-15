@@ -1,11 +1,12 @@
+import z from "zod";
+
 import {
   MAX_SALARY,
   MIN_SALARY,
   employmentTypes,
   jobPostStatuses,
-} from "@private/shared/lib/constants/job-posts";
-import { vehicles } from "@private/shared/lib/constants/vehicles";
-import z from "zod";
+} from "@/features/private/shared/lib/data/job-posts.data";
+import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 
 export const addJobPostFormSchema = z.object({
   title: z

@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import HeaderDialog from "../HeaderDialog";
 
 import { useAuth } from "@/contexts/AuthProvider";
-import { isCustomer } from "@/lib/utils/auth";
+import { isCustomer } from "@/lib/utils/auth.utils";
 
 export default function Header() {
   const { user } = useAuth();

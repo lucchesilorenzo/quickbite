@@ -20,8 +20,8 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
-import { formatCurrency } from "@/lib/utils/formatting";
-import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
+import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants.utils";
 
 export default function CheckoutOrderFooter() {
   const { cartData, checkoutData, restaurantId, offersData, offersError } =

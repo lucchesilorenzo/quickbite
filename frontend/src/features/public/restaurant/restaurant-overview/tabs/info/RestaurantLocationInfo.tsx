@@ -6,7 +6,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { getRestaurantOpeningTime } from "@/lib/utils/restaurants";
+import { getRestaurantOpeningTime } from "@/lib/utils/restaurants.utils";
 import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
 
 type RestaurantLocationInfoProps = {

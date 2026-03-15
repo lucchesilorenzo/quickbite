@@ -1,7 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { requirements } from "@rider/lib/constants/register-wizard/requirements";
 
 import RequirementCard from "../RequirementCard";
+
+import { requirements } from "@/features/private/rider/lib/data/register-wizard/requirements.data";
 
 export default function RequirementsStep() {
   return (

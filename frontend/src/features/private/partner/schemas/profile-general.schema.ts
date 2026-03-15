@@ -1,7 +1,7 @@
 import { matchIsValidTel } from "mui-tel-input";
 import z from "zod";
 
-import { isAdult } from "@/lib/utils/validation";
+import { isAdult } from "@/lib/utils/validation.utils";
 
 export const profileGeneralFormSchema = z.object({
   first_name: z

@@ -5,7 +5,7 @@ import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { formatCurrency } from "@/lib/utils/formatting";
+import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 export default function RestaurantDeliveryFee() {
   const { restaurantData, scrollToDeliveryFee, setScrollToDeliveryFee } =
@@ -41,7 +41,7 @@ export default function RestaurantDeliveryFee() {
       </Stack>
 
       <Card variant="outlined" sx={{ bgcolor: grey[100], p: 2 }}>
-        {restaurantData.restaurant.min_amount && (
+        {restaurantData.restaurant.min_amount > 0 && (
           <Stack
             direction="row"
             sx={{ alignItems: "center", justifyContent: "space-between" }}

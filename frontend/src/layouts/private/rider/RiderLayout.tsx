@@ -4,6 +4,7 @@ import { useEchoNotification } from "@laravel/echo-react";
 import { Stack } from "@mui/material";
 import JobPostsProvider from "@rider/contexts/JobPostsProvider";
 import NotificationsProvider from "@rider/contexts/NotificationsProvider";
+import RestaurantProvider from "@rider/contexts/RestaurantProvider";
 import Header from "@rider/header/Header";
 import { NewDeliveryReceivedToBroadcast } from "@rider/types/notifications/notification.types";
 import { useQueryClient } from "@tanstack/react-query";
@@ -47,11 +48,13 @@ export default function RiderLayout() {
   return (
     <NotificationsProvider>
       <JobPostsProvider>
-        <Stack sx={{ minHeight: "100vh" }}>
-          <Header />
+        <RestaurantProvider>
+          <Stack sx={{ minHeight: "100vh" }}>
+            <Header />
 
-          <Outlet />
-        </Stack>
+            <Outlet />
+          </Stack>
+        </RestaurantProvider>
       </JobPostsProvider>
     </NotificationsProvider>
   );

@@ -21,7 +21,7 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import PasswordStrengthIndicator from "@/components/common/PasswordStrengthIndicator";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
-import { calculatePasswordStrength } from "@/lib/utils/validation";
+import { calculatePasswordStrength } from "@/lib/utils/validation.utils";
 
 export default function RegisterForm() {
   const { getCarts } = useMultiCart();

@@ -12,7 +12,7 @@ import { PartnerMenu } from "@partner/types/menu/menu.types";
 import MenuItemQuantityInCartBadge from "../MenuItemQuantityInCartBadge";
 
 import { useAuth } from "@/contexts/AuthProvider";
-import { isCustomer } from "@/lib/utils/auth";
+import { isCustomer } from "@/lib/utils/auth.utils";
 import { MenuCategory } from "@/types/menu/menu.types";
 
 type MenuCategoryNavigationItemProps = {

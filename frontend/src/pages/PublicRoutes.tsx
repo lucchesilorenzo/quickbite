@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
 
-import BlockRoleRoute from "./BlockRoleRoute";
+import BlockRoleRoute from "./private/guards/BlockRoleRoute";
 import AreaPage from "./public/AreaPage";
 import HomePage from "./public/HomePage";
 import HowDoILeaveAReviewPage from "./public/HowDoILeaveAReviewPage";

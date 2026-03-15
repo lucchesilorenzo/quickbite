@@ -1,12 +1,5 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { TEditJobPostFormSchema } from "@partner/schemas/job-posts.schema";
-import {
-  MAX_SALARY,
-  MIN_SALARY,
-  employmentTypes,
-  jobPostStatuses,
-} from "@private/shared/lib/constants/job-posts";
-import { vehicles } from "@private/shared/lib/constants/vehicles";
 import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -18,8 +11,15 @@ import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
 import EditJobPostForm from "./EditJobPostForm";
 
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+  employmentTypes,
+  jobPostStatuses,
+} from "@/features/private/shared/lib/data/job-posts.data";
+import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
+import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 import env from "@/lib/env";
-import { notificationsDefaults } from "@/lib/query-defaults";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
   useRestaurant: vi.fn(),

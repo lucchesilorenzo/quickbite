@@ -19,7 +19,7 @@ import { grey } from "@mui/material/colors";
 import DeleteMenuItemDialog from "./DeleteMenuItemDialog";
 import EditMenuItemDialog from "./EditMenuItemDialog";
 
-import { formatCurrency, truncateWords } from "@/lib/utils/formatting";
+import { formatCurrency, truncateWords } from "@/lib/utils/formatting.utils";
 import { type MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemProps = {

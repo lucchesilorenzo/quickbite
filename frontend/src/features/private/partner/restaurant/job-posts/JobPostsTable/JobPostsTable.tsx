@@ -15,7 +15,6 @@ import {
 } from "@mui/x-data-grid";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useGetJobPosts } from "@partner/hooks/restaurants/job-posts/useGetJobPosts";
-import { jobPostsDefaults } from "@partner/lib/query-defaults";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Link } from "react-router-dom";
 
@@ -23,6 +22,8 @@ import AddJobPostDialog from "../AddJobPostDialog";
 import DeleteJobPostDialog from "../DeleteJobPostDialog";
 import DeleteJobPostsDialog from "../DeleteJobPostsDialog";
 import EditJobPostDialog from "../EditJobPostDialog";
+
+import { jobPostsDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
 
 export default function JobPostsTable() {
   const { restaurantData } = useRestaurant();

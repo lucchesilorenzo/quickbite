@@ -1,8 +1,8 @@
 import { Route } from "react-router-dom";
 
-import ProtectedRoute from "./ProtectedRoute";
 import CheckoutPage from "./private/customer/CheckoutPage";
 import CheckoutSuccessPage from "./private/customer/CheckoutSuccessPage";
+import ProtectedRoute from "./private/guards/ProtectedRoute";
 
 import CheckoutLayout from "@/layouts/private/customer/CheckoutLayout";
 

@@ -18,7 +18,7 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 
-import { headerDialogOptions } from "@/lib/constants/navigation";
+import { headerDialogOptions } from "@/lib/data/navigation.data";
 
 export default function HeaderDialog() {
   const [openHeaderDialog, setOpenHeaderDialog] = useState(false);

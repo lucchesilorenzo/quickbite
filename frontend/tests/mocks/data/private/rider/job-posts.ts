@@ -10,7 +10,7 @@ import {
 import {
   MAX_SALARY,
   MIN_SALARY,
-} from "@private/shared/lib/constants/job-posts";
+} from "@/features/private/shared/lib/data/job-posts.data";
 
 export const jobPostFilters: JobPostFilters = {
   search: "",

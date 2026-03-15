@@ -1,6 +1,6 @@
 import { Navigate, Route } from "react-router-dom";
 
-import BlockRoleRoute from "./BlockRoleRoute";
+import BlockRoleRoute from "./private/guards/BlockRoleRoute";
 import CustomerLoginPage from "./public/customer/CustomerLoginPage";
 import CustomerRegisterPage from "./public/customer/CustomerRegisterPage";
 import PartnerLoginPage from "./public/partner/PartnerLoginPage";

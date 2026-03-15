@@ -14,12 +14,12 @@ import { Box, Grid, Typography, debounce } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateMenuCategoriesOrder } from "@partner/hooks/restaurants/menu/categories/useUpdateMenuCategoriesOrder";
 import { useGetMenu } from "@partner/hooks/restaurants/menu/useGetMenu";
-import { menuDefaults } from "@partner/lib/query-defaults";
 
 import MenuCategoryItem from "./MenuCategoryItem";
 
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
+import { menuDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
 
 export default function MenuCategoriesList() {
   const { restaurantData } = useRestaurant();

@@ -20,7 +20,7 @@ import "react-leaflet-markercluster/styles";
 // @ts-ignore
 import "swiper/css/bundle";
 
-import { ignoreFocusVisibleWarning } from "./lib/utils/warnings";
+import { ignoreFocusVisibleWarning } from "./lib/utils/warnings.utils";
 import AppRoutes from "./pages/AppRoutes";
 
 import "@/lib/echo";

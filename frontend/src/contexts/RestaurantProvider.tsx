@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import Spinner from "@/components/common/Spinner";
 import { useGetRestaurant } from "@/hooks/restaurants/useGetRestaurant";
-import { restaurantDefaults } from "@/lib/query-defaults";
+import { restaurantDefaults } from "@/lib/data/defaults/query.defaults";
 import ErrorPage from "@/pages/public/ErrorPage";
 import { GetRestaurantResponse } from "@/types/restaurants/restaurant.api.types";
 import { RestaurantTab } from "@/types/restaurants/restaurant.types";

@@ -20,7 +20,7 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
-import { capitalize } from "@/lib/utils/formatting";
+import { capitalize } from "@/lib/utils/formatting.utils";
 
 export default function DeliveryTimesEditTab() {
   const { restaurantData } = useRestaurant();

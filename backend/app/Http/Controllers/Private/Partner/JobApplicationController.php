@@ -25,6 +25,9 @@ class JobApplicationController extends Controller
         private readonly JobApplicationService $jobApplicationService
     ) {}
 
+    /**
+     * Get job applications.
+     */
     public function getJobApplications(
         GetJobApplicationsRequest $request,
         JobPost $jobPost

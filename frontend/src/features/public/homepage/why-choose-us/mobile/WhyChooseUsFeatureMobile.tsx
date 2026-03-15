@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import WhyChooseUsFeatureSlideMobile from "./WhyChooseUsFeatureSlideMobile";
 
-import { whyChooseUsFeatures } from "@/lib/constants/marketing";
+import { whyChooseUsFeatures } from "@/lib/data/marketing.data";
 
 export default function WhyChooseUsFeatureMobile() {
   return (

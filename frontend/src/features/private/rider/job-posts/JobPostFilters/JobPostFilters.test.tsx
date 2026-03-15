@@ -1,7 +1,3 @@
-import {
-  MAX_SALARY,
-  MIN_SALARY,
-} from "@private/shared/lib/constants/job-posts";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -18,6 +14,11 @@ import {
   JobPostFilters as TJobPostFilters,
 } from "../../types/job-posts/job-post.types";
 import JobPostFilters from "./JobPostFilters";
+
+import {
+  MAX_SALARY,
+  MIN_SALARY,
+} from "@/features/private/shared/lib/data/job-posts.data";
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
   useJobPosts: vi.fn(),

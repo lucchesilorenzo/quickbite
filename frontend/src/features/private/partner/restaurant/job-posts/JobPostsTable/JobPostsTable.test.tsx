@@ -15,8 +15,8 @@ import { MemoryRouter } from "react-router-dom";
 
 import JobPostsTable from "./JobPostsTable";
 
+import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 import env from "@/lib/env";
-import { notificationsDefaults } from "@/lib/query-defaults";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
   useRestaurant: vi.fn(),
