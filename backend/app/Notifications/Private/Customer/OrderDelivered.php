@@ -41,7 +41,7 @@ class OrderDelivered extends Notification implements ShouldQueue
             ->subject("{$this->order->first_name}, your order has been delivered!")
             ->greeting("Hi {$this->order->first_name} {$this->order->last_name},")
             ->line("We're happy to let you know that your order # {$this->order->order_code} from {$this->order->restaurant->name} has just been delivered.")
-            ->line('Total paid: '.Number::currency($this->order->total, in: 'EUR', locale: 'it-IT'))
+            ->line('Total paid: ' . Number::currency($this->order->total, in: 'EUR', locale: 'it-IT'))
             ->line('Thank you for ordering with us! We hope you enjoyed your meal.');
     }
 }
