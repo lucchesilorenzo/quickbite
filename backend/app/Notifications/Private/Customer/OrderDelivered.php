@@ -11,7 +11,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Number;
 
-class OrderAccepted extends Notification implements ShouldQueue
+class OrderDelivered extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -38,10 +38,10 @@ class OrderAccepted extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("{$this->order->first_name}, order accepted")
-            ->greeting("Hello {$this->order->first_name} {$this->order->last_name},")
-            ->line("Your order # {$this->order->order_code} from   {$this->order->restaurant->name} has been accepted.")
-            ->line('Total: ' . Number::currency($this->order->total, in: 'EUR', locale: 'it-IT'))
-            ->line('Thank you for ordering with us!');
+            ->subject("{$this->order->first_name}, your order has been delivered!")
+            ->greeting("Hi {$this->order->first_name} {$this->order->last_name},")
+            ->line("We're happy to let you know that your order # {$this->order->order_code} from {$this->order->restaurant->name} has just been delivered.")
+            ->line('Total paid: '.Number::currency($this->order->total, in: 'EUR', locale: 'it-IT'))
+            ->line('Thank you for ordering with us! We hope you enjoyed your meal.');
     }
 }

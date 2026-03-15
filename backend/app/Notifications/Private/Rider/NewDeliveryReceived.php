@@ -91,4 +91,3 @@ class NewDeliveryReceived extends Notification implements ShouldQueue
         return 'new.delivery.received';
     }
 }
-

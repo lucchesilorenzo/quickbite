@@ -56,7 +56,7 @@ class NewOrderReceived extends Notification implements ShouldQueue
     {
         return [
             'title' => 'New order received',
-            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: ".Number::currency(
+            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: " . Number::currency(
                 $this->order->total,
                 in: 'EUR',
                 locale: 'it-IT'
@@ -81,7 +81,7 @@ class NewOrderReceived extends Notification implements ShouldQueue
         return new BroadcastMessage([
             'order_id' => $this->order->id,
             'title' => 'New order received',
-            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: ".Number::currency(
+            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: " . Number::currency(
                 $this->order->total,
                 in: 'EUR',
                 locale: 'it-IT'
@@ -107,4 +107,3 @@ class NewOrderReceived extends Notification implements ShouldQueue
         ];
     }
 }
-
