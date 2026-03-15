@@ -5,7 +5,7 @@ import { vi } from "vitest";
 
 import ViewOrderFeesAndDiscounts from "./ViewOrderFeesAndDiscounts";
 
-vi.mock("@/lib/utils/formatting", () => ({
+vi.mock("@/lib/utils/formatting.utils", () => ({
   formatCurrency: (value: number) => value.toString(),
 }));
 
