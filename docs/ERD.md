@@ -27,6 +27,7 @@
 | Restaurant             | `App\Models\Restaurant`             |
 | Review                 | `App\Models\Review`                 |
 | Role                   | `App\Models\Role`                   |
+| SocialProvider         | `App\Models\SocialProvider`         |
 | User                   | `App\Models\User`                   |
 
 ---
@@ -82,6 +83,7 @@
 - `rider_first_name` (varchar)
 - `rider_last_name` (varchar)
 - `rider_phone_number` (varchar)
+- `started_at` (timestamp)
 - `delivered_at` (timestamp)
 - `cancelled_at` (timestamp)
 - `created_at` (timestamp)
@@ -113,6 +115,7 @@
 - `phone_number` (varchar)
 - `resume` (varchar)
 - `status` (varchar)
+- `declaration_accepted_at` (timestamp)
 - `created_at` (timestamp)
 - `updated_at` (timestamp)
 
@@ -126,6 +129,7 @@
 - `description_html` (text)
 - `description_text` (text)
 - `employment_type` (varchar)
+- `vehicle_type` (varchar)
 - `salary` (numeric)
 - `status` (varchar)
 - `created_at` (timestamp)
@@ -254,6 +258,7 @@
 - `min_amount` (numeric)
 - `delivery_fee` (numeric)
 - `service_fee` (numeric)
+- `reviews_avg_rating` (numeric)
 - `min_delivery_time` (int2)
 - `max_delivery_time` (int2)
 - `logo` (varchar)
@@ -273,6 +278,16 @@
 - `order_id` (uuid)
 - `comment` (varchar)
 - `rating` (int4)
+- `created_at` (timestamp)
+- `updated_at` (timestamp)
+
+### Role (`App\Models\Role`)
+
+#### Attributes:
+
+- `uuid` (uuid)
+- `name` (varchar)
+- `guard_name` (varchar)
 - `created_at` (timestamp)
 - `updated_at` (timestamp)
 
@@ -312,6 +327,17 @@
 - `created_at` (timestamp)
 - `updated_at` (timestamp)
 
+### SocialProvider (`App\Models\SocialProvider`)
+
+#### Attributes:
+
+- `id` (uuid)
+- `user_id` (uuid)
+- `provider` (varchar)
+- `provider_id` (varchar)
+- `created_at` (timestamp)
+- `updated_at` (timestamp)
+
 ## Relationships
 
 ### Cart Relationships
@@ -327,7 +353,7 @@
 
 ### Category Relationships
 
-- **BelongsToMany** `restaurants` to Restaurant (Local Key: `, Foreign Key: `)
+- **BelongsToMany** `restaurants` to Restaurant (Local Key: `id`, Foreign Key: `category_id`, Pivot Table: `category_restaurant`)
 
 ### Delivery Relationships
 
@@ -341,7 +367,7 @@
 ### JobApplication Relationships
 
 - **BelongsTo** `jobPost` to JobPost (Local Key: `job_post_id`, Foreign Key: `id`)
-- **BelongsTo** `rider` to User (Local Key: `user_id`, Foreign Key: `id`)
+- **BelongsTo** `rider` to User (Local Key: `rider_id`, Foreign Key: `id`)
 
 ### JobPost Relationships
 
@@ -381,9 +407,9 @@
 
 ### Restaurant Relationships
 
-- **BelongsToMany** `partners` to User (Local Key: `, Foreign Key: `)
-- **BelongsToMany** `riders` to User (Local Key: `, Foreign Key: `)
-- **BelongsToMany** `categories` to Category (Local Key: `, Foreign Key: `)
+- **BelongsToMany** `partners` to User (Local Key: `id`, Foreign Key: `restaurant_id`, Pivot Table: `restaurant_user`, Related Key: `user_id`, Pivot Columns: `role`)
+- **BelongsToMany** `riders` to User (Local Key: `id`, Foreign Key: `restaurant_id`, Pivot Table: `restaurant_user`, Related Key: `user_id`, Pivot Columns: `role`, `is_active`)
+- **BelongsToMany** `categories` to Category (Local Key: `id`, Foreign Key: `restaurant_id`, Pivot Table: `category_restaurant`, Related Key: `category_id`)
 - **HasMany** `deliveryDays` to DeliveryDay (Local Key: `id`, Foreign Key: `restaurant_id`)
 - **HasMany** `offers` to Offer (Local Key: `id`, Foreign Key: `restaurant_id`)
 - **HasMany** `menuCategories` to MenuCategory (Local Key: `id`, Foreign Key: `restaurant_id`)
@@ -400,14 +426,18 @@
 
 ### User Relationships
 
-- **BelongsToMany** `restaurants` to Restaurant (Local Key: `, Foreign Key: `)
+- **BelongsToMany** `restaurants` to Restaurant (Local Key: `id`, Foreign Key: `user_id`, Pivot Table: `restaurant_user`, Related Key: `restaurant_id`, Pivot Columns: `role`, `is_active`)
 - **HasMany** `notificationPreferences` to NotificationPreference (Local Key: `id`, Foreign Key: `user_id`)
 - **HasMany** `reviews` to Review (Local Key: `id`, Foreign Key: `user_id`)
 - **HasMany** `carts` to Cart (Local Key: `id`, Foreign Key: `user_id`)
 - **HasMany** `orders` to Order (Local Key: `id`, Foreign Key: `user_id`)
-- **BelongsToMany** `ownedRestaurants` to Restaurant (Local Key: `, Foreign Key: `)
-- **BelongsToMany** `coOwnedRestaurants` to Restaurant (Local Key: `, Foreign Key: `)
-- **BelongsToMany** `riderRestaurants` to Restaurant (Local Key: `, Foreign Key: `)
-- **HasMany** `jobApplications` to JobApplication (Local Key: `id`, Foreign Key: `user_id`)
+- **BelongsToMany** `ownedRestaurants` to Restaurant (Local Key: `id`, Foreign Key: `user_id`, Pivot Table: `restaurant_user`, Related Key: `restaurant_id`, Pivot Columns: `role`)
+- **BelongsToMany** `coOwnedRestaurants` to Restaurant (Local Key: `id`, Foreign Key: `user_id`, Pivot Table: `restaurant_user`, Related Key: `restaurant_id`, Pivot Columns: `role`)
+- **BelongsToMany** `riderRestaurants` to Restaurant (Local Key: `id`, Foreign Key: `user_id`, Pivot Table: `restaurant_user`, Related Key: `restaurant_id`, Pivot Columns: `role`, `is_active`)
+- **HasMany** `jobApplications` to JobApplication (Local Key: `id`, Foreign Key: `rider_id`)
 - **MorphToMany** `roles` to Role (Local Key: `, Foreign Key: `)
 - **MorphToMany** `permissions` to Permission (Local Key: `, Foreign Key: `)
+
+### SocialProvider Relationships
+
+- **BelongsTo** `user` to User (Local Key: `user_id`, Foreign Key: `id`)
