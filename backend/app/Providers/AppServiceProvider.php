@@ -26,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
 
-        ResetPassword::createUrlUsing(fn (User $user, string $token): string => config('app.frontend_url').'/auth/reset-password?token='.$token.'&email='.$user->email);
+        ResetPassword::createUrlUsing(fn (User $user, string $token): string => config('app.frontend_url') . '/auth/reset-password?token=' . $token . '&email=' . $user->email);
     }
 }
