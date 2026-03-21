@@ -16,9 +16,8 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import ForgotPasswordDialog from "@public/auth/components/ForgotPasswordDialog";
 import { Controller, useForm } from "react-hook-form";
-
-import ForgotPasswordDialog from "./ForgotPasswordDialog";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
