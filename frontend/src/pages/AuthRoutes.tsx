@@ -1,6 +1,7 @@
 import { Navigate, Route } from "react-router-dom";
 
 import BlockRoleRoute from "./private/guards/BlockRoleRoute";
+import ResetPasswordPage from "./public/ResetPasswordPage";
 import CustomerLoginPage from "./public/customer/CustomerLoginPage";
 import CustomerRegisterPage from "./public/customer/CustomerRegisterPage";
 import PartnerLoginPage from "./public/partner/PartnerLoginPage";
@@ -11,11 +12,18 @@ import RiderRegisterPage from "./public/rider/RiderRegisterPage";
 import CustomerAuthLayout from "@/layouts/private/customer/CustomerAuthLayout";
 import PartnerAuthLayout from "@/layouts/private/partner/PartnerAuthLayout";
 import RiderAuthLayout from "@/layouts/private/rider/RiderAuthLayout";
+import AuthLayout from "@/layouts/public/AuthLayout";
 import { Role } from "@/types/user.types";
 
 const AUTH_BLOCKED_ROLES: Role[] = ["customer", "partner", "rider"];
 
 export const AuthRoutes = [
+  <Route path="/" element={<AuthLayout />}>
+    <Route element={<BlockRoleRoute blockedRoles={AUTH_BLOCKED_ROLES} />}>
+      <Route path="auth/reset-password" element={<ResetPasswordPage />} />
+    </Route>
+  </Route>,
+
   <Route path="/" element={<CustomerAuthLayout />}>
     <Route
       path="customer/auth"
