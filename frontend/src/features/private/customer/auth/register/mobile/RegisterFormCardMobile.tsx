@@ -7,10 +7,7 @@ import RegisterForm from "../RegisterForm";
 export default function RegisterFormCardMobile() {
   return (
     <Box sx={{ display: { xs: "block", lg: "none" }, p: 3 }}>
-      <Typography
-        variant="h5"
-        sx={{ textAlign: "center", fontWeight: 700, mb: 4 }}
-      >
+      <Typography variant="h5" sx={{ fontWeight: 700, mb: 4 }}>
         Create account
       </Typography>
 
