@@ -73,7 +73,7 @@ export default function RegisterForm() {
       spacing={4}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 4, sm: 2 }}>
         <Controller
           name="first_name"
           control={control}

@@ -16,6 +16,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import ForgotPasswordDialog from "@public/auth/components/ForgotPasswordDialog";
 import { Controller, useForm } from "react-hook-form";
 
 import FormHelperTextError from "@/components/common/FormHelperTextError";
@@ -41,6 +42,8 @@ export default function LoginForm() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [openForgotPasswordDialog, setOpenForgotPasswordDialog] =
+    useState(false);
 
   async function onSubmit(data: TLoginFormSchema) {
     const guestCarts = getCarts().filter((cart) => cart.items.length > 0);
@@ -55,85 +58,102 @@ export default function LoginForm() {
   }
 
   return (
-    <Stack
-      component="form"
-      autoComplete="off"
-      noValidate
-      spacing={4}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Controller
-        name="email"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            type="email"
-            autoComplete="off"
-            required
-            label="Email address"
-            error={!!errors.email}
-            helperText={
-              errors.email?.message && (
-                <FormHelperTextError message={errors.email.message} />
-              )
-            }
-            fullWidth
-            sx={{ minWidth: 150 }}
-          />
-        )}
-      />
-
-      <Controller
-        name="password"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            type={showPassword ? "text" : "password"}
-            required
-            label="Password"
-            error={!!errors.password}
-            helperText={
-              errors.password?.message && (
-                <FormHelperTextError message={errors.password.message} />
-              )
-            }
-            fullWidth
-            sx={{ minWidth: 150 }}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onMouseDown={() => setShowPassword(true)}
-                      onMouseUp={() => setShowPassword(false)}
-                      onMouseLeave={() => setShowPassword(false)}
-                      onTouchStart={() => setShowPassword(true)}
-                      onTouchEnd={() => setShowPassword(false)}
-                    >
-                      {showPassword ? (
-                        <VisibilityOffIcon />
-                      ) : (
-                        <VisibilityIcon />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-        )}
-      />
-
-      <Button
-        type="submit"
-        loading={isSubmitting || isLoggingIn || isCreating}
-        loadingIndicator="Logging in..."
-        variant="contained"
+    <>
+      <Stack
+        component="form"
+        autoComplete="off"
+        noValidate
+        spacing={4}
+        onSubmit={handleSubmit(onSubmit)}
       >
-        Log in
-      </Button>
-    </Stack>
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type="email"
+              autoComplete="off"
+              required
+              label="Email address"
+              error={!!errors.email}
+              helperText={
+                errors.email?.message && (
+                  <FormHelperTextError message={errors.email.message} />
+                )
+              }
+              fullWidth
+              sx={{ minWidth: 150 }}
+            />
+          )}
+        />
+
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type={showPassword ? "text" : "password"}
+              required
+              label="Password"
+              error={!!errors.password}
+              helperText={
+                errors.password?.message && (
+                  <FormHelperTextError message={errors.password.message} />
+                )
+              }
+              fullWidth
+              sx={{ minWidth: 150 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onMouseDown={() => setShowPassword(true)}
+                        onMouseUp={() => setShowPassword(false)}
+                        onMouseLeave={() => setShowPassword(false)}
+                        onTouchStart={() => setShowPassword(true)}
+                        onTouchEnd={() => setShowPassword(false)}
+                      >
+                        {showPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <VisibilityIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
+          )}
+        />
+
+        <Stack spacing={2}>
+          <Button
+            type="submit"
+            loading={isSubmitting || isLoggingIn || isCreating}
+            loadingIndicator="Logging in..."
+            variant="contained"
+          >
+            Log in
+          </Button>
+
+          <Button
+            color="inherit"
+            sx={{ alignSelf: "flex-end", textTransform: "none" }}
+            onClick={() => setOpenForgotPasswordDialog(true)}
+          >
+            Did you forget your password?
+          </Button>
+        </Stack>
+      </Stack>
+
+      <ForgotPasswordDialog
+        openForgotPasswordDialog={openForgotPasswordDialog}
+        setOpenForgotPasswordDialog={setOpenForgotPasswordDialog}
+      />
+    </>
   );
 }

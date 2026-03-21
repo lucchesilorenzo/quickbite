@@ -1,21 +1,29 @@
 import { Navigate, Route } from "react-router-dom";
 
 import BlockRoleRoute from "./private/guards/BlockRoleRoute";
-import CustomerLoginPage from "./public/customer/CustomerLoginPage";
-import CustomerRegisterPage from "./public/customer/CustomerRegisterPage";
-import PartnerLoginPage from "./public/partner/PartnerLoginPage";
-import PartnerRegisterPage from "./public/partner/PartnerRegisterPage";
-import RiderLoginPage from "./public/rider/RiderLoginPage";
-import RiderRegisterPage from "./public/rider/RiderRegisterPage";
+import ResetPasswordPage from "./public/auth/ResetPasswordPage";
+import CustomerLoginPage from "./public/auth/customer/CustomerLoginPage";
+import CustomerRegisterPage from "./public/auth/customer/CustomerRegisterPage";
+import PartnerLoginPage from "./public/auth/partner/PartnerLoginPage";
+import PartnerRegisterPage from "./public/auth/partner/PartnerRegisterPage";
+import RiderLoginPage from "./public/auth/rider/RiderLoginPage";
+import RiderRegisterPage from "./public/auth/rider/RiderRegisterPage";
 
 import CustomerAuthLayout from "@/layouts/private/customer/CustomerAuthLayout";
 import PartnerAuthLayout from "@/layouts/private/partner/PartnerAuthLayout";
 import RiderAuthLayout from "@/layouts/private/rider/RiderAuthLayout";
+import AuthLayout from "@/layouts/public/AuthLayout";
 import { Role } from "@/types/user.types";
 
 const AUTH_BLOCKED_ROLES: Role[] = ["customer", "partner", "rider"];
 
 export const AuthRoutes = [
+  <Route path="/" element={<AuthLayout />}>
+    <Route element={<BlockRoleRoute blockedRoles={AUTH_BLOCKED_ROLES} />}>
+      <Route path="auth/reset-password" element={<ResetPasswordPage />} />
+    </Route>
+  </Route>,
+
   <Route path="/" element={<CustomerAuthLayout />}>
     <Route
       path="customer/auth"

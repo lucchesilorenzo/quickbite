@@ -8,7 +8,7 @@ import HowWeRankPage from "./public/HowWeRankPage";
 import PrivacyPolicyPage from "./public/PrivacyPolicyPage";
 import RestaurantPage from "./public/RestaurantPage";
 import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
-import BecomeARiderPage from "./public/rider/RiderRegisterPage";
+import BecomeARiderPage from "./public/auth/rider/RiderRegisterPage";
 
 import AppLayout from "@/layouts/public/AppLayout";
 import AreaLayout from "@/layouts/public/AreaLayout";

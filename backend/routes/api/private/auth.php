@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')
     ->group(function (): void {
         Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+        Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+        Route::post('/reset-password', [AuthController::class, 'resetPassword']);
         Route::get('/{provider}/redirect', [SocialAuthController::class, 'redirect']);
         Route::get('/{provider}/callback', [SocialAuthController::class, 'callback']);
     });
