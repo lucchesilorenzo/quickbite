@@ -1,13 +1,13 @@
 import { Navigate, Route } from "react-router-dom";
 
 import BlockRoleRoute from "./private/guards/BlockRoleRoute";
-import ResetPasswordPage from "./public/ResetPasswordPage";
-import CustomerLoginPage from "./public/customer/CustomerLoginPage";
-import CustomerRegisterPage from "./public/customer/CustomerRegisterPage";
-import PartnerLoginPage from "./public/partner/PartnerLoginPage";
-import PartnerRegisterPage from "./public/partner/PartnerRegisterPage";
-import RiderLoginPage from "./public/rider/RiderLoginPage";
-import RiderRegisterPage from "./public/rider/RiderRegisterPage";
+import ResetPasswordPage from "./public/auth/ResetPasswordPage";
+import CustomerLoginPage from "./public/auth/customer/CustomerLoginPage";
+import CustomerRegisterPage from "./public/auth/customer/CustomerRegisterPage";
+import PartnerLoginPage from "./public/auth/partner/PartnerLoginPage";
+import PartnerRegisterPage from "./public/auth/partner/PartnerRegisterPage";
+import RiderLoginPage from "./public/auth/rider/RiderLoginPage";
+import RiderRegisterPage from "./public/auth/rider/RiderRegisterPage";
 
 import CustomerAuthLayout from "@/layouts/private/customer/CustomerAuthLayout";
 import PartnerAuthLayout from "@/layouts/private/partner/PartnerAuthLayout";
