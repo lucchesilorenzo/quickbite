@@ -37,7 +37,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     return <FullPageSpinner />;
   }
 
-  const user = !isError ? data.user : null;
+  const user = localStorage.getItem("token") && !isError ? data.user : null;
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

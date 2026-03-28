@@ -19,14 +19,14 @@ Route::prefix('customer')->group(function (): void {
 
     // === RESTAURANTS ===
     Route::prefix('restaurants')
-        ->middleware(['auth:sanctum', 'role:customer'])
+        ->middleware(['auth:sanctum', 'verified', 'role:customer'])
         ->group(function (): void {
             Route::post('/{restaurantSlug}/reviews', [ReviewController::class, 'createReview']);
         });
 
     // === PROFILE MANAGEMENT ===
     Route::prefix('profile')
-        ->middleware(['auth:sanctum', 'role:customer'])
+        ->middleware(['auth:sanctum', 'verified', 'role:customer'])
         ->group(function (): void {
             Route::patch('/personal-info', [ProfileController::class, 'updatePersonalInfo']);
             Route::patch('/address-info', [ProfileController::class, 'updateAddressInfo']);
@@ -34,7 +34,7 @@ Route::prefix('customer')->group(function (): void {
 
     // === CARTS MANAGEMENT ===
     Route::prefix('carts')
-        ->middleware(['auth:sanctum', 'role:customer'])
+        ->middleware(['auth:sanctum', 'verified', 'role:customer'])
         ->group(function (): void {
             Route::get('/', [CartController::class, 'getCarts']);
             Route::get('/{cart}', [CartController::class, 'getCart']);
@@ -45,7 +45,7 @@ Route::prefix('customer')->group(function (): void {
 
     // === ORDERS MANAGEMENT ===
     Route::prefix('orders')
-        ->middleware(['auth:sanctum', 'role:customer'])
+        ->middleware(['auth:sanctum', 'verified', 'role:customer'])
         ->group(function (): void {
             Route::get('/', [OrderController::class, 'getOrders']);
             Route::get('/{order}', [OrderController::class, 'getOrder']);

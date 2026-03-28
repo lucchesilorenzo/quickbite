@@ -10,6 +10,7 @@ use App\Exceptions\Private\Rider\UnauthorizedException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\User;
 use App\Services\Shared\LocationService;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -63,6 +64,8 @@ class AuthService
         ]);
 
         $rider->assignRole(UserRole::RIDER);
+
+        event(new Registered($rider));
 
         return $rider;
     }

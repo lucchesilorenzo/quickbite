@@ -13,6 +13,7 @@ use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Services\Shared\LocationService;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -78,6 +79,8 @@ class AuthService
         ]);
 
         $partner->assignRole(UserRole::PARTNER);
+
+        event(new Registered($partner));
 
         return $partner;
     }

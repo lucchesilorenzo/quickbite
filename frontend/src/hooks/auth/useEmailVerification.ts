@@ -1,27 +1,27 @@
-import {
-  RegisterPayload,
-  RegisterResponse,
-} from "@partner/types/auth/auth.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
-import { useNavigate } from "react-router-dom";
 
 import { postData } from "@/lib/api-client";
+import { ApiResponse } from "@/types/api.types";
 
-export function useRegister() {
+export function useEmailVerification() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
-  const navigate = useNavigate();
 
-  return useMutation<RegisterResponse, Error, RegisterPayload>({
-    mutationFn: (data) => postData("/partner/auth/register", data),
-    onSuccess: () => {
+  return useMutation<ApiResponse, Error, void>({
+    mutationFn: (data) =>
+      postData("/auth/email/verification-notification", data),
+    onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate("/auth/verify-email");
+
+      notifications.show(response.message, {
+        key: "email-verification-success",
+        severity: "success",
+      });
     },
     onError: (error) => {
       notifications.show(error.message, {
-        key: "partner-register-error",
+        key: "email-verification-error",
         severity: "error",
       });
     },

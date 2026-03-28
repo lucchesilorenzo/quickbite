@@ -1,7 +1,9 @@
 import { Navigate, Route } from "react-router-dom";
 
 import BlockRoleRoute from "./private/guards/BlockRoleRoute";
+import BlockVerifyEmailPage from "./private/guards/BlockVerifyEmailPage";
 import ResetPasswordPage from "./public/auth/ResetPasswordPage";
+import VerifyEmailPage from "./public/auth/VerifyEmailPage";
 import CustomerLoginPage from "./public/auth/customer/CustomerLoginPage";
 import CustomerRegisterPage from "./public/auth/customer/CustomerRegisterPage";
 import PartnerLoginPage from "./public/auth/partner/PartnerLoginPage";
@@ -21,6 +23,10 @@ export const AuthRoutes = [
   <Route path="/" element={<AuthLayout />}>
     <Route element={<BlockRoleRoute blockedRoles={AUTH_BLOCKED_ROLES} />}>
       <Route path="auth/reset-password" element={<ResetPasswordPage />} />
+    </Route>
+
+    <Route element={<BlockVerifyEmailPage />}>
+      <Route path="auth/verify-email" element={<VerifyEmailPage />} />
     </Route>
   </Route>,
 

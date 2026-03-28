@@ -21,7 +21,7 @@ Route::prefix('rider')->group(function (): void {
 
     // === NOTIFICATIONS ===
     Route::prefix('notifications')
-        ->middleware(['auth:sanctum', 'role:rider'])
+        ->middleware(['auth:sanctum', 'verified', 'role:rider'])
         ->group(function (): void {
             Route::get('/', [NotificationController::class, 'getNotifications']);
             Route::post('/mark-as-read', [NotificationController::class, 'markNotificationsAsRead']);
@@ -29,7 +29,7 @@ Route::prefix('rider')->group(function (): void {
 
     // === PROFILE MANAGEMENT ===
     Route::prefix('profile')
-        ->middleware(['auth:sanctum', 'role:rider'])
+        ->middleware(['auth:sanctum', 'verified', 'role:rider'])
         ->group(function (): void {
             Route::patch('/general', [ProfileController::class, 'updateProfileGeneralInformation']);
             Route::patch('/notifications', [ProfileController::class, 'updateProfileNotifications']);
@@ -37,7 +37,7 @@ Route::prefix('rider')->group(function (): void {
 
     // === RESTAURANT ===
     Route::prefix('restaurant')
-        ->middleware(['auth:sanctum', 'role:rider'])
+        ->middleware(['auth:sanctum', 'verified', 'role:rider'])
         ->group(function (): void {
             Route::get('/', [RestaurantController::class, 'getRestaurant']);
 
@@ -51,7 +51,7 @@ Route::prefix('rider')->group(function (): void {
 
     // === JOB POSTS ===
     Route::prefix('job-posts')
-        ->middleware(['auth:sanctum', 'role:rider'])
+        ->middleware(['auth:sanctum', 'verified', 'role:rider'])
         ->group(function (): void {
             Route::get('/', [JobPostController::class, 'getJobPosts']);
             Route::get('/{jobPost}', [JobPostController::class, 'getJobPost']);

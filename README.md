@@ -16,6 +16,8 @@
 
 - Secure login for customers, partners, and riders.
 - Role-based access and permissions.
+- OAuth2 login with Google.
+- Password reset and email verification.
 
 ### 👤 Guest
 
@@ -229,7 +231,6 @@ The API documentation is available at [http://localhost:8000/docs/api](http://lo
 
 ## Roadmap
 
-- Reset password functionality.
 - Integrate Stripe for payment processing.
 - Add more tests.
 - Improve user experience and design.

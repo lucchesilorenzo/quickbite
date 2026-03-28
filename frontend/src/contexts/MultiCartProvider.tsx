@@ -68,7 +68,7 @@ export default function MultiCartProvider({
     data: cartsData = { success: false, message: "", carts: [] },
     isLoading: isLoadingCarts,
     error: cartsError,
-  } = useGetCarts({ isCustomer: isCustomer(user) });
+  } = useGetCarts();
 
   const { mutate: createOrUpdateCart, isPending: isCartUpdating } =
     useCreateOrUpdateCart();

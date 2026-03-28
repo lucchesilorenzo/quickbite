@@ -27,7 +27,7 @@ Route::prefix('partner')->group(function (): void {
 
     // === PROFILE MANAGEMENT ===
     Route::prefix('profile')
-        ->middleware(['auth:sanctum', 'role:partner'])
+        ->middleware(['auth:sanctum', 'verified', 'role:partner'])
         ->group(function (): void {
             Route::patch('/general', [ProfileController::class, 'updateProfileGeneralInformation']);
             Route::patch('/notifications', [ProfileController::class, 'updateProfileNotifications']);
@@ -35,7 +35,7 @@ Route::prefix('partner')->group(function (): void {
 
     // === RESTAURANTS ===
     Route::prefix('restaurants')
-        ->middleware(['auth:sanctum', 'role:partner'])
+        ->middleware(['auth:sanctum', 'verified', 'role:partner'])
         ->group(function (): void {
             Route::get('/', [RestaurantController::class, 'getRestaurants']);
             Route::get('/{restaurant}', [RestaurantController::class, 'getRestaurant']);
@@ -94,7 +94,7 @@ Route::prefix('partner')->group(function (): void {
         });
 
     // Job Applications
-    Route::middleware(['auth:sanctum', 'role:partner'])->group(function (): void {
+    Route::middleware(['auth:sanctum', 'verified', 'role:partner'])->group(function (): void {
         Route::get('/job-posts/{jobPost}/applications', [JobApplicationController::class, 'getJobApplications']);
         Route::get('/job-applications/{jobApplication}/resume', [JobApplicationController::class, 'downloadResume']);
         Route::patch('/job-applications/{jobApplication}/status', [JobApplicationController::class, 'updateJobApplicationStatus']);

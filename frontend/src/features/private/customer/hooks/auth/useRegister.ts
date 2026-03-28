@@ -19,7 +19,7 @@ export function useRegister() {
       postData("/customer/auth/register", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate("/");
+      navigate("/auth/verify-email");
     },
     onError: (error) => {
       notifications.show(error.message, {
