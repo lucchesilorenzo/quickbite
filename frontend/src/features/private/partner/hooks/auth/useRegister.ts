@@ -17,7 +17,7 @@ export function useRegister() {
     mutationFn: (data) => postData("/partner/auth/register", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate("/partner/restaurants");
+      navigate("/auth/verify-email");
     },
     onError: (error) => {
       notifications.show(error.message, {
