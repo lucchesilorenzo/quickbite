@@ -9,7 +9,6 @@ import AuthHeaderDialog from "./AuthHeaderDialog";
 
 import HeaderDialog from "@/components/common/HeaderDialog";
 import { useAuth } from "@/contexts/AuthProvider";
-import { isCustomer } from "@/lib/utils/auth.utils";
 
 export default function AuthHeader() {
   const { user } = useAuth();
@@ -36,7 +35,7 @@ export default function AuthHeader() {
           </Typography>
         </Stack>
 
-        {isCustomer(user) ? <AuthHeaderDialog /> : <HeaderDialog />}
+        {user ? <AuthHeaderDialog /> : <HeaderDialog />}
       </Toolbar>
     </AppBar>
   );

@@ -3,8 +3,6 @@ import { grey } from "@mui/material/colors";
 import AuthHeader from "@public/auth/components/AuthHeader";
 import { Outlet } from "react-router-dom";
 
-import Footer from "@/components/common/Footer";
-
 export default function AuthLayout() {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
@@ -23,8 +21,6 @@ export default function AuthLayout() {
       >
         <Outlet />
       </Box>
-
-      <Footer />
     </Stack>
   );
 }
