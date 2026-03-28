@@ -1,4 +1,4 @@
-import { useLogout } from "@customer/hooks/auth/useLogout";
+import { useLogout as useCustomerLogout } from "@customer/hooks/auth/useLogout";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
@@ -16,29 +16,51 @@ import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import { grey } from "@mui/material/colors";
+import { useLogout as usePartnerLogout } from "@partner/hooks/auth/useLogout";
+import { useLogout as useRiderLogout } from "@rider/hooks/auth/useLogout";
 import { useSearchParams } from "react-router-dom";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
+import { isCustomer, isPartner, isRider } from "@/lib/utils/auth.utils";
 
 export default function AuthHeaderDialog() {
   const { user } = useAuth();
   const { emptyCarts } = useMultiCart();
 
-  const { mutateAsync: logoutCustomer, isPending: isLoggingOut } = useLogout();
+  const { mutateAsync: logoutCustomer, isPending: isLoggingOutCustomer } =
+    useCustomerLogout();
+  const { mutateAsync: logoutPartner, isPending: isLoggingOutPartner } =
+    usePartnerLogout();
+  const { mutateAsync: logoutRider, isPending: isLoggingOutRider } =
+    useRiderLogout();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const dialog = searchParams.get("dialog");
-
   const openHeaderDialog = dialog === "main";
-
+  const isLoading =
+    isLoggingOutCustomer || isLoggingOutPartner || isLoggingOutRider;
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
-  async function handleLogoutCustomer() {
+  async function handleLogout() {
+    if (isCustomer(user)) {
+      await logoutCustomer();
+      emptyCarts();
+      return;
+    }
+
+    if (isPartner(user)) {
+      await logoutPartner();
+      return;
+    }
+
+    if (isRider(user)) {
+      await logoutRider();
+      return;
+    }
+
     handleCloseDialog();
-    await logoutCustomer();
-    emptyCarts();
   }
 
   function handleMainDialog() {
@@ -88,10 +110,7 @@ export default function AuthHeaderDialog() {
 
           <List disablePadding>
             <ListItem disablePadding>
-              <ListItemButton
-                onClick={handleLogoutCustomer}
-                disabled={isLoggingOut}
-              >
+              <ListItemButton onClick={handleLogout} disabled={isLoading}>
                 <ListItemIcon sx={{ color: grey[900] }}>
                   <PowerSettingsNewIcon />
                 </ListItemIcon>
