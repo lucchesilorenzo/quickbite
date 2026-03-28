@@ -16,6 +16,8 @@
 
 - Secure login for customers, partners, and riders.
 - Role-based access and permissions.
+- OAuth2 login with Google.
+- Password reset and email verification.
 
 ### 👤 Guest
 
