@@ -20,7 +20,7 @@ export function useRegister() {
 
       localStorage.removeItem("rider_registration_data");
 
-      navigate("/rider/job-posts");
+      navigate("/auth/verify-email");
     },
     onError: (error) => {
       notifications.show(error.message, {
