@@ -1,6 +1,7 @@
 import { Navigate, Route } from "react-router-dom";
 
 import BlockRoleRoute from "./private/guards/BlockRoleRoute";
+import BlockVerifyEmailPage from "./private/guards/BlockVerifyEmailPage";
 import ResetPasswordPage from "./public/auth/ResetPasswordPage";
 import VerifyEmailPage from "./public/auth/VerifyEmailPage";
 import CustomerLoginPage from "./public/auth/customer/CustomerLoginPage";
@@ -24,7 +25,9 @@ export const AuthRoutes = [
       <Route path="auth/reset-password" element={<ResetPasswordPage />} />
     </Route>
 
-    <Route path="auth/verify-email" element={<VerifyEmailPage />} />
+    <Route element={<BlockVerifyEmailPage />}>
+      <Route path="auth/verify-email" element={<VerifyEmailPage />} />
+    </Route>
   </Route>,
 
   <Route path="/" element={<CustomerAuthLayout />}>
