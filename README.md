@@ -229,7 +229,6 @@ The API documentation is available at [http://localhost:8000/docs/api](http://lo
 
 ## Roadmap
 
-- Reset password functionality.
 - Integrate Stripe for payment processing.
 - Add more tests.
 - Improve user experience and design.

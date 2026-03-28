@@ -11,7 +11,9 @@ use App\Models\User;
 use App\Services\Private\AuthService;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -104,5 +106,44 @@ class AuthController extends Controller
                 'message' => 'Could not reset password.',
             ], 400),
         };
+    }
+
+    /**
+     * Verify the email.
+     */
+    public function verifyEmail(string $id, string $hash): RedirectResponse
+    {
+        $user = User::query()->findOrFail($id);
+
+        if (! hash_equals(sha1((string) $user->getEmailForVerification()), $hash)) {
+            abort(403);
+        }
+
+        if (! $user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+            event(new Verified($user));
+        }
+
+        return redirect(config('app.frontend_url'));
+    }
+
+    /**
+     * Resend the email verification notification.
+     */
+    public function resendEmailVerification(): JsonResponse
+    {
+        if (auth()->user()->hasVerifiedEmail()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email already verified.',
+            ], 400);
+        }
+
+        auth()->user()->sendEmailVerificationNotification();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Verification link resent.',
+        ], 200);
     }
 }

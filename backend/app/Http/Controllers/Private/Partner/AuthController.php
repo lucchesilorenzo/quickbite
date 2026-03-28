@@ -46,7 +46,7 @@ class AuthController extends Controller
             if ($e->getCode() === '23505') {
                 return response()->json([
                     'success' => false,
-                    'message' => 'User already exists.',
+                    'message' => 'Email already exists.',
                 ], 409);
             }
 

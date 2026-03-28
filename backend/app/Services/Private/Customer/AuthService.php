@@ -9,6 +9,7 @@ use App\Exceptions\Private\Customer\CustomerHasSocialLoginException;
 use App\Exceptions\Private\Customer\UnauthorizedException;
 use App\Exceptions\Private\InvalidCredentialsException;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
@@ -22,7 +23,7 @@ class AuthService
                 throw new CustomerHasSocialLoginException;
             }
 
-            throw new InvalidCredentialsException('User already exists.');
+            throw new InvalidCredentialsException('Email already exists.');
         }
 
         $customer = User::query()->create([
@@ -31,6 +32,8 @@ class AuthService
         ]);
 
         $customer->assignRole(UserRole::CUSTOMER);
+
+        event(new Registered($customer));
 
         return $customer->createToken('customer_web_token')->plainTextToken;
     }
