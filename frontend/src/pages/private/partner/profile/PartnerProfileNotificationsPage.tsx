@@ -12,7 +12,6 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import HeadingBlock from "@/components/common/HeadingBlock";
 import { useAuth } from "@/contexts/AuthProvider";
-import { NotificationType } from "@/types/user.types";
 
 export default function PartnerProfileNotificationsPage() {
   useEffect(() => {
@@ -24,17 +23,16 @@ export default function PartnerProfileNotificationsPage() {
   const { mutate: updateProfileNotifications, isPending: isUpdating } =
     useUpdateProfileNotifications();
 
-  const defaultValues = user?.notification_preferences.reduce(
-    (acc, pref) => {
-      acc[pref.type] = pref.enabled;
-      return acc;
-    },
-    {} as Record<NotificationType, boolean>,
-  );
-
   const methods = useForm({
     resolver: zodResolver(profileNotificationsFormSchema),
-    defaultValues,
+    defaultValues: {
+      new_order: !!user?.notification_preferences.find(
+        (p) => p.type === "new_order",
+      )?.enabled,
+      new_review: !!user?.notification_preferences.find(
+        (p) => p.type === "new_review",
+      )?.enabled,
+    },
   });
 
   const {
