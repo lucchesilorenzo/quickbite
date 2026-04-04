@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect } from "react";
 
 import { useAuthMe } from "@private/shared/hooks/auth/useAuthMe";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { User } from "@/types/user.types";
@@ -19,13 +19,16 @@ const AuthContext = createContext<AuthContext | null>(null);
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [searchParams] = useSearchParams();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const token = !localStorage.getItem("token") && searchParams.get("token");
 
     if (token) {
       localStorage.setItem("token", token);
+      navigate("/");
     }
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
   const {
     data = { success: false, message: "", user: undefined },
