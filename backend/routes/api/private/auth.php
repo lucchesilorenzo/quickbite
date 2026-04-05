@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')
     ->group(function (): void {
         Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+        Route::post('/refresh', [AuthController::class, 'refresh']);
         Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
         Route::post('/reset-password', [AuthController::class, 'resetPassword']);
         Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])
