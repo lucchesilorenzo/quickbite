@@ -322,7 +322,6 @@
 - `country` (varchar)
 - `vehicle_type` (varchar)
 - `drivers_license` (varchar)
-- `is_approved` (bool)
 - `remember_token` (varchar)
 - `created_at` (timestamp)
 - `updated_at` (timestamp)

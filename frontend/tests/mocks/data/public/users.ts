@@ -17,7 +17,6 @@ export const user: User = {
   country: "Italy",
   vehicle_type: null,
   drivers_license: null,
-  is_approved: true,
   has_password: true,
   created_at: "2025-10-21T10:13:57.000000Z",
   updated_at: "2025-10-21T10:13:57.000000Z",

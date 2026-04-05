@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
@@ -45,7 +45,6 @@ class UserFactory extends Factory
             'country' => 'Italy',
             'vehicle_type' => null,
             'drivers_license' => null,
-            'is_approved' => true,
             'remember_token' => Str::random(10),
         ];
     }
