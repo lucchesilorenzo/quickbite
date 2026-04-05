@@ -9,6 +9,7 @@ use App\Exceptions\Private\Customer\UnauthorizedException;
 use App\Exceptions\Private\InvalidCredentialsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Customer\Auth\LoginRequest;
+use App\Http\Requests\Private\Customer\Auth\LogoutRequest;
 use App\Http\Requests\Private\Customer\Auth\RegisterRequest;
 use App\Services\Private\Customer\AuthService;
 use Dedoc\Scramble\Attributes\Group;
@@ -28,14 +29,15 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
-            $token = $this->authService->register(
+            $tokens = $this->authService->register(
                 $request->validated()
             );
 
             return response()->json([
                 'success' => true,
                 'message' => 'Customer registered successfully.',
-                'token' => $token,
+                'token' => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'],
             ], 201);
         } catch (InvalidCredentialsException|CustomerHasSocialLoginException $e) {
             return response()->json([
@@ -56,14 +58,15 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         try {
-            $token = $this->authService->login(
+            $tokens = $this->authService->login(
                 $request->validated()
             );
 
             return response()->json([
                 'success' => true,
                 'message' => 'Customer logged in successfully.',
-                'token' => $token,
+                'token' => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'],
             ], 200);
         } catch (InvalidCredentialsException|UnauthorizedException|CustomerHasSocialLoginException $e) {
             return response()->json([
@@ -81,11 +84,12 @@ class AuthController extends Controller
     /**
      * Logout a customer.
      */
-    public function logout(): JsonResponse
+    public function logout(LogoutRequest $request): JsonResponse
     {
         try {
             $this->authService->logout(
-                auth()->user()
+                auth()->user(),
+                $request->validated()
             );
 
             return response()->json([
