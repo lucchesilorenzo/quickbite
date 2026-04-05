@@ -14,3 +14,7 @@ export type RegisterResponse = {
 export type LoginPayload = TLoginFormSchema;
 
 export type LoginResponse = RegisterResponse;
+
+export type LogoutPayload = {
+  refresh_token: string;
+};
