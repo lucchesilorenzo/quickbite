@@ -1,6 +1,8 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, isAxiosError } from "axios";
 
 import env from "./env";
+
+import { refreshToken } from "@/services/auth.service";
 
 const api = axios.create({
   baseURL: `${env.VITE_BASE_URL}/api`,
@@ -8,43 +10,56 @@ const api = axios.create({
 
 export const externalApi = axios.create();
 
-function applyInterceptors(axiosInstance: AxiosInstance) {
-  axiosInstance.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => {
+    if (response.data.token) {
+      localStorage.setItem("token", response.data.token);
     }
 
-    return config;
-  });
+    if (response.data.refresh_token) {
+      localStorage.setItem("refresh_token", response.data.refresh_token);
+    }
 
-  axiosInstance.interceptors.response.use(
-    (response) => {
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
+    return response;
+  },
+  async (error) => {
+    if (!isAxiosError(error)) {
+      throw new Error("An unexpected error occurred.");
+    }
+
+    const originalRequest = error.config as any;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const newToken = await refreshToken();
+
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+
+        return api(originalRequest);
+      } catch {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh_token");
       }
+    }
 
-      return response;
-    },
-    (error) => {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          localStorage.removeItem("token");
-        }
-
-        throw new Error(
-          error.response?.data?.message ||
-            "An error occurred while making the request.",
-        );
-      } else {
-        throw new Error("An unexpected error occurred.");
-      }
-    },
-  );
-}
-
-applyInterceptors(api);
+    throw new Error(
+      error.response?.data?.message ||
+        "An error occurred while making the request.",
+    );
+  },
+);
 
 export async function fetchData<TResponse>(
   endpoint: string,
