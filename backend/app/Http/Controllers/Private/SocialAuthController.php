@@ -36,8 +36,8 @@ class SocialAuthController extends Controller
             ->stateless()
             ->user();
 
-        $token = $this->socialAuthService->handleSocialLogin($providerUser, $provider);
+        $tokens = $this->socialAuthService->handleSocialLogin($providerUser, $provider);
 
-        return redirect(config('app.frontend_url') . '?token=' . $token);
+        return redirect(config('app.frontend_url') . '?token=' . $tokens['access_token'] . '&refresh_token=' . $tokens['refresh_token']);
     }
 }

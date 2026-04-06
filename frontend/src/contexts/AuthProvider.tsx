@@ -23,9 +23,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const token = !localStorage.getItem("token") && searchParams.get("token");
+    const refreshToken =
+      !localStorage.getItem("refresh_token") &&
+      searchParams.get("refresh_token");
 
-    if (token) {
+    if (token && refreshToken) {
       localStorage.setItem("token", token);
+      localStorage.setItem("refresh_token", refreshToken);
+
       navigate("/");
     }
   }, [searchParams, navigate]);
