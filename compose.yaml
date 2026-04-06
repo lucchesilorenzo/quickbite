@@ -56,6 +56,17 @@ services:
       - ./backend/.env
     command: php artisan queue:work
 
+  scheduler:
+    container_name: scheduler
+    depends_on:
+      - api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
+    command: php artisan schedule:work
+
   reverb:
     container_name: reverb
     depends_on:
