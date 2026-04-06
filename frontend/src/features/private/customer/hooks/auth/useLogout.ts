@@ -18,6 +18,7 @@ export function useLogout() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       localStorage.removeItem("token");
+      localStorage.removeItem("refresh_token");
       localStorage.removeItem("checkout_data_by_restaurant");
 
       navigate("/customer/auth/login");
