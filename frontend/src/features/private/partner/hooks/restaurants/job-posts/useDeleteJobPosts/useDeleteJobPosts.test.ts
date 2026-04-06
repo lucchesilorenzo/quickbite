@@ -37,7 +37,7 @@ describe("useDeleteJobPosts", () => {
 
   it("should show notification on error", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/1/job-posts`,
+      `${env.VITE_BACKEND_URL}/api/partner/restaurants/1/job-posts`,
       "delete",
     );
 

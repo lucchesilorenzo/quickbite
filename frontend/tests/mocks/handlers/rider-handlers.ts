@@ -8,7 +8,7 @@ import { jobApplicationWizardFormResponse } from "../data/private/rider/forms/jo
 import { restaurantResponse } from "../data/private/rider/restaurant";
 
 export const riderHandlers = [
-  http.get(`${env.VITE_BASE_URL}/api/rider/job-posts`, ({ request }) => {
+  http.get(`${env.VITE_BACKEND_URL}/api/rider/job-posts`, ({ request }) => {
     const url = new URL(request.url);
     const cursorParam = url.searchParams.get("cursor");
 
@@ -24,18 +24,18 @@ export const riderHandlers = [
       },
     });
   }),
-  http.get(`${env.VITE_BASE_URL}/api/rider/job-posts/:jobPostId`, () => {
+  http.get(`${env.VITE_BACKEND_URL}/api/rider/job-posts/:jobPostId`, () => {
     return HttpResponse.json(jobPostResponse);
   }),
   http.post(
-    `${env.VITE_BASE_URL}/api/rider/job-posts/:jobPostId/applications`,
+    `${env.VITE_BACKEND_URL}/api/rider/job-posts/:jobPostId/applications`,
     () => {
       return HttpResponse.json(jobApplicationWizardFormResponse, {
         status: 201,
       });
     },
   ),
-  http.get(`${env.VITE_BASE_URL}/api/rider/restaurant`, () => {
+  http.get(`${env.VITE_BACKEND_URL}/api/rider/restaurant`, () => {
     return HttpResponse.json(restaurantResponse);
   }),
 ];

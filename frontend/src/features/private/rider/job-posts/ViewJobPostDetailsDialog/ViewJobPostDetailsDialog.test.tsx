@@ -95,7 +95,7 @@ describe("ViewJobPostDetailsDialog", () => {
 
   it("should render the error message if fetching the job post fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/rider/job-posts/${jobPostsWithRestaurant[0].id}`,
+      `${env.VITE_BACKEND_URL}/api/rider/job-posts/${jobPostsWithRestaurant[0].id}`,
     );
     const { getSpinner, getErrorText } = renderComponent(
       jobPostsWithRestaurant[0].id,

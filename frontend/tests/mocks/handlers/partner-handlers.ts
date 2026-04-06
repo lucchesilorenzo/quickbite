@@ -9,7 +9,7 @@ import {
 
 export const partnerHandlers = [
   http.get(
-    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
+    `${env.VITE_BACKEND_URL}/api/partner/restaurants/:restaurantId/job-posts`,
     async ({ request }) => {
       const url = new URL(request.url);
       const pageParam = url.searchParams.get("page");
@@ -23,25 +23,25 @@ export const partnerHandlers = [
     },
   ),
   http.get(
-    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
+    `${env.VITE_BACKEND_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
     async () => {
       return HttpResponse.json(jobPostResponse);
     },
   ),
   http.post(
-    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
+    `${env.VITE_BACKEND_URL}/api/partner/restaurants/:restaurantId/job-posts`,
     async () => {
       return HttpResponse.json(addJobPostFormResponse, { status: 201 });
     },
   ),
   http.patch(
-    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
+    `${env.VITE_BACKEND_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
     async () => {
       return HttpResponse.json(editJobPostFormResponse);
     },
   ),
   http.delete(
-    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts`,
+    `${env.VITE_BACKEND_URL}/api/partner/restaurants/:restaurantId/job-posts`,
     async ({ request }) => {
       const url = new URL(request.url);
       const ids = url.searchParams.getAll("ids[]");
@@ -57,7 +57,7 @@ export const partnerHandlers = [
     },
   ),
   http.delete(
-    `${env.VITE_BASE_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
+    `${env.VITE_BACKEND_URL}/api/partner/restaurants/:restaurantId/job-posts/:jobPostId`,
     async () => {
       return HttpResponse.json(
         { success: true, message: "Job post deleted successfully." },

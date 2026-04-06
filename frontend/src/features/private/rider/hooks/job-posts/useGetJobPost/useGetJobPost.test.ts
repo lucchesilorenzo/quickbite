@@ -19,7 +19,7 @@ describe("useGetJobPost", () => {
   });
 
   it("should fail to fetch data", async () => {
-    simulateError(`${env.VITE_BASE_URL}/api/rider/job-posts/1`);
+    simulateError(`${env.VITE_BACKEND_URL}/api/rider/job-posts/1`);
 
     const { result } = renderHook(() => useGetJobPost({ jobPostId: "1" }), {
       wrapper: TestQueryWrapper,

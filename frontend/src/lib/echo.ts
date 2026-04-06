@@ -17,7 +17,7 @@ configureEcho({
       authorize: (socketId: string, callback: ChannelAuthorizationCallback) => {
         axios
           .post(
-            `${env.VITE_BASE_URL}/api/broadcasting/auth`,
+            `${env.VITE_BACKEND_URL}/api/broadcasting/auth`,
             {
               socket_id: socketId,
               channel_name: channel.name,

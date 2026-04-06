@@ -18,7 +18,7 @@ export async function refreshToken() {
   };
 
   const { data } = await axios.post<RefreshTokenResponse>(
-    `${env.VITE_BASE_URL}/api/auth/refresh`,
+    `${env.VITE_BACKEND_URL}/api/auth/refresh`,
     payload,
   );
 

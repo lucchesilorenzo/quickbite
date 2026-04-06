@@ -89,7 +89,7 @@ describe("DeleteJobPostDialog", () => {
 
   it("should render the loading indicator upon deletion", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
+      `${env.VITE_BACKEND_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
       "delete",
     );
     const { user, getConfirmButton } = renderComponent(true);
@@ -107,7 +107,7 @@ describe("DeleteJobPostDialog", () => {
 
   it("should not render the loading indicator if deletion fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
+      `${env.VITE_BACKEND_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
       "delete",
     );
     const { getConfirmButton } = renderComponent(true);
