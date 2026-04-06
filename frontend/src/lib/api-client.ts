@@ -8,7 +8,8 @@ const api = axios.create({
   baseURL: `${env.VITE_BASE_URL}/api`,
 });
 
-export const externalApi = axios.create();
+let isRefreshing = false;
+let refreshPromise: Promise<string> | null = null;
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -39,11 +40,22 @@ api.interceptors.response.use(
 
     const originalRequest = error.config as any;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      error.response.data.message === "Unauthenticated." &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true;
 
       try {
-        const newToken = await refreshToken();
+        if (!isRefreshing) {
+          isRefreshing = true;
+          refreshPromise = refreshToken().finally(() => {
+            isRefreshing = false;
+          });
+        }
+
+        const newToken = await refreshPromise;
 
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
 
