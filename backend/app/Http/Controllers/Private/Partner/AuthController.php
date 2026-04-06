@@ -36,7 +36,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Partner registered successfully.',
-                'token' => $tokens['access_token'],
+                'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 201);
         } catch (LocationNotFoundException $e) {
@@ -72,7 +72,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Partner logged in successfully.',
-                'token' => $tokens['access_token'],
+                'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
         } catch (InvalidCredentialsException|UnauthorizedException $e) {

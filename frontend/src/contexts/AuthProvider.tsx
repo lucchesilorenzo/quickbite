@@ -22,13 +22,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = !localStorage.getItem("token") && searchParams.get("token");
+    const accessToken =
+      !localStorage.getItem("access_token") && searchParams.get("access_token");
     const refreshToken =
       !localStorage.getItem("refresh_token") &&
       searchParams.get("refresh_token");
 
-    if (token && refreshToken) {
-      localStorage.setItem("token", token);
+    if (accessToken && refreshToken) {
+      localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
 
       navigate("/");
@@ -45,7 +46,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     return <FullPageSpinner />;
   }
 
-  const user = localStorage.getItem("token") && !isError ? data.user : null;
+  const user =
+    localStorage.getItem("access_token") &&
+    localStorage.getItem("refresh_token") &&
+    !isError
+      ? data.user
+      : null;
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

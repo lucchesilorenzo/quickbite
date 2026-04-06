@@ -22,8 +22,8 @@ export async function refreshToken() {
     payload,
   );
 
-  localStorage.setItem("token", data.token);
+  localStorage.setItem("access_token", data.access_token);
   localStorage.setItem("refresh_token", data.refresh_token);
 
-  return data.token;
+  return data.access_token;
 }

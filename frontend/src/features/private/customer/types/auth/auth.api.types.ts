@@ -8,7 +8,7 @@ import { ApiResponse } from "@/types/api.types";
 export type RegisterPayload = TRegisterFormSchema;
 
 export type RegisterResponse = {
-  token: string;
+  access_token: string;
 } & ApiResponse;
 
 export type LoginPayload = TLoginFormSchema;

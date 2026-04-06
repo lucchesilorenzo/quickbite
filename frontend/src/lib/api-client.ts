@@ -12,10 +12,10 @@ let isRefreshing = false;
 let refreshPromise: Promise<string> | null = null;
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("access_token");
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   return config;
@@ -23,8 +23,8 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => {
-    if (response.data.token) {
-      localStorage.setItem("token", response.data.token);
+    if (response.data.access_token) {
+      localStorage.setItem("access_token", response.data.access_token);
     }
 
     if (response.data.refresh_token) {
@@ -61,7 +61,7 @@ api.interceptors.response.use(
 
         return api(originalRequest);
       } catch {
-        localStorage.removeItem("token");
+        localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
       }
     }

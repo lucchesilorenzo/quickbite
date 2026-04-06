@@ -36,7 +36,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Customer registered successfully.',
-                'token' => $tokens['access_token'],
+                'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 201);
         } catch (InvalidCredentialsException|CustomerHasSocialLoginException $e) {
@@ -65,7 +65,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Customer logged in successfully.',
-                'token' => $tokens['access_token'],
+                'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
         } catch (InvalidCredentialsException|UnauthorizedException|CustomerHasSocialLoginException $e) {

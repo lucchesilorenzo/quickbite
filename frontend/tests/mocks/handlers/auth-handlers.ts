@@ -7,7 +7,8 @@ export const authHandlers = [
       {
         success: true,
         message: "Rider registered successfully.",
-        token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
+        access_token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
+        refresh_token: "tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
       },
       { status: 201 },
     );
@@ -17,7 +18,8 @@ export const authHandlers = [
       {
         success: true,
         message: "Rider logged in successfully.",
-        token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
+        access_token: "4|tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
+        refresh_token: "tRSZ8D9dtm5itClkkNPVIUWwTtUcBvXd27iStUAB7cf1d1ea",
       },
       { status: 200 },
     );

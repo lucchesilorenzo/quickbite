@@ -14,6 +14,6 @@ export type RefreshTokenPayload = {
 };
 
 export type RefreshTokenResponse = {
-  token: string;
+  access_token: string;
   refresh_token: string;
 };

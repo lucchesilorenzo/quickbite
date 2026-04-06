@@ -63,7 +63,7 @@ export default function JobApplicationsTable() {
         `${env.VITE_BACKEND_URL}/api/partner/job-applications/${jobApplicationId}/resume`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             "Content-Type": "application/pdf",
           },
           responseType: "blob",

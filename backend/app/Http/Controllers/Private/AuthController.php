@@ -64,7 +64,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Tokens refreshed successfully.',
-                'token' => $tokens['access_token'],
+                'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
         } catch (ModelNotFoundException) {

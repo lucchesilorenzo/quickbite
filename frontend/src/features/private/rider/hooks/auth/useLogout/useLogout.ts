@@ -17,7 +17,7 @@ export function useLogout() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      localStorage.removeItem("token");
+      localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
 
       navigate("/rider/auth/login");
