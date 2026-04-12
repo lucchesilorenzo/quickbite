@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Container } from "@mui/material";
+import { steps } from "@rider/lib/data/job-application-wizard/steps.data";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -14,13 +15,11 @@ import {
 } from "../../schemas/job-applications.schema";
 import Stepper from "../Stepper";
 
-import { steps } from "@/features/private/rider/lib/data/job-application-wizard/steps.data";
-
 export default function JobApplicationWizard() {
   const { jobPostData } = useJobApplication();
 
   const { mutate: createJobApplication, isPending: isApplying } =
-    useCreateJobApplication({ jobPostId: jobPostData!.job_post.id });
+    useCreateJobApplication({ jobPostId: jobPostData?.job_post.id });
 
   const [activeStep, setActiveStep] = useState(0);
 

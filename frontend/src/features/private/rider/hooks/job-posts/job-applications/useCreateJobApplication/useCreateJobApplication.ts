@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { postData } from "@/lib/api-client";
 
 type UseCreateJobApplicationOptions = {
-  jobPostId: string;
+  jobPostId?: string;
 };
 
 export function useCreateJobApplication({
