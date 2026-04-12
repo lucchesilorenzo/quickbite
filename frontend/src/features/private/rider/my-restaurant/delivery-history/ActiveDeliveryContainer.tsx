@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-import { useGetActiveDelivery } from "../hooks/restaurant/deliveries/useGetActiveDelivery";
+import { useGetActiveDelivery } from "../../hooks/restaurant/deliveries/useGetActiveDelivery";
 import DeliveryItem from "./DeliveryItem";
 
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";

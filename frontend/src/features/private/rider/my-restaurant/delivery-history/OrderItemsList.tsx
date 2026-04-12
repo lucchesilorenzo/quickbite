@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import { Delivery } from "../types/deliveries/delivery.types";
+import { Delivery } from "../../types/deliveries/delivery.types";
 import OrderItem from "./OrderItem";
 
 type OrderItemsListProps = {
