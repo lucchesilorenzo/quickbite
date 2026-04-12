@@ -11,10 +11,14 @@ export function useLogout() {
   const navigate = useNavigate();
 
   return useMutation<ApiResponse, Error, void>({
-    mutationFn: () => postData("/rider/auth/logout"),
+    mutationFn: () =>
+      postData("/rider/auth/logout", {
+        refresh_token: localStorage.getItem("refresh_token"),
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      localStorage.removeItem("token");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
 
       navigate("/rider/auth/login");
     },

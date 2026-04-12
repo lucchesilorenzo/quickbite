@@ -1,5 +1,5 @@
 import {
-  UpdateProfileGeneralInformationPayload,
+  UpdateProfileGeneralInformationRequest,
   UpdateProfileGeneralInformationResponse,
 } from "@rider/types/profile/profile.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -14,7 +14,7 @@ export function useUpdateProfileGeneralInformation() {
   return useMutation<
     UpdateProfileGeneralInformationResponse,
     Error,
-    UpdateProfileGeneralInformationPayload
+    UpdateProfileGeneralInformationRequest
   >({
     mutationFn: (data) => updateData("/rider/profile/general", data),
     onSuccess: (response) => {

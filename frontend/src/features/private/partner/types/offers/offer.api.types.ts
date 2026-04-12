@@ -11,8 +11,8 @@ export type CreateOfferResponse = {
   offer: Offer;
 } & ApiResponse;
 
-export type CreateOfferPayload = TRestaurantSettingsOffersFormSchema;
+export type CreateOfferRequest = TRestaurantSettingsOffersFormSchema;
 
 export type UpdateOfferResponse = CreateOfferResponse;
 
-export type UpdateOfferPayload = TRestaurantSettingsOffersFormSchema;
+export type UpdateOfferRequest = TRestaurantSettingsOffersFormSchema;

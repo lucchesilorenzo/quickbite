@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import {
-  UpdateAddressInfoPayload,
+  UpdateAddressInfoRequest,
   UpdateAddressInfoResponse,
 } from "../../types/profile/profile.api.types";
 
@@ -15,7 +15,7 @@ export function useUpdateAddressInfo() {
   return useMutation<
     UpdateAddressInfoResponse,
     Error,
-    UpdateAddressInfoPayload
+    UpdateAddressInfoRequest
   >({
     mutationFn: (data) => updateData("/customer/profile/address-info", data),
     onSuccess: (response) => {

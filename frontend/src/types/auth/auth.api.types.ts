@@ -3,8 +3,17 @@ import {
   TResetPasswordFormSchema,
 } from "@/schemas/auth.schema";
 
-export type ForgotPasswordPayload = TForgotPasswordFormSchema;
+export type ForgotPasswordRequest = TForgotPasswordFormSchema;
 
-export type ResetPasswordPayload = TResetPasswordFormSchema & {
+export type ResetPasswordRequest = TResetPasswordFormSchema & {
   token: string;
+};
+
+export type RefreshTokenRequest = {
+  refresh_token: string;
+};
+
+export type RefreshTokenResponse = {
+  access_token: string;
+  refresh_token: string;
 };

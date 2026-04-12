@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect } from "react";
 
 import { useAuthMe } from "@private/shared/hooks/auth/useAuthMe";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { User } from "@/types/user.types";
@@ -19,13 +19,22 @@ const AuthContext = createContext<AuthContext | null>(null);
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    const token = !localStorage.getItem("token") && searchParams.get("token");
+  const navigate = useNavigate();
 
-    if (token) {
-      localStorage.setItem("token", token);
+  useEffect(() => {
+    const accessToken =
+      !localStorage.getItem("access_token") && searchParams.get("access_token");
+    const refreshToken =
+      !localStorage.getItem("refresh_token") &&
+      searchParams.get("refresh_token");
+
+    if (accessToken && refreshToken) {
+      localStorage.setItem("access_token", accessToken);
+      localStorage.setItem("refresh_token", refreshToken);
+
+      navigate("/");
     }
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
   const {
     data = { success: false, message: "", user: undefined },
@@ -37,7 +46,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     return <FullPageSpinner />;
   }
 
-  const user = localStorage.getItem("token") && !isError ? data.user : null;
+  const user =
+    localStorage.getItem("access_token") &&
+    localStorage.getItem("refresh_token") &&
+    !isError
+      ? data.user
+      : null;
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

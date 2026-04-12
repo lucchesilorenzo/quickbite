@@ -5,12 +5,16 @@ import {
 
 import { ApiResponse } from "@/types/api.types";
 
-export type RegisterPayload = TRegisterFormSchema;
+export type RegisterRequest = TRegisterFormSchema;
 
 export type RegisterResponse = {
-  token: string;
+  access_token: string;
 } & ApiResponse;
 
-export type LoginPayload = TLoginFormSchema;
+export type LoginRequest = TLoginFormSchema;
 
 export type LoginResponse = RegisterResponse;
+
+export type LogoutRequest = {
+  refresh_token: string;
+};

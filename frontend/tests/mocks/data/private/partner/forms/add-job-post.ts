@@ -1,12 +1,12 @@
 import {
-  CreateJobPostPayload,
+  CreateJobPostRequest,
   CreateJobPostResponse,
 } from "@private/partner/types/job-posts/job-post.api.types";
 import { MIN_SALARY } from "@/features/private/shared/lib/data/job-posts.data";
 
 import { apiResponse } from "@tests/mocks/data/shared/common";
 
-export const addJobPostForm: CreateJobPostPayload = {
+export const addJobPostForm: CreateJobPostRequest = {
   title: "test",
   description_html: '<p style="text-align: left;">test</p>',
   description_text: "test",

@@ -1,6 +1,6 @@
 import { TRegisterFormSchema } from "@customer/schemas/auth.schema";
 import {
-  RegisterPayload,
+  RegisterRequest,
   RegisterResponse,
 } from "@customer/types/auth/auth.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -14,7 +14,7 @@ export function useRegister() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<RegisterResponse, Error, RegisterPayload>({
+  return useMutation<RegisterResponse, Error, RegisterRequest>({
     mutationFn: (data: TRegisterFormSchema) =>
       postData("/customer/auth/register", data),
     onSuccess: () => {

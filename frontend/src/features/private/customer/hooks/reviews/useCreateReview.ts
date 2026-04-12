@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import {
-  CreateReviewPayload,
+  CreateReviewRequest,
   CreateReviewResponse,
 } from "../../types/reviews/review.api.types";
 
@@ -20,7 +20,7 @@ export function useCreateReview({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<CreateReviewResponse, Error, CreateReviewPayload>({
+  return useMutation<CreateReviewResponse, Error, CreateReviewRequest>({
     mutationFn: (data) =>
       postData(`/customer/restaurants/${restaurantSlug}/reviews`, data),
     onSuccess: (response) => {

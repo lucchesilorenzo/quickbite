@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\RestaurantRole;
+use Database\Factories\UserFactory;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -22,7 +23,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use CanResetPassword, HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable;
 
     /**
@@ -46,7 +47,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'country',
         'vehicle_type',
         'drivers_license',
-        'is_approved',
     ];
 
     protected $appends = [
@@ -62,6 +62,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
+
+    /**
+     * Get the user's personal refresh tokens.
+     *
+     * @return HasMany<PersonalRefreshToken, $this>
+     */
+    public function personalRefreshTokens(): HasMany
+    {
+        return $this->hasMany(PersonalRefreshToken::class);
+    }
 
     /**
      * Get the user's social providers.

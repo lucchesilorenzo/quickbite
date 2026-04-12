@@ -9,12 +9,17 @@ use App\Exceptions\Private\Customer\CustomerHasSocialLoginException;
 use App\Exceptions\Private\Customer\UnauthorizedException;
 use App\Exceptions\Private\InvalidCredentialsException;
 use App\Models\User;
+use App\Services\Private\Shared\TokenService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
-    public function register(array $data): string
+    public function __construct(
+        private readonly TokenService $tokenService
+    ) {}
+
+    public function register(array $data): array
     {
         $customer = User::query()->where('email', $data['email'])->first();
 
@@ -35,10 +40,10 @@ class AuthService
 
         event(new Registered($customer));
 
-        return $customer->createToken('customer_web_token')->plainTextToken;
+        return $this->tokenService->generateTokens($customer);
     }
 
-    public function login(array $data): string
+    public function login(array $data): array
     {
         $customer = User::query()
             ->where('email', $data['email'])
@@ -60,11 +65,12 @@ class AuthService
             throw new UnauthorizedException;
         }
 
-        return $customer->createToken('customer_web_token')->plainTextToken;
+        return $this->tokenService->generateTokens($customer);
     }
 
-    public function logout(User $customer): void
+    public function logout(User $customer, array $data): void
     {
         $customer->currentAccessToken()->delete();
+        $this->tokenService->revokeRefreshToken($customer, $data['refresh_token']);
     }
 }

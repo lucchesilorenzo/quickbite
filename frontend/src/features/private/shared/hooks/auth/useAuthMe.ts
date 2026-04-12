@@ -10,6 +10,8 @@ export function useAuthMe() {
     queryFn: () => fetchData("/auth/me"),
     retry: false,
     refetchOnWindowFocus: false,
-    enabled: !!localStorage.getItem("token"),
+    enabled:
+      !!localStorage.getItem("access_token") &&
+      !!localStorage.getItem("refresh_token"),
   });
 }

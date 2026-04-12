@@ -7,7 +7,7 @@ export type UpdateDeliveryTimesResponse = {
   restaurant: PartnerRestaurantDetail;
 } & ApiResponse;
 
-export type UpdateDeliveryTimesPayload = {
+export type UpdateDeliveryTimesRequest = {
   delivery_days: {
     day: string;
     start_time: string | null;
@@ -17,8 +17,8 @@ export type UpdateDeliveryTimesPayload = {
 
 export type UpdateFeesResponse = UpdateDeliveryTimesResponse;
 
-export type UpdateFeesPayload = TRestaurantSettingsFeesFormSchema;
+export type UpdateFeesRequest = TRestaurantSettingsFeesFormSchema;
 
 export type UpdateInfoResponse = UpdateDeliveryTimesResponse;
 
-export type UpdateInfoPayload = FormData;
+export type UpdateInfoRequest = FormData;

@@ -1,5 +1,5 @@
 import {
-  CreateMenuItemPayload,
+  CreateMenuItemRequest,
   CreateMenuItemResponse,
 } from "@partner/types/menu/menu.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -21,7 +21,7 @@ export function useCreateMenuItem({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<CreateMenuItemResponse, Error, CreateMenuItemPayload>({
+  return useMutation<CreateMenuItemResponse, Error, CreateMenuItemRequest>({
     mutationFn: (data) =>
       postData(
         `/partner/restaurants/menu/categories/${menuCategoryId}/items`,

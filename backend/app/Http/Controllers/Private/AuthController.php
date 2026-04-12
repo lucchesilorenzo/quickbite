@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Private;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Private\Auth\RefreshRequest;
 use App\Http\Requests\Public\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Public\Auth\ResetPasswordRequest;
 use App\Models\User;
@@ -12,6 +13,7 @@ use App\Services\Private\AuthService;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +47,35 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Could not get user.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Refresh a token.
+     */
+    public function refresh(RefreshRequest $request): JsonResponse
+    {
+        try {
+            $tokens = $this->authService->refresh(
+                $request->validated()
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Tokens refreshed successfully.',
+                'access_token' => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'],
+            ], 200);
+        } catch (ModelNotFoundException) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid refresh token.',
+            ], 401);
+        } catch (Throwable) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not refresh tokens.',
             ], 500);
         }
     }

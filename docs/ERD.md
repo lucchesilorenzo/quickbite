@@ -28,6 +28,7 @@
 | Review                 | `App\Models\Review`                 |
 | Role                   | `App\Models\Role`                   |
 | SocialProvider         | `App\Models\SocialProvider`         |
+| PersonalRefreshToken   | `App\Models\PersonalRefreshToken`   |
 | User                   | `App\Models\User`                   |
 
 ---
@@ -291,13 +292,15 @@
 - `created_at` (timestamp)
 - `updated_at` (timestamp)
 
-### Role (`App\Models\Role`)
+### PersonalRefreshToken (`App\Models\PersonalRefreshToken`)
 
 #### Attributes:
 
-- `uuid` (uuid)
-- `name` (varchar)
-- `guard_name` (varchar)
+- `id` (uuid)
+- `user_id` (uuid)
+- `token` (varchar)
+- `last_used_at` (timestamp)
+- `expires_at` (timestamp)
 - `created_at` (timestamp)
 - `updated_at` (timestamp)
 
@@ -322,7 +325,6 @@
 - `country` (varchar)
 - `vehicle_type` (varchar)
 - `drivers_license` (varchar)
-- `is_approved` (bool)
 - `remember_token` (varchar)
 - `created_at` (timestamp)
 - `updated_at` (timestamp)
@@ -428,6 +430,8 @@
 
 - **BelongsToMany** `restaurants` to Restaurant (Local Key: `id`, Foreign Key: `user_id`, Pivot Table: `restaurant_user`, Related Key: `restaurant_id`, Pivot Columns: `role`, `is_active`)
 - **HasMany** `notificationPreferences` to NotificationPreference (Local Key: `id`, Foreign Key: `user_id`)
+- **HasMany** `personalRefreshTokens` to PersonalRefreshToken (Local Key: `id`, Foreign Key: `user_id`)
+- **HasMany** `socialProviders` to SocialProvider (Local Key: `id`, Foreign Key: `user_id`)
 - **HasMany** `reviews` to Review (Local Key: `id`, Foreign Key: `user_id`)
 - **HasMany** `carts` to Cart (Local Key: `id`, Foreign Key: `user_id`)
 - **HasMany** `orders` to Order (Local Key: `id`, Foreign Key: `user_id`)
@@ -439,5 +443,9 @@
 - **MorphToMany** `permissions` to Permission (Local Key: `, Foreign Key: `)
 
 ### SocialProvider Relationships
+
+- **BelongsTo** `user` to User (Local Key: `user_id`, Foreign Key: `id`)
+
+### PersonalRefreshToken Relationships
 
 - **BelongsTo** `user` to User (Local Key: `user_id`, Foreign Key: `id`)

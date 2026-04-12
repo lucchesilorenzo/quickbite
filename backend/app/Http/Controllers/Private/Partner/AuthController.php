@@ -9,6 +9,7 @@ use App\Exceptions\Private\Partner\UnauthorizedException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Private\Partner\Auth\LoginRequest;
+use App\Http\Requests\Private\Partner\Auth\LogoutRequest;
 use App\Http\Requests\Private\Partner\Auth\RegisterRequest;
 use App\Services\Private\Partner\AuthService;
 use Dedoc\Scramble\Attributes\Group;
@@ -28,14 +29,15 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
-            $token = $this->authService->register(
+            $tokens = $this->authService->register(
                 $request->validated()
             );
 
             return response()->json([
                 'success' => true,
                 'message' => 'Partner registered successfully.',
-                'token' => $token,
+                'access_token' => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'],
             ], 201);
         } catch (LocationNotFoundException $e) {
             return response()->json([
@@ -63,14 +65,15 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         try {
-            $token = $this->authService->login(
+            $tokens = $this->authService->login(
                 $request->validated()
             );
 
             return response()->json([
                 'success' => true,
                 'message' => 'Partner logged in successfully.',
-                'token' => $token,
+                'access_token' => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'],
             ], 200);
         } catch (InvalidCredentialsException|UnauthorizedException $e) {
             return response()->json([
@@ -88,11 +91,12 @@ class AuthController extends Controller
     /**
      * Logout a partner.
      */
-    public function logout(): JsonResponse
+    public function logout(LogoutRequest $request): JsonResponse
     {
         try {
             $this->authService->logout(
-                auth()->user()
+                auth()->user(),
+                $request->validated()
             );
 
             return response()->json([

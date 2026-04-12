@@ -62,7 +62,7 @@ describe("ViewOrderReceipt", () => {
 
   it("should render the loading indicator when fetching the logo", async () => {
     simulateDelay(
-      `${env.VITE_BASE_URL}/api/restaurants/${order.restaurant.id}/base64-logo`,
+      `${env.VITE_BACKEND_URL}/api/restaurants/${order.restaurant.id}/base64-logo`,
     );
     const { getLoadingText } = renderComponent();
 
@@ -77,7 +77,7 @@ describe("ViewOrderReceipt", () => {
 
   it("should not render the loading indicator if fetching the logo fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/restaurants/${order.restaurant.id}/base64-logo`,
+      `${env.VITE_BACKEND_URL}/api/restaurants/${order.restaurant.id}/base64-logo`,
     );
     const { getLoadingText } = renderComponent();
 

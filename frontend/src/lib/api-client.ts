@@ -1,50 +1,77 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, isAxiosError } from "axios";
 
 import env from "./env";
 
+import { refreshToken } from "@/services/auth.service";
+
 const api = axios.create({
-  baseURL: `${env.VITE_BASE_URL}/api`,
+  baseURL: `${env.VITE_BACKEND_URL}/api`,
 });
 
-export const externalApi = axios.create();
+let isRefreshing = false;
+let refreshPromise: Promise<string> | null = null;
 
-function applyInterceptors(axiosInstance: AxiosInstance) {
-  axiosInstance.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
+api.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem("access_token");
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => {
+    if (response.data.access_token) {
+      localStorage.setItem("access_token", response.data.access_token);
     }
 
-    return config;
-  });
+    if (response.data.refresh_token) {
+      localStorage.setItem("refresh_token", response.data.refresh_token);
+    }
 
-  axiosInstance.interceptors.response.use(
-    (response) => {
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-      }
+    return response;
+  },
+  async (error) => {
+    if (!isAxiosError(error)) {
+      throw new Error("An unexpected error occurred.");
+    }
 
-      return response;
-    },
-    (error) => {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          localStorage.removeItem("token");
+    const originalRequest = error.config as any;
+
+    if (
+      error.response?.status === 401 &&
+      error.response.data.message === "Unauthenticated." &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        if (!isRefreshing) {
+          isRefreshing = true;
+          refreshPromise = refreshToken().finally(() => {
+            isRefreshing = false;
+          });
         }
 
-        throw new Error(
-          error.response?.data?.message ||
-            "An error occurred while making the request.",
-        );
-      } else {
-        throw new Error("An unexpected error occurred.");
-      }
-    },
-  );
-}
+        const newToken = await refreshPromise;
 
-applyInterceptors(api);
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+
+        return api(originalRequest);
+      } catch {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+      }
+    }
+
+    throw new Error(
+      error.response?.data?.message ||
+        "An error occurred while making the request.",
+    );
+  },
+);
 
 export async function fetchData<TResponse>(
   endpoint: string,

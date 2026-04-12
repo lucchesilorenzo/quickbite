@@ -115,7 +115,7 @@ describe("JobApplicationWizard (integration)", () => {
 
   it("should render the loading indicator upon submission", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BASE_URL}/api/rider/job-posts/${jobPostResponse.job_post.id}/applications`,
+      `${env.VITE_BACKEND_URL}/api/rider/job-posts/${jobPostResponse.job_post.id}/applications`,
       "post",
     );
     const {

@@ -1,5 +1,5 @@
 import {
-  UpdateOfferPayload,
+  UpdateOfferRequest,
   UpdateOfferResponse,
 } from "@partner/types/offers/offer.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -21,7 +21,7 @@ export function useUpdateOffer({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdateOfferResponse, Error, UpdateOfferPayload>({
+  return useMutation<UpdateOfferResponse, Error, UpdateOfferRequest>({
     mutationFn: (data) =>
       updateData(
         `/partner/restaurants/${restaurantId}/offers/${offerId}`,

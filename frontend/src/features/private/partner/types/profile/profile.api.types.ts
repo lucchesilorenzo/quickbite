@@ -8,10 +8,10 @@ export type UpdateProfileGeneralInformationResponse = {
   partner: Omit<User, "notification_preferences">;
 } & ApiResponse;
 
-export type UpdateProfileGeneralInformationPayload = TProfileGeneralFormSchema;
+export type UpdateProfileGeneralInformationRequest = TProfileGeneralFormSchema;
 
 export type UpdateProfileNotificationsResponse = {
   partner: User;
 } & ApiResponse;
 
-export type UpdateProfileNotificationsPayload = TProfileNotificationsFormSchema;
+export type UpdateProfileNotificationsRequest = TProfileNotificationsFormSchema;

@@ -1,5 +1,5 @@
 import {
-  UpdateFeesPayload,
+  UpdateFeesRequest,
   UpdateFeesResponse,
 } from "@partner/types/settings/settings.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ export function useUpdateFees({ restaurantId }: UseUpdateFeesOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdateFeesResponse, Error, UpdateFeesPayload>({
+  return useMutation<UpdateFeesResponse, Error, UpdateFeesRequest>({
     mutationFn: (data) =>
       updateData(`/partner/restaurants/${restaurantId}/settings/fees`, data),
     onSuccess: (response) => {

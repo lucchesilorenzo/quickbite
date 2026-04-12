@@ -1,5 +1,5 @@
 import {
-  UpdateDeliveryStatusPayload,
+  UpdateDeliveryStatusRequest,
   UpdateDeliveryStatusResponse,
 } from "@rider/types/deliveries/delivery.api.types";
 import { OrderStatus } from "@rider/types/orders/order.types";
@@ -23,7 +23,7 @@ export function useUpdateDeliveryStatus({
   return useMutation<
     UpdateDeliveryStatusResponse,
     Error,
-    UpdateDeliveryStatusPayload
+    UpdateDeliveryStatusRequest
   >({
     mutationFn: (data) =>
       updateData(`/rider/restaurant/deliveries/${deliveryId}/status`, data),

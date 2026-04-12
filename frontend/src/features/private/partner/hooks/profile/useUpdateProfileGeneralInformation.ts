@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import {
-  UpdateProfileGeneralInformationPayload,
+  UpdateProfileGeneralInformationRequest,
   UpdateProfileGeneralInformationResponse,
 } from "../../types/profile/profile.api.types";
 
@@ -15,7 +15,7 @@ export function useUpdateProfileGeneralInformation() {
   return useMutation<
     UpdateProfileGeneralInformationResponse,
     Error,
-    UpdateProfileGeneralInformationPayload
+    UpdateProfileGeneralInformationRequest
   >({
     mutationFn: (data) => updateData("/partner/profile/general", data),
     onSuccess: (response) => {

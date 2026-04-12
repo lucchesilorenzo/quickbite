@@ -19,6 +19,6 @@ export type UpdateRestaurantApprovedStatusResponse = GetRestaurantResponse;
 export type UpdateRestaurantStatusResponse =
   UpdateRestaurantApprovedStatusResponse;
 
-export type UpdateRestaurantStatusPayload = {
+export type UpdateRestaurantStatusRequest = {
   force_close: RestaurantDetail["force_close"];
 };

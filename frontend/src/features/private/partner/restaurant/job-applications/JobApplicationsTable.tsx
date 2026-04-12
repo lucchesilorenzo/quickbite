@@ -60,10 +60,10 @@ export default function JobApplicationsTable() {
   async function downloadResume(jobApplicationId: string) {
     try {
       const response = await axios.get<Blob>(
-        `${env.VITE_BASE_URL}/api/partner/job-applications/${jobApplicationId}/resume`,
+        `${env.VITE_BACKEND_URL}/api/partner/job-applications/${jobApplicationId}/resume`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             "Content-Type": "application/pdf",
           },
           responseType: "blob",

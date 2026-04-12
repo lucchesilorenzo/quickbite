@@ -12,6 +12,7 @@ use App\Exceptions\Private\Partner\UnauthorizedException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Restaurant;
 use App\Models\User;
+use App\Services\Private\Shared\TokenService;
 use App\Services\Shared\LocationService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\DB;
@@ -22,11 +23,12 @@ class AuthService
 {
     public function __construct(
         private readonly LocationService $locationService,
+        private readonly TokenService $tokenService
     ) {}
 
-    public function register(array $data): string
+    public function register(array $data): array
     {
-        return DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($data): array {
             $partner = $this->createPartner($data);
             $locationData = $this->locationService->getLocationData($data);
 
@@ -41,11 +43,11 @@ class AuthService
                 'role' => RestaurantRole::OWNER,
             ]);
 
-            return $partner->createToken('partner_web_token')->plainTextToken;
+            return $this->tokenService->generateTokens($partner);
         });
     }
 
-    public function login(array $data): string
+    public function login(array $data): array
     {
         $partner = User::query()
             ->where('email', $data['email'])
@@ -59,12 +61,13 @@ class AuthService
             throw new UnauthorizedException;
         }
 
-        return $partner->createToken('partner_web_token')->plainTextToken;
+        return $this->tokenService->generateTokens($partner);
     }
 
-    public function logout(User $partner): void
+    public function logout(User $partner, array $data): void
     {
         $partner->currentAccessToken()->delete();
+        $this->tokenService->revokeRefreshToken($partner, $data['refresh_token']);
     }
 
     private function createPartner(array $data): User

@@ -12,6 +12,6 @@ export type UpdateOrderStatusResponse = {
   order: Omit<Order, "restaurant" | "order_items">;
 } & ApiResponse;
 
-export type UpdateOrderStatusPayload = {
+export type UpdateOrderStatusRequest = {
   status: PartnerOrderStatus;
 };

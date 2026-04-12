@@ -36,7 +36,7 @@ describe("useLogout", () => {
       show: mockShow,
       close: vi.fn(),
     });
-    simulateError(`${env.VITE_BASE_URL}/api/rider/auth/logout`, "post");
+    simulateError(`${env.VITE_BACKEND_URL}/api/rider/auth/logout`, "post");
 
     const { result } = renderHook(() => useLogout(), {
       wrapper: TestQueryWrapper,

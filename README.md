@@ -125,7 +125,7 @@ Frontend (`frontend/.env`)
 ```bash
 VITE_APP_NAME="Order food from your favorite local restaurants | QuickBite"
 VITE_APP_DESCRIPTION="QuickBite lets you order food online from your favorite local restaurants with fast delivery and no hassle."
-VITE_BASE_URL="http://localhost:8000"
+VITE_BACKEND_URL="http://localhost:8000"
 
 VITE_LOCATIONIQ_API_KEY=
 

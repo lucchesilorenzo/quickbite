@@ -71,7 +71,7 @@ describe("EditJobPostDialog", () => {
 
   it("should render the spinner when fetching job post", () => {
     simulateDelay(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
+      `${env.VITE_BACKEND_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
     );
     const { getLoadingText } = renderComponent(true);
 
@@ -88,7 +88,7 @@ describe("EditJobPostDialog", () => {
 
   it("should display a toast if job post fetching fails", async () => {
     simulateError(
-      `${env.VITE_BASE_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
+      `${env.VITE_BACKEND_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/1`,
     );
 
     const { getLoadingText } = renderComponent(true);

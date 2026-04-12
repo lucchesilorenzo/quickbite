@@ -1,5 +1,5 @@
 import {
-  LoginPayload,
+  LoginRequest,
   LoginResponse,
 } from "@partner/types/auth/auth.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ export function useLogin() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<LoginResponse, Error, LoginPayload>({
+  return useMutation<LoginResponse, Error, LoginRequest>({
     mutationFn: (data) => postData("/partner/auth/login", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });

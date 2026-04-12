@@ -6,13 +6,21 @@ namespace App\Services\Private;
 
 use App\Enums\UserRole;
 use App\Models\User;
+use App\Services\Private\Shared\TokenService;
+use Illuminate\Auth\Events\Verified;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 
 class SocialAuthService
 {
-    public function handleSocialLogin(SocialiteUser $providerUser, string $provider): string
+    public function __construct(
+        private readonly TokenService $tokenService
+    ) {}
+
+    public function handleSocialLogin(SocialiteUser $providerUser, string $provider): array
     {
-        $user = User::query()->where('email', $providerUser->getEmail())->first();
+        $user = User::query()
+            ->where('email', $providerUser->getEmail())
+            ->first();
 
         if (! $user) {
             $user = User::query()->create([
@@ -30,6 +38,11 @@ class SocialAuthService
 
         $user->assignRole(UserRole::CUSTOMER);
 
-        return $user->createToken('customer_web_token')->plainTextToken;
+        if (! $user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+            event(new Verified($user));
+        }
+
+        return $this->tokenService->generateTokens($user);
     }
 }

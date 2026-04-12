@@ -12,7 +12,7 @@ export default function SocialButtonGroup() {
 
       <Button
         component={Link}
-        to={`${env.VITE_BASE_URL}/api/auth/google/redirect`}
+        to={`${env.VITE_BACKEND_URL}/api/auth/google/redirect`}
         variant="outlined"
         color="inherit"
         fullWidth
