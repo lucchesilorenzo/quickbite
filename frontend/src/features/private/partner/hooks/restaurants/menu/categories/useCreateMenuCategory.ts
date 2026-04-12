@@ -1,5 +1,5 @@
 import {
-  CreateMenuCategoryPayload,
+  CreateMenuCategoryRequest,
   CreateMenuCategoryResponse,
 } from "@partner/types/menu/menu.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -22,7 +22,7 @@ export function useCreateMenuCategory({
   return useMutation<
     CreateMenuCategoryResponse,
     Error,
-    CreateMenuCategoryPayload
+    CreateMenuCategoryRequest
   >({
     mutationFn: (data) =>
       postData(`/partner/restaurants/${restaurantId}/menu/categories`, data),

@@ -14,4 +14,4 @@ export type GetOrderResponse = {
 
 export type CreateOrderResponse = GetOrderResponse;
 
-export type CreateOrderPayload = CreateOrder;
+export type CreateOrderRequest = CreateOrder;

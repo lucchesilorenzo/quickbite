@@ -10,8 +10,8 @@ export type UpdateAddressInfoResponse = {
   customer: Omit<User, "notification_preferences">;
 } & ApiResponse;
 
-export type UpdateAddressInfoPayload = TEditAddressFormSchema;
+export type UpdateAddressInfoRequest = TEditAddressFormSchema;
 
 export type UpdatePersonalInfoResponse = UpdateAddressInfoResponse;
 
-export type UpdatePersonalInfoPayload = TEditPersonalInfoField;
+export type UpdatePersonalInfoRequest = TEditPersonalInfoField;

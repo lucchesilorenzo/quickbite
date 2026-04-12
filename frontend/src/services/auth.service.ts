@@ -2,7 +2,7 @@ import axios from "axios";
 
 import env from "@/lib/env";
 import {
-  RefreshTokenPayload,
+  RefreshTokenRequest,
   RefreshTokenResponse,
 } from "@/types/auth/auth.api.types";
 
@@ -13,7 +13,7 @@ export async function refreshToken() {
     throw new Error("No refresh token available.");
   }
 
-  const payload: RefreshTokenPayload = {
+  const payload: RefreshTokenRequest = {
     refresh_token: refreshToken,
   };
 

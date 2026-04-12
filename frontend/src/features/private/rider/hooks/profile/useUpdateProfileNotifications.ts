@@ -1,5 +1,5 @@
 import {
-  UpdateProfileNotificationsPayload,
+  UpdateProfileNotificationsRequest,
   UpdateProfileNotificationsResponse,
 } from "@rider/types/profile/profile.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -14,7 +14,7 @@ export function useUpdateProfileNotifications() {
   return useMutation<
     UpdateProfileNotificationsResponse,
     Error,
-    UpdateProfileNotificationsPayload
+    UpdateProfileNotificationsRequest
   >({
     mutationFn: (data) => updateData("/rider/profile/notifications", data),
     onSuccess: (response) => {

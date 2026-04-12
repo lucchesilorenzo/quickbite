@@ -18,6 +18,6 @@ export type UpdateDeliveryStatusResponse = {
   delivery: Delivery;
 } & ApiResponse;
 
-export type UpdateDeliveryStatusPayload = {
+export type UpdateDeliveryStatusRequest = {
   status: DeliveryStatus;
 };

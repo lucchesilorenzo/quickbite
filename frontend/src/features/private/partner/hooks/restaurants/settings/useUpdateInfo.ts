@@ -1,5 +1,5 @@
 import {
-  UpdateInfoPayload,
+  UpdateInfoRequest,
   UpdateInfoResponse,
 } from "@partner/types/settings/settings.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ export function useUpdateInfo({ restaurantId }: UseUpdateInfoOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdateInfoResponse, Error, UpdateInfoPayload>({
+  return useMutation<UpdateInfoResponse, Error, UpdateInfoRequest>({
     mutationFn: (data) =>
       postData(`/partner/restaurants/${restaurantId}/info`, data),
     onSuccess: (response) => {

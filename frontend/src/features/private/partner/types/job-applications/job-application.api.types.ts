@@ -12,6 +12,6 @@ export type UpdateJobApplicationStatusResponse = {
   job_application: JobApplication;
 } & ApiResponse;
 
-export type UpdateJobApplicationStatusPayload = {
+export type UpdateJobApplicationStatusRequest = {
   status: JobApplication["status"];
 };

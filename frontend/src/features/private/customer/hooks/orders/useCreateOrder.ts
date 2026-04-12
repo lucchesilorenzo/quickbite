@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import {
-  CreateOrderPayload,
+  CreateOrderRequest,
   CreateOrderResponse,
 } from "../../types/orders/order.api.types";
 
@@ -21,7 +21,7 @@ export function useCreateOrder({ restaurantId }: UseCreateOrderOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<CreateOrderResponse, Error, CreateOrderPayload>({
+  return useMutation<CreateOrderResponse, Error, CreateOrderRequest>({
     mutationFn: (data) => postData("/customer/orders", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customer-orders"] });

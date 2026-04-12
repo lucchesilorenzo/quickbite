@@ -1,5 +1,5 @@
 import {
-  UpdateJobApplicationStatusPayload,
+  UpdateJobApplicationStatusRequest,
   UpdateJobApplicationStatusResponse,
 } from "@partner/types/job-applications/job-application.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -24,7 +24,7 @@ export function useUpdateJobApplicationStatus({
   return useMutation<
     UpdateJobApplicationStatusResponse,
     Error,
-    UpdateJobApplicationStatusPayload
+    UpdateJobApplicationStatusRequest
   >({
     mutationFn: (data) =>
       updateData(`/partner/job-applications/${jobApplicationId}/status`, data),

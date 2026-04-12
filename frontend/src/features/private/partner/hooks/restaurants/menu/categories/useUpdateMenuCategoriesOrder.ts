@@ -1,5 +1,5 @@
 import {
-  UpdateMenuCategoriesOrderPayload,
+  UpdateMenuCategoriesOrderRequest,
   UpdateMenuCategoriesOrderResponse,
 } from "@partner/types/menu/menu.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ export function useUpdateMenuCategoriesOrder({
   return useMutation<
     UpdateMenuCategoriesOrderResponse,
     Error,
-    UpdateMenuCategoriesOrderPayload
+    UpdateMenuCategoriesOrderRequest
   >({
     mutationFn: (data) =>
       updateData(`/partner/restaurants/menu/categories/order`, data),

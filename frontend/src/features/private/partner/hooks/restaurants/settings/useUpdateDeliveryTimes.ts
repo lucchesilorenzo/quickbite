@@ -1,5 +1,5 @@
 import {
-  UpdateDeliveryTimesPayload,
+  UpdateDeliveryTimesRequest,
   UpdateDeliveryTimesResponse,
 } from "@partner/types/settings/settings.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ export function useUpdateDeliveryTimes({
   return useMutation<
     UpdateDeliveryTimesResponse,
     Error,
-    UpdateDeliveryTimesPayload
+    UpdateDeliveryTimesRequest
   >({
     mutationFn: (data) =>
       updateData(

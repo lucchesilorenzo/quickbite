@@ -1,5 +1,5 @@
 import {
-  RegisterPayload,
+  RegisterRequest,
   RegisterResponse,
 } from "@rider/types/auth/auth.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ export function useRegister() {
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<RegisterResponse, Error, RegisterPayload>({
+  return useMutation<RegisterResponse, Error, RegisterRequest>({
     mutationFn: (data) => postData("/rider/auth/register", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });

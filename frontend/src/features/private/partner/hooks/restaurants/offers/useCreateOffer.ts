@@ -1,5 +1,5 @@
 import {
-  CreateOfferPayload,
+  CreateOfferRequest,
   CreateOfferResponse,
 } from "@partner/types/offers/offer.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -19,7 +19,7 @@ export function useCreateOffer({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<CreateOfferResponse, Error, CreateOfferPayload>({
+  return useMutation<CreateOfferResponse, Error, CreateOfferRequest>({
     mutationFn: (data) =>
       postData(`/partner/restaurants/${restaurantId}/offers`, data),
     onSuccess: (response) => {

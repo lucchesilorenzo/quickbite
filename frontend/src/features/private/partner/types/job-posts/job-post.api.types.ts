@@ -13,11 +13,11 @@ export type GetJobPostsResponse = {
   job_posts: JobPostsWithPagination;
 } & ApiResponse;
 
-export type CreateJobPostPayload = TAddJobPostFormSchema;
+export type CreateJobPostRequest = TAddJobPostFormSchema;
 
 export type CreateJobPostResponse = GetJobPostResponse;
 
-export type UpdateJobPostPayload = CreateJobPostPayload & {
+export type UpdateJobPostRequest = CreateJobPostRequest & {
   status: "open" | "closed";
 };
 

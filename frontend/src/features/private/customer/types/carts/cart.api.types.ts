@@ -11,8 +11,8 @@ export type GetCartResponse = {
 
 export type CreateOrUpdateCartsResponse = GetCartsResponse;
 
-export type CreateOrUpdateCartsPayload = RestaurantCart[];
+export type CreateOrUpdateCartsRequest = RestaurantCart[];
 
 export type CreateOrUpdateCartResponse = GetCartResponse;
 
-export type CreateOrUpdateCartPayload = RestaurantCart;
+export type CreateOrUpdateCartRequest = RestaurantCart;

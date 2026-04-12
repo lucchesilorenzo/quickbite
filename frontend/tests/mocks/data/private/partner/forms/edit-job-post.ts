@@ -1,12 +1,12 @@
 import {
-  UpdateJobPostPayload,
+  UpdateJobPostRequest,
   UpdateJobPostResponse,
 } from "@partner/types/job-posts/job-post.api.types";
 import { MIN_SALARY } from "@/features/private/shared/lib/data/job-posts.data";
 
 import { apiResponse } from "@tests/mocks/data/shared/common";
 
-export const editJobPostForm: UpdateJobPostPayload = {
+export const editJobPostForm: UpdateJobPostRequest = {
   title: "test",
   description_html: '<p style="text-align: left;">test</p>',
   description_text: "test",

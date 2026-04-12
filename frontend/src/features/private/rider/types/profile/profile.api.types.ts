@@ -8,10 +8,10 @@ export type UpdateProfileGeneralInformationResponse = {
   rider: Omit<User, "notification_preferences">;
 } & ApiResponse;
 
-export type UpdateProfileGeneralInformationPayload = TProfileGeneralFormSchema;
+export type UpdateProfileGeneralInformationRequest = TProfileGeneralFormSchema;
 
 export type UpdateProfileNotificationsResponse = {
   rider: User;
 } & ApiResponse;
 
-export type UpdateProfileNotificationsPayload = TProfileNotificationsFormSchema;
+export type UpdateProfileNotificationsRequest = TProfileNotificationsFormSchema;

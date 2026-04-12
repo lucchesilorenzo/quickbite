@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import {
-  CreateOrUpdateCartPayload,
+  CreateOrUpdateCartRequest,
   CreateOrUpdateCartResponse,
 } from "../../types/carts/cart.api.types";
 
@@ -15,7 +15,7 @@ export function useCreateOrUpdateCart() {
   return useMutation<
     CreateOrUpdateCartResponse,
     Error,
-    CreateOrUpdateCartPayload
+    CreateOrUpdateCartRequest
   >({
     mutationFn: (data) => postData("/customer/carts", data),
     onSuccess: () => {

@@ -1,5 +1,5 @@
 import {
-  UpdateOrderStatusPayload,
+  UpdateOrderStatusRequest,
   UpdateOrderStatusResponse,
 } from "@partner/types/orders/order.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -22,7 +22,7 @@ export function useUpdateOrderStatus({
   return useMutation<
     UpdateOrderStatusResponse,
     Error,
-    UpdateOrderStatusPayload
+    UpdateOrderStatusRequest
   >({
     mutationFn: (data) =>
       updateData(`/partner/restaurants/orders/${orderId}/status`, data),

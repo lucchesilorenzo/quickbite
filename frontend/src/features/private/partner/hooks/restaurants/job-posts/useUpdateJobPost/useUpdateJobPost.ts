@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import {
-  UpdateJobPostPayload,
+  UpdateJobPostRequest,
   UpdateJobPostResponse,
 } from "@/features/private/partner/types/job-posts/job-post.api.types";
 import { updateData } from "@/lib/api-client";
@@ -21,7 +21,7 @@ export function useUpdateJobPost({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdateJobPostResponse, Error, UpdateJobPostPayload>({
+  return useMutation<UpdateJobPostResponse, Error, UpdateJobPostRequest>({
     mutationFn: (data) =>
       updateData(
         `/partner/restaurants/${restaurantId}/job-posts/${jobPostId}`,

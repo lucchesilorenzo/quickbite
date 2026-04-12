@@ -16,32 +16,32 @@ export type CreateMenuCategoryResponse = {
   menu_category: Omit<MenuCategory, "menu_items">;
 } & ApiResponse;
 
-export type CreateMenuCategoryPayload = TAddMenuCategoryFormSchema;
+export type CreateMenuCategoryRequest = TAddMenuCategoryFormSchema;
 
 // Menu Categories
 export type UpdateMenuCategoriesOrderResponse = {
   menu_categories: string[];
 } & ApiResponse;
 
-export type UpdateMenuCategoriesOrderPayload = PartnerMenu[];
+export type UpdateMenuCategoriesOrderRequest = PartnerMenu[];
 
 export type UpdateMenuCategoryResponse = CreateMenuCategoryResponse;
 
-export type UpdateMenuCategoryPayload = TEditMenuCategoryFormSchema;
+export type UpdateMenuCategoryRequest = TEditMenuCategoryFormSchema;
 
 // Menu Items
 export type CreateMenuItemResponse = {
   menu_item: MenuItem;
 } & ApiResponse;
 
-export type CreateMenuItemPayload = FormData;
+export type CreateMenuItemRequest = FormData;
 
 export type UpdateMenuItemResponse = CreateMenuItemResponse;
 
-export type UpdateMenuItemPayload = CreateMenuItemPayload;
+export type UpdateMenuItemRequest = CreateMenuItemRequest;
 
 export type UpdateMenuItemsOrderResponse = {
   menu_items: string[];
 } & ApiResponse;
 
-export type UpdateMenuItemsOrderPayload = MenuItem[];
+export type UpdateMenuItemsOrderRequest = MenuItem[];

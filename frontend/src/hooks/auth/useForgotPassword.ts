@@ -3,7 +3,7 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { postData } from "@/lib/api-client";
 import { ApiResponse } from "@/types/api.types";
-import { ForgotPasswordPayload } from "@/types/auth/auth.api.types";
+import { ForgotPasswordRequest } from "@/types/auth/auth.api.types";
 
 type UseForgotPasswordOptions = {
   setOpenForgotPasswordDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +15,7 @@ export function useForgotPassword({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<ApiResponse, Error, ForgotPasswordPayload>({
+  return useMutation<ApiResponse, Error, ForgotPasswordRequest>({
     mutationFn: (data) => postData("/auth/forgot-password", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });

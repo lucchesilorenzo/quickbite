@@ -7,4 +7,4 @@ export type CreateReviewResponse = {
   review: Omit<Review, "customer" | "order">;
 } & ApiResponse;
 
-export type CreateReviewPayload = TAddReviewFormSchema & { order_id: string };
+export type CreateReviewRequest = TAddReviewFormSchema & { order_id: string };
