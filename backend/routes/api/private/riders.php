@@ -40,6 +40,7 @@ Route::prefix('rider')->group(function (): void {
         ->middleware(['auth:sanctum', 'verified', 'role:rider'])
         ->group(function (): void {
             Route::get('/', [RestaurantController::class, 'getRestaurant']);
+            Route::delete('/leave', [RestaurantController::class, 'leaveRestaurant']);
 
             Route::prefix('deliveries')
                 ->group(function (): void {
