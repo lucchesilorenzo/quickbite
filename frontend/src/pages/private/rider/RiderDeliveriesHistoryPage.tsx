@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Container } from "@mui/material";
 import { useRestaurant } from "@rider/contexts/RestaurantProvider";
-import DeliveriesList from "@rider/my-restaurant/DeliveriesList";
+import DeliveriesList from "@rider/my-restaurant/delivery-history/DeliveriesList";
 
 import HeadingBlock from "@/components/common/HeadingBlock";
 

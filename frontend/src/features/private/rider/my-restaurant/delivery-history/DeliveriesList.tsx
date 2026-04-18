@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
 
-import { useGetDeliveryHistory } from "../hooks/restaurant/deliveries/useGetDeliveryHistory";
+import { useGetDeliveryHistory } from "../../hooks/restaurant/deliveries/useGetDeliveryHistory";
 import DeliveryItem from "./DeliveryItem";
 
 import CustomPagination from "@/components/common/CustomPagination";

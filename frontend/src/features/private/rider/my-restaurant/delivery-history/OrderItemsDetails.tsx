@@ -4,7 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import { IconButton, Popover, Stack, Typography } from "@mui/material";
 
-import { Delivery } from "../types/deliveries/delivery.types";
+import { Delivery } from "../../types/deliveries/delivery.types";
 import OrderItemsList from "./OrderItemsList";
 
 type OrderItemsDetailsProps = {

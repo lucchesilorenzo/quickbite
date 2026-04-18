@@ -20,8 +20,11 @@ import {
 import { orderStatuses, statusTransitions } from "@rider/lib/data/orders.data";
 import { OrderStatus } from "@rider/types/orders/order.types";
 
-import { useUpdateDeliveryStatus } from "../hooks/restaurant/deliveries/useUpdateDeliveryStatus";
-import { Delivery, DeliveryStatus } from "../types/deliveries/delivery.types";
+import { useUpdateDeliveryStatus } from "../../hooks/restaurant/deliveries/useUpdateDeliveryStatus";
+import {
+  Delivery,
+  DeliveryStatus,
+} from "../../types/deliveries/delivery.types";
 
 type SplitButtonProps = {
   delivery: Delivery;

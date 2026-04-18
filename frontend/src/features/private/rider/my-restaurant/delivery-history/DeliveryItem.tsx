@@ -2,7 +2,7 @@ import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import { format } from "date-fns";
 
-import { Delivery } from "../types/deliveries/delivery.types";
+import { Delivery } from "../../types/deliveries/delivery.types";
 import OrderItemsDetails from "./OrderItemsDetails";
 import SplitButton from "./SplitButton";
 
