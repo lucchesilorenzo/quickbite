@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\OrderStatus;
+use App\Enums\PaymentStatus;
 use App\Enums\UserRole;
 use App\Models\MenuItem;
 use App\Models\Order;
@@ -12,7 +13,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
+ * @extends Factory<Order>
  */
 class OrderFactory extends Factory
 {
@@ -42,6 +43,8 @@ class OrderFactory extends Factory
             'delivery_time' => fake()->iso8601(),
             'notes' => fake()->optional()->text(100),
             'payment_method' => fake()->randomElement(['cash']),
+            'payment_intent_id' => null,
+            'payment_status' => PaymentStatus::PENDING->value,
             'subtotal' => fake()->randomFloat(2, 10, 100),
             'delivery_fee' => fake()->randomElement([0, 2.99, 4.99]),
             'service_fee' => fake()->randomElement([0, 0.30, 0.50, 0.75, 1.00]),
