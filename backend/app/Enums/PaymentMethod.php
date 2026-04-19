@@ -7,6 +7,7 @@ namespace App\Enums;
 enum PaymentMethod: string
 {
     case CASH = 'cash';
+    case CARD = 'card';
 
     /**
      * Get the enum values.
