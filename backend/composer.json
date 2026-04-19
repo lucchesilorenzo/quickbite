@@ -12,6 +12,7 @@
         "php": "^8.4",
         "dedoc/scramble": "^0.13.11",
         "giggsey/libphonenumber-for-php": "^9.0.23",
+        "laravel/cashier": "^16.5",
         "laravel/framework": "^13.0",
         "laravel/reverb": "^1.7.0",
         "laravel/sanctum": "^4.3",

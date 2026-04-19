@@ -1,13 +1,12 @@
 {
-    "agents": [
-        "cursor"
-    ],
+    "agents": ["cursor"],
     "guidelines": true,
     "herd_mcp": false,
     "mcp": true,
     "nightwatch_mcp": false,
     "sail": false,
     "skills": [
+        "cashier-stripe-development",
         "laravel-best-practices",
         "socialite-development",
         "pest-testing",
