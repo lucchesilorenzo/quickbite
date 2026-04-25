@@ -90,7 +90,7 @@ class OrderService
                 ]);
             }
 
-            if ($data['payment_method'] !== PaymentMethod::CARD->value) {
+            if ($data['payment_method'] !== PaymentMethod::ONLINE->value) {
                 $order->load(['orderItems', 'restaurant.reviews.customer']);
 
                 foreach ($restaurant->partners as $partner) {
@@ -103,7 +103,7 @@ class OrderService
 
         $stripeClientSecret = null;
 
-        if ($data['payment_method'] === PaymentMethod::CARD->value) {
+        if ($data['payment_method'] === PaymentMethod::ONLINE->value) {
             try {
                 $stripeClientSecret = $this->createStripePaymentIntent($customer, $order);
             } catch (Throwable $e) {

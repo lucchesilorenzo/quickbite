@@ -14,7 +14,7 @@ export const paymentMethodOptions: {
 }[] = [
   { value: "all", label: "All payment methods" },
   { value: "cash", label: "Cash" },
-  { value: "card", label: "Card" },
+  { value: "online", label: "Online" },
 ];
 
 export default function AcceptedOrdersPaymentSelect() {

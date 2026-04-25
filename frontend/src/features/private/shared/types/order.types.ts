@@ -56,7 +56,7 @@ export type OrderStatus =
   | "delivered"
   | "cancelled";
 
-export type PaymentMethod = "cash" | "card";
+export type PaymentMethod = "cash" | "online";
 
 export type PaymentStatus = "pending" | "paid" | "failed";
 

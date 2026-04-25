@@ -23,9 +23,9 @@ const paymentMethodOptions = [
   },
   {
     startIcon: CreditCardIcon,
-    label: "Card",
-    value: "card",
-    text: "You will pay the exact amount using your card.",
+    label: "Pay online",
+    value: "online",
+    text: "Pay securely with card, PayPal or other methods.",
     endIcon: DoneOutlinedIcon,
   },
 ];

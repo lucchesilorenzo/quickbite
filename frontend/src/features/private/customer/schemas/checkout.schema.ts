@@ -74,7 +74,7 @@ export const orderNotesFormSchema = z.object({
 
 export const paymentMethodFormSchema = z.object({
   payment_method: z
-    .enum(["cash", "card"], {
+    .enum(["cash", "online"], {
       error: "The option you selected is not valid.",
     })
     .optional()

@@ -25,8 +25,6 @@ class HandleStripeOrderPayments
     {
         $type = $event->payload['type'] ?? null;
 
-        logger($event->payload);
-
         match ($type) {
             'payment_intent.succeeded' => $this->handlePaymentIntentSucceeded($event->payload),
             'payment_intent.payment_failed' => $this->handlePaymentIntentFailed($event->payload),
@@ -62,7 +60,7 @@ class HandleStripeOrderPayments
 
         $order->update(['payment_status' => PaymentStatus::PAID->value]);
 
-        if ($order->payment_method !== PaymentMethod::CARD->value) {
+        if ($order->payment_method !== PaymentMethod::ONLINE->value) {
             return;
         }
 
