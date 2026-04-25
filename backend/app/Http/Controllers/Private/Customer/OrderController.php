@@ -75,7 +75,7 @@ class OrderController extends Controller
     public function createOrder(CreateOrderRequest $request): JsonResponse
     {
         try {
-            $order = $this->orderService->createOrder(
+            $result = $this->orderService->createOrder(
                 auth()->user(),
                 $request->validated()
             );
@@ -83,7 +83,8 @@ class OrderController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Order created successfully.',
-                'order' => $order,
+                'order' => $result['order'],
+                'stripe_client_secret' => $result['stripe_client_secret'],
             ], 201);
         } catch (ModelNotFoundException) {
             return response()->json([
