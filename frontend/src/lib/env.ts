@@ -9,6 +9,7 @@ const envSchema = z.object({
   VITE_REVERB_HOST: z.string(),
   VITE_REVERB_PORT: z.coerce.number(),
   VITE_REVERB_SCHEME: z.string(),
+  VITE_STRIPE_PUBLISHABLE_KEY: z.string(),
 });
 
 const env = envSchema.parse(import.meta.env);
