@@ -46,7 +46,7 @@ export default function PaymentMethodForm({
   } = useForm({
     resolver: zodResolver(paymentMethodFormSchema),
     defaultValues: {
-      payment_method: checkoutData[restaurantId].payment_method || "",
+      payment_method: checkoutData[restaurantId].payment_method || undefined,
     },
   });
 

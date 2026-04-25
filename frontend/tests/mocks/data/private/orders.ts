@@ -28,6 +28,8 @@ export const order: Order = {
   delivery_time: "2025-10-29 16:48:17",
   notes: null,
   payment_method: "cash",
+  payment_intent_id: "pi_3KkT3q2eZvKYlo2C",
+  payment_status: "pending",
   subtotal: 12,
   delivery_fee: 2.99,
   service_fee: 1.99,

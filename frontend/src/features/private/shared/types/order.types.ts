@@ -18,7 +18,9 @@ export type Order = {
   country: string;
   delivery_time: string;
   notes: string | null;
-  payment_method: string;
+  payment_method: PaymentMethod;
+  payment_intent_id: string | null;
+  payment_status: PaymentStatus;
   subtotal: number;
   delivery_fee: number;
   service_fee: number;
@@ -53,6 +55,10 @@ export type OrderStatus =
   | "delivering"
   | "delivered"
   | "cancelled";
+
+export type PaymentMethod = "cash" | "card";
+
+export type PaymentStatus = "pending" | "paid" | "failed";
 
 export type OrderStatusWithAll = OrderStatus | "all";
 
