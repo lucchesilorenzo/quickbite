@@ -28,6 +28,7 @@ class HandleStripeOrderPayments
         match ($type) {
             'payment_intent.succeeded' => $this->handlePaymentIntentSucceeded($event->payload),
             'payment_intent.payment_failed' => $this->handlePaymentIntentFailed($event->payload),
+            'charge.succeeded' => $this->handleChargeSucceeded($event->payload),
             default => null,
         };
     }
@@ -58,11 +59,13 @@ class HandleStripeOrderPayments
             return;
         }
 
-        $order->update(['payment_status' => PaymentStatus::PAID->value]);
-
         if ($order->payment_method !== PaymentMethod::ONLINE->value) {
             return;
         }
+
+        $order->update([
+            'payment_status' => PaymentStatus::PAID->value,
+        ]);
 
         $order->load(['orderItems', 'restaurant.reviews.customer']);
 
@@ -90,6 +93,27 @@ class HandleStripeOrderPayments
             return;
         }
 
-        $order->update(['payment_status' => PaymentStatus::FAILED->value]);
+        $order->update([
+            'payment_status' => PaymentStatus::FAILED->value,
+        ]);
+    }
+
+    private function handleChargeSucceeded(array $payload): void
+    {
+        $charge = $payload['data']['object'];
+
+        $order = Order::query()
+            ->where('payment_intent_id', $charge['payment_intent'])
+            ->first();
+
+        if (! $order) {
+            return;
+        }
+
+        $type = $charge['payment_method_details']['type'] ?? null;
+
+        $order->update([
+            'payment_method_type' => $type,
+        ]);
     }
 }
