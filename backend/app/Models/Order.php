@@ -31,6 +31,7 @@ class Order extends Model
         'delivery_time',
         'notes',
         'payment_method',
+        'payment_method_type',
         'payment_intent_id',
         'payment_status',
         'subtotal',

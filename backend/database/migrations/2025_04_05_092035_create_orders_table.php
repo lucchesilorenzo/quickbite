@@ -33,6 +33,7 @@ return new class extends Migration
             $table->timestamp('delivery_time');
             $table->string('notes', 160)->nullable();
             $table->enum('payment_method', PaymentMethod::values());
+            $table->string('payment_method_type')->nullable();
             $table->string('payment_intent_id')->nullable();
             $table->string('payment_status')->default(PaymentStatus::PENDING);
             $table->decimal('subtotal');

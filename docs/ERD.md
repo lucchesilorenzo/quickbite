@@ -205,6 +205,7 @@
 - `delivery_time` (timestamp)
 - `notes` (varchar)
 - `payment_method` (varchar)
+- `payment_method_type` (varchar)
 - `subtotal` (numeric)
 - `delivery_fee` (numeric)
 - `service_fee` (numeric)

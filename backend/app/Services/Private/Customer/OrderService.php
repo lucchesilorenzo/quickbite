@@ -121,9 +121,6 @@ class OrderService
         ];
     }
 
-    /**
-     * Create a Stripe PaymentIntent for the order (card checkout).
-     */
     private function createStripePaymentIntent(User $customer, Order $order): string
     {
         $customer->createOrGetStripeCustomer([
