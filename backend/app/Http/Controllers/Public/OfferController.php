@@ -20,6 +20,8 @@ class OfferController extends Controller
 
     /**
      * Get all offers.
+     *
+     * @unauthenticated
      */
     public function getOffers(Restaurant $restaurant): JsonResponse
     {

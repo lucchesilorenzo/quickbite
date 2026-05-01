@@ -23,6 +23,8 @@ class RestaurantController extends Controller
 
     /**
      * Get all restaurants.
+     *
+     * @unauthenticated
      */
     public function getRestaurants(GetRestaurantsRequest $request): JsonResponse
     {
@@ -47,6 +49,8 @@ class RestaurantController extends Controller
 
     /**
      * Get a restaurant.
+     *
+     * @unauthenticated
      */
     public function getRestaurant(string $restaurantSlug): JsonResponse
     {
@@ -73,6 +77,8 @@ class RestaurantController extends Controller
 
     /**
      * Get delivery slots.
+     *
+     * @unauthenticated
      */
     public function getDeliverySlots(Restaurant $restaurant): JsonResponse
     {
@@ -100,6 +106,8 @@ class RestaurantController extends Controller
 
     /**
      * Get a restaurant logo.
+     *
+     * @unauthenticated
      */
     public function getBase64Logo(Restaurant $restaurant): JsonResponse
     {

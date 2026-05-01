@@ -20,6 +20,8 @@ class ReviewController extends Controller
 
     /**
      * Get all reviews.
+     *
+     * @unauthenticated
      */
     public function getReviews(Restaurant $restaurant): JsonResponse
     {

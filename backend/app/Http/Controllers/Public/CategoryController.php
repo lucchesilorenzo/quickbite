@@ -19,6 +19,8 @@ class CategoryController extends Controller
 
     /**
      * Get all categories.
+     *
+     * @unauthenticated
      */
     public function getCategories(): JsonResponse
     {

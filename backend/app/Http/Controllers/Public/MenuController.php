@@ -20,6 +20,8 @@ class MenuController extends Controller
 
     /**
      * Get menu.
+     *
+     * @unauthenticated
      */
     public function getMenu(Restaurant $restaurant): JsonResponse
     {
