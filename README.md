@@ -50,7 +50,7 @@
 - Receive real-time notifications for new orders and reviews.
 - Job post management system for hiring riders.
 
-### 🛵 Rider (coming soon)
+### 🛵 Rider
 
 - Job board for rider applications.
 - View assigned delivery orders.
@@ -91,7 +91,7 @@
 ### Other Libraries
 
 - [React Router](https://reactrouter.com/) for routing.
-- [React Query](https://tanstack.com/query/v4) for data fetching.
+- [TanStack Query](https://tanstack.com/query/v4) for data fetching.
 - [Swiper](https://swiperjs.com/) for carousel components.
 - [React Hook Form](https://react-hook-form.com/) for form handling.
 - [Zod](https://zod.dev/) for schema validation.
