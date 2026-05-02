@@ -3,7 +3,7 @@ name: cashier-stripe-development
 description: "Handles Laravel Cashier Stripe integration including subscriptions, webhooks, Stripe Checkout, invoices, charges, refunds, trials, coupons, metered billing, and payment failure handling. Triggered when a user mentions Cashier, Billable, IncompletePayment, stripe_id, newSubscription, Stripe subscriptions, or billing. Also applies when setting up webhooks, handling SCA/3DS payment failures, testing with Stripe test cards, or troubleshooting incomplete subscriptions, CSRF webhook errors, or migration publish issues."
 license: MIT
 metadata:
-    author: laravel
+  author: laravel
 ---
 
 # Cashier Stripe Development
@@ -41,7 +41,6 @@ CASHIER_CURRENCY_LOCALE=en_US
 ### Billable Model
 
 <!-- Add Billable Trait -->
-
 ```php
 use Laravel\Cashier\Billable;
 
@@ -54,7 +53,6 @@ class User extends Authenticatable
 For a non-User model, register it in a service provider:
 
 <!-- Custom Billable Model -->
-
 ```php
 // In AppServiceProvider::boot()
 Cashier::useCustomerModel(Team::class);
@@ -63,7 +61,6 @@ Cashier::useCustomerModel(Team::class);
 ### Creating a Subscription
 
 <!-- Create Subscription -->
-
 ```php
 use Laravel\Cashier\Exceptions\IncompletePayment;
 

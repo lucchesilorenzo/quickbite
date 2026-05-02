@@ -6,13 +6,13 @@ Use `search-docs` for authoritative documentation on testing Cashier integration
 
 Use card numbers for browser-based flows (Stripe.js / Checkout). Use `pm_card_*` tokens directly in feature tests that call the Stripe API.
 
-| Card Number           | Token                                     | Behavior                     |
-| --------------------- | ----------------------------------------- | ---------------------------- |
-| `4242 4242 4242 4242` | `pm_card_visa`                            | Succeeds immediately         |
-| `4000 0025 0000 3155` | `pm_card_threeDSecure2Required`           | Requires SCA/3DS             |
-| `4000 0027 6000 3184` | `pm_card_authenticationRequired`          | Requires authentication      |
+| Card Number | Token | Behavior |
+|---|---|---|
+| `4242 4242 4242 4242` | `pm_card_visa` | Succeeds immediately |
+| `4000 0025 0000 3155` | `pm_card_threeDSecure2Required` | Requires SCA/3DS |
+| `4000 0027 6000 3184` | `pm_card_authenticationRequired` | Requires authentication |
 | `4000 0000 0000 9995` | `pm_card_chargeDeclinedInsufficientFunds` | Declined, insufficient funds |
-| `4000 0000 0000 0002` | `pm_card_chargeDeclined`                  | Declined                     |
+| `4000 0000 0000 0002` | `pm_card_chargeDeclined` | Declined |
 
 Use expiry `12/34`, any CVC, any ZIP for card number inputs.
 

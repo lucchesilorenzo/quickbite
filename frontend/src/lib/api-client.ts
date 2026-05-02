@@ -5,7 +5,7 @@ import env from "./env";
 import { refreshToken } from "@/services/auth.service";
 
 const api = axios.create({
-  baseURL: `${env.VITE_BACKEND_URL}/api`,
+  baseURL: `${env.VITE_BACKEND_URL}/api/v1`,
 });
 
 let isRefreshing = false;

@@ -2,11 +2,19 @@
 
 declare(strict_types=1);
 
-// === Public routes ===
-require __DIR__ . '/api/public.php';
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| API routes are versioned using grazulex/laravel-apiroute v2.x.
+| Versions are defined in config/apiroute.php and route files are
+| located in routes/api/{version}.php
+|
+| Supports URI path, header, query, and Accept header detection.
+| See config/apiroute.php for configuration options.
+|
+*/
 
-// === Private routes ===
-require __DIR__ . '/api/private/auth.php';
-require __DIR__ . '/api/private/customers.php';
-require __DIR__ . '/api/private/partners.php';
-require __DIR__ . '/api/private/riders.php';
+// Routes are now loaded automatically from config/apiroute.php
+// See routes/api/v1.php for version 1 routes

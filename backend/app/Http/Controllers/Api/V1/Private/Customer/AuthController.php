@@ -1,0 +1,106 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Api\V1\Private\Customer;
+
+use App\Exceptions\Private\Customer\CustomerHasSocialLoginException;
+use App\Exceptions\Private\Customer\UnauthorizedException;
+use App\Exceptions\Private\InvalidCredentialsException;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Private\Customer\Auth\LoginRequest;
+use App\Http\Requests\Api\V1\Private\Customer\Auth\LogoutRequest;
+use App\Http\Requests\Api\V1\Private\Customer\Auth\RegisterRequest;
+use App\Services\Private\Customer\AuthService;
+use Dedoc\Scramble\Attributes\Group;
+use Illuminate\Http\JsonResponse;
+use Throwable;
+
+#[Group('Customer Auth')]
+class AuthController extends Controller
+{
+    public function __construct(
+        private readonly AuthService $authService
+    ) {}
+
+    /**
+     * Register a new customer.
+     */
+    public function register(RegisterRequest $request): JsonResponse
+    {
+        try {
+            $tokens = $this->authService->register(
+                $request->validated()
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Customer registered successfully.',
+                'access_token' => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'],
+            ], 201);
+        } catch (InvalidCredentialsException|CustomerHasSocialLoginException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        } catch (Throwable) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not register customer.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Login a customer.
+     */
+    public function login(LoginRequest $request): JsonResponse
+    {
+        try {
+            $tokens = $this->authService->login(
+                $request->validated()
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Customer logged in successfully.',
+                'access_token' => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'],
+            ], 200);
+        } catch (InvalidCredentialsException|UnauthorizedException|CustomerHasSocialLoginException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        } catch (Throwable) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not login customer.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Logout a customer.
+     */
+    public function logout(LogoutRequest $request): JsonResponse
+    {
+        try {
+            $this->authService->logout(
+                auth()->user(),
+                $request->validated()
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Customer logged out successfully.',
+            ], 200);
+        } catch (Throwable) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not logout customer.',
+            ], 500);
+        }
+    }
+}
