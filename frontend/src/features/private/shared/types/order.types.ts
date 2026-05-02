@@ -19,6 +19,7 @@ export type Order = {
   delivery_time: string;
   notes: string | null;
   payment_method: PaymentMethod;
+  payment_method_type: string | null;
   payment_intent_id: string | null;
   payment_status: PaymentStatus;
   subtotal: number;

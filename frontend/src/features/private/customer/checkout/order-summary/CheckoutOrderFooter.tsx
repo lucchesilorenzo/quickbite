@@ -127,7 +127,6 @@ export default function CheckoutOrderFooter() {
         clientSecret: response.stripe_client_secret,
         orderId: response.order.id,
       });
-
       return;
     }
 

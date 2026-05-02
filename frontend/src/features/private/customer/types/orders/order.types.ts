@@ -14,6 +14,7 @@ export type CreateOrder = Omit<
   | "id"
   | "status"
   | "payment_intent_id"
+  | "payment_method_type"
   | "payment_status"
   | "order_code"
   | "created_at"
