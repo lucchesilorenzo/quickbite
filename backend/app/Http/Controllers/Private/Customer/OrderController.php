@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Private\Customer;
 
+use App\Exceptions\Private\Customer\OrderExpiredException;
 use App\Exceptions\Private\Customer\RestaurantNotAvailableException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Http\Controllers\Controller;
@@ -61,6 +62,11 @@ class OrderController extends Controller
                 'message' => 'Order retrieved successfully.',
                 'order' => $order,
             ], 200);
+        } catch (OrderExpiredException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

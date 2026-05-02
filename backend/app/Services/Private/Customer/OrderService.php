@@ -6,6 +6,7 @@ namespace App\Services\Private\Customer;
 
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
+use App\Exceptions\Private\Customer\OrderExpiredException;
 use App\Exceptions\Private\Customer\RestaurantNotAvailableException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Order;
@@ -29,6 +30,7 @@ class OrderService
     {
         return $customer->orders()
             ->with(['orderItems', 'restaurant.reviews.customer'])
+            ->visible()
             ->latest()
             ->paginate(self::PER_PAGE);
     }

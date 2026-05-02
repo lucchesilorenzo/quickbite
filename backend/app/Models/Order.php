@@ -103,4 +103,22 @@ class Order extends Model
     {
         return $this->hasOne(Delivery::class);
     }
+
+    /**
+     * Scope a query to only include orders that are visible.
+     */
+    #[Scope]
+    protected function visible(Builder $query): void
+    {
+        $query->where(function ($q): void {
+            $q->where('payment_method', PaymentMethod::CASH->value)
+                ->orWhere(function ($qq): void {
+                    $qq->where('payment_method', PaymentMethod::ONLINE->value)
+                        ->whereIn('payment_status', [
+                            PaymentStatus::PAID->value,
+                            PaymentStatus::FAILED->value,
+                        ]);
+                });
+        });
+    }
 }
