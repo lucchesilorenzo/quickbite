@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\PaymentMethod;
+use App\Enums\PaymentStatus;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,6 +55,14 @@ class Order extends Model
         'discount' => 'float',
         'total' => 'float',
     ];
+
+    /**
+     * Check if the order is expired.
+     */
+    public function isExpired(): bool
+    {
+        return $this->payment_status === PaymentStatus::EXPIRED->value;
+    }
 
     /**
      * Get the customer that owns the order.

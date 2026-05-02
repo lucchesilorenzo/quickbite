@@ -35,6 +35,10 @@ class OrderService
 
     public function getOrder(Order $order): Order
     {
+        if ($order->isExpired()) {
+            throw new OrderExpiredException();
+        }
+
         $order->load(['orderItems', 'restaurant.reviews.customer']);
 
         return $order;
@@ -152,9 +156,10 @@ class OrderService
     {
         do {
             $code = random_int(100000, 999999);
-        } while (Order::query()
-            ->where('order_code', $code)
-            ->exists()
+        } while (
+            Order::query()
+                ->where('order_code', $code)
+                ->exists()
         );
 
         return $code;
