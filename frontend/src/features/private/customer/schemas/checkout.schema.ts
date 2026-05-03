@@ -74,10 +74,13 @@ export const orderNotesFormSchema = z.object({
 
 export const paymentMethodFormSchema = z.object({
   payment_method: z
-    .string()
-    .trim()
-    .min(1, "Please fill out your payment method.")
-    .max(50, "Payment method is too long."),
+    .enum(["cash", "online"], {
+      error: "The option you selected is not valid.",
+    })
+    .optional()
+    .refine((val) => val !== undefined, {
+      message: "Please select a payment method.",
+    }),
 });
 
 export type TPersonalInfoFormSchema = z.infer<typeof personalInfoFormSchema>;

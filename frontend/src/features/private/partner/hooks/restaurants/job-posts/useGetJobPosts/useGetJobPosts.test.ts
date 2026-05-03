@@ -31,7 +31,7 @@ describe("useGetJobPosts", () => {
   it("should send 'sort_by' query parameter correctly", async () => {
     server.use(
       http.get(
-        `${env.VITE_BACKEND_URL}/api/partner/restaurants/1/job-posts`,
+        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/1/job-posts`,
         ({ request }) => {
           const url = new URL(request.url);
           const sortByParam = url.searchParams.get("sort_by");
@@ -68,7 +68,7 @@ describe("useGetJobPosts", () => {
 
     server.use(
       http.get(
-        `${env.VITE_BACKEND_URL}/api/partner/restaurants/1/job-posts`,
+        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/1/job-posts`,
         ({ request }) => {
           const url = new URL(request.url);
           const filterParam = url.searchParams.get("filter");
@@ -93,7 +93,7 @@ describe("useGetJobPosts", () => {
   it("should send 'search' query parameter correctly", async () => {
     server.use(
       http.get(
-        `${env.VITE_BACKEND_URL}/api/partner/restaurants/1/job-posts`,
+        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/1/job-posts`,
         ({ request }) => {
           const url = new URL(request.url);
           const searchParam = url.searchParams.get("search");
@@ -124,7 +124,7 @@ describe("useGetJobPosts", () => {
 
   it("should fail to fetch data", async () => {
     simulateError(
-      `${env.VITE_BACKEND_URL}/api/partner/restaurants/1/job-posts`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/1/job-posts`,
     );
 
     const { result } = renderHook(() => useGetJobPosts(options), {

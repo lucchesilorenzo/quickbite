@@ -393,7 +393,7 @@ describe("EditJobPostForm", () => {
 
   it("should render the loading indicator upon submission", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BACKEND_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
       "patch",
     );
     const { getForm } = renderComponent(jobPostResponse.job_post);
@@ -415,7 +415,7 @@ describe("EditJobPostForm", () => {
 
   it("should not render the loading indicator if submission fails", async () => {
     simulateError(
-      `${env.VITE_BACKEND_URL}/api/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
       "patch",
     );
     const { getForm } = renderComponent(jobPostResponse.job_post);

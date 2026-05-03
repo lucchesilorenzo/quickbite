@@ -2,7 +2,7 @@ import env from "@/lib/env";
 import { http, HttpResponse } from "msw";
 
 export const authHandlers = [
-  http.post(`${env.VITE_BACKEND_URL}/api/rider/auth/register`, async () => {
+  http.post(`${env.VITE_BACKEND_URL}/api/v1/rider/auth/register`, async () => {
     return HttpResponse.json(
       {
         success: true,
@@ -13,7 +13,7 @@ export const authHandlers = [
       { status: 201 },
     );
   }),
-  http.post(`${env.VITE_BACKEND_URL}/api/rider/auth/login`, async () => {
+  http.post(`${env.VITE_BACKEND_URL}/api/v1/rider/auth/login`, async () => {
     return HttpResponse.json(
       {
         success: true,
@@ -24,7 +24,7 @@ export const authHandlers = [
       { status: 200 },
     );
   }),
-  http.post(`${env.VITE_BACKEND_URL}/api/rider/auth/logout`, async () => {
+  http.post(`${env.VITE_BACKEND_URL}/api/v1/rider/auth/logout`, async () => {
     return HttpResponse.json(
       {
         success: true,

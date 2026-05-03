@@ -18,7 +18,7 @@ export const publicHandlers = [
     },
   ),
   http.get(
-    `${env.VITE_BACKEND_URL}/api/restaurants/:restaurantId/base64-logo`,
+    `${env.VITE_BACKEND_URL}/api/v1/restaurants/:restaurantId/base64-logo`,
     async () => {
       return HttpResponse.json(restaurantLogoResponse);
     },

@@ -26,6 +26,7 @@ class OrderService
 
         return $restaurant->orders()
             ->with(['orderItems', 'restaurant'])
+            ->visible()
             ->when($status, fn ($query) => $query->where('status', $status))->latest()
             ->paginate(self::PER_PAGE);
     }

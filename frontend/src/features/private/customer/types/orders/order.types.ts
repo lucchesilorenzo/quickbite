@@ -1,5 +1,8 @@
-import { OrderItem } from "@private/shared/types/order.types";
-import { Order } from "@private/shared/types/order.types";
+import {
+  Order,
+  OrderItem,
+  PaymentMethod,
+} from "@private/shared/types/order.types";
 
 type CreateOrderItem = Omit<
   OrderItem,
@@ -10,6 +13,9 @@ export type CreateOrder = Omit<
   Order,
   | "id"
   | "status"
+  | "payment_intent_id"
+  | "payment_method_type"
+  | "payment_status"
   | "order_code"
   | "created_at"
   | "updated_at"
@@ -40,6 +46,6 @@ export type CheckoutData = {
       value: string;
     };
     notes: string | null;
-    payment_method: string | null;
+    payment_method: PaymentMethod | null;
   };
 };

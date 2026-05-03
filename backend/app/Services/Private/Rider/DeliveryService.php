@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Services\Private\Rider;
 
 use App\Enums\OrderStatus;
+use App\Enums\PaymentMethod;
+use App\Enums\PaymentStatus;
 use App\Exceptions\Private\Rider\InvalidDeliveryStatusException;
 use App\Models\Delivery;
 use App\Models\Restaurant;
@@ -62,6 +64,12 @@ class DeliveryService
 
         return DB::transaction(function () use ($data, $delivery, $deliveryStatus): Delivery {
             if ($data['status'] === OrderStatus::DELIVERED->value) {
+                if ($delivery->order->payment_method === PaymentMethod::CASH->value) {
+                    $delivery->order->update([
+                        'payment_status' => PaymentStatus::PAID->value,
+                    ]);
+                }
+
                 $delivery->order->customer->notify(new OrderDelivered($delivery->order));
             }
 

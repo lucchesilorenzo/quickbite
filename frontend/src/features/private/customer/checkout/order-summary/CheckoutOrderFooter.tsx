@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import CheckoutStripePaymentDialog from "@customer/checkout/order-summary/CheckoutStripePaymentDialog";
 import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { useDeleteCart } from "@customer/hooks/carts/useDeleteCart";
 import { useCreateOrder } from "@customer/hooks/orders/useCreateOrder";
@@ -20,6 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
+import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 import { getBestRestaurantOfferGivenSubtotal } from "@/lib/utils/restaurants.utils";
 
@@ -27,15 +29,19 @@ export default function CheckoutOrderFooter() {
   const { cartData, checkoutData, restaurantId, offersData, offersError } =
     useCheckout();
 
-  const { mutateAsync: createOrder, isPending: isCreating } = useCreateOrder({
-    restaurantId,
-  });
+  const { mutateAsync: createOrder, isPending: isCreating } = useCreateOrder();
   const { mutateAsync: deleteCart, isPending: isDeleting } = useDeleteCart({
     cartId: cartData.cart.id,
   });
+  const { emptyCart } = useMultiCart();
+  const { emptyCheckoutData } = useCheckout();
 
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
+  const [cardPayment, setCardPayment] = useState<{
+    clientSecret: string;
+    orderId: string;
+  } | null>(null);
 
   const notifications = useNotifications();
   const navigate = useNavigate();
@@ -114,10 +120,36 @@ export default function CheckoutOrderFooter() {
       total,
     } satisfies CreateOrder;
 
-    const { order: newOrder } = await createOrder(order);
-    await deleteCart();
+    const response = await createOrder(order);
 
-    navigate(`/checkout/${newOrder.id}/success`, { replace: true });
+    if (response.stripe_client_secret) {
+      setCardPayment({
+        clientSecret: response.stripe_client_secret,
+        orderId: response.order.id,
+      });
+      return;
+    }
+
+    await deleteCart();
+    emptyCart(restaurantId);
+    emptyCheckoutData(restaurantId);
+
+    navigate(`/checkout/${response.order.id}/success`, { replace: true });
+  }
+
+  async function handleCardPaymentSuccess() {
+    if (!cardPayment) return;
+
+    await deleteCart();
+    emptyCart(restaurantId);
+    emptyCheckoutData(restaurantId);
+    setCardPayment(null);
+
+    navigate(`/checkout/${cardPayment.orderId}/success`, { replace: true });
+  }
+
+  function handleCardPaymentDialogClose() {
+    setCardPayment(null);
   }
 
   return (
@@ -226,6 +258,16 @@ export default function CheckoutOrderFooter() {
         >
           Order and pay
         </Button>
+
+        {cardPayment && (
+          <CheckoutStripePaymentDialog
+            open
+            clientSecret={cardPayment.clientSecret}
+            orderId={cardPayment.orderId}
+            handleCardPaymentSuccess={handleCardPaymentSuccess}
+            handleCardPaymentDialogClose={handleCardPaymentDialogClose}
+          />
+        )}
 
         <Typography
           variant="body2"

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\PaymentMethod;
+use App\Enums\PaymentStatus;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +35,9 @@ class Order extends Model
         'delivery_time',
         'notes',
         'payment_method',
+        'payment_method_type',
+        'payment_intent_id',
+        'payment_status',
         'subtotal',
         'delivery_fee',
         'service_fee',
@@ -48,6 +55,14 @@ class Order extends Model
         'discount' => 'float',
         'total' => 'float',
     ];
+
+    /**
+     * Check if the order is expired.
+     */
+    public function isExpired(): bool
+    {
+        return $this->payment_status === PaymentStatus::EXPIRED->value;
+    }
 
     /**
      * Get the customer that owns the order.
@@ -87,5 +102,23 @@ class Order extends Model
     public function delivery(): HasOne
     {
         return $this->hasOne(Delivery::class);
+    }
+
+    /**
+     * Scope a query to only include orders that are visible.
+     */
+    #[Scope]
+    protected function visible(Builder $query): void
+    {
+        $query->where(function ($q): void {
+            $q->where('payment_method', PaymentMethod::CASH->value)
+                ->orWhere(function ($qq): void {
+                    $qq->where('payment_method', PaymentMethod::ONLINE->value)
+                        ->whereIn('payment_status', [
+                            PaymentStatus::PAID->value,
+                            PaymentStatus::FAILED->value,
+                        ]);
+                });
+        });
     }
 }

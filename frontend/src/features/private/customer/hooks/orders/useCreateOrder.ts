@@ -1,4 +1,3 @@
-import { useCheckout } from "@customer/contexts/CheckoutProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
@@ -7,17 +6,9 @@ import {
   CreateOrderResponse,
 } from "../../types/orders/order.api.types";
 
-import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { postData } from "@/lib/api-client";
 
-type UseCreateOrderOptions = {
-  restaurantId: string;
-};
-
-export function useCreateOrder({ restaurantId }: UseCreateOrderOptions) {
-  const { emptyCart } = useMultiCart();
-  const { emptyCheckoutData } = useCheckout();
-
+export function useCreateOrder() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
@@ -25,8 +16,6 @@ export function useCreateOrder({ restaurantId }: UseCreateOrderOptions) {
     mutationFn: (data) => postData("/customer/orders", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customer-orders"] });
-      emptyCart(restaurantId);
-      emptyCheckoutData(restaurantId);
     },
     onError: (error) => {
       notifications.show(error.message, {

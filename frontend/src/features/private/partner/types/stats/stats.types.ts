@@ -20,7 +20,7 @@ export type Kpi =
 
 export type StatRange = "7d" | "14d" | "30d" | "all";
 
-export type PaymentMethodFilter = "cash" | "all";
+export type PaymentMethodFilter = "cash" | "online" | "all";
 
 export type Stat = {
   period: string;

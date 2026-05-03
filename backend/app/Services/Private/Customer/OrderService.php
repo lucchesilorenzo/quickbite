@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Private\Customer;
 
+use App\Enums\PaymentMethod;
+use App\Enums\PaymentStatus;
+use App\Exceptions\Private\Customer\OrderExpiredException;
 use App\Exceptions\Private\Customer\RestaurantNotAvailableException;
 use App\Exceptions\Public\LocationNotFoundException;
 use App\Models\Order;
@@ -13,6 +16,7 @@ use App\Notifications\Private\Partner\NewOrderReceived;
 use App\Services\Shared\LocationService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class OrderService
 {
@@ -26,20 +30,28 @@ class OrderService
     {
         return $customer->orders()
             ->with(['orderItems', 'restaurant.reviews.customer'])
+            ->visible()
             ->latest()
             ->paginate(self::PER_PAGE);
     }
 
     public function getOrder(Order $order): Order
     {
+        if ($order->isExpired()) {
+            throw new OrderExpiredException();
+        }
+
         $order->load(['orderItems', 'restaurant.reviews.customer']);
 
         return $order;
     }
 
-    public function createOrder(User $customer, array $data): Order
+    /**
+     * @return array{order: Order, stripe_client_secret: string|null}
+     */
+    public function createOrder(User $customer, array $data): array
     {
-        return DB::transaction(function () use ($customer, $data) {
+        $order = DB::transaction(function () use ($customer, $data) {
             $restaurant = Restaurant::query()->findOrFail($data['restaurant_id']);
 
             if (! $restaurant->is_open || $data['subtotal'] < $restaurant->min_amount) {
@@ -75,10 +87,6 @@ class OrderService
                 'total' => $data['total'],
             ]);
 
-            foreach ($restaurant->partners as $partner) {
-                $partner->notify(new NewOrderReceived($order, $partner));
-            }
-
             foreach ($data['order_items'] as $item) {
                 $order->orderItems()->create([
                     'menu_item_id' => $item['menu_item_id'],
@@ -88,10 +96,59 @@ class OrderService
                 ]);
             }
 
-            $order->load(['orderItems', 'restaurant.reviews.customer']);
+            if ($data['payment_method'] !== PaymentMethod::ONLINE->value) {
+                $order->load(['orderItems', 'restaurant.reviews.customer']);
+
+                foreach ($restaurant->partners as $partner) {
+                    $partner->notify(new NewOrderReceived($order, $partner));
+                }
+            }
 
             return $order;
         });
+
+        $stripeClientSecret = null;
+
+        if ($data['payment_method'] === PaymentMethod::ONLINE->value) {
+            try {
+                $stripeClientSecret = $this->createStripePaymentIntent($customer, $order);
+            } catch (Throwable $e) {
+                $order->delete();
+
+                throw $e;
+            }
+        }
+
+        $order->load(['orderItems', 'restaurant.reviews.customer']);
+
+        return [
+            'order' => $order,
+            'stripe_client_secret' => $stripeClientSecret,
+        ];
+    }
+
+    private function createStripePaymentIntent(User $customer, Order $order): string
+    {
+        $customer->createOrGetStripeCustomer([
+            'name' => mb_trim($customer->first_name . ' ' . $customer->last_name),
+        ]);
+
+        $amount = (int) ($order->total * 100);
+
+        $payment = $customer->pay($amount, [
+            'metadata' => [
+                'order_id' => $order->id,
+                'order_code' => (string) $order->order_code,
+            ],
+            'description' => 'QuickBite order # ' . $order->order_code,
+        ]);
+
+        $order->update([
+            'payment_intent_id' => $payment->asStripePaymentIntent()->id,
+            'payment_status' => PaymentStatus::PENDING->value,
+        ]);
+
+        return $payment->clientSecret();
     }
 
     /**
@@ -101,9 +158,10 @@ class OrderService
     {
         do {
             $code = random_int(100000, 999999);
-        } while (Order::query()
-            ->where('order_code', $code)
-            ->exists()
+        } while (
+            Order::query()
+                ->where('order_code', $code)
+                ->exists()
         );
 
         return $code;

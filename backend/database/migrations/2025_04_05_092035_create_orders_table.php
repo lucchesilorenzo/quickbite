@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -32,6 +33,9 @@ return new class extends Migration
             $table->timestamp('delivery_time');
             $table->string('notes', 160)->nullable();
             $table->enum('payment_method', PaymentMethod::values());
+            $table->string('payment_method_type')->nullable();
+            $table->string('payment_intent_id')->nullable();
+            $table->string('payment_status')->default(PaymentStatus::PENDING);
             $table->decimal('subtotal');
             $table->decimal('delivery_fee')->default(0);
             $table->decimal('service_fee')->default(0);

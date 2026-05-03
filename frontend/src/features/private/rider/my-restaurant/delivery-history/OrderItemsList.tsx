@@ -21,6 +21,7 @@ export default function OrderItemsList({ delivery }: OrderItemsListProps) {
       <Stack spacing={1} sx={{ px: 2, maxHeight: 300, overflowY: "auto" }}>
         {delivery.order.order_items.map((item, index) => (
           <OrderItem
+            key={item.id}
             item={item}
             isLast={index === delivery.order.order_items.length - 1}
           />

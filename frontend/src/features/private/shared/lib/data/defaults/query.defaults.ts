@@ -17,6 +17,7 @@ export const orderDefaults = {
   delivery_time: "",
   notes: null,
   payment_method: "cash",
+  payment_method_type: null,
   subtotal: 0,
   delivery_fee: 0,
   service_fee: 0,

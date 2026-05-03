@@ -19,7 +19,7 @@ describe("useGetRestaurant", () => {
   });
 
   it("should fail to fetch data", async () => {
-    simulateError(`${env.VITE_BACKEND_URL}/api/rider/restaurant`);
+    simulateError(`${env.VITE_BACKEND_URL}/api/v1/rider/restaurant`);
 
     const { result } = renderHook(() => useGetRestaurant(), {
       wrapper: TestQueryWrapper,

@@ -12,6 +12,8 @@ export type GetOrderResponse = {
   order: Order;
 } & ApiResponse;
 
-export type CreateOrderResponse = GetOrderResponse;
+export type CreateOrderResponse = GetOrderResponse & {
+  stripe_client_secret: string | null;
+};
 
 export type CreateOrderRequest = CreateOrder;

@@ -196,7 +196,7 @@ describe("RegisterWizard (integration)", () => {
 
   it("should render the loading indicator upon submission", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BACKEND_URL}/api/rider/auth/register`,
+      `${env.VITE_BACKEND_URL}/api/v1/rider/auth/register`,
       "post",
     );
     const { user, getSubmitButton, navigateToStep, completeFormAndGoToSubmit } =

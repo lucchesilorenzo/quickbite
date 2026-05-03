@@ -4,6 +4,7 @@ import {
   paymentMethodFormSchema,
 } from "@customer/schemas/checkout.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import EuroOutlinedIcon from "@mui/icons-material/EuroOutlined";
 import { Box, Button, Divider, Paper, Stack, Typography } from "@mui/material";
@@ -18,6 +19,13 @@ const paymentMethodOptions = [
     label: "Cash",
     value: "cash",
     text: "You will pay the exact amount in cash to the delivery person. If you want to pay with large denomination banknotes, please indicate it clearly in the order notes so that the rider can bring the necessary change.",
+    endIcon: DoneOutlinedIcon,
+  },
+  {
+    startIcon: CreditCardIcon,
+    label: "Pay online",
+    value: "online",
+    text: "Pay securely with card, PayPal or other methods.",
     endIcon: DoneOutlinedIcon,
   },
 ];
@@ -38,7 +46,7 @@ export default function PaymentMethodForm({
   } = useForm({
     resolver: zodResolver(paymentMethodFormSchema),
     defaultValues: {
-      payment_method: checkoutData[restaurantId].payment_method || "",
+      payment_method: checkoutData[restaurantId].payment_method || undefined,
     },
   });
 

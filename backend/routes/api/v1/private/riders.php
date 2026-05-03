@@ -1,0 +1,61 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Http\Controllers\Api\V1\Private\Rider\AuthController;
+use App\Http\Controllers\Api\V1\Private\Rider\DeliveryController;
+use App\Http\Controllers\Api\V1\Private\Rider\JobApplicationController;
+use App\Http\Controllers\Api\V1\Private\Rider\JobPostController;
+use App\Http\Controllers\Api\V1\Private\Rider\NotificationController;
+use App\Http\Controllers\Api\V1\Private\Rider\ProfileController;
+use App\Http\Controllers\Api\V1\Private\Rider\RestaurantController;
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('rider')->group(function (): void {
+    // === AUTH ===
+    Route::prefix('auth')->group(function (): void {
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum', 'role:rider');
+    });
+
+    // === NOTIFICATIONS ===
+    Route::prefix('notifications')
+        ->middleware(['auth:sanctum', 'verified', 'role:rider'])
+        ->group(function (): void {
+            Route::get('/', [NotificationController::class, 'getNotifications']);
+            Route::post('/mark-as-read', [NotificationController::class, 'markNotificationsAsRead']);
+        });
+
+    // === PROFILE MANAGEMENT ===
+    Route::prefix('profile')
+        ->middleware(['auth:sanctum', 'verified', 'role:rider'])
+        ->group(function (): void {
+            Route::patch('/general', [ProfileController::class, 'updateProfileGeneralInformation']);
+            Route::patch('/notifications', [ProfileController::class, 'updateProfileNotifications']);
+        });
+
+    // === RESTAURANT ===
+    Route::prefix('restaurant')
+        ->middleware(['auth:sanctum', 'verified', 'role:rider'])
+        ->group(function (): void {
+            Route::get('/', [RestaurantController::class, 'getRestaurant']);
+            Route::delete('/leave', [RestaurantController::class, 'leaveRestaurant']);
+
+            Route::prefix('deliveries')
+                ->group(function (): void {
+                    Route::get('/history', [DeliveryController::class, 'getDeliveryHistory']);
+                    Route::get('/active', [DeliveryController::class, 'getActiveDelivery']);
+                    Route::patch('/{delivery}/status', [DeliveryController::class, 'updateDeliveryStatus']);
+                });
+        });
+
+    // === JOB POSTS ===
+    Route::prefix('job-posts')
+        ->middleware(['auth:sanctum', 'verified', 'role:rider'])
+        ->group(function (): void {
+            Route::get('/', [JobPostController::class, 'getJobPosts']);
+            Route::get('/{jobPost}', [JobPostController::class, 'getJobPost']);
+            Route::post('/{jobPost}/applications', [JobApplicationController::class, 'createJobApplication']);
+        });
+});

@@ -66,6 +66,11 @@ export default function OrderReceiptToPDF({
   order,
   base64Logo,
 }: OrderReceiptToPDFProps) {
+  const paymentMethod =
+    order.payment_method === "cash"
+      ? order.payment_method
+      : order.payment_method_type;
+
   return (
     <Document language="en" title={`Order # ${order.order_code} Receipt`}>
       <Page size="A4" style={styles.page}>
@@ -95,9 +100,7 @@ export default function OrderReceiptToPDF({
 
           <View style={{ flexDirection: "row", gap: 2 }}>
             <Text>Payment method:</Text>
-            <Text style={{ textTransform: "capitalize" }}>
-              {order.payment_method}
-            </Text>
+            <Text style={{ textTransform: "capitalize" }}>{paymentMethod}</Text>
           </View>
 
           {order.notes && <Text>Notes: {order.notes}</Text>}
