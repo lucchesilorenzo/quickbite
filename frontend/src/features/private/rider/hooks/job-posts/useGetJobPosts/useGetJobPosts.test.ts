@@ -34,14 +34,17 @@ describe("useGetJobPosts", () => {
 
   it("should send 'search' query parameter correctly", async () => {
     server.use(
-      http.get(`${env.VITE_BACKEND_URL}/api/rider/job-posts`, ({ request }) => {
-        const url = new URL(request.url);
-        const searchParam = url.searchParams.get("search");
+      http.get(
+        `${env.VITE_BACKEND_URL}/api/v1/rider/job-posts`,
+        ({ request }) => {
+          const url = new URL(request.url);
+          const searchParam = url.searchParams.get("search");
 
-        expect(searchParam).toBe("node");
+          expect(searchParam).toBe("node");
 
-        return HttpResponse.json(jobPostsResponse);
-      }),
+          return HttpResponse.json(jobPostsResponse);
+        },
+      ),
     );
 
     const { result } = renderHook(
@@ -59,14 +62,17 @@ describe("useGetJobPosts", () => {
 
   it("should send 'min_salary' query parameter correctly", async () => {
     server.use(
-      http.get(`${env.VITE_BACKEND_URL}/api/rider/job-posts`, ({ request }) => {
-        const url = new URL(request.url);
-        const minSalaryParam = url.searchParams.get("min_salary");
+      http.get(
+        `${env.VITE_BACKEND_URL}/api/v1/rider/job-posts`,
+        ({ request }) => {
+          const url = new URL(request.url);
+          const minSalaryParam = url.searchParams.get("min_salary");
 
-        expect(minSalaryParam).toBe("20000");
+          expect(minSalaryParam).toBe("20000");
 
-        return HttpResponse.json(jobPostsResponse);
-      }),
+          return HttpResponse.json(jobPostsResponse);
+        },
+      ),
     );
 
     const { result } = renderHook(
@@ -85,14 +91,17 @@ describe("useGetJobPosts", () => {
 
   it("should send 'max_salary' query parameter correctly", async () => {
     server.use(
-      http.get(`${env.VITE_BACKEND_URL}/api/rider/job-posts`, ({ request }) => {
-        const url = new URL(request.url);
-        const maxSalaryParam = url.searchParams.get("max_salary");
+      http.get(
+        `${env.VITE_BACKEND_URL}/api/v1/rider/job-posts`,
+        ({ request }) => {
+          const url = new URL(request.url);
+          const maxSalaryParam = url.searchParams.get("max_salary");
 
-        expect(maxSalaryParam).toBe("30000");
+          expect(maxSalaryParam).toBe("30000");
 
-        return HttpResponse.json(jobPostsResponse);
-      }),
+          return HttpResponse.json(jobPostsResponse);
+        },
+      ),
     );
 
     const { result } = renderHook(
@@ -111,14 +120,17 @@ describe("useGetJobPosts", () => {
 
   it("should send 'employment_type' query parameter correctly", async () => {
     server.use(
-      http.get(`${env.VITE_BACKEND_URL}/api/rider/job-posts`, ({ request }) => {
-        const url = new URL(request.url);
-        const employmentTypeParam = url.searchParams.get("employment_type");
+      http.get(
+        `${env.VITE_BACKEND_URL}/api/v1/rider/job-posts`,
+        ({ request }) => {
+          const url = new URL(request.url);
+          const employmentTypeParam = url.searchParams.get("employment_type");
 
-        expect(employmentTypeParam).toBe("full_time");
+          expect(employmentTypeParam).toBe("full_time");
 
-        return HttpResponse.json(jobPostsResponse);
-      }),
+          return HttpResponse.json(jobPostsResponse);
+        },
+      ),
     );
 
     const { result } = renderHook(
@@ -136,14 +148,17 @@ describe("useGetJobPosts", () => {
 
   it("should send 'sort_by' query parameter correctly", async () => {
     server.use(
-      http.get(`${env.VITE_BACKEND_URL}/api/rider/job-posts`, ({ request }) => {
-        const url = new URL(request.url);
-        const sortByParam = url.searchParams.get("sort_by");
+      http.get(
+        `${env.VITE_BACKEND_URL}/api/v1/rider/job-posts`,
+        ({ request }) => {
+          const url = new URL(request.url);
+          const sortByParam = url.searchParams.get("sort_by");
 
-        expect(sortByParam).toBe("asc");
+          expect(sortByParam).toBe("asc");
 
-        return HttpResponse.json(jobPostsResponse);
-      }),
+          return HttpResponse.json(jobPostsResponse);
+        },
+      ),
     );
 
     const { result } = renderHook(
@@ -191,7 +206,7 @@ describe("useGetJobPosts", () => {
   });
 
   it("should fail to fetch data", async () => {
-    simulateError(`${env.VITE_BACKEND_URL}/api/rider/job-posts`);
+    simulateError(`${env.VITE_BACKEND_URL}/api/v1/rider/job-posts`);
 
     const { result } = renderHook(() => useGetJobPosts(options), {
       wrapper: TestQueryWrapper,

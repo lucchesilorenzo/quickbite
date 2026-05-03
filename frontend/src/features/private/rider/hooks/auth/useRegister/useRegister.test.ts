@@ -37,7 +37,7 @@ describe("useRegister", () => {
       show: mockShow,
       close: vi.fn(),
     });
-    simulateError(`${env.VITE_BACKEND_URL}/api/rider/auth/register`, "post");
+    simulateError(`${env.VITE_BACKEND_URL}/api/v1/rider/auth/register`, "post");
 
     const { result } = renderHook(() => useRegister(), {
       wrapper: TestQueryWrapper,

@@ -42,7 +42,7 @@ describe("useCreateJobApplication", () => {
 
   it("should show notification on error", async () => {
     simulateError(
-      `${env.VITE_BACKEND_URL}/api/rider/job-posts/1/applications`,
+      `${env.VITE_BACKEND_URL}/api/v1/rider/job-posts/1/applications`,
       "post",
     );
 

@@ -26,7 +26,7 @@ describe("useGetJobPost", () => {
 
   it("should fail to fetch data", async () => {
     simulateError(
-      `${env.VITE_BACKEND_URL}/api/partner/restaurants/1/job-posts/1`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/1/job-posts/1`,
     );
 
     const { result } = renderHook(() => useGetJobPost(options), {
