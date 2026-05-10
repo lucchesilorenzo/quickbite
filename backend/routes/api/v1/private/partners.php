@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\Private\Partner\OrderController;
 use App\Http\Controllers\Api\V1\Private\Partner\ProfileController;
 use App\Http\Controllers\Api\V1\Private\Partner\RestaurantController;
 use App\Http\Controllers\Api\V1\Private\Partner\ReviewController;
+use App\Http\Controllers\Api\V1\Private\Partner\StaffController;
 use App\Http\Controllers\Api\V1\Private\Partner\StatsController;
 use Illuminate\Support\Facades\Route;
 
@@ -91,6 +92,9 @@ Route::prefix('partner')->group(function (): void {
             Route::patch('/{restaurant}/job-posts/{jobPost}', [JobPostController::class, 'updateJobPost']);
             Route::delete('/{restaurant}/job-posts', [JobPostController::class, 'deleteJobPosts']);
             Route::delete('/{restaurant}/job-posts/{jobPost}', [JobPostController::class, 'deleteJobPost']);
+
+            // Staff
+            Route::get('/{restaurant}/staff', [StaffController::class, 'getStaffMembers']);
         });
 
     // Job Applications
