@@ -215,6 +215,12 @@ export default function JobPostsTable() {
           disableRowSelectionExcludeModel
           showToolbar
           ignoreDiacritics
+          slotProps={{
+            toolbar: {
+              printOptions: { disableToolbarButton: true },
+              csvOptions: { disableToolbarButton: true },
+            },
+          }}
         />
       </Stack>
 

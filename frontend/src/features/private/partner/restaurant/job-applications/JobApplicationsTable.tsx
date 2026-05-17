@@ -242,6 +242,12 @@ export default function JobApplicationsTable() {
           disableRowSelectionExcludeModel
           showToolbar
           ignoreDiacritics
+          slotProps={{
+            toolbar: {
+              printOptions: { disableToolbarButton: true },
+              csvOptions: { disableToolbarButton: true },
+            },
+          }}
         />
       </Stack>
 
