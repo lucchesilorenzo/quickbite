@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\RestaurantRole;
-use Database\Factories\UserFactory;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\Appends;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,47 +24,39 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * @property-read bool $has_password
  */
+#[Appends([
+    'has_password',
+])]
+#[Fillable([
+    'first_name',
+    'last_name',
+    'email',
+    'password',
+    'profile_picture',
+    'date_of_birth',
+    'phone_number',
+    'street_address',
+    'building_number',
+    'postcode',
+    'city',
+    'state',
+    'country',
+    'vehicle_type',
+    'drivers_license',
+])]
+#[Hidden([
+    'password',
+    'remember_token',
+])]
 class User extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<UserFactory> */
-    use Billable, CanResetPassword, HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'password',
-        'profile_picture',
-        'date_of_birth',
-        'phone_number',
-        'street_address',
-        'building_number',
-        'postcode',
-        'city',
-        'state',
-        'country',
-        'vehicle_type',
-        'drivers_license',
-    ];
-
-    protected $appends = [
-        'has_password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    use Billable;
+    use CanResetPassword;
+    use HasApiTokens;
+    use HasFactory;
+    use HasRoles;
+    use HasUuids;
+    use Notifiable;
 
     /**
      * Get the user's personal refresh tokens.

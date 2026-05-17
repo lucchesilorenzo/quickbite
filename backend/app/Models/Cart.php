@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Fillable([
+    'user_id',
+    'restaurant_id',
+    'cart_total',
+    'total_items',
+    'total_unique_items',
+])]
 class Cart extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'user_id',
-        'restaurant_id',
-        'cart_total',
-        'total_items',
-        'total_unique_items',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     protected $casts = [
         'cart_total' => 'float',

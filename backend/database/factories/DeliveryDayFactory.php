@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\DeliveryDay>
+ * @extends Factory<\App\Models\DeliveryDay>
  */
 class DeliveryDayFactory extends Factory
 {

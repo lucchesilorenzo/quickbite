@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -15,37 +16,37 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+#[Fillable([
+    'user_id',
+    'restaurant_id',
+    'order_code',
+    'first_name',
+    'last_name',
+    'phone_number',
+    'street_address',
+    'building_number',
+    'postcode',
+    'city',
+    'state',
+    'country',
+    'delivery_time',
+    'notes',
+    'payment_method',
+    'payment_method_type',
+    'payment_intent_id',
+    'payment_status',
+    'subtotal',
+    'delivery_fee',
+    'service_fee',
+    'discount_rate',
+    'discount',
+    'total',
+    'status',
+])]
 class Order extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'user_id',
-        'restaurant_id',
-        'order_code',
-        'first_name',
-        'last_name',
-        'phone_number',
-        'street_address',
-        'building_number',
-        'postcode',
-        'city',
-        'state',
-        'country',
-        'delivery_time',
-        'notes',
-        'payment_method',
-        'payment_method_type',
-        'payment_intent_id',
-        'payment_status',
-        'subtotal',
-        'delivery_fee',
-        'service_fee',
-        'discount_rate',
-        'discount',
-        'total',
-        'status',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     protected $casts = [
         'subtotal' => 'float',

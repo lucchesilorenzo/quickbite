@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,20 +14,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property bool $already_applied
  */
+#[Fillable([
+    'restaurant_id',
+    'title',
+    'description_html',
+    'description_text',
+    'employment_type',
+    'vehicle_type',
+    'salary',
+    'status',
+])]
 class JobPost extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'restaurant_id',
-        'title',
-        'description_html',
-        'description_text',
-        'employment_type',
-        'vehicle_type',
-        'salary',
-        'status',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     protected $casts = [
         'salary' => 'float',

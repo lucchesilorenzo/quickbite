@@ -32,12 +32,12 @@ class JobApplicationService
                 'job_post_id' => $jobPost->id,
                 'declaration_accepted_at' => now(),
             ])->refresh();
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             if ($resumePath !== null) {
                 $this->fileService->delete($resumePath);
             }
 
-            throw $e;
+            throw $throwable;
         }
     }
 }

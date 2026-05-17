@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Appends;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,26 +17,25 @@ use Illuminate\Support\Facades\Storage;
 /**
  * @property-read string|null $image_url
  */
+#[Appends([
+    'image_url',
+])]
+#[Fillable([
+    'menu_category_id',
+    'name',
+    'description',
+    'price',
+    'image',
+    'is_available',
+    'order',
+])]
 class MenuItem extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'menu_category_id',
-        'name',
-        'description',
-        'price',
-        'image',
-        'is_available',
-        'order',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     protected $casts = [
         'price' => 'float',
-    ];
-
-    protected $appends = [
-        'image_url',
     ];
 
     /**

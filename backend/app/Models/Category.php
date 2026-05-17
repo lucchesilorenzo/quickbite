@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Appends;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,21 +16,19 @@ use Illuminate\Support\Facades\Storage;
 /**
  * @property-read string|null $image_url
  */
+#[Appends([
+    'image_url',
+])]
+#[Fillable([
+    'name',
+    'slug',
+    'image',
+    'is_default',
+])]
 class Category extends Model
 {
-    /** @use HasFactory<\Database\Factories\CategoryFactory> */
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'name',
-        'slug',
-        'image',
-        'is_default',
-    ];
-
-    protected $appends = [
-        'image_url',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     /**
      * Get the restaurants for the category.

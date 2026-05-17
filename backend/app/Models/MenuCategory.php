@@ -4,25 +4,27 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator $menu_items
+ * @property LengthAwarePaginator $menu_items
  */
+#[Fillable([
+    'restaurant_id',
+    'name',
+    'description',
+    'order',
+])]
 class MenuCategory extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'restaurant_id',
-        'name',
-        'description',
-        'order',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     /**
      * Get the restaurant that owns the menu category.

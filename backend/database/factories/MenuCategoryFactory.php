@@ -8,7 +8,7 @@ use App\Models\MenuCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MenuCategory>
+ * @extends Factory<MenuCategory>
  */
 class MenuCategoryFactory extends Factory
 {

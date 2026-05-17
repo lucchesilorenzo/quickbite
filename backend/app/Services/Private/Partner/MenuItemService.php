@@ -37,12 +37,12 @@ class MenuItemService
                 'menu_category_id' => $menuCategory->id,
                 'order' => $data['order'],
             ])->refresh();
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             if ($imagePath !== null) {
                 $this->fileService->delete($imagePath, 'public');
             }
 
-            throw $e;
+            throw $throwable;
         }
     }
 
@@ -70,12 +70,12 @@ class MenuItemService
             }
 
             return $menuItem;
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             if ($newImagePath) {
                 $this->fileService->delete($newImagePath, 'public');
             }
 
-            throw $e;
+            throw $throwable;
         }
     }
 
