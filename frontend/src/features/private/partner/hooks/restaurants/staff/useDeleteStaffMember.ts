@@ -6,7 +6,7 @@ import { ApiResponse } from "@/types/api.types";
 
 type UseDeleteStaffMemberOptions = {
   restaurantId: string;
-  staffId: string | null;
+  staffId?: string;
   setOpenDeleteStaffDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

@@ -16,15 +16,13 @@ import { useDeleteStaffMember } from "../../hooks/restaurants/staff/useDeleteSta
 import { User } from "@/types/user.types";
 
 type DeleteStaffDialogProps = {
-  staffId: string | null;
-  staff?: User[];
+  staffMember?: User;
   openDeleteStaffDialog: boolean;
   setOpenDeleteStaffDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function DeleteStaffDialog({
-  staffId,
-  staff,
+  staffMember,
   openDeleteStaffDialog,
   setOpenDeleteStaffDialog,
 }: DeleteStaffDialogProps) {
@@ -33,12 +31,10 @@ export default function DeleteStaffDialog({
   const { mutate: deleteJobPost, isPending: isDeleting } = useDeleteStaffMember(
     {
       restaurantId: restaurantData.restaurant.id,
-      staffId,
+      staffId: staffMember?.id,
       setOpenDeleteStaffDialog,
     },
   );
-
-  const { first_name, last_name } = staff?.find((s) => s.id === staffId) || {};
 
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("lg"));
 
@@ -71,8 +67,8 @@ export default function DeleteStaffDialog({
         </Stack>
 
         <DialogContent sx={{ p: 0 }}>
-          Are you sure you want to terminate collaboration with {first_name}{" "}
-          {last_name}?
+          Are you sure you want to terminate collaboration with{" "}
+          {staffMember?.first_name} {staffMember?.last_name}?
         </DialogContent>
 
         <DialogActions>

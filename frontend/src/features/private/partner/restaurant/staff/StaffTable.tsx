@@ -12,15 +12,16 @@ import {
 } from "@mui/x-data-grid";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useNotifications } from "@toolpad/core/useNotifications";
-import { Link } from "react-router-dom";
 
 import { useGetStaffMembers } from "../../hooks/restaurants/staff/useGetStaffMembers";
 import DeleteStaffDialog from "./DeleteStaffDialog";
+import ViewProfileDialog from "./ViewProfileDialog";
 
 export default function StaffTable() {
   const { restaurantData } = useRestaurant();
 
   const [selectedStaffId, setSelectedStaffId] = useState<string | null>(null);
+  const [openViewProfileDialog, setOpenViewProfileDialog] = useState(false);
   const [openDeleteStaffDialog, setOpenDeleteStaffDialog] = useState(false);
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
@@ -30,7 +31,6 @@ export default function StaffTable() {
   const [filterModel, setFilterModel] = useState<GridFilterModel>({
     items: [],
   });
-  console.log(selectedStaffId);
 
   const notifications = useNotifications();
 
@@ -45,7 +45,6 @@ export default function StaffTable() {
     sortBy: sortModel,
     filters: filterModel,
   });
-  console.log(staffData);
 
   const columns: GridColDef[] = [
     {
@@ -74,8 +73,10 @@ export default function StaffTable() {
             <IconButton
               aria-label="View profile"
               size="small"
-              component={Link}
-              to="#"
+              onClick={() => {
+                setSelectedStaffId(row.id);
+                setOpenViewProfileDialog(true);
+              }}
             >
               <PeopleIcon fontSize="small" />
             </IconButton>
@@ -105,6 +106,10 @@ export default function StaffTable() {
       first_name: rider.first_name,
       last_name: rider.last_name,
     })) || [];
+
+  const staffMember = staffData?.staff.data.find(
+    (s) => s.id === selectedStaffId,
+  );
 
   if (staffError) {
     notifications.show(staffError.message, {
@@ -149,9 +154,14 @@ export default function StaffTable() {
         }}
       />
 
+      <ViewProfileDialog
+        staffMember={staffMember}
+        openViewProfileDialog={openViewProfileDialog}
+        setOpenViewProfileDialog={setOpenViewProfileDialog}
+      />
+
       <DeleteStaffDialog
-        staffId={selectedStaffId}
-        staff={staffData?.staff.data}
+        staffMember={staffMember}
         openDeleteStaffDialog={openDeleteStaffDialog}
         setOpenDeleteStaffDialog={setOpenDeleteStaffDialog}
       />
