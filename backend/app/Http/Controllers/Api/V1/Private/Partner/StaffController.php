@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Private\Partner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Private\Partner\Staff\GetStaffRequest;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Services\Private\Partner\StaffService;
@@ -23,12 +24,15 @@ class StaffController extends Controller
     /**
      * Get staff members.
      */
-    public function getStaffMembers(Restaurant $restaurant): JsonResponse
-    {
+    public function getStaffMembers(
+        GetStaffRequest $request,
+        Restaurant $restaurant
+    ): JsonResponse {
         Gate::authorize('viewStaff', $restaurant);
 
         try {
             $staff = $this->staffService->getStaffMembers(
+                $request->validated(),
                 $restaurant
             );
 

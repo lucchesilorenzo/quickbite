@@ -6,16 +6,26 @@ namespace App\Services\Private\Partner;
 
 use App\Models\Restaurant;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use App\Services\Shared\TableQueryService;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class StaffService
 {
-    /**
-     * @return Collection<int, User>
-     */
-    public function getStaffMembers(Restaurant $restaurant): Collection
+    public function __construct(
+        private readonly TableQueryService $tableQueryService
+    ) {}
+
+    public function getStaffMembers(array $data, Restaurant $restaurant): LengthAwarePaginator
     {
-        return $restaurant->riders()->get();
+        $query = $restaurant->riders();
+
+        $query = $this->tableQueryService->apply(
+            $data,
+            $query,
+            searchable: ['first_name', 'last_name']
+        );
+
+        return $query->paginate($data['page_size']);
     }
 
     public function deleteStaffMember(
