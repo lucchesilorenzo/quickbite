@@ -95,6 +95,7 @@ Route::prefix('partner')->group(function (): void {
 
             // Staff
             Route::get('/{restaurant}/staff', [StaffController::class, 'getStaffMembers']);
+            Route::delete('/{restaurant}/staff/{staffMember}', [StaffController::class, 'deleteStaffMember']);
         });
 
     // Job Applications

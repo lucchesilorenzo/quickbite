@@ -17,4 +17,11 @@ class StaffService
     {
         return $restaurant->riders()->get();
     }
+
+    public function deleteStaffMember(
+        Restaurant $restaurant,
+        User $staffMember
+    ): void {
+        $restaurant->riders()->detach($staffMember);
+    }
 }

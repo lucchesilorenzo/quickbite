@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use App\Models\User;
 use App\Services\Private\Partner\StaffService;
 use Dedoc\Scramble\Attributes\Group;
 use Illuminate\Http\JsonResponse;
@@ -20,7 +21,7 @@ class StaffController extends Controller
     ) {}
 
     /**
-     * Get staff.
+     * Get staff members.
      */
     public function getStaffMembers(Restaurant $restaurant): JsonResponse
     {
@@ -40,6 +41,33 @@ class StaffController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Could not get staff members.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Delete staff member.
+     */
+    public function deleteStaffMember(
+        Restaurant $restaurant,
+        User $staffMember
+    ): JsonResponse {
+        Gate::authorize('deleteStaff', $restaurant);
+
+        try {
+            $this->staffService->deleteStaffMember(
+                $restaurant,
+                $staffMember
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Staff member deleted successfully.',
+            ], 200);
+        } catch (Throwable) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Could not delete staff member.',
             ], 500);
         }
     }
