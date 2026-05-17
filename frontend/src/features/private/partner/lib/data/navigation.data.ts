@@ -2,6 +2,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import PersonIcon from "@mui/icons-material/Person";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
@@ -48,6 +49,11 @@ export function partnerRestaurantRoutes(restaurantId?: string) {
       href: `/partner/restaurants/${restaurantId}/job-posts`,
       label: "Job posts",
       icon: BusinessCenterIcon,
+    },
+    {
+      href: `/partner/restaurants/${restaurantId}/staff`,
+      label: "Staff",
+      icon: PersonIcon,
     },
   ] as const;
 }

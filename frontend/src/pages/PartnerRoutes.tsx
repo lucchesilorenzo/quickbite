@@ -18,6 +18,7 @@ import PartnerSettingsDeliveryTimesPage from "./private/partner/settings/Partner
 import PartnerSettingsFeesPage from "./private/partner/settings/PartnerSettingsFeesPage";
 import PartnerSettingsInfoPage from "./private/partner/settings/PartnerSettingsInfoPage";
 import PartnerSettingsPage from "./private/partner/settings/PartnerSettingsPage";
+import PartnerStaffPage from "./private/partner/staff/PartnerStaffPage";
 import PartnerStatsPage from "./private/partner/stats/PartnerStatsPage";
 
 import PartnerLayout from "@/layouts/private/partner/PartnerLayout";
@@ -81,6 +82,8 @@ export const PartnerRoutes = [
           element={<PartnerJobApplicationsPage />}
         />
       </Route>
+
+      <Route path="staff" element={<PartnerStaffPage />} />
 
       <Route path="notifications" element={<PartnerNotificationsPage />} />
     </Route>
