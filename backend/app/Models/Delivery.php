@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[Fillable([
+    'order_id',
+    'rider_id',
+    'rider_first_name',
+    'rider_last_name',
+    'rider_phone_number',
+    'started_at',
+    'delivered_at',
+    'cancelled_at',
+])]
 class Delivery extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'order_id',
-        'rider_id',
-        'rider_first_name',
-        'rider_last_name',
-        'rider_phone_number',
-        'started_at',
-        'delivered_at',
-        'cancelled_at',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     /**
      * Check if rider is busy.

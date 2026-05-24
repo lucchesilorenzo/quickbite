@@ -8,6 +8,7 @@ import {
   StepLabel,
   Typography,
 } from "@mui/material";
+import { steps } from "@rider/lib/data/register-wizard/steps.data";
 import { TRegisterFormSchema } from "@rider/schemas/auth.schema";
 import { useFormContext } from "react-hook-form";
 
@@ -17,8 +18,6 @@ import LocationStep from "../steps/location/LocationStep";
 import PersonalInfoStep from "../steps/personal-info/PersonalInfoStep";
 import RequirementsStep from "../steps/requirements/RequirementsStep";
 import VehicleStep from "../steps/vehicle/VehicleStep";
-
-import { steps } from "@/features/private/rider/lib/data/register-wizard/steps.data";
 
 type StepperProps = {
   activeStep: number;

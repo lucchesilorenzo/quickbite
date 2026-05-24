@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\RestaurantRole;
+use Illuminate\Database\Eloquent\Attributes\Appends;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,48 +21,46 @@ use Illuminate\Support\Facades\Storage;
  * @property-read string|null $logo_url
  * @property-read string|null $cover_url
  */
+#[Appends([
+    'full_address',
+    'is_open',
+    'logo_url',
+    'cover_url',
+])]
+#[Fillable([
+    'name',
+    'slug',
+    'description',
+    'street_address',
+    'building_number',
+    'postcode',
+    'city',
+    'state',
+    'country',
+    'latitude',
+    'longitude',
+    'phone_number',
+    'email',
+    'min_amount',
+    'delivery_fee',
+    'service_fee',
+    'min_delivery_time',
+    'max_delivery_time',
+    'logo',
+    'cover',
+    'is_approved',
+    'force_close',
+])]
 class Restaurant extends Model
 {
-    /** @use HasFactory<\Database\Factories\RestaurantFactory> */
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'name',
-        'slug',
-        'description',
-        'street_address',
-        'building_number',
-        'postcode',
-        'city',
-        'state',
-        'country',
-        'latitude',
-        'longitude',
-        'phone_number',
-        'email',
-        'min_amount',
-        'delivery_fee',
-        'service_fee',
-        'min_delivery_time',
-        'max_delivery_time',
-        'logo',
-        'cover',
-        'is_approved',
-        'force_close',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     protected $casts = [
         'min_amount' => 'float',
         'delivery_fee' => 'float',
         'service_fee' => 'float',
         'reviews_avg_rating' => 'float',
-    ];
-
-    protected $appends = [
-        'full_address',
-        'is_open',
-        'logo_url',
-        'cover_url',
     ];
 
     /**

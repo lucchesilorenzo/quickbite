@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Translation\PotentiallyTranslatedString;
 
 class IsAdult implements ValidationRule
 {
@@ -18,7 +19,7 @@ class IsAdult implements ValidationRule
     /**
      * Run the validation rule.
      *
-     * @param  Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @param  Closure(string, ?string=):PotentiallyTranslatedString  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {

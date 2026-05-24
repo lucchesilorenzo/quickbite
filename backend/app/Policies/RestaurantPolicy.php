@@ -24,7 +24,14 @@ class RestaurantPolicy
     {
         return $this->isPartner($user, $restaurant)
             ? Response::allow()
-            : Response::deny('You are not authorized to view menu.');
+            : Response::deny('You are not authorized to view the menu.');
+    }
+
+    public function viewStaff(User $user, Restaurant $restaurant): Response
+    {
+        return $this->isPartner($user, $restaurant)
+            ? Response::allow()
+            : Response::deny('You are not authorized to view the staff.');
     }
 
     public function view(User $user, Restaurant $restaurant): Response
@@ -39,5 +46,12 @@ class RestaurantPolicy
         return $this->isPartner($user, $restaurant)
             ? Response::allow()
             : Response::deny('You are not authorized to update this resource.');
+    }
+
+    public function deleteStaff(User $user, Restaurant $restaurant): Response
+    {
+        return $this->isPartner($user, $restaurant)
+            ? Response::allow()
+            : Response::deny('You are not authorized to delete staff members.');
     }
 }

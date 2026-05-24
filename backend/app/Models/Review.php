@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[Fillable([
+    'user_id',
+    'restaurant_id',
+    'order_id',
+    'comment',
+    'rating',
+])]
 class Review extends Model
 {
-    use HasFactory, HasUuids;
-
-    protected $fillable = [
-        'user_id',
-        'restaurant_id',
-        'order_id',
-        'comment',
-        'rating',
-    ];
+    use HasFactory;
+    use HasUuids;
 
     /**
      * Get the user that owns the review.

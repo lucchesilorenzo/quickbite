@@ -134,7 +134,7 @@ class RestaurantService
             }
 
             return $restaurant;
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             if ($newLogoPath) {
                 $this->fileService->delete($newLogoPath, 'public');
             }
@@ -143,7 +143,7 @@ class RestaurantService
                 $this->fileService->delete($newCoverPath, 'public');
             }
 
-            throw $e;
+            throw $throwable;
         }
     }
 
