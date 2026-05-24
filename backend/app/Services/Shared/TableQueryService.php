@@ -41,14 +41,14 @@ class TableQueryService
         $value = $filter['value'];
 
         return match ($operator) {
-            'contains' => $query->whereLike($field, sprintf('%%%s%%', $value)),
-            'doesNotContain' => $query->whereNotLike($field, sprintf('%%%s%%', $value)),
+            'contains' => $query->whereLike($field, "%{$value}%"),
+            'doesNotContain' => $query->whereNotLike($field, "%{$value}%"),
             'equals' => $query->where($field, $value),
             'doesNotEqual' => $query->whereNot($field, $value),
-            'startsWith' => $query->whereLike($field, $value . '%'),
-            'endsWith' => $query->whereLike($field, '%' . $value),
-            'doesNotStartWith' => $query->whereNotLike($field, $value . '%'),
-            'doesNotEndWith' => $query->whereNotLike($field, '%' . $value),
+            'startsWith' => $query->whereLike($field, "{$value}%"),
+            'endsWith' => $query->whereLike($field, "%{$value}"),
+            'doesNotStartWith' => $query->whereNotLike($field, "{$value}%"),
+            'doesNotEndWith' => $query->whereNotLike($field, "%{$value}"),
             'isEmpty' => $query->where(function ($q) use ($field): void {
                 $q->whereNull($field)
                     ->orWhere($field, '');
@@ -67,13 +67,13 @@ class TableQueryService
         ?string $search,
         array $columns = []
     ): Builder|Relation {
-        if (! $search || $columns === []) {
+        if (! $search || count($columns) === 0) {
             return $query;
         }
 
         return $query->where(function ($q) use ($search, $columns): void {
             foreach ($columns as $column) {
-                $q->orWhereLike($column, sprintf('%%%s%%', $search));
+                $q->orWhereLike($column, "%{$search}%");
             }
         });
     }
