@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\Private\AuthController;
-use App\Http\Controllers\Api\V1\Private\SocialAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')
@@ -16,6 +15,4 @@ Route::prefix('auth')
             ->middleware('signed')
             ->name('verification.verify');
         Route::post('/email/verification-notification', [AuthController::class, 'resendEmailVerification'])->middleware(['auth:sanctum', 'throttle:6,1']);
-        Route::get('/{provider}/redirect', [SocialAuthController::class, 'redirect']);
-        Route::get('/{provider}/callback', [SocialAuthController::class, 'callback']);
     });
