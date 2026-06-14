@@ -1,6 +1,6 @@
 # Entity Relationship Diagram (ERD)
 
-![ERD](/screenshots/erd.svg)
+![ERD](/media/erd.svg)
 
 ---
 
