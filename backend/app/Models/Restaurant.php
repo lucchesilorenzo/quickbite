@@ -70,7 +70,7 @@ class Restaurant extends Model
     {
         return $rider->restaurants()
             ->wherePivot('role', RestaurantRole::RIDER->value)
-            ->where('is_active', true)
+            ->wherePivot('is_active', true)
             ->first();
     }
 

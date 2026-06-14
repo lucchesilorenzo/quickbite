@@ -328,13 +328,22 @@ class StatsService
         Restaurant $restaurant,
         OrderStatus $orderStatus,
     ): array {
-        return $restaurant->orders()
+        $currentYear = (int) now()->year;
+
+        $calculatedYears = $restaurant->orders()
             ->where('status', $orderStatus->value)
             ->pluck('created_at')
-            ->map(fn ($date): int => (int) $date->format('Y'))
+            ->map(fn ($date): int => $date->year)
             ->unique()
             ->sortDesc()
             ->values()
             ->all();
+
+        if (! in_array($currentYear, $calculatedYears, true)) {
+            $calculatedYears[] = $currentYear;
+            rsort($calculatedYears);
+        }
+
+        return $calculatedYears;
     }
 }

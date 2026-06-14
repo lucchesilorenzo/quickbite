@@ -18,7 +18,8 @@ class AuthService
     {
         $tokenHash = hash('sha256', (string) $data['refresh_token']);
 
-        $token = PersonalRefreshToken::query()->where('token', $tokenHash)
+        $token = PersonalRefreshToken::query()
+            ->where('token', $tokenHash)
             ->where('expires_at', '>', now())
             ->firstOrFail();
 

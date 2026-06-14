@@ -4,7 +4,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -22,6 +22,7 @@ import "swiper/css/bundle";
 
 import { ignoreFocusVisibleWarning } from "./lib/utils/warnings.utils";
 import AppRoutes from "./pages/AppRoutes";
+import { createMuiTheme } from "./styles/theme";
 
 import "@/lib/echo";
 import "@/styles/globals.css";
@@ -29,62 +30,7 @@ import "@/styles/globals.css";
 window.Buffer = Buffer;
 
 const queryClient = new QueryClient();
-
-const theme = createTheme({
-  typography: {
-    fontFamily: "Roboto, sans-serif",
-  },
-  components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
-      },
-    },
-    MuiPickersTextField: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "white",
-        },
-      },
-    },
-    MuiSelect: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "white",
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "white",
-        },
-      },
-    },
-    MuiFormLabel: {
-      styleOverrides: {
-        asterisk: {
-          color: "red",
-        },
-      },
-    },
-    MuiFormHelperText: {
-      styleOverrides: {
-        root: {
-          marginTop: 4,
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: 0,
-        },
-      },
-    },
-  },
-  palette: {
-    primary: {
-      main: "#ed6c02",
-    },
-  },
-});
+const theme = createMuiTheme();
 
 // Ignore ':focus-visible' warnings (caused by MUI TipTap)
 ignoreFocusVisibleWarning();

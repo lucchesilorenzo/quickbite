@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 class RestaurantService
 {
-    private const int RADIUS_KM = 5;
+    private const int RADIUS_KM = 10;
 
     private const array RATING_INTERVALS = [
         'one_star' => [1, 1.99],
