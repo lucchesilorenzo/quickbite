@@ -53,6 +53,8 @@ class AuthController extends Controller
 
     /**
      * Refresh a token.
+     *
+     * @unauthenticated
      */
     public function refresh(RefreshRequest $request): JsonResponse
     {
@@ -82,6 +84,8 @@ class AuthController extends Controller
 
     /**
      * Send an email with a link to reset the password.
+     *
+     * @unauthenticated
      */
     public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
@@ -107,6 +111,8 @@ class AuthController extends Controller
 
     /**
      * Reset the password.
+     *
+     * @unauthenticated
      */
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
@@ -141,6 +147,8 @@ class AuthController extends Controller
 
     /**
      * Verify the email.
+     *
+     * @unauthenticated
      */
     public function verifyEmail(string $id, string $hash): RedirectResponse
     {

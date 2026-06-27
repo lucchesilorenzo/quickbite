@@ -19,6 +19,8 @@ class SocialAuthController extends Controller
 
     /**
      * Redirect the user to the provider authentication page.
+     *
+     * @unauthenticated
      */
     public function redirect(string $provider): RedirectResponse
     {
@@ -29,6 +31,8 @@ class SocialAuthController extends Controller
 
     /**
      * Obtain the user information from provider.
+     *
+     * @unauthenticated
      */
     public function callback(string $provider): RedirectResponse
     {

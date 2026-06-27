@@ -25,6 +25,8 @@ class AuthController extends Controller
 
     /**
      * Register a new customer.
+     *
+     * @unauthenticated
      */
     public function register(RegisterRequest $request): JsonResponse
     {
@@ -54,6 +56,8 @@ class AuthController extends Controller
 
     /**
      * Login a customer.
+     *
+     * @unauthenticated
      */
     public function login(LoginRequest $request): JsonResponse
     {
