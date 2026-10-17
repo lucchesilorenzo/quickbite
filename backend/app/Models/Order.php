@@ -48,15 +48,6 @@ class Order extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $casts = [
-        'subtotal' => 'float',
-        'delivery_fee' => 'float',
-        'service_fee' => 'float',
-        'discount_rate' => 'float',
-        'discount' => 'float',
-        'total' => 'float',
-    ];
-
     /**
      * Check if the order is expired.
      */
@@ -121,5 +112,17 @@ class Order extends Model
                         ]);
                 });
         });
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'subtotal' => 'float',
+            'delivery_fee' => 'float',
+            'service_fee' => 'float',
+            'discount_rate' => 'float',
+            'discount' => 'float',
+            'total' => 'float',
+        ];
     }
 }

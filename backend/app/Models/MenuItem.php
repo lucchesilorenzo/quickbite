@@ -34,10 +34,6 @@ class MenuItem extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $casts = [
-        'price' => 'float',
-    ];
-
     /**
      * Get the menu category that owns the menu item.
      *
@@ -78,5 +74,12 @@ class MenuItem extends Model
                 ? Storage::disk('public')->url($this->image)
                 : null
         );
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'price' => 'float',
+        ];
     }
 }

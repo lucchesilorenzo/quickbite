@@ -23,10 +23,6 @@ class Cart extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $casts = [
-        'cart_total' => 'float',
-    ];
-
     /**
      * Get the user that owns the cart.
      *
@@ -55,5 +51,12 @@ class Cart extends Model
     public function cartItems(): HasMany
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'cart_total' => 'float',
+        ];
     }
 }

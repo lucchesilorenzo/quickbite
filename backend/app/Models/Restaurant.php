@@ -56,13 +56,6 @@ class Restaurant extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $casts = [
-        'min_amount' => 'float',
-        'delivery_fee' => 'float',
-        'service_fee' => 'float',
-        'reviews_avg_rating' => 'float',
-    ];
-
     /**
      * Get the restaurant for the rider.
      */
@@ -239,5 +232,15 @@ class Restaurant extends Model
                 ? Storage::disk('public')->url($this->cover)
                 : null
         );
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'min_amount' => 'float',
+            'delivery_fee' => 'float',
+            'service_fee' => 'float',
+            'reviews_avg_rating' => 'float',
+        ];
     }
 }

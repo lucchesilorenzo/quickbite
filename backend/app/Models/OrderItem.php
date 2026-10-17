@@ -22,10 +22,6 @@ class OrderItem extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $casts = [
-        'item_total' => 'float',
-    ];
-
     /**
      * Get the order that owns the OrderItem.
      *
@@ -44,5 +40,12 @@ class OrderItem extends Model
     public function menuItem(): BelongsTo
     {
         return $this->belongsTo(MenuItem::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'item_total' => 'float',
+        ];
     }
 }

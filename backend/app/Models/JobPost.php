@@ -29,10 +29,6 @@ class JobPost extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $casts = [
-        'salary' => 'float',
-    ];
-
     /**
      * Get the restaurant that owns the job post.
      *
@@ -51,5 +47,12 @@ class JobPost extends Model
     public function jobApplications(): HasMany
     {
         return $this->hasMany(JobApplication::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'salary' => 'float',
+        ];
     }
 }

@@ -9,10 +9,12 @@
     "nightwatch_mcp": false,
     "sail": false,
     "skills": [
+        "infer-conventions",
         "cashier-stripe-development",
         "laravel-best-practices",
+        "testing-best-practices",
         "socialite-development",
-        "pest-testing",
+        "telescope-debugging",
         "tailwindcss-development"
     ]
 }

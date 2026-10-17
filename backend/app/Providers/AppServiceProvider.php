@@ -30,14 +30,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        JsonResource::withoutWrapping();
+
         Scramble::configure()
             ->withDocumentTransformers(function (OpenApi $openApi): void {
                 $openApi->secure(
                     SecurityScheme::http('bearer')
                 );
             });
-
-        JsonResource::withoutWrapping();
 
         Event::listen(WebhookReceived::class, HandleStripeOrderPayments::class);
 
