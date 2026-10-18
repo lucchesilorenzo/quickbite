@@ -92,9 +92,12 @@ class RestaurantService
 
         $total = $query->count();
         $restaurants = $query->cursorPaginate(self::PER_PAGE);
-        $meta = $this->buildMeta($baseQuery, $total);
+        $stats = $this->buildStats($baseQuery, $total);
 
-        return [$restaurants, $meta];
+        return [
+            'restaurants' => $restaurants,
+            'stats' => $stats,
+        ];
     }
 
     public function getRestaurant(string $restaurantSlug): Restaurant
@@ -133,7 +136,10 @@ class RestaurantService
 
         $isAsapAvailable = $restaurant->is_open && now()->between($startTimeDay, $endTimeDay);
 
-        return [$isAsapAvailable, $deliverySlots];
+        return [
+            'is_asap_available' => $isAsapAvailable,
+            'delivery_slots' => $deliverySlots,
+        ];
     }
 
     public function getBase64Logo(Restaurant $restaurant): string
@@ -227,14 +233,16 @@ class RestaurantService
             ->when(in_array($sortBy, [null, '', '0'], true), fn ($q) => $q->orderBy('id'));
     }
 
-    private function buildMeta(Builder $baseQuery, int $total): array
+    private function buildStats(Builder $baseQuery, int $total): array
     {
         $movCounts = [
             'all' => $baseQuery->count(),
         ];
 
         foreach (self::MOV_THRESHOLDS as $key => $value) {
-            $movCounts[$key] = (clone $baseQuery)->where('min_amount', '<=', $value)->count();
+            $movCounts[$key] = (clone $baseQuery)
+                ->where('min_amount', '<=', $value)
+                ->count();
         }
 
         $offerCounts = [
