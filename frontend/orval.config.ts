@@ -2,7 +2,9 @@ import { defineConfig } from "orval";
 
 export default defineConfig({
   api: {
-    input: "http://localhost:8000/docs/api.json",
+    input: {
+      target: "http://localhost:8000/docs/api.json",
+    },
     output: {
       mode: "tags-split",
       target: "src/api/endpoints",
@@ -10,6 +12,7 @@ export default defineConfig({
       formatter: "prettier",
       client: "axios",
       httpClient: "axios",
+      clean: true,
     },
   },
 });
