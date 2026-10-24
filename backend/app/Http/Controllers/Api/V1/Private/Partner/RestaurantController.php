@@ -11,9 +11,12 @@ use App\Http\Requests\Api\V1\Private\Partner\Restaurant\UpdateDeliveryTimesReque
 use App\Http\Requests\Api\V1\Private\Partner\Restaurant\UpdateFeesRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Restaurant\UpdateInfoRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Restaurant\UpdateStatusRequest;
+use App\Http\Resources\Api\V1\Restaurant\RestaurantResource;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\RestaurantService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -28,6 +31,20 @@ class RestaurantController extends Controller
     /**
      * Get all restaurants.
      */
+    #[Endpoint(
+        operationId: 'getPartnerRestaurants',
+        title: 'List restaurants',
+        description: 'List restaurants owned by the authenticated partner.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Restaurants retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving restaurants.',
+    )]
     public function getRestaurants(): JsonResponse
     {
         try {
@@ -35,11 +52,12 @@ class RestaurantController extends Controller
                 auth()->user()
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Restaurants retrieved successfully.',
-                'restaurants' => $restaurants,
-            ], 200);
+            return RestaurantResource::collection($restaurants)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Restaurants retrieved successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -51,6 +69,20 @@ class RestaurantController extends Controller
     /**
      * Get a restaurant.
      */
+    #[Endpoint(
+        operationId: 'getPartnerRestaurant',
+        title: 'Get restaurant',
+        description: 'Get a single restaurant.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Restaurant retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving restaurant.',
+    )]
     public function getRestaurant(Restaurant $restaurant): JsonResponse
     {
         Gate::authorize('view', $restaurant);
@@ -58,11 +90,12 @@ class RestaurantController extends Controller
         try {
             $restaurant = $this->restaurantService->getRestaurant($restaurant);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Restaurant retrieved successfully.',
-                'restaurant' => $restaurant,
-            ], 200);
+            return RestaurantResource::make($restaurant)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Restaurant retrieved successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -74,6 +107,20 @@ class RestaurantController extends Controller
     /**
      * Update status.
      */
+    #[Endpoint(
+        operationId: 'updatePartnerRestaurantStatus',
+        title: 'Update restaurant status',
+        description: 'Update restaurant open/closed status.',
+        method: 'PUT'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Restaurant status updated successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while updating restaurant status.',
+    )]
     public function updateStatus(
         UpdateStatusRequest $request,
         Restaurant $restaurant
@@ -86,11 +133,12 @@ class RestaurantController extends Controller
                 $restaurant
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Restaurant status updated successfully.',
-                'restaurant' => $restaurant,
-            ], 200);
+            return RestaurantResource::make($restaurant)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Restaurant status updated successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -102,6 +150,24 @@ class RestaurantController extends Controller
     /**
      * Update approved status.
      */
+    #[Endpoint(
+        operationId: 'updatePartnerRestaurantApprovedStatus',
+        title: 'Update restaurant approved status',
+        description: 'Toggle restaurant approved status.',
+        method: 'PUT'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Restaurant approved status updated successfully.',
+    )]
+    #[Response(
+        status: 400,
+        description: 'Cannot approve restaurant while it is closed or missing required information.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while updating restaurant approved status.',
+    )]
     public function updateApprovedStatus(Restaurant $restaurant): JsonResponse
     {
         Gate::authorize('update', $restaurant);
@@ -111,11 +177,12 @@ class RestaurantController extends Controller
                 $restaurant
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Restaurant approved status updated successfully.',
-                'restaurant' => $restaurant,
-            ], 200);
+            return RestaurantResource::make($restaurant)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Restaurant approved status updated successfully.',
+                ])
+                ->response();
         } catch (RestaurantApprovalException $e) {
             return response()->json([
                 'success' => false,
@@ -132,6 +199,20 @@ class RestaurantController extends Controller
     /**
      * Update fees.
      */
+    #[Endpoint(
+        operationId: 'updatePartnerRestaurantFees',
+        title: 'Update restaurant fees',
+        description: 'Update restaurant delivery fees and minimum order amount.',
+        method: 'PUT'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Restaurant fees updated successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while updating restaurant fees.',
+    )]
     public function updateFees(
         UpdateFeesRequest $request,
         Restaurant $restaurant
@@ -144,11 +225,12 @@ class RestaurantController extends Controller
                 $restaurant
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Restaurant fees updated successfully.',
-                'restaurant' => $restaurant,
-            ], 200);
+            return RestaurantResource::make($restaurant)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Restaurant fees updated successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -160,6 +242,20 @@ class RestaurantController extends Controller
     /**
      * Update delivery times.
      */
+    #[Endpoint(
+        operationId: 'updatePartnerRestaurantDeliveryTimes',
+        title: 'Update restaurant delivery times',
+        description: 'Update restaurant delivery time slots.',
+        method: 'PUT'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Restaurant delivery times updated successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while updating restaurant delivery times.',
+    )]
     public function updateDeliveryTimes(
         UpdateDeliveryTimesRequest $request,
         Restaurant $restaurant
@@ -172,11 +268,12 @@ class RestaurantController extends Controller
                 $restaurant
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Restaurant delivery times updated successfully.',
-                'restaurant' => $restaurant,
-            ], 200);
+            return RestaurantResource::make($restaurant)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Restaurant delivery times updated successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -188,6 +285,24 @@ class RestaurantController extends Controller
     /**
      * Update info.
      */
+    #[Endpoint(
+        operationId: 'updatePartnerRestaurantInfo',
+        title: 'Update restaurant info',
+        description: 'Update restaurant information.',
+        method: 'PUT'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Restaurant info updated successfully.',
+    )]
+    #[Response(
+        status: 404,
+        description: 'Location not found.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while updating restaurant info.',
+    )]
     public function updateInfo(
         UpdateInfoRequest $request,
         Restaurant $restaurant
@@ -200,11 +315,12 @@ class RestaurantController extends Controller
                 $restaurant,
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Restaurant info updated successfully.',
-                'restaurant' => $restaurant,
-            ], 200);
+            return RestaurantResource::make($restaurant)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Restaurant info updated successfully.',
+                ])
+                ->response();
         } catch (LocationNotFoundException $e) {
             return response()->json([
                 'success' => false,

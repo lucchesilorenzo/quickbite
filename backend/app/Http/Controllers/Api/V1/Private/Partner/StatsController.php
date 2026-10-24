@@ -12,7 +12,9 @@ use App\Http\Requests\Api\V1\Private\Partner\Stats\GetKpiSummaryRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Stats\GetStatsRequest;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\StatsService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -27,6 +29,20 @@ class StatsController extends Controller
     /**
      * Get all dashboard statistics.
      */
+    #[Endpoint(
+        operationId: 'getPartnerDashboardStats',
+        title: 'Get dashboard stats',
+        description: 'Get dashboard statistics for a restaurant.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Dashboard stats retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving dashboard stats.',
+    )]
     public function getDashboardStats(
         Restaurant $restaurant
     ): JsonResponse {
@@ -54,6 +70,20 @@ class StatsController extends Controller
     /**
      * Get KPI summary.
      */
+    #[Endpoint(
+        operationId: 'getPartnerKpiSummary',
+        title: 'Get KPI summary',
+        description: 'Get KPI summary for a restaurant.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'KPI summary retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving KPI summary.',
+    )]
     public function getKpiSummary(
         GetKpiSummaryRequest $request,
         Restaurant $restaurant
@@ -91,6 +121,20 @@ class StatsController extends Controller
     /**
      * Get all detailed statistics.
      */
+    #[Endpoint(
+        operationId: 'getPartnerRestaurantStats',
+        title: 'Get detailed stats',
+        description: 'Get detailed statistics for a specific KPI.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Stats retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving stats.',
+    )]
     public function getStats(
         GetStatsRequest $request,
         Restaurant $restaurant

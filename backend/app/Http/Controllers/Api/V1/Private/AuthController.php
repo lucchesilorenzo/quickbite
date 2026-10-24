@@ -85,10 +85,6 @@ class AuthController extends Controller
         description: 'Tokens refreshed successfully.',
     )]
     #[Response(
-        status: 401,
-        description: 'Invalid refresh token.',
-    )]
-    #[Response(
         status: 500,
         description: 'An unexpected error occurred while refreshing tokens.',
     )]

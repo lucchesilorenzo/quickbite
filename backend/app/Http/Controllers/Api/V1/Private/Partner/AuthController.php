@@ -12,7 +12,10 @@ use App\Http\Requests\Api\V1\Private\Partner\Auth\LoginRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Auth\LogoutRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Auth\RegisterRequest;
 use App\Services\Private\Partner\AuthService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\IgnoreResponse;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -28,6 +31,29 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'registerPartner',
+        title: 'Register partner',
+        description: 'Create a new partner account and restaurant, returning access and refresh tokens.',
+        method: 'POST'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 201,
+        description: 'Partner registered successfully.',
+    )]
+    #[Response(
+        status: 404,
+        description: 'Location not found.',
+    )]
+    #[Response(
+        status: 409,
+        description: 'Email already exists.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while registering the partner.',
+    )]
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
@@ -66,6 +92,20 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'loginPartner',
+        title: 'Login partner',
+        description: 'Authenticate a partner with email and password and return access and refresh tokens.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Partner logged in successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while logging in the partner.',
+    )]
     public function login(LoginRequest $request): JsonResponse
     {
         try {
@@ -95,6 +135,20 @@ class AuthController extends Controller
     /**
      * Logout a partner.
      */
+    #[Endpoint(
+        operationId: 'logoutPartner',
+        title: 'Logout partner',
+        description: 'Revoke the current refresh token for the authenticated partner.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Partner logged out successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while logging out the partner.',
+    )]
     public function logout(LogoutRequest $request): JsonResponse
     {
         try {

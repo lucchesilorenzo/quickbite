@@ -8,10 +8,13 @@ use App\Exceptions\Private\Partner\NoAvailableRidersException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Private\Partner\Order\GetOrdersRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Order\UpdateOrderStatus;
+use App\Http\Resources\Api\V1\OrderResource;
 use App\Models\Order;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\OrderService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -26,6 +29,20 @@ class OrderController extends Controller
     /**
      * Get all orders.
      */
+    #[Endpoint(
+        operationId: 'getPartnerOrders',
+        title: 'List orders',
+        description: 'List orders for a restaurant.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Orders retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving orders.',
+    )]
     public function getOrders(
         GetOrdersRequest $request,
         Restaurant $restaurant
@@ -38,11 +55,12 @@ class OrderController extends Controller
                 $restaurant
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Orders retrieved successfully.',
-                'orders' => $orders,
-            ], 200);
+            return OrderResource::collection($orders)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Orders retrieved successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -54,6 +72,24 @@ class OrderController extends Controller
     /**
      * Update order status.
      */
+    #[Endpoint(
+        operationId: 'updatePartnerOrderStatus',
+        title: 'Update order status',
+        description: 'Update the status of an order.',
+        method: 'PUT'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Order status updated successfully.',
+    )]
+    #[Response(
+        status: 400,
+        description: 'No available riders to assign the delivery.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while updating order status.',
+    )]
     public function updateOrderStatus(
         UpdateOrderStatus $request,
         Order $order,
@@ -66,11 +102,12 @@ class OrderController extends Controller
                 $order
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Order status updated successfully.',
-                'order' => $order,
-            ], 200);
+            return OrderResource::make($order)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Order status updated successfully.',
+                ])
+                ->response();
         } catch (NoAvailableRidersException $e) {
             return response()->json([
                 'success' => false,

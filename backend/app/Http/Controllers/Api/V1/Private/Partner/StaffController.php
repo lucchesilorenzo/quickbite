@@ -6,10 +6,13 @@ namespace App\Http\Controllers\Api\V1\Private\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Private\Partner\Staff\GetStaffRequest;
+use App\Http\Resources\Api\V1\UserResource;
 use App\Models\Restaurant;
 use App\Models\User;
 use App\Services\Private\Partner\StaffService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -24,6 +27,20 @@ class StaffController extends Controller
     /**
      * Get staff members.
      */
+    #[Endpoint(
+        operationId: 'getPartnerStaffMembers',
+        title: 'List staff members',
+        description: 'List staff members for a restaurant.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Staff members retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving staff members.',
+    )]
     public function getStaffMembers(
         GetStaffRequest $request,
         Restaurant $restaurant
@@ -36,11 +53,12 @@ class StaffController extends Controller
                 $restaurant
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Staff members retrieved successfully.',
-                'staff' => $staff,
-            ], 200);
+            return UserResource::collection($staff)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Staff members retrieved successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -52,6 +70,20 @@ class StaffController extends Controller
     /**
      * Delete staff member.
      */
+    #[Endpoint(
+        operationId: 'deletePartnerStaffMember',
+        title: 'Delete staff member',
+        description: 'Remove a staff member from a restaurant.',
+        method: 'DELETE'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Staff member deleted successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while deleting staff member.',
+    )]
     public function deleteStaffMember(
         Restaurant $restaurant,
         User $staffMember
