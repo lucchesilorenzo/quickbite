@@ -6,7 +6,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\Private\SocialAuthService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\IgnoreResponse;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Socialite;
 
@@ -22,6 +25,17 @@ class SocialAuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'socialAuthRedirect',
+        title: 'Social auth redirect',
+        description: 'Redirect the user to the provider authentication page.',
+        method: 'GET'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 302,
+        description: 'Redirect to provider authentication page.',
+    )]
     public function redirect(string $provider): RedirectResponse
     {
         return Socialite::driver($provider)
@@ -34,6 +48,17 @@ class SocialAuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'socialAuthCallback',
+        title: 'Social auth callback',
+        description: 'Obtain the user information from provider and redirect to frontend with tokens.',
+        method: 'GET'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 302,
+        description: 'Redirect to frontend with access and refresh tokens.',
+    )]
     public function callback(string $provider): RedirectResponse
     {
         $providerUser = Socialite::driver($provider)
