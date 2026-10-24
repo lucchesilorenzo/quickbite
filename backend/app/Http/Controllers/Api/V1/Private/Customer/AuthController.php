@@ -12,7 +12,10 @@ use App\Http\Requests\Api\V1\Private\Customer\Auth\LoginRequest;
 use App\Http\Requests\Api\V1\Private\Customer\Auth\LogoutRequest;
 use App\Http\Requests\Api\V1\Private\Customer\Auth\RegisterRequest;
 use App\Services\Private\Customer\AuthService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\IgnoreResponse;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -28,6 +31,29 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'registerCustomer',
+        title: 'Register customer',
+        description: 'Create a new customer account and return access and refresh tokens.',
+        method: 'POST'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 201,
+        description: 'Customer registered successfully.',
+    )]
+    #[Response(
+        status: 400,
+        description: 'Account already uses social login and cannot be registered with email and password.',
+    )]
+    #[Response(
+        status: 401,
+        description: 'Invalid credentials or email already exists.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while registering the customer.',
+    )]
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
@@ -41,11 +67,16 @@ class AuthController extends Controller
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 201);
-        } catch (InvalidCredentialsException|CustomerHasSocialLoginException $e) {
+        } catch (InvalidCredentialsException $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 401);
+        } catch (CustomerHasSocialLoginException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 400);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -59,6 +90,32 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'loginCustomer',
+        title: 'Login customer',
+        description: 'Authenticate a customer with email and password and return access and refresh tokens.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Customer logged in successfully.',
+    )]
+    #[Response(
+        status: 400,
+        description: 'Account uses social login and cannot be authenticated with email and password.',
+    )]
+    #[Response(
+        status: 401,
+        description: 'Invalid email or password.',
+    )]
+    #[Response(
+        status: 403,
+        description: 'User is not authorized to log in as a customer.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while logging in the customer.',
+    )]
     public function login(LoginRequest $request): JsonResponse
     {
         try {
@@ -72,11 +129,21 @@ class AuthController extends Controller
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
-        } catch (InvalidCredentialsException|UnauthorizedException|CustomerHasSocialLoginException $e) {
+        } catch (InvalidCredentialsException $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 401);
+        } catch (UnauthorizedException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 403);
+        } catch (CustomerHasSocialLoginException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 400);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -88,6 +155,20 @@ class AuthController extends Controller
     /**
      * Logout a customer.
      */
+    #[Endpoint(
+        operationId: 'logoutCustomer',
+        title: 'Logout customer',
+        description: 'Revoke the current refresh token for the authenticated customer.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Customer logged out successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while logging out the customer.',
+    )]
     public function logout(LogoutRequest $request): JsonResponse
     {
         try {
