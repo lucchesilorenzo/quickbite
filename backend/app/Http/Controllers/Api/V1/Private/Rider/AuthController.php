@@ -12,7 +12,10 @@ use App\Http\Requests\Api\V1\Private\Rider\Auth\LoginRequest;
 use App\Http\Requests\Api\V1\Private\Rider\Auth\LogoutRequest;
 use App\Http\Requests\Api\V1\Private\Rider\Auth\RegisterRequest;
 use App\Services\Private\Rider\AuthService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\IgnoreResponse;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
@@ -28,6 +31,29 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'registerRider',
+        title: 'Register rider',
+        description: 'Create a new rider account and return access and refresh tokens.',
+        method: 'POST'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 201,
+        description: 'Rider registered successfully.',
+    )]
+    #[Response(
+        status: 404,
+        description: 'Location not found.',
+    )]
+    #[Response(
+        status: 409,
+        description: 'Email already exists.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while registering the rider.',
+    )]
     public function register(RegisterRequest $request): JsonResponse
     {
         try {
@@ -66,6 +92,20 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'loginRider',
+        title: 'Login rider',
+        description: 'Authenticate a rider with email and password and return access and refresh tokens.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Rider logged in successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while logging in the rider.',
+    )]
     public function login(LoginRequest $request): JsonResponse
     {
         try {
@@ -79,11 +119,16 @@ class AuthController extends Controller
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
-        } catch (InvalidCredentialsException|UnauthorizedException $e) {
+        } catch (InvalidCredentialsException $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 401);
+        } catch (UnauthorizedException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 403);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -95,6 +140,20 @@ class AuthController extends Controller
     /**
      * Logout a rider.
      */
+    #[Endpoint(
+        operationId: 'logoutRider',
+        title: 'Logout rider',
+        description: 'Revoke the current refresh token for the authenticated rider.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Rider logged out successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while logging out the rider.',
+    )]
     public function logout(LogoutRequest $request): JsonResponse
     {
         try {
