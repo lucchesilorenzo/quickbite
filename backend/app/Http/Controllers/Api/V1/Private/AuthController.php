@@ -10,7 +10,10 @@ use App\Http\Requests\Api\V1\Public\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Api\V1\Public\Auth\ResetPasswordRequest;
 use App\Models\User;
 use App\Services\Private\AuthService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\IgnoreResponse;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -31,6 +34,20 @@ class AuthController extends Controller
     /**
      * Get the authenticated user.
      */
+    #[Endpoint(
+        operationId: 'getAuthenticatedUser',
+        title: 'Get authenticated user',
+        description: 'Get the currently authenticated user with roles and notification preferences.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'User retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving the user.',
+    )]
     public function me(): JsonResponse
     {
         try {
@@ -56,6 +73,25 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'refreshToken',
+        title: 'Refresh token',
+        description: 'Refresh access token using a refresh token.',
+        method: 'POST'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 200,
+        description: 'Tokens refreshed successfully.',
+    )]
+    #[Response(
+        status: 401,
+        description: 'Invalid refresh token.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while refreshing tokens.',
+    )]
     public function refresh(RefreshRequest $request): JsonResponse
     {
         try {
@@ -87,6 +123,21 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'forgotPassword',
+        title: 'Forgot password',
+        description: 'Send a password reset link to the user email if it exists.',
+        method: 'POST'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 200,
+        description: 'If the email exists, a reset link has been sent.',
+    )]
+    #[Response(
+        status: 429,
+        description: 'Please wait before requesting another reset email.',
+    )]
     public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
     {
         $status = Password::sendResetLink(
@@ -114,6 +165,21 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'resetPassword',
+        title: 'Reset password',
+        description: 'Reset the user password using a valid reset token.',
+        method: 'POST'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 200,
+        description: 'Password reset successfully.',
+    )]
+    #[Response(
+        status: 400,
+        description: 'Invalid or expired reset token, or could not reset password.',
+    )]
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
         $status = Password::reset(
@@ -150,6 +216,21 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'verifyEmail',
+        title: 'Verify email',
+        description: 'Verify the user email using the signed verification link.',
+        method: 'GET'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 302,
+        description: 'Redirects to the frontend application after verification.',
+    )]
+    #[Response(
+        status: 403,
+        description: 'Invalid verification hash.',
+    )]
     public function verifyEmail(string $id, string $hash): RedirectResponse
     {
         $user = User::query()->findOrFail($id);
@@ -169,6 +250,24 @@ class AuthController extends Controller
     /**
      * Resend the email verification notification.
      */
+    #[Endpoint(
+        operationId: 'resendEmailVerification',
+        title: 'Resend email verification',
+        description: 'Resend the email verification notification to the authenticated user.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Verification link resent.',
+    )]
+    #[Response(
+        status: 400,
+        description: 'Email already verified.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while resending the verification notification.',
+    )]
     public function resendEmailVerification(): JsonResponse
     {
         if (auth()->user()->hasVerifiedEmail()) {
