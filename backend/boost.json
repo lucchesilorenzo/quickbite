@@ -1,12 +1,11 @@
 {
-    "agents": [
-        "cursor"
-    ],
+    "agents": ["cursor"],
     "cloud": false,
     "guidelines": true,
     "herd_mcp": false,
     "mcp": true,
     "nightwatch_mcp": false,
+    "packages": ["dedoc/scramble"],
     "sail": false,
     "skills": [
         "infer-conventions",
@@ -15,6 +14,7 @@
         "testing-best-practices",
         "socialite-development",
         "telescope-debugging",
-        "tailwindcss-development"
+        "tailwindcss-development",
+        "scramble-development"
     ]
 }
