@@ -74,7 +74,7 @@ class MenuCategoryController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 422);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

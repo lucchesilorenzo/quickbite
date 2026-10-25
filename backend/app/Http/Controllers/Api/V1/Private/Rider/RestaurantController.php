@@ -60,7 +60,7 @@ class RestaurantController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 404);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -105,11 +105,16 @@ class RestaurantController extends Controller
                 'success' => true,
                 'message' => 'Restaurant left successfully.',
             ], 200);
-        } catch (NoActiveRestaurantException|ActiveDeliveryException $e) {
+        } catch (NoActiveRestaurantException $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 404);
+        } catch (ActiveDeliveryException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 409);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

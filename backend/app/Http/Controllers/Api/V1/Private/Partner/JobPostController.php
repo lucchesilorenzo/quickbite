@@ -235,7 +235,7 @@ class JobPostController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 400);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -284,7 +284,7 @@ class JobPostController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 400);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

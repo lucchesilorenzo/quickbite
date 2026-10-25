@@ -63,7 +63,7 @@ class ProfileController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 404);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

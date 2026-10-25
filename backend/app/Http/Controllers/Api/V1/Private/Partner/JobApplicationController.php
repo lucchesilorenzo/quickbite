@@ -137,7 +137,7 @@ class JobApplicationController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 409);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

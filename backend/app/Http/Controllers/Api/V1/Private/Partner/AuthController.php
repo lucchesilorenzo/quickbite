@@ -71,7 +71,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 404);
         } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
                 return response()->json([
@@ -119,11 +119,16 @@ class AuthController extends Controller
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
-        } catch (InvalidCredentialsException|UnauthorizedException $e) {
+        } catch (InvalidCredentialsException $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 401);
+        } catch (UnauthorizedException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 403);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

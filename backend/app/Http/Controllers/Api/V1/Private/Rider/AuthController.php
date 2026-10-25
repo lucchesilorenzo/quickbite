@@ -71,7 +71,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 404);
         } catch (Throwable $e) {
             if ($e->getCode() === '23505') {
                 return response()->json([
