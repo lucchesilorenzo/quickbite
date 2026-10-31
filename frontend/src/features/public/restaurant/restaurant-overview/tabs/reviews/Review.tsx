@@ -3,10 +3,10 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Card, CardContent, Rating, Typography } from "@mui/material";
 import { format } from "date-fns";
 
-import { type Review } from "@/types/reviews/review.types";
+import { ReviewResource } from "@/api/models";
 
 type ReviewProps = {
-  review: Review;
+  review: ReviewResource;
 };
 
 export default function Review({ review }: ReviewProps) {
@@ -14,7 +14,7 @@ export default function Review({ review }: ReviewProps) {
     <Card variant="outlined">
       <CardContent>
         <Typography variant="h6" component="div">
-          {review.customer.first_name}
+          {review.customer?.first_name}
         </Typography>
 
         <Typography
@@ -22,7 +22,7 @@ export default function Review({ review }: ReviewProps) {
           component="div"
           sx={{ fontWeight: 500, mb: 2 }}
         >
-          {format(review.created_at, "EEEE dd MMM yyyy")}
+          {review.created_at && format(review.created_at, "EEEE dd MMM yyyy")}
         </Typography>
 
         <Rating

@@ -63,12 +63,12 @@ export default function RestaurantHeaderRow() {
               color="textPrimary"
               sx={{ fontWeight: 500, mr: 0.5 }}
             >
-              {reviewsData.avg_rating?.toLocaleString("it-IT", {
+              {reviewsData?.avg_rating?.toLocaleString("it-IT", {
                 maximumFractionDigits: 1,
               }) || "N/A"}
             </Typography>
 
-            {reviewsData.count > 0 && (
+            {reviewsData && reviewsData.count > 0 && (
               <Typography component="span" variant="body2" color="textPrimary">
                 ({reviewsData.count})
               </Typography>

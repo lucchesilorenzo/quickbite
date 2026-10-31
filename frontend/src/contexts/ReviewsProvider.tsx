@@ -2,16 +2,15 @@ import { createContext, useContext, useState } from "react";
 
 import { useRestaurant } from "./RestaurantProvider";
 
+import { GetReviews200 } from "@/api/models";
 import { useGetReviews } from "@/hooks/reviews/useGetReviews";
-import { reviewsDefaults } from "@/lib/data/defaults/query.defaults";
-import { GetReviewsResponse } from "@/types/reviews/review.api.types";
 
 type ReviewsProviderProps = {
   children: React.ReactNode;
 };
 
 type ReviewsContext = {
-  reviewsData: GetReviewsResponse;
+  reviewsData?: GetReviews200;
   page: number;
   isLoadingReviews: boolean;
   reviewsError: Error | null;
@@ -26,13 +25,7 @@ export default function ReviewsProvider({ children }: ReviewsProviderProps) {
   const [page, setPage] = useState(1);
 
   const {
-    data: reviewsData = {
-      success: false,
-      message: "",
-      reviews: reviewsDefaults,
-      avg_rating: null,
-      count: 0,
-    },
+    data: reviewsData,
     isLoading: isLoadingReviews,
     error: reviewsError,
   } = useGetReviews({ restaurantId: restaurantData.data.id, page });
