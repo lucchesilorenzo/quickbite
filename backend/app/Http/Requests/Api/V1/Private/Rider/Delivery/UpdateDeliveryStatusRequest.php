@@ -34,7 +34,7 @@ class UpdateDeliveryStatusRequest extends FormRequest
             'status' => [
                 'required',
                 Rule::enum(OrderStatus::class),
-                new IsOrderStatusValid($delivery->order, UserRole::RIDER),
+                new IsOrderStatusValid($delivery?->order, UserRole::RIDER),
             ],
         ];
     }

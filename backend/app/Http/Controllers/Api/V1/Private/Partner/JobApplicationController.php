@@ -83,6 +83,7 @@ class JobApplicationController extends Controller
     #[Response(
         status: 200,
         description: 'Resume downloaded.',
+        mediaType: 'application/octet-stream',
     )]
     public function downloadResume(JobApplication $jobApplication): StreamedResponse
     {
@@ -101,14 +102,14 @@ class JobApplicationController extends Controller
         operationId: 'updateJobApplicationStatus',
         title: 'Update job application status',
         description: 'Update the status of a job application.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
         description: 'Job application status updated successfully.',
     )]
     #[Response(
-        status: 400,
+        status: 409,
         description: 'The applicant is already employed by the restaurant.',
     )]
     #[Response(

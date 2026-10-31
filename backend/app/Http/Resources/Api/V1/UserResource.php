@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Models\RestaurantUser;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin User
  *
- * @property-read Pivot $pivot
+ * @property-read RestaurantUser $pivot
  */
 class UserResource extends JsonResource
 {
@@ -52,10 +52,10 @@ class UserResource extends JsonResource
             ),
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
             'pivot' => $this->whenPivotLoaded('restaurant_user', fn (): array => [
-                'user_id' => $this->pivot->getAttribute('user_id'),
-                'restaurant_id' => $this->pivot->getAttribute('restaurant_id'),
-                'role' => $this->pivot->getAttribute('role'),
-                'is_active' => $this->pivot->getAttribute('is_active'),
+                'user_id' => (string) $this->pivot->user_id,
+                'restaurant_id' => (string) $this->pivot->restaurant_id,
+                'role' => $this->pivot->role,
+                'is_active' => (bool) $this->pivot->is_active,
             ]),
         ];
     }

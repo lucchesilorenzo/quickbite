@@ -25,9 +25,8 @@ class UpdateMenuItemRequest extends FormRequest
      */
     public function rules(): array
     {
-        $menuItem = $this->route('menuItem');
-        $menuItemId = $menuItem->id;
-        $menuCategoryId = $menuItem->menu_category_id;
+        $menuItemId = $this->route('menuItem')?->id;
+        $menuCategoryId = $this->route('menuItem')?->menu_category_id;
 
         return [
             'name' => [
@@ -39,7 +38,7 @@ class UpdateMenuItemRequest extends FormRequest
                     ->whereNot('id', $menuItemId),
             ],
             'description' => ['nullable', 'string', 'max:200'],
-            'price' => ['required', 'numeric', 'max:100'],
+            'price' => ['required', 'numeric', 'min:0', 'max:100'],
             'image' => [
                 'nullable',
                 Rule::when(fn ($input) => request()->hasFile('image'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),

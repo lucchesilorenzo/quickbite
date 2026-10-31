@@ -76,14 +76,14 @@ class OrderController extends Controller
         operationId: 'updatePartnerOrderStatus',
         title: 'Update order status',
         description: 'Update the status of an order.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
         description: 'Order status updated successfully.',
     )]
     #[Response(
-        status: 400,
+        status: 409,
         description: 'No available riders to assign the delivery.',
     )]
     #[Response(

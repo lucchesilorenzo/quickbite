@@ -31,7 +31,7 @@ class UpdateOfferRequest extends FormRequest
 
         return [
             'discount_rate' => ['required', 'numeric', Rule::in(DiscountRate::values())],
-            'min_discount_amount' => ['required', 'numeric', new ValidMinDiscountAmount($restaurant->min_amount)],
+            'min_discount_amount' => ['required', 'numeric', 'min:0', new ValidMinDiscountAmount((float) ($restaurant?->min_amount))],
         ];
     }
 }

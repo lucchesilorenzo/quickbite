@@ -68,7 +68,7 @@ class NotificationController extends Controller
         operationId: 'markPartnerNotificationsAsRead',
         title: 'Mark notifications as read',
         description: 'Mark all notifications as read for a restaurant.',
-        method: 'PUT'
+        method: 'POST'
     )]
     #[Response(
         status: 200,

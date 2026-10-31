@@ -30,14 +30,14 @@ class ProfileController extends Controller
         operationId: 'updateRiderProfileGeneralInformation',
         title: 'Update profile general information',
         description: 'Update general information for the authenticated rider.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
         description: 'Profile general information updated successfully.',
     )]
     #[Response(
-        status: 400,
+        status: 404,
         description: 'Location not found.',
     )]
     #[Response(
@@ -79,7 +79,7 @@ class ProfileController extends Controller
         operationId: 'updateRiderProfileNotifications',
         title: 'Update profile notifications',
         description: 'Update notification preferences for the authenticated rider.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,

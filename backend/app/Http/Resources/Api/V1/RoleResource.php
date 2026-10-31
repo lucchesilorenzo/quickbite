@@ -29,7 +29,14 @@ class RoleResource extends JsonResource
             'guard_name' => $this->guard_name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'pivot' => $this->when($this->resource->relationLoaded('pivot'), $this->pivot),
+            'pivot' => $this->when(
+                $this->resource->relationLoaded('pivot'),
+                fn (): array => [
+                    'model_uuid' => (string) $this->pivot->getAttribute('model_uuid'),
+                    'role_id' => (string) $this->pivot->getAttribute('role_id'),
+                    'model_type' => (string) $this->pivot->getAttribute('model_type'),
+                ],
+            ),
         ];
     }
 }

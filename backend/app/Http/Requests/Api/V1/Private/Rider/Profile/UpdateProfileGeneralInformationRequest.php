@@ -7,10 +7,12 @@ namespace App\Http\Requests\Api\V1\Private\Rider\Profile;
 use App\Enums\VehicleType;
 use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
+use Dedoc\Scramble\Attributes\SchemaName;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+#[SchemaName('RiderUpdateProfileGeneralInformationRequest')]
 class UpdateProfileGeneralInformationRequest extends FormRequest
 {
     /**
@@ -36,9 +38,9 @@ class UpdateProfileGeneralInformationRequest extends FormRequest
                 'string',
                 'max:50',
                 new ValidPhoneNumber('IT'),
-                Rule::unique('users')->ignore(auth()->user()->id),
+                Rule::unique('users')->ignore(auth()->user()?->id),
             ],
-            'date_of_birth' => ['required', 'date', 'date_format:Y-m-d', new IsAdult],
+            'date_of_birth' => ['required', Rule::date()->format('Y-m-d'), new IsAdult],
             'vehicle_type' => ['required', Rule::enum(VehicleType::class)],
             'street_address' => ['required', 'string', 'max:50'],
             'building_number' => ['required', 'string', 'max:50'],

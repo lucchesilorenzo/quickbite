@@ -111,7 +111,7 @@ class DeliveryController extends Controller
         operationId: 'updateRiderDeliveryStatus',
         title: 'Update delivery status',
         description: 'Update the status of a delivery.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,

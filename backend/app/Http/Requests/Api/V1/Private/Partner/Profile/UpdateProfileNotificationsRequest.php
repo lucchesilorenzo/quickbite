@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\V1\Private\Partner\Profile;
 
+use Dedoc\Scramble\Attributes\SchemaName;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+#[SchemaName('PartnerUpdateProfileNotificationsRequest')]
 class UpdateProfileNotificationsRequest extends FormRequest
 {
     /**

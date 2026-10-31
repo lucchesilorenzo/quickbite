@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -53,7 +54,7 @@ class Order extends Model
      */
     public function isExpired(): bool
     {
-        return $this->payment_status === PaymentStatus::EXPIRED->value;
+        return $this->payment_status === PaymentStatus::EXPIRED;
     }
 
     /**
@@ -123,6 +124,10 @@ class Order extends Model
             'discount_rate' => 'float',
             'discount' => 'float',
             'total' => 'float',
+            'delivery_time' => 'datetime',
+            'payment_method' => PaymentMethod::class,
+            'payment_status' => PaymentStatus::class,
+            'status' => OrderStatus::class,
         ];
     }
 }

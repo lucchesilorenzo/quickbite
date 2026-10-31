@@ -162,7 +162,7 @@ class JobPostController extends Controller
         operationId: 'updatePartnerJobPost',
         title: 'Update job post',
         description: 'Update an existing job post.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,

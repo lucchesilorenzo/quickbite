@@ -80,6 +80,7 @@ class MenuItem extends Model
     {
         return [
             'price' => 'float',
+            'is_available' => 'boolean',
         ];
     }
 }

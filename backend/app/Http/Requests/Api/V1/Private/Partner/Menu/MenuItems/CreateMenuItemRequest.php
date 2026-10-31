@@ -25,7 +25,7 @@ class CreateMenuItemRequest extends FormRequest
      */
     public function rules(): array
     {
-        $menuCategoryId = $this->route('menuCategory')->id;
+        $menuCategoryId = $this->route('menuCategory')?->id;
 
         return [
             'name' => [
@@ -36,7 +36,7 @@ class CreateMenuItemRequest extends FormRequest
                     ->where(fn ($q) => $q->where('menu_category_id', $menuCategoryId)),
             ],
             'description' => ['nullable', 'string', 'max:200'],
-            'price' => ['required', 'numeric', 'max:100'],
+            'price' => ['required', 'numeric', 'min:0', 'max:100'],
             'image' => [
                 'nullable',
                 Rule::when(fn ($input) => request()->hasFile('image'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),

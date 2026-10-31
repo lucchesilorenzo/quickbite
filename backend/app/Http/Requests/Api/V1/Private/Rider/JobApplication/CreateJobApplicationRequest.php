@@ -31,6 +31,11 @@ class CreateJobApplicationRequest extends FormRequest
             'email' => ['required', 'email'],
             'phone_number' => ['required', 'string', 'min:1', new ValidPhoneNumber('IT')],
             'resume' => ['required', 'file', 'mimes:pdf', 'max:2048'],
+            /**
+             * Whether the applicant accepted the declaration.
+             *
+             * @var bool
+             */
             'declaration_accepted_at' => ['required', 'accepted'],
         ];
     }

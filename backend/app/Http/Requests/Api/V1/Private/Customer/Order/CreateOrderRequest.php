@@ -28,7 +28,7 @@ class CreateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'restaurant_id' => ['required', 'exists:restaurants,id'],
+            'restaurant_id' => ['required', 'uuid', Rule::exists('restaurants', 'id')],
             'first_name' => ['required', 'string', 'min:1', 'max:50'],
             'last_name' => ['required', 'string', 'min:1', 'max:50'],
             'phone_number' => ['required', 'string', 'min:1', new ValidPhoneNumber('IT')],
@@ -37,7 +37,7 @@ class CreateOrderRequest extends FormRequest
             'postcode' => ['required', 'string', 'min:1', 'max:50'],
             'city' => ['required', 'string', 'min:1', 'max:50'],
             'state' => ['required', 'string', 'min:1', 'max:50'],
-            'delivery_time' => ['required', 'date', 'after_or_equal:now'],
+            'delivery_time' => ['required', Rule::date(), 'after_or_equal:now'],
             'notes' => ['nullable', 'string', 'max:160'],
             'payment_method' => ['required', Rule::enum(PaymentMethod::class)],
             'subtotal' => ['required', 'numeric', 'min:0'],
@@ -48,8 +48,8 @@ class CreateOrderRequest extends FormRequest
             'total' => ['required', 'numeric', 'min:0'],
 
             'order_items' => ['required', 'array', 'min:1'],
-            'order_items.*.menu_item_id' => ['required', 'exists:menu_items,id'],
-            'order_items.*.name' => ['required', 'exists:menu_items,name'],
+            'order_items.*.menu_item_id' => ['required', 'uuid', Rule::exists('menu_items', 'id')],
+            'order_items.*.name' => ['required', Rule::exists('menu_items', 'name')],
             'order_items.*.quantity' => ['required', 'integer', 'min:1'],
             'order_items.*.item_total' => ['required', 'numeric', 'min:0'],
         ];

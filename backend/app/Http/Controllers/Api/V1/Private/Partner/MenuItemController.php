@@ -80,7 +80,7 @@ class MenuItemController extends Controller
         operationId: 'updatePartnerMenuItem',
         title: 'Update menu item',
         description: 'Update an existing menu item.',
-        method: 'PUT'
+        method: 'POST'
     )]
     #[Response(
         status: 200,
@@ -123,7 +123,7 @@ class MenuItemController extends Controller
         operationId: 'updatePartnerMenuItemsOrder',
         title: 'Update menu items order',
         description: 'Update the display order of menu items.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,

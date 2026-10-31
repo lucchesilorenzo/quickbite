@@ -6,10 +6,12 @@ namespace App\Http\Requests\Api\V1\Private\Partner\Profile;
 
 use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
+use Dedoc\Scramble\Attributes\SchemaName;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+#[SchemaName('PartnerUpdateProfileGeneralInformationRequest')]
 class UpdateProfileGeneralInformationRequest extends FormRequest
 {
     /**
@@ -35,9 +37,9 @@ class UpdateProfileGeneralInformationRequest extends FormRequest
                 'string',
                 'max:50',
                 new ValidPhoneNumber('IT'),
-                Rule::unique('users')->ignore(auth()->user()->id),
+                Rule::unique('users')->ignore(auth()->user()?->id),
             ],
-            'date_of_birth' => ['required', 'date', 'date_format:Y-m-d', new IsAdult],
+            'date_of_birth' => ['required', Rule::date()->format('Y-m-d'), new IsAdult],
             'street_address' => ['required', 'string', 'max:50'],
             'building_number' => ['required', 'string', 'max:50'],
             'postcode' => ['required', 'string', 'max:50'],

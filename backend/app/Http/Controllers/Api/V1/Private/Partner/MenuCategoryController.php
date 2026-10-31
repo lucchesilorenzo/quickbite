@@ -44,7 +44,7 @@ class MenuCategoryController extends Controller
         description: 'Menu category created successfully.',
     )]
     #[Response(
-        status: 400,
+        status: 422,
         description: 'Menu category order exceeded.',
     )]
     #[Response(
@@ -90,7 +90,7 @@ class MenuCategoryController extends Controller
         operationId: 'updatePartnerMenuCategoriesOrder',
         title: 'Update menu categories order',
         description: 'Update the display order of menu categories.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
@@ -149,7 +149,7 @@ class MenuCategoryController extends Controller
         operationId: 'updatePartnerMenuCategory',
         title: 'Update menu category',
         description: 'Update an existing menu category.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,

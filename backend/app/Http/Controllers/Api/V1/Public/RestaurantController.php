@@ -94,7 +94,7 @@ class RestaurantController extends Controller
                      * @var array{
                      *     total: int,
                      *     mov_counts: array{
-                     *         all: string,
+                     *         all: int,
                      *         1000: int,
                      *         1500: int
                      *     },

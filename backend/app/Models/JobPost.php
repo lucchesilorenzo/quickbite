@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\EmploymentType;
+use App\Enums\JobPostStatus;
+use App\Enums\VehicleType;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,6 +55,9 @@ class JobPost extends Model
     protected function casts(): array
     {
         return [
+            'employment_type' => EmploymentType::class,
+            'vehicle_type' => VehicleType::class,
+            'status' => JobPostStatus::class,
             'salary' => 'float',
         ];
     }

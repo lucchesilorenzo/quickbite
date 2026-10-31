@@ -6,14 +6,19 @@ namespace App\Providers;
 
 use App\Listeners\HandleStripeOrderPayments;
 use App\Models\User;
+use App\Scramble\InferExtensions\ThrowableMethodReturnTypeExtension;
+use App\Scramble\RuleTransformers\NumericInRule;
 use BackedEnum;
 use Dedoc\Scramble\OpenApiContext;
 use Dedoc\Scramble\Scramble;
 use Dedoc\Scramble\Support\EnumTransformer;
 use Dedoc\Scramble\Support\Generator\ClassBasedReference;
 use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\Response;
 use Dedoc\Scramble\Support\Generator\Schema;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
+use Dedoc\Scramble\Support\Generator\Types\ObjectType;
+use Dedoc\Scramble\Support\Generator\Types\StringType;
 use Dedoc\Scramble\Support\Generator\Types\UnknownType;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -40,6 +45,8 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
 
+        Scramble::registerExtension(ThrowableMethodReturnTypeExtension::class);
+
         Scramble::configure()
             ->withDocumentTransformers(function (OpenApi $openApi, OpenApiContext $context): void {
                 $openApi->secure(
@@ -47,7 +54,9 @@ class AppServiceProvider extends ServiceProvider
                 );
 
                 $this->registerEnumSchemas($openApi, $context);
+                $this->normalizeResponseSchemas($openApi);
             })
+            ->withRuleTransformers([NumericInRule::class])
             ->withoutEagerLoadAnalysis();
 
         Event::listen(WebhookReceived::class, HandleStripeOrderPayments::class);
@@ -88,6 +97,41 @@ class AppServiceProvider extends ServiceProvider
             );
 
             $openApi->components->addSchema($reference->fullName, Schema::fromType($schema));
+        }
+    }
+
+    /**
+     * Normalize responses that Scramble cannot infer accurately.
+     */
+    private function normalizeResponseSchemas(OpenApi $openApi): void
+    {
+        foreach ($openApi->paths as $path) {
+            foreach ($path->operations as $operation) {
+                foreach ($operation->responses ?? [] as $response) {
+                    if (! $response instanceof Response) {
+                        continue;
+                    }
+
+                    $code = (int) $response->code;
+
+                    // Redirects never have a JSON body, even though Scramble infers one.
+                    if ($code >= 300 && $code < 400) {
+                        $response->content = [];
+                    }
+
+                    // The broadcasting authentication endpoint returns the channel auth payload.
+                    if (mb_ltrim($path->path, '/') === 'broadcasting/auth' && $code === 200) {
+                        $response->setContent(
+                            'application/json',
+                            Schema::fromType(
+                                (new ObjectType)
+                                    ->addProperty('auth', new StringType)
+                                    ->setRequired(['auth'])
+                            ),
+                        );
+                    }
+                }
+            }
         }
     }
 }

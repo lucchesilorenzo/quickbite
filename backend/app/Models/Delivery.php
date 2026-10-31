@@ -56,4 +56,18 @@ class Delivery extends Model
     {
         return $this->belongsTo(User::class, 'rider_id');
     }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'started_at' => 'datetime',
+            'delivered_at' => 'datetime',
+            'cancelled_at' => 'datetime',
+        ];
+    }
 }

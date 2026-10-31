@@ -113,6 +113,9 @@ class RestaurantService
             ->firstOrFail();
     }
 
+    /**
+     * @return array{is_asap_available: bool, delivery_slots: list<string>}
+     */
     public function getDeliverySlots(Restaurant $restaurant): array
     {
         $currentDeliveryDay = $restaurant->deliveryDays()
@@ -134,7 +137,7 @@ class RestaurantService
         $startTimeDay = today()->setTimeFromTimeString($currentDeliveryDay->start_time);
         $endTimeDay = today()->setTimeFromTimeString($currentDeliveryDay->end_time);
 
-        $isAsapAvailable = $restaurant->is_open && now()->between($startTimeDay, $endTimeDay);
+        $isAsapAvailable = (bool) ($restaurant->is_open && now()->between($startTimeDay, $endTimeDay));
 
         return [
             'is_asap_available' => $isAsapAvailable,
@@ -233,10 +236,17 @@ class RestaurantService
             ->when(in_array($sortBy, [null, '', '0'], true), fn ($q) => $q->orderBy('id'));
     }
 
+    /**
+     * @return array{
+     *     total: int,
+     *     mov_counts: array{all: int, 1000: int, 1500: int},
+     *     offer_counts: array{with_discounts: int}
+     * }
+     */
     private function buildStats(Builder $baseQuery, int $total): array
     {
         $movCounts = [
-            'all' => $baseQuery->count(),
+            'all' => (int) $baseQuery->count(),
         ];
 
         foreach (self::MOV_THRESHOLDS as $key => $value) {

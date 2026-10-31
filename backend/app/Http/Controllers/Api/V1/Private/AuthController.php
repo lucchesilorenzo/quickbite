@@ -263,6 +263,7 @@ class AuthController extends Controller
     #[Response(
         status: 500,
         description: 'An unexpected error occurred while resending the verification notification.',
+        type: 'array{message: string}',
     )]
     public function resendEmailVerification(): JsonResponse
     {

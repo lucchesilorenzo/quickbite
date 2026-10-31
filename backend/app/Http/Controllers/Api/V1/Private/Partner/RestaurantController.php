@@ -111,7 +111,7 @@ class RestaurantController extends Controller
         operationId: 'updatePartnerRestaurantStatus',
         title: 'Update restaurant status',
         description: 'Update restaurant open/closed status.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
@@ -154,14 +154,14 @@ class RestaurantController extends Controller
         operationId: 'updatePartnerRestaurantApprovedStatus',
         title: 'Update restaurant approved status',
         description: 'Toggle restaurant approved status.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
         description: 'Restaurant approved status updated successfully.',
     )]
     #[Response(
-        status: 400,
+        status: 422,
         description: 'Cannot approve restaurant while it is closed or missing required information.',
     )]
     #[Response(
@@ -203,7 +203,7 @@ class RestaurantController extends Controller
         operationId: 'updatePartnerRestaurantFees',
         title: 'Update restaurant fees',
         description: 'Update restaurant delivery fees and minimum order amount.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
@@ -246,7 +246,7 @@ class RestaurantController extends Controller
         operationId: 'updatePartnerRestaurantDeliveryTimes',
         title: 'Update restaurant delivery times',
         description: 'Update restaurant delivery time slots.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
@@ -289,7 +289,7 @@ class RestaurantController extends Controller
         operationId: 'updatePartnerRestaurantInfo',
         title: 'Update restaurant info',
         description: 'Update restaurant information.',
-        method: 'PUT'
+        method: 'POST'
     )]
     #[Response(
         status: 200,

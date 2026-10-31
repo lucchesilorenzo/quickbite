@@ -34,10 +34,14 @@ class UpdateInfoRequest extends FormRequest
             'postcode' => ['required', 'string', 'min:1', 'max:50'],
             'city' => ['required', 'string', 'min:1', 'max:50'],
             'state' => ['required', 'string', 'min:1', 'max:50'],
-            'email' => ['required', 'email'],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('restaurants', 'email')->ignore($this->route('restaurant')?->id),
+            ],
             'phone_number' => ['required', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
             'categories' => ['required', 'array', 'min:1', 'max:3'],
-            'categories.*' => ['uuid', 'exists:categories,id'],
+            'categories.*' => ['uuid', Rule::exists('categories', 'id')],
             'logo' => [
                 'nullable',
                 Rule::when(fn ($input) => request()->hasFile('logo'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),

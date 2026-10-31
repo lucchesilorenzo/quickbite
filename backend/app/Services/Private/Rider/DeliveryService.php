@@ -64,7 +64,7 @@ class DeliveryService
 
         return DB::transaction(function () use ($data, $delivery, $deliveryStatus): Delivery {
             if ($data['status'] === OrderStatus::DELIVERED->value) {
-                if ($delivery->order->payment_method === PaymentMethod::CASH->value) {
+                if ($delivery->order->payment_method === PaymentMethod::CASH) {
                     $delivery->order->update([
                         'payment_status' => PaymentStatus::PAID->value,
                     ]);

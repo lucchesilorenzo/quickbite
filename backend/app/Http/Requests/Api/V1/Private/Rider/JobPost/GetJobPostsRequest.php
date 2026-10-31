@@ -46,7 +46,7 @@ class GetJobPostsRequest extends FormRequest
                 'gte:min_salary',
             ],
             'employment_type' => ['sometimes', Rule::enum(EmploymentType::class)],
-            'sort_by' => ['sometimes', 'in:asc,desc'],
+            'sort_by' => ['sometimes', 'string', Rule::in(['asc', 'desc'])],
         ];
     }
 }

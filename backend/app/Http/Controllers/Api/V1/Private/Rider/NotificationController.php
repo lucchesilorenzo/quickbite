@@ -66,7 +66,7 @@ class NotificationController extends Controller
         operationId: 'markRiderNotificationsAsRead',
         title: 'Mark notifications as read',
         description: 'Mark all notifications as read for the authenticated rider.',
-        method: 'PUT'
+        method: 'POST'
     )]
     #[Response(
         status: 200,

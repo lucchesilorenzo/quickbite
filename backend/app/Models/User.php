@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\RestaurantRole;
+use App\Enums\VehicleType;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Appends;
@@ -81,11 +82,12 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the user's restaurants.
      *
-     * @return BelongsToMany<Restaurant, $this>
+     * @return BelongsToMany<Restaurant, $this, RestaurantUser>
      */
     public function restaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
+            ->using(RestaurantUser::class)
             ->withPivot('role', 'is_active');
     }
 
@@ -136,22 +138,24 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the user's owned restaurants.
      *
-     * @return BelongsToMany<Restaurant, $this>
+     * @return BelongsToMany<Restaurant, $this, RestaurantUser>
      */
     public function ownedRestaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
+            ->using(RestaurantUser::class)
             ->wherePivot('role', RestaurantRole::OWNER);
     }
 
     /**
      * Get the user's co-owned restaurants.
      *
-     * @return BelongsToMany<Restaurant, $this>
+     * @return BelongsToMany<Restaurant, $this, RestaurantUser>
      */
     public function coOwnedRestaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
+            ->using(RestaurantUser::class)
             ->wherePivot('role', RestaurantRole::CO_OWNER);
     }
 
@@ -160,11 +164,12 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the user's rider restaurants.
      *
-     * @return BelongsToMany<Restaurant, $this>
+     * @return BelongsToMany<Restaurant, $this, RestaurantUser>
      */
     public function riderRestaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class)
+            ->using(RestaurantUser::class)
             ->wherePivot('role', RestaurantRole::RIDER)
             ->withPivot('is_active');
     }
@@ -188,9 +193,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'date_of_birth' => 'date',
             'password' => 'hashed',
             'has_password' => 'boolean',
-            'status' => RestaurantRole::class,
+            'vehicle_type' => VehicleType::class,
+            'trial_ends_at' => 'datetime',
         ];
     }
 

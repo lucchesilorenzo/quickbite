@@ -10,14 +10,16 @@ use App\Http\Resources\Api\V1\MenuCategory\MenuCategoryResource;
 use App\Http\Resources\Api\V1\Offer\OfferResource;
 use App\Http\Resources\Api\V1\Review\ReviewResource;
 use App\Models\Restaurant;
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use App\Models\RestaurantUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @mixin Restaurant
  *
- * @property-read Pivot $pivot
+ * @property-read RestaurantUser $pivot
+ * @property-read float|null $reviews_avg_rating
+ * @property-read float $distance
  */
 class RestaurantResource extends JsonResource
 {
@@ -58,19 +60,19 @@ class RestaurantResource extends JsonResource
             'is_open' => $this->is_open,
             'logo_url' => $this->logo_url,
             'cover_url' => $this->cover_url,
-            'reviews_avg_rating' => $this->whenHas('reviews_avg_rating'),
-            'reviews_count' => $this->whenHas('reviews_count'),
-            'distance' => $this->whenHas('distance'),
+            'reviews_avg_rating' => $this->whenHas('reviews_avg_rating', fn (): ?float => $this->reviews_avg_rating),
+            'reviews_count' => $this->whenCounted('reviews'),
+            'distance' => $this->whenHas('distance', fn (): float => (float) $this->distance),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'delivery_days' => DeliveryDayResource::collection($this->whenLoaded('deliveryDays')),
             'offers' => OfferResource::collection($this->whenLoaded('offers')),
             'reviews' => ReviewResource::collection($this->whenLoaded('reviews')),
             'menu_categories' => MenuCategoryResource::collection($this->whenLoaded('menuCategories')),
             'pivot' => $this->whenPivotLoaded('restaurant_user', fn (): array => [
-                'user_id' => $this->pivot->getAttribute('user_id'),
-                'restaurant_id' => $this->pivot->getAttribute('restaurant_id'),
-                'role' => $this->pivot->getAttribute('role'),
-                'is_active' => $this->pivot->getAttribute('is_active'),
+                'user_id' => (string) $this->pivot->user_id,
+                'restaurant_id' => (string) $this->pivot->restaurant_id,
+                'role' => $this->pivot->role,
+                'is_active' => (bool) $this->pivot->is_active,
             ]),
         ];
     }

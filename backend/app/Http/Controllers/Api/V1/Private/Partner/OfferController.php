@@ -80,7 +80,7 @@ class OfferController extends Controller
         description: 'Offer created successfully.',
     )]
     #[Response(
-        status: 400,
+        status: 422,
         description: 'An offer already exists for this restaurant.',
     )]
     #[Response(
@@ -126,7 +126,7 @@ class OfferController extends Controller
         operationId: 'updatePartnerOffer',
         title: 'Update offer',
         description: 'Update an existing offer.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,

@@ -28,10 +28,10 @@ class UpdateDeliveryTimesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'delivery_days' => ['required', 'array'],
+            'delivery_days' => ['required', 'array', 'min:1'],
             'delivery_days.*.day' => ['required', Rule::enum(DeliveryDay::class)],
-            'delivery_days.*.start_time' => ['nullable', 'date_format:H:i'],
-            'delivery_days.*.end_time' => ['nullable', 'date_format:H:i'],
+            'delivery_days.*.start_time' => ['nullable', Rule::date()->format('H:i')],
+            'delivery_days.*.end_time' => ['nullable', Rule::date()->format('H:i')],
         ];
     }
 
@@ -43,8 +43,19 @@ class UpdateDeliveryTimesRequest extends FormRequest
         $validator->after(function ($validator): void {
             $deliveryDays = $this->input('delivery_days');
 
+            if (! is_array($deliveryDays)) {
+                return;
+            }
+
             foreach ($deliveryDays as $day) {
-                if ($day['start_time'] && $day['end_time'] && $day['start_time'] > $day['end_time']) {
+                if (! is_array($day)) {
+                    continue;
+                }
+
+                $startTime = $day['start_time'] ?? null;
+                $endTime = $day['end_time'] ?? null;
+
+                if ($startTime && $endTime && $startTime > $endTime) {
                     $validator->errors()->add('delivery_days', 'End time must be after start time.');
                     break;
                 }

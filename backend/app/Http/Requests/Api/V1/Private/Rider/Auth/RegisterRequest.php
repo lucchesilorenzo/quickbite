@@ -6,11 +6,13 @@ namespace App\Http\Requests\Api\V1\Private\Rider\Auth;
 
 use App\Enums\VehicleType;
 use App\Rules\ValidPhoneNumber;
+use Dedoc\Scramble\Attributes\SchemaName;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
+#[SchemaName('RiderRegisterRequest')]
 class RegisterRequest extends FormRequest
 {
     /**
@@ -31,13 +33,13 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'max:50'],
             'last_name' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
             'phone_number' => [
                 'required',
                 'string',
                 'max:50',
                 new ValidPhoneNumber('IT'),
-                'unique:users,phone_number',
+                Rule::unique('users', 'phone_number'),
             ],
             'street_address' => ['required', 'string', 'max:50'],
             'building_number' => ['required', 'string', 'max:50'],

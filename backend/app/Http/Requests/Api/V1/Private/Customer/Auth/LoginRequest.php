@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\V1\Private\Customer\Auth;
 
+use Dedoc\Scramble\Attributes\SchemaName;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+#[SchemaName('CustomerLoginRequest')]
 class LoginRequest extends FormRequest
 {
     /**

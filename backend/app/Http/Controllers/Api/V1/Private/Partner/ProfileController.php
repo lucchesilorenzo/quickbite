@@ -30,7 +30,7 @@ class ProfileController extends Controller
         operationId: 'updatePartnerProfileGeneral',
         title: 'Update profile general information',
         description: 'Update partner profile general information.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,
@@ -79,7 +79,7 @@ class ProfileController extends Controller
         operationId: 'updatePartnerProfileNotifications',
         title: 'Update profile notification preferences',
         description: 'Update partner notification preferences.',
-        method: 'PUT'
+        method: 'PATCH'
     )]
     #[Response(
         status: 200,

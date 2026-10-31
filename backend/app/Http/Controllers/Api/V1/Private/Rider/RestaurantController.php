@@ -76,7 +76,7 @@ class RestaurantController extends Controller
         operationId: 'leaveRiderRestaurant',
         title: 'Leave restaurant',
         description: 'Leave the active restaurant.',
-        method: 'POST'
+        method: 'DELETE'
     )]
     #[Response(
         status: 200,
