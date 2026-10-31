@@ -2,15 +2,15 @@ import { createContext, useContext, useState } from "react";
 
 import { useRestaurant } from "./RestaurantProvider";
 
+import { GetOffers200 } from "@/api/models";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
-import { GetOffersResponse } from "@/types/offers/offer.api.types";
 
 type OffersProviderProps = {
   children: React.ReactNode;
 };
 
 type OffersContext = {
-  offersData?: GetOffersResponse;
+  offersData?: GetOffers200;
   page: number;
   isLoadingOffers: boolean;
   offersError: Error | null;

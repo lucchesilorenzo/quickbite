@@ -63,7 +63,7 @@ export default function RestaurantAboutDialogTabs() {
       >
         <Tab label="Reviews" value="reviews" />
         <Tab label="Info" value="info" />
-        {offersData && offersData.offers.data.length > 0 && (
+        {offersData && offersData.data.length > 0 && (
           <Tab label="Offers" value="offers" />
         )}
       </TabList>

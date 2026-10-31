@@ -7,12 +7,11 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { GetCartResponse } from "../types/carts/cart.api.types";
 
-import { GetDeliverySlots200 } from "@/api/models";
+import { GetDeliverySlots200, GetOffers200 } from "@/api/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
-import { GetOffersResponse } from "@/types/offers/offer.api.types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
@@ -22,7 +21,7 @@ type CheckoutContext = {
   cartData: GetCartResponse;
   checkoutData: CheckoutData;
   restaurantId: string;
-  offersData?: GetOffersResponse;
+  offersData?: GetOffers200;
   offersError: Error | null;
   deliverySlotsData?: GetDeliverySlots200;
   isLoadingDeliverySlots: boolean;

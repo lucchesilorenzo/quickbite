@@ -16,8 +16,8 @@ export default function RestaurantOffersList({
     useOffers();
 
   const displayedOffers = showPagination
-    ? offersData?.offers.data
-    : offersData?.offers.data.slice(0, 2);
+    ? offersData?.data
+    : offersData?.data.slice(0, 2);
 
   if (!isLoadingOffers && !offersError && displayedOffers?.length === 0) {
     return null;
@@ -60,7 +60,7 @@ export default function RestaurantOffersList({
           <CustomPagination
             context="offers_page"
             page={page}
-            totalPages={offersData?.offers.last_page || 1}
+            totalPages={offersData?.meta.last_page || 1}
             setPage={setPage}
           />
         </Box>

@@ -36,7 +36,7 @@ export default function RestaurantCartFooter() {
   const isDeliveryFeeFree = restaurantData.data.delivery_fee === 0;
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offersData?.offers.data ?? [],
+    offersData?.data ?? [],
     subtotal,
   );
 

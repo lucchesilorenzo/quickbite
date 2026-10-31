@@ -23,7 +23,7 @@ export default function RestaurantCartMobile() {
   const subtotal = cartTotal(restaurantData.data.id);
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offersData?.offers.data ?? [],
+    offersData?.data ?? [],
     subtotal,
   );
 

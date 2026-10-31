@@ -1,8 +1,7 @@
 import { format } from "date-fns";
 
-import { RestaurantResource } from "@/api/models";
+import { OfferResource, RestaurantResource } from "@/api/models";
 import { Cart, RestaurantCart } from "@/types/cart.types";
-import { Offer } from "@/types/offers/offer.types";
 
 export function getRestaurantOpeningTime(restaurant: RestaurantResource) {
   const dayName = format(new Date(), "EEEE").toLowerCase();
@@ -14,7 +13,7 @@ export function getRestaurantOpeningTime(restaurant: RestaurantResource) {
 }
 
 export function getBestRestaurantOfferGivenSubtotal(
-  offers: Offer[],
+  offers: OfferResource[],
   subtotal: number,
 ) {
   const validOffers = offers.filter(
