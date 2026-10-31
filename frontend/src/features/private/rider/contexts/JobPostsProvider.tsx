@@ -14,6 +14,7 @@ import {
 } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
+import { RestaurantSortBy } from "@/api/models";
 import {
   MAX_SALARY,
   MIN_SALARY,
@@ -55,7 +56,7 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
         (t) => t.value === searchParams.get("employment_type"),
       )?.value as EmploymentTypeWithAll) || "all",
   };
-  const sortBy = searchParams.get("sort_by");
+  const sortBy = searchParams.get("sort_by") as RestaurantSortBy | null;
   const jobPostId = searchParams.get("job_post_id");
 
   const {

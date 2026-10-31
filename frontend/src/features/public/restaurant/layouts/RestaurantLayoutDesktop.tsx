@@ -16,10 +16,10 @@ export default function RestaurantLayoutDesktop() {
   } = useRestaurant();
 
   useEffect(() => {
-    if (!restaurantData.restaurant.is_open) {
+    if (!restaurantData.data.is_open) {
       setOpenRestaurantClosedDialog(true);
     }
-  }, [restaurantData.restaurant, setOpenRestaurantClosedDialog]);
+  }, [restaurantData.data, setOpenRestaurantClosedDialog]);
 
   return (
     <Box

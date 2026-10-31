@@ -34,7 +34,7 @@ export default function MenuProvider({ children }: MenuProviderProps) {
     isLoading: isLoadingMenu,
     error: menuError,
   } = useGetMenu({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     page,
   });
 

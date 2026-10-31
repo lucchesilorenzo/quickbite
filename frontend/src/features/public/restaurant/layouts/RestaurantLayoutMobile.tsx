@@ -18,10 +18,10 @@ export default function RestaurantLayoutMobile() {
   const { isEmpty } = useMultiCart();
 
   useEffect(() => {
-    if (!restaurantData.restaurant.is_open) {
+    if (!restaurantData.data.is_open) {
       setOpenRestaurantClosedDialog(true);
     }
-  }, [restaurantData.restaurant, setOpenRestaurantClosedDialog]);
+  }, [restaurantData.data, setOpenRestaurantClosedDialog]);
 
   return (
     <Box
@@ -29,7 +29,7 @@ export default function RestaurantLayoutMobile() {
       sx={{ display: { xs: "block", lg: "none" }, bgcolor: "#FCFCFC" }}
     >
       <RestaurantDetailsMobile />
-      {!isEmpty(restaurantData.restaurant.id) && <RestaurantCartMobile />}
+      {!isEmpty(restaurantData.data.id) && <RestaurantCartMobile />}
 
       <RestaurantClosedDialog
         openRestaurantClosedDialog={openRestaurantClosedDialog}

@@ -35,7 +35,7 @@ export default function ReviewsProvider({ children }: ReviewsProviderProps) {
     },
     isLoading: isLoadingReviews,
     error: reviewsError,
-  } = useGetReviews({ restaurantId: restaurantData.restaurant.id, page });
+  } = useGetReviews({ restaurantId: restaurantData.data.id, page });
 
   return (
     <ReviewsContext.Provider

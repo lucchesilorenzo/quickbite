@@ -21,13 +21,12 @@ export default function MenuItemQuantityInCartBadge({
   const { getItem } = useMultiCart();
 
   const menuItemQuantity =
-    menuItem && getItem(restaurantData.restaurant.id, menuItem.id)?.quantity;
+    menuItem && getItem(restaurantData.data.id, menuItem.id)?.quantity;
 
   const menuCategoryQuantity =
     menuCategory &&
     (menuCategory.menu_items as MenuItem[]).reduce((acc, item) => {
-      const quantity =
-        getItem(restaurantData.restaurant.id, item.id)?.quantity ?? 0;
+      const quantity = getItem(restaurantData.data.id, item.id)?.quantity ?? 0;
 
       return acc + quantity;
     }, 0);

@@ -4,7 +4,7 @@ import { fetchData } from "@/lib/api-client";
 import { GetOffersResponse } from "@/types/offers/offer.api.types";
 
 type UseGetOffersOptions = {
-  restaurantId: string;
+  restaurantId?: string;
   page?: number;
 };
 

@@ -67,7 +67,7 @@ export default function MenuItemCard({ menuItem }: MenuItemCardProps) {
 
           <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
             {menuItem.is_available &&
-            inCart(restaurantData.restaurant.id, menuItem.id) ? (
+            inCart(restaurantData.data.id, menuItem.id) ? (
               <MenuItemQuantityInCartBadge
                 type="from-search"
                 menuItem={menuItem}

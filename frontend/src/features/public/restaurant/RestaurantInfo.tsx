@@ -33,22 +33,22 @@ export default function RestaurantInfo() {
           variant={isMobile ? "body2" : "body1"}
           color="textSecondary"
         >
-          {restaurantData.restaurant.name}
+          {restaurantData.data.name}
         </Typography>
 
         <Typography
           variant={isMobile ? "body2" : "body1"}
           color="textSecondary"
         >
-          {restaurantData.restaurant.street_address},{" "}
-          {restaurantData.restaurant.building_number}
+          {restaurantData.data.street_address},{" "}
+          {restaurantData.data.building_number}
         </Typography>
 
         <Typography
           variant={isMobile ? "body2" : "body1"}
           color="textSecondary"
         >
-          {restaurantData.restaurant.postcode} {restaurantData.restaurant.city}
+          {restaurantData.data.postcode} {restaurantData.data.city}
         </Typography>
       </Box>
     </Container>

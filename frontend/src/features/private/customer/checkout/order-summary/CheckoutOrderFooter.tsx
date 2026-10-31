@@ -47,7 +47,7 @@ export default function CheckoutOrderFooter() {
   const navigate = useNavigate();
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offersData.offers.data,
+    offersData?.offers.data ?? [],
     cartData.cart.cart_total,
   );
 

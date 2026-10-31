@@ -16,8 +16,8 @@ export default function RestaurantCoverImage() {
     >
       <Box
         component="img"
-        src={restaurantData.restaurant.cover_url || ""}
-        alt={restaurantData.restaurant.name}
+        src={restaurantData.data.cover_url || ""}
+        alt={restaurantData.data.name}
         sx={{
           objectFit: "cover",
           width: 1,
@@ -38,8 +38,8 @@ export default function RestaurantCoverImage() {
       >
         <Box
           component="img"
-          src={restaurantData.restaurant.logo_url || ""}
-          alt={restaurantData.restaurant.name}
+          src={restaurantData.data.logo_url || ""}
+          alt={restaurantData.data.name}
           sx={{
             objectFit: "cover",
             width: 80,
@@ -61,8 +61,8 @@ export default function RestaurantCoverImage() {
       >
         <Box
           component="img"
-          src={restaurantData.restaurant.logo_url || ""}
-          alt={restaurantData.restaurant.name}
+          src={restaurantData.data.logo_url || ""}
+          alt={restaurantData.data.name}
           sx={{
             objectFit: "cover",
             width: 60,

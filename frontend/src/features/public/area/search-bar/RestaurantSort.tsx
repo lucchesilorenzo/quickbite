@@ -1,6 +1,8 @@
 import { Box, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
+import { RestaurantSortBy } from "@/api/models";
+
 const sortOptions = [
   { value: "best-match", label: "Best match" },
   { value: "review_rating", label: "Reviews" },
@@ -13,7 +15,8 @@ const sortOptions = [
 export default function RestaurantSort() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const value = searchParams.get("sort_by") || "best-match";
+  const value =
+    (searchParams.get("sort_by") as RestaurantSortBy | null) || "best-match";
 
   function handleSortChange(e: React.ChangeEvent<HTMLInputElement>) {
     const updatedSort = e.target.value !== "best-match" ? e.target.value : [];

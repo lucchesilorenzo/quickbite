@@ -40,9 +40,8 @@ export default function RestaurantCartItem({
 
   const [openMenuItemDialog, setOpenMenuItemDialog] = useState(false);
 
-  const totalUniqueCartItems = totalUniqueItems(restaurantData.restaurant.id);
-  const itemTotal =
-    getItem(restaurantData.restaurant.id, item.id)?.item_total ?? 0;
+  const totalUniqueCartItems = totalUniqueItems(restaurantData.data.id);
+  const itemTotal = getItem(restaurantData.data.id, item.id)?.item_total ?? 0;
 
   return (
     <Box>
@@ -84,7 +83,7 @@ export default function RestaurantCartItem({
             color="inherit"
             aria-label="remove"
             onClick={() =>
-              decrementItemQuantity(restaurantData.restaurant.id, item.id)
+              decrementItemQuantity(restaurantData.data.id, item.id)
             }
             disabled={isCartUpdating}
           >
@@ -103,7 +102,7 @@ export default function RestaurantCartItem({
             color="inherit"
             aria-label="add"
             onClick={() =>
-              incrementItemQuantity(restaurantData.restaurant.id, item.id)
+              incrementItemQuantity(restaurantData.data.id, item.id)
             }
             disabled={isCartUpdating}
           >

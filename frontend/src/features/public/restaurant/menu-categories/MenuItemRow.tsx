@@ -138,7 +138,7 @@ export default function MenuItemRow({ menuItem, isLast }: MenuItemRowProps) {
               )}
 
               {menuItem.is_available &&
-              inCart(restaurantData.restaurant.id, menuItem.id) ? (
+              inCart(restaurantData.data.id, menuItem.id) ? (
                 <MenuItemQuantityInCartBadge
                   type="from-list"
                   menuItem={menuItem}

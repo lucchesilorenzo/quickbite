@@ -9,7 +9,6 @@ import OffersItem from "./OffersItem";
 import CustomPagination from "@/components/common/CustomPagination";
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
-import { offersDefaults } from "@/lib/data/defaults/query.defaults";
 
 export default function OffersList() {
   const { restaurantData } = useRestaurant();
@@ -17,7 +16,7 @@ export default function OffersList() {
   const [page, setPage] = useState(1);
 
   const {
-    data: offersData = { success: false, message: "", offers: offersDefaults },
+    data: offersData,
     isLoading: isLoadingOffers,
     error: offersError,
   } = useGetOffers({ restaurantId: restaurantData.restaurant.id, page });
@@ -30,7 +29,7 @@ export default function OffersList() {
     return <FullPageErrorMessage message={offersError.message} />;
   }
 
-  if (!offersData.offers.data.length) {
+  if (!offersData?.offers.data.length) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center" }}>
         Start adding your offers here.

@@ -5,10 +5,10 @@ import RestaurantAvailability from "../components/RestaurantAvailability";
 import RestaurantCardImage from "./RestaurantCardImage";
 import RestaurantCardText from "./RestaurantCardText";
 
-import { RestaurantListItem } from "@/types/restaurants/restaurant.types";
+import { RestaurantResource } from "@/api/models";
 
 type RestaurantCardProps = {
-  restaurant: RestaurantListItem;
+  restaurant: RestaurantResource;
   type: "list" | "map";
 };
 

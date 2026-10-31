@@ -30,12 +30,12 @@ export default function RestaurantCartDialogMobile({
   const { restaurantData } = useRestaurant();
   const { cartTotal, isEmpty, isCartUpdating } = useMultiCart();
 
-  const subtotal = cartTotal(restaurantData.restaurant.id);
-  const amountToReachMOV = restaurantData.restaurant.min_amount - subtotal;
+  const subtotal = cartTotal(restaurantData.data.id);
+  const amountToReachMOV = restaurantData.data.min_amount - subtotal;
   const showMOVNotReachedAlert =
-    restaurantData.restaurant.min_amount > 0 &&
+    restaurantData.data.min_amount > 0 &&
     amountToReachMOV > 0 &&
-    !isEmpty(restaurantData.restaurant.id);
+    !isEmpty(restaurantData.data.id);
 
   return (
     <Dialog

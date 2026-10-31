@@ -2,11 +2,11 @@ import SellIcon from "@mui/icons-material/Sell";
 import { Box, Stack, Typography } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
+import { RestaurantResource } from "@/api/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
-import { RestaurantListItem } from "@/types/restaurants/restaurant.types";
 
 type RestaurantCardImageProps = {
-  restaurant: RestaurantListItem;
+  restaurant: RestaurantResource;
 };
 
 export default function RestaurantCardImage({
@@ -42,7 +42,7 @@ export default function RestaurantCardImage({
         }}
       />
 
-      {restaurant.offers.length > 0 && (
+      {restaurant.offers && restaurant.offers.length > 0 && (
         <Stack
           direction="row"
           spacing={1}

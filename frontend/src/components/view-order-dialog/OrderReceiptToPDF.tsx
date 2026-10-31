@@ -17,51 +17,6 @@ type OrderReceiptToPDFProps = {
   base64Logo?: string;
 };
 
-const styles = StyleSheet.create({
-  page: {
-    padding: 40,
-    fontSize: 12,
-    fontFamily: "Helvetica",
-    lineHeight: 1.5,
-  },
-  logo: {
-    objectFit: "cover",
-    width: 30,
-    height: 30,
-  },
-  headingRow: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    gap: 4,
-    marginBottom: 10,
-  },
-  section: {
-    marginBottom: 20,
-  },
-  subtitle: {
-    fontSize: 14,
-    fontWeight: 700,
-    marginBottom: 4,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  bold: {
-    fontWeight: 700,
-  },
-  itemRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 2,
-  },
-  divider: {
-    marginVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-});
-
 export default function OrderReceiptToPDF({
   order,
   base64Logo,
@@ -165,3 +120,48 @@ export default function OrderReceiptToPDF({
     </Document>
   );
 }
+
+const styles = StyleSheet.create({
+  page: {
+    padding: 40,
+    fontSize: 12,
+    fontFamily: "Helvetica",
+    lineHeight: 1.5,
+  },
+  logo: {
+    objectFit: "cover",
+    width: 30,
+    height: 30,
+  },
+  headingRow: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    gap: 4,
+    marginBottom: 10,
+  },
+  section: {
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 14,
+    fontWeight: 700,
+    marginBottom: 4,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  bold: {
+    fontWeight: 700,
+  },
+  itemRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 2,
+  },
+  divider: {
+    marginVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+});

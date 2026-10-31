@@ -62,8 +62,8 @@ export default function RetaurantNavigateToTopFloatingButton() {
         role="presentation"
         sx={{
           position: "fixed",
-          bottom: isMobile && !isEmpty(restaurantData.restaurant.id) ? 100 : 16,
-          right: !isMobile && !isEmpty(restaurantData.restaurant.id) ? 340 : 16,
+          bottom: isMobile && !isEmpty(restaurantData.data.id) ? 100 : 16,
+          right: !isMobile && !isEmpty(restaurantData.data.id) ? 340 : 16,
           zIndex: 2000,
         }}
       >

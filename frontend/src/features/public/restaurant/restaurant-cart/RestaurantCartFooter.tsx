@@ -31,12 +31,12 @@ export default function RestaurantCartFooter() {
   const [openDeliveryFeeDialog, setOpenDeliveryFeeDialog] = useState(false);
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const subtotal = cartTotal(restaurantData.restaurant.id);
+  const subtotal = cartTotal(restaurantData.data.id);
 
-  const isDeliveryFeeFree = restaurantData.restaurant.delivery_fee === 0;
+  const isDeliveryFeeFree = restaurantData.data.delivery_fee === 0;
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offersData.offers.data,
+    offersData?.offers.data ?? [],
     subtotal,
   );
 
@@ -44,13 +44,12 @@ export default function RestaurantCartFooter() {
 
   const total =
     subtotal +
-    restaurantData.restaurant.delivery_fee +
-    restaurantData.restaurant.service_fee -
+    restaurantData.data.delivery_fee +
+    restaurantData.data.service_fee -
     discount;
 
   const isCheckoutDisabled =
-    !restaurantData.restaurant.is_open ||
-    subtotal < restaurantData.restaurant.min_amount;
+    !restaurantData.data.is_open || subtotal < restaurantData.data.min_amount;
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -63,7 +62,7 @@ export default function RestaurantCartFooter() {
 
     localStorage.setItem("last_restaurant_url", pathname);
 
-    const cart = getCart(restaurantData.restaurant.id);
+    const cart = getCart(restaurantData.data.id);
     navigate(`/checkout/${cart.id}`);
   }
 
@@ -103,12 +102,12 @@ export default function RestaurantCartFooter() {
 
         <Typography variant="body2" component="div">
           {!isDeliveryFeeFree
-            ? formatCurrency(restaurantData.restaurant.delivery_fee)
+            ? formatCurrency(restaurantData.data.delivery_fee)
             : "Free"}
         </Typography>
       </Stack>
 
-      {restaurantData.restaurant.service_fee > 0 && (
+      {restaurantData.data.service_fee > 0 && (
         <Stack
           direction="row"
           sx={{ alignItems: "center", justifyContent: "space-between" }}
@@ -129,7 +128,7 @@ export default function RestaurantCartFooter() {
           </Stack>
 
           <Typography variant="body2" component="div">
-            {formatCurrency(restaurantData.restaurant.service_fee)}
+            {formatCurrency(restaurantData.data.service_fee)}
           </Typography>
         </Stack>
       )}

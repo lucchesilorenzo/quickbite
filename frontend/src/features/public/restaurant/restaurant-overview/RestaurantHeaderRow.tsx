@@ -22,7 +22,7 @@ export default function RestaurantHeaderRow() {
 
   const [openServiceFeeDialog, setOpenServiceFeeDialog] = useState(false);
 
-  const isDeliveryFeeFree = restaurantData.restaurant.delivery_fee === 0;
+  const isDeliveryFeeFree = restaurantData.data.delivery_fee === 0;
 
   function handleOpenDialogAndScroll() {
     setTabToOpen("info");
@@ -77,7 +77,7 @@ export default function RestaurantHeaderRow() {
         </Stack>
       )}
 
-      {restaurantData.restaurant.min_amount > 0 && (
+      {restaurantData.data.min_amount > 0 && (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <Typography component="span">&bull;</Typography>
 
@@ -85,7 +85,7 @@ export default function RestaurantHeaderRow() {
             <ShoppingBagOutlinedIcon fontSize="small" />
 
             <Typography component="span" variant="body2" color="textPrimary">
-              Min. {formatCurrency(restaurantData.restaurant.min_amount)}
+              Min. {formatCurrency(restaurantData.data.min_amount)}
             </Typography>
           </Stack>
         </Stack>
@@ -98,7 +98,7 @@ export default function RestaurantHeaderRow() {
 
         <Typography component="span" variant="body2" color="textPrimary">
           {!isDeliveryFeeFree
-            ? formatCurrency(restaurantData.restaurant.delivery_fee)
+            ? formatCurrency(restaurantData.data.delivery_fee)
             : "Free"}
         </Typography>
 
@@ -112,7 +112,7 @@ export default function RestaurantHeaderRow() {
         </IconButton>
       </Stack>
 
-      {restaurantData.restaurant.service_fee > 0 && (
+      {restaurantData.data.service_fee > 0 && (
         <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
           <Typography component="span">&bull;</Typography>
 
@@ -122,7 +122,7 @@ export default function RestaurantHeaderRow() {
             </Typography>
 
             <Typography component="span" variant="body2" color="textPrimary">
-              {formatCurrency(restaurantData.restaurant.service_fee)}
+              {formatCurrency(restaurantData.data.service_fee)}
             </Typography>
 
             <IconButton

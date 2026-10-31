@@ -6,13 +6,13 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { useAuth } from "./AuthProvider";
 
+import { RestaurantResource } from "@/api/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { emptyRestaurant } from "@/lib/data/restaurants.data";
 import { isCustomer } from "@/lib/utils/auth.utils";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants.utils";
 import { Cart, CartItem, RestaurantCart } from "@/types/cart.types";
 import { MenuItem } from "@/types/menu/menu.types";
-import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
 
 type MultiCartProviderProps = {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ type MultiCartContext = {
   getItems: (restaurantId: string) => CartItem[];
   isEmpty: (restaurantId: string) => boolean;
   addItem: (
-    restaurant: SingleRestaurantDetail,
+    restaurant: RestaurantResource,
     menuItem: MenuItem | CartItem,
     quantity: number,
   ) => void;
@@ -155,7 +155,7 @@ export default function MultiCartProvider({
   }
 
   async function addItem(
-    restaurant: SingleRestaurantDetail,
+    restaurant: RestaurantResource,
     menuItem: MenuItem | CartItem,
     quantity: number,
   ) {

@@ -58,7 +58,7 @@ export default function RatingDisplay() {
 
           <Typography component="div" variant="caption" sx={{ color: "white" }}>
             All reviews come from QuickBite customers who have ordered from{" "}
-            {restaurantData.restaurant.name}.{" "}
+            {restaurantData.data.name}.{" "}
             <Typography
               component={Link}
               variant="caption"

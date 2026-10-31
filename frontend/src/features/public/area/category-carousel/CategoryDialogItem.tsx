@@ -20,8 +20,10 @@ export default function CategoryDialogItem({
   const { handleStatusChange } = useCategoryFilters();
   const { restaurantsData } = useRestaurants();
 
-  const restaurantsPerCategory = restaurantsData.reduce((acc, r) => {
-    return acc + r.categories.filter((c) => c.name === category.name).length;
+  const restaurantsPerCategory = restaurantsData?.reduce((acc, r) => {
+    return (
+      acc + (r.categories ?? []).filter((c) => c.name === category.name).length
+    );
   }, 0);
 
   return (

@@ -2,11 +2,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
+import { GetRestaurant200 } from "@/api/models";
 import Spinner from "@/components/common/Spinner";
 import { useGetRestaurant } from "@/hooks/restaurants/useGetRestaurant";
-import { restaurantDefaults } from "@/lib/data/defaults/query.defaults";
 import ErrorPage from "@/pages/public/ErrorPage";
-import { GetRestaurantResponse } from "@/types/restaurants/restaurant.api.types";
 import { RestaurantTab } from "@/types/restaurants/restaurant.types";
 
 type RestaurantProviderProps = {
@@ -14,7 +13,7 @@ type RestaurantProviderProps = {
 };
 
 type RestaurantContext = {
-  restaurantData: GetRestaurantResponse;
+  restaurantData: GetRestaurant200;
   openRestaurantAboutDialog: boolean;
   searchTerm: string;
   tabToOpen: RestaurantTab;
@@ -35,11 +34,7 @@ export default function RestaurantProvider({
   const { restaurantSlug } = useParams();
 
   const {
-    data: restaurantData = {
-      success: false,
-      message: "",
-      restaurant: restaurantDefaults,
-    },
+    data: restaurantData,
     isLoading: isRestaurantLoading,
     error: restaurantError,
   } = useGetRestaurant({ restaurantSlug });
@@ -53,16 +48,20 @@ export default function RestaurantProvider({
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    if (restaurantData.restaurant?.name && restaurantData.restaurant?.city) {
-      document.title = `${restaurantData.restaurant.name} restaurant menu in ${restaurantData.restaurant.city} - Order from QuickBite`;
+    if (
+      restaurantData &&
+      restaurantData.data.name &&
+      restaurantData.data.city
+    ) {
+      document.title = `${restaurantData.data.name} restaurant menu in ${restaurantData.data.city} - Order from QuickBite`;
     }
-  }, [restaurantData.restaurant?.name, restaurantData.restaurant?.city]);
+  }, [restaurantData]);
 
   if (isRestaurantLoading) {
     return <Spinner />;
   }
 
-  if (!restaurantData.restaurant || restaurantError) {
+  if (!restaurantData?.data || restaurantError) {
     return <ErrorPage error={restaurantError} />;
   }
 

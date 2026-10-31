@@ -9,7 +9,7 @@ export default function RestaurantCartList() {
   const { restaurantData } = useRestaurant();
   const { getItems } = useMultiCart();
 
-  const items = getItems(restaurantData.restaurant.id);
+  const items = getItems(restaurantData.data.id);
 
   return (
     <Box sx={{ maxHeight: 650, overflowY: "auto", p: 2 }}>

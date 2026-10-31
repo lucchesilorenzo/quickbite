@@ -85,11 +85,11 @@ export default function MenuItemInfoDialog({
               If you have a food allergy or intolerance (or someone you're
               ordering for has), phone the restaurant on{" "}
               <Link
-                href={`tel:${restaurantData.restaurant.phone_number}`}
+                href={`tel:${restaurantData.data.phone_number}`}
                 color="inherit"
                 sx={{ textDecoration: "underline" }}
               >
-                {restaurantData.restaurant.phone_number}
+                {restaurantData.data.phone_number}
               </Link>
               . Do not order if you cannot get the allergy information you need.
             </Typography>
@@ -153,11 +153,11 @@ export default function MenuItemInfoDialog({
               If you have a food allergy or intolerance (or someone you're
               ordering for has), phone the restaurant on{" "}
               <Link
-                href={`tel:${restaurantData.restaurant.phone_number}`}
+                href={`tel:${restaurantData.data.phone_number}`}
                 color="inherit"
                 sx={{ textDecoration: "underline" }}
               >
-                {restaurantData.restaurant.phone_number}
+                {restaurantData.data.phone_number}
               </Link>
               . Do not order if you cannot get the allergy information you need.
             </Typography>

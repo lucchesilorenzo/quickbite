@@ -33,13 +33,13 @@ export default function RestaurantMap() {
   const latitude = Number(currentAddress?.lat);
   const longitude = Number(currentAddress?.lon);
 
-  const selectedRestaurant = restaurantsData.find(
+  const selectedRestaurant = restaurantsData?.find(
     (r) =>
       selectedPosition?.includes(r.latitude) &&
       selectedPosition?.includes(r.longitude),
   );
 
-  const restaurantMarkers = restaurantsData.map((r) => ({
+  const restaurantMarkers = restaurantsData?.map((r) => ({
     geocode: [r.latitude, r.longitude] as LatLngTuple,
     tooltip: `Marker on the map: ${r.name}.`,
   }));
@@ -147,7 +147,7 @@ export default function RestaurantMap() {
       </LayerGroup>
 
       <MarkerClusterGroup showCoverageOnHover={false} chunkedLoading>
-        {restaurantMarkers.map((marker) => (
+        {restaurantMarkers?.map((marker) => (
           <Marker
             key={marker.tooltip}
             position={marker.geocode}

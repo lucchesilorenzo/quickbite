@@ -18,7 +18,7 @@ export default function RestaurantOfferFilters() {
       {
         label: "Deals",
         key: "with_discounts",
-        count: offerCounts.with_discounts,
+        count: offerCounts?.with_discounts,
       },
     ],
     [offerCounts],

@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
-import { GetBase64RestaurantLogoResponse } from "@/types/restaurants/restaurant.api.types";
+import { getPublicRestaurants } from "@/api/endpoints/public-restaurants/public-restaurants";
+import { GetBase64Logo200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetBase64RestaurantLogoOptions = {
   restaurantId: string;
@@ -10,8 +11,13 @@ type UseGetBase64RestaurantLogoOptions = {
 export function useGetBase64RestaurantLogo({
   restaurantId,
 }: UseGetBase64RestaurantLogoOptions) {
-  return useQuery<GetBase64RestaurantLogoResponse>({
+  return useQuery<GetBase64Logo200>({
     queryKey: ["restaurant-base64-logo", restaurantId],
-    queryFn: () => fetchData(`/restaurants/${restaurantId}/base64-logo`),
+    queryFn: async () => {
+      const response =
+        await getPublicRestaurants(api).getBase64Logo(restaurantId);
+
+      return response.data;
+    },
   });
 }

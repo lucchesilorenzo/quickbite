@@ -53,13 +53,13 @@ export default function DeliveryTimeForm({
 
   useEffect(() => {
     if (deliveryType === "schedule") {
-      const slots = deliverySlotsData.delivery_slots;
+      const slots = deliverySlotsData?.delivery_slots;
 
-      if (slots.length > 0 && !slots.includes(deliveryTime)) {
+      if (slots && slots.length > 0 && !slots.includes(deliveryTime)) {
         setValue("delivery_time", slots[0]);
       }
     }
-  }, [deliverySlotsData.delivery_slots, deliveryTime, deliveryType, setValue]);
+  }, [deliverySlotsData?.delivery_slots, deliveryTime, deliveryType, setValue]);
 
   function onSubmit(data: TDeliveryTimeFormSchema) {
     setCheckoutData((prev) => ({
@@ -92,7 +92,7 @@ export default function DeliveryTimeForm({
               <ListItemButton
                 sx={{ px: 3 }}
                 onClick={() => field.onChange("asap")}
-                disabled={!deliverySlotsData.is_asap_available}
+                disabled={!deliverySlotsData?.is_asap_available}
               >
                 <ListItemText primary="As soon as possible" />
                 <Radio checked={field.value === "asap"} />
@@ -105,7 +105,10 @@ export default function DeliveryTimeForm({
               <ListItemButton
                 sx={{ px: 3 }}
                 onClick={() => {
-                  if (deliverySlotsData.delivery_slots.length > 0) {
+                  if (
+                    deliverySlotsData &&
+                    deliverySlotsData.delivery_slots.length > 0
+                  ) {
                     field.onChange("schedule");
                     setValue(
                       "delivery_time",
@@ -113,7 +116,7 @@ export default function DeliveryTimeForm({
                     );
                   }
                 }}
-                disabled={!deliverySlotsData.delivery_slots.length}
+                disabled={!deliverySlotsData?.delivery_slots.length}
               >
                 <ListItemText primary="Schedule for later" />
                 <Radio checked={field.value === "schedule"} />
@@ -121,6 +124,7 @@ export default function DeliveryTimeForm({
             </ListItem>
 
             {deliveryType === "schedule" &&
+              deliverySlotsData &&
               deliverySlotsData.delivery_slots.length > 0 && (
                 <Controller
                   name="delivery_time"
@@ -167,8 +171,8 @@ export default function DeliveryTimeForm({
           type="submit"
           disabled={
             isSubmitting ||
-            (!deliverySlotsData.is_asap_available &&
-              !deliverySlotsData.delivery_slots.length)
+            (!deliverySlotsData?.is_asap_available &&
+              !deliverySlotsData?.delivery_slots.length)
           }
           loading={isSubmitting}
           loadingIndicator="Saving..."

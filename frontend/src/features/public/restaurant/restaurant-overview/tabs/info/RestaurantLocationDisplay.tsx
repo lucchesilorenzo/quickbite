@@ -15,10 +15,7 @@ export default function RestaurantLocationDisplay() {
 
   return (
     <MapContainer
-      center={[
-        restaurantData.restaurant.latitude,
-        restaurantData.restaurant.longitude,
-      ]}
+      center={[restaurantData.data.latitude, restaurantData.data.longitude]}
       zoom={13}
       style={{ minHeight: "45vh", position: "relative" }}
       dragging={false}
@@ -31,14 +28,11 @@ export default function RestaurantLocationDisplay() {
       />
 
       <Marker
-        position={[
-          restaurantData.restaurant.latitude,
-          restaurantData.restaurant.longitude,
-        ]}
+        position={[restaurantData.data.latitude, restaurantData.data.longitude]}
         icon={customShopIcon}
       />
 
-      <RestaurantLocationInfo restaurant={restaurantData.restaurant} />
+      <RestaurantLocationInfo restaurant={restaurantData.data} />
     </MapContainer>
   );
 }

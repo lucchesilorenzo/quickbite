@@ -1,13 +1,13 @@
 import { format } from "date-fns";
 
+import { RestaurantResource } from "@/api/models";
 import { Cart, RestaurantCart } from "@/types/cart.types";
 import { Offer } from "@/types/offers/offer.types";
-import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
 
-export function getRestaurantOpeningTime(restaurant: SingleRestaurantDetail) {
+export function getRestaurantOpeningTime(restaurant: RestaurantResource) {
   const dayName = format(new Date(), "EEEE").toLowerCase();
 
-  const day = restaurant.delivery_days.find((d) => d.day === dayName);
+  const day = restaurant.delivery_days?.find((d) => d.day === dayName);
   if (!day?.start_time) return null;
 
   return day.start_time.slice(0, 5);

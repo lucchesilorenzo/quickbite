@@ -40,7 +40,7 @@ export default function MenuCategoryNavigationSearch() {
       <TextField
         autoComplete="off"
         size={isMobile ? "small" : "medium"}
-        placeholder={`Search in ${restaurantData.restaurant.name}`}
+        placeholder={`Search in ${restaurantData.data.name}`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         sx={{

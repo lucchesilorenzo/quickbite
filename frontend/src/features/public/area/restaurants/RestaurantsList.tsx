@@ -37,7 +37,7 @@ export default function RestaurantsList() {
       />
 
       <Stack spacing={2} component="ul" sx={{ listStyle: "none", pl: 0 }}>
-        {restaurantsData.map((restaurant) =>
+        {restaurantsData?.map((restaurant) =>
           !isMobile ? (
             <RestaurantCard
               key={restaurant.id}

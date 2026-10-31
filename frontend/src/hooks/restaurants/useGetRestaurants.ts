@@ -1,14 +1,19 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
-import { GetRestaurantsResponse } from "@/types/restaurants/restaurant.api.types";
+import { getPublicRestaurants } from "@/api/endpoints/public-restaurants/public-restaurants";
+import {
+  GetRestaurants200,
+  GetRestaurantsMov,
+  RestaurantSortBy,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetRestaurantsOptions = {
   lat?: string;
   lon?: string;
   filters: string[];
-  sortBy: string | null;
-  mov: string | null;
+  sortBy: RestaurantSortBy | null;
+  mov: GetRestaurantsMov | null;
   search: string | null;
 };
 
@@ -20,23 +25,23 @@ export function useGetRestaurants({
   mov,
   search,
 }: UseGetRestaurantsOptions) {
-  return useInfiniteQuery<GetRestaurantsResponse>({
+  return useInfiniteQuery<GetRestaurants200, Error>({
     queryKey: ["restaurants", lat, lon, filters, sortBy, mov, search],
-    queryFn: ({ pageParam }) => {
-      const params = new URLSearchParams();
+    queryFn: async ({ pageParam }) => {
+      const response = await getPublicRestaurants(api).getRestaurants({
+        lat: Number(lat),
+        lon: Number(lon),
+        "filter[]": filters,
+        sort_by: sortBy ?? undefined,
+        mov: mov ?? undefined,
+        q: search ?? undefined,
+        cursor: pageParam?.toString(),
+      });
 
-      if (lat) params.append("lat", lat);
-      if (lon) params.append("lon", lon);
-      filters.forEach((f) => params.append("filter[]", f));
-      if (sortBy) params.append("sort_by", sortBy);
-      if (mov) params.append("mov", mov);
-      if (search) params.append("q", search);
-      if (pageParam) params.append("cursor", pageParam.toString());
-
-      return fetchData(`/restaurants?${params.toString()}`);
+      return response.data;
     },
     enabled: !!lat && !!lon,
     initialPageParam: null,
-    getNextPageParam: (lastPage) => lastPage.restaurants.next_cursor,
+    getNextPageParam: (lastPage) => lastPage.meta.next_cursor,
   });
 }

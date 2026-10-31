@@ -16,10 +16,10 @@ export default function RestaurantOffersList({
     useOffers();
 
   const displayedOffers = showPagination
-    ? offersData.offers.data
-    : offersData.offers.data.slice(0, 2);
+    ? offersData?.offers.data
+    : offersData?.offers.data.slice(0, 2);
 
-  if (!isLoadingOffers && !offersError && displayedOffers.length === 0) {
+  if (!isLoadingOffers && !offersError && displayedOffers?.length === 0) {
     return null;
   }
 
@@ -48,7 +48,7 @@ export default function RestaurantOffersList({
   return (
     <Stack spacing={4} sx={{ mb: 2 }}>
       <Grid container spacing={2}>
-        {displayedOffers.map((offer) => (
+        {displayedOffers?.map((offer) => (
           <Grid key={offer.id} size={6}>
             <RestaurantOfferButton offer={offer} />
           </Grid>
@@ -60,7 +60,7 @@ export default function RestaurantOffersList({
           <CustomPagination
             context="offers_page"
             page={page}
-            totalPages={offersData.offers.last_page}
+            totalPages={offersData?.offers.last_page || 1}
             setPage={setPage}
           />
         </Box>

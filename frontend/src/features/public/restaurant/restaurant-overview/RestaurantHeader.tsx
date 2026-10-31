@@ -50,7 +50,7 @@ export default function RestaurantHeader() {
         variant={isMobile ? "h5" : "h4"}
         sx={{ fontWeight: 700 }}
       >
-        {restaurantData.restaurant.name}
+        {restaurantData.data.name}
       </Typography>
 
       <IconButton
