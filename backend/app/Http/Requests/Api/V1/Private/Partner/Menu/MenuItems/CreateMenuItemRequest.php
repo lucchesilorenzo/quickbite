@@ -38,7 +38,7 @@ class CreateMenuItemRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:200'],
             'price' => ['required', 'numeric', 'min:0', 'max:100'],
             'image' => [
-                'nullable',
+                'sometimes',
                 Rule::when(fn ($input) => request()->hasFile('image'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
         ];

@@ -43,11 +43,11 @@ class UpdateInfoRequest extends FormRequest
             'categories' => ['required', 'array', 'min:1', 'max:3'],
             'categories.*' => ['uuid', Rule::exists('categories', 'id')],
             'logo' => [
-                'nullable',
+                'sometimes',
                 Rule::when(fn ($input) => request()->hasFile('logo'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
             'cover' => [
-                'nullable',
+                'sometimes',
                 Rule::when(fn ($input) => request()->hasFile('cover'), ['image', 'mimes:jpeg,png,jpg,webp', 'max:2048'], ['string']),
             ],
         ];

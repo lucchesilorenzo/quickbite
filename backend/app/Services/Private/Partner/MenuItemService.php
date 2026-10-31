@@ -54,7 +54,7 @@ class MenuItemService
         $oldImagePath = $menuItem->image;
 
         try {
-            if ($data['image'] instanceof UploadedFile) {
+            if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
                 $newImagePath = $data['image']->store('restaurants/menu-items', 'public');
                 $data['image'] = $newImagePath;
             }
