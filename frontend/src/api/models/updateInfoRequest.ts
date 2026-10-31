@@ -52,6 +52,6 @@ export interface UpdateInfoRequest {
    * @maxItems 3
    */
   categories: string[];
-  logo?: Blob | null | string;
-  cover?: Blob | null | string;
+  logo?: Blob | string;
+  cover?: Blob | string;
 }

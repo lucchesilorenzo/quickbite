@@ -18,5 +18,5 @@ export interface CreateMenuItemRequest {
    * @maximum 100
    */
   price: number;
-  image?: Blob | null | string;
+  image?: Blob | string;
 }

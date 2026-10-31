@@ -18,6 +18,6 @@ export interface UpdateMenuItemRequest {
    * @maximum 100
    */
   price: number;
-  image?: Blob | null | string;
+  image?: Blob | string;
   is_available: boolean;
 }
