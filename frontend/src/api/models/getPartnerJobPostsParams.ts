@@ -17,4 +17,8 @@ export type GetPartnerJobPostsParams = {
    */
   filter?: string;
   search?: string;
+  /**
+   * Page number.
+   */
+  page?: number;
 };

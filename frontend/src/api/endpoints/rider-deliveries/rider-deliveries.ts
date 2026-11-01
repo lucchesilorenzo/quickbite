@@ -10,6 +10,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import type {
   GetRiderActiveDelivery200,
   GetRiderDeliveryHistory200,
+  GetRiderDeliveryHistoryParams,
   UpdateDeliveryStatusRequest,
   UpdateRiderDeliveryStatus200,
 } from "../../models";
@@ -22,12 +23,13 @@ export const getRiderDeliveries = (
    * @summary List delivery history
    */
   const getRiderDeliveryHistory = (
+    params?: GetRiderDeliveryHistoryParams,
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<GetRiderDeliveryHistory200>> => {
-    return axiosInstance.get(
-      `/v1/rider/restaurant/deliveries/history`,
-      options,
-    );
+    return axiosInstance.get(`/v1/rider/restaurant/deliveries/history`, {
+      ...options,
+      params: { ...params, ...options?.params },
+    });
   };
   /**
    * Get the active delivery for the authenticated rider.

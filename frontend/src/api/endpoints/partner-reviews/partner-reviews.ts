@@ -7,7 +7,10 @@
 import * as axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import type { GetPartnerReviews200 } from "../../models";
+import type {
+  GetPartnerReviews200,
+  GetPartnerReviewsParams,
+} from "../../models";
 
 export const getPartnerReviews = (
   axiosInstance: AxiosInstance = axios.default,
@@ -18,12 +21,13 @@ export const getPartnerReviews = (
    */
   const getPartnerReviews = (
     restaurant: string,
+    params?: GetPartnerReviewsParams,
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<GetPartnerReviews200>> => {
-    return axiosInstance.get(
-      `/v1/partner/restaurants/${restaurant}/reviews`,
-      options,
-    );
+    return axiosInstance.get(`/v1/partner/restaurants/${restaurant}/reviews`, {
+      ...options,
+      params: { ...params, ...options?.params },
+    });
   };
   return { getPartnerReviews };
 };

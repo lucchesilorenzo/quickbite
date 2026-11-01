@@ -9,6 +9,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import type {
   GetPartnerNotifications200,
+  GetPartnerNotificationsParams,
   MarkPartnerNotificationsAsRead200,
 } from "../../models";
 
@@ -21,11 +22,15 @@ export const getPartnerNotifications = (
    */
   const getPartnerNotifications = (
     restaurant: string,
+    params?: GetPartnerNotificationsParams,
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<GetPartnerNotifications200>> => {
     return axiosInstance.get(
       `/v1/partner/restaurants/${restaurant}/notifications`,
-      options,
+      {
+        ...options,
+        params: { ...params, ...options?.params },
+      },
     );
   };
   /**

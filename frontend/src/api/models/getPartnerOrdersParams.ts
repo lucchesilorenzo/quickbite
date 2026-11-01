@@ -8,4 +8,8 @@ import type { OrderStatus } from "./orderStatus";
 
 export type GetPartnerOrdersParams = {
   status?: OrderStatus;
+  /**
+   * Page number.
+   */
+  page?: number;
 };

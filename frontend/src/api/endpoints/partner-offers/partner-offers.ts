@@ -12,6 +12,7 @@ import type {
   CreatePartnerOffer201,
   DeletePartnerOffer200,
   GetPartnerOffers200,
+  GetPartnerOffersParams,
   UpdateOfferRequest,
   UpdatePartnerOffer200,
 } from "../../models";
@@ -25,12 +26,13 @@ export const getPartnerOffers = (
    */
   const getPartnerOffers = (
     restaurant: string,
+    params?: GetPartnerOffersParams,
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<GetPartnerOffers200>> => {
-    return axiosInstance.get(
-      `/v1/partner/restaurants/${restaurant}/offers`,
-      options,
-    );
+    return axiosInstance.get(`/v1/partner/restaurants/${restaurant}/offers`, {
+      ...options,
+      params: { ...params, ...options?.params },
+    });
   };
   /**
    * Create a new offer for a restaurant.

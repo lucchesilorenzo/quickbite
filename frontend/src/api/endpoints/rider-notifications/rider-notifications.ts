@@ -9,6 +9,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import type {
   GetRiderNotifications200,
+  GetRiderNotificationsParams,
   MarkRiderNotificationsAsRead200,
 } from "../../models";
 
@@ -20,9 +21,13 @@ export const getRiderNotifications = (
    * @summary List notifications
    */
   const getRiderNotifications = (
+    params?: GetRiderNotificationsParams,
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<GetRiderNotifications200>> => {
-    return axiosInstance.get(`/v1/rider/notifications`, options);
+    return axiosInstance.get(`/v1/rider/notifications`, {
+      ...options,
+      params: { ...params, ...options?.params },
+    });
   };
   /**
    * Mark all notifications as read for the authenticated rider.

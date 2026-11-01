@@ -7,7 +7,7 @@
 import * as axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-import type { GetPartnerMenu200 } from "../../models";
+import type { GetPartnerMenu200, GetPartnerMenuParams } from "../../models";
 
 export const getPartnerMenu = (
   axiosInstance: AxiosInstance = axios.default,
@@ -18,12 +18,13 @@ export const getPartnerMenu = (
    */
   const getPartnerMenu = (
     restaurant: string,
+    params?: GetPartnerMenuParams,
     options?: AxiosRequestConfig,
   ): Promise<AxiosResponse<GetPartnerMenu200>> => {
-    return axiosInstance.get(
-      `/v1/partner/restaurants/${restaurant}/menu`,
-      options,
-    );
+    return axiosInstance.get(`/v1/partner/restaurants/${restaurant}/menu`, {
+      ...options,
+      params: { ...params, ...options?.params },
+    });
   };
   return { getPartnerMenu };
 };
