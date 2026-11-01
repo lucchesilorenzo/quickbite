@@ -9,6 +9,7 @@ use App\Http\Resources\Api\V1\NotificationResource;
 use App\Services\Private\Rider\NotificationService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -28,6 +29,13 @@ class NotificationController extends Controller
         title: 'List notifications',
         description: 'List notifications for the authenticated rider.',
         method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'page',
+        description: 'Page number.',
+        required: false,
+        type: 'integer',
+        example: 1
     )]
     #[Response(
         status: 200,

@@ -17,6 +17,7 @@ use App\Services\Private\Partner\JobPostService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
 use Dedoc\Scramble\Attributes\IgnoreResponse;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -37,6 +38,13 @@ class JobPostController extends Controller
         title: 'List job posts',
         description: 'List job posts for a restaurant.',
         method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'page',
+        description: 'Page number.',
+        required: false,
+        type: 'integer',
+        example: 1
     )]
     #[Response(
         status: 200,

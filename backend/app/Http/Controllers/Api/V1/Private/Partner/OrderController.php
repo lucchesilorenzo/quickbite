@@ -14,6 +14,7 @@ use App\Models\Restaurant;
 use App\Services\Private\Partner\OrderService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -34,6 +35,13 @@ class OrderController extends Controller
         title: 'List orders',
         description: 'List orders for a restaurant.',
         method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'page',
+        description: 'Page number.',
+        required: false,
+        type: 'integer',
+        example: 1
     )]
     #[Response(
         status: 200,

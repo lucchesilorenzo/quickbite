@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Services\Private\Partner\StaffService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -32,6 +33,13 @@ class StaffController extends Controller
         title: 'List staff members',
         description: 'List staff members for a restaurant.',
         method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'page',
+        description: 'Page number.',
+        required: false,
+        type: 'integer',
+        example: 1
     )]
     #[Response(
         status: 200,

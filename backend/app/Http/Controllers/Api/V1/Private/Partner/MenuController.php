@@ -10,6 +10,7 @@ use App\Models\Restaurant;
 use App\Services\Private\Partner\MenuService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -30,6 +31,13 @@ class MenuController extends Controller
         title: 'Get menu',
         description: 'Get the full menu for a restaurant.',
         method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'page',
+        description: 'Page number.',
+        required: false,
+        type: 'integer',
+        example: 1
     )]
     #[Response(
         status: 200,

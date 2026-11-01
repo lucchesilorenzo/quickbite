@@ -12,6 +12,7 @@ use App\Models\Delivery;
 use App\Services\Private\Rider\DeliveryService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -32,6 +33,13 @@ class DeliveryController extends Controller
         title: 'List delivery history',
         description: 'List delivery history for the authenticated rider.',
         method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'page',
+        description: 'Page number.',
+        required: false,
+        type: 'integer',
+        example: 1
     )]
     #[Response(
         status: 200,

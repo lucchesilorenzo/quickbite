@@ -14,6 +14,7 @@ use App\Models\JobPost;
 use App\Services\Private\Partner\JobApplicationService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
@@ -36,6 +37,13 @@ class JobApplicationController extends Controller
         title: 'List job applications',
         description: 'List job applications for a specific job post.',
         method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'page',
+        description: 'Page number.',
+        required: false,
+        type: 'integer',
+        example: 1
     )]
     #[Response(
         status: 200,
