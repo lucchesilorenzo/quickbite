@@ -367,7 +367,6 @@ export * from "./updateRiderProfileGeneralInformation500";
 export * from "./updateRiderProfileNotifications200";
 export * from "./updateRiderProfileNotifications500";
 export * from "./updateStatusRequest";
-export * from "./user";
 export * from "./userResource";
 export * from "./userResourcePivot";
 export * from "./userRole";

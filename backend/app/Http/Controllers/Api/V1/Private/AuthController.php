@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Private\Auth\RefreshRequest;
 use App\Http\Requests\Api\V1\Public\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Api\V1\Public\Auth\ResetPasswordRequest;
+use App\Http\Resources\Api\V1\UserResource;
 use App\Models\User;
 use App\Services\Private\AuthService;
 use Dedoc\Scramble\Attributes\Endpoint;
@@ -55,11 +56,12 @@ class AuthController extends Controller
                 auth()->user()
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'User retrieved successfully.',
-                'user' => $user,
-            ], 200);
+            return UserResource::make($user)
+                ->additional([
+                    'success' => true,
+                    'message' => 'User retrieved successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,

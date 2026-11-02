@@ -4,10 +4,10 @@
  * QuickBite
  * OpenAPI spec version: 0.0.1
  */
-import type { User } from "./user";
+import type { UserResource } from "./userResource";
 
 export type GetAuthenticatedUser200 = {
+  data: UserResource;
   success: boolean;
   message: "User retrieved successfully.";
-  user: User;
 };
