@@ -4,15 +4,14 @@
  * QuickBite
  * OpenAPI spec version: 0.0.1
  */
-import type { RoleResourcePivot } from "./roleResourcePivot";
+import type { UserRole } from "./userRole";
 
 export interface RoleResource {
   uuid: string;
-  name: string;
+  name: UserRole;
   guard_name: string;
   /** @nullable */
   created_at: string | null;
   /** @nullable */
   updated_at: string | null;
-  pivot?: RoleResourcePivot;
 }

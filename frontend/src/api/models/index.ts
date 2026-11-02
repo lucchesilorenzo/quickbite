@@ -298,7 +298,6 @@ export * from "./riderRegisterRequest";
 export * from "./riderUpdateProfileGeneralInformationRequest";
 export * from "./riderUpdateProfileNotificationsRequest";
 export * from "./roleResource";
-export * from "./roleResourcePivot";
 export * from "./statRange";
 export * from "./updateAddressInfoRequest";
 export * from "./updateCustomerAddressInfo200";
