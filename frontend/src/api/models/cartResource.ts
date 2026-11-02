@@ -12,6 +12,6 @@ export interface CartResource {
   total_items: number;
   total_unique_items: number;
   cart_total: number;
-  restaurant?: RestaurantResource;
+  restaurant: RestaurantResource;
   items: CartItemResource[];
 }

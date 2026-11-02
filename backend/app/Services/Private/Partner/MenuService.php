@@ -18,9 +18,12 @@ class MenuService
             ->orderBy('order')
             ->get()
             ->map(function ($category): MenuCategory {
-                $category->menu_items = $category->menuItems()
-                    ->orderBy('order')
-                    ->paginate(self::PER_PAGE);
+                $category->setRelation(
+                    'menuItems',
+                    $category->menuItems()
+                        ->orderBy('order')
+                        ->paginate(self::PER_PAGE)
+                );
 
                 return $category;
             });
