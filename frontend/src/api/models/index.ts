@@ -287,7 +287,6 @@ export * from "./resendEmailVerification500";
 export * from "./resetPassword200";
 export * from "./resetPassword400";
 export * from "./resetPasswordRequest";
-export * from "./restaurant";
 export * from "./restaurantResource";
 export * from "./restaurantResourcePivot";
 export * from "./restaurantRole";

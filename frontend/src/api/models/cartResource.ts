@@ -5,13 +5,13 @@
  * OpenAPI spec version: 0.0.1
  */
 import type { CartItemResource } from "./cartItemResource";
-import type { Restaurant } from "./restaurant";
+import type { RestaurantResource } from "./restaurantResource";
 
 export interface CartResource {
   id: string;
-  restaurant: Restaurant;
   total_items: number;
   total_unique_items: number;
   cart_total: number;
+  restaurant?: RestaurantResource;
   items: CartItemResource[];
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Http\Resources\Api\V1\Restaurant\RestaurantResource;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -22,10 +23,10 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'restaurant' => $this->restaurant,
             'total_items' => $this->total_items,
             'total_unique_items' => $this->total_unique_items,
             'cart_total' => $this->cart_total,
+            'restaurant' => RestaurantResource::make($this->whenLoaded('restaurant')),
             'items' => CartItemResource::collection($this->cartItems),
         ];
     }
