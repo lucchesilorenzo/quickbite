@@ -8,10 +8,13 @@ import * as axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 import type {
+  ForgotPassword200,
   ForgotPasswordRequest,
   GetAuthenticatedUser200,
   RefreshRequest,
+  RefreshToken200,
   ResendEmailVerification200,
+  ResetPassword200,
   ResetPasswordRequest,
 } from "../../models";
 
@@ -34,7 +37,7 @@ export const getPrivateAuth = (
   const refreshToken = (
     refreshRequest: RefreshRequest,
     options?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<unknown>> => {
+  ): Promise<AxiosResponse<RefreshToken200>> => {
     return axiosInstance.post(`/v1/auth/refresh`, refreshRequest, options);
   };
   /**
@@ -44,7 +47,7 @@ export const getPrivateAuth = (
   const forgotPassword = (
     forgotPasswordRequest: ForgotPasswordRequest,
     options?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<unknown>> => {
+  ): Promise<AxiosResponse<ForgotPassword200>> => {
     return axiosInstance.post(
       `/v1/auth/forgot-password`,
       forgotPasswordRequest,
@@ -58,7 +61,7 @@ export const getPrivateAuth = (
   const resetPassword = (
     resetPasswordRequest: ResetPasswordRequest,
     options?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<unknown>> => {
+  ): Promise<AxiosResponse<ResetPassword200>> => {
     return axiosInstance.post(
       `/v1/auth/reset-password`,
       resetPasswordRequest,
@@ -99,9 +102,9 @@ export const getPrivateAuth = (
   };
 };
 export type GetAuthenticatedUserResult = AxiosResponse<GetAuthenticatedUser200>;
-export type RefreshTokenResult = AxiosResponse<unknown>;
-export type ForgotPasswordResult = AxiosResponse<unknown>;
-export type ResetPasswordResult = AxiosResponse<unknown>;
+export type RefreshTokenResult = AxiosResponse<RefreshToken200>;
+export type ForgotPasswordResult = AxiosResponse<ForgotPassword200>;
+export type ResetPasswordResult = AxiosResponse<ResetPassword200>;
 export type VerifyEmailResult = AxiosResponse<unknown>;
 export type ResendEmailVerificationResult =
   AxiosResponse<ResendEmailVerification200>;

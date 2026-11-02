@@ -81,7 +81,6 @@ class AuthController extends Controller
         description: 'Refresh access token using a refresh token.',
         method: 'POST'
     )]
-    #[IgnoreResponse(200)]
     #[Response(
         status: 200,
         description: 'Tokens refreshed successfully.',
@@ -127,7 +126,6 @@ class AuthController extends Controller
         description: 'Send a password reset link to the user email if it exists.',
         method: 'POST'
     )]
-    #[IgnoreResponse(200)]
     #[Response(
         status: 200,
         description: 'If the email exists, a reset link has been sent.',
@@ -169,7 +167,6 @@ class AuthController extends Controller
         description: 'Reset the user password using a valid reset token.',
         method: 'POST'
     )]
-    #[IgnoreResponse(200)]
     #[Response(
         status: 200,
         description: 'Password reset successfully.',
