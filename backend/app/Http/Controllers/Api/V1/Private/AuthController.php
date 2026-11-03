@@ -12,6 +12,7 @@ use App\Http\Resources\Api\V1\UserResource;
 use App\Models\User;
 use App\Services\Private\AuthService;
 use Dedoc\Scramble\Attributes\Endpoint;
+use Dedoc\Scramble\Attributes\ExcludeRouteFromDocs;
 use Dedoc\Scramble\Attributes\Group;
 use Dedoc\Scramble\Attributes\IgnoreResponse;
 use Dedoc\Scramble\Attributes\Response;
@@ -211,6 +212,7 @@ class AuthController extends Controller
      *
      * @unauthenticated
      */
+    #[ExcludeRouteFromDocs]
     #[Endpoint(
         operationId: 'verifyEmail',
         title: 'Verify email',
