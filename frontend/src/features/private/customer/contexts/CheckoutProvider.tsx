@@ -5,9 +5,11 @@ import { CheckoutData } from "@customer/types/orders/order.types";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { GetCartResponse } from "../types/carts/cart.api.types";
-
-import { GetDeliverySlots200, GetOffers200 } from "@/api/models";
+import {
+  GetCustomerCart200,
+  GetDeliverySlots200,
+  GetOffers200,
+} from "@/api/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
@@ -18,7 +20,7 @@ type CheckoutProviderProps = {
 };
 
 type CheckoutContext = {
-  cartData: GetCartResponse;
+  cartData: GetCustomerCart200;
   checkoutData: CheckoutData;
   restaurantId: string;
   offersData?: GetOffers200;
@@ -45,7 +47,7 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
     error: cartError,
   } = useGetCart({ cartId });
 
-  const restaurantId = cartData?.cart.restaurant.id;
+  const restaurantId = cartData?.data.restaurant.id;
 
   const {
     data: offersData,

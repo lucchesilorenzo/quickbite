@@ -8,11 +8,11 @@ export default function OrderItemsList() {
 
   return (
     <Box>
-      {cartData.cart.items.map((item, index) => (
+      {cartData.data.items.map((item, index) => (
         <OrderItem
           key={item.id}
           item={item}
-          isLast={index === cartData.cart.items.length - 1}
+          isLast={index === cartData.data.items.length - 1}
         />
       ))}
     </Box>

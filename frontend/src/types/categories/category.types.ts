@@ -1,19 +1,10 @@
-export type Category = {
-  id: string;
-  name: string;
-  slug: string;
-  image: string;
-  image_url: string;
-  is_default: boolean;
-  created_at: string;
-  updated_at: string;
-};
+import { CategoryResource } from "@/api/models";
 
-export type CategoryWithSelected = Category & {
+export type CategoryWithSelected = CategoryResource & {
   selected: boolean;
 };
 
-export type CategoryWithPivot = Category & {
+export type CategoryWithPivot = CategoryResource & {
   pivot: {
     restaurant_id: string;
     category_id: string;

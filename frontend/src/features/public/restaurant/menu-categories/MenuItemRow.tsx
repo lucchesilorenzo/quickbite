@@ -21,10 +21,10 @@ import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/M
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting.utils";
-import { MenuItem } from "@/types/menu/menu.types";
+import { MenuItemResource } from "@/api/models";
 
 type MenuItemRowProps = {
-  menuItem: MenuItem;
+  menuItem: MenuItemResource;
   isLast: boolean;
 };
 

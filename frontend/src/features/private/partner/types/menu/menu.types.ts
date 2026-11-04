@@ -1,7 +1,8 @@
-import { MenuCategory, MenuItem } from "@/types/menu/menu.types";
+import { MenuCategoryResource } from "@/api/models";
+import { MenuItem } from "@/types/menu/menu.types";
 import { BaseOffsetPagination } from "@/types/pagination.types";
 
-export type PartnerMenu = Omit<MenuCategory, "menu_items"> & {
+export type PartnerMenu = Omit<MenuCategoryResource, "menu_items"> & {
   menu_items: PartnerMenuItemWithPagination;
 };
 

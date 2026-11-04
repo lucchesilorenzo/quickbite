@@ -14,13 +14,13 @@ export default function RestaurantHeadingContainer() {
 
   const currentFilters = searchParams.getAll("filter");
   const nonCategoryFilters = currentFilters.filter(
-    (f) => !allCategories.some((c) => c.slug === f),
+    (f) => !allCategories?.some((c) => c.slug === f),
   );
 
   function handleClearSidebarFilters() {
     // Take all the filters that are category filters
     const categoryFilters = currentFilters.filter((f) =>
-      allCategories.some((c) => c.slug === f),
+      allCategories?.some((c) => c.slug === f),
     );
 
     setSearchParams({

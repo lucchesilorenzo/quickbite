@@ -1,17 +1,17 @@
-import { Role, User } from "@/types/user.types";
+import { UserResource, UserRole } from "@/api/models";
 
-export function hasRole(user: User | null | undefined, role: Role) {
-  return !!user?.roles.some((r) => r.name === role);
+export function hasRole(user: UserResource | null | undefined, role: UserRole) {
+  return !!user?.roles?.some((r) => r.name === role);
 }
 
-export function isCustomer(user?: User | null): user is User {
+export function isCustomer(user?: UserResource | null): user is UserResource {
   return hasRole(user, "customer");
 }
 
-export function isPartner(user?: User | null): user is User {
+export function isPartner(user?: UserResource | null): user is UserResource {
   return hasRole(user, "partner");
 }
 
-export function isRider(user?: User | null): user is User {
+export function isRider(user?: UserResource | null): user is UserResource {
   return hasRole(user, "rider");
 }

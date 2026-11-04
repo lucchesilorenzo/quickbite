@@ -1,7 +1,8 @@
-import { Cart, CartItem } from "@/types/cart.types";
+import { CartItemResource } from "@/api/models";
+import { Cart } from "@/types/cart.types";
 import { restaurant } from "@tests/mocks/data/public/restaurants";
 
-export const cartItem: CartItem = {
+export const cartItem: CartItemResource = {
   id: "0199e1dc-796d-7323-9cc3-abdece74db4e",
   menu_category_id: "0199e1dc-7962-7165-96dd-4d3122f979a0",
   name: "Chianti Red Wine",

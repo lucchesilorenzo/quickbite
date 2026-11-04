@@ -27,7 +27,7 @@ export default function RestaurantSearch() {
       label: r.name,
       type: "Restaurant",
     })),
-    ...allCategories.map((c) => ({
+    ...(allCategories ?? []).map((c) => ({
       id: c.id,
       label: c.name,
       type: "Category",

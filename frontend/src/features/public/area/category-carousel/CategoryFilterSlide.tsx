@@ -33,7 +33,7 @@ export default function CategoryFilterSlide({
       >
         <Box
           component="img"
-          src={category.image_url}
+          src={category.image_url ?? ""}
           alt={category.name}
           sx={{
             width: 120,

@@ -12,14 +12,13 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import { CartItemResource, MenuItemResource } from "@/api/models";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
-import { CartItem } from "@/types/cart.types";
-import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemDialogActionsProps = {
-  menuItem: MenuItem | CartItem;
+  menuItem: MenuItemResource | CartItemResource;
   setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

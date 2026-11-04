@@ -13,10 +13,10 @@ import MenuItemQuantityInCartBadge from "../MenuItemQuantityInCartBadge";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { isCustomer } from "@/lib/utils/auth.utils";
-import { MenuCategory } from "@/types/menu/menu.types";
+import { MenuCategoryResource } from "@/api/models";
 
 type MenuCategoryNavigationItemProps = {
-  menuCategory: MenuCategory | PartnerMenu;
+  menuCategory: MenuCategoryResource | PartnerMenu;
   isLast: boolean;
   setOpenMenuCategoryNavigationDialog: React.Dispatch<
     React.SetStateAction<boolean>

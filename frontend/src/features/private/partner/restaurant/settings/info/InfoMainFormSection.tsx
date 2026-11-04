@@ -202,10 +202,10 @@ export default function InfoMainFormSection() {
         render={({ field }) => (
           <Autocomplete
             multiple
-            value={allCategories.filter((c) => field.value.includes(c.id))}
+            value={allCategories?.filter((c) => field.value.includes(c.id))}
             onChange={(_, value) => field.onChange(value.map((c) => c.id))}
             readOnly={!editMode}
-            options={allCategories}
+            options={allCategories ?? []}
             getOptionLabel={(option) => option.name}
             slotProps={{
               listbox: {

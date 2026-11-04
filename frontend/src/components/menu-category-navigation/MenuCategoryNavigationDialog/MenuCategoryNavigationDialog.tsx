@@ -14,10 +14,10 @@ import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import MenuCategoryNavigationItem from "../MenuCategoryNavigationItem";
 
-import { MenuCategory } from "@/types/menu/menu.types";
+import { MenuCategoryResource } from "@/api/models";
 
 type MenuCategoryNavigationDialogProps = {
-  menuCategories: MenuCategory[] | PartnerMenu[];
+  menuCategories: MenuCategoryResource[] | PartnerMenu[];
   openMenuCategoryNavigationDialog: boolean;
   title?: string;
   setOpenMenuCategoryNavigationDialog: React.Dispatch<

@@ -13,13 +13,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { CartItemResource, MenuItemResource } from "@/api/models";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { CartItem } from "@/types/cart.types";
-import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemInfoDialogProps = {
   type: "from-list" | "from-search";
-  menuItem: MenuItem | CartItem;
+  menuItem: MenuItemResource | CartItemResource;
   openMenuItemInfoDialog: boolean;
   setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenMenuItemInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;

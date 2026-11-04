@@ -11,22 +11,22 @@ export default function OrderItemsHeader() {
     >
       <Stack spacing={0.5}>
         <Typography variant="body1" sx={{ fontWeight: 500 }}>
-          {cartData.cart.restaurant.name}
+          {cartData.data.restaurant.name}
         </Typography>
 
         <Typography variant="body2">
-          {cartData.cart.restaurant.full_address}
+          {cartData.data.restaurant.full_address}
         </Typography>
 
         <Typography variant="body1">
-          {cartData.cart.total_items} items
+          {cartData.data.total_items} items
         </Typography>
       </Stack>
 
       <Box
         component="img"
-        src={cartData.cart.restaurant.logo_url || ""}
-        alt={cartData.cart.restaurant.name}
+        src={cartData.data.restaurant.logo_url || ""}
+        alt={cartData.data.restaurant.name}
         sx={{
           objectFit: "cover",
           width: 50,

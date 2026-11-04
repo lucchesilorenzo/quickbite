@@ -1,6 +1,6 @@
-import { User } from "@/types/user.types";
+import { UserResource } from "@/api/models";
 
-export const user: User = {
+export const user: UserResource = {
   id: "019a0642-e093-728a-8298-693c85ec0bff",
   first_name: "Mario",
   last_name: "Rossi",
@@ -17,6 +17,10 @@ export const user: User = {
   country: "Italy",
   vehicle_type: null,
   drivers_license: null,
+  stripe_id: null,
+  pm_type: null,
+  pm_last_four: null,
+  trial_ends_at: null,
   has_password: true,
   created_at: "2025-10-21T10:13:57.000000Z",
   updated_at: "2025-10-21T10:13:57.000000Z",
@@ -28,11 +32,6 @@ export const user: User = {
       guard_name: "web",
       created_at: "2025-10-14T08:35:46.000000Z",
       updated_at: "2025-10-14T08:35:46.000000Z",
-      pivot: {
-        model_type: "App\\Models\\User",
-        model_uuid: "019a0642-e093-728a-8298-693c85ec0bff",
-        role_id: "0199e1dc-77e8-70e3-b9c8-2e49d62b12e0",
-      },
     },
   ],
 };

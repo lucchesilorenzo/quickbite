@@ -6,10 +6,10 @@ import { grey } from "@mui/material/colors";
 import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import MenuCategoryNavigationDialog from "@/components/menu-category-navigation/MenuCategoryNavigationDialog";
-import { MenuCategory } from "@/types/menu/menu.types";
+import { MenuCategoryResource } from "@/api/models";
 
 type ShowMoreMenuCategoriesButtonProps = {
-  menuCategories: MenuCategory[] | PartnerMenu[];
+  menuCategories: MenuCategoryResource[] | PartnerMenu[];
   onSlideClick: (menuCategoryId: string) => void;
 };
 

@@ -1,23 +1,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import {
-  CreateOrUpdateCartsRequest,
-  CreateOrUpdateCartsResponse,
-} from "../../types/carts/cart.api.types";
-
-import { postData } from "@/lib/api-client";
+import { getCustomerCarts } from "@/api/endpoints/customer-carts/customer-carts";
+import { CreateOrUpdateCustomerCarts200 } from "@/api/models";
+import api from "@/lib/api-client";
+import { RestaurantCart } from "@/types/cart.types";
 
 export function useCreateOrUpdateCarts() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<
-    CreateOrUpdateCartsResponse,
-    Error,
-    CreateOrUpdateCartsRequest
-  >({
-    mutationFn: (data) => postData("/customer/carts/bulk", data),
+  return useMutation<CreateOrUpdateCustomerCarts200, Error, RestaurantCart[]>({
+    mutationFn: async (data) => {
+      const response =
+        await getCustomerCarts(api).createOrUpdateCustomerCarts(data);
+
+      return response.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customer-carts"] });
     },

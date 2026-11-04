@@ -13,14 +13,14 @@ import { grey } from "@mui/material/colors";
 import MenuItemAddButton from "../components/MenuItemAddButton";
 import MenuItemDialog from "./MenuItemDialog";
 
+import { MenuItemResource } from "@/api/models";
 import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
-import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemCardProps = {
-  menuItem: MenuItem;
+  menuItem: MenuItemResource;
 };
 
 export default function MenuItemCard({ menuItem }: MenuItemCardProps) {

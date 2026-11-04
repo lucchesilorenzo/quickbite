@@ -3,15 +3,15 @@ import { createContext, useContext, useEffect } from "react";
 import { useAuthMe } from "@private/shared/hooks/auth/useAuthMe";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
+import { UserResource } from "@/api/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { User } from "@/types/user.types";
 
 type AuthProviderProps = {
   children: React.ReactNode;
 };
 
 type AuthContext = {
-  user?: User | null;
+  user?: UserResource | null;
 };
 
 const AuthContext = createContext<AuthContext | null>(null);
@@ -36,25 +36,23 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }, [searchParams, navigate]);
 
-  const {
-    data = { success: false, message: "", user: undefined },
-    isLoading: isLoadingUser,
-    isError,
-  } = useAuthMe();
+  const { data: user, isLoading: isLoadingUser, isError } = useAuthMe();
 
   if (isLoadingUser) {
     return <FullPageSpinner />;
   }
 
-  const user =
+  const authenticatedUser =
     localStorage.getItem("access_token") &&
     localStorage.getItem("refresh_token") &&
     !isError
-      ? data.user
+      ? user?.data
       : null;
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user: authenticatedUser }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

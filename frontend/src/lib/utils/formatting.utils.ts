@@ -1,4 +1,4 @@
-import { User } from "@/types/user.types";
+import { UserResource } from "@/api/models";
 
 export function generateSlug(text: string) {
   return text
@@ -27,7 +27,7 @@ export function formatCurrency(price: number) {
   }).format(price);
 }
 
-export function formatAddress(address?: Partial<User | null>) {
+export function formatAddress(address?: Partial<UserResource | null>) {
   if (
     !address?.street_address ||
     !address?.building_number ||

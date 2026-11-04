@@ -6,13 +6,15 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { useAuth } from "./AuthProvider";
 
-import { RestaurantResource } from "@/api/models";
+import {
+  CartItemResource,
+  MenuItemResource,
+  RestaurantResource,
+} from "@/api/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { emptyRestaurant } from "@/lib/data/restaurants.data";
 import { isCustomer } from "@/lib/utils/auth.utils";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants.utils";
-import { Cart, CartItem, RestaurantCart } from "@/types/cart.types";
-import { MenuItem } from "@/types/menu/menu.types";
+import { Cart, RestaurantCart } from "@/types/cart.types";
 
 type MultiCartProviderProps = {
   children: React.ReactNode;
@@ -22,14 +24,17 @@ type MultiCartContext = {
   isCartUpdating: boolean;
   getCarts: () => RestaurantCart[];
   getCart: (restaurantId: string) => RestaurantCart;
-  getItems: (restaurantId: string) => CartItem[];
+  getItems: (restaurantId: string) => CartItemResource[];
   isEmpty: (restaurantId: string) => boolean;
   addItem: (
     restaurant: RestaurantResource,
-    menuItem: MenuItem | CartItem,
+    menuItem: MenuItemResource | CartItemResource,
     quantity: number,
   ) => void;
-  getItem: (restaurantId: string, cartItemId: string) => CartItem | undefined;
+  getItem: (
+    restaurantId: string,
+    cartItemId: string,
+  ) => CartItemResource | undefined;
   inCart: (restaurantId: string, cartItemId: string) => boolean;
   emptyCart: (restaurantId: string) => void;
   totalItems: (restaurantId: string) => number;
@@ -51,7 +56,7 @@ type MultiCartContext = {
 
 const initialState: RestaurantCart = {
   items: [],
-  restaurant: emptyRestaurant,
+  restaurant: {} as RestaurantResource,
   total_items: 0,
   total_unique_items: 0,
   cart_total: 0,
@@ -65,7 +70,7 @@ export default function MultiCartProvider({
   const { user } = useAuth();
 
   const {
-    data: cartsData = { success: false, message: "", carts: [] },
+    data: cartsData,
     isLoading: isLoadingCarts,
     error: cartsError,
   } = useGetCarts();
@@ -90,7 +95,7 @@ export default function MultiCartProvider({
   useEffect(() => {
     if (!isCustomer(user)) return;
 
-    const cartsWithRestaurantKey = addRestaurantIdAsKey(cartsData.carts);
+    const cartsWithRestaurantKey = addRestaurantIdAsKey(cartsData?.data ?? []);
 
     setCarts((prev) => {
       const prevString = JSON.stringify(prev);
@@ -102,7 +107,7 @@ export default function MultiCartProvider({
 
       return cartsWithRestaurantKey;
     });
-  }, [user, cartsData.carts]);
+  }, [user, cartsData?.data]);
 
   useEffect(() => {
     if (user === null) {
@@ -126,7 +131,7 @@ export default function MultiCartProvider({
   }, [user]);
 
   // Helper function to calculate cart totals
-  function calculateCartTotals(items: CartItem[]) {
+  function calculateCartTotals(items: CartItemResource[]) {
     const total_items = items.reduce((acc, curr) => acc + curr.quantity, 0);
 
     const cart_total = Number(
@@ -156,7 +161,7 @@ export default function MultiCartProvider({
 
   async function addItem(
     restaurant: RestaurantResource,
-    menuItem: MenuItem | CartItem,
+    menuItem: MenuItemResource | CartItemResource,
     quantity: number,
   ) {
     let updatedCart: RestaurantCart | null = null;

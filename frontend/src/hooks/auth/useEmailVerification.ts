@@ -1,16 +1,20 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { postData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api.types";
+import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
+import { ResendEmailVerification200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 export function useEmailVerification() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<ApiResponse, Error, void>({
-    mutationFn: (data) =>
-      postData("/auth/email/verification-notification", data),
+  return useMutation<ResendEmailVerification200, Error, void>({
+    mutationFn: async () => {
+      const response = await getPrivateAuth(api).resendEmailVerification();
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
 

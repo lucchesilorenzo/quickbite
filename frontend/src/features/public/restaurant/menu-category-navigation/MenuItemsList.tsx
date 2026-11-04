@@ -2,10 +2,10 @@ import { Grid } from "@mui/material";
 
 import MenuItemCard from "./MenuItemCard";
 
-import { MenuItem } from "@/types/menu/menu.types";
+import { MenuItemResource } from "@/api/models";
 
 type MenuItemsListProps = {
-  menuItems: MenuItem[];
+  menuItems: MenuItemResource[];
 };
 
 export default function MenuItemsList({ menuItems }: MenuItemsListProps) {

@@ -1,17 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { GetCartResponse } from "../../types/carts/cart.api.types";
-
-import { fetchData } from "@/lib/api-client";
+import { getCustomerCarts } from "@/api/endpoints/customer-carts/customer-carts";
+import { GetCustomerCart200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetCartOptions = {
   cartId?: string;
 };
 
 export function useGetCart({ cartId }: UseGetCartOptions) {
-  return useQuery<GetCartResponse>({
+  return useQuery<GetCustomerCart200>({
     queryKey: ["customer-carts", cartId],
-    queryFn: () => fetchData(`/customer/carts/${cartId}`),
+    queryFn: async () => {
+      const response = await getCustomerCarts(api).getCustomerCart(
+        cartId ?? "",
+      );
+
+      return response.data;
+    },
     enabled: !!cartId,
   });
 }

@@ -1,23 +1,29 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { getCustomerProfile } from "@/api/endpoints/customer-profile/customer-profile";
 import {
   UpdateAddressInfoRequest,
-  UpdateAddressInfoResponse,
-} from "../../types/profile/profile.api.types";
-
-import { updateData } from "@/lib/api-client";
+  UpdateCustomerAddressInfo200,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 export function useUpdateAddressInfo() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation<
-    UpdateAddressInfoResponse,
+    UpdateCustomerAddressInfo200,
     Error,
     UpdateAddressInfoRequest
   >({
-    mutationFn: (data) => updateData("/customer/profile/address-info", data),
+    mutationFn: async (data) => {
+      const response = await getCustomerProfile(api).updateCustomerAddressInfo(
+        data,
+      );
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       notifications.show(response.message, {

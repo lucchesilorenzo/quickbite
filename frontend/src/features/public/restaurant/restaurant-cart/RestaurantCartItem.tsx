@@ -15,13 +15,13 @@ import { grey } from "@mui/material/colors";
 
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 
+import { CartItemResource } from "@/api/models";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
-import { CartItem } from "@/types/cart.types";
 
 type RestaurantCartItemProps = {
-  item: CartItem;
+  item: CartItemResource;
   index: number;
 };
 
