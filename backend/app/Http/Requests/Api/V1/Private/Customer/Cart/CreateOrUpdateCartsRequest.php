@@ -37,8 +37,6 @@ class CreateOrUpdateCartsRequest extends FormRequest
             '*.items.*.price' => ['required', 'numeric', 'min:0'],
             '*.items.*.image' => ['nullable', 'string'],
             '*.items.*.is_available' => ['required', 'boolean'],
-            '*.items.*.created_at' => ['required', Rule::date()],
-            '*.items.*.updated_at' => ['required', Rule::date()],
             '*.items.*.quantity' => ['required', 'integer', 'min:1'],
             '*.items.*.item_total' => ['required', 'numeric', 'min:0'],
 

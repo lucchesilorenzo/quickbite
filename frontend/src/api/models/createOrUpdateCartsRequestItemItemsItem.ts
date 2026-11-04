@@ -16,8 +16,6 @@ export type CreateOrUpdateCartsRequestItemItemsItem = {
   /** @nullable */
   image?: string | null;
   is_available: boolean;
-  created_at: string;
-  updated_at: string;
   /** @minimum 1 */
   quantity: number;
   /** @minimum 0 */

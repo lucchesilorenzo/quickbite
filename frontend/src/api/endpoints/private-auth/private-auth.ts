@@ -69,17 +69,6 @@ export const getPrivateAuth = (
     );
   };
   /**
-   * Verify the user email using the signed verification link.
-   * @summary Verify email
-   */
-  const verifyEmail = (
-    id: string,
-    hash: string,
-    options?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<unknown>> => {
-    return axiosInstance.get(`/v1/auth/email/verify/${id}/${hash}`, options);
-  };
-  /**
    * Resend the email verification notification to the authenticated user.
    * @summary Resend email verification
    */
@@ -97,7 +86,6 @@ export const getPrivateAuth = (
     refreshToken,
     forgotPassword,
     resetPassword,
-    verifyEmail,
     resendEmailVerification,
   };
 };
@@ -105,6 +93,5 @@ export type GetAuthenticatedUserResult = AxiosResponse<GetAuthenticatedUser200>;
 export type RefreshTokenResult = AxiosResponse<RefreshToken200>;
 export type ForgotPasswordResult = AxiosResponse<ForgotPassword200>;
 export type ResetPasswordResult = AxiosResponse<ResetPassword200>;
-export type VerifyEmailResult = AxiosResponse<unknown>;
 export type ResendEmailVerificationResult =
   AxiosResponse<ResendEmailVerification200>;

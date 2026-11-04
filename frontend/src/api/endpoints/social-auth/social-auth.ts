@@ -18,17 +18,6 @@ export const getSocialAuth = (axiosInstance: AxiosInstance = axios.default) => {
   ): Promise<AxiosResponse<unknown>> => {
     return axiosInstance.get(`/auth/${provider}/redirect`, options);
   };
-  /**
-   * Obtain the user information from provider and redirect to frontend with tokens.
-   * @summary Social auth callback
-   */
-  const socialAuthCallback = (
-    provider: string,
-    options?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<unknown>> => {
-    return axiosInstance.get(`/auth/${provider}/callback`, options);
-  };
-  return { socialAuthRedirect, socialAuthCallback };
+  return { socialAuthRedirect };
 };
 export type SocialAuthRedirectResult = AxiosResponse<unknown>;
-export type SocialAuthCallbackResult = AxiosResponse<unknown>;

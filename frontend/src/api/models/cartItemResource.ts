@@ -14,6 +14,8 @@ export interface CartItemResource {
   price: number;
   /** @nullable */
   image: string | null;
+  /** @nullable */
+  image_url: string | null;
   is_available: boolean;
   quantity: number;
   item_total: number;
