@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Private\Partner\Menu\MenuCategory\CreateMenuCategoryRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Menu\MenuCategory\UpdateMenuCategoriesOrderRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Menu\MenuCategory\UpdateMenuCategoryRequest;
-use App\Http\Resources\Api\V1\MenuCategory\MenuCategoryResource;
+use App\Http\Resources\Api\V1\MenuCategoryResource;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\MenuCategoryService;

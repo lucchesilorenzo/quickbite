@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Api\V1\Review;
+namespace App\Http\Resources\Api\V1;
 
-use App\Http\Resources\Api\V1\OrderResource;
-use App\Http\Resources\Api\V1\UserResource;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -29,8 +27,8 @@ class ReviewResource extends JsonResource
             'order_id' => $this->order_id,
             'comment' => $this->comment,
             'rating' => $this->rating,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
             'customer' => UserResource::make($this->whenLoaded('customer')),
             'order' => OrderResource::make($this->whenLoaded('order')),
         ];

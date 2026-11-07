@@ -8,7 +8,7 @@ use App\Exceptions\Private\Partner\OfferAlreadyExistsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Private\Partner\Offer\CreateOfferRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Offer\UpdateOfferRequest;
-use App\Http\Resources\Api\V1\Offer\OfferResource;
+use App\Http\Resources\Api\V1\OfferResource;
 use App\Models\Offer;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\OfferService;

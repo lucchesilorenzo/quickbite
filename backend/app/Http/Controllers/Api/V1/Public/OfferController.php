@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Public;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\V1\Offer\OfferResource;
+use App\Http\Resources\Api\V1\OfferResource;
 use App\Models\Restaurant;
 use App\Services\Public\OfferService;
 use Dedoc\Scramble\Attributes\Endpoint;

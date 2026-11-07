@@ -27,8 +27,8 @@ class OrderItemResource extends JsonResource
             'name' => $this->name,
             'quantity' => $this->quantity,
             'item_total' => $this->item_total,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
         ];
     }
 }

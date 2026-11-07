@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Private\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\V1\MenuCategory\PartnerMenuCategoryResource;
+use App\Http\Resources\Api\V1\PartnerMenuCategoryResource;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\MenuService;
 use Dedoc\Scramble\Attributes\Endpoint;

@@ -31,8 +31,8 @@ class JobApplicationResource extends JsonResource
             'resume' => $this->resume,
             'status' => $this->status,
             'declaration_accepted_at' => $this->declaration_accepted_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
             'job_post' => JobPostResource::make($this->whenLoaded('jobPost')),
             'rider' => UserResource::make($this->whenLoaded('rider')),
         ];

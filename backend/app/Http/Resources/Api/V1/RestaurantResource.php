@@ -2,13 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Api\V1\Restaurant;
+namespace App\Http\Resources\Api\V1;
 
-use App\Http\Resources\Api\V1\Category\CategoryResource;
-use App\Http\Resources\Api\V1\DeliveryDayResource;
-use App\Http\Resources\Api\V1\MenuCategory\MenuCategoryResource;
-use App\Http\Resources\Api\V1\Offer\OfferResource;
-use App\Http\Resources\Api\V1\Review\ReviewResource;
 use App\Models\Restaurant;
 use App\Models\RestaurantUser;
 use Illuminate\Http\Request;
@@ -54,8 +49,8 @@ class RestaurantResource extends JsonResource
             'cover' => $this->cover,
             'is_approved' => $this->is_approved,
             'force_close' => $this->force_close,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
             'full_address' => $this->full_address,
             'is_open' => $this->is_open,
             'logo_url' => $this->logo_url,

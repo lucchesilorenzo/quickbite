@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Api\V1;
 
-use App\Http\Resources\Api\V1\Restaurant\RestaurantResource;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -31,8 +30,8 @@ class JobPostResource extends JsonResource
             'vehicle_type' => $this->vehicle_type,
             'salary' => $this->salary,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
             'job_applications_count' => $this->whenCounted(
                 'jobApplications',
                 fn (): int => (int) $this->job_applications_count

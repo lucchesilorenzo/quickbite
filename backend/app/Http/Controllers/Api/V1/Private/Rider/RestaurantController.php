@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Api\V1\Private\Rider;
 use App\Exceptions\Private\Rider\ActiveDeliveryException;
 use App\Exceptions\Private\Rider\NoActiveRestaurantException;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\V1\Restaurant\RestaurantResource;
+use App\Http\Resources\Api\V1\RestaurantResource;
 use App\Services\Private\Rider\RestaurantService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;

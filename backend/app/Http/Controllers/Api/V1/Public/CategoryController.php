@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Public;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\V1\Category\CategoryResource;
+use App\Http\Resources\Api\V1\CategoryResource;
 use App\Services\Public\CategoryService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;

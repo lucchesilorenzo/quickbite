@@ -29,8 +29,8 @@ class MenuItemResource extends JsonResource
             'image' => $this->image,
             'is_available' => $this->is_available,
             'order' => $this->order,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
             'image_url' => $this->image_url,
         ];
     }

@@ -2,21 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Api\V1\MenuCategory;
+namespace App\Http\Resources\Api\V1;
 
-use App\Http\Resources\Api\V1\MenuItemResource;
 use App\Models\MenuCategory;
-use App\Models\MenuItem;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * @mixin MenuCategory
- *
- * @property LengthAwarePaginator<int, MenuItem> $menuItems
  */
-class PartnerMenuCategoryResource extends JsonResource
+class MenuCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -31,10 +26,10 @@ class PartnerMenuCategoryResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'order' => $this->order,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'menu_items' => $this->menuItems->through(
-                fn (MenuItem $menuItem) => MenuItemResource::make($menuItem),
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
+            'menu_items' => MenuItemResource::collection(
+                $this->whenLoaded('menuItems')
             ),
         ];
     }

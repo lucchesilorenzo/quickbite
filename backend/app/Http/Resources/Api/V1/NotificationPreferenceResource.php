@@ -25,8 +25,8 @@ class NotificationPreferenceResource extends JsonResource
             'user_id' => $this->user_id,
             'type' => $this->type,
             'enabled' => $this->enabled,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
         ];
     }
 }

@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Api\V1\Private\Customer;
 use App\Exceptions\Private\Customer\CustomerAlreadyReviewedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Private\Customer\Review\CreateReviewRequest;
-use App\Http\Resources\Api\V1\Review\ReviewResource;
+use App\Http\Resources\Api\V1\ReviewResource;
 use App\Services\Private\Customer\ReviewService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;

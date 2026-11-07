@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Api\V1\Public;
 use App\Exceptions\Public\RestaurantLogoNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Public\GetRestaurantsRequest;
-use App\Http\Resources\Api\V1\Restaurant\RestaurantResource;
+use App\Http\Resources\Api\V1\RestaurantResource;
 use App\Models\Restaurant;
 use App\Services\Public\RestaurantService;
 use Dedoc\Scramble\Attributes\Endpoint;
@@ -176,6 +176,7 @@ class RestaurantController extends Controller
             $data = $this->restaurantService->getDeliverySlots($restaurant);
 
             return response()->json([
+                /** @var bool */
                 'is_asap_available' => $data['is_asap_available'],
                 'delivery_slots' => $data['delivery_slots'],
                 'success' => true,

@@ -43,9 +43,9 @@ class NotificationResource extends JsonResource
                 'description' => (string) ($this->data['description'] ?? ''),
                 'meta' => $this->meta(),
             ],
-            'read_at' => $this->read_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'read_at' => $this->read_at?->toISOString(),
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
         ];
     }
 

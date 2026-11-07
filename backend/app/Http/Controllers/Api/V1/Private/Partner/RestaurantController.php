@@ -11,7 +11,7 @@ use App\Http\Requests\Api\V1\Private\Partner\Restaurant\UpdateDeliveryTimesReque
 use App\Http\Requests\Api\V1\Private\Partner\Restaurant\UpdateFeesRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Restaurant\UpdateInfoRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Restaurant\UpdateStatusRequest;
-use App\Http\Resources\Api\V1\Restaurant\RestaurantResource;
+use App\Http\Resources\Api\V1\RestaurantResource;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\RestaurantService;
 use Dedoc\Scramble\Attributes\Endpoint;

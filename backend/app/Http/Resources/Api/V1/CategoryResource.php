@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Api\V1\Category;
+namespace App\Http\Resources\Api\V1;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -26,8 +26,8 @@ class CategoryResource extends JsonResource
             'slug' => $this->slug,
             'image' => $this->image,
             'is_default' => $this->is_default,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
             'image_url' => $this->image_url,
         ];
     }

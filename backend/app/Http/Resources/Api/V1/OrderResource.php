@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Api\V1;
 
-use App\Http\Resources\Api\V1\Restaurant\RestaurantResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -48,8 +47,8 @@ class OrderResource extends JsonResource
             'discount' => $this->discount,
             'total' => $this->total,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
             'order_items' => OrderItemResource::collection(
                 $this->whenLoaded('orderItems')
             ),

@@ -30,8 +30,8 @@ class DeliveryResource extends JsonResource
             'started_at' => $this->started_at,
             'delivered_at' => $this->delivered_at,
             'cancelled_at' => $this->cancelled_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
             'order' => OrderResource::make($this->whenLoaded('order')),
         ];
     }

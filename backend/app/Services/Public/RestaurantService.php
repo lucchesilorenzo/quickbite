@@ -137,7 +137,7 @@ class RestaurantService
         $startTimeDay = today()->setTimeFromTimeString($currentDeliveryDay->start_time);
         $endTimeDay = today()->setTimeFromTimeString($currentDeliveryDay->end_time);
 
-        $isAsapAvailable = (bool) ($restaurant->is_open && now()->between($startTimeDay, $endTimeDay));
+        $isAsapAvailable = $restaurant->is_open && now()->between($startTimeDay, $endTimeDay);
 
         return [
             'is_asap_available' => $isAsapAvailable,
