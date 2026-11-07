@@ -1,7 +1,7 @@
-import { StatRange } from "@partner/types/stats/stats.types";
+import { StatRangeWithAll } from "@partner/types/stats/stats.types";
 import { format, subDays } from "date-fns";
 
-export function getComputedRangeLabel(range: StatRange) {
+export function getComputedRangeLabel(range: StatRangeWithAll) {
   const today = new Date();
 
   if (range === "all") {

@@ -1,8 +1,5 @@
-import {
-  PaymentMethod as ApiPaymentMethod,
-  StatRange as ApiStatRange,
-} from "@/api/models";
+import { PaymentMethod, StatRange } from "@/api/models";
 
-export type StatRange = ApiStatRange | "all";
+export type StatRangeWithAll = StatRange | "all";
 
-export type PaymentMethodFilter = ApiPaymentMethod | "all";
+export type PaymentMethodFilter = PaymentMethod | "all";

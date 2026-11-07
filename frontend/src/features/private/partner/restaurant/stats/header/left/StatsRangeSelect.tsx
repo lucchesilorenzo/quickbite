@@ -1,16 +1,16 @@
 import { Box, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useStats } from "@partner/contexts/StatsProvider";
-import { StatRange } from "@partner/types/stats/stats.types";
 import { useSearchParams } from "react-router-dom";
 
 import { statRanges } from "@/features/private/partner/lib/data/stats.data";
+import { StatRangeWithAll } from "@/features/private/partner/types/stats/stats.types";
 
 export default function StatsRangeSelect() {
   const { range } = useStats();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  function handleRangeChange(e: SelectChangeEvent<StatRange>) {
+  function handleRangeChange(e: SelectChangeEvent<StatRangeWithAll>) {
     setSearchParams({
       ...Object.fromEntries(searchParams),
       range: e.target.value !== "all" ? e.target.value : [],

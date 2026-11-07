@@ -4,7 +4,7 @@ import { useGetKpiSummary } from "@partner/hooks/restaurants/stats/useGetKpiSumm
 import { useGetStats } from "@partner/hooks/restaurants/stats/useGetStats";
 import {
   PaymentMethodFilter,
-  StatRange,
+  StatRangeWithAll,
 } from "@partner/types/stats/stats.types";
 import { useSearchParams } from "react-router-dom";
 
@@ -14,6 +14,7 @@ import {
   GetPartnerKpiSummary200,
   GetPartnerRestaurantStats200,
   Kpi,
+  StatRange,
 } from "@/api/models";
 import { statRanges } from "@/features/private/partner/lib/data/stats.data";
 
@@ -22,7 +23,7 @@ type StatsProviderProps = {
 };
 
 type StatsContext = {
-  range: StatRange;
+  range: StatRangeWithAll;
   activeKpi: Kpi;
   paymentMethod: PaymentMethodFilter;
   statsData?: GetPartnerRestaurantStats200;
@@ -58,10 +59,10 @@ export default function StatsProvider({ children }: StatsProviderProps) {
     lost_revenue: new Date().getFullYear(),
   });
 
-  const rangeParam = searchParams.get("range");
+  const rangeParam = searchParams.get("range") as StatRange | null;
   const kpiParam = searchParams.get("kpi") as Kpi | null;
 
-  const range: StatRange =
+  const range: StatRangeWithAll =
     statRanges.find((r) => r.value === rangeParam)?.value || "all";
 
   const activeKpi: Kpi =

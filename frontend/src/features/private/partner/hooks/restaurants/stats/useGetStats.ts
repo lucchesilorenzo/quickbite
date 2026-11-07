@@ -1,6 +1,6 @@
 import {
   PaymentMethodFilter,
-  StatRange,
+  StatRangeWithAll,
 } from "@partner/types/stats/stats.types";
 import { useQuery } from "@tanstack/react-query";
 
@@ -15,7 +15,7 @@ import api from "@/lib/api-client";
 type UseGetStatsOptions = {
   restaurantId: string;
   kpi: Kpi;
-  range: StatRange;
+  range: StatRangeWithAll;
   paymentMethod: PaymentMethodFilter;
   year: number;
 };
