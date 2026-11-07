@@ -4,10 +4,10 @@
  * QuickBite
  * OpenAPI spec version: 0.0.1
  */
-import type { MenuCategoryResource } from "./menuCategoryResource";
+import type { PartnerMenuCategoryResource } from "./partnerMenuCategoryResource";
 
 export type GetPartnerMenu200 = {
-  data: MenuCategoryResource[];
+  data: PartnerMenuCategoryResource[];
   success: boolean;
   message: "Menu retrieved successfully.";
 };

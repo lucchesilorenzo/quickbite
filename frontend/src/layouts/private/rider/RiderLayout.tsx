@@ -6,13 +6,13 @@ import JobPostsProvider from "@rider/contexts/JobPostsProvider";
 import NotificationsProvider from "@rider/contexts/NotificationsProvider";
 import RestaurantProvider from "@rider/contexts/RestaurantProvider";
 import Header from "@rider/header/Header";
-import { NewDeliveryReceivedToBroadcast } from "@rider/types/notifications/notification.types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet } from "react-router-dom";
 
 import NotificationToast from "@/components/common/NotificationToast";
 import { useAuth } from "@/contexts/AuthProvider";
+import { NewDeliveryReceivedToBroadcast } from "@/types/notification.types";
 
 export default function RiderLayout() {
   const { user } = useAuth();

@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Notifications\Private\Customer\OrderAccepted;
 use App\Notifications\Private\Customer\OrderRejected;
 use App\Notifications\Private\Rider\NewDeliveryReceived;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class OrderService

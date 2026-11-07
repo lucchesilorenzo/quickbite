@@ -4,10 +4,14 @@
  * QuickBite
  * OpenAPI spec version: 0.0.1
  */
+import type { GetPartnerOrders200Links } from "./getPartnerOrders200Links";
+import type { GetPartnerOrders200Meta } from "./getPartnerOrders200Meta";
 import type { OrderResource } from "./orderResource";
 
 export type GetPartnerOrders200 = {
   data: OrderResource[];
+  links: GetPartnerOrders200Links;
+  meta: GetPartnerOrders200Meta;
   success: boolean;
   message: "Orders retrieved successfully.";
 };

@@ -11,13 +11,13 @@ import PartnerRegisterPage from "./public/auth/partner/PartnerRegisterPage";
 import RiderLoginPage from "./public/auth/rider/RiderLoginPage";
 import RiderRegisterPage from "./public/auth/rider/RiderRegisterPage";
 
+import { UserRole } from "@/api/models";
 import CustomerAuthLayout from "@/layouts/private/customer/CustomerAuthLayout";
 import PartnerAuthLayout from "@/layouts/private/partner/PartnerAuthLayout";
 import RiderAuthLayout from "@/layouts/private/rider/RiderAuthLayout";
 import AuthLayout from "@/layouts/public/AuthLayout";
-import { Role } from "@/types/user.types";
 
-const AUTH_BLOCKED_ROLES: Role[] = ["customer", "partner", "rider"];
+const AUTH_BLOCKED_ROLES: UserRole[] = ["customer", "partner", "rider"];
 
 export const AuthRoutes = [
   <Route path="/" element={<AuthLayout />}>

@@ -1,3 +1,4 @@
+import { JobPostFilters as TJobPostFilters } from "@private/shared/types/job-posts/job-post.types";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -9,12 +10,9 @@ import {
 import { customRender } from "@tests/utils/custom-render";
 import { MemoryRouter } from "react-router-dom";
 
-import {
-  JobPostWithRestaurantAndAlreadyApplied,
-  JobPostFilters as TJobPostFilters,
-} from "../../types/job-posts/job-post.types";
 import JobPostFilters from "./JobPostFilters";
 
+import { JobPostResource } from "@/api/models";
 import {
   MAX_SALARY,
   MIN_SALARY,
@@ -26,7 +24,7 @@ vi.mock("@rider/contexts/JobPostsProvider", () => ({
 
 describe("JobPostFilters", () => {
   function renderComponent(
-    jobPosts: JobPostWithRestaurantAndAlreadyApplied[],
+    jobPosts: JobPostResource[],
     newFilters?: TJobPostFilters,
   ) {
     vi.mocked(useJobPosts).mockReturnValue({

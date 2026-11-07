@@ -11,6 +11,7 @@ use App\Models\JobPost;
 use App\Services\Private\Rider\JobPostService;
 use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\QueryParameter;
 use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -30,6 +31,13 @@ class JobPostController extends Controller
         title: 'List job posts',
         description: 'List available job posts for riders.',
         method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'cursor',
+        description: 'Cursor for pagination.',
+        required: false,
+        type: 'string',
+        example: 'YXJyYXljb25uZWN0aW9uOjE='
     )]
     #[Response(
         status: 200,

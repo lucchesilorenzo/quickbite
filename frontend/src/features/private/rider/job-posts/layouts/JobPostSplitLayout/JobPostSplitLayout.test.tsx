@@ -1,9 +1,10 @@
-import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 
 import JobPostSplitLayout from "./JobPostSplitLayout";
+
+import { JobPostResource } from "@/api/models";
 
 vi.mock("@rider/job-posts/JobPostCountAndSort", () => ({
   default: () => <div data-testid="job-post-count-and-sort" />,
@@ -19,7 +20,7 @@ vi.mock("@rider/job-posts/JobPostDetails", () => ({
 
 describe("JobPostSplitLayout", () => {
   function renderComponent(
-    jobPost?: JobPostWithRestaurantAndAlreadyApplied,
+    jobPost?: JobPostResource,
     isLoadingJobPost: boolean = false,
     jobPostError: Error | null = null,
   ) {

@@ -19,11 +19,11 @@ import { grey } from "@mui/material/colors";
 import DeleteMenuItemDialog from "./DeleteMenuItemDialog";
 import EditMenuItemDialog from "./EditMenuItemDialog";
 
+import { MenuItemResource } from "@/api/models";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting.utils";
-import { type MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemProps = {
-  menuItem: MenuItem;
+  menuItem: MenuItemResource;
 };
 
 export default function MenuItem({ menuItem }: MenuItemProps) {

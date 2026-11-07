@@ -19,7 +19,7 @@ export default function JobPostsLayoutDesktop() {
 
       <Container maxWidth="lg" sx={{ my: 3 }}>
         <JobPostSplitLayout
-          jobPost={jobPostData?.job_post}
+          jobPost={jobPostData?.data}
           isLoadingJobPost={isLoadingJobPost}
           jobPostError={jobPostError}
         />

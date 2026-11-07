@@ -24,6 +24,7 @@ export interface JobPostResource {
   created_at: string | null;
   /** @nullable */
   updated_at: string | null;
+  job_applications_count?: number;
   already_applied?: boolean;
   restaurant?: RestaurantResource;
 }

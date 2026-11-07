@@ -1,7 +1,8 @@
-import { GetMenuResponse } from "@partner/types/menu/menu.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getPartnerMenu } from "@/api/endpoints/partner-menu/partner-menu";
+import { GetPartnerMenu200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetMenuOptions = {
   restaurantId: string;
@@ -9,9 +10,14 @@ type UseGetMenuOptions = {
 };
 
 export function useGetMenu({ restaurantId, page = 1 }: UseGetMenuOptions) {
-  return useQuery<GetMenuResponse>({
+  return useQuery<GetPartnerMenu200>({
     queryKey: ["partner-menu", restaurantId, page],
-    queryFn: () =>
-      fetchData(`/partner/restaurants/${restaurantId}/menu?page=${page}`),
+    queryFn: async () => {
+      const response = await getPartnerMenu(api).getPartnerMenu(restaurantId, {
+        page,
+      });
+
+      return response.data;
+    },
   });
 }

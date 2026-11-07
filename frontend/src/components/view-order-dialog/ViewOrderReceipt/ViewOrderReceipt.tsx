@@ -1,14 +1,13 @@
 import { Alert, Button, Typography } from "@mui/material";
-import { PartnerOrder } from "@partner/types/orders/order.types";
-import { Order } from "@private/shared/types/order.types";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import OrderReceiptToPDF from "../OrderReceiptToPDF";
 
+import { OrderResource } from "@/api/models";
 import { useGetBase64RestaurantLogo } from "@/hooks/restaurants/useGetBase64RestaurantLogo";
 
 type ViewOrderReceiptProps = {
-  order: Order | PartnerOrder;
+  order: OrderResource;
 };
 
 export default function ViewOrderReceipt({ order }: ViewOrderReceiptProps) {
@@ -16,7 +15,7 @@ export default function ViewOrderReceipt({ order }: ViewOrderReceiptProps) {
     data: logoData,
     isLoading: isLoadingLogo,
     error: logoError,
-  } = useGetBase64RestaurantLogo({ restaurantId: order.restaurant.id });
+  } = useGetBase64RestaurantLogo({ restaurantId: order.restaurant?.id ?? "" });
 
   if (isLoadingLogo) {
     return (

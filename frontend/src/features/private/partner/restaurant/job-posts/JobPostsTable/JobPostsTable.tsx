@@ -23,8 +23,6 @@ import DeleteJobPostDialog from "../DeleteJobPostDialog";
 import DeleteJobPostsDialog from "../DeleteJobPostsDialog";
 import EditJobPostDialog from "../EditJobPostDialog";
 
-import { jobPostsDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
-
 export default function JobPostsTable() {
   const { restaurantData } = useRestaurant();
 
@@ -50,15 +48,11 @@ export default function JobPostsTable() {
   const notifications = useNotifications();
 
   const {
-    data: jobPostsData = {
-      success: false,
-      message: "",
-      job_posts: jobPostsDefaults,
-    },
+    data: jobPostsData,
     isLoading: isLoadingJobPosts,
     error: jobPostsError,
   } = useGetJobPosts({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     page: paginationModel.page + 1,
     pageSize: paginationModel.pageSize,
     sortBy: sortModel,
@@ -108,7 +102,7 @@ export default function JobPostsTable() {
               aria-label="View applications"
               size="small"
               component={Link}
-              to={`/partner/restaurants/${restaurantData.restaurant.id}/job-posts/${row.id}/applications`}
+              to={`/partner/restaurants/${restaurantData.data.id}/job-posts/${row.id}/applications`}
               disabled={row.applications_count === 0}
             >
               <PeopleIcon fontSize="small" />
@@ -147,12 +141,13 @@ export default function JobPostsTable() {
     },
   ];
 
-  const rows: GridRowsProp = jobPostsData.job_posts.data.map((jobPost) => ({
-    id: jobPost.id,
-    title: jobPost.title,
-    status: jobPost.status,
-    applications_count: jobPost.job_applications_count,
-  }));
+  const rows: GridRowsProp =
+    jobPostsData?.data.map((jobPost) => ({
+      id: jobPost.id,
+      title: jobPost.title,
+      status: jobPost.status,
+      applications_count: jobPost.job_applications_count ?? 0,
+    })) ?? [];
 
   if (jobPostsError) {
     notifications.show(jobPostsError.message, {
@@ -199,7 +194,7 @@ export default function JobPostsTable() {
           paginationMode="server"
           sortingMode="server"
           filterMode="server"
-          rowCount={jobPostsData.job_posts.total}
+          rowCount={jobPostsData?.meta.total}
           paginationModel={paginationModel}
           sortModel={sortModel}
           filterModel={filterModel}

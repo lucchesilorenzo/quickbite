@@ -14,12 +14,14 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useCreateJobPost } from "@partner/hooks/restaurants/job-posts/useCreateJobPost";
 import {
   TAddJobPostFormSchema,
+  TAddJobPostFormValues,
   addJobPostFormSchema,
 } from "@partner/schemas/job-posts.schema";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";
 
+import { EmploymentType, VehicleType } from "@/api/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
@@ -34,7 +36,7 @@ export default function AddJobPostForm({
   const { restaurantData } = useRestaurant();
 
   const { mutate: createJobPost, isPending: isCreating } = useCreateJobPost({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     setOpenAddJobPostDialog,
   });
 
@@ -43,7 +45,11 @@ export default function AddJobPostForm({
     setValue,
     control,
     formState: { isSubmitting, errors },
-  } = useForm({
+  } = useForm<
+    TAddJobPostFormValues,
+    Record<string, never>,
+    TAddJobPostFormSchema
+  >({
     resolver: zodResolver(addJobPostFormSchema),
     defaultValues: {
       title: "",
@@ -56,7 +62,11 @@ export default function AddJobPostForm({
   });
 
   function onSubmit(data: TAddJobPostFormSchema) {
-    createJobPost(data);
+    createJobPost({
+      ...data,
+      employment_type: data.employment_type as EmploymentType,
+      vehicle_type: data.vehicle_type as VehicleType,
+    });
   }
 
   return (

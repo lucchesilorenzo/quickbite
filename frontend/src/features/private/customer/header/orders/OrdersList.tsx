@@ -1,12 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Order } from "@private/shared/types/order.types";
 
 import OrderItem from "./OrderItem";
 
+import { OrderResource } from "@/api/models";
 import CustomPagination from "@/components/common/CustomPagination";
 
 type OrdersListProps = {
-  orders: Order[];
+  orders: OrderResource[];
   totalPages: number;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;

@@ -1,6 +1,6 @@
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { menuCategories } from "@tests/mocks/data/public/menu";
+import { navigationMenuCategories } from "@tests/mocks/data/public/menu";
 import { customRender } from "@tests/utils/custom-render";
 
 import MenuCategoryNavigationDialog from "./MenuCategoryNavigationDialog";
@@ -15,7 +15,7 @@ describe("MenuCategoryNavigationDialog", () => {
 
     customRender(
       <MenuCategoryNavigationDialog
-        menuCategories={menuCategories}
+        menuCategories={navigationMenuCategories}
         openMenuCategoryNavigationDialog={openMenuCategoryNavigationDialog}
         title={title}
         setOpenMenuCategoryNavigationDialog={
@@ -38,8 +38,10 @@ describe("MenuCategoryNavigationDialog", () => {
 
     expect(screen.getByText(title)).toBeInTheDocument();
     expect(getCloseButton()).toBeInTheDocument();
-    expect(screen.getAllByRole("listitem")).toHaveLength(menuCategories.length);
-    menuCategories.forEach((category) => {
+    expect(screen.getAllByRole("listitem")).toHaveLength(
+      navigationMenuCategories.length,
+    );
+    navigationMenuCategories.forEach((category) => {
       expect(screen.getByText(category.name)).toBeInTheDocument();
     });
   });

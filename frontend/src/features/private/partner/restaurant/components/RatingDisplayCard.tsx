@@ -60,13 +60,13 @@ export default function RatingDisplayCard({ type }: RatingDisplayCardProps) {
                     component="div"
                     sx={{ fontWeight: 700 }}
                   >
-                    {reviewsData.avg_rating?.toLocaleString("it-IT", {
+                    {reviewsData?.avg_rating?.toLocaleString("it-IT", {
                       maximumFractionDigits: 1,
                     }) || "N/A"}
                   </Typography>
 
                   <Rating
-                    value={reviewsData.avg_rating}
+                    value={reviewsData?.avg_rating}
                     icon={<StarIcon color="primary" fontSize="large" />}
                     emptyIcon={
                       <StarBorderIcon color="primary" fontSize="large" />
@@ -78,7 +78,7 @@ export default function RatingDisplayCard({ type }: RatingDisplayCardProps) {
                 {type === "dashboard" && (
                   <IconButton
                     component={Link}
-                    to={`/partner/restaurants/${restaurantData.restaurant.id}/reviews`}
+                    to={`/partner/restaurants/${restaurantData.data.id}/reviews`}
                   >
                     <ArrowForwardIosIcon />
                   </IconButton>
@@ -86,7 +86,7 @@ export default function RatingDisplayCard({ type }: RatingDisplayCardProps) {
               </Stack>
 
               <Typography variant="body2" sx={{ mt: 1 }}>
-                Based on {reviewsData.count} reviews
+                Based on {reviewsData?.count} reviews
               </Typography>
             </Box>
           )}

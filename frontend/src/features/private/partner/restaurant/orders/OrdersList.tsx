@@ -12,7 +12,6 @@ import OrdersFilters from "./OrdersFilters";
 import CustomPagination from "@/components/common/CustomPagination";
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
-import { ordersDefaults } from "@/features/private/shared/lib/data/defaults/query.defaults";
 import { orderStatuses } from "@/lib/data/orders.data";
 
 export default function OrdersList() {
@@ -23,11 +22,11 @@ export default function OrdersList() {
   const [page, setPage] = useState(1);
 
   const {
-    data: ordersData = { success: false, message: "", orders: ordersDefaults },
+    data: ordersData,
     isLoading: isLoadingOrders,
     error: ordersError,
   } = useGetOrders({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     status,
     page,
   });
@@ -54,22 +53,24 @@ export default function OrdersList() {
 
   return (
     <Stack spacing={2} sx={{ my: 3 }}>
-      {ordersData.orders.data.length > 0 && <OrdersFilters setPage={setPage} />}
+      {ordersData?.data && ordersData.data.length > 0 && (
+        <OrdersFilters setPage={setPage} />
+      )}
 
-      {!ordersData.orders.data.length ? (
+      {!ordersData?.data.length ? (
         <Typography variant="body1" sx={{ textAlign: "center" }}>
           No orders with the selected status yet.
         </Typography>
       ) : (
         <Stack spacing={2}>
-          {ordersData.orders.data.map((order) => (
+          {ordersData.data.map((order) => (
             <OrderItem key={order.id} order={order} />
           ))}
 
           <Box sx={{ alignSelf: "center" }}>
             <CustomPagination
               page={page}
-              totalPages={ordersData.orders.last_page}
+              totalPages={ordersData.meta.last_page}
               status={status}
               setPage={setPage}
             />

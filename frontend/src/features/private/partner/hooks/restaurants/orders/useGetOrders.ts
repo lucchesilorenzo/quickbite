@@ -1,8 +1,9 @@
-import { GetOrdersResponse } from "@partner/types/orders/order.api.types";
-import { OrderStatusWithAll } from "@private/shared/types/order.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getPartnerOrders } from "@/api/endpoints/partner-orders/partner-orders";
+import { GetPartnerOrders200, GetPartnerOrdersParams } from "@/api/models";
+import api from "@/lib/api-client";
+import { OrderStatusWithAll } from "@/types/order.types";
 
 type UseGetOrderspOptions = {
   restaurantId: string;
@@ -15,17 +16,18 @@ export function useGetOrders({
   status,
   page = 1,
 }: UseGetOrderspOptions) {
-  return useQuery<GetOrdersResponse>({
+  return useQuery<GetPartnerOrders200>({
     queryKey: ["partner-orders", restaurantId, status, page],
-    queryFn: () => {
-      const params = new URLSearchParams();
+    queryFn: async () => {
+      const params: GetPartnerOrdersParams = { page };
+      if (status !== "all") params.status = status;
 
-      if (status !== "all") params.append("status", status);
-      if (page) params.append("page", page.toString());
-
-      return fetchData(
-        `/partner/restaurants/${restaurantId}/orders?${params.toString()}`,
+      const response = await getPartnerOrders(api).getPartnerOrders(
+        restaurantId,
+        params,
       );
+
+      return response.data;
     },
   });
 }

@@ -1,11 +1,12 @@
-import {
-  UpdateFeesRequest,
-  UpdateFeesResponse,
-} from "@partner/types/settings/settings.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partner-restaurants";
+import {
+  UpdateFeesRequest,
+  UpdatePartnerRestaurantFees200,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseUpdateFeesOptions = {
   restaurantId: string;
@@ -15,9 +16,14 @@ export function useUpdateFees({ restaurantId }: UseUpdateFeesOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdateFeesResponse, Error, UpdateFeesRequest>({
-    mutationFn: (data) =>
-      updateData(`/partner/restaurants/${restaurantId}/settings/fees`, data),
+  return useMutation<UpdatePartnerRestaurantFees200, Error, UpdateFeesRequest>({
+    mutationFn: async (data) => {
+      const response = await getPartnerRestaurants(
+        api,
+      ).updatePartnerRestaurantFees(restaurantId, data);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-restaurant", restaurantId],

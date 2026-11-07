@@ -21,7 +21,9 @@ export default function ReviewsList() {
     return <Alert severity="error">{reviewsError.message}</Alert>;
   }
 
-  if (!reviewsData.count) {
+  const reviews = reviewsData?.data ?? [];
+
+  if (!reviewsData?.count) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center" }}>
         No reviews yet.
@@ -31,14 +33,14 @@ export default function ReviewsList() {
 
   return (
     <Stack spacing={2}>
-      {reviewsData.reviews.data.map((review) => (
+      {reviews.map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}
 
       <Box sx={{ alignSelf: "center" }}>
         <CustomPagination
           page={page}
-          totalPages={reviewsData.reviews.last_page}
+          totalPages={reviewsData?.meta.last_page ?? 1}
           setPage={setPage}
         />
       </Box>

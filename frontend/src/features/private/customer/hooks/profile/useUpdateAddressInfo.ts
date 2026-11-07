@@ -18,9 +18,8 @@ export function useUpdateAddressInfo() {
     UpdateAddressInfoRequest
   >({
     mutationFn: async (data) => {
-      const response = await getCustomerProfile(api).updateCustomerAddressInfo(
-        data,
-      );
+      const response =
+        await getCustomerProfile(api).updateCustomerAddressInfo(data);
 
       return response.data;
     },

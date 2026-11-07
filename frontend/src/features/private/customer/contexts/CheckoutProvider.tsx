@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { useGetCart } from "@customer/hooks/carts/useGetCart";
-import { CheckoutData } from "@customer/types/orders/order.types";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -14,6 +13,7 @@ import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
+import { CheckoutData } from "@/types/order.types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;

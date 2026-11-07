@@ -4,12 +4,12 @@ import { useGetNotifications } from "@partner/hooks/notifications/useGetNotifica
 import { useGetRestaurant } from "@partner/hooks/restaurants/restaurant/useGetRestaurant";
 import { Navigate } from "react-router-dom";
 
-import { GetNotificationsResponse } from "../types/notifications/notification.api.types";
-import { GetRestaurantResponse } from "../types/restaurants/restaurant.api.types";
-
+import {
+  GetPartnerNotifications200,
+  GetPartnerRestaurant200,
+} from "@/api/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
-import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;
@@ -17,8 +17,8 @@ type RestaurantProviderProps = {
 };
 
 type RestaurantContext = {
-  restaurantData: GetRestaurantResponse;
-  notificationsData: GetNotificationsResponse;
+  restaurantData: GetPartnerRestaurant200;
+  notificationsData?: GetPartnerNotifications200;
   notificationsError: Error | null;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -35,12 +35,7 @@ export default function RestaurantProvider({
   const [page, setPage] = useState(1);
 
   const {
-    data: notificationsData = {
-      success: false,
-      message: "",
-      notifications: notificationsDefaults,
-      unread_count: 0,
-    },
+    data: notificationsData,
     isLoading: isLoadingNotifications,
     error: notificationsError,
   } = useGetNotifications({ userId: user?.id, restaurantId, page });
@@ -55,7 +50,7 @@ export default function RestaurantProvider({
     return <FullPageSpinner />;
   }
 
-  if (restaurantError || !restaurantData?.restaurant) {
+  if (restaurantError || !restaurantData?.data) {
     return <Navigate to="*" />;
   }
 

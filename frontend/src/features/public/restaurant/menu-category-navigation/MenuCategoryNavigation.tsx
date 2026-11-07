@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -10,9 +10,22 @@ import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import MenuCategoryNavigationSlide from "@/components/menu-category-navigation/MenuCategoryNavigationSlide";
 import ShowMoreMenuCategoriesButton from "@/components/menu-category-navigation/ShowMoreMenuCategoriesButton";
 import { useMenu } from "@/contexts/MenuProvider";
+import type { MenuNavigationCategory } from "@/types/menu.types";
 
 export default function MenuCategoryNavigation() {
   const { menuData, menuCategoryRefs } = useMenu();
+
+  const navigationMenuCategories = useMemo<
+    MenuNavigationCategory[] | undefined
+  >(
+    () =>
+      menuData?.data.map(({ id, name, menu_items }) => ({
+        id,
+        name,
+        menuItems: menu_items,
+      })),
+    [menuData?.data],
+  );
 
   const swiperRef = useRef<SwiperClass>(null);
 
@@ -77,7 +90,7 @@ export default function MenuCategoryNavigation() {
             800: { slidesPerView: 6 },
           }}
         >
-          {menuData?.data.map((menuCategory) => (
+          {navigationMenuCategories?.map((menuCategory) => (
             <SwiperSlide key={menuCategory.id}>
               <MenuCategoryNavigationSlide
                 menuCategory={menuCategory}
@@ -105,7 +118,7 @@ export default function MenuCategoryNavigation() {
       </Fade>
 
       <ShowMoreMenuCategoriesButton
-        menuCategories={menuData?.data ?? []}
+        menuCategories={navigationMenuCategories ?? []}
         onSlideClick={handleSlideClick}
       />
     </Stack>

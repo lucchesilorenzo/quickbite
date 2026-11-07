@@ -17,13 +17,13 @@ import {
 } from "@partner/schemas/menu.schema";
 import { Controller, useForm } from "react-hook-form";
 
+import { MenuItemResource } from "@/api/models";
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";
-import { MenuItem } from "@/types/menu/menu.types";
 
 type EditMenuItemFormProps = {
-  menuItem: MenuItem;
+  menuItem: MenuItemResource;
   setOpenEditMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -34,7 +34,7 @@ export default function EditMenuItemForm({
   const { restaurantData } = useRestaurant();
 
   const { mutate: updateMenuItem, isPending: isUpdating } = useUpdateMenuItem({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     menuItemId: menuItem.id,
     setOpenEditMenuItemDialog,
   });
@@ -55,15 +55,13 @@ export default function EditMenuItemForm({
   });
 
   function onSubmit(data: TEditMenuItemFormSchema) {
-    const formData = new FormData();
-
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("price", String(data.price));
-    if (data.image) formData.append("image", data.image[0]);
-    formData.append("is_available", data.is_available ? "1" : "0");
-
-    updateMenuItem(formData);
+    updateMenuItem({
+      name: data.name,
+      description: data.description,
+      price: Number(data.price),
+      image: data.image ? data.image[0] : undefined,
+      is_available: data.is_available,
+    });
   }
 
   function handleFileUpload(

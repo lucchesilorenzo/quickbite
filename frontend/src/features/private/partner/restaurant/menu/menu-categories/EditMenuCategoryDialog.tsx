@@ -7,12 +7,13 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import EditMenuCategoryForm from "./EditMenuCategoryForm";
 
+import { PartnerMenuCategoryResource } from "@/api/models";
+
 type EditMenuCategoryDialogProps = {
-  menuCategory: PartnerMenu;
+  menuCategory: PartnerMenuCategoryResource;
   openEditMenuCategoryDialog: boolean;
   setOpenEditMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

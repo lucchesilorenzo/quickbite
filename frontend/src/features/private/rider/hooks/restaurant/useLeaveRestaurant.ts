@@ -2,16 +2,21 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { deleteData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api.types";
+import { getRiderRestaurant } from "@/api/endpoints/rider-restaurant/rider-restaurant";
+import { LeaveRiderRestaurant200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 export function useLeaveRestaurant() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<ApiResponse, Error, void>({
-    mutationFn: () => deleteData("/rider/restaurant/leave"),
+  return useMutation<LeaveRiderRestaurant200, Error, void>({
+    mutationFn: async () => {
+      const response = await getRiderRestaurant(api).leaveRiderRestaurant();
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.removeQueries({ queryKey: ["rider-restaurant"] });
 

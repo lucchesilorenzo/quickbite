@@ -21,4 +21,8 @@ export type GetRiderJobPostsParams = {
   max_salary?: number;
   employment_type?: EmploymentType;
   sort_by?: GetRiderJobPostsSortBy;
+  /**
+   * Cursor for pagination.
+   */
+  cursor?: string;
 };

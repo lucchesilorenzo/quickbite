@@ -1,8 +1,13 @@
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
-import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getRiderJobPosts } from "@/api/endpoints/rider-job-posts/rider-job-posts";
+import {
+  GetRiderJobPosts200,
+  GetRiderJobPostsParams,
+  GetRiderJobPostsSortBy,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 export type UseGetJobPostsOptions = {
   search: string;
@@ -21,7 +26,7 @@ export function useGetJobPosts({
   employmentType,
   sortBy,
 }: UseGetJobPostsOptions) {
-  return useInfiniteQuery<GetJobPostsResponse>({
+  return useInfiniteQuery<GetRiderJobPosts200>({
     queryKey: [
       "rider-job-posts",
       search,
@@ -31,33 +36,35 @@ export function useGetJobPosts({
       employmentType,
       sortBy,
     ],
-    queryFn: ({ pageParam }) => {
-      const params = new URLSearchParams();
+    queryFn: async ({ pageParam }) => {
+      const params: GetRiderJobPostsParams = {};
 
       if (search) {
-        params.append("search", search);
+        params.search = search;
       }
 
       if (salaryEnabled && minSalary && maxSalary) {
-        params.append("min_salary", minSalary.toString());
-        params.append("max_salary", maxSalary.toString());
+        params.min_salary = minSalary;
+        params.max_salary = maxSalary;
       }
 
       if (employmentType !== "all") {
-        params.append("employment_type", employmentType);
+        params.employment_type = employmentType;
       }
 
       if (sortBy) {
-        params.append("sort_by", sortBy);
+        params.sort_by = sortBy as GetRiderJobPostsSortBy;
       }
 
       if (pageParam) {
-        params.append("cursor", pageParam.toString());
+        params.cursor = pageParam.toString();
       }
 
-      return fetchData(`/rider/job-posts?${params.toString()}`);
+      const response = await getRiderJobPosts(api).getRiderJobPosts(params);
+
+      return response.data;
     },
     initialPageParam: null,
-    getNextPageParam: (lastPage) => lastPage.job_posts.next_cursor,
+    getNextPageParam: (lastPage) => lastPage.meta.next_cursor,
   });
 }

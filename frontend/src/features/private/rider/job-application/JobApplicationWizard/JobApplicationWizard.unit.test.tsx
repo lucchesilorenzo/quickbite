@@ -4,8 +4,9 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import { useJobApplication } from "../../contexts/JobApplicationProvider";
-import { GetJobPostResponse } from "../../types/job-posts/job-post.api.types";
 import JobApplicationWizard from "./JobApplicationWizard";
+
+import { GetRiderJobPost200 } from "@/api/models";
 
 vi.mock("react-router-dom", async (importOriginal) => ({
   ...(await importOriginal<typeof import("react-router-dom")>()),
@@ -31,7 +32,7 @@ vi.mock("../Stepper", () => ({
 }));
 
 describe("JobApplicationWizard (unit)", () => {
-  function renderComponent(jobPostResponse: GetJobPostResponse) {
+  function renderComponent(jobPostResponse: GetRiderJobPost200) {
     const mockNavigate = vi.fn();
     const mockShow = vi.fn();
 
@@ -64,7 +65,7 @@ describe("JobApplicationWizard (unit)", () => {
   it("should navigate back to job posts if the rider has already applied", () => {
     const { mockNavigate } = renderComponent({
       ...jobPostResponse,
-      job_post: { ...jobPostResponse.job_post, already_applied: true },
+      data: { ...jobPostResponse.data, already_applied: true },
     });
 
     expect(mockNavigate).toHaveBeenCalledWith("/rider/job-posts", {
@@ -75,7 +76,7 @@ describe("JobApplicationWizard (unit)", () => {
   it("should display a toast message if the rider has already applied", () => {
     const { mockShow } = renderComponent({
       ...jobPostResponse,
-      job_post: { ...jobPostResponse.job_post, already_applied: true },
+      data: { ...jobPostResponse.data, already_applied: true },
     });
 
     expect(mockShow).toHaveBeenCalledWith(

@@ -1,6 +1,5 @@
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { TEditJobPostFormSchema } from "@partner/schemas/job-posts.schema";
-import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { editJobPostForm } from "@tests/mocks/data/private/partner/forms/edit-job-post";
@@ -11,6 +10,7 @@ import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
 import EditJobPostForm from "./EditJobPostForm";
 
+import { JobPostResource } from "@/api/models";
 import {
   MAX_SALARY,
   MIN_SALARY,
@@ -18,7 +18,6 @@ import {
   jobPostStatuses,
 } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
-import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 import env from "@/lib/env";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
@@ -44,19 +43,13 @@ vi.mock("../job-description-editor/JobPostEditor", () => ({
 }));
 
 describe("EditJobPostForm", () => {
-  function renderComponent(jobPost?: JobPost) {
+  function renderComponent(jobPost?: JobPostResource) {
     const user = userEvent.setup({ delay: null });
 
     const mockSetOpenEditJobPostDialog = vi.fn();
 
     vi.mocked(useRestaurant).mockReturnValue({
       restaurantData: restaurantResponse,
-      notificationsData: {
-        success: false,
-        message: "",
-        notifications: notificationsDefaults,
-        unread_count: 0,
-      },
       notificationsError: null,
       page: 1,
       setPage: vi.fn(),
@@ -93,8 +86,8 @@ describe("EditJobPostForm", () => {
           name: /edit job post/i,
         });
 
-        type FormData = {
-          [K in keyof TEditJobPostFormSchema]: any;
+        type FormData = Omit<Partial<TEditJobPostFormSchema>, "salary"> & {
+          salary?: string | number | null;
         };
 
         async function fill(data: FormData) {
@@ -134,7 +127,7 @@ describe("EditJobPostForm", () => {
             }
           }
 
-          if (data.salary !== undefined) {
+          if (data.salary != null) {
             await user.type(salary, data.salary.toString());
           }
 
@@ -190,20 +183,20 @@ describe("EditJobPostForm", () => {
   });
 
   it("should populate form fields when editing a job post", async () => {
-    const { getForm } = renderComponent(jobPostResponse.job_post);
+    const { getForm } = renderComponent(jobPostResponse.data);
 
     const inputs = await getForm();
 
     const employmentTypeLabel = employmentTypes.find(
-      (option) => option.value === jobPostResponse.job_post.employment_type,
+      (option) => option.value === jobPostResponse.data.employment_type,
     )?.label;
 
     const vehicleTypeLabel = vehicles.find(
-      (option) => option.value === jobPostResponse.job_post.vehicle_type,
+      (option) => option.value === jobPostResponse.data.vehicle_type,
     )?.label;
 
     const statusLabel = jobPostStatuses.find(
-      (option) => option.value === jobPostResponse.job_post.status,
+      (option) => option.value === jobPostResponse.data.status,
     )?.label;
 
     if (employmentTypeLabel) {
@@ -220,20 +213,18 @@ describe("EditJobPostForm", () => {
       expect(inputs.status).toHaveTextContent(statusLabel.toString());
     }
 
-    if (jobPostResponse.job_post.salary) {
-      expect(inputs.salary).toHaveValue(
-        jobPostResponse.job_post.salary.toString(),
-      );
+    if (jobPostResponse.data.salary) {
+      expect(inputs.salary).toHaveValue(jobPostResponse.data.salary.toString());
     }
 
-    expect(inputs.title).toHaveValue(jobPostResponse.job_post.title);
+    expect(inputs.title).toHaveValue(jobPostResponse.data.title);
     expect(inputs.description).toHaveValue(
-      jobPostResponse.job_post.description_html,
+      jobPostResponse.data.description_html,
     );
   });
 
   it("should render the correct select options for employment type", async () => {
-    const { user, getForm } = renderComponent(jobPostResponse.job_post);
+    const { user, getForm } = renderComponent(jobPostResponse.data);
     const { employmentType } = await getForm();
 
     await user.click(employmentType);
@@ -244,7 +235,7 @@ describe("EditJobPostForm", () => {
   });
 
   it("should render the correct select options for vehicle type", async () => {
-    const { user, getForm } = renderComponent(jobPostResponse.job_post);
+    const { user, getForm } = renderComponent(jobPostResponse.data);
     const { vehicleType } = await getForm();
 
     await user.click(vehicleType);
@@ -393,10 +384,10 @@ describe("EditJobPostForm", () => {
 
   it("should render the loading indicator upon submission", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts/${jobPostResponse.data.id}`,
       "patch",
     );
-    const { getForm } = renderComponent(jobPostResponse.job_post);
+    const { getForm } = renderComponent(jobPostResponse.data);
 
     const form = await getForm();
     await form.fill(editJobPostForm);
@@ -405,7 +396,7 @@ describe("EditJobPostForm", () => {
   });
 
   it("should not render the loading indicator after submission", async () => {
-    const { getForm } = renderComponent();
+    const { getForm } = renderComponent(jobPostResponse.data);
 
     const form = await getForm();
     await form.fill(editJobPostForm);
@@ -415,10 +406,10 @@ describe("EditJobPostForm", () => {
 
   it("should not render the loading indicator if submission fails", async () => {
     simulateError(
-      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts/${jobPostResponse.data.id}`,
       "patch",
     );
-    const { getForm } = renderComponent(jobPostResponse.job_post);
+    const { getForm } = renderComponent(jobPostResponse.data);
 
     const form = await getForm();
     await form.fill(editJobPostForm);

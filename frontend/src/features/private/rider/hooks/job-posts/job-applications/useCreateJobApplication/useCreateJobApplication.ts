@@ -1,9 +1,13 @@
-import { CreateJobApplicationResponse } from "@rider/types/job-posts/job-applications/job-application.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { postData } from "@/lib/api-client";
+import { getRiderJobApplications } from "@/api/endpoints/rider-job-applications/rider-job-applications";
+import {
+  CreateJobApplicationRequest,
+  CreateRiderJobApplication201,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseCreateJobApplicationOptions = {
   jobPostId?: string;
@@ -16,9 +20,18 @@ export function useCreateJobApplication({
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<CreateJobApplicationResponse, Error, FormData>({
-    mutationFn: (data) =>
-      postData(`/rider/job-posts/${jobPostId}/applications`, data),
+  return useMutation<
+    CreateRiderJobApplication201,
+    Error,
+    CreateJobApplicationRequest
+  >({
+    mutationFn: async (data) => {
+      const response = await getRiderJobApplications(
+        api,
+      ).createRiderJobApplication(jobPostId ?? "", data);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["rider-job-applications", jobPostId],

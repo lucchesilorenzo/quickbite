@@ -18,9 +18,8 @@ export function useUpdatePersonalInfo() {
     UpdatePersonalInfoRequest
   >({
     mutationFn: async (data) => {
-      const response = await getCustomerProfile(api).updateCustomerPersonalInfo(
-        data,
-      );
+      const response =
+        await getCustomerProfile(api).updateCustomerPersonalInfo(data);
 
       return response.data;
     },

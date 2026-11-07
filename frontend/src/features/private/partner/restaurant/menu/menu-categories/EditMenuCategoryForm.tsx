@@ -6,13 +6,13 @@ import {
   TEditMenuCategoryFormSchema,
   editMenuCategoryFormSchema,
 } from "@partner/schemas/menu.schema";
-import { PartnerMenu } from "@partner/types/menu/menu.types";
 import { Controller, useForm } from "react-hook-form";
 
+import { PartnerMenuCategoryResource } from "@/api/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type EditMenuCategoryFormProps = {
-  menuCategory: PartnerMenu;
+  menuCategory: PartnerMenuCategoryResource;
   setOpenEditMenuCategoryDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -24,7 +24,7 @@ export default function EditMenuCategoryForm({
 
   const { mutate: updateMenuCategory, isPending: isUpdating } =
     useUpdateMenuCategory({
-      restaurantId: restaurantData.restaurant.id,
+      restaurantId: restaurantData.data.id,
       menuCategoryId: menuCategory.id,
       setOpenEditMenuCategoryDialog,
     });

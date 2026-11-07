@@ -7,7 +7,6 @@ import { Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 
 import FullPageSpinner from "@/components/common/FullPageSpinner";
-import { orderDefaults } from "@/features/private/shared/lib/data/defaults/query.defaults";
 
 export default function CheckoutSuccessPage() {
   useEffect(() => {
@@ -17,7 +16,7 @@ export default function CheckoutSuccessPage() {
   const { orderId } = useParams();
 
   const {
-    data: orderData = { success: false, message: "", order: orderDefaults },
+    data: orderData,
     isLoading: isOrderLoading,
     error: orderError,
   } = useGetOrder({ orderId });
@@ -74,7 +73,7 @@ export default function CheckoutSuccessPage() {
             component="span"
             sx={{ fontWeight: 700 }}
           >
-            # {orderData.order.order_code}
+            # {orderData?.data.order_code}
           </Typography>{" "}
           has been placed successfully!
         </Typography>

@@ -17,6 +17,7 @@ import {
 } from "@partner/schemas/restaurant-settings.schema";
 import { Controller, useForm } from "react-hook-form";
 
+import { CreateOfferRequestDiscountRate } from "@/api/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { discountRates } from "@/features/private/partner/lib/data/offers.data";
 
@@ -30,7 +31,7 @@ export default function AddOfferForm({
   const { restaurantData } = useRestaurant();
 
   const { mutate: createOffer, isPending: isAdding } = useCreateOffer({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     setOpenAddOfferDialog,
   });
 
@@ -40,7 +41,7 @@ export default function AddOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      restaurantSettingsOffersFormSchema(restaurantData.restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurantData.data.min_amount),
     ),
     defaultValues: {
       discount_rate: "",
@@ -49,7 +50,10 @@ export default function AddOfferForm({
   });
 
   function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    createOffer(data);
+    createOffer({
+      discount_rate: data.discount_rate as CreateOfferRequestDiscountRate,
+      min_discount_amount: data.min_discount_amount,
+    });
   }
 
   return (

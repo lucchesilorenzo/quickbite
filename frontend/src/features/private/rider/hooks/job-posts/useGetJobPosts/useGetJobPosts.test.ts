@@ -194,8 +194,8 @@ describe("useGetJobPosts", () => {
           jobPostsResponse,
           {
             ...jobPostsResponse,
-            job_posts: {
-              ...jobPostsResponse.job_posts,
+            meta: {
+              ...jobPostsResponse.meta,
               next_cursor: null,
             },
           },

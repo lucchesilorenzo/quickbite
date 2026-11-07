@@ -7,13 +7,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Button, Rating, Stack, TextField, Typography } from "@mui/material";
-import { Order } from "@private/shared/types/order.types";
 import { Controller, useForm } from "react-hook-form";
 
+import { OrderResource } from "@/api/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type AddReviewFormProps = {
-  order: Order;
+  order: OrderResource;
   setOpenAddReviewDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -22,7 +22,7 @@ export default function AddReviewForm({
   setOpenAddReviewDialog,
 }: AddReviewFormProps) {
   const { mutate: createReview, isPending: isCreating } = useCreateReview({
-    restaurantSlug: order.restaurant.slug,
+    restaurantSlug: order.restaurant?.slug ?? "",
     setOpenAddReviewDialog,
   });
 

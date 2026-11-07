@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { menuCategories } from "@tests/mocks/data/public/menu";
+import { navigationMenuCategories } from "@tests/mocks/data/public/menu";
 
 import MenuCategoryNavigationSlide from "./MenuCategoryNavigationSlide";
 
@@ -12,8 +12,8 @@ describe("MenuCategoryNavigationSlide", () => {
 
     render(
       <MenuCategoryNavigationSlide
-        menuCategory={menuCategories[0]}
-        selectedMenuCategoryId={menuCategories[0].id}
+        menuCategory={navigationMenuCategories[0]}
+        selectedMenuCategoryId={navigationMenuCategories[0].id}
         onSlideClick={mockOnSlideClick}
       />,
     );
@@ -21,7 +21,9 @@ describe("MenuCategoryNavigationSlide", () => {
     return {
       user,
       getSlideButton: () =>
-        screen.queryByRole("button", { name: menuCategories[0].name }),
+        screen.queryByRole("button", {
+          name: navigationMenuCategories[0].name,
+        }),
       mockOnSlideClick,
     };
   }
@@ -37,7 +39,9 @@ describe("MenuCategoryNavigationSlide", () => {
 
     await user.click(getSlideButton()!);
 
-    expect(mockOnSlideClick).toHaveBeenCalledWith(menuCategories[0].id);
+    expect(mockOnSlideClick).toHaveBeenCalledWith(
+      navigationMenuCategories[0].id,
+    );
     expect(mockOnSlideClick).toHaveBeenCalledTimes(1);
   });
 });

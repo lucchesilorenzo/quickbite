@@ -8,19 +8,19 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Order } from "@private/shared/types/order.types";
 import { format } from "date-fns";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import AddReviewDialog from "./AddReviewDialog";
 import ViewOrderDialog from "./ViewOrderDialog";
 
+import { OrderResource } from "@/api/models";
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { useAuth } from "@/contexts/AuthProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type OrderItemProps = {
-  order: Order;
+  order: OrderResource;
 };
 
 export default function OrderItem({ order }: OrderItemProps) {
@@ -34,12 +34,12 @@ export default function OrderItem({ order }: OrderItemProps) {
   const navigate = useNavigate();
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
-  const hasCustomerReviewed = order.restaurant.reviews.some(
+  const hasCustomerReviewed = order.restaurant?.reviews?.some(
     (review) => review.user_id === user?.id && review.order_id === order.id,
   );
 
   const isOnRestaurantPage =
-    pathname === `/restaurants/${order.restaurant.slug}`;
+    pathname === `/restaurants/${order.restaurant?.slug}`;
 
   function handleOrderAgain() {
     if (isOnRestaurantPage) {
@@ -47,7 +47,7 @@ export default function OrderItem({ order }: OrderItemProps) {
       return;
     }
 
-    navigate(`/restaurants/${order.restaurant.slug}`);
+    navigate(`/restaurants/${order.restaurant?.slug}`);
   }
 
   return (
@@ -60,8 +60,8 @@ export default function OrderItem({ order }: OrderItemProps) {
         <Stack direction="row" spacing={2}>
           <Box
             component="img"
-            src={order.restaurant.logo_url || ""}
-            alt={order.restaurant.name}
+            src={order.restaurant?.logo_url || ""}
+            alt={order.restaurant?.name}
             sx={{
               objectFit: "cover",
               width: 50,
@@ -77,7 +77,7 @@ export default function OrderItem({ order }: OrderItemProps) {
                 variant={isMobile ? "body1" : "h6"}
                 sx={{ fontWeight: 700 }}
               >
-                {order.restaurant.name}
+                {order.restaurant?.name}
               </Typography>
 
               <OrderStatusBadge orderStatus={order.status} />
@@ -85,7 +85,8 @@ export default function OrderItem({ order }: OrderItemProps) {
 
             <Stack spacing={0.5} sx={{ mb: 1 }}>
               <Typography variant="body2">
-                {format(new Date(order.created_at), "d MMMM yyyy 'at' HH:mm")}
+                {order.created_at &&
+                  format(new Date(order.created_at), "d MMMM yyyy 'at' HH:mm")}
               </Typography>
 
               <Typography variant="body2" gutterBottom>

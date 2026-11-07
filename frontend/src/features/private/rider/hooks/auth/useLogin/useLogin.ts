@@ -1,17 +1,22 @@
-import { LoginRequest, LoginResponse } from "@rider/types/auth/auth.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { postData } from "@/lib/api-client";
+import { getRiderAuth } from "@/api/endpoints/rider-auth/rider-auth";
+import { LoginRider200, RiderLoginRequest } from "@/api/models";
+import api from "@/lib/api-client";
 
 export function useLogin() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<LoginResponse, Error, LoginRequest>({
-    mutationFn: (data) => postData("/rider/auth/login", data),
+  return useMutation<LoginRider200, Error, RiderLoginRequest>({
+    mutationFn: async (data) => {
+      const response = await getRiderAuth(api).loginRider(data);
+
+      return response.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       navigate("/rider/job-posts");

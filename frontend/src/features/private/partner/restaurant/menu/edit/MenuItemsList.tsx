@@ -21,7 +21,6 @@ import MenuItem from "./MenuItem";
 import CustomPagination from "@/components/common/CustomPagination";
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
-import { menuDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
 
 export default function MenuItemsList() {
   const { restaurantData } = useRestaurant();
@@ -35,14 +34,14 @@ export default function MenuItemsList() {
   );
 
   const {
-    data: menuData = { success: false, message: "", menu: menuDefaults },
+    data: menuData,
     isLoading: isLoadingMenu,
     error: menuError,
-  } = useGetMenu({ restaurantId: restaurantData.restaurant.id, page });
+  } = useGetMenu({ restaurantId: restaurantData.data.id, page });
 
   const { mutate: updateMenuItemsOrder, isPending: isUpdating } =
     useUpdateMenuItemsOrder({
-      restaurantId: restaurantData.restaurant.id,
+      restaurantId: restaurantData.data.id,
     });
 
   const debounceUpdateRestaurantMenuItemsOrder = useMemo(
@@ -51,12 +50,12 @@ export default function MenuItemsList() {
   );
 
   const selectedMenuCategory = useMemo(
-    () => menuData.menu.find((c) => c.id === selectedMenuCategoryId),
-    [menuData.menu, selectedMenuCategoryId],
+    () => menuData?.data.find((c) => c.id === selectedMenuCategoryId),
+    [menuData?.data, selectedMenuCategoryId],
   );
 
   const menuItems = useMemo(
-    () => selectedMenuCategory?.menu_items.data || [],
+    () => selectedMenuCategory?.menu_items.data ?? [],
     [selectedMenuCategory],
   );
 
@@ -113,7 +112,7 @@ export default function MenuItemsList() {
           <Box sx={{ alignSelf: "center" }}>
             <CustomPagination
               page={page}
-              totalPages={selectedMenuCategory?.menu_items.last_page || 1}
+              totalPages={selectedMenuCategory?.menu_items.last_page ?? 1}
               menuCategoryId={selectedMenuCategoryId}
               setPage={setPage}
             />

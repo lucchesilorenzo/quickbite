@@ -1,6 +1,6 @@
-import { Order, OrderItem } from "@private/shared/types/order.types";
+import { OrderItemResource, OrderResource } from "@/api/models";
 
-export const orderItem: OrderItem = {
+export const orderItem: OrderItemResource = {
   id: "019a30a7-d967-7187-9ba9-76caf801f7cb",
   order_id: "019a30a7-d951-7210-900b-476e6295582c",
   menu_item_id: "0199e7f6-5a3b-72c5-9721-f4fdeb743fc6",
@@ -11,7 +11,7 @@ export const orderItem: OrderItem = {
   updated_at: "2025-10-29T15:48:17.000000Z",
 };
 
-export const order: Order = {
+export const order: OrderResource = {
   id: "019a30a7-d951-7210-900b-476e6295582c",
   user_id: "019a0642-e093-728a-8298-693c85ec0bff",
   restaurant_id: "a01c3a1f-5f95-45e7-8cc8-4c7bcda56d46",
@@ -100,6 +100,10 @@ export const order: Order = {
           vehicle_type: null,
           drivers_license: null,
           has_password: true,
+          stripe_id: null,
+          pm_type: null,
+          pm_last_four: null,
+          trial_ends_at: null,
           created_at: "2025-10-14T08:35:46.000000Z",
           updated_at: "2025-10-14T08:35:46.000000Z",
         },

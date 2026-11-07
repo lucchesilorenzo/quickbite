@@ -18,6 +18,7 @@ import {
 import { format } from "date-fns";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
+import { DeliveryDay } from "@/api/models";
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { capitalize } from "@/lib/utils/formatting.utils";
@@ -26,7 +27,7 @@ export default function DeliveryTimesEditTab() {
   const { restaurantData } = useRestaurant();
 
   const { mutate: updateDeliveryTimes, isPending: isUpdating } =
-    useUpdateDeliveryTimes({ restaurantId: restaurantData.restaurant.id });
+    useUpdateDeliveryTimes({ restaurantId: restaurantData.data.id });
 
   const {
     handleSubmit,
@@ -37,8 +38,8 @@ export default function DeliveryTimesEditTab() {
   } = useForm<TRestaurantSettingsDeliveryTimesFormSchema>({
     resolver: zodResolver(restaurantSettingsDeliveryTimesFormSchema),
     defaultValues: {
-      delivery_days: restaurantData.restaurant.delivery_days.map((d) => ({
-        day: d.day,
+      delivery_days: (restaurantData.data.delivery_days ?? []).map((d) => ({
+        day: d.day as DeliveryDay,
         start_time: d.start_time
           ? new Date(`1970-01-01T${d.start_time}`)
           : null,
@@ -69,7 +70,7 @@ export default function DeliveryTimesEditTab() {
   function onSubmit(data: TRestaurantSettingsDeliveryTimesFormSchema) {
     const normalized = {
       delivery_days: data.delivery_days.map((d) => ({
-        day: d.day,
+        day: d.day as DeliveryDay,
         start_time: d.start_time ? format(d.start_time, "HH:mm") : null,
         end_time: d.end_time ? format(d.end_time, "HH:mm") : null,
       })),
@@ -85,7 +86,7 @@ export default function DeliveryTimesEditTab() {
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
-      {restaurantData.restaurant.delivery_days.map((d, index) => (
+      {(restaurantData.data.delivery_days ?? []).map((d, index) => (
         <Box key={d.id}>
           <Stack
             direction="row"

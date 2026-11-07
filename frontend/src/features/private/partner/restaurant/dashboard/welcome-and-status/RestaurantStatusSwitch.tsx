@@ -11,15 +11,15 @@ export default function RestaurantStatusSwitch() {
   const { restaurantData } = useRestaurant();
 
   const { mutate: updateRestaurantStatus, isPending: isUpdating } =
-    useUpdateRestaurantStatus({ restaurantId: restaurantData.restaurant.id });
+    useUpdateRestaurantStatus({ restaurantId: restaurantData.data.id });
 
   const [restaurantStatus, setRestaurantStatus] = useState(
-    restaurantData.restaurant.is_open,
+    restaurantData.data.is_open,
   );
 
   const currentDay = format(new Date(), "EEEE").toLowerCase();
 
-  const hasDeliveryTimes = restaurantData.restaurant.delivery_days.some(
+  const hasDeliveryTimes = (restaurantData.data.delivery_days ?? []).some(
     (deliveryDay) =>
       deliveryDay.day === currentDay &&
       deliveryDay.start_time &&

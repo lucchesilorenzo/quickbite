@@ -1,14 +1,15 @@
 import { createContext, useContext } from "react";
 
 import { useGetRestaurant } from "../hooks/restaurant/useGetRestaurant";
-import { GetRestaurantResponse } from "../types/restaurant/restaurant.api.types";
+
+import { GetRiderRestaurant200 } from "@/api/models";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;
 };
 
 type RestaurantContext = {
-  restaurantData?: GetRestaurantResponse;
+  restaurantData?: GetRiderRestaurant200;
   isLoadingRestaurant: boolean;
   restaurantError: Error | null;
 };

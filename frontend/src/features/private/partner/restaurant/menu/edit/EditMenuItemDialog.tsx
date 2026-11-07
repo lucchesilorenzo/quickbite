@@ -10,10 +10,10 @@ import {
 
 import EditMenuItemForm from "./EditMenuItemForm";
 
-import { MenuItem } from "@/types/menu/menu.types";
+import { MenuItemResource } from "@/api/models";
 
 type EditMenuItemDialogProps = {
-  menuItem: MenuItem;
+  menuItem: MenuItemResource;
   openEditMenuItemDialog: boolean;
   setOpenEditMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

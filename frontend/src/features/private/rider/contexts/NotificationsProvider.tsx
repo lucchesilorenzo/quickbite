@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from "react";
 
 import { useGetNotifications } from "../hooks/notifications/useGetNotifications";
-import { GetNotificationsResponse } from "../types/notifications/notification.api.types";
 
+import { GetRiderNotifications200 } from "@/api/models";
 import { useAuth } from "@/contexts/AuthProvider";
 
 type NotificationsProviderProps = {
@@ -10,7 +10,7 @@ type NotificationsProviderProps = {
 };
 
 type NotificationsContext = {
-  notificationsData?: GetNotificationsResponse;
+  notificationsData?: GetRiderNotifications200;
   isLoadingNotifications: boolean;
   notificationsError: Error | null;
   page: number;

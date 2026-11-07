@@ -1,8 +1,12 @@
 import { GridFilterModel, GridSortModel } from "@mui/x-data-grid";
-import { GetStaffMembersResponse } from "@partner/types/staff/staff.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getPartnerStaff } from "@/api/endpoints/partner-staff/partner-staff";
+import {
+  GetPartnerStaffMembers200,
+  GetPartnerStaffMembersParams,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetStaffMembersOptions = {
   restaurantId: string;
@@ -22,7 +26,7 @@ export function useGetStaffMembers({
   const sortField = sortBy[0]?.field;
   const sortOrder = sortBy[0]?.sort;
 
-  return useQuery<GetStaffMembersResponse>({
+  return useQuery<GetPartnerStaffMembers200>({
     queryKey: [
       "partner-staff",
       restaurantId,
@@ -32,38 +36,33 @@ export function useGetStaffMembers({
       sortOrder,
       filters,
     ],
-    queryFn: () => {
-      const params = new URLSearchParams();
-
-      if (page) {
-        params.append("page", page.toString());
-      }
-
-      if (pageSize) {
-        params.append("page_size", pageSize.toString());
-      }
+    queryFn: async () => {
+      const params: GetPartnerStaffMembersParams = {
+        page,
+        page_size: pageSize as GetPartnerStaffMembersParams["page_size"],
+      };
 
       if (sortField && sortOrder) {
-        params.append(
-          "sort_by",
-          JSON.stringify({ field: sortField, sort: sortOrder }),
-        );
+        params.sort_by = JSON.stringify({ field: sortField, sort: sortOrder });
       }
 
       if (filters.items?.length && filters.items.length > 0) {
-        params.append("filter", JSON.stringify(filters.items[0]));
+        params.filter = JSON.stringify(filters.items[0]);
       }
 
       if (
         Array.isArray(filters.quickFilterValues) &&
         filters.quickFilterValues.length > 0
       ) {
-        params.append("search", filters.quickFilterValues[0]);
+        params.search = filters.quickFilterValues[0];
       }
 
-      return fetchData(
-        `/partner/restaurants/${restaurantId}/staff?${params.toString()}`,
+      const response = await getPartnerStaff(api).getPartnerStaffMembers(
+        restaurantId,
+        params,
       );
+
+      return response.data;
     },
     enabled: !!restaurantId,
   });

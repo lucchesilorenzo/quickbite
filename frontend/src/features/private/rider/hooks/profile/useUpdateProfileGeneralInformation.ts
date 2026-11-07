@@ -1,22 +1,28 @@
-import {
-  UpdateProfileGeneralInformationRequest,
-  UpdateProfileGeneralInformationResponse,
-} from "@rider/types/profile/profile.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { getRiderProfile } from "@/api/endpoints/rider-profile/rider-profile";
+import {
+  RiderUpdateProfileGeneralInformationRequest,
+  UpdateRiderProfileGeneralInformation200,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 export function useUpdateProfileGeneralInformation() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation<
-    UpdateProfileGeneralInformationResponse,
+    UpdateRiderProfileGeneralInformation200,
     Error,
-    UpdateProfileGeneralInformationRequest
+    RiderUpdateProfileGeneralInformationRequest
   >({
-    mutationFn: (data) => updateData("/rider/profile/general", data),
+    mutationFn: async (data) => {
+      const response =
+        await getRiderProfile(api).updateRiderProfileGeneralInformation(data);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["auth"],

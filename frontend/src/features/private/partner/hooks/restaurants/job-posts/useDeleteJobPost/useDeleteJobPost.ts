@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { deleteData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api.types";
+import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
+import { DeletePartnerJobPost200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseDeleteJobPostOptions = {
   restaurantId: string;
@@ -18,9 +19,15 @@ export function useDeleteJobPost({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<ApiResponse>({
-    mutationFn: () =>
-      deleteData(`/partner/restaurants/${restaurantId}/job-posts/${jobPostId}`),
+  return useMutation<DeletePartnerJobPost200, Error, void>({
+    mutationFn: async () => {
+      const response = await getPartnerJobPosts(api).deletePartnerJobPost(
+        restaurantId,
+        jobPostId ?? "",
+      );
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-job-posts", restaurantId],

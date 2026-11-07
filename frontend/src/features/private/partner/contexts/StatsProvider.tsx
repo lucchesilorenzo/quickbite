@@ -3,20 +3,18 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useGetKpiSummary } from "@partner/hooks/restaurants/stats/useGetKpiSummary";
 import { useGetStats } from "@partner/hooks/restaurants/stats/useGetStats";
 import {
-  Kpi,
-  KpiSummary,
   PaymentMethodFilter,
   StatRange,
-  StatsWithFilters,
 } from "@partner/types/stats/stats.types";
 import { useSearchParams } from "react-router-dom";
 
-import {
-  kpiSummaryDefaults,
-  statsDefaults,
-} from "../lib/data/defaults/query.defaults";
 import { useRestaurant } from "./RestaurantProvider";
 
+import {
+  GetPartnerKpiSummary200,
+  GetPartnerRestaurantStats200,
+  Kpi,
+} from "@/api/models";
 import { statRanges } from "@/features/private/partner/lib/data/stats.data";
 
 type StatsProviderProps = {
@@ -27,11 +25,11 @@ type StatsContext = {
   range: StatRange;
   activeKpi: Kpi;
   paymentMethod: PaymentMethodFilter;
-  statsData: StatsWithFilters;
+  statsData?: GetPartnerRestaurantStats200;
   isLoadingStats: boolean;
   statsError: Error | null;
   year: Record<Kpi, number>;
-  kpiSummary: KpiSummary;
+  kpiSummary?: GetPartnerKpiSummary200;
   kpiSummaryError: Error | null;
   isLoadingKpiSummary: boolean;
   setPaymentMethod: React.Dispatch<React.SetStateAction<PaymentMethodFilter>>;
@@ -79,22 +77,22 @@ export default function StatsProvider({ children }: StatsProviderProps) {
   }, [kpiParam, searchParams, setSearchParams]);
 
   const {
-    data: kpiSummary = { success: false, message: "", ...kpiSummaryDefaults },
+    data: kpiSummary,
     isLoading: isLoadingKpiSummary,
     error: kpiSummaryError,
   } = useGetKpiSummary({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     range,
     paymentMethod,
     year: year[activeKpi],
   });
 
   const {
-    data: statsData = { success: false, message: "", ...statsDefaults },
+    data: statsData,
     isLoading: isLoadingStats,
     error: statsError,
   } = useGetStats({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     kpi: activeKpi,
     range,
     paymentMethod,

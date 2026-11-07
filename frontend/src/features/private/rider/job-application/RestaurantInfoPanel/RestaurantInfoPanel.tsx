@@ -22,8 +22,8 @@ export default function RestaurantInfoPanel() {
       <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
         <Box
           component="img"
-          src={jobPostData?.job_post.restaurant.logo_url || ""}
-          alt={jobPostData?.job_post.restaurant.name}
+          src={jobPostData?.data.restaurant?.logo_url || ""}
+          alt={jobPostData?.data.restaurant?.name}
           sx={{
             objectFit: "cover",
             width: 70,
@@ -35,13 +35,13 @@ export default function RestaurantInfoPanel() {
 
         <Box>
           <Typography variant="body1" sx={{ fontWeight: 500 }}>
-            {jobPostData?.job_post.title}
+            {jobPostData?.data.title}
           </Typography>
 
           <Typography variant="caption" color="textSecondary">
-            {jobPostData?.job_post.restaurant.name} -{" "}
-            {jobPostData?.job_post.restaurant.city},{" "}
-            {jobPostData?.job_post.restaurant.country}
+            {jobPostData?.data.restaurant?.name} -{" "}
+            {jobPostData?.data.restaurant?.city},{" "}
+            {jobPostData?.data.restaurant?.country}
           </Typography>
         </Box>
       </Stack>

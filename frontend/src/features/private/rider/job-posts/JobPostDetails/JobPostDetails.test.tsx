@@ -3,9 +3,9 @@ import { jobPostsWithRestaurant } from "@tests/mocks/data/private/rider/job-post
 import { customRender } from "@tests/utils/custom-render";
 import { MemoryRouter } from "react-router-dom";
 
-import { JobPostWithRestaurantAndAlreadyApplied } from "../../types/job-posts/job-post.types";
 import JobPostDetails from "./JobPostDetails";
 
+import { JobPostResource } from "@/api/models";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 
@@ -14,7 +14,7 @@ vi.mock("../JobPostDescription", () => ({
 }));
 
 describe("JobPostDetails", () => {
-  function renderComponent(jobPost: JobPostWithRestaurantAndAlreadyApplied) {
+  function renderComponent(jobPost: JobPostResource) {
     customRender(
       <MemoryRouter>
         <JobPostDetails jobPost={jobPost} />
@@ -38,12 +38,12 @@ describe("JobPostDetails", () => {
       ).toBeInTheDocument();
       expect(
         within(jobPostDetailsHeader).getByText(
-          jobPostsWithRestaurant[0].restaurant.name,
+          jobPostsWithRestaurant[0].restaurant!.name,
         ),
       ).toBeInTheDocument();
       expect(
         within(jobPostDetailsHeader).getByText(
-          `${jobPostsWithRestaurant[0].restaurant.postcode} - ${jobPostsWithRestaurant[0].restaurant.city}`,
+          `${jobPostsWithRestaurant[0].restaurant!.postcode} - ${jobPostsWithRestaurant[0].restaurant!.city}`,
         ),
       ).toBeInTheDocument();
       expect(

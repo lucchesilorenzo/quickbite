@@ -125,7 +125,7 @@ export default function CheckoutOrderFooter() {
     if (response.stripe_client_secret) {
       setCardPayment({
         clientSecret: response.stripe_client_secret,
-        orderId: response.order.id,
+        orderId: response.data.id,
       });
       return;
     }
@@ -134,7 +134,7 @@ export default function CheckoutOrderFooter() {
     emptyCart(restaurantId);
     emptyCheckoutData(restaurantId);
 
-    navigate(`/checkout/${response.order.id}/success`, { replace: true });
+    navigate(`/checkout/${response.data.id}/success`, { replace: true });
   }
 
   async function handleCardPaymentSuccess() {

@@ -10,13 +10,13 @@ import RestaurantPage from "./public/RestaurantPage";
 import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
 import BecomeARiderPage from "./public/auth/rider/RiderRegisterPage";
 
+import { UserRole } from "@/api/models";
 import AppLayout from "@/layouts/public/AppLayout";
 import AreaLayout from "@/layouts/public/AreaLayout";
 import HomeLayout from "@/layouts/public/HomeLayout";
 import RestaurantLayout from "@/layouts/public/RestaurantLayout";
-import { Role } from "@/types/user.types";
 
-const PUBLIC_BLOCKED_ROLES: Role[] = ["partner", "rider"];
+const PUBLIC_BLOCKED_ROLES: UserRole[] = ["partner", "rider"];
 
 export const PublicRoutes = [
   <Route path="/" element={<HomeLayout />}>

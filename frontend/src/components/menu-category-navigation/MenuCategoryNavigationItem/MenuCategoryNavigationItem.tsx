@@ -7,16 +7,15 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import MenuItemQuantityInCartBadge from "../MenuItemQuantityInCartBadge";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { isCustomer } from "@/lib/utils/auth.utils";
-import { MenuCategoryResource } from "@/api/models";
+import { MenuNavigationCategory } from "@/types/menu.types";
 
 type MenuCategoryNavigationItemProps = {
-  menuCategory: MenuCategoryResource | PartnerMenu;
+  menuCategory: MenuNavigationCategory;
   isLast: boolean;
   setOpenMenuCategoryNavigationDialog: React.Dispatch<
     React.SetStateAction<boolean>
@@ -60,10 +59,10 @@ export default function MenuCategoryNavigationItem({
           />
         </ListItemButton>
 
-        {showInCartBadge && (
+        {showInCartBadge && menuCategory.menuItems && (
           <MenuItemQuantityInCartBadge
             type="from-search"
-            menuCategory={menuCategory}
+            menuItems={menuCategory.menuItems}
           />
         )}
       </ListItem>

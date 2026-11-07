@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { GetJobPostResponse } from "@/features/private/partner/types/job-posts/job-post.api.types";
-import { fetchData } from "@/lib/api-client";
+import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
+import { GetPartnerJobPost200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetJobPostOptions = {
   restaurantId: string;
@@ -14,10 +15,16 @@ export function useGetJobPost({
   jobPostId,
   enabled,
 }: UseGetJobPostOptions) {
-  return useQuery<GetJobPostResponse>({
+  return useQuery<GetPartnerJobPost200>({
     queryKey: ["partner-job-posts", restaurantId, jobPostId],
-    queryFn: () =>
-      fetchData(`/partner/restaurants/${restaurantId}/job-posts/${jobPostId}`),
+    queryFn: async () => {
+      const response = await getPartnerJobPosts(api).getPartnerJobPost(
+        restaurantId,
+        jobPostId ?? "",
+      );
+
+      return response.data;
+    },
     enabled: enabled && !!restaurantId && !!jobPostId,
   });
 }

@@ -1,10 +1,5 @@
-import {
-  CreateJobPostRequest,
-  CreateJobPostResponse,
-} from "@private/partner/types/job-posts/job-post.api.types";
+import { CreateJobPostRequest, CreatePartnerJobPost201 } from "@/api/models";
 import { MIN_SALARY } from "@/features/private/shared/lib/data/job-posts.data";
-
-import { apiResponse } from "@tests/mocks/data/shared/common";
 
 export const addJobPostForm: CreateJobPostRequest = {
   title: "test",
@@ -15,9 +10,10 @@ export const addJobPostForm: CreateJobPostRequest = {
   salary: MIN_SALARY,
 };
 
-export const addJobPostFormResponse: CreateJobPostResponse = {
-  ...apiResponse,
-  job_post: {
+export const addJobPostFormResponse: CreatePartnerJobPost201 = {
+  success: true,
+  message: "Job post created successfully.",
+  data: {
     id: "019a9227-53ad-7271-90bd-2e88ab8ca909",
     restaurant_id: "a0611650-d7f4-481f-ac39-de9c8d1073ed",
     title: "test",

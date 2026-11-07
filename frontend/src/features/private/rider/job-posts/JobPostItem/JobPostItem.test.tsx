@@ -1,5 +1,4 @@
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import {
   jobPostFilters,
@@ -9,6 +8,7 @@ import { customRender } from "@tests/utils/custom-render";
 
 import JobPostItem from "./JobPostItem";
 
+import { JobPostResource } from "@/api/models";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({
@@ -16,7 +16,7 @@ vi.mock("@rider/contexts/JobPostsProvider", () => ({
 }));
 
 describe("JobPostItem", () => {
-  function renderComponent(jobPost: JobPostWithRestaurantAndAlreadyApplied) {
+  function renderComponent(jobPost: JobPostResource) {
     customRender(<JobPostItem jobPost={jobPost} />);
   }
 
@@ -46,11 +46,11 @@ describe("JobPostItem", () => {
       screen.getByText(jobPostsWithRestaurant[0].title),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(jobPostsWithRestaurant[0].restaurant.name),
+      screen.getByText(jobPostsWithRestaurant[0].restaurant!.name),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        `${jobPostsWithRestaurant[0].restaurant.postcode} - ${jobPostsWithRestaurant[0].restaurant.city}`,
+        `${jobPostsWithRestaurant[0].restaurant!.postcode} - ${jobPostsWithRestaurant[0].restaurant!.city}`,
       ),
     ).toBeInTheDocument();
     expect(screen.queryByText(/\/ year/i)).not.toBeInTheDocument();

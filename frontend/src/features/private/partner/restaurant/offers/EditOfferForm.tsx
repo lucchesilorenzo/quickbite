@@ -17,12 +17,13 @@ import {
 } from "@partner/schemas/restaurant-settings.schema";
 import { Controller, useForm } from "react-hook-form";
 
+import { UpdateOfferRequestDiscountRate } from "@/api/models";
+import { OfferResource } from "@/api/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { discountRates } from "@/features/private/partner/lib/data/offers.data";
-import { Offer } from "@/types/offers/offer.types";
 
 type EditOfferFormProps = {
-  offer: Offer;
+  offer: OfferResource;
   setOpenEditOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -33,7 +34,7 @@ export default function EditOfferForm({
   const { restaurantData } = useRestaurant();
 
   const { mutate: updateOffer, isPending: isUpdating } = useUpdateOffer({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     offerId: offer.id,
     setOpenEditOfferDialog,
   });
@@ -44,7 +45,7 @@ export default function EditOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      restaurantSettingsOffersFormSchema(restaurantData.restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurantData.data.min_amount),
     ),
     defaultValues: {
       discount_rate: offer.discount_rate,
@@ -53,7 +54,10 @@ export default function EditOfferForm({
   });
 
   function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    updateOffer(data);
+    updateOffer({
+      discount_rate: data.discount_rate as UpdateOfferRequestDiscountRate,
+      min_discount_amount: data.min_discount_amount,
+    });
   }
 
   return (

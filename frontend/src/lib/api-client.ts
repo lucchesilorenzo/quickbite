@@ -1,4 +1,8 @@
-import axios, { AxiosInstance, isAxiosError } from "axios";
+import axios, {
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+  isAxiosError,
+} from "axios";
 
 import env from "./env";
 
@@ -38,7 +42,12 @@ api.interceptors.response.use(
       throw new Error("An unexpected error occurred.");
     }
 
-    const originalRequest = error.config as any;
+    if (!error.config) {
+      throw new Error("An unexpected error occurred.");
+    }
+
+    const originalRequest: InternalAxiosRequestConfig & { _retry?: boolean } =
+      error.config;
 
     if (
       error.response?.status === 401 &&

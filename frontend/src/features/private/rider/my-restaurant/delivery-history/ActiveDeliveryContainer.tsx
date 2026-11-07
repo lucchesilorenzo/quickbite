@@ -21,7 +21,7 @@ export default function ActiveDeliveryContainer() {
     return <FullPageErrorMessage message={activeDeliveryError.message} />;
   }
 
-  if (!activeDeliveryData?.delivery) {
+  if (!activeDeliveryData?.data) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center" }}>
         No active delivery yet.
@@ -29,5 +29,5 @@ export default function ActiveDeliveryContainer() {
     );
   }
 
-  return <DeliveryItem delivery={activeDeliveryData.delivery} />;
+  return <DeliveryItem delivery={activeDeliveryData.data} />;
 }

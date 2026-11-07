@@ -16,7 +16,7 @@ export default function RiderDeliveriesHistoryPage() {
   return (
     <Container component="main" maxWidth="md" sx={{ my: 3 }}>
       <HeadingBlock
-        title={restaurantData?.restaurant?.name || "My restaurant"}
+        title={restaurantData?.data?.name || "My restaurant"}
         description="View your delivery history"
         backButton
       />

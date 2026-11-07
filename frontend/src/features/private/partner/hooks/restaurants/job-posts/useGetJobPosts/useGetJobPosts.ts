@@ -1,8 +1,9 @@
 import { GridFilterModel, GridSortModel } from "@mui/x-data-grid";
-import { GetJobPostsResponse } from "@partner/types/job-posts/job-post.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
+import { GetPartnerJobPosts200, GetPartnerJobPostsParams } from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetJobPostsOptions = {
   restaurantId: string;
@@ -22,7 +23,7 @@ export function useGetJobPosts({
   const sortField = sortBy[0]?.field;
   const sortOrder = sortBy[0]?.sort;
 
-  return useQuery<GetJobPostsResponse>({
+  return useQuery<GetPartnerJobPosts200>({
     queryKey: [
       "partner-job-posts",
       restaurantId,
@@ -32,38 +33,33 @@ export function useGetJobPosts({
       sortOrder,
       filters,
     ],
-    queryFn: () => {
-      const params = new URLSearchParams();
-
-      if (page) {
-        params.append("page", page.toString());
-      }
-
-      if (pageSize) {
-        params.append("page_size", pageSize.toString());
-      }
+    queryFn: async () => {
+      const params: GetPartnerJobPostsParams = {
+        page,
+        page_size: pageSize as GetPartnerJobPostsParams["page_size"],
+      };
 
       if (sortField && sortOrder) {
-        params.append(
-          "sort_by",
-          JSON.stringify({ field: sortField, sort: sortOrder }),
-        );
+        params.sort_by = JSON.stringify({ field: sortField, sort: sortOrder });
       }
 
       if (filters.items?.length && filters.items.length > 0) {
-        params.append("filter", JSON.stringify(filters.items[0]));
+        params.filter = JSON.stringify(filters.items[0]);
       }
 
       if (
         Array.isArray(filters.quickFilterValues) &&
         filters.quickFilterValues.length > 0
       ) {
-        params.append("search", filters.quickFilterValues[0]);
+        params.search = filters.quickFilterValues[0];
       }
 
-      return fetchData(
-        `/partner/restaurants/${restaurantId}/job-posts?${params.toString()}`,
+      const response = await getPartnerJobPosts(api).getPartnerJobPosts(
+        restaurantId,
+        params,
       );
+
+      return response.data;
     },
     enabled: !!restaurantId,
   });

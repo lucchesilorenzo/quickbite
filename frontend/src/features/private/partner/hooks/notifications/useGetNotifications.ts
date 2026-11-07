@@ -1,7 +1,8 @@
-import { GetNotificationsResponse } from "@partner/types/notifications/notification.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getPartnerNotifications } from "@/api/endpoints/partner-notifications/partner-notifications";
+import { GetPartnerNotifications200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetNotificationsOptions = {
   userId?: string;
@@ -14,12 +15,15 @@ export function useGetNotifications({
   restaurantId,
   page = 1,
 }: UseGetNotificationsOptions) {
-  return useQuery<GetNotificationsResponse>({
+  return useQuery<GetPartnerNotifications200>({
     queryKey: ["partner-notifications", restaurantId, page],
-    queryFn: () =>
-      fetchData(
-        `/partner/restaurants/${restaurantId}/notifications?page=${page}`,
-      ),
+    queryFn: async () => {
+      const response = await getPartnerNotifications(
+        api,
+      ).getPartnerNotifications(restaurantId ?? "", { page });
+
+      return response.data;
+    },
     enabled: !!userId && !!restaurantId,
   });
 }

@@ -11,7 +11,7 @@ export default function RiderHasRestaurant() {
     return <Spinner />;
   }
 
-  if (restaurantError || !restaurantData?.restaurant?.pivot?.is_active) {
+  if (restaurantError || !restaurantData?.data?.pivot?.is_active) {
     return <Navigate to="/rider/job-posts" replace />;
   }
 

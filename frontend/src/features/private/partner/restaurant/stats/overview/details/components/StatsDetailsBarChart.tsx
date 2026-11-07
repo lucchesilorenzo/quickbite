@@ -40,7 +40,7 @@ export default function StatsDetailsBarChart({
         {
           scaleType: "band",
           disableTicks: true,
-          data: statsData.stats.map((d) => d.period),
+          data: statsData?.stats.map((d) => d.period) ?? [],
           label: label,
           offset: 15,
           tickLabelStyle: { fontSize: 11, textTransform: "uppercase" },
@@ -53,14 +53,14 @@ export default function StatsDetailsBarChart({
           type: "bar",
           id: barId,
           label: barLabel,
-          data: statsData.stats.map((d) => d.value),
+          data: statsData?.stats.map((d) => d.value) ?? [],
           stack: "total",
         },
         {
           type: "bar",
           id: "total",
           label: "Total",
-          data: statsData.stats.map((d) => d.total),
+          data: statsData?.stats.map((d) => d.total) ?? [],
           stack: "total",
         },
       ]}

@@ -1,8 +1,12 @@
 import { GridFilterModel, GridSortModel } from "@mui/x-data-grid";
-import { GetJobApplicationsResponse } from "@partner/types/job-applications/job-application.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getPartnerJobApplications } from "@/api/endpoints/partner-job-applications/partner-job-applications";
+import {
+  GetPartnerJobApplications200,
+  GetPartnerJobApplicationsParams,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseGetJobApplicationsOptions = {
   jobPostId?: string;
@@ -22,7 +26,7 @@ export function useGetJobApplications({
   const sortField = sortBy[0]?.field;
   const sortOrder = sortBy[0]?.sort;
 
-  return useQuery<GetJobApplicationsResponse>({
+  return useQuery<GetPartnerJobApplications200>({
     queryKey: [
       "partner-job-applications",
       jobPostId,
@@ -32,38 +36,32 @@ export function useGetJobApplications({
       sortOrder,
       filters,
     ],
-    queryFn: () => {
-      const params = new URLSearchParams();
-
-      if (page) {
-        params.append("page", page.toString());
-      }
-
-      if (pageSize) {
-        params.append("page_size", pageSize.toString());
-      }
+    queryFn: async () => {
+      const params: GetPartnerJobApplicationsParams = {
+        page,
+        page_size: pageSize as GetPartnerJobApplicationsParams["page_size"],
+      };
 
       if (sortField && sortOrder) {
-        params.append(
-          "sort_by",
-          JSON.stringify({ field: sortField, sort: sortOrder }),
-        );
+        params.sort_by = JSON.stringify({ field: sortField, sort: sortOrder });
       }
 
       if (filters.items?.length && filters.items.length > 0) {
-        params.append("filter", JSON.stringify(filters.items[0]));
+        params.filter = JSON.stringify(filters.items[0]);
       }
 
       if (
         Array.isArray(filters.quickFilterValues) &&
         filters.quickFilterValues.length > 0
       ) {
-        params.append("search", filters.quickFilterValues[0]);
+        params.search = filters.quickFilterValues[0];
       }
 
-      return fetchData(
-        `/partner/job-posts/${jobPostId}/applications?${params.toString()}`,
-      );
+      const response = await getPartnerJobApplications(
+        api,
+      ).getPartnerJobApplications(jobPostId ?? "", params);
+
+      return response.data;
     },
     enabled: !!jobPostId,
   });

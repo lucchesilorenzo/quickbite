@@ -1,11 +1,12 @@
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { UserNotification } from "@partner/types/notifications/notification.types";
 import { formatDistanceToNow } from "date-fns";
 
+import { NotificationResource } from "@/api/models";
+
 type NotificationItemProps = {
-  notification: UserNotification;
+  notification: NotificationResource;
 };
 
 export default function NotificationItem({
@@ -31,9 +32,10 @@ export default function NotificationItem({
         <Typography variant="body2">{notification.data.description}</Typography>
 
         <Typography variant="body2">
-          {formatDistanceToNow(notification.created_at, {
-            addSuffix: true,
-          })}
+          {notification.created_at &&
+            formatDistanceToNow(notification.created_at, {
+              addSuffix: true,
+            })}
         </Typography>
       </Stack>
     </Alert>

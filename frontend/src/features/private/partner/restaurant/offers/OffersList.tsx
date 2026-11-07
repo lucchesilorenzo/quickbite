@@ -19,7 +19,7 @@ export default function OffersList() {
     data: offersData,
     isLoading: isLoadingOffers,
     error: offersError,
-  } = useGetOffers({ restaurantId: restaurantData.restaurant.id, page });
+  } = useGetOffers({ restaurantId: restaurantData.data.id, page });
 
   if (isLoadingOffers) {
     return <Spinner />;
@@ -29,7 +29,7 @@ export default function OffersList() {
     return <FullPageErrorMessage message={offersError.message} />;
   }
 
-  if (!offersData?.offers.data.length) {
+  if (!offersData?.data.length) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center" }}>
         Start adding your offers here.
@@ -40,11 +40,11 @@ export default function OffersList() {
   return (
     <Stack spacing={4}>
       <Grid container spacing={2} sx={{ mb: 2 }}>
-        {offersData.offers.data.map((offer, i) => (
+        {(offersData?.data ?? []).map((offer, i) => (
           <Grid key={offer.id} size={{ xs: 12, sm: 6 }}>
             <OffersItem
               offer={offer}
-              hasSibling={i % 2 === 0 && !!offersData.offers.data[i + 1]}
+              hasSibling={i % 2 === 0 && !!offersData.data[i + 1]}
             />
           </Grid>
         ))}
@@ -53,7 +53,7 @@ export default function OffersList() {
       <Box sx={{ alignSelf: "center" }}>
         <CustomPagination
           page={page}
-          totalPages={offersData.offers.last_page}
+          totalPages={offersData.meta.last_page}
           setPage={setPage}
         />
       </Box>

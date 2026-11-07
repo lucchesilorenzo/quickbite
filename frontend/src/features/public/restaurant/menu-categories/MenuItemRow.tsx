@@ -17,11 +17,11 @@ import MenuItemAddButton from "../components/MenuItemAddButton";
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 
+import { MenuItemResource } from "@/api/models";
 import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting.utils";
-import { MenuItemResource } from "@/api/models";
 
 type MenuItemRowProps = {
   menuItem: MenuItemResource;

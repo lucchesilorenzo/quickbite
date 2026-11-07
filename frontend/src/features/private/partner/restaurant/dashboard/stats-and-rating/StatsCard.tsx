@@ -5,40 +5,35 @@ import { useGetDashboardStats } from "@partner/hooks/restaurants/stats/useGetDas
 import StatsCardItem from "./StatsCardItem";
 
 import Spinner from "@/components/common/Spinner";
-import { dashboardStatsDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
 
 export default function StatsCard() {
   const { restaurantData } = useRestaurant();
 
   const {
-    data: dashboardStatData = {
-      success: false,
-      message: "",
-      ...dashboardStatsDefaults,
-    },
+    data: dashboardStatData,
     isLoading: isLoadingDashboardStats,
     error: dashboardStatsError,
-  } = useGetDashboardStats({ restaurantId: restaurantData.restaurant.id });
+  } = useGetDashboardStats({ restaurantId: restaurantData.data.id });
 
   const computedStats = [
     {
       title: "Today's earnings",
-      value: dashboardStatData.earnings_today,
+      value: dashboardStatData?.earnings_today ?? 0,
       currency: true,
     },
     {
       title: "Pending orders",
-      value: dashboardStatData.pending_orders,
+      value: dashboardStatData?.pending_orders ?? 0,
       currency: false,
     },
     {
       title: "Accepted orders",
-      value: dashboardStatData.accepted_orders,
+      value: dashboardStatData?.accepted_orders ?? 0,
       currency: false,
     },
     {
       title: "Rejected orders",
-      value: dashboardStatData.rejected_orders,
+      value: dashboardStatData?.rejected_orders ?? 0,
       currency: false,
     },
   ];

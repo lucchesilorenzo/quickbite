@@ -4,13 +4,14 @@
  * QuickBite
  * OpenAPI spec version: 0.0.1
  */
+import type { NotificationResourceData } from "./notificationResourceData";
 
 export interface NotificationResource {
   id: string;
   type: string;
   notifiable_type: string;
   notifiable_id: string;
-  data: unknown[];
+  data: NotificationResourceData;
   /** @nullable */
   read_at: string | null;
   /** @nullable */

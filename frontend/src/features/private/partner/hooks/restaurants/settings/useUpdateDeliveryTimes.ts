@@ -1,11 +1,12 @@
-import {
-  UpdateDeliveryTimesRequest,
-  UpdateDeliveryTimesResponse,
-} from "@partner/types/settings/settings.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partner-restaurants";
+import {
+  UpdateDeliveryTimesRequest,
+  UpdatePartnerRestaurantDeliveryTimes200,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseUpdateDeliveryTimesOptions = {
   restaurantId: string;
@@ -18,15 +19,17 @@ export function useUpdateDeliveryTimes({
   const notifications = useNotifications();
 
   return useMutation<
-    UpdateDeliveryTimesResponse,
+    UpdatePartnerRestaurantDeliveryTimes200,
     Error,
     UpdateDeliveryTimesRequest
   >({
-    mutationFn: (data) =>
-      updateData(
-        `/partner/restaurants/${restaurantId}/settings/delivery-times`,
-        data,
-      ),
+    mutationFn: async (data) => {
+      const response = await getPartnerRestaurants(
+        api,
+      ).updatePartnerRestaurantDeliveryTimes(restaurantId, data);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-restaurant", restaurantId],

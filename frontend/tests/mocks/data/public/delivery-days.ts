@@ -1,6 +1,6 @@
-import { DeliveryDay } from "@/types/deliveries/delivery.types";
+import { DeliveryDayResource } from "@/api/models";
 
-export const deliveryDays: DeliveryDay[] = [
+export const deliveryDays: DeliveryDayResource[] = [
   {
     id: "0199e1dc-7956-7012-ad7f-ee28a36f0f49",
     restaurant_id: "a01c3a1f-5f95-45e7-8cc8-4c7bcda56d46",

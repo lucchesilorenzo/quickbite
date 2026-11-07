@@ -11,7 +11,7 @@ export default function RestaurantWelcome() {
       </Typography>
 
       <Typography variant="h6" sx={{ fontWeight: 500 }}>
-        {restaurantData.restaurant.name}
+        {restaurantData.data.name}
       </Typography>
     </Box>
   );

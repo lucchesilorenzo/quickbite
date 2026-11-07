@@ -1,12 +1,13 @@
-import {
-  UpdateDeliveryStatusRequest,
-  UpdateDeliveryStatusResponse,
-} from "@rider/types/deliveries/delivery.api.types";
-import { OrderStatus } from "@rider/types/orders/order.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { getRiderDeliveries } from "@/api/endpoints/rider-deliveries/rider-deliveries";
+import { OrderStatus } from "@/api/models";
+import {
+  UpdateDeliveryStatusRequest,
+  UpdateRiderDeliveryStatus200,
+} from "@/api/models";
+import api from "@/lib/api-client";
 
 type UseUpdateDeliveryStatusOptions = {
   deliveryId: string;
@@ -21,18 +22,26 @@ export function useUpdateDeliveryStatus({
   const notifications = useNotifications();
 
   return useMutation<
-    UpdateDeliveryStatusResponse,
+    UpdateRiderDeliveryStatus200,
     Error,
     UpdateDeliveryStatusRequest
   >({
-    mutationFn: (data) =>
-      updateData(`/rider/restaurant/deliveries/${deliveryId}/status`, data),
+    mutationFn: async (data) => {
+      const response = await getRiderDeliveries(api).updateRiderDeliveryStatus(
+        deliveryId,
+        data,
+      );
+
+      return response.data;
+    },
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ["rider-deliveries"],
       });
 
-      setSelectedStatus(data.delivery.order.status);
+      if (data.data.order) {
+        setSelectedStatus(data.data.order.status);
+      }
 
       notifications.show(data.message, {
         key: "rider-update-delivery-status-success",

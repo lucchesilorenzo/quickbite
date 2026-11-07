@@ -1,21 +1,20 @@
 import { Badge } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { PartnerMenu } from "@partner/types/menu/menu.types";
 
-import { MenuCategoryResource, MenuItemResource } from "@/api/models";
+import { MenuItemResource } from "@/api/models";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 type MenuItemQuantityInCartBadgeProps = {
   type: "from-list" | "from-search";
   menuItem?: MenuItemResource;
-  menuCategory?: MenuCategoryResource | PartnerMenu;
+  menuItems?: MenuItemResource[];
 };
 
 export default function MenuItemQuantityInCartBadge({
   type,
   menuItem,
-  menuCategory,
+  menuItems,
 }: MenuItemQuantityInCartBadgeProps) {
   const { restaurantData } = useRestaurant();
   const { getItem } = useMultiCart();
@@ -23,17 +22,13 @@ export default function MenuItemQuantityInCartBadge({
   const menuItemQuantity =
     menuItem && getItem(restaurantData.data.id, menuItem.id)?.quantity;
 
-  const menuCategoryItems = Array.isArray(menuCategory?.menu_items)
-    ? menuCategory.menu_items
-    : (menuCategory?.menu_items?.data ?? []);
-
-  const menuCategoryQuantity = menuCategoryItems.reduce((acc, item) => {
+  const menuItemsQuantity = (menuItems ?? []).reduce((acc, item) => {
     const quantity = getItem(restaurantData.data.id, item.id)?.quantity ?? 0;
 
     return acc + quantity;
   }, 0);
 
-  const badgeContent = menuItemQuantity || menuCategoryQuantity;
+  const badgeContent = menuItemQuantity || menuItemsQuantity;
 
   return (
     <Badge

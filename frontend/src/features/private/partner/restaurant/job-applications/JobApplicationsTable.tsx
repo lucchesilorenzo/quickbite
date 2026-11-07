@@ -17,7 +17,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import { useGetJobApplications } from "../../hooks/restaurants/job-applications/useGetJobApplications";
-import { jobApplicationsDefaults } from "../../lib/data/defaults/query.defaults";
 import ConfirmJobApplicationDialog from "./ConfirmJobApplicationDialog";
 
 import env from "@/lib/env";
@@ -42,11 +41,7 @@ export default function JobApplicationsTable() {
   const notifications = useNotifications();
 
   const {
-    data: jobApplicationsData = {
-      success: false,
-      message: "",
-      job_applications: jobApplicationsDefaults,
-    },
+    data: jobApplicationsData,
     isLoading: isLoadingJobApplications,
     error: jobApplicationsError,
   } = useGetJobApplications({
@@ -192,8 +187,8 @@ export default function JobApplicationsTable() {
     },
   ];
 
-  const rows: GridRowsProp = jobApplicationsData.job_applications.data.map(
-    (jobApplication) => ({
+  const rows: GridRowsProp =
+    jobApplicationsData?.data?.map((jobApplication) => ({
       id: jobApplication.id,
       first_name: jobApplication.first_name,
       last_name: jobApplication.last_name,
@@ -201,8 +196,7 @@ export default function JobApplicationsTable() {
       phone_number: jobApplication.phone_number,
       resume: jobApplication.resume,
       status: jobApplication.status,
-    }),
-  );
+    })) ?? [];
 
   if (jobApplicationsError) {
     notifications.show(jobApplicationsError.message, {
@@ -228,7 +222,7 @@ export default function JobApplicationsTable() {
           paginationMode="server"
           sortingMode="server"
           filterMode="server"
-          rowCount={jobApplicationsData.job_applications.total}
+          rowCount={jobApplicationsData?.meta.total}
           paginationModel={paginationModel}
           sortModel={sortModel}
           filterModel={filterModel}

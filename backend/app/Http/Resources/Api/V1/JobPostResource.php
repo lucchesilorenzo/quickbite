@@ -33,6 +33,10 @@ class JobPostResource extends JsonResource
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'job_applications_count' => $this->whenCounted(
+                'jobApplications',
+                fn (): int => (int) $this->job_applications_count
+            ),
             'already_applied' => $this->when(
                 isset($this->already_applied),
                 fn (): bool => (bool) $this->already_applied

@@ -1,8 +1,9 @@
 import { Box, Divider, Typography } from "@mui/material";
-import { type OrderItem } from "@private/shared/types/order.types";
+
+import { OrderItemResource } from "@/api/models";
 
 type OrderItemProps = {
-  item: OrderItem;
+  item: OrderItemResource;
   isLast: boolean;
 };
 

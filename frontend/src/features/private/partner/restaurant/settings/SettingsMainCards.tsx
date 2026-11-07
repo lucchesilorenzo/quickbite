@@ -14,19 +14,19 @@ export default function SettingsMainCards() {
       title: "Fees",
       description: "Set your delivery, service and minimum order fees",
       icon: ShoppingBagOutlinedIcon,
-      href: `/partner/restaurants/${restaurantData.restaurant.id}/settings/fees`,
+      href: `/partner/restaurants/${restaurantData.data.id}/settings/fees`,
     },
     {
       title: "Delivery times",
       description: "Configure your delivery time slots and availability",
       icon: WatchLaterOutlinedIcon,
-      href: `/partner/restaurants/${restaurantData.restaurant.id}/settings/delivery-times`,
+      href: `/partner/restaurants/${restaurantData.data.id}/settings/delivery-times`,
     },
     {
       title: "Restaurant info",
       description: "Update your logo, contact info and details",
       icon: StoreOutlinedIcon,
-      href: `/partner/restaurants/${restaurantData.restaurant.id}/settings/info`,
+      href: `/partner/restaurants/${restaurantData.data.id}/settings/info`,
     },
   ];
 

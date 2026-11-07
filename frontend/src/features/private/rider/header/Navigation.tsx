@@ -30,8 +30,7 @@ export default function Navigation() {
 
   const visibleRoutes = riderRoutes.filter(
     ({ href }) =>
-      href !== "/rider/my-restaurant" ||
-      restaurantData?.restaurant?.pivot.is_active,
+      href !== "/rider/my-restaurant" || restaurantData?.data?.pivot?.is_active,
   );
 
   const activeTabValue = visibleRoutes.find((route) =>

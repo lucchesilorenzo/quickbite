@@ -7,12 +7,13 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { Order } from "@private/shared/types/order.types";
 
 import AddReviewForm from "./AddReviewForm";
 
+import { OrderResource } from "@/api/models";
+
 type AddReviewDialogProps = {
-  order: Order;
+  order: OrderResource;
   openAddReviewDialog: boolean;
   setOpenAddReviewDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

@@ -12,7 +12,7 @@ describe("ViewOrderItemsList", () => {
     renderComponent();
 
     expect(screen.getByText(/your items/i)).toBeInTheDocument();
-    order.order_items.forEach((item) => {
+    order.order_items?.forEach((item) => {
       expect(screen.getByText(item.name)).toBeInTheDocument();
     });
   });

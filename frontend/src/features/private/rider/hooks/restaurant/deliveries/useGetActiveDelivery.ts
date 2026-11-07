@@ -1,11 +1,16 @@
-import { GetActiveDeliveryResponse } from "@rider/types/deliveries/delivery.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getRiderDeliveries } from "@/api/endpoints/rider-deliveries/rider-deliveries";
+import { GetRiderActiveDelivery200 } from "@/api/models";
+import api from "@/lib/api-client";
 
 export function useGetActiveDelivery() {
-  return useQuery<GetActiveDeliveryResponse>({
+  return useQuery<GetRiderActiveDelivery200>({
     queryKey: ["rider-deliveries"],
-    queryFn: () => fetchData(`/rider/restaurant/deliveries/active`),
+    queryFn: async () => {
+      const response = await getRiderDeliveries(api).getRiderActiveDelivery();
+
+      return response.data;
+    },
   });
 }

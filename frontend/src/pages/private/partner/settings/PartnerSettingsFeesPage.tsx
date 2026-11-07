@@ -20,17 +20,17 @@ export default function PartnerSettingsFeesPage() {
   const { restaurantData } = useRestaurant();
 
   const { mutate: updateFees, isPending: isUpdating } = useUpdateFees({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
   });
 
   const methods = useForm({
     resolver: zodResolver(restaurantSettingsFeesFormSchema),
     defaultValues: {
-      delivery_fee: restaurantData.restaurant.delivery_fee,
-      min_delivery_time: restaurantData.restaurant.min_delivery_time || "",
-      max_delivery_time: restaurantData.restaurant.max_delivery_time || "",
-      service_fee: restaurantData.restaurant.service_fee,
-      min_amount: restaurantData.restaurant.min_amount,
+      delivery_fee: restaurantData.data.delivery_fee,
+      min_delivery_time: restaurantData.data.min_delivery_time || "",
+      max_delivery_time: restaurantData.data.max_delivery_time || "",
+      service_fee: restaurantData.data.service_fee,
+      min_amount: restaurantData.data.min_amount,
     },
   });
 

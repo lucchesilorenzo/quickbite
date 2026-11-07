@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import {
   DndContext,
@@ -19,20 +19,21 @@ import MenuCategoryItem from "./MenuCategoryItem";
 
 import FullPageErrorMessage from "@/components/common/FullPageErrorMessage";
 import Spinner from "@/components/common/Spinner";
-import { menuDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
 
 export default function MenuCategoriesList() {
   const { restaurantData } = useRestaurant();
 
   const {
-    data: menuData = { success: false, message: "", menu: menuDefaults },
+    data: menuData,
     isLoading: isLoadingMenu,
     error: menuError,
-  } = useGetMenu({ restaurantId: restaurantData.restaurant.id });
+  } = useGetMenu({ restaurantId: restaurantData.data.id });
+
+  const menuCategories = menuData?.data;
 
   const { mutate: updateMenuCategoriesOrder, isPending: isUpdating } =
     useUpdateMenuCategoriesOrder({
-      restaurantId: restaurantData.restaurant.id,
+      restaurantId: restaurantData.data.id,
     });
 
   const debounceUpdateRestaurantMenuCategoriesOrder = useMemo(
@@ -40,16 +41,20 @@ export default function MenuCategoriesList() {
     [updateMenuCategoriesOrder],
   );
 
-  const [items, setItems] = useState(menuData.menu);
+  const [items, setItems] = useState(menuCategories ?? []);
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
     useSensor(KeyboardSensor),
   );
 
-  useEffect(() => {
-    setItems(menuData.menu);
-  }, [menuData]);
+  const [previousMenuCategories, setPreviousMenuCategories] =
+    useState(menuCategories);
+
+  if (menuCategories !== previousMenuCategories) {
+    setPreviousMenuCategories(menuCategories);
+    setItems(menuCategories ?? []);
+  }
 
   async function handleMenuCategorySort({ active, over }: DragEndEvent) {
     if (active.id === over?.id) return;
@@ -78,7 +83,7 @@ export default function MenuCategoriesList() {
     return <FullPageErrorMessage message={menuError.message} />;
   }
 
-  if (!menuData.menu.length) {
+  if (!menuCategories?.length) {
     return (
       <Typography variant="body1" sx={{ textAlign: "center", mt: 3 }}>
         Start adding your menu categories here.

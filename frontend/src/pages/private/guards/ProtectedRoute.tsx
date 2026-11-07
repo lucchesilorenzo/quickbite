@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
 
+import { UserRole } from "@/api/models";
 import { useAuth } from "@/contexts/AuthProvider";
 import { hasRole } from "@/lib/utils/auth.utils";
-import { Role } from "@/types/user.types";
 
 type ProtectedRouteProps = {
-  allowedRoles: Role[];
+  allowedRoles: UserRole[];
 };
 
 export default function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {

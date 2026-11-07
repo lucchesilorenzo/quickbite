@@ -1,13 +1,16 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-import { Delivery } from "../../types/deliveries/delivery.types";
 import OrderItem from "./OrderItem";
 
+import { DeliveryResource } from "@/api/models";
+
 type OrderItemsListProps = {
-  delivery: Delivery;
+  delivery: DeliveryResource;
 };
 
 export default function OrderItemsList({ delivery }: OrderItemsListProps) {
+  const orderItems = delivery.order?.order_items ?? [];
+
   return (
     <Box sx={{ my: 1, minWidth: 300 }}>
       <Typography
@@ -19,11 +22,11 @@ export default function OrderItemsList({ delivery }: OrderItemsListProps) {
       </Typography>
 
       <Stack spacing={1} sx={{ px: 2, maxHeight: 300, overflowY: "auto" }}>
-        {delivery.order.order_items.map((item, index) => (
+        {orderItems.map((item, index) => (
           <OrderItem
             key={item.id}
             item={item}
-            isLast={index === delivery.order.order_items.length - 1}
+            isLast={index === orderItems.length - 1}
           />
         ))}
       </Stack>

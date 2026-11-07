@@ -56,8 +56,8 @@ export default function InfoMainFormSection() {
     } else if (typeof fileOrPath === "string") {
       setPreviewImageFile(
         type === "logo"
-          ? restaurantData.restaurant.logo_url
-          : restaurantData.restaurant.cover_url,
+          ? restaurantData.data.logo_url
+          : restaurantData.data.cover_url,
       );
     }
 

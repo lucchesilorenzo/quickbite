@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
 import { Pagination, useMediaQuery } from "@mui/material";
-import { OrderStatusWithAll } from "@private/shared/types/order.types";
 import { useSearchParams } from "react-router-dom";
 
+import { OrderStatusWithAll } from "@/types/order.types";
 import { PaginationContext } from "@/types/pagination.types";
 
 type CustomPaginationProps = {
@@ -35,7 +35,7 @@ export default function CustomPagination({
     }
   }, [searchParams, totalPages, context, setPage]);
 
-  function handlePageChange(_e: React.ChangeEvent<unknown>, page: number) {
+  function handlePageChange(page: number) {
     setPage(page);
     setSearchParams(
       {
@@ -56,7 +56,7 @@ export default function CustomPagination({
       color="primary"
       count={totalPages}
       page={page}
-      onChange={(_e, page) => handlePageChange(_e, page)}
+      onChange={(_e, page) => handlePageChange(page)}
     />
   );
 }

@@ -14,13 +14,19 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useUpdateJobPost } from "@partner/hooks/restaurants/job-posts/useUpdateJobPost";
 import {
   TEditJobPostFormSchema,
+  TEditJobPostFormValues,
   editJobPostFormSchema,
 } from "@partner/schemas/job-posts.schema";
-import { JobPost } from "@private/shared/types/job-posts/job-post.types";
 import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";
 
+import {
+  EmploymentType,
+  JobPostResource,
+  JobPostStatus,
+  VehicleType,
+} from "@/api/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import {
   employmentTypes,
@@ -29,7 +35,7 @@ import {
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 
 type EditJobPostFormProps = {
-  jobPost?: JobPost;
+  jobPost?: JobPostResource;
   setOpenEditJobPostDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -40,7 +46,7 @@ export default function EditJobPostForm({
   const { restaurantData } = useRestaurant();
 
   const { mutate: updateJobPost, isPending: isUpdating } = useUpdateJobPost({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     jobPostId: jobPost?.id,
     setOpenEditJobPostDialog,
   });
@@ -50,7 +56,11 @@ export default function EditJobPostForm({
     setValue,
     control,
     formState: { isSubmitting, errors },
-  } = useForm({
+  } = useForm<
+    TEditJobPostFormValues,
+    Record<string, never>,
+    TEditJobPostFormSchema
+  >({
     resolver: zodResolver(editJobPostFormSchema),
     defaultValues: {
       title: jobPost?.title || "",
@@ -64,7 +74,12 @@ export default function EditJobPostForm({
   });
 
   function onSubmit(data: TEditJobPostFormSchema) {
-    updateJobPost(data);
+    updateJobPost({
+      ...data,
+      employment_type: data.employment_type as EmploymentType,
+      vehicle_type: data.vehicle_type as VehicleType,
+      status: data.status as JobPostStatus,
+    });
   }
 
   return (

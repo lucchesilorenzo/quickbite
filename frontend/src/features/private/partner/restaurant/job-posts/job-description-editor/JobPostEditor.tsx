@@ -18,23 +18,23 @@ import {
   MenuSelectTextAlign,
   RichTextEditor,
 } from "mui-tiptap";
-import { UseFormSetValue } from "react-hook-form";
+import { FieldValues, Path, UseFormSetValue } from "react-hook-form";
 
 import CharacterCountDisplay from "./CharacterCountDisplay";
 
-type JobPostEditorProps = {
+type JobPostEditorProps<TForm extends FieldValues> = {
   value: string;
   descriptionError?: string;
   onChange: (value: string) => void;
-  setValue: UseFormSetValue<any>;
+  setValue: UseFormSetValue<TForm>;
 };
 
-export default function JobPostEditor({
+export default function JobPostEditor<TForm extends FieldValues>({
   value,
   descriptionError,
   onChange,
   setValue,
-}: JobPostEditorProps) {
+}: JobPostEditorProps<TForm>) {
   const [characterCount, setCharacterCount] = useState(0);
 
   return (
@@ -56,7 +56,10 @@ export default function JobPostEditor({
         content={value}
         onUpdate={({ editor }) => {
           onChange(editor.getHTML());
-          setValue("description_text", editor.getText().trim());
+          setValue(
+            "description_text" as Path<TForm>,
+            editor.getText().trim() as TForm[Path<TForm>],
+          );
           setCharacterCount(editor.storage.characterCount.characters());
         }}
         renderControls={() => (

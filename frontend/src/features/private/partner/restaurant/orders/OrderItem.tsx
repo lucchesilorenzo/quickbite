@@ -9,17 +9,17 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Order } from "@private/shared/types/order.types";
 import { format } from "date-fns";
 
 import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
 import ViewOrderDialog from "./ViewOrderDialog";
 
+import { OrderResource } from "@/api/models";
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type OrderItemProps = {
-  order: Order;
+  order: OrderResource;
 };
 
 export default function OrderItem({ order }: OrderItemProps) {
@@ -59,7 +59,8 @@ export default function OrderItem({ order }: OrderItemProps) {
               </Typography>
 
               <Typography variant="body2">
-                {format(new Date(order.created_at), "d MMMM yyyy 'at' HH:mm")}
+                {order.created_at &&
+                  format(new Date(order.created_at), "d MMMM yyyy 'at' HH:mm")}
               </Typography>
 
               <Typography variant="body2" gutterBottom>
