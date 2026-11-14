@@ -26,7 +26,7 @@ export function useUpdateFees({ restaurantId }: UseUpdateFeesOptions) {
     },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-restaurants", restaurantId],
       });
 
       notifications.show(response.message, {

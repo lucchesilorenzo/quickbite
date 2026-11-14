@@ -20,9 +20,9 @@ export function useLogout() {
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["auth"] });
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
+      queryClient.clear();
 
       navigate("/rider/auth/login");
     },

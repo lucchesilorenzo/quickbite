@@ -32,7 +32,7 @@ export function useUpdateDeliveryTimes({
     },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-restaurants", restaurantId],
       });
 
       notifications.show(response.message, {

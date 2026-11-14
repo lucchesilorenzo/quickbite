@@ -20,10 +20,10 @@ export function useLogout() {
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["auth"] });
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("checkout_data_by_restaurant");
+      queryClient.clear();
 
       navigate("/customer/auth/login");
     },

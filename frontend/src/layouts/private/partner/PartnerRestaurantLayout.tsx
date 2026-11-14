@@ -42,7 +42,7 @@ export default function PartnerRestaurantLayout() {
 
         if (pathname.includes("orders")) {
           queryClient.invalidateQueries({
-            queryKey: ["partner-orders", restaurantId, 1],
+            queryKey: ["partner-orders", restaurantId],
           });
         }
 
