@@ -9,9 +9,13 @@ import {
 import { grey } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
+import { useAuth } from "@/contexts/AuthProvider";
 import { footerLinks } from "@/lib/data/navigation.data";
+import { isCustomer } from "@/lib/utils/auth.utils";
 
 export default function Footer() {
+  const { user } = useAuth();
+
   return (
     <Stack
       id="footer"
@@ -26,24 +30,31 @@ export default function Footer() {
             justifyContent: "space-between",
           }}
         >
-          {footerLinks.map((link) => (
-            <ListItem
-              disableGutters
-              key={link.href}
-              component={Link}
-              to={link.href}
-              sx={{
-                width: "fit-content",
-                textDecoration: "none",
-                color: "inherit",
-                "&:hover": { textDecoration: "underline" },
-              }}
-            >
-              <ListItemText
-                primary={<Typography variant="body2">{link.label}</Typography>}
-              />
-            </ListItem>
-          ))}
+          {footerLinks
+            .filter(
+              (link) =>
+                !(isCustomer(user) && link.href === "/partner/auth/register"),
+            )
+            .map((link) => (
+              <ListItem
+                disableGutters
+                key={link.href}
+                component={Link}
+                to={link.href}
+                sx={{
+                  width: "fit-content",
+                  textDecoration: "none",
+                  color: "inherit",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                <ListItemText
+                  primary={
+                    <Typography variant="body2">{link.label}</Typography>
+                  }
+                />
+              </ListItem>
+            ))}
         </List>
 
         <Typography
