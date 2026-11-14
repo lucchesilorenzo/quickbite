@@ -27,7 +27,7 @@ export default function RestaurantCartMobile() {
     subtotal,
   );
 
-  const discount = subtotal * (bestOffer?.discount_rate || 0);
+  const discount = subtotal * Number(bestOffer?.discount_rate || 0);
 
   const total =
     subtotal +

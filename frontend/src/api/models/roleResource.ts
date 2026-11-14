@@ -10,8 +10,4 @@ export interface RoleResource {
   uuid: string;
   name: UserRole;
   guard_name: string;
-  /** @nullable */
-  created_at: string | null;
-  /** @nullable */
-  updated_at: string | null;
 }

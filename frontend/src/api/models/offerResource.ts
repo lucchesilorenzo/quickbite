@@ -4,11 +4,12 @@
  * QuickBite
  * OpenAPI spec version: 0.0.1
  */
+import type { DiscountRate } from "./discountRate";
 
 export interface OfferResource {
   id: string;
   restaurant_id: string;
-  discount_rate: number;
+  discount_rate: DiscountRate;
   min_discount_amount: number;
   /** @nullable */
   created_at: string | null;

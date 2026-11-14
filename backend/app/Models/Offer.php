@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\DiscountRate;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +34,7 @@ class Offer extends Model
     protected function casts(): array
     {
         return [
-            'discount_rate' => 'float',
+            'discount_rate' => DiscountRate::class,
             'min_discount_amount' => 'float',
         ];
     }

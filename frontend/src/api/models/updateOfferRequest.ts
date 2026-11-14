@@ -4,10 +4,10 @@
  * QuickBite
  * OpenAPI spec version: 0.0.1
  */
-import type { UpdateOfferRequestDiscountRate } from "./updateOfferRequestDiscountRate";
+import type { DiscountRate } from "./discountRate";
 
 export interface UpdateOfferRequest {
-  discount_rate: UpdateOfferRequestDiscountRate;
+  discount_rate: DiscountRate;
   /** @minimum 0 */
   min_discount_amount: number;
 }

@@ -13,6 +13,11 @@ export default defineConfig({
       client: "axios",
       httpClient: "axios",
       clean: true,
+      override: {
+        formData: {
+          arrayHandling: "serialize-with-brackets",
+        },
+      },
     },
   },
 });

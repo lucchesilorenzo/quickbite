@@ -43,7 +43,7 @@ export default function OffersItem({ offer, hasSibling }: OffersItemProps) {
         disableElevation
         onClick={() => setOpenEditOfferDialog(true)}
       >
-        {offer.discount_rate * 100}% off when you spend{" "}
+        {Number(offer.discount_rate) * 100}% off when you spend{" "}
         {formatCurrency(offer.min_discount_amount)} or more
       </Button>
 

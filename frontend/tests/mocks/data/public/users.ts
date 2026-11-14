@@ -30,8 +30,6 @@ export const user: UserResource = {
       uuid: "0199e1dc-77e8-70e3-b9c8-2e49d62b12e0",
       name: "customer",
       guard_name: "web",
-      created_at: "2025-10-14T08:35:46.000000Z",
-      updated_at: "2025-10-14T08:35:46.000000Z",
     },
   ],
 };

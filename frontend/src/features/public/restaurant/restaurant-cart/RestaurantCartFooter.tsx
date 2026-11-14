@@ -40,7 +40,7 @@ export default function RestaurantCartFooter() {
     subtotal,
   );
 
-  const discount = subtotal * (bestOffer?.discount_rate || 0);
+  const discount = subtotal * Number(bestOffer?.discount_rate || 0);
 
   const total =
     subtotal +
@@ -139,7 +139,7 @@ export default function RestaurantCartFooter() {
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
           <Typography variant="body2" component="div">
-            {bestOffer.discount_rate * 100}% off
+            {Number(bestOffer.discount_rate) * 100}% off
           </Typography>
 
           <Typography variant="body2" component="div">

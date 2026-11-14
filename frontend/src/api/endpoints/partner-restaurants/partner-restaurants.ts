@@ -97,7 +97,7 @@ export const getPartnerRestaurants = (
     formData.append(`email`, updateInfoRequest.email);
     formData.append(`phone_number`, updateInfoRequest.phone_number);
     updateInfoRequest.categories.forEach((value) =>
-      formData.append(`categories`, value),
+      formData.append(`categories[]`, value),
     );
     if (updateInfoRequest.logo !== undefined) {
       formData.append(`logo`, updateInfoRequest.logo);

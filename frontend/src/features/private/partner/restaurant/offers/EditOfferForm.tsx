@@ -17,7 +17,6 @@ import {
 } from "@partner/schemas/restaurant-settings.schema";
 import { Controller, useForm } from "react-hook-form";
 
-import { UpdateOfferRequestDiscountRate } from "@/api/models";
 import { OfferResource } from "@/api/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { discountRates } from "@/features/private/partner/lib/data/offers.data";
@@ -54,8 +53,10 @@ export default function EditOfferForm({
   });
 
   function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
+    if (data.discount_rate === "") return;
+
     updateOffer({
-      discount_rate: data.discount_rate as UpdateOfferRequestDiscountRate,
+      discount_rate: data.discount_rate,
       min_discount_amount: data.min_discount_amount,
     });
   }

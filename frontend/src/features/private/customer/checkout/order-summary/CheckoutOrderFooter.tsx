@@ -53,7 +53,8 @@ export default function CheckoutOrderFooter() {
 
   const isDeliveryFeeFree = cartData.data.restaurant.delivery_fee === 0;
 
-  const discount = cartData.data.cart_total * (bestOffer?.discount_rate || 0);
+  const discount =
+    cartData.data.cart_total * Number(bestOffer?.discount_rate || 0);
 
   const total =
     cartData.data.cart_total +
@@ -115,7 +116,7 @@ export default function CheckoutOrderFooter() {
       subtotal: cartData.data.cart_total,
       delivery_fee: cartData.data.restaurant.delivery_fee,
       service_fee: cartData.data.restaurant.service_fee,
-      discount_rate: bestOffer?.discount_rate || 0,
+      discount_rate: Number(bestOffer?.discount_rate || 0),
       discount,
       total,
     } satisfies CreateOrderRequest;
@@ -223,7 +224,7 @@ export default function CheckoutOrderFooter() {
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
           <Typography variant="body2" component="div">
-            {bestOffer.discount_rate * 100}% off
+            {Number(bestOffer.discount_rate) * 100}% off
           </Typography>
 
           <Typography variant="body2" component="div">

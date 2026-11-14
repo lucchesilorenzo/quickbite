@@ -60,7 +60,7 @@ export default function EditMenuItemForm({
       description: data.description,
       price: Number(data.price),
       image: data.image ? data.image[0] : undefined,
-      is_available: data.is_available,
+      is_available: (data.is_available ? "1" : "0") as unknown as boolean,
     });
   }
 

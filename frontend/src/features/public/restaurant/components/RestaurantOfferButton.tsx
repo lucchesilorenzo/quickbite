@@ -34,7 +34,7 @@ export default function RestaurantOfferButton({
       onClick={handleOpenAboutDialogAndOffersTab}
       fullWidth
     >
-      {offer.discount_rate * 100}% off when you spend{" "}
+      {Number(offer.discount_rate) * 100}% off when you spend{" "}
       {formatCurrency(offer.min_discount_amount)} or more
     </Button>
   );
