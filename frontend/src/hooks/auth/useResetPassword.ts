@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
+import { getPublicAuth } from "@/api/endpoints/public-auth/public-auth";
 import {
   ResetPassword200,
   ResetPassword400,
@@ -22,7 +22,7 @@ export function useResetPassword() {
     ResetPasswordRequest
   >({
     mutationFn: async (data) => {
-      const response = await getPrivateAuth(api).resetPassword(data);
+      const response = await getPublicAuth(api).resetPassword(data);
 
       return response.data;
     },

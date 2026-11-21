@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
     // === Public routes ===
-    require __DIR__ . '/public.php';
+    require __DIR__ . '/public/routes.php';
+    require __DIR__ . '/public/auth.php';
 
     // === Private routes ===
     require __DIR__ . '/private/auth.php';

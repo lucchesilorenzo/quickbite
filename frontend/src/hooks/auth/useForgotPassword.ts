@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
+import { getPublicAuth } from "@/api/endpoints/public-auth/public-auth";
 import {
   ForgotPassword200,
   ForgotPassword429,
@@ -26,7 +26,7 @@ export function useForgotPassword({
     ForgotPasswordRequest
   >({
     mutationFn: async (data) => {
-      const response = await getPrivateAuth(api).forgotPassword(data);
+      const response = await getPublicAuth(api).forgotPassword(data);
 
       return response.data;
     },
