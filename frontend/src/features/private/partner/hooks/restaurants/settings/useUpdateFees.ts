@@ -5,8 +5,10 @@ import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partn
 import {
   UpdateFeesRequest,
   UpdatePartnerRestaurantFees200,
+  UpdatePartnerRestaurantFees500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateFeesOptions = {
   restaurantId: string;
@@ -16,7 +18,11 @@ export function useUpdateFees({ restaurantId }: UseUpdateFeesOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdatePartnerRestaurantFees200, Error, UpdateFeesRequest>({
+  return useMutation<
+    UpdatePartnerRestaurantFees200,
+    ApiError<UpdatePartnerRestaurantFees500>,
+    UpdateFeesRequest
+  >({
     mutationFn: async (data) => {
       const response = await getPartnerRestaurants(
         api,

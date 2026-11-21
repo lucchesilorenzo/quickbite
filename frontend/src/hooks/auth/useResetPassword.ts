@@ -3,15 +3,24 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
-import { ResetPassword200, ResetPasswordRequest } from "@/api/models";
+import {
+  ResetPassword200,
+  ResetPassword400,
+  ResetPasswordRequest,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useResetPassword() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<ResetPassword200, Error, ResetPasswordRequest>({
+  return useMutation<
+    ResetPassword200,
+    ApiError<ResetPassword400>,
+    ResetPasswordRequest
+  >({
     mutationFn: async (data) => {
       const response = await getPrivateAuth(api).resetPassword(data);
 

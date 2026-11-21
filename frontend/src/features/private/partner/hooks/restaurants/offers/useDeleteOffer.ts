@@ -2,8 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { getPartnerOffers } from "@/api/endpoints/partner-offers/partner-offers";
-import { DeletePartnerOffer200 } from "@/api/models";
+import { DeletePartnerOffer200, DeletePartnerOffer500 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseDeleteOfferOptions = {
   restaurantId: string;
@@ -19,7 +20,11 @@ export function useDeleteOffer({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<DeletePartnerOffer200, Error, void>({
+  return useMutation<
+    DeletePartnerOffer200,
+    ApiError<DeletePartnerOffer500>,
+    void
+  >({
     mutationFn: async () => {
       const response = await getPartnerOffers(api).deletePartnerOffer(offerId);
 

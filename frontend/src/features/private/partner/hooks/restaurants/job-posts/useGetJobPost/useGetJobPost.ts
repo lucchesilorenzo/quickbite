@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
-import { GetPartnerJobPost200 } from "@/api/models";
+import { GetPartnerJobPost200, GetPartnerJobPost500 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetJobPostOptions = {
   restaurantId: string;
@@ -15,7 +16,7 @@ export function useGetJobPost({
   jobPostId,
   enabled,
 }: UseGetJobPostOptions) {
-  return useQuery<GetPartnerJobPost200>({
+  return useQuery<GetPartnerJobPost200, ApiError<GetPartnerJobPost500>>({
     queryKey: ["partner-job-posts", restaurantId, jobPostId],
     queryFn: async () => {
       const response = await getPartnerJobPosts(api).getPartnerJobPost(

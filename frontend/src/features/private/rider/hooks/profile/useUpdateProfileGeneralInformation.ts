@@ -5,8 +5,11 @@ import { getRiderProfile } from "@/api/endpoints/rider-profile/rider-profile";
 import {
   RiderUpdateProfileGeneralInformationRequest,
   UpdateRiderProfileGeneralInformation200,
+  UpdateRiderProfileGeneralInformation404,
+  UpdateRiderProfileGeneralInformation500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useUpdateProfileGeneralInformation() {
   const queryClient = useQueryClient();
@@ -14,7 +17,10 @@ export function useUpdateProfileGeneralInformation() {
 
   return useMutation<
     UpdateRiderProfileGeneralInformation200,
-    Error,
+    ApiError<
+      | UpdateRiderProfileGeneralInformation404
+      | UpdateRiderProfileGeneralInformation500
+    >,
     RiderUpdateProfileGeneralInformationRequest
   >({
     mutationFn: async (data) => {

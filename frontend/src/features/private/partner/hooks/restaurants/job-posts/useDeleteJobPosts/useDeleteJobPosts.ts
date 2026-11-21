@@ -5,9 +5,12 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
 import {
   DeletePartnerJobPosts200,
+  DeletePartnerJobPosts400,
+  DeletePartnerJobPosts500,
   DeletePartnerJobPostsParams,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseDeleteJobPostsOptions = {
   restaurantId: string;
@@ -23,7 +26,11 @@ export function useDeleteJobPosts({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<DeletePartnerJobPosts200, Error, void>({
+  return useMutation<
+    DeletePartnerJobPosts200,
+    ApiError<DeletePartnerJobPosts400 | DeletePartnerJobPosts500>,
+    void
+  >({
     mutationFn: async () => {
       const params: DeletePartnerJobPostsParams = {
         "ids[]": Array.from(jobPostIds ?? []).map((id) => id.toString()),

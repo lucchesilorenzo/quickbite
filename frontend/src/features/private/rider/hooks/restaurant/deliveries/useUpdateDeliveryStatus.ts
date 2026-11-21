@@ -2,12 +2,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { getRiderDeliveries } from "@/api/endpoints/rider-deliveries/rider-deliveries";
-import { OrderStatus } from "@/api/models";
+import {
+  OrderStatus,
+  UpdateRiderDeliveryStatus400,
+  UpdateRiderDeliveryStatus500,
+} from "@/api/models";
 import {
   UpdateDeliveryStatusRequest,
   UpdateRiderDeliveryStatus200,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateDeliveryStatusOptions = {
   deliveryId: string;
@@ -23,7 +28,7 @@ export function useUpdateDeliveryStatus({
 
   return useMutation<
     UpdateRiderDeliveryStatus200,
-    Error,
+    ApiError<UpdateRiderDeliveryStatus400 | UpdateRiderDeliveryStatus500>,
     UpdateDeliveryStatusRequest
   >({
     mutationFn: async (data) => {

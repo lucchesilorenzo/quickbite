@@ -5,8 +5,10 @@ import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partn
 import {
   UpdateDeliveryTimesRequest,
   UpdatePartnerRestaurantDeliveryTimes200,
+  UpdatePartnerRestaurantDeliveryTimes500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateDeliveryTimesOptions = {
   restaurantId: string;
@@ -20,7 +22,7 @@ export function useUpdateDeliveryTimes({
 
   return useMutation<
     UpdatePartnerRestaurantDeliveryTimes200,
-    Error,
+    ApiError<UpdatePartnerRestaurantDeliveryTimes500>,
     UpdateDeliveryTimesRequest
   >({
     mutationFn: async (data) => {

@@ -4,10 +4,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getRiderJobPosts } from "@/api/endpoints/rider-job-posts/rider-job-posts";
 import {
   GetRiderJobPosts200,
+  GetRiderJobPosts500,
   GetRiderJobPostsParams,
   GetRiderJobPostsSortBy,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export type UseGetJobPostsOptions = {
   search: string;
@@ -26,7 +28,7 @@ export function useGetJobPosts({
   employmentType,
   sortBy,
 }: UseGetJobPostsOptions) {
-  return useInfiniteQuery<GetRiderJobPosts200>({
+  return useInfiniteQuery<GetRiderJobPosts200, ApiError<GetRiderJobPosts500>>({
     queryKey: [
       "rider-job-posts",
       search,

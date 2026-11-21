@@ -5,8 +5,11 @@ import { getPartnerMenuCategories } from "@/api/endpoints/partner-menu-categorie
 import {
   UpdateMenuCategoriesOrderRequest,
   UpdatePartnerMenuCategoriesOrder200,
+  UpdatePartnerMenuCategoriesOrder404,
+  UpdatePartnerMenuCategoriesOrder500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateMenuCategoriesOrderOptions = {
   restaurantId: string;
@@ -20,7 +23,9 @@ export function useUpdateMenuCategoriesOrder({
 
   return useMutation<
     UpdatePartnerMenuCategoriesOrder200,
-    Error,
+    ApiError<
+      UpdatePartnerMenuCategoriesOrder404 | UpdatePartnerMenuCategoriesOrder500
+    >,
     UpdateMenuCategoriesOrderRequest
   >({
     mutationFn: async (data) => {

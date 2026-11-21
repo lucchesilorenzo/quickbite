@@ -6,8 +6,10 @@ import { getRiderJobApplications } from "@/api/endpoints/rider-job-applications/
 import {
   CreateJobApplicationRequest,
   CreateRiderJobApplication201,
+  CreateRiderJobApplication500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseCreateJobApplicationOptions = {
   jobPostId?: string;
@@ -22,7 +24,7 @@ export function useCreateJobApplication({
 
   return useMutation<
     CreateRiderJobApplication201,
-    Error,
+    ApiError<CreateRiderJobApplication500>,
     CreateJobApplicationRequest
   >({
     mutationFn: async (data) => {

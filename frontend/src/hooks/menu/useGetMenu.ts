@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getPublicMenu } from "@/api/endpoints/public-menu/public-menu";
-import { GetMenu200 } from "@/api/models";
+import { GetMenu200, GetMenu500 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetMenuOptions = {
   restaurantId: string;
@@ -10,7 +11,7 @@ type UseGetMenuOptions = {
 };
 
 export function useGetMenu({ restaurantId, page = 1 }: UseGetMenuOptions) {
-  return useQuery<GetMenu200>({
+  return useQuery<GetMenu200, ApiError<GetMenu500>>({
     queryKey: ["menu", restaurantId, page],
     queryFn: async () => {
       const response = await getPublicMenu(api).getMenu(restaurantId);

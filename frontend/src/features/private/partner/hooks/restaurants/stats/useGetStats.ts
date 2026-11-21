@@ -7,10 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getPartnerStats } from "@/api/endpoints/partner-stats/partner-stats";
 import {
   GetPartnerRestaurantStats200,
+  GetPartnerRestaurantStats500,
   GetPartnerRestaurantStatsParams,
   Kpi,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetStatsOptions = {
   restaurantId: string;
@@ -27,7 +29,10 @@ export function useGetStats({
   paymentMethod,
   year,
 }: UseGetStatsOptions) {
-  return useQuery<GetPartnerRestaurantStats200>({
+  return useQuery<
+    GetPartnerRestaurantStats200,
+    ApiError<GetPartnerRestaurantStats500>
+  >({
     queryKey: ["partner-stats", restaurantId, kpi, range, paymentMethod, year],
     queryFn: async () => {
       const params: GetPartnerRestaurantStatsParams = { kpi };

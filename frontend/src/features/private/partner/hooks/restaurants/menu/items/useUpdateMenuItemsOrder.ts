@@ -5,8 +5,11 @@ import { getPartnerMenuItems } from "@/api/endpoints/partner-menu-items/partner-
 import {
   UpdateMenuItemsOrderRequest,
   UpdatePartnerMenuItemsOrder200,
+  UpdatePartnerMenuItemsOrder404,
+  UpdatePartnerMenuItemsOrder500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateMenuItemsOrderOptions = {
   restaurantId: string;
@@ -20,7 +23,7 @@ export function useUpdateMenuItemsOrder({
 
   return useMutation<
     UpdatePartnerMenuItemsOrder200,
-    Error,
+    ApiError<UpdatePartnerMenuItemsOrder404 | UpdatePartnerMenuItemsOrder500>,
     UpdateMenuItemsOrderRequest
   >({
     mutationFn: async (data) => {

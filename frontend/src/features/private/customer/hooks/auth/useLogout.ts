@@ -3,15 +3,16 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import { getCustomerAuth } from "@/api/endpoints/customer-auth/customer-auth";
-import { LogoutCustomer200 } from "@/api/models";
+import { LogoutCustomer200, LogoutCustomer500 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useLogout() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<LogoutCustomer200, Error, void>({
+  return useMutation<LogoutCustomer200, ApiError<LogoutCustomer500>, void>({
     mutationFn: async () => {
       const response = await getCustomerAuth(api).logoutCustomer({
         refresh_token: localStorage.getItem("refresh_token") ?? "",

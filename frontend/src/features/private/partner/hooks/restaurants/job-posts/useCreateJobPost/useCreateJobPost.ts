@@ -2,8 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
-import { CreateJobPostRequest, CreatePartnerJobPost201 } from "@/api/models";
+import {
+  CreateJobPostRequest,
+  CreatePartnerJobPost201,
+  CreatePartnerJobPost500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseCreateJobPostOptions = {
   restaurantId: string;
@@ -17,7 +22,11 @@ export function useCreateJobPost({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<CreatePartnerJobPost201, Error, CreateJobPostRequest>({
+  return useMutation<
+    CreatePartnerJobPost201,
+    ApiError<CreatePartnerJobPost500>,
+    CreateJobPostRequest
+  >({
     mutationFn: async (data) => {
       const response = await getPartnerJobPosts(api).createPartnerJobPost(
         restaurantId,

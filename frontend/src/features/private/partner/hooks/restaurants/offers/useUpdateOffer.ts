@@ -2,8 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { getPartnerOffers } from "@/api/endpoints/partner-offers/partner-offers";
-import { UpdateOfferRequest, UpdatePartnerOffer200 } from "@/api/models";
+import {
+  UpdateOfferRequest,
+  UpdatePartnerOffer200,
+  UpdatePartnerOffer500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateOfferOptions = {
   restaurantId: string;
@@ -19,7 +24,11 @@ export function useUpdateOffer({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdatePartnerOffer200, Error, UpdateOfferRequest>({
+  return useMutation<
+    UpdatePartnerOffer200,
+    ApiError<UpdatePartnerOffer500>,
+    UpdateOfferRequest
+  >({
     mutationFn: async (data) => {
       const response = await getPartnerOffers(api).updatePartnerOffer(
         restaurantId,

@@ -5,8 +5,11 @@ import { getPartnerMenuCategories } from "@/api/endpoints/partner-menu-categorie
 import {
   CreateMenuCategoryRequest,
   CreatePartnerMenuCategory201,
+  CreatePartnerMenuCategory422,
+  CreatePartnerMenuCategory500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseCreateMenuCategoryOptions = {
   restaurantId: string;
@@ -22,7 +25,7 @@ export function useCreateMenuCategory({
 
   return useMutation<
     CreatePartnerMenuCategory201,
-    Error,
+    ApiError<CreatePartnerMenuCategory422 | CreatePartnerMenuCategory500>,
     CreateMenuCategoryRequest
   >({
     mutationFn: async (data) => {

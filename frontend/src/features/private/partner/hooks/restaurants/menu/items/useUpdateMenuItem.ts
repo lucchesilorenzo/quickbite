@@ -2,8 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { getPartnerMenuItems } from "@/api/endpoints/partner-menu-items/partner-menu-items";
-import { UpdateMenuItemRequest, UpdatePartnerMenuItem200 } from "@/api/models";
+import {
+  UpdateMenuItemRequest,
+  UpdatePartnerMenuItem200,
+  UpdatePartnerMenuItem500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateMenuItemOptions = {
   restaurantId: string;
@@ -19,7 +24,11 @@ export function useUpdateMenuItem({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdatePartnerMenuItem200, Error, UpdateMenuItemRequest>({
+  return useMutation<
+    UpdatePartnerMenuItem200,
+    ApiError<UpdatePartnerMenuItem500>,
+    UpdateMenuItemRequest
+  >({
     mutationFn: async (data) => {
       const response = await getPartnerMenuItems(api).updatePartnerMenuItem(
         menuItemId,

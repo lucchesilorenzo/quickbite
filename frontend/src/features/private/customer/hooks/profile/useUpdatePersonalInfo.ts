@@ -4,9 +4,11 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { getCustomerProfile } from "@/api/endpoints/customer-profile/customer-profile";
 import {
   UpdateCustomerPersonalInfo200,
+  UpdateCustomerPersonalInfo500,
   UpdatePersonalInfoRequest,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useUpdatePersonalInfo() {
   const queryClient = useQueryClient();
@@ -14,7 +16,7 @@ export function useUpdatePersonalInfo() {
 
   return useMutation<
     UpdateCustomerPersonalInfo200,
-    Error,
+    ApiError<UpdateCustomerPersonalInfo500>,
     UpdatePersonalInfoRequest
   >({
     mutationFn: async (data) => {

@@ -3,10 +3,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPublicRestaurants } from "@/api/endpoints/public-restaurants/public-restaurants";
 import {
   GetRestaurants200,
+  GetRestaurants500,
   GetRestaurantsMov,
   RestaurantSortBy,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetRestaurantsOptions = {
   lat?: string;
@@ -25,7 +27,7 @@ export function useGetRestaurants({
   mov,
   search,
 }: UseGetRestaurantsOptions) {
-  return useInfiniteQuery<GetRestaurants200, Error>({
+  return useInfiniteQuery<GetRestaurants200, ApiError<GetRestaurants500>>({
     queryKey: ["restaurants", lat, lon, filters, sortBy, mov, search],
     queryFn: async ({ pageParam }) => {
       const response = await getPublicRestaurants(api).getRestaurants({

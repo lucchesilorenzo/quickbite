@@ -2,8 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { getRiderNotifications } from "@/api/endpoints/rider-notifications/rider-notifications";
-import { MarkRiderNotificationsAsRead200 } from "@/api/models";
+import {
+  MarkRiderNotificationsAsRead200,
+  MarkRiderNotificationsAsRead500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseMarkNotificationsAsReadOptions = {
   setOpenMarkNotificationsAsReadDialog: React.Dispatch<
@@ -17,7 +21,11 @@ export function useMarkNotificationsAsRead({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<MarkRiderNotificationsAsRead200, Error, void>({
+  return useMutation<
+    MarkRiderNotificationsAsRead200,
+    ApiError<MarkRiderNotificationsAsRead500>,
+    void
+  >({
     mutationFn: async () => {
       const response =
         await getRiderNotifications(api).markRiderNotificationsAsRead();

@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getCustomerCarts } from "@/api/endpoints/customer-carts/customer-carts";
-import { GetCustomerCarts200 } from "@/api/models";
+import { GetCustomerCarts200, GetCustomerCarts500 } from "@/api/models";
 import { useAuth } from "@/contexts/AuthProvider";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 import { isCustomer } from "@/lib/utils/auth.utils";
 
 export function useGetCarts() {
   const { user } = useAuth();
 
-  return useQuery<GetCustomerCarts200>({
+  return useQuery<GetCustomerCarts200, ApiError<GetCustomerCarts500>>({
     queryKey: ["customer-carts"],
     queryFn: async () => {
       const response = await getCustomerCarts(api).getCustomerCarts();

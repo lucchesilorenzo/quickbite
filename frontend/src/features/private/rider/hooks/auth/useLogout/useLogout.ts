@@ -3,15 +3,16 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import { getRiderAuth } from "@/api/endpoints/rider-auth/rider-auth";
-import { LogoutRider200 } from "@/api/models";
+import { LogoutRider200, LogoutRider500 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useLogout() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<LogoutRider200, Error, void>({
+  return useMutation<LogoutRider200, ApiError<LogoutRider500>, void>({
     mutationFn: async () => {
       const response = await getRiderAuth(api).logoutRider({
         refresh_token: localStorage.getItem("refresh_token") ?? "",

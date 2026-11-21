@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getPartnerOrders } from "@/api/endpoints/partner-orders/partner-orders";
-import { GetPartnerOrders200, GetPartnerOrdersParams } from "@/api/models";
+import {
+  GetPartnerOrders200,
+  GetPartnerOrders500,
+  GetPartnerOrdersParams,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 import { OrderStatusWithAll } from "@/types/order.types";
 
 type UseGetOrderspOptions = {
@@ -16,7 +21,7 @@ export function useGetOrders({
   status,
   page = 1,
 }: UseGetOrderspOptions) {
-  return useQuery<GetPartnerOrders200>({
+  return useQuery<GetPartnerOrders200, ApiError<GetPartnerOrders500>>({
     queryKey: ["partner-orders", restaurantId, status, page],
     queryFn: async () => {
       const params: GetPartnerOrdersParams = { page };

@@ -4,9 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getPartnerStaff } from "@/api/endpoints/partner-staff/partner-staff";
 import {
   GetPartnerStaffMembers200,
+  GetPartnerStaffMembers500,
   GetPartnerStaffMembersParams,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetStaffMembersOptions = {
   restaurantId: string;
@@ -26,7 +28,10 @@ export function useGetStaffMembers({
   const sortField = sortBy[0]?.field;
   const sortOrder = sortBy[0]?.sort;
 
-  return useQuery<GetPartnerStaffMembers200>({
+  return useQuery<
+    GetPartnerStaffMembers200,
+    ApiError<GetPartnerStaffMembers500>
+  >({
     queryKey: [
       "partner-staff",
       restaurantId,

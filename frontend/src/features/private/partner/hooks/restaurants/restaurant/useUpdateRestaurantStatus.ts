@@ -4,9 +4,11 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partner-restaurants";
 import {
   UpdatePartnerRestaurantStatus200,
+  UpdatePartnerRestaurantStatus500,
   UpdateStatusRequest,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateRestaurantStatusOptions = {
   restaurantId: string;
@@ -20,7 +22,7 @@ export function useUpdateRestaurantStatus({
 
   return useMutation<
     UpdatePartnerRestaurantStatus200,
-    Error,
+    ApiError<UpdatePartnerRestaurantStatus500>,
     UpdateStatusRequest
   >({
     mutationFn: async (data) => {

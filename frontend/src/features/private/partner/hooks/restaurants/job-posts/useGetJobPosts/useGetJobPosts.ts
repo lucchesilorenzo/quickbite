@@ -2,8 +2,13 @@ import { GridFilterModel, GridSortModel } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 
 import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
-import { GetPartnerJobPosts200, GetPartnerJobPostsParams } from "@/api/models";
+import {
+  GetPartnerJobPosts200,
+  GetPartnerJobPosts500,
+  GetPartnerJobPostsParams,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetJobPostsOptions = {
   restaurantId: string;
@@ -23,7 +28,7 @@ export function useGetJobPosts({
   const sortField = sortBy[0]?.field;
   const sortOrder = sortBy[0]?.sort;
 
-  return useQuery<GetPartnerJobPosts200>({
+  return useQuery<GetPartnerJobPosts200, ApiError<GetPartnerJobPosts500>>({
     queryKey: [
       "partner-job-posts",
       restaurantId,

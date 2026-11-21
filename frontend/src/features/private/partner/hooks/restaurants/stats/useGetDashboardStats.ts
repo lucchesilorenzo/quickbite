@@ -1,8 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getPartnerStats } from "@/api/endpoints/partner-stats/partner-stats";
-import { GetPartnerDashboardStats200 } from "@/api/models";
+import {
+  GetPartnerDashboardStats200,
+  GetPartnerDashboardStats500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetDashboardStatsOptions = {
   restaurantId: string;
@@ -11,7 +15,10 @@ type UseGetDashboardStatsOptions = {
 export function useGetDashboardStats({
   restaurantId,
 }: UseGetDashboardStatsOptions) {
-  return useQuery<GetPartnerDashboardStats200>({
+  return useQuery<
+    GetPartnerDashboardStats200,
+    ApiError<GetPartnerDashboardStats500>
+  >({
     queryKey: ["partner-dashboard-stats", restaurantId],
     queryFn: async () => {
       const response =

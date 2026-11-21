@@ -5,8 +5,10 @@ import { getRiderProfile } from "@/api/endpoints/rider-profile/rider-profile";
 import {
   RiderUpdateProfileNotificationsRequest,
   UpdateRiderProfileNotifications200,
+  UpdateRiderProfileNotifications500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useUpdateProfileNotifications() {
   const queryClient = useQueryClient();
@@ -14,7 +16,7 @@ export function useUpdateProfileNotifications() {
 
   return useMutation<
     UpdateRiderProfileNotifications200,
-    Error,
+    ApiError<UpdateRiderProfileNotifications500>,
     RiderUpdateProfileNotificationsRequest
   >({
     mutationFn: async (data) => {

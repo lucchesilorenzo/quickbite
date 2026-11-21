@@ -2,8 +2,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { getCustomerReviews } from "@/api/endpoints/customer-reviews/customer-reviews";
-import { CreateCustomerReview201, CreateReviewRequest } from "@/api/models";
+import {
+  CreateCustomerReview201,
+  CreateCustomerReview404,
+  CreateCustomerReview409,
+  CreateCustomerReview500,
+  CreateReviewRequest,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseCreateReviewOptions = {
   restaurantSlug: string;
@@ -17,7 +24,15 @@ export function useCreateReview({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<CreateCustomerReview201, Error, CreateReviewRequest>({
+  return useMutation<
+    CreateCustomerReview201,
+    ApiError<
+      | CreateCustomerReview404
+      | CreateCustomerReview409
+      | CreateCustomerReview500
+    >,
+    CreateReviewRequest
+  >({
     mutationFn: async (data) => {
       const response = await getCustomerReviews(api).createCustomerReview(
         restaurantSlug,

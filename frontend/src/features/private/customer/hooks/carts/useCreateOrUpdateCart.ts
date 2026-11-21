@@ -5,8 +5,10 @@ import { getCustomerCarts } from "@/api/endpoints/customer-carts/customer-carts"
 import {
   CreateOrUpdateCustomerCart200,
   CreateOrUpdateCustomerCart201,
+  CreateOrUpdateCustomerCart500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 import { RestaurantCart } from "@/types/cart.types";
 
 export function useCreateOrUpdateCart() {
@@ -15,7 +17,7 @@ export function useCreateOrUpdateCart() {
 
   return useMutation<
     CreateOrUpdateCustomerCart200 | CreateOrUpdateCustomerCart201,
-    Error,
+    ApiError<CreateOrUpdateCustomerCart500>,
     RestaurantCart
   >({
     mutationFn: async (data) => {

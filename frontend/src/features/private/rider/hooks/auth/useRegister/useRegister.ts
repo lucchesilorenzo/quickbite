@@ -3,15 +3,26 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import { getRiderAuth } from "@/api/endpoints/rider-auth/rider-auth";
-import { RegisterRider201, RiderRegisterRequest } from "@/api/models";
+import {
+  RegisterRider201,
+  RegisterRider404,
+  RegisterRider409,
+  RegisterRider500,
+  RiderRegisterRequest,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useRegister() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<RegisterRider201, Error, RiderRegisterRequest>({
+  return useMutation<
+    RegisterRider201,
+    ApiError<RegisterRider404 | RegisterRider409 | RegisterRider500>,
+    RiderRegisterRequest
+  >({
     mutationFn: async (data) => {
       const response = await getRiderAuth(api).registerRider(data);
 

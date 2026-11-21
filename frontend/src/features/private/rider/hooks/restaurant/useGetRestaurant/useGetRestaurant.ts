@@ -1,11 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getRiderRestaurant } from "@/api/endpoints/rider-restaurant/rider-restaurant";
-import { GetRiderRestaurant200 } from "@/api/models";
+import {
+  GetRiderRestaurant200,
+  GetRiderRestaurant404,
+  GetRiderRestaurant500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useGetRestaurant() {
-  return useQuery<GetRiderRestaurant200>({
+  return useQuery<
+    GetRiderRestaurant200,
+    ApiError<GetRiderRestaurant404 | GetRiderRestaurant500>
+  >({
     queryKey: ["rider-restaurant"],
     queryFn: async () => {
       const response = await getRiderRestaurant(api).getRiderRestaurant();

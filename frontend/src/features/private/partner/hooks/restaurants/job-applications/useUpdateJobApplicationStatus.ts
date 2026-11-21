@@ -5,8 +5,11 @@ import { getPartnerJobApplications } from "@/api/endpoints/partner-job-applicati
 import {
   UpdateJobApplicationRequest,
   UpdateJobApplicationStatus200,
+  UpdateJobApplicationStatus409,
+  UpdateJobApplicationStatus500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateJobApplicationStatusOptions = {
   jobApplicationId: string | null;
@@ -24,7 +27,7 @@ export function useUpdateJobApplicationStatus({
 
   return useMutation<
     UpdateJobApplicationStatus200,
-    Error,
+    ApiError<UpdateJobApplicationStatus409 | UpdateJobApplicationStatus500>,
     UpdateJobApplicationRequest
   >({
     mutationFn: async (data) => {

@@ -5,8 +5,10 @@ import { getPartnerProfile } from "@/api/endpoints/partner-profile/partner-profi
 import {
   PartnerUpdateProfileNotificationsRequest,
   UpdatePartnerProfileNotifications200,
+  UpdatePartnerProfileNotifications500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useUpdateProfileNotifications() {
   const queryClient = useQueryClient();
@@ -14,7 +16,7 @@ export function useUpdateProfileNotifications() {
 
   return useMutation<
     UpdatePartnerProfileNotifications200,
-    Error,
+    ApiError<UpdatePartnerProfileNotifications500>,
     PartnerUpdateProfileNotificationsRequest
   >({
     mutationFn: async (data) => {

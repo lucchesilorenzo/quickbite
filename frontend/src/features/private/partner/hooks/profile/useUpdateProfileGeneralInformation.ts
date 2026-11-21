@@ -5,8 +5,11 @@ import { getPartnerProfile } from "@/api/endpoints/partner-profile/partner-profi
 import {
   PartnerUpdateProfileGeneralInformationRequest,
   UpdatePartnerProfileGeneral200,
+  UpdatePartnerProfileGeneral404,
+  UpdatePartnerProfileGeneral500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useUpdateProfileGeneralInformation() {
   const queryClient = useQueryClient();
@@ -14,7 +17,7 @@ export function useUpdateProfileGeneralInformation() {
 
   return useMutation<
     UpdatePartnerProfileGeneral200,
-    Error,
+    ApiError<UpdatePartnerProfileGeneral404 | UpdatePartnerProfileGeneral500>,
     PartnerUpdateProfileGeneralInformationRequest
   >({
     mutationFn: async (data) => {

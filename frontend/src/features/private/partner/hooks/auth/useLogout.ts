@@ -3,15 +3,16 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import { getPartnerAuth } from "@/api/endpoints/partner-auth/partner-auth";
-import { LogoutPartner200 } from "@/api/models";
+import { LogoutPartner200, LogoutPartner500 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useLogout() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<LogoutPartner200, Error, void>({
+  return useMutation<LogoutPartner200, ApiError<LogoutPartner500>, void>({
     mutationFn: async () => {
       const response = await getPartnerAuth(api).logoutPartner({
         refresh_token: localStorage.getItem("refresh_token") ?? "",

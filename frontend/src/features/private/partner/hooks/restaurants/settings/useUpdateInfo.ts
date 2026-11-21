@@ -5,8 +5,11 @@ import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partn
 import {
   UpdateInfoRequest,
   UpdatePartnerRestaurantInfo200,
+  UpdatePartnerRestaurantInfo404,
+  UpdatePartnerRestaurantInfo500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateInfoOptions = {
   restaurantId: string;
@@ -16,7 +19,11 @@ export function useUpdateInfo({ restaurantId }: UseUpdateInfoOptions) {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdatePartnerRestaurantInfo200, Error, UpdateInfoRequest>({
+  return useMutation<
+    UpdatePartnerRestaurantInfo200,
+    ApiError<UpdatePartnerRestaurantInfo404 | UpdatePartnerRestaurantInfo500>,
+    UpdateInfoRequest
+  >({
     mutationFn: async (data) => {
       const response = await getPartnerRestaurants(
         api,

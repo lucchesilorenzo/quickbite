@@ -5,8 +5,11 @@ import { getCustomerProfile } from "@/api/endpoints/customer-profile/customer-pr
 import {
   UpdateAddressInfoRequest,
   UpdateCustomerAddressInfo200,
+  UpdateCustomerAddressInfo404,
+  UpdateCustomerAddressInfo500,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useUpdateAddressInfo() {
   const queryClient = useQueryClient();
@@ -14,7 +17,7 @@ export function useUpdateAddressInfo() {
 
   return useMutation<
     UpdateCustomerAddressInfo200,
-    Error,
+    ApiError<UpdateCustomerAddressInfo404 | UpdateCustomerAddressInfo500>,
     UpdateAddressInfoRequest
   >({
     mutationFn: async (data) => {

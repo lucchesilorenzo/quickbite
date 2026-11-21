@@ -1,8 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getPartnerNotifications } from "@/api/endpoints/partner-notifications/partner-notifications";
-import { GetPartnerNotifications200 } from "@/api/models";
+import {
+  GetPartnerNotifications200,
+  GetPartnerNotifications500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetNotificationsOptions = {
   userId?: string;
@@ -15,7 +19,10 @@ export function useGetNotifications({
   restaurantId,
   page = 1,
 }: UseGetNotificationsOptions) {
-  return useQuery<GetPartnerNotifications200>({
+  return useQuery<
+    GetPartnerNotifications200,
+    ApiError<GetPartnerNotifications500>
+  >({
     queryKey: ["partner-notifications", restaurantId, page],
     queryFn: async () => {
       const response = await getPartnerNotifications(

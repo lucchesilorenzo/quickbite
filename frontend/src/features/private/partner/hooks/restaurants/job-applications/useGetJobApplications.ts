@@ -4,9 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getPartnerJobApplications } from "@/api/endpoints/partner-job-applications/partner-job-applications";
 import {
   GetPartnerJobApplications200,
+  GetPartnerJobApplications500,
   GetPartnerJobApplicationsParams,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetJobApplicationsOptions = {
   jobPostId?: string;
@@ -26,7 +28,10 @@ export function useGetJobApplications({
   const sortField = sortBy[0]?.field;
   const sortOrder = sortBy[0]?.sort;
 
-  return useQuery<GetPartnerJobApplications200>({
+  return useQuery<
+    GetPartnerJobApplications200,
+    ApiError<GetPartnerJobApplications500>
+  >({
     queryKey: [
       "partner-job-applications",
       jobPostId,

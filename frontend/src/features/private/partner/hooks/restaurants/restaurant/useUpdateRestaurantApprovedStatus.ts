@@ -2,8 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
 import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partner-restaurants";
-import { UpdatePartnerRestaurantApprovedStatus200 } from "@/api/models";
+import {
+  UpdatePartnerRestaurantApprovedStatus200,
+  UpdatePartnerRestaurantApprovedStatus422,
+  UpdatePartnerRestaurantApprovedStatus500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateRestaurantApprovedStatusOptions = {
   restaurantId: string;
@@ -15,7 +20,14 @@ export function useUpdateRestaurantApprovedStatus({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdatePartnerRestaurantApprovedStatus200, Error, void>({
+  return useMutation<
+    UpdatePartnerRestaurantApprovedStatus200,
+    ApiError<
+      | UpdatePartnerRestaurantApprovedStatus422
+      | UpdatePartnerRestaurantApprovedStatus500
+    >,
+    void
+  >({
     mutationFn: async () => {
       const response =
         await getPartnerRestaurants(api).updatePartnerRestaurantApprovedStatus(

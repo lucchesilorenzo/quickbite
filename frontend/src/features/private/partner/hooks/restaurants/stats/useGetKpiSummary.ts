@@ -7,9 +7,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getPartnerStats } from "@/api/endpoints/partner-stats/partner-stats";
 import {
   GetPartnerKpiSummary200,
+  GetPartnerKpiSummary500,
   GetPartnerKpiSummaryParams,
 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetKpiSummaryOptions = {
   restaurantId: string;
@@ -24,7 +26,7 @@ export function useGetKpiSummary({
   paymentMethod,
   year,
 }: UseGetKpiSummaryOptions) {
-  return useQuery<GetPartnerKpiSummary200>({
+  return useQuery<GetPartnerKpiSummary200, ApiError<GetPartnerKpiSummary500>>({
     queryKey: ["partner-stats", restaurantId, range, paymentMethod, year],
     queryFn: async () => {
       const params: GetPartnerKpiSummaryParams = {};

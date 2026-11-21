@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getPublicOffers } from "@/api/endpoints/public-offers/public-offers";
-import { GetOffers200 } from "@/api/models";
+import { GetOffers200, GetOffers500 } from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetOffersOptions = {
   restaurantId?: string;
@@ -10,7 +11,7 @@ type UseGetOffersOptions = {
 };
 
 export function useGetOffers({ restaurantId, page = 1 }: UseGetOffersOptions) {
-  return useQuery<GetOffers200>({
+  return useQuery<GetOffers200, ApiError<GetOffers500>>({
     queryKey: ["offers", restaurantId, page],
     queryFn: async () => {
       const response = await getPublicOffers(api).getOffers(

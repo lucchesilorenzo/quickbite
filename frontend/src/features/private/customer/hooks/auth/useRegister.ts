@@ -3,15 +3,26 @@ import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
 import { getCustomerAuth } from "@/api/endpoints/customer-auth/customer-auth";
-import { CustomerRegisterRequest, RegisterCustomer201 } from "@/api/models";
+import {
+  CustomerRegisterRequest,
+  RegisterCustomer201,
+  RegisterCustomer400,
+  RegisterCustomer401,
+  RegisterCustomer500,
+} from "@/api/models";
 import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useRegister() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<RegisterCustomer201, Error, CustomerRegisterRequest>({
+  return useMutation<
+    RegisterCustomer201,
+    ApiError<RegisterCustomer400 | RegisterCustomer401 | RegisterCustomer500>,
+    CustomerRegisterRequest
+  >({
     mutationFn: async (data) => {
       const response = await getCustomerAuth(api).registerCustomer(data);
 
