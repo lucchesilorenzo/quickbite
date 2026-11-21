@@ -3,14 +3,15 @@ import { createContext, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import { useGetJobPost } from "../hooks/job-posts/useGetJobPost";
-import { GetJobPostResponse } from "../types/job-posts/job-post.api.types";
+
+import { GetRiderJobPost200 } from "@/api/models";
 
 type JobApplicationProviderProps = {
   children: React.ReactNode;
 };
 
 type JobApplicationContext = {
-  jobPostData?: GetJobPostResponse;
+  jobPostData?: GetRiderJobPost200;
   isLoadingJobPost: boolean;
   jobPostError: Error | null;
 };

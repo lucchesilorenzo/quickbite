@@ -1,11 +1,23 @@
-import { GetRestaurantsResponse } from "@partner/types/restaurants/restaurant.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partner-restaurants";
+import {
+  GetPartnerRestaurants200,
+  GetPartnerRestaurants500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useGetRestaurants() {
-  return useQuery<GetRestaurantsResponse>({
-    queryKey: ["partner-restaurants"],
-    queryFn: () => fetchData("/partner/restaurants"),
-  });
+  return useQuery<GetPartnerRestaurants200, ApiError<GetPartnerRestaurants500>>(
+    {
+      queryKey: ["partner-restaurants"],
+      queryFn: async () => {
+        const response =
+          await getPartnerRestaurants(api).getPartnerRestaurants();
+
+        return response.data;
+      },
+    },
+  );
 }

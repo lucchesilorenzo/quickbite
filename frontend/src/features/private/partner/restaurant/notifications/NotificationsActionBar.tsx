@@ -13,7 +13,7 @@ export default function NotificationsActionBar() {
 
   return (
     <Stack direction="row">
-      {notificationsData.unread_count > 0 && (
+      {notificationsData && notificationsData.unread_count > 0 && (
         <Button
           sx={{ ml: "auto" }}
           onClick={() => setOpenMarkUserNotificationsAsRead(true)}

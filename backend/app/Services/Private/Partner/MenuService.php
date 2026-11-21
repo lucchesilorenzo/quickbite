@@ -12,17 +12,21 @@ class MenuService
 {
     private const int PER_PAGE = 6;
 
+    /**
+     * @return Collection<int, MenuCategory>
+     */
     public function getMenu(Restaurant $restaurant): Collection
     {
         return $restaurant->menuCategories()
             ->orderBy('order')
             ->get()
-            ->map(function ($category): MenuCategory {
-                $category->menu_items = $category->menuItems()
-                    ->orderBy('order')
-                    ->paginate(self::PER_PAGE);
-
-                return $category;
+            ->each(function (MenuCategory $menuCategory): void {
+                $menuCategory->setRelation(
+                    'menuItems',
+                    $menuCategory->menuItems()
+                        ->orderBy('order')
+                        ->paginate(self::PER_PAGE)
+                );
             });
     }
 }

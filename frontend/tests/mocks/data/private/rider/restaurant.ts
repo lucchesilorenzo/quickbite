@@ -1,8 +1,7 @@
-import { GetRestaurantResponse } from "@rider/types/restaurant/restaurant.api.types";
-import { RestaurantWithPivot } from "@rider/types/restaurant/restaurant.types";
+import { RestaurantResource } from "@/api/models";
 import { apiResponse } from "../../shared/common";
 
-export const restaurantWithPivot: RestaurantWithPivot = {
+export const restaurantWithPivot: RestaurantResource = {
   id: "019c5907-c4e8-7370-b879-b94aef6e9a26",
   name: "Test",
   slug: "test-a112c708-eac1-46e8-a20b-d1ec0757ec9e",
@@ -42,7 +41,7 @@ export const restaurantWithPivot: RestaurantWithPivot = {
   },
 };
 
-export const restaurantResponse: GetRestaurantResponse = {
+export const restaurantResponse = {
   ...apiResponse,
-  restaurant: restaurantWithPivot,
+  data: restaurantWithPivot,
 };

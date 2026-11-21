@@ -1,8 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { deleteData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api.types";
+import { getPartnerMenuItems } from "@/api/endpoints/partner-menu-items/partner-menu-items";
+import {
+  DeletePartnerMenuItem200,
+  DeletePartnerMenuItem500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseDeleteMenuItemOptions = {
   restaurantId: string;
@@ -18,9 +23,17 @@ export function useDeleteMenuItem({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<ApiResponse>({
-    mutationFn: () =>
-      deleteData(`/partner/restaurants/menu/items/${menuItemId}`),
+  return useMutation<
+    DeletePartnerMenuItem200,
+    ApiError<DeletePartnerMenuItem500>,
+    void
+  >({
+    mutationFn: async () => {
+      const response =
+        await getPartnerMenuItems(api).deletePartnerMenuItem(menuItemId);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-menu", restaurantId],

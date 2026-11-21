@@ -17,7 +17,7 @@ export default function CheckoutOrderOverview() {
     >
       <Box>
         <Typography variant="body1" sx={{ fontWeight: 500 }}>
-          {cartData.cart.restaurant.name}
+          {cartData.data.restaurant.name}
         </Typography>
 
         <Typography
@@ -30,14 +30,14 @@ export default function CheckoutOrderOverview() {
           }}
           onClick={() => setOpenOrderItemsDialog(true)}
         >
-          Show {cartData.cart.total_items} items
+          Show {cartData.data.total_items} items
         </Typography>
       </Box>
 
       <Box
         component="img"
-        src={cartData.cart.restaurant.logo_url || ""}
-        alt={cartData.cart.restaurant.name}
+        src={cartData.data.restaurant.logo_url || ""}
+        alt={cartData.data.restaurant.name}
         sx={{
           objectFit: "cover",
           width: 50,

@@ -10,13 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 
+import { JobPostResource } from "@/api/models";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type JobPostItemProps = {
-  jobPost: JobPostWithRestaurantAndAlreadyApplied;
+  jobPost: JobPostResource;
 };
 
 export default function JobPostItem({ jobPost }: JobPostItemProps) {
@@ -46,11 +46,11 @@ export default function JobPostItem({ jobPost }: JobPostItemProps) {
 
           <Box sx={{ mt: 1 }}>
             <Typography color="textSecondary" variant="body2" component="div">
-              {jobPost.restaurant.name}
+              {jobPost.restaurant?.name}
             </Typography>
 
             <Typography color="textSecondary" variant="body2" component="div">
-              {jobPost.restaurant.postcode} - {jobPost.restaurant.city}
+              {jobPost.restaurant?.postcode} - {jobPost.restaurant?.city}
             </Typography>
           </Box>
 

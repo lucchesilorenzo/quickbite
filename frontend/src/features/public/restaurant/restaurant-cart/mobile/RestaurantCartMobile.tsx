@@ -20,19 +20,19 @@ export default function RestaurantCartMobile() {
   const [openRestaurantCartDialogMobile, setOpenRestaurantCartDialogMobile] =
     useState(false);
 
-  const subtotal = cartTotal(restaurantData.restaurant.id);
+  const subtotal = cartTotal(restaurantData.data.id);
 
   const bestOffer = getBestRestaurantOfferGivenSubtotal(
-    offersData.offers.data,
+    offersData?.data ?? [],
     subtotal,
   );
 
-  const discount = subtotal * (bestOffer?.discount_rate || 0);
+  const discount = subtotal * Number(bestOffer?.discount_rate || 0);
 
   const total =
     subtotal +
-    restaurantData.restaurant.delivery_fee +
-    restaurantData.restaurant.service_fee -
+    restaurantData.data.delivery_fee +
+    restaurantData.data.service_fee -
     discount;
 
   return (
@@ -55,7 +55,7 @@ export default function RestaurantCartMobile() {
           onClick={() => setOpenRestaurantCartDialogMobile(true)}
         >
           <Badge
-            badgeContent={totalItems(restaurantData.restaurant.id)}
+            badgeContent={totalItems(restaurantData.data.id)}
             anchorOrigin={{ vertical: "top", horizontal: "left" }}
             max={20}
             sx={{

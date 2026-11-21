@@ -8,6 +8,7 @@ use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class UpdatePersonalInfoRequest extends FormRequest
@@ -30,7 +31,11 @@ class UpdatePersonalInfoRequest extends FormRequest
         return [
             'first_name' => ['sometimes', 'string', 'min:1', 'max:50'],
             'last_name' => ['sometimes', 'string', 'min:1', 'max:50'],
-            'email' => ['sometimes', 'email'],
+            'email' => [
+                'sometimes',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->user()?->id),
+            ],
             'password' => [
                 'sometimes',
                 'string',
@@ -40,8 +45,15 @@ class UpdatePersonalInfoRequest extends FormRequest
                     ->symbols(),
                 'confirmed',
             ],
-            'phone_number' => ['sometimes', 'string', 'min:1', 'max:50', new ValidPhoneNumber('IT')],
-            'date_of_birth' => ['sometimes', 'string', 'min:1', new IsAdult],
+            'phone_number' => [
+                'sometimes',
+                'string',
+                'min:1',
+                'max:50',
+                new ValidPhoneNumber('IT'),
+                Rule::unique('users', 'phone_number')->ignore($this->user()?->id),
+            ],
+            'date_of_birth' => ['sometimes', Rule::date()->format('Y-m-d'), new IsAdult],
         ];
     }
 }

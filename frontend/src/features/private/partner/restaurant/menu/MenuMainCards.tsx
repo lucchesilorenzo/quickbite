@@ -13,13 +13,13 @@ export default function MenuMainCards() {
       title: "Menu categories",
       description: "View and update your categories",
       icon: MenuBookOutlinedIcon,
-      href: `/partner/restaurants/${restaurantData.restaurant.id}/menu/categories`,
+      href: `/partner/restaurants/${restaurantData.data.id}/menu/categories`,
     },
     {
       title: "Menu items",
       description: "View and update your products",
       icon: FastfoodOutlinedIcon,
-      href: `/partner/restaurants/${restaurantData.restaurant.id}/menu/edit`,
+      href: `/partner/restaurants/${restaurantData.data.id}/menu/edit`,
     },
   ];
 

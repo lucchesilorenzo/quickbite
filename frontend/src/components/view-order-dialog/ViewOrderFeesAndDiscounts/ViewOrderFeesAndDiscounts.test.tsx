@@ -1,16 +1,17 @@
-import { Order } from "@private/shared/types/order.types";
 import { render, screen } from "@testing-library/react";
 import { order } from "@tests/mocks/data/private/orders";
 import { vi } from "vitest";
 
 import ViewOrderFeesAndDiscounts from "./ViewOrderFeesAndDiscounts";
 
+import { OrderResource } from "@/api/models";
+
 vi.mock("@/lib/utils/formatting.utils", () => ({
   formatCurrency: (value: number) => value.toString(),
 }));
 
 describe("ViewOrderFeesAndDiscounts", () => {
-  function renderComponent(order: Order) {
+  function renderComponent(order: OrderResource) {
     render(<ViewOrderFeesAndDiscounts order={order} />);
   }
 

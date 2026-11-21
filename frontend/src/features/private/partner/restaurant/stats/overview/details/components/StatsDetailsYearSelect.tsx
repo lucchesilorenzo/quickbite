@@ -22,10 +22,8 @@ export default function StatsDetailsYearSelect() {
 
   const currentYear = new Date().getFullYear();
 
-  const availableYears =
-    statsData.filters.years.length > 0
-      ? statsData.filters.years
-      : [currentYear];
+  const years = statsData?.filters.years ?? [];
+  const availableYears = years.length > 0 ? years : [currentYear];
 
   function handleYearChange(e: SelectChangeEvent<number>) {
     setYear((prev) => ({ ...prev, [activeKpi]: e.target.value }));

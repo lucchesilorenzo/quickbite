@@ -28,20 +28,20 @@ export default function DeliveriesList() {
 
   return (
     <Stack spacing={2} sx={{ my: 3 }}>
-      {!deliveryHistoryData?.deliveries.data.length ? (
+      {!deliveryHistoryData?.data.length ? (
         <Typography variant="body1" sx={{ textAlign: "center" }}>
           No deliveries found yet.
         </Typography>
       ) : (
         <Stack spacing={2}>
-          {deliveryHistoryData?.deliveries.data.map((delivery) => (
+          {deliveryHistoryData?.data.map((delivery) => (
             <DeliveryItem key={delivery.id} delivery={delivery} />
           ))}
 
           <Box sx={{ alignSelf: "center" }}>
             <CustomPagination
               page={page}
-              totalPages={deliveryHistoryData?.deliveries.last_page}
+              totalPages={deliveryHistoryData?.meta.last_page}
               setPage={setPage}
             />
           </Box>

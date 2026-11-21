@@ -25,7 +25,7 @@ export default function RestaurantDeliveryTimes() {
       </Stack>
 
       <Card variant="outlined" sx={{ bgcolor: grey[100], p: 2 }}>
-        {restaurantData.restaurant.delivery_days.map((d) => (
+        {restaurantData.data.delivery_days?.map((d) => (
           <Stack
             key={d.id}
             direction="row"

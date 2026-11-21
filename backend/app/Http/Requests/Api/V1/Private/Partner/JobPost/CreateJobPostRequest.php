@@ -27,13 +27,16 @@ class CreateJobPostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $minSalary = (int) config('job_posts.salary.min');
+        $maxSalary = (int) config('job_posts.salary.max');
+
         return [
             'title' => ['required', 'string', 'min:1', 'max:50'],
             'description_html' => ['required', 'string', 'min:1'],
             'description_text' => ['required', 'string', 'min:1', 'max:2000'],
             'employment_type' => ['required', Rule::enum(EmploymentType::class)],
             'vehicle_type' => ['required', Rule::enum(VehicleType::class)],
-            'salary' => ['nullable', 'numeric', 'min:10000', 'max:1000000'],
+            'salary' => ['nullable', 'numeric', "min:{$minSalary}", "max:{$maxSalary}"],
         ];
     }
 }

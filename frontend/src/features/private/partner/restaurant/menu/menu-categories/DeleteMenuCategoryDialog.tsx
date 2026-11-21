@@ -11,10 +11,11 @@ import {
 } from "@mui/material";
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteMenuCategory } from "@partner/hooks/restaurants/menu/categories/useDeleteMenuCategory";
-import { PartnerMenu } from "@partner/types/menu/menu.types";
+
+import { PartnerMenuCategoryResource } from "@/api/models";
 
 type DeleteMenuCategoryDialogProps = {
-  menuCategory: PartnerMenu;
+  menuCategory: PartnerMenuCategoryResource;
   openDeleteMenuCategoryDialog: boolean;
   setOpenDeleteMenuCategoryDialog: React.Dispatch<
     React.SetStateAction<boolean>
@@ -30,7 +31,7 @@ export default function DeleteMenuCategoryDialog({
 
   const { mutate: deleteRestaurantMenuCategory, isPending: isDeleting } =
     useDeleteMenuCategory({
-      restaurantId: restaurantData.restaurant.id,
+      restaurantId: restaurantData.data.id,
       menuCategoryId: menuCategory.id,
     });
 

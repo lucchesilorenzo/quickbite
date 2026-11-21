@@ -37,7 +37,7 @@ export default function StatsDetailsLineChart({
         {
           scaleType: "band",
           disableTicks: true,
-          data: statsData.stats.map((d) => d.period),
+          data: statsData?.stats.map((d) => d.period) ?? [],
           label: label,
           offset: 15,
           tickLabelStyle: { fontSize: 11, textTransform: "uppercase" },
@@ -51,7 +51,7 @@ export default function StatsDetailsLineChart({
           tickMinStep: 1,
           width: 100,
           label: lineLabel,
-          data: statsData.stats.map((d) => d.value),
+          data: statsData?.stats.map((d) => d.value) ?? [],
           valueFormatter: (value: number) => formatCurrency(value),
           labelStyle: { fontSize: 12, textTransform: "uppercase" },
         },
@@ -60,9 +60,9 @@ export default function StatsDetailsLineChart({
         {
           id: lineId,
           label: lineLabel,
-          data: statsData.stats.map((d) => d.value),
+          data: statsData?.stats.map((d) => d.value) ?? [],
           valueFormatter: (value, { dataIndex }) => {
-            const orderCount = statsData.stats[dataIndex].total;
+            const orderCount = statsData?.stats[dataIndex]?.total;
             return `${formatCurrency(value || 0)} (${orderCount} ${
               lineId === "revenue" ? "delivered" : "rejected"
             } orders)`;

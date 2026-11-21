@@ -24,7 +24,7 @@ import { useCategoryFilters } from "@/contexts/CategoryFiltersProvider";
 import { CategoryWithSelected } from "@/types/categories/category.types";
 
 type CategoryDialogProps = {
-  categories: CategoryWithSelected[];
+  categories?: CategoryWithSelected[];
 };
 
 export default function CategoryDialog({ categories }: CategoryDialogProps) {
@@ -37,7 +37,7 @@ export default function CategoryDialog({ categories }: CategoryDialogProps) {
 
   const filteredCategories = useMemo(
     () =>
-      categories.filter((c) =>
+      categories?.filter((c) =>
         c.name.toLowerCase().includes(searchTerm.toLowerCase()),
       ),
     [categories, searchTerm],
@@ -107,7 +107,7 @@ export default function CategoryDialog({ categories }: CategoryDialogProps) {
 
             <List>
               <Grid container>
-                {filteredCategories.map((category) => (
+                {filteredCategories?.map((category) => (
                   <CategoryDialogItem key={category.id} category={category} />
                 ))}
               </Grid>

@@ -1,11 +1,14 @@
-import {
-  CreateMenuItemRequest,
-  CreateMenuItemResponse,
-} from "@partner/types/menu/menu.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { postData } from "@/lib/api-client";
+import { getPartnerMenuItems } from "@/api/endpoints/partner-menu-items/partner-menu-items";
+import {
+  CreateMenuItemRequest,
+  CreatePartnerMenuItem201,
+  CreatePartnerMenuItem500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseCreateMenuItemOptions = {
   restaurantId: string;
@@ -21,12 +24,19 @@ export function useCreateMenuItem({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<CreateMenuItemResponse, Error, CreateMenuItemRequest>({
-    mutationFn: (data) =>
-      postData(
-        `/partner/restaurants/menu/categories/${menuCategoryId}/items`,
+  return useMutation<
+    CreatePartnerMenuItem201,
+    ApiError<CreatePartnerMenuItem500>,
+    CreateMenuItemRequest
+  >({
+    mutationFn: async (data) => {
+      const response = await getPartnerMenuItems(api).createPartnerMenuItem(
+        menuCategoryId,
         data,
-      ),
+      );
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-menu", restaurantId],

@@ -6,10 +6,13 @@ namespace App\Http\Requests\Api\V1\Private\Partner\Auth;
 
 use App\Rules\IsAdult;
 use App\Rules\ValidPhoneNumber;
+use Dedoc\Scramble\Attributes\SchemaName;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
+#[SchemaName('PartnerRegisterRequest')]
 class RegisterRequest extends FormRequest
 {
     /**
@@ -36,15 +39,15 @@ class RegisterRequest extends FormRequest
             'state' => ['required', 'string', 'max:50'],
             'first_name' => ['required', 'string', 'max:50'],
             'last_name' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
             'phone_number' => [
                 'required',
                 'string',
                 'max:50',
                 new ValidPhoneNumber('IT'),
-                'unique:users,phone_number',
+                Rule::unique('users', 'phone_number'),
             ],
-            'date_of_birth' => ['required', 'date', 'date_format:Y-m-d', new IsAdult],
+            'date_of_birth' => ['required', Rule::date()->format('Y-m-d'), new IsAdult],
             'password' => [
                 'required',
                 'string',

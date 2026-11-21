@@ -18,22 +18,19 @@ import {
   Tooltip,
 } from "@mui/material";
 import { orderStatuses, statusTransitions } from "@rider/lib/data/orders.data";
-import { OrderStatus } from "@rider/types/orders/order.types";
 
 import { useUpdateDeliveryStatus } from "../../hooks/restaurant/deliveries/useUpdateDeliveryStatus";
-import {
-  Delivery,
-  DeliveryStatus,
-} from "../../types/deliveries/delivery.types";
+
+import { DeliveryResource, OrderStatus } from "@/api/models";
 
 type SplitButtonProps = {
-  delivery: Delivery;
+  delivery: DeliveryResource;
 };
 
 export default function SplitButton({ delivery }: SplitButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus>(
-    delivery.order.status,
+    delivery.order!.status,
   );
 
   const { mutate: updateDeliveryStatus, isPending: isUpdating } =
@@ -43,7 +40,7 @@ export default function SplitButton({ delivery }: SplitButtonProps) {
 
   function handleStatusClick() {
     updateDeliveryStatus({
-      status: orderStatuses[selectedStatus].value as DeliveryStatus,
+      status: orderStatuses[selectedStatus]?.value as OrderStatus,
     });
   }
 
@@ -54,13 +51,13 @@ export default function SplitButton({ delivery }: SplitButtonProps) {
 
   return (
     <Box sx={{ alignSelf: "baseline" }}>
-      {delivery.order.status !== "delivered" &&
-      delivery.order.status !== "cancelled" ? (
+      {delivery.order?.status !== "delivered" &&
+      delivery.order?.status !== "cancelled" ? (
         <Stack direction="row" spacing={1}>
           <Tooltip title="Reset">
             <Box component="span">
               <IconButton
-                onClick={() => setSelectedStatus(delivery.order.status)}
+                onClick={() => setSelectedStatus(delivery.order!.status)}
               >
                 <RestartAltOutlinedIcon />
               </IconButton>
@@ -74,12 +71,12 @@ export default function SplitButton({ delivery }: SplitButtonProps) {
               loading={isUpdating}
               loadingIndicator="Updating..."
             >
-              {orderStatuses[selectedStatus].label}
+              {orderStatuses[selectedStatus]?.label}
             </Button>
 
             <Button
               size="small"
-              disabled={!allowedStatuses.length}
+              disabled={!allowedStatuses?.length}
               onClick={(e) => setAnchorEl(e.currentTarget)}
             >
               <ArrowDropDownIcon />
@@ -87,7 +84,7 @@ export default function SplitButton({ delivery }: SplitButtonProps) {
           </ButtonGroup>
         </Stack>
       ) : (
-        <Chip label={orderStatuses[selectedStatus].label} color="primary" />
+        <Chip label={orderStatuses[selectedStatus]?.label} color="primary" />
       )}
 
       <Popper
@@ -108,13 +105,13 @@ export default function SplitButton({ delivery }: SplitButtonProps) {
             <Paper>
               <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
                 <MenuList>
-                  {allowedStatuses.map((status) => (
+                  {allowedStatuses?.map((status) => (
                     <MenuItem
                       key={status}
                       selected={status === selectedStatus}
                       onClick={() => handleMenuItemClick(status as OrderStatus)}
                     >
-                      {orderStatuses[status].label}
+                      {orderStatuses[status]?.label}
                     </MenuItem>
                   ))}
                 </MenuList>

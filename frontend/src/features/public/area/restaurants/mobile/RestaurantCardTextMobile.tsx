@@ -3,10 +3,10 @@ import { Stack, Typography } from "@mui/material";
 import RestaurantDeliveryInfo from "../RestaurantDeliveryInfo";
 import RestaurantMetaInfo from "../RestaurantMetaInfo";
 
-import { RestaurantListItem } from "@/types/restaurants/restaurant.types";
+import { RestaurantResource } from "@/api/models";
 
 type RestaurantCardTextMobileProps = {
-  restaurant: RestaurantListItem;
+  restaurant: RestaurantResource;
 };
 
 export default function RestaurantCardTextMobile({

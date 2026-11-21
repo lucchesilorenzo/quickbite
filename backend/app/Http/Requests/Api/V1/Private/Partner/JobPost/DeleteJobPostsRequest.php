@@ -6,6 +6,7 @@ namespace App\Http\Requests\Api\V1\Private\Partner\JobPost;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DeleteJobPostsRequest extends FormRequest
 {
@@ -25,8 +26,8 @@ class DeleteJobPostsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ids' => ['required', 'array'],
-            'ids.*' => ['required', 'uuid', 'exists:job_posts,id'],
+            'ids' => ['required', 'array', 'min:1'],
+            'ids.*' => ['required', 'uuid', Rule::exists('job_posts', 'id')],
         ];
     }
 }

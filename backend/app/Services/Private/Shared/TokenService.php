@@ -9,12 +9,15 @@ use Illuminate\Support\Str;
 
 class TokenService
 {
+    /**
+     * @return array{access_token: string, refresh_token: string}
+     */
     public function generateTokens(User $user): array
     {
         $rtExpiration = (int) config('sanctum.rt_expiration');
 
-        $accessToken = $user->createToken('web')->plainTextToken;
-        $refreshToken = Str::random(40);
+        $accessToken = (string) $user->createToken('web')->plainTextToken;
+        $refreshToken = (string) Str::random(40);
 
         $user->personalRefreshTokens()->create([
             'token' => hash('sha256', $refreshToken),

@@ -26,10 +26,10 @@ export default function PartnerProfileNotificationsPage() {
   const methods = useForm({
     resolver: zodResolver(profileNotificationsFormSchema),
     defaultValues: {
-      new_order: !!user?.notification_preferences.find(
+      new_order: !!user?.notification_preferences?.find(
         (p) => p.type === "new_order",
       )?.enabled,
-      new_review: !!user?.notification_preferences.find(
+      new_review: !!user?.notification_preferences?.find(
         (p) => p.type === "new_review",
       )?.enabled,
     },

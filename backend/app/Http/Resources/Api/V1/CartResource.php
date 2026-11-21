@@ -22,10 +22,10 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'restaurant' => $this->restaurant,
             'total_items' => $this->total_items,
             'total_unique_items' => $this->total_unique_items,
             'cart_total' => $this->cart_total,
+            'restaurant' => RestaurantResource::make($this->restaurant),
             'items' => CartItemResource::collection($this->cartItems),
         ];
     }

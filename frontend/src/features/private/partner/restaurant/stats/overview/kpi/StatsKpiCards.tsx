@@ -1,9 +1,9 @@
 import { Alert, Grid } from "@mui/material";
 import { useStats } from "@partner/contexts/StatsProvider";
-import { Kpi } from "@partner/types/stats/stats.types";
 
 import StatsKpiCard from "./StatsKpiCard";
 
+import { Kpi } from "@/api/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 export default function StatsKpiCards() {
@@ -12,25 +12,29 @@ export default function StatsKpiCards() {
   const cards: { key: Kpi; value: string; title: string; color: string }[] = [
     {
       key: "accepted_orders",
-      value: new Intl.NumberFormat("it-IT").format(kpiSummary.accepted_orders),
+      value: new Intl.NumberFormat("it-IT").format(
+        kpiSummary?.accepted_orders ?? 0,
+      ),
       title: "Accepted orders",
       color: "success",
     },
     {
       key: "revenue",
-      value: formatCurrency(kpiSummary.revenue),
+      value: formatCurrency(kpiSummary?.revenue ?? 0),
       title: "Revenue",
       color: "success",
     },
     {
       key: "rejected_orders",
-      value: new Intl.NumberFormat("it-IT").format(kpiSummary.rejected_orders),
+      value: new Intl.NumberFormat("it-IT").format(
+        kpiSummary?.rejected_orders ?? 0,
+      ),
       title: "Rejected orders",
       color: "error",
     },
     {
       key: "lost_revenue",
-      value: formatCurrency(kpiSummary.lost_revenue),
+      value: formatCurrency(kpiSummary?.lost_revenue ?? 0),
       title: "Lost revenue",
       color: "error",
     },

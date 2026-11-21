@@ -26,7 +26,7 @@ export default function MenuCategoriesList() {
         sx={{ display: { xs: "none", lg: "block" }, my: 4 }}
       >
         <Container maxWidth="md">
-          {menuData.menu.map((menuCategory) => (
+          {menuData?.data.map((menuCategory) => (
             <MenuCategoryItem
               key={menuCategory.id}
               menuCategory={menuCategory}
@@ -48,7 +48,7 @@ export default function MenuCategoriesList() {
         component="section"
         sx={{ display: { xs: "block", lg: "none" }, mt: 4 }}
       >
-        {menuData.menu.map((menuCategory) => (
+        {menuData?.data.map((menuCategory) => (
           <MenuCategoryItem key={menuCategory.id} menuCategory={menuCategory} />
         ))}
 

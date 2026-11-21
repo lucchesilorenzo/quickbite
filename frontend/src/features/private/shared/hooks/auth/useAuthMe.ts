@@ -1,13 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { GetAuthMeResponse } from "../../types/auth/auth.api.types";
-
-import { fetchData } from "@/lib/api-client";
+import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
+import { GetAuthenticatedUser200, GetAuthenticatedUser500 } from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useAuthMe() {
-  return useQuery<GetAuthMeResponse>({
+  return useQuery<GetAuthenticatedUser200, ApiError<GetAuthenticatedUser500>>({
     queryKey: ["auth"],
-    queryFn: () => fetchData("/auth/me"),
+    queryFn: async () => {
+      const response = await getPrivateAuth(api).getAuthenticatedUser();
+
+      return response.data;
+    },
     retry: false,
     refetchOnWindowFocus: false,
     enabled:

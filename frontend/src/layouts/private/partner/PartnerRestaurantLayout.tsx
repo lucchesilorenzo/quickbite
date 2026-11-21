@@ -5,16 +5,16 @@ import { Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import RestaurantProvider from "@partner/contexts/RestaurantProvider";
 import RestaurantHeader from "@partner/restaurant/RestaurantHeader";
-import {
-  NewOrderReceivedToBroadcast,
-  NewReviewReceivedToBroadcast,
-} from "@partner/types/notifications/notification.types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 
 import NotificationToast from "@/components/common/NotificationToast";
 import { useAuth } from "@/contexts/AuthProvider";
+import {
+  NewOrderReceivedToBroadcast,
+  NewReviewReceivedToBroadcast,
+} from "@/types/notification.types";
 
 export default function PartnerRestaurantLayout() {
   const { user } = useAuth();
@@ -42,7 +42,7 @@ export default function PartnerRestaurantLayout() {
 
         if (pathname.includes("orders")) {
           queryClient.invalidateQueries({
-            queryKey: ["partner-orders", restaurantId, 1],
+            queryKey: ["partner-orders", restaurantId],
           });
         }
 

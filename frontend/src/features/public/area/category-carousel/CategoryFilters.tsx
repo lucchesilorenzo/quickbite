@@ -79,7 +79,7 @@ export default function CategoryFilters() {
 
           {!isLoadingCategories && !categoriesError && (
             <>
-              {visibleCategories.map((category) => (
+              {visibleCategories?.map((category) => (
                 <SwiperSlide key={category.id}>
                   <CuisineFilterSlide category={category} />
                 </SwiperSlide>

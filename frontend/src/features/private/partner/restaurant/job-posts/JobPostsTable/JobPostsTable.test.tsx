@@ -15,7 +15,6 @@ import { MemoryRouter } from "react-router-dom";
 
 import JobPostsTable from "./JobPostsTable";
 
-import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 import env from "@/lib/env";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
@@ -54,12 +53,6 @@ describe("JobPostsTable", () => {
 
     vi.mocked(useRestaurant).mockReturnValue({
       restaurantData: restaurantResponse,
-      notificationsData: {
-        success: false,
-        message: "",
-        notifications: notificationsDefaults,
-        unread_count: 0,
-      },
       notificationsError: null,
       page: 1,
       setPage: vi.fn(),
@@ -133,7 +126,7 @@ describe("JobPostsTable", () => {
 
     expect(viewLinks[0]).toHaveAttribute(
       "href",
-      `/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts/${jobPostResponse.job_post.id}/applications`,
+      `/partner/restaurants/${restaurantResponse.data.id}/job-posts/${jobPostResponse.data.id}/applications`,
     );
   });
 
@@ -149,7 +142,7 @@ describe("JobPostsTable", () => {
   it("should open EditJobPostDialog when clicking the edit button", async () => {
     server.use(
       http.get(
-        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts`,
         async () => HttpResponse.json(jobPostsResponse),
       ),
     );
@@ -168,7 +161,7 @@ describe("JobPostsTable", () => {
   it("should open DeleteJobPostDialog when clicking the delete button", async () => {
     server.use(
       http.get(
-        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts`,
         async () => HttpResponse.json(jobPostsResponse),
       ),
     );
@@ -187,7 +180,7 @@ describe("JobPostsTable", () => {
   it("should show 'Delete job posts' button when selecting multiple rows", async () => {
     server.use(
       http.get(
-        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts`,
         () => HttpResponse.json(jobPostsResponse),
       ),
     );
@@ -204,7 +197,7 @@ describe("JobPostsTable", () => {
   it("should open DeleteJobPostsDialog when clicking the 'Delete job posts' button", async () => {
     server.use(
       http.get(
-        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+        `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts`,
         () => HttpResponse.json(jobPostsResponse),
       ),
     );
@@ -221,7 +214,7 @@ describe("JobPostsTable", () => {
 
   it("should render a toast when there are no job posts", async () => {
     simulateError(
-      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts`,
     );
     const { mockShow } = renderComponent();
 

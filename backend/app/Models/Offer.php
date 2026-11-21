@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\DiscountRate;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,11 +21,6 @@ class Offer extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $casts = [
-        'discount_rate' => 'float',
-        'min_discount_amount' => 'float',
-    ];
-
     /**
      * Get the restaurant that owns the offer.
      *
@@ -33,5 +29,13 @@ class Offer extends Model
     public function restaurant(): BelongsTo
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'discount_rate' => DiscountRate::class,
+            'min_discount_amount' => 'float',
+        ];
     }
 }

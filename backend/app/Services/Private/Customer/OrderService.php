@@ -14,7 +14,7 @@ use App\Models\Restaurant;
 use App\Models\User;
 use App\Notifications\Private\Partner\NewOrderReceived;
 use App\Services\Shared\LocationService;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 

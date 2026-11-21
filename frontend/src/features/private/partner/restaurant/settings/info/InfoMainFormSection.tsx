@@ -56,8 +56,8 @@ export default function InfoMainFormSection() {
     } else if (typeof fileOrPath === "string") {
       setPreviewImageFile(
         type === "logo"
-          ? restaurantData.restaurant.logo_url
-          : restaurantData.restaurant.cover_url,
+          ? restaurantData.data.logo_url
+          : restaurantData.data.cover_url,
       );
     }
 
@@ -202,10 +202,10 @@ export default function InfoMainFormSection() {
         render={({ field }) => (
           <Autocomplete
             multiple
-            value={allCategories.filter((c) => field.value.includes(c.id))}
+            value={allCategories?.filter((c) => field.value.includes(c.id))}
             onChange={(_, value) => field.onChange(value.map((c) => c.id))}
             readOnly={!editMode}
-            options={allCategories}
+            options={allCategories ?? []}
             getOptionLabel={(option) => option.name}
             slotProps={{
               listbox: {

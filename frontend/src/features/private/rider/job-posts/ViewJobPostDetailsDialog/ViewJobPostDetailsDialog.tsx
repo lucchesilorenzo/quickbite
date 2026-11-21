@@ -53,8 +53,8 @@ export default function ViewJobPostDetailsDialog() {
             <Alert severity="error">{jobPostError.message}</Alert>
           )}
 
-          {!isLoadingJobPost && !jobPostError && jobPostData?.job_post && (
-            <JobPostDetails jobPost={jobPostData.job_post} />
+          {!isLoadingJobPost && !jobPostError && jobPostData?.data && (
+            <JobPostDetails jobPost={jobPostData.data} />
           )}
         </DialogContent>
       </Stack>

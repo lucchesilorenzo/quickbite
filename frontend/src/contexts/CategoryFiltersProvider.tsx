@@ -10,8 +10,8 @@ type CategoryFiltersProviderProps = {
 };
 
 type CategoryFiltersContext = {
-  visibleCategories: CategoryWithSelected[];
-  allCategories: CategoryWithSelected[];
+  visibleCategories?: CategoryWithSelected[];
+  allCategories?: CategoryWithSelected[];
   openCategoriesDialog: boolean;
   isLoadingCategories: boolean;
   categoriesError: Error | null;
@@ -27,7 +27,7 @@ export default function CategoryFiltersProvider({
   children,
 }: CategoryFiltersProviderProps) {
   const {
-    data: categoriesData = { success: false, message: "", categories: [] },
+    data: categoriesData,
     isLoading: isLoadingCategories,
     error: categoriesError,
   } = useGetCategories();
@@ -37,30 +37,30 @@ export default function CategoryFiltersProvider({
 
   const activeFilters = searchParams.getAll("filter");
 
-  const allCategories = useMemo<CategoryWithSelected[]>(() => {
-    return categoriesData.categories.map((c) => ({
+  const allCategories = useMemo<CategoryWithSelected[] | undefined>(() => {
+    return categoriesData?.data.map((c) => ({
       ...c,
       selected: activeFilters.includes(c.slug),
     }));
-  }, [categoriesData.categories, activeFilters]);
+  }, [categoriesData?.data, activeFilters]);
 
   const visibleCategories = useMemo(
-    () => allCategories.filter((c) => c.is_default || c.selected),
+    () => allCategories?.filter((c) => c.is_default || c.selected),
     [allCategories],
   );
 
   function handleStatusChange(category: CategoryWithSelected) {
-    const updatedCategories = allCategories.map((c) =>
+    const updatedCategories = allCategories?.map((c) =>
       c.slug === category.slug ? { ...c, selected: !c.selected } : c,
     );
 
-    const selectedFilters = updatedCategories
-      .filter((c) => c.selected)
+    const selectedFilters = (updatedCategories ?? [])
+      ?.filter((c) => c.selected)
       .map((c) => c.slug);
 
     // Take all the filters that are not category filters
     const nonCategoryFilters = activeFilters.filter(
-      (f) => !allCategories.some((c) => c.slug === f),
+      (f) => !allCategories?.some((c) => c.slug === f),
     );
 
     setSearchParams({

@@ -8,14 +8,14 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { Order } from "@private/shared/types/order.types";
 
+import { OrderResource } from "@/api/models";
 import ViewOrderFeesAndDiscounts from "@/components/view-order-dialog/ViewOrderFeesAndDiscounts";
 import ViewOrderItemsList from "@/components/view-order-dialog/ViewOrderItemsList";
 import ViewOrderReceipt from "@/components/view-order-dialog/ViewOrderReceipt";
 
 type ViewOrderDialogProps = {
-  order: Order;
+  order: OrderResource;
   openViewOrderDialog: boolean;
   setOpenViewOrderDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

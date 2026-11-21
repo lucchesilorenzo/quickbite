@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { menuCategories } from "@tests/mocks/data/public/menu";
+import { navigationMenuCategories } from "@tests/mocks/data/public/menu";
 import { mockAuthState } from "@tests/utils/mock-auth-state";
 
 import MenuCategoryNavigationItem from "./MenuCategoryNavigationItem";
@@ -18,7 +18,7 @@ describe("MenuCategoryNavigationItem", () => {
 
     render(
       <MenuCategoryNavigationItem
-        menuCategory={menuCategories[0]}
+        menuCategory={navigationMenuCategories[0]}
         isLast={isLast}
         setOpenMenuCategoryNavigationDialog={
           mockSetOpenMenuCategoryNavigationDialog
@@ -30,7 +30,9 @@ describe("MenuCategoryNavigationItem", () => {
     return {
       user,
       getMenuCategoryItemButton: () =>
-        screen.queryByRole("button", { name: menuCategories[0].name }),
+        screen.queryByRole("button", {
+          name: navigationMenuCategories[0].name,
+        }),
       getCartBadge: () => screen.queryByTestId("cart-badge"),
       getSeparator: () => screen.queryByRole("separator"),
       mockSetOpenMenuCategoryNavigationDialog,
@@ -61,7 +63,9 @@ describe("MenuCategoryNavigationItem", () => {
 
     await user.click(getMenuCategoryItemButton()!);
 
-    expect(mockOnSlideClick).toHaveBeenCalledWith(menuCategories[0].id);
+    expect(mockOnSlideClick).toHaveBeenCalledWith(
+      navigationMenuCategories[0].id,
+    );
     expect(mockOnSlideClick).toHaveBeenCalledTimes(1);
     expect(mockSetOpenMenuCategoryNavigationDialog).toHaveBeenCalledWith(false);
     expect(mockSetOpenMenuCategoryNavigationDialog).toHaveBeenCalledTimes(1);

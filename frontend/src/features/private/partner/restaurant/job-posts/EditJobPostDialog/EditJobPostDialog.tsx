@@ -33,7 +33,7 @@ export default function EditJobPostDialog({
     isLoading: isJobPostLoading,
     error: jobPostError,
   } = useGetJobPost({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     jobPostId,
     enabled: openEditJobPostDialog,
   });
@@ -73,7 +73,7 @@ export default function EditJobPostDialog({
 
           {!isJobPostLoading && !jobPostError && (
             <EditJobPostForm
-              jobPost={jobPostData?.job_post}
+              jobPost={jobPostData?.data}
               setOpenEditJobPostDialog={setOpenEditJobPostDialog}
             />
           )}

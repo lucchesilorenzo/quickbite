@@ -31,13 +31,13 @@ export default function NotificationsList() {
 
   return (
     <Stack spacing={2} sx={{ my: 3 }}>
-      {!notificationsData?.notifications.data.length ? (
+      {!notificationsData?.data.length ? (
         <Typography variant="body1" sx={{ textAlign: "center" }}>
           No notifications yet.
         </Typography>
       ) : (
         <Stack spacing={2}>
-          {notificationsData.notifications.data.map((notification) => (
+          {notificationsData.data.map((notification) => (
             <NotificationItem
               key={notification.id}
               notification={notification}
@@ -47,7 +47,7 @@ export default function NotificationsList() {
           <Box sx={{ alignSelf: "center" }}>
             <CustomPagination
               page={page}
-              totalPages={notificationsData.notifications.last_page}
+              totalPages={notificationsData.meta.last_page}
               setPage={setPage}
             />
           </Box>

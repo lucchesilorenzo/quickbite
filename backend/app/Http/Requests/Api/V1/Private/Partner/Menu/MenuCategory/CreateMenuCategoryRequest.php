@@ -25,7 +25,7 @@ class CreateMenuCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        $restaurantId = $this->route('restaurant')->id;
+        $restaurantId = $this->route('restaurant')?->id;
 
         return [
             'name' => [

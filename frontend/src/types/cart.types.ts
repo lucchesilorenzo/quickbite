@@ -1,20 +1,7 @@
-import { MenuItem } from "./menu/menu.types";
-import { BaseRestaurant } from "./restaurants/restaurant.types";
+import type { CartResource } from "@/api/models";
 
-export type CartItem = Omit<MenuItem, "order"> & {
-  quantity: number;
-  item_total: number;
-};
-
-export type RestaurantCart = {
+export type RestaurantCart = Omit<CartResource, "id"> & {
   id?: string;
-  restaurant: BaseRestaurant;
-  items: CartItem[];
-  total_items: number;
-  total_unique_items: number;
-  cart_total: number;
 };
 
-export type Cart = {
-  [restaurantId: string]: RestaurantCart;
-};
+export type Cart = Record<string, RestaurantCart>;

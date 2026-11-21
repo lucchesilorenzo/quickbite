@@ -13,10 +13,10 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 import { useDeleteStaffMember } from "../../hooks/restaurants/staff/useDeleteStaffMember";
 
-import { User } from "@/types/user.types";
+import { UserResource } from "@/api/models";
 
 type DeleteStaffDialogProps = {
-  staffMember?: User;
+  staffMember?: UserResource;
   openDeleteStaffDialog: boolean;
   setOpenDeleteStaffDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -30,7 +30,7 @@ export default function DeleteStaffDialog({
 
   const { mutate: deleteJobPost, isPending: isDeleting } = useDeleteStaffMember(
     {
-      restaurantId: restaurantData.restaurant.id,
+      restaurantId: restaurantData.data.id,
       staffId: staffMember?.id,
       setOpenDeleteStaffDialog,
     },

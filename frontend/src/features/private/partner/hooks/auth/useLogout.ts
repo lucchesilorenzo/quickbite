@@ -2,23 +2,28 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { postData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api.types";
+import { getPartnerAuth } from "@/api/endpoints/partner-auth/partner-auth";
+import { LogoutPartner200, LogoutPartner500 } from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useLogout() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
   const navigate = useNavigate();
 
-  return useMutation<ApiResponse, Error, void>({
-    mutationFn: () =>
-      postData("/partner/auth/logout", {
-        refresh_token: localStorage.getItem("refresh_token"),
-      }),
+  return useMutation<LogoutPartner200, ApiError<LogoutPartner500>, void>({
+    mutationFn: async () => {
+      const response = await getPartnerAuth(api).logoutPartner({
+        refresh_token: localStorage.getItem("refresh_token") ?? "",
+      });
+
+      return response.data;
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["auth"] });
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
+      queryClient.clear();
 
       navigate("/partner/auth/login");
     },

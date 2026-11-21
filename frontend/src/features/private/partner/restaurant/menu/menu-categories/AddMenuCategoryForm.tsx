@@ -21,7 +21,7 @@ export default function AddMenuCategoryForm({
 
   const { mutate: createMenuCategory, isPending: isCreating } =
     useCreateMenuCategory({
-      restaurantId: restaurantData.restaurant.id,
+      restaurantId: restaurantData.data.id,
       setOpenAddMenuCategoryDialog,
     });
 

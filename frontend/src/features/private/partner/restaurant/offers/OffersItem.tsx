@@ -13,11 +13,11 @@ import { yellow } from "@mui/material/colors";
 import DeleteOfferDialog from "./DeleteOfferDialog";
 import EditOfferDialog from "./EditOfferDialog";
 
+import { OfferResource } from "@/api/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
-import { Offer } from "@/types/offers/offer.types";
 
 type OffersItemProps = {
-  offer: Offer;
+  offer: OfferResource;
   hasSibling: boolean;
 };
 
@@ -43,7 +43,7 @@ export default function OffersItem({ offer, hasSibling }: OffersItemProps) {
         disableElevation
         onClick={() => setOpenEditOfferDialog(true)}
       >
-        {offer.discount_rate * 100}% off when you spend{" "}
+        {Number(offer.discount_rate) * 100}% off when you spend{" "}
         {formatCurrency(offer.min_discount_amount)} or more
       </Button>
 

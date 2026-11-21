@@ -1,11 +1,10 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import { PartnerOrder } from "@partner/types/orders/order.types";
-import { Order } from "@private/shared/types/order.types";
 
+import { OrderResource } from "@/api/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type ViewOrderFeesAndDiscountsProps = {
-  order: Order | PartnerOrder;
+  order: OrderResource;
 };
 
 export default function ViewOrderFeesAndDiscounts({

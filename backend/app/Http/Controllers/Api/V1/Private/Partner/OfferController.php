@@ -8,10 +8,15 @@ use App\Exceptions\Private\Partner\OfferAlreadyExistsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Private\Partner\Offer\CreateOfferRequest;
 use App\Http\Requests\Api\V1\Private\Partner\Offer\UpdateOfferRequest;
+use App\Http\Resources\Api\V1\OfferResource;
 use App\Models\Offer;
 use App\Models\Restaurant;
 use App\Services\Private\Partner\OfferService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
+use Dedoc\Scramble\Attributes\IgnoreResponse;
+use Dedoc\Scramble\Attributes\QueryParameter;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Throwable;
@@ -26,6 +31,27 @@ class OfferController extends Controller
     /**
      * Get all offers.
      */
+    #[Endpoint(
+        operationId: 'getPartnerOffers',
+        title: 'List offers',
+        description: 'List offers for a restaurant.',
+        method: 'GET'
+    )]
+    #[QueryParameter(
+        name: 'page',
+        description: 'Page number.',
+        required: false,
+        type: 'integer',
+        example: 1
+    )]
+    #[Response(
+        status: 200,
+        description: 'Offers retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving offers.',
+    )]
     public function getOffers(Restaurant $restaurant): JsonResponse
     {
         Gate::authorize('viewAny', [Offer::class, $restaurant]);
@@ -33,11 +59,12 @@ class OfferController extends Controller
         try {
             $offers = $this->offerService->getOffers($restaurant);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Offers retrieved successfully.',
-                'offers' => $offers,
-            ], 200);
+            return OfferResource::collection($offers)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Offers retrieved successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -49,6 +76,25 @@ class OfferController extends Controller
     /**
      * Create an offer.
      */
+    #[Endpoint(
+        operationId: 'createPartnerOffer',
+        title: 'Create offer',
+        description: 'Create a new offer for a restaurant.',
+        method: 'POST'
+    )]
+    #[IgnoreResponse(200)]
+    #[Response(
+        status: 201,
+        description: 'Offer created successfully.',
+    )]
+    #[Response(
+        status: 422,
+        description: 'An offer already exists for this restaurant.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while creating offer.',
+    )]
     public function createOffer(
         CreateOfferRequest $request,
         Restaurant $restaurant
@@ -61,16 +107,18 @@ class OfferController extends Controller
                 $restaurant,
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Offer created successfully.',
-                'offer' => $offer,
-            ], 201);
+            return OfferResource::make($offer)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Offer created successfully.',
+                ])
+                ->response()
+                ->setStatusCode(201);
         } catch (OfferAlreadyExistsException $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 422);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -82,6 +130,20 @@ class OfferController extends Controller
     /**
      * Update an offer.
      */
+    #[Endpoint(
+        operationId: 'updatePartnerOffer',
+        title: 'Update offer',
+        description: 'Update an existing offer.',
+        method: 'PATCH'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Offer updated successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while updating offer.',
+    )]
     public function updateOffer(
         UpdateOfferRequest $request,
         Restaurant $restaurant,
@@ -96,16 +158,17 @@ class OfferController extends Controller
                 $offer
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Offer updated successfully.',
-                'offer' => $offer,
-            ], 200);
+            return OfferResource::make($offer)
+                ->additional([
+                    'success' => true,
+                    'message' => 'Offer updated successfully.',
+                ])
+                ->response();
         } catch (OfferAlreadyExistsException $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ], 422);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -117,6 +180,20 @@ class OfferController extends Controller
     /**
      * Delete an offer.
      */
+    #[Endpoint(
+        operationId: 'deletePartnerOffer',
+        title: 'Delete offer',
+        description: 'Delete an offer.',
+        method: 'DELETE'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Offer deleted successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while deleting offer.',
+    )]
     public function deleteOffer(Offer $offer): JsonResponse
     {
         Gate::authorize('delete', $offer);

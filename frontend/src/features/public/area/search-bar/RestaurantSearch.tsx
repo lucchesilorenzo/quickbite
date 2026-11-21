@@ -22,19 +22,19 @@ export default function RestaurantSearch() {
   const [inputValue, setInputValue] = useState(currentSearchTerm);
 
   const baseOptions: RestaurantSearchOption[] = [
-    ...restaurantsData.map((r) => ({
+    ...(restaurantsData ?? []).map((r) => ({
       id: r.id,
       label: r.name,
       type: "Restaurant",
     })),
-    ...allCategories.map((c) => ({
+    ...(allCategories ?? []).map((c) => ({
       id: c.id,
       label: c.name,
       type: "Category",
     })),
-    ...restaurantsData.flatMap((r) =>
-      r.menu_categories.flatMap((c) =>
-        c.menu_items.map((i) => ({
+    ...(restaurantsData ?? []).flatMap((r) =>
+      (r.menu_categories ?? []).flatMap((c) =>
+        (c.menu_items ?? []).map((i) => ({
           id: i.id,
           label: i.name,
           type: "Item",

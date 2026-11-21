@@ -13,17 +13,17 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { Link } from "react-router-dom";
 
 import JobPostDescription from "../JobPostDescription";
 
+import { JobPostResource } from "@/api/models";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type JobPostDetailsProps = {
-  jobPost?: JobPostWithRestaurantAndAlreadyApplied;
+  jobPost?: JobPostResource;
 };
 
 export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
@@ -64,10 +64,10 @@ export default function JobPostDetails({ jobPost }: JobPostDetailsProps) {
         }
         subheader={
           <Box>
-            <Typography variant="body2">{jobPost?.restaurant.name}</Typography>
+            <Typography variant="body2">{jobPost?.restaurant?.name}</Typography>
 
             <Typography variant="body2" color="textSecondary" gutterBottom>
-              {jobPost?.restaurant.postcode} - {jobPost?.restaurant.city}
+              {jobPost?.restaurant?.postcode} - {jobPost?.restaurant?.city}
             </Typography>
 
             {jobPost?.salary && (

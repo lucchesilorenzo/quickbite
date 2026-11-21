@@ -1,12 +1,10 @@
 import { createContext, useContext } from "react";
 
-import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
-import { useGetJobPosts } from "@rider/hooks/job-posts/useGetJobPosts";
-import { GetJobPostsResponse } from "@rider/types/job-posts/job-post.api.types";
 import {
+  EmploymentTypeWithAll,
   JobPostFilters,
-  JobPostWithRestaurantAndAlreadyApplied,
-} from "@rider/types/job-posts/job-post.types";
+} from "@private/shared/types/job-posts/job-post.types";
+import { useGetJobPosts } from "@rider/hooks/job-posts/useGetJobPosts";
 import {
   FetchNextPageOptions,
   InfiniteData,
@@ -14,6 +12,11 @@ import {
 } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
+import {
+  GetRiderJobPosts200,
+  JobPostResource,
+  RestaurantSortBy,
+} from "@/api/models";
 import {
   MAX_SALARY,
   MIN_SALARY,
@@ -26,7 +29,7 @@ type JobPostsProviderProps = {
 
 type JobPostsContext = {
   filters: JobPostFilters;
-  jobPostPages?: JobPostWithRestaurantAndAlreadyApplied[];
+  jobPostPages?: JobPostResource[];
   isLoadingJobPosts: boolean;
   jobPostsError: Error | null;
   sortBy: string | null;
@@ -34,7 +37,7 @@ type JobPostsContext = {
   isFetchingNextPage: boolean;
   fetchNextPage: (
     options?: FetchNextPageOptions,
-  ) => Promise<InfiniteQueryObserverResult<InfiniteData<GetJobPostsResponse>>>;
+  ) => Promise<InfiniteQueryObserverResult<InfiniteData<GetRiderJobPosts200>>>;
   handleApplySort: (sortBy: "asc" | "desc") => void;
   handleJobPostChange: (jobPostId: string | null) => void;
 };
@@ -55,7 +58,7 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
         (t) => t.value === searchParams.get("employment_type"),
       )?.value as EmploymentTypeWithAll) || "all",
   };
-  const sortBy = searchParams.get("sort_by");
+  const sortBy = searchParams.get("sort_by") as RestaurantSortBy | null;
   const jobPostId = searchParams.get("job_post_id");
 
   const {
@@ -73,9 +76,7 @@ export default function JobPostsProvider({ children }: JobPostsProviderProps) {
     sortBy,
   });
 
-  const jobPostPages = jobPostsData?.pages.flatMap(
-    (page) => page.job_posts.data,
-  );
+  const jobPostPages = jobPostsData?.pages.flatMap((page) => page.data);
 
   function handleApplySort(sortBy: "asc" | "desc") {
     if (searchParams.get("sort_by") === sortBy) return;

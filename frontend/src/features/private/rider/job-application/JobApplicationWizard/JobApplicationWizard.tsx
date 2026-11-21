@@ -19,7 +19,7 @@ export default function JobApplicationWizard() {
   const { jobPostData } = useJobApplication();
 
   const { mutate: createJobApplication, isPending: isApplying } =
-    useCreateJobApplication({ jobPostId: jobPostData?.job_post.id });
+    useCreateJobApplication({ jobPostId: jobPostData?.data.id });
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -40,19 +40,23 @@ export default function JobApplicationWizard() {
   });
 
   function onSubmit(data: TJobApplicationFormSchema) {
-    const formData = new FormData();
+    const files =
+      data.resume instanceof FileList
+        ? Array.from(data.resume)
+        : Array.isArray(data.resume)
+          ? data.resume
+          : [];
 
-    formData.append("first_name", data.first_name);
-    formData.append("last_name", data.last_name);
-    formData.append("email", data.email);
-    formData.append("phone_number", data.phone_number);
-    formData.append("resume", data.resume[0]);
-    formData.append(
-      "declaration_accepted_at",
-      data.declaration_accepted_at.toString(),
-    );
+    if (!files[0]) return;
 
-    createJobApplication(formData);
+    createJobApplication({
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      phone_number: data.phone_number,
+      resume: files[0],
+      declaration_accepted_at: data.declaration_accepted_at,
+    });
   }
 
   async function handleNext() {
@@ -66,7 +70,7 @@ export default function JobApplicationWizard() {
     setActiveStep((prev) => prev - step);
   }
 
-  if (jobPostData?.job_post.already_applied) {
+  if (jobPostData?.data.already_applied) {
     navigate("/rider/job-posts", { replace: true });
 
     notifications.show("You have already applied for this job.", {

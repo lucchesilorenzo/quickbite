@@ -4,17 +4,19 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import { IconButton, Popover, Stack, Typography } from "@mui/material";
 
-import { Delivery } from "../../types/deliveries/delivery.types";
 import OrderItemsList from "./OrderItemsList";
 
+import { DeliveryResource } from "@/api/models";
+
 type OrderItemsDetailsProps = {
-  delivery: Delivery;
+  delivery: DeliveryResource;
 };
 
 export default function OrderItemDetails({ delivery }: OrderItemsDetailsProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const isPlural = delivery.order.order_items.length > 1;
+  const orderItems = delivery.order?.order_items ?? [];
+  const isPlural = orderItems.length > 1;
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setAnchorEl(e.currentTarget);
@@ -25,7 +27,7 @@ export default function OrderItemDetails({ delivery }: OrderItemsDetailsProps) {
       <FastfoodIcon color="primary" fontSize="small" />
 
       <Typography component="div" variant="body2">
-        {delivery.order.order_items.length} {isPlural ? "items" : "item"}
+        {orderItems.length} {isPlural ? "items" : "item"}
       </Typography>
 
       <IconButton

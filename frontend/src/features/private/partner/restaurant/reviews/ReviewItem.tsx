@@ -11,10 +11,10 @@ import {
 import { blue } from "@mui/material/colors";
 import { format } from "date-fns";
 
-import { ReviewsWithPagination } from "@/types/reviews/review.types";
+import { ReviewResource } from "@/api/models";
 
 type ReviewItemProps = {
-  review: ReviewsWithPagination["data"][number];
+  review: ReviewResource;
 };
 
 export default function ReviewItem({ review }: ReviewItemProps) {
@@ -23,11 +23,11 @@ export default function ReviewItem({ review }: ReviewItemProps) {
       <CardContent sx={{ p: 2 }}>
         <Stack direction="row" sx={{ justifyContent: "space-between", mb: 1 }}>
           <Typography variant="h6" component="div">
-            {review.customer.first_name}
+            {review.customer?.first_name}
           </Typography>
 
           <Typography variant="body2" component="div" sx={{ fontWeight: 300 }}>
-            {format(review.created_at, "dd MMM yyyy")}
+            {review.created_at && format(review.created_at, "dd MMM yyyy")}
           </Typography>
         </Stack>
 
@@ -51,7 +51,7 @@ export default function ReviewItem({ review }: ReviewItemProps) {
               variant="body2"
               sx={{ color: blue[700], fontWeight: 500 }}
             >
-              Order # {review.order.order_code}
+              Order # {review.order?.order_code}
             </Typography>
           </Box>
         </Stack>

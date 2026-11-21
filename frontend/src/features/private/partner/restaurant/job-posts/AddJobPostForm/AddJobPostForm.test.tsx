@@ -15,7 +15,6 @@ import {
   employmentTypes,
 } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
-import { notificationsDefaults } from "@/lib/data/defaults/query.defaults";
 import env from "@/lib/env";
 
 vi.mock("@partner/contexts/RestaurantProvider", () => ({
@@ -48,12 +47,6 @@ describe("AddJobPostForm", () => {
 
     vi.mocked(useRestaurant).mockReturnValue({
       restaurantData: restaurantResponse,
-      notificationsData: {
-        success: false,
-        message: "",
-        notifications: notificationsDefaults,
-        unread_count: 0,
-      },
       notificationsError: null,
       page: 1,
       setPage: vi.fn(),
@@ -83,8 +76,8 @@ describe("AddJobPostForm", () => {
           name: /add job post/i,
         });
 
-        type FormData = {
-          [K in keyof TAddJobPostFormSchema]: any;
+        type FormData = Omit<Partial<TAddJobPostFormSchema>, "salary"> & {
+          salary?: string | number | null;
         };
 
         async function fill(data: FormData) {
@@ -124,7 +117,7 @@ describe("AddJobPostForm", () => {
             }
           }
 
-          if (data.salary !== undefined) {
+          if (data.salary != null) {
             await user.type(salary, data.salary.toString());
           }
 
@@ -308,7 +301,7 @@ describe("AddJobPostForm", () => {
 
   it("should render the loading indicator upon submission", async () => {
     simulateInfiniteLoading(
-      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts`,
       "post",
     );
     const { getForm } = renderComponent();
@@ -330,7 +323,7 @@ describe("AddJobPostForm", () => {
 
   it("should not render the loading indicator if submission fails", async () => {
     simulateError(
-      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.restaurant.id}/job-posts`,
+      `${env.VITE_BACKEND_URL}/api/v1/partner/restaurants/${restaurantResponse.data.id}/job-posts`,
       "post",
     );
     const { getForm } = renderComponent();

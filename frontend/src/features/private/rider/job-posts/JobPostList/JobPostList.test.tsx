@@ -1,6 +1,5 @@
 import { useMediaQuery } from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen, waitFor } from "@testing-library/react";
 import {
   jobPostFilters,
@@ -10,6 +9,8 @@ import { customRender } from "@tests/utils/custom-render";
 import { useInView } from "react-intersection-observer";
 
 import JobPostList from "./JobPostList";
+
+import { JobPostResource } from "@/api/models";
 
 vi.mock("@mui/material", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@mui/material")>()),
@@ -30,7 +31,7 @@ vi.mock("../ViewJobPostDetailsDialog", () => ({
 
 describe("JobPostList", () => {
   function renderComponent(
-    jobPostPages: JobPostWithRestaurantAndAlreadyApplied[],
+    jobPostPages: JobPostResource[],
     isLoadingJobPosts: boolean = false,
     jobPostsError: Error | null = null,
     isFetchingNextPage: boolean = false,

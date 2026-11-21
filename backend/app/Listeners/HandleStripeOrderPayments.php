@@ -55,11 +55,11 @@ class HandleStripeOrderPayments
             return;
         }
 
-        if ($order->payment_status === PaymentStatus::PAID->value) {
+        if ($order->payment_status === PaymentStatus::PAID) {
             return;
         }
 
-        if ($order->payment_method !== PaymentMethod::ONLINE->value) {
+        if ($order->payment_method !== PaymentMethod::ONLINE) {
             return;
         }
 
@@ -89,7 +89,7 @@ class HandleStripeOrderPayments
             return;
         }
 
-        if ($order->payment_status === PaymentStatus::PAID->value) {
+        if ($order->payment_status === PaymentStatus::PAID) {
             return;
         }
 

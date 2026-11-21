@@ -2,10 +2,10 @@ import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import { Card, CardActionArea, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { BaseRestaurant } from "@/types/restaurants/restaurant.types";
+import { RestaurantResource } from "@/api/models";
 
 type RestaurantCardProps = {
-  restaurant: BaseRestaurant;
+  restaurant: RestaurantResource;
 };
 
 export default function RestaurantCard({ restaurant }: RestaurantCardProps) {

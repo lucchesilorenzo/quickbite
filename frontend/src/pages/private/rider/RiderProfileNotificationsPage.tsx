@@ -26,7 +26,7 @@ export default function RiderProfileNotificationsPage() {
   const methods = useForm({
     resolver: zodResolver(profileNotificationsFormSchema),
     defaultValues: {
-      new_delivery: !!user?.notification_preferences.find(
+      new_delivery: !!user?.notification_preferences?.find(
         (p) => p.type === "new_delivery",
       ),
     },

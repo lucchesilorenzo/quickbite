@@ -1,6 +1,7 @@
-import { MenuCategory, MenuItem } from "@/types/menu/menu.types";
+import { MenuCategoryResource, MenuItemResource } from "@/api/models";
+import type { MenuNavigationCategory } from "@/types/menu.types";
 
-export const menuItem: MenuItem = {
+export const menuItem: MenuItemResource = {
   id: "0199e1dc-796d-7323-9cc3-abdece74db4e",
   menu_category_id: "0199e1dc-7962-7165-96dd-4d3122f979a0",
   name: "Chianti Red Wine",
@@ -14,7 +15,7 @@ export const menuItem: MenuItem = {
   updated_at: "2025-10-14T08:35:46.000000Z",
 };
 
-export const menuCategories: MenuCategory[] = [
+export const menuCategories: MenuCategoryResource[] = [
   {
     id: "0199e1dc-7962-7165-96dd-4d3122f979a0",
     restaurant_id: "a01c3a1f-5f95-45e7-8cc8-4c7bcda56d46",
@@ -26,3 +27,10 @@ export const menuCategories: MenuCategory[] = [
     menu_items: [menuItem],
   },
 ];
+
+export const navigationMenuCategories: MenuNavigationCategory[] =
+  menuCategories.map(({ id, name, menu_items }) => ({
+    id,
+    name,
+    menuItems: menu_items,
+  }));

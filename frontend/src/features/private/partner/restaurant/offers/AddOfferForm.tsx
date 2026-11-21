@@ -30,7 +30,7 @@ export default function AddOfferForm({
   const { restaurantData } = useRestaurant();
 
   const { mutate: createOffer, isPending: isAdding } = useCreateOffer({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     setOpenAddOfferDialog,
   });
 
@@ -40,7 +40,7 @@ export default function AddOfferForm({
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: zodResolver(
-      restaurantSettingsOffersFormSchema(restaurantData.restaurant.min_amount),
+      restaurantSettingsOffersFormSchema(restaurantData.data.min_amount),
     ),
     defaultValues: {
       discount_rate: "",
@@ -49,7 +49,12 @@ export default function AddOfferForm({
   });
 
   function onSubmit(data: TRestaurantSettingsOffersFormSchema) {
-    createOffer(data);
+    if (data.discount_rate === "") return;
+
+    createOffer({
+      discount_rate: data.discount_rate,
+      min_discount_amount: data.min_discount_amount,
+    });
   }
 
   return (

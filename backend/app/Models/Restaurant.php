@@ -56,13 +56,6 @@ class Restaurant extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $casts = [
-        'min_amount' => 'float',
-        'delivery_fee' => 'float',
-        'service_fee' => 'float',
-        'reviews_avg_rating' => 'float',
-    ];
-
     /**
      * Get the restaurant for the rider.
      */
@@ -94,11 +87,12 @@ class Restaurant extends Model
     /**
      * Get the restaurant's partners (owner and co-owner).
      *
-     * @return BelongsToMany<User, $this>
+     * @return BelongsToMany<User, $this, RestaurantUser>
      */
     public function partners(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
+            ->using(RestaurantUser::class)
             ->withPivot('role')
             ->wherePivotIn('role', [RestaurantRole::OWNER, RestaurantRole::CO_OWNER]);
     }
@@ -106,11 +100,12 @@ class Restaurant extends Model
     /**
      * Get the restaurant's riders.
      *
-     * @return BelongsToMany<User, $this>
+     * @return BelongsToMany<User, $this, RestaurantUser>
      */
     public function riders(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
+            ->using(RestaurantUser::class)
             ->withPivot('role', 'is_active')
             ->wherePivot('role', RestaurantRole::RIDER);
     }
@@ -239,5 +234,19 @@ class Restaurant extends Model
                 ? Storage::disk('public')->url($this->cover)
                 : null
         );
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'latitude' => 'float',
+            'longitude' => 'float',
+            'min_amount' => 'float',
+            'delivery_fee' => 'float',
+            'service_fee' => 'float',
+            'is_approved' => 'boolean',
+            'force_close' => 'boolean',
+            'reviews_avg_rating' => 'float',
+        ];
     }
 }

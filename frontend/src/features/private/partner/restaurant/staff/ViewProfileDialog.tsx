@@ -10,11 +10,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { UserResource } from "@/api/models";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
-import { User } from "@/types/user.types";
 
 type ViewProfileDialogProps = {
-  staffMember?: User;
+  staffMember?: UserResource;
   openViewProfileDialog: boolean;
   setOpenViewProfileDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

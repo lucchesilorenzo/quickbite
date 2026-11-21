@@ -25,9 +25,8 @@ class UpdateMenuCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        $menuCategory = $this->route('menuCategory');
-        $menuCategoryId = $this->route('menuCategory')->id;
-        $restaurantId = $menuCategory->restaurant_id;
+        $menuCategoryId = $this->route('menuCategory')?->id;
+        $restaurantId = $this->route('menuCategory')?->restaurant_id;
 
         return [
             'name' => [

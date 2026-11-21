@@ -1,6 +1,6 @@
-import { StatRange } from "@partner/types/stats/stats.types";
+import { StatRangeWithAll } from "@partner/types/stats/stats.types";
 
-export const statRanges: { value: StatRange; label: string }[] = [
+export const statRanges: { value: StatRangeWithAll; label: string }[] = [
   { value: "all", label: "All time" },
   { value: "7d", label: "Last 7 days" },
   { value: "14d", label: "Last 14 days" },

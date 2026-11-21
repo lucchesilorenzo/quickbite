@@ -27,7 +27,7 @@ export default function DeleteJobPostDialog({
   const { restaurantData } = useRestaurant();
 
   const { mutate: deleteJobPosts, isPending: isDeleting } = useDeleteJobPosts({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     jobPostIds,
     setOpenDeleteJobPostsDialog,
   });

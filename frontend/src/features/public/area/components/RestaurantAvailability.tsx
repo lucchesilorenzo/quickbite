@@ -1,11 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import { RestaurantResource } from "@/api/models";
 import { getRestaurantOpeningTime } from "@/lib/utils/restaurants.utils";
-import { RestaurantListItem } from "@/types/restaurants/restaurant.types";
 
 type RestaurantAvailabilityProps = {
-  restaurant: RestaurantListItem;
+  restaurant: RestaurantResource;
 };
 
 export default function RestaurantAvailability({

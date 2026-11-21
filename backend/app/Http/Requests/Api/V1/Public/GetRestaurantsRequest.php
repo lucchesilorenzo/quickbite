@@ -27,11 +27,21 @@ class GetRestaurantsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lat' => ['required', 'numeric'],
-            'lon' => ['required', 'numeric'],
+            /** Latitude of the search center. */
+            'lat' => ['required', 'numeric', 'between:-90,90'],
+            /** Longitude of the search center. */
+            'lon' => ['required', 'numeric', 'between:-180,180'],
             'filter' => ['array'],
+            /**
+             * Repeat the parameter to combine filters (`?filter[]=open_now&filter[]=pizza`).
+             * Accepts the fixed filters (`open_now`, `new`, `free_delivery`, `with_discounts`),
+             * the rating intervals (`one_star` to `five_stars`) or a category slug.
+             *
+             * @example "open_now"
+             */
+            'filter.*' => ['string'],
             'sort_by' => ['sometimes', Rule::enum(RestaurantSortBy::class)],
-            'mov' => ['sometimes', 'string', 'in:1000,1500'],
+            'mov' => ['sometimes', 'integer', Rule::in([1000, 1500])],
             'q' => ['sometimes', 'string'],
         ];
     }

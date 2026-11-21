@@ -15,6 +15,14 @@ use Illuminate\Support\Collection;
 
 class StatsService
 {
+    /**
+     * @return array{
+     *     earnings_today: float,
+     *     pending_orders: int,
+     *     accepted_orders: int,
+     *     rejected_orders: int
+     * }
+     */
     public function getDashboardStats(Restaurant $restaurant): array
     {
         $earningsToday = $restaurant->orders()
@@ -38,13 +46,21 @@ class StatsService
             ->count();
 
         return [
-            'earnings_today' => $earningsToday,
+            'earnings_today' => (float) $earningsToday,
             'pending_orders' => $pendingOrders,
             'accepted_orders' => $acceptedOrders,
             'rejected_orders' => $rejectedOrders,
         ];
     }
 
+    /**
+     * @return array{
+     *     accepted_orders: int,
+     *     revenue: float,
+     *     rejected_orders: int,
+     *     lost_revenue: float
+     * }
+     */
     public function getKpiSummary(
         Restaurant $restaurant,
         ?StatRange $range,
@@ -69,6 +85,31 @@ class StatsService
         ];
     }
 
+    /**
+     * @return array{
+     *     stats: Collection<int, array{
+     *         period: string,
+     *         value: float,
+     *         total: int,
+     *         year: int
+     *     }>,
+     *     filters: array{
+     *         years: list<int>
+     *     }
+     * }
+     *
+     * @scramble-return array{
+     *     stats: Collection<int, array{
+     *         period: string,
+     *         value: float,
+     *         total: int,
+     *         year: int
+     *     }>,
+     *     filters: array{
+     *         years: list<int>
+     *     }
+     * }
+     */
     public function getStats(
         Restaurant $restaurant,
         Kpi $kpi,

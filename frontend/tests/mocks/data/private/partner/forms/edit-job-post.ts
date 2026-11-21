@@ -1,10 +1,5 @@
-import {
-  UpdateJobPostRequest,
-  UpdateJobPostResponse,
-} from "@partner/types/job-posts/job-post.api.types";
+import { UpdateJobPostRequest, UpdatePartnerJobPost200 } from "@/api/models";
 import { MIN_SALARY } from "@/features/private/shared/lib/data/job-posts.data";
-
-import { apiResponse } from "@tests/mocks/data/shared/common";
 
 export const editJobPostForm: UpdateJobPostRequest = {
   title: "test",
@@ -16,9 +11,10 @@ export const editJobPostForm: UpdateJobPostRequest = {
   status: "open",
 };
 
-export const editJobPostFormResponse: UpdateJobPostResponse = {
-  ...apiResponse,
-  job_post: {
+export const editJobPostFormResponse: UpdatePartnerJobPost200 = {
+  success: true,
+  message: "Job post updated successfully.",
+  data: {
     id: "019a9227-53ad-7271-90bd-2e88ab8ca909",
     restaurant_id: "a0611650-d7f4-481f-ac39-de9c8d1073ed",
     title: "test",

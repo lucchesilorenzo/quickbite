@@ -27,7 +27,7 @@ export default function RestaurantFooter() {
       sx={{
         mt: "auto",
         bgcolor: grey[200],
-        pb: isMobile && !isEmpty(restaurantData.restaurant.id) ? 10 : "",
+        pb: isMobile && !isEmpty(restaurantData.data.id) ? 10 : "",
       }}
     >
       <Container>

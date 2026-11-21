@@ -25,7 +25,7 @@ export default function RestaurantDescription() {
 
       <Card variant="outlined" sx={{ bgcolor: grey[100] }}>
         <Typography variant={isMobile ? "body2" : "body1"} sx={{ p: 2 }}>
-          {restaurantData.restaurant.description}
+          {restaurantData.data.description}
         </Typography>
       </Card>
     </Box>

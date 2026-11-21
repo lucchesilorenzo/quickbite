@@ -1,18 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
-import { GetOffersResponse } from "@/types/offers/offer.api.types";
+import { getPublicOffers } from "@/api/endpoints/public-offers/public-offers";
+import { GetOffers200, GetOffers500 } from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetOffersOptions = {
-  restaurantId: string;
+  restaurantId?: string;
   page?: number;
 };
 
 export function useGetOffers({ restaurantId, page = 1 }: UseGetOffersOptions) {
-  return useQuery<GetOffersResponse>({
+  return useQuery<GetOffers200, ApiError<GetOffers500>>({
     queryKey: ["offers", restaurantId, page],
-    queryFn: () =>
-      fetchData(`/restaurants/${restaurantId}/offers?page=${page}`),
+    queryFn: async () => {
+      const response = await getPublicOffers(api).getOffers(
+        restaurantId ?? "",
+        {
+          page,
+        },
+      );
+
+      return response.data;
+    },
     enabled: !!restaurantId && !!page,
   });
 }

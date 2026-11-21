@@ -24,7 +24,7 @@ export default function AddMenuItemForm({
   const { selectedMenuCategoryId } = useMenu();
 
   const { mutate: createMenuItem, isPending: isCreating } = useCreateMenuItem({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     menuCategoryId: selectedMenuCategoryId,
     setOpenAddMenuItemDialog,
   });
@@ -44,14 +44,12 @@ export default function AddMenuItemForm({
   });
 
   function onSubmit(data: TAddMenuItemFormSchema) {
-    const formData = new FormData();
-
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("price", String(data.price));
-    if (data.image) formData.append("image", data.image[0]);
-
-    createMenuItem(formData);
+    createMenuItem({
+      name: data.name,
+      description: data.description,
+      price: Number(data.price),
+      image: data.image ? data.image[0] : undefined,
+    });
   }
 
   function handleFileUpload(

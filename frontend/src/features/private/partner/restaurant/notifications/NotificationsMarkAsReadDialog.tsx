@@ -27,7 +27,7 @@ export default function NotificationsMarkAsReadDialog({
 
   const { mutate: markUserNotificationsAsRead, isPending: isMarking } =
     useMarkNotificationsAsRead({
-      restaurantId: restaurantData.restaurant.id,
+      restaurantId: restaurantData.data.id,
       setOpenMarkUserNotificationsAsRead,
     });
 

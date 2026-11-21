@@ -1,12 +1,12 @@
 import { Button } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
+import { OfferResource } from "@/api/models";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
-import { Offer } from "@/types/offers/offer.types";
 
 type RestaurantOfferButtonProps = {
-  offer: Offer;
+  offer: OfferResource;
 };
 
 export default function RestaurantOfferButton({
@@ -34,7 +34,7 @@ export default function RestaurantOfferButton({
       onClick={handleOpenAboutDialogAndOffersTab}
       fullWidth
     >
-      {offer.discount_rate * 100}% off when you spend{" "}
+      {Number(offer.discount_rate) * 100}% off when you spend{" "}
       {formatCurrency(offer.min_discount_amount)} or more
     </Button>
   );

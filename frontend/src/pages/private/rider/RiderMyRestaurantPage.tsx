@@ -28,7 +28,7 @@ export default function RiderMyRestaurantPage() {
           sx={{ justifyContent: "space-between", alignItems: "flex-start" }}
         >
           <HeadingBlock
-            title={restaurantData?.restaurant?.name || "My restaurant"}
+            title={restaurantData?.data?.name || "My restaurant"}
             description="View your active delivery"
           />
 

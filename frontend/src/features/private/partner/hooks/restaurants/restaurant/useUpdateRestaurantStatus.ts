@@ -1,11 +1,14 @@
-import {
-  UpdateRestaurantStatusRequest,
-  UpdateRestaurantStatusResponse,
-} from "@partner/types/restaurants/restaurant.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partner-restaurants";
+import {
+  UpdatePartnerRestaurantStatus200,
+  UpdatePartnerRestaurantStatus500,
+  UpdateStatusRequest,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateRestaurantStatusOptions = {
   restaurantId: string;
@@ -18,15 +21,20 @@ export function useUpdateRestaurantStatus({
   const notifications = useNotifications();
 
   return useMutation<
-    UpdateRestaurantStatusResponse,
-    Error,
-    UpdateRestaurantStatusRequest
+    UpdatePartnerRestaurantStatus200,
+    ApiError<UpdatePartnerRestaurantStatus500>,
+    UpdateStatusRequest
   >({
-    mutationFn: (data) =>
-      updateData(`/partner/restaurants/${restaurantId}/status`, data),
+    mutationFn: async (data) => {
+      const response = await getPartnerRestaurants(
+        api,
+      ).updatePartnerRestaurantStatus(restaurantId, data);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-restaurants", restaurantId],
       });
 
       notifications.show(response.message, {

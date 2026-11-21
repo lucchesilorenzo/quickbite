@@ -17,7 +17,6 @@ import EmptyOrders from "./EmptyOrders";
 import OrdersList from "./OrdersList";
 
 import Spinner from "@/components/common/Spinner";
-import { ordersDefaults } from "@/features/private/shared/lib/data/defaults/query.defaults";
 
 type OrdersDialogProps = {
   openOrdersDialog: boolean;
@@ -28,7 +27,7 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
   const [page, setPage] = useState(1);
 
   const {
-    data: ordersData = { success: false, message: "", orders: ordersDefaults },
+    data: ordersData,
     isLoading: isLoadingOrders,
     error: ordersError,
   } = useGetOrders({ page });
@@ -83,16 +82,17 @@ export default function OrdersDialog({ openOrdersDialog }: OrdersDialogProps) {
           <Alert severity="error">{ordersError.message}</Alert>
         )}
 
-        {!isLoadingOrders &&
-          !ordersError &&
-          ordersData.orders.data.length === 0 && <EmptyOrders />}
+        {!isLoadingOrders && !ordersError && ordersData?.data.length === 0 && (
+          <EmptyOrders />
+        )}
 
         {!isLoadingOrders &&
           !ordersError &&
-          ordersData.orders.data.length > 0 && (
+          ordersData?.data &&
+          ordersData.data.length > 0 && (
             <OrdersList
-              orders={ordersData.orders.data}
-              totalPages={ordersData.orders.last_page}
+              orders={ordersData.data}
+              totalPages={ordersData.meta.last_page}
               page={page}
               setPage={setPage}
             />

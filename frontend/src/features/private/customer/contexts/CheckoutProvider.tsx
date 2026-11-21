@@ -1,32 +1,31 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import { useGetCart } from "@customer/hooks/carts/useGetCart";
-import { CheckoutData } from "@customer/types/orders/order.types";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { cartDefaults } from "../lib/data/defaults/query.defaults";
-import { GetCartResponse } from "../types/carts/cart.api.types";
-
+import {
+  GetCustomerCart200,
+  GetDeliverySlots200,
+  GetOffers200,
+} from "@/api/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 import { useGetDeliverySlots } from "@/hooks/restaurants/useGetDeliverySlots";
-import { offersDefaults } from "@/lib/data/defaults/query.defaults";
-import { GetDeliverySlotsResponse } from "@/types/deliveries/delivery.api.types";
-import { GetOffersResponse } from "@/types/offers/offer.api.types";
+import { CheckoutData } from "@/types/order.types";
 
 type CheckoutProviderProps = {
   children: React.ReactNode;
 };
 
 type CheckoutContext = {
-  cartData: GetCartResponse;
+  cartData: GetCustomerCart200;
   checkoutData: CheckoutData;
   restaurantId: string;
-  offersData: GetOffersResponse;
+  offersData?: GetOffers200;
   offersError: Error | null;
-  deliverySlotsData: GetDeliverySlotsResponse;
+  deliverySlotsData?: GetDeliverySlots200;
   isLoadingDeliverySlots: boolean;
   deliverySlotsError: Error | null;
   setCheckoutData: React.Dispatch<React.SetStateAction<CheckoutData>>;
@@ -43,26 +42,21 @@ export default function CheckoutProvider({ children }: CheckoutProviderProps) {
   const notifications = useNotifications();
 
   const {
-    data: cartData = { success: false, message: "", cart: cartDefaults },
+    data: cartData,
     isLoading: isLoadingCart,
     error: cartError,
   } = useGetCart({ cartId });
 
-  const restaurantId = cartData.cart.restaurant.id;
+  const restaurantId = cartData?.data.restaurant.id;
 
   const {
-    data: offersData = { success: false, message: "", offers: offersDefaults },
+    data: offersData,
     isLoading: isLoadingOffers,
     error: offersError,
   } = useGetOffers({ restaurantId });
 
   const {
-    data: deliverySlotsData = {
-      success: false,
-      message: "",
-      is_asap_available: false,
-      delivery_slots: [],
-    },
+    data: deliverySlotsData,
     isLoading: isLoadingDeliverySlots,
     error: deliverySlotsError,
   } = useGetDeliverySlots({ restaurantId });

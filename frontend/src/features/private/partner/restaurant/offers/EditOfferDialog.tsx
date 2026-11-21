@@ -10,10 +10,10 @@ import {
 
 import EditOfferForm from "./EditOfferForm";
 
-import { Offer } from "@/types/offers/offer.types";
+import { OfferResource } from "@/api/models";
 
 type EditOfferDialogProps = {
-  offer: Offer;
+  offer: OfferResource;
   openEditOfferDialog: boolean;
   setOpenEditOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

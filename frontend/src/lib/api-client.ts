@@ -1,14 +1,18 @@
-import axios, { AxiosInstance, isAxiosError } from "axios";
+import axios, {
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+  isAxiosError,
+} from "axios";
 
+import { ApiError, type ApiErrorData } from "./api-error";
 import env from "./env";
 
 import { refreshToken } from "@/services/auth.service";
 
 const api = axios.create({
-  baseURL: `${env.VITE_BACKEND_URL}/api/v1`,
+  baseURL: `${env.VITE_BACKEND_URL}/api`,
 });
 
-let isRefreshing = false;
 let refreshPromise: Promise<string> | null = null;
 
 api.interceptors.request.use((config) => {
@@ -35,23 +39,34 @@ api.interceptors.response.use(
   },
   async (error) => {
     if (!isAxiosError(error)) {
-      throw new Error("An unexpected error occurred.");
+      throw new ApiError(
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred.",
+      );
     }
 
-    const originalRequest = error.config as any;
+    if (!error.config) {
+      throw new ApiError("An unexpected error occurred.");
+    }
+
+    const originalRequest: InternalAxiosRequestConfig & { _retry?: boolean } =
+      error.config;
+
+    const isRefreshRequest = originalRequest.url?.includes("/auth/refresh");
 
     if (
       error.response?.status === 401 &&
-      error.response.data.message === "Unauthenticated." &&
-      !originalRequest._retry
+      error.response?.data?.message === "Unauthenticated." &&
+      !originalRequest._retry &&
+      !isRefreshRequest
     ) {
       originalRequest._retry = true;
 
       try {
-        if (!isRefreshing) {
-          isRefreshing = true;
+        if (!refreshPromise) {
           refreshPromise = refreshToken().finally(() => {
-            isRefreshing = false;
+            refreshPromise = null;
           });
         }
 
@@ -66,9 +81,14 @@ api.interceptors.response.use(
       }
     }
 
-    throw new Error(
-      error.response?.data?.message ||
-        "An error occurred while making the request.",
+    const data = error.response?.data;
+    const apiErrorData =
+      data && typeof data === "object" ? (data as ApiErrorData) : null;
+
+    throw new ApiError(
+      apiErrorData?.message || error.message,
+      error.response?.status ?? null,
+      apiErrorData,
     );
   },
 );

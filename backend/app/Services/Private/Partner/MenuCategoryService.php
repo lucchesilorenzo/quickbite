@@ -7,6 +7,7 @@ namespace App\Services\Private\Partner;
 use App\Exceptions\Private\Partner\MenuCategoryOrderExceededException;
 use App\Models\MenuCategory;
 use App\Models\Restaurant;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class MenuCategoryService
@@ -30,16 +31,14 @@ class MenuCategoryService
         ]);
     }
 
-    public function updateMenuCategoriesOrder(array $menuCategories): array
+    public function updateMenuCategoriesOrder(array $menuCategories): Collection
     {
-        return DB::transaction(function () use ($menuCategories): array {
+        return DB::transaction(function () use ($menuCategories): Collection {
             foreach ($menuCategories as $menuCategory) {
                 $menuCategory->save();
             }
 
-            return collect($menuCategories)
-                ->pluck('id')
-                ->all();
+            return collect($menuCategories);
         });
     }
 

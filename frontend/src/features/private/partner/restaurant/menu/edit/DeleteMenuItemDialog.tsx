@@ -12,10 +12,10 @@ import {
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteMenuItem } from "@partner/hooks/restaurants/menu/items/useDeleteMenuItem";
 
-import { MenuItem } from "@/types/menu/menu.types";
+import { MenuItemResource } from "@/api/models";
 
 type DeleteMenuItemDialogProps = {
-  menuItem: MenuItem;
+  menuItem: MenuItemResource;
   openDeleteMenuItemDialog: boolean;
   setOpenDeleteMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -28,7 +28,7 @@ export default function DeleteMenuItemDialog({
   const { restaurantData } = useRestaurant();
 
   const { mutate: deleteMenuItem, isPending: isDeleting } = useDeleteMenuItem({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     menuItemId: menuItem.id,
     setOpenDeleteMenuItemDialog,
   });

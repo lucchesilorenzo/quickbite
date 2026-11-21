@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')
     ->group(function (): void {
         Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
-        Route::post('/refresh', [AuthController::class, 'refresh']);
-        Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
-        Route::post('/reset-password', [AuthController::class, 'resetPassword']);
-        Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])
-            ->middleware('signed')
-            ->name('verification.verify');
+        Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('throttle:10,1');
         Route::post('/email/verification-notification', [AuthController::class, 'resendEmailVerification'])->middleware(['auth:sanctum', 'throttle:6,1']);
     });

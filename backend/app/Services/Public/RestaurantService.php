@@ -92,9 +92,12 @@ class RestaurantService
 
         $total = $query->count();
         $restaurants = $query->cursorPaginate(self::PER_PAGE);
-        $meta = $this->buildMeta($baseQuery, $total);
+        $stats = $this->buildStats($baseQuery, $total);
 
-        return [$restaurants, $meta];
+        return [
+            'restaurants' => $restaurants,
+            'stats' => $stats,
+        ];
     }
 
     public function getRestaurant(string $restaurantSlug): Restaurant
@@ -110,6 +113,9 @@ class RestaurantService
             ->firstOrFail();
     }
 
+    /**
+     * @return array{is_asap_available: bool, delivery_slots: list<string>}
+     */
     public function getDeliverySlots(Restaurant $restaurant): array
     {
         $currentDeliveryDay = $restaurant->deliveryDays()
@@ -133,7 +139,10 @@ class RestaurantService
 
         $isAsapAvailable = $restaurant->is_open && now()->between($startTimeDay, $endTimeDay);
 
-        return [$isAsapAvailable, $deliverySlots];
+        return [
+            'is_asap_available' => $isAsapAvailable,
+            'delivery_slots' => $deliverySlots,
+        ];
     }
 
     public function getBase64Logo(Restaurant $restaurant): string
@@ -227,14 +236,23 @@ class RestaurantService
             ->when(in_array($sortBy, [null, '', '0'], true), fn ($q) => $q->orderBy('id'));
     }
 
-    private function buildMeta(Builder $baseQuery, int $total): array
+    /**
+     * @return array{
+     *     total: int,
+     *     mov_counts: array{all: int, 1000: int, 1500: int},
+     *     offer_counts: array{with_discounts: int}
+     * }
+     */
+    private function buildStats(Builder $baseQuery, int $total): array
     {
         $movCounts = [
-            'all' => $baseQuery->count(),
+            'all' => (int) $baseQuery->count(),
         ];
 
         foreach (self::MOV_THRESHOLDS as $key => $value) {
-            $movCounts[$key] = (clone $baseQuery)->where('min_amount', '<=', $value)->count();
+            $movCounts[$key] = (clone $baseQuery)
+                ->where('min_amount', '<=', $value)
+                ->count();
         }
 
         $offerCounts = [

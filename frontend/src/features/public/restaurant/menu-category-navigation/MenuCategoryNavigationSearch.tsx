@@ -21,13 +21,13 @@ export default function MenuCategoryNavigationSearch() {
   const { restaurantData, searchTerm, setSearchTerm } = useRestaurant();
   const { menuData } = useMenu();
 
-  const menuItems = menuData.menu.flatMap(
-    (menuCategory) => menuCategory.menu_items,
+  const menuItems = menuData?.data.flatMap(
+    (menuCategory) => menuCategory.menu_items ?? [],
   );
 
   const filteredMenuItems = useMemo(
     () =>
-      menuItems.filter((c) =>
+      menuItems?.filter((c) =>
         c.name.toLowerCase().includes(searchTerm.toLowerCase()),
       ),
     [searchTerm, menuItems],
@@ -40,7 +40,7 @@ export default function MenuCategoryNavigationSearch() {
       <TextField
         autoComplete="off"
         size={isMobile ? "small" : "medium"}
-        placeholder={`Search in ${restaurantData.restaurant.name}`}
+        placeholder={`Search in ${restaurantData.data.name}`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         sx={{
@@ -72,7 +72,7 @@ export default function MenuCategoryNavigationSearch() {
         }}
       />
 
-      {searchTerm && filteredMenuItems.length > 0 ? (
+      {searchTerm && filteredMenuItems && filteredMenuItems.length > 0 ? (
         <MenuItemsList menuItems={filteredMenuItems} />
       ) : (
         searchTerm && <MenuItemsEmpty setSearchTerm={setSearchTerm} />

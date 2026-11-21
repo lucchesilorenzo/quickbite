@@ -13,13 +13,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { CartItemResource, MenuItemResource } from "@/api/models";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
-import { CartItem } from "@/types/cart.types";
-import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemInfoDialogProps = {
   type: "from-list" | "from-search";
-  menuItem: MenuItem | CartItem;
+  menuItem: MenuItemResource | CartItemResource;
   openMenuItemInfoDialog: boolean;
   setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenMenuItemInfoDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -85,11 +84,11 @@ export default function MenuItemInfoDialog({
               If you have a food allergy or intolerance (or someone you're
               ordering for has), phone the restaurant on{" "}
               <Link
-                href={`tel:${restaurantData.restaurant.phone_number}`}
+                href={`tel:${restaurantData.data.phone_number}`}
                 color="inherit"
                 sx={{ textDecoration: "underline" }}
               >
-                {restaurantData.restaurant.phone_number}
+                {restaurantData.data.phone_number}
               </Link>
               . Do not order if you cannot get the allergy information you need.
             </Typography>
@@ -153,11 +152,11 @@ export default function MenuItemInfoDialog({
               If you have a food allergy or intolerance (or someone you're
               ordering for has), phone the restaurant on{" "}
               <Link
-                href={`tel:${restaurantData.restaurant.phone_number}`}
+                href={`tel:${restaurantData.data.phone_number}`}
                 color="inherit"
                 sx={{ textDecoration: "underline" }}
               >
-                {restaurantData.restaurant.phone_number}
+                {restaurantData.data.phone_number}
               </Link>
               . Do not order if you cannot get the allergy information you need.
             </Typography>

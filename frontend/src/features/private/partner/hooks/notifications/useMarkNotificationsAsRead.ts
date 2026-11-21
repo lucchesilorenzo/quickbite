@@ -1,8 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { postData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api.types";
+import { getPartnerNotifications } from "@/api/endpoints/partner-notifications/partner-notifications";
+import {
+  MarkPartnerNotificationsAsRead200,
+  MarkPartnerNotificationsAsRead500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseMarkNotificationsAsReadOptions = {
   restaurantId: string;
@@ -18,11 +23,19 @@ export function useMarkNotificationsAsRead({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<ApiResponse, Error, void>({
-    mutationFn: () =>
-      postData(
-        `/partner/restaurants/${restaurantId}/notifications/mark-as-read`,
-      ),
+  return useMutation<
+    MarkPartnerNotificationsAsRead200,
+    ApiError<MarkPartnerNotificationsAsRead500>,
+    void
+  >({
+    mutationFn: async () => {
+      const response =
+        await getPartnerNotifications(api).markPartnerNotificationsAsRead(
+          restaurantId,
+        );
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-notifications", restaurantId],

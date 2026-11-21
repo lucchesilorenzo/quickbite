@@ -6,6 +6,7 @@ namespace App\Http\Requests\Api\V1\Private\Customer\Review;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateReviewRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class CreateReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order_id' => ['required', 'uuid', 'exists:orders,id'],
+            'order_id' => ['required', 'uuid', Rule::exists('orders', 'id')],
             'comment' => ['nullable', 'string', 'min:1', 'max:200'],
             'rating' => ['required', 'integer', 'min:1', 'max:5'],
         ];

@@ -3,8 +3,9 @@ import { jobPostResponse } from "@tests/mocks/data/private/rider/job-posts";
 import { customRender } from "@tests/utils/custom-render";
 
 import { useJobApplication } from "../../contexts/JobApplicationProvider";
-import { GetJobPostResponse } from "../../types/job-posts/job-post.api.types";
 import RestaurantInfoPanel from "./RestaurantInfoPanel";
+
+import { GetRiderJobPost200 } from "@/api/models";
 
 vi.mock("../../contexts/JobApplicationProvider", () => ({
   useJobApplication: vi.fn(),
@@ -12,7 +13,7 @@ vi.mock("../../contexts/JobApplicationProvider", () => ({
 
 describe("RestaurantInfoPanel", () => {
   function renderComponent(
-    jobPostData: GetJobPostResponse,
+    jobPostData: GetRiderJobPost200,
     isLoadingJobPost: boolean = false,
     jobPostError: Error | null = null,
   ) {
@@ -30,7 +31,7 @@ describe("RestaurantInfoPanel", () => {
 
     expect(screen.getByRole("img")).toHaveAttribute(
       "src",
-      `${jobPostResponse.job_post.restaurant.logo_url}`,
+      `${jobPostResponse.data.restaurant!.logo_url}`,
     );
   });
 
@@ -47,12 +48,10 @@ describe("RestaurantInfoPanel", () => {
   it("render the restaurant info details", () => {
     renderComponent(jobPostResponse, false, null);
 
-    expect(
-      screen.getByText(jobPostResponse.job_post.title),
-    ).toBeInTheDocument();
+    expect(screen.getByText(jobPostResponse.data.title)).toBeInTheDocument();
     expect(
       screen.getByText(
-        `${jobPostResponse.job_post.restaurant.name} - ${jobPostResponse.job_post.restaurant.city}, ${jobPostResponse.job_post.restaurant.country}`,
+        `${jobPostResponse.data.restaurant!.name} - ${jobPostResponse.data.restaurant!.city}, ${jobPostResponse.data.restaurant!.country}`,
       ),
     ).toBeInTheDocument();
   });

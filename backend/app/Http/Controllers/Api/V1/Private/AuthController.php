@@ -6,19 +6,13 @@ namespace App\Http\Controllers\Api\V1\Private;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Private\Auth\RefreshRequest;
-use App\Http\Requests\Api\V1\Public\Auth\ForgotPasswordRequest;
-use App\Http\Requests\Api\V1\Public\Auth\ResetPasswordRequest;
-use App\Models\User;
+use App\Http\Resources\Api\V1\UserResource;
 use App\Services\Private\AuthService;
+use Dedoc\Scramble\Attributes\Endpoint;
 use Dedoc\Scramble\Attributes\Group;
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Auth\Events\Verified;
+use Dedoc\Scramble\Attributes\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
 use Throwable;
 
 #[Group('Private Auth')]
@@ -31,6 +25,20 @@ class AuthController extends Controller
     /**
      * Get the authenticated user.
      */
+    #[Endpoint(
+        operationId: 'getAuthenticatedUser',
+        title: 'Get authenticated user',
+        description: 'Get the currently authenticated user with roles and notification preferences.',
+        method: 'GET'
+    )]
+    #[Response(
+        status: 200,
+        description: 'User retrieved successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while retrieving the user.',
+    )]
     public function me(): JsonResponse
     {
         try {
@@ -38,11 +46,12 @@ class AuthController extends Controller
                 auth()->user()
             );
 
-            return response()->json([
-                'success' => true,
-                'message' => 'User retrieved successfully.',
-                'user' => $user,
-            ], 200);
+            return UserResource::make($user)
+                ->additional([
+                    'success' => true,
+                    'message' => 'User retrieved successfully.',
+                ])
+                ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
@@ -53,7 +62,23 @@ class AuthController extends Controller
 
     /**
      * Refresh a token.
+     *
+     * @unauthenticated
      */
+    #[Endpoint(
+        operationId: 'refreshToken',
+        title: 'Refresh token',
+        description: 'Refresh access token using a refresh token.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Tokens refreshed successfully.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while refreshing tokens.',
+    )]
     public function refresh(RefreshRequest $request): JsonResponse
     {
         try {
@@ -81,86 +106,27 @@ class AuthController extends Controller
     }
 
     /**
-     * Send an email with a link to reset the password.
-     */
-    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
-    {
-        $status = Password::sendResetLink(
-            $request->validated()
-        );
-
-        return match ($status) {
-            Password::RESET_LINK_SENT => response()->json([
-                'success' => true,
-                'message' => 'If the email exists, a reset link has been sent.',
-            ], 200),
-            Password::RESET_THROTTLED => response()->json([
-                'success' => false,
-                'message' => 'Please wait before requesting another reset email.',
-            ], 429),
-            default => response()->json([
-                'success' => true,
-                'message' => 'If the email exists, a reset link has been sent.',
-            ], 200),
-        };
-    }
-
-    /**
-     * Reset the password.
-     */
-    public function resetPassword(ResetPasswordRequest $request): JsonResponse
-    {
-        $status = Password::reset(
-            $request->validated(),
-            function (User $user, string $password): void {
-                $user->forceFill([
-                    'password' => Hash::make($password),
-                ])->setRememberToken(Str::random(60));
-
-                $user->save();
-
-                event(new PasswordReset($user));
-            }
-        );
-
-        return match ($status) {
-            Password::PASSWORD_RESET => response()->json([
-                'success' => true,
-                'message' => 'Password reset successfully.',
-            ], 200),
-            Password::INVALID_TOKEN => response()->json([
-                'success' => false,
-                'message' => 'Invalid or expired reset token.',
-            ], 400),
-            default => response()->json([
-                'success' => false,
-                'message' => 'Could not reset password.',
-            ], 400),
-        };
-    }
-
-    /**
-     * Verify the email.
-     */
-    public function verifyEmail(string $id, string $hash): RedirectResponse
-    {
-        $user = User::query()->findOrFail($id);
-
-        if (! hash_equals(sha1((string) $user->getEmailForVerification()), $hash)) {
-            abort(403);
-        }
-
-        if (! $user->hasVerifiedEmail()) {
-            $user->markEmailAsVerified();
-            event(new Verified($user));
-        }
-
-        return redirect(config('app.frontend_url'));
-    }
-
-    /**
      * Resend the email verification notification.
      */
+    #[Endpoint(
+        operationId: 'resendEmailVerification',
+        title: 'Resend email verification',
+        description: 'Resend the email verification notification to the authenticated user.',
+        method: 'POST'
+    )]
+    #[Response(
+        status: 200,
+        description: 'Verification link resent.',
+    )]
+    #[Response(
+        status: 400,
+        description: 'Email already verified.',
+    )]
+    #[Response(
+        status: 500,
+        description: 'An unexpected error occurred while resending the verification notification.',
+        type: 'array{message: string}',
+    )]
     public function resendEmailVerification(): JsonResponse
     {
         if (auth()->user()->hasVerifiedEmail()) {

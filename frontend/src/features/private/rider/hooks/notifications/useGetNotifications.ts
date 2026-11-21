@@ -1,7 +1,12 @@
-import { GetNotificationsResponse } from "@rider/types/notifications/notification.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getRiderNotifications } from "@/api/endpoints/rider-notifications/rider-notifications";
+import {
+  GetRiderNotifications200,
+  GetRiderNotifications500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetNotificationsOptions = {
   userId?: string;
@@ -12,9 +17,19 @@ export function useGetNotifications({
   userId,
   page,
 }: UseGetNotificationsOptions) {
-  return useQuery<GetNotificationsResponse>({
-    queryKey: ["rider-notifications", userId, page],
-    queryFn: () => fetchData(`/rider/notifications?page=${page}`),
-    enabled: !!userId && !!page,
-  });
+  return useQuery<GetRiderNotifications200, ApiError<GetRiderNotifications500>>(
+    {
+      queryKey: ["rider-notifications", userId, page],
+      queryFn: async () => {
+        const response = await getRiderNotifications(api).getRiderNotifications(
+          {
+            page,
+          },
+        );
+
+        return response.data;
+      },
+      enabled: !!userId && !!page,
+    },
+  );
 }

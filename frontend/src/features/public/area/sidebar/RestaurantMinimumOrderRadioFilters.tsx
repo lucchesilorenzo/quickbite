@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
+import { GetRestaurantsMov } from "@/api/models";
 import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 
@@ -15,23 +16,23 @@ export default function RestaurantMinimumOrderRadioFilters() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const value = searchParams.get("mov") || "all";
+  const value = (searchParams.get("mov") as GetRestaurantsMov | null) || "all";
 
   const minOrderOptions = [
     {
       label: "Show all",
       value: "all",
-      count: movCounts.all,
+      count: movCounts?.all,
     },
     {
       label: "10,00 € or less",
       value: "1000",
-      count: movCounts[1000],
+      count: movCounts?.[1000],
     },
     {
       label: "15,00 € or less",
       value: "1500",
-      count: movCounts[1500],
+      count: movCounts?.[1500],
     },
   ];
 

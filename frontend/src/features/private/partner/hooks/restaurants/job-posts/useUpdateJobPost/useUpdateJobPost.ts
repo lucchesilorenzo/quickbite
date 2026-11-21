@@ -1,11 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
 import {
   UpdateJobPostRequest,
-  UpdateJobPostResponse,
-} from "@/features/private/partner/types/job-posts/job-post.api.types";
-import { updateData } from "@/lib/api-client";
+  UpdatePartnerJobPost200,
+  UpdatePartnerJobPost500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateJobPostOptions = {
   restaurantId: string;
@@ -21,12 +24,20 @@ export function useUpdateJobPost({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdateJobPostResponse, Error, UpdateJobPostRequest>({
-    mutationFn: (data) =>
-      updateData(
-        `/partner/restaurants/${restaurantId}/job-posts/${jobPostId}`,
+  return useMutation<
+    UpdatePartnerJobPost200,
+    ApiError<UpdatePartnerJobPost500>,
+    UpdateJobPostRequest
+  >({
+    mutationFn: async (data) => {
+      const response = await getPartnerJobPosts(api).updatePartnerJobPost(
+        restaurantId,
+        jobPostId ?? "",
         data,
-      ),
+      );
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-job-posts", restaurantId],

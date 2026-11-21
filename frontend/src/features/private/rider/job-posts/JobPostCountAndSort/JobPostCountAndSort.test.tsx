@@ -1,5 +1,4 @@
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
-import { JobPostWithRestaurantAndAlreadyApplied } from "@rider/types/job-posts/job-post.types";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
@@ -9,6 +8,8 @@ import {
 import { customRender } from "@tests/utils/custom-render";
 
 import JobPostCountAndSort from "./JobPostCountAndSort";
+
+import { JobPostResource } from "@/api/models";
 
 const mockHandleApplySort = vi.fn();
 
@@ -20,7 +21,7 @@ describe("JobPostCountAndSort", () => {
   const user = userEvent.setup();
 
   function renderComponent(
-    jobPosts: JobPostWithRestaurantAndAlreadyApplied[],
+    jobPosts: JobPostResource[],
     sortBy: "asc" | "desc" | null = null,
   ) {
     vi.mocked(useJobPosts).mockReturnValue({

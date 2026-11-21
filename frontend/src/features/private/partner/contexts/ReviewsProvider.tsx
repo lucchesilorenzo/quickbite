@@ -1,12 +1,11 @@
 import { createContext, useContext, useState } from "react";
 
 import { useGetReviews } from "@partner/hooks/restaurants/reviews/useGetReviews";
-import { OrderStatusWithAll } from "@private/shared/types/order.types";
 
-import { GetReviewsResponse } from "../types/reviews/review.api.types";
 import { useRestaurant } from "./RestaurantProvider";
 
-import { reviewsDefaults } from "@/lib/data/defaults/query.defaults";
+import { GetPartnerReviews200 } from "@/api/models";
+import { OrderStatusWithAll } from "@/types/order.types";
 
 type ReviewsProviderProps = {
   children: React.ReactNode;
@@ -15,7 +14,7 @@ type ReviewsProviderProps = {
 type ReviewsContext = {
   page: number;
   status: OrderStatusWithAll;
-  reviewsData: GetReviewsResponse;
+  reviewsData?: GetPartnerReviews200;
   isLoadingReviews: boolean;
   reviewsError: Error | null;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -31,16 +30,10 @@ export default function ReviewsProvider({ children }: ReviewsProviderProps) {
   const [status, setStatus] = useState<OrderStatusWithAll>("all");
 
   const {
-    data: reviewsData = {
-      success: false,
-      message: "",
-      reviews: reviewsDefaults,
-      avg_rating: null,
-      count: 0,
-    },
+    data: reviewsData,
     isLoading: isLoadingReviews,
     error: reviewsError,
-  } = useGetReviews({ restaurantId: restaurantData.restaurant.id, page });
+  } = useGetReviews({ restaurantId: restaurantData.data.id, page });
 
   return (
     <ReviewsContext.Provider

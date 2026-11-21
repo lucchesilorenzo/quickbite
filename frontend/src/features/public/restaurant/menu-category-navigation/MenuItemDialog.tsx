@@ -18,12 +18,11 @@ import { grey } from "@mui/material/colors";
 import MenuItemDialogActions from "./MenuItemDialogActions";
 import MenuItemInfoDialog from "./MenuItemInfoDialog";
 
+import { CartItemResource, MenuItemResource } from "@/api/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
-import { CartItem } from "@/types/cart.types";
-import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemDialogProps = {
-  menuItem: MenuItem | CartItem;
+  menuItem: MenuItemResource | CartItemResource;
   openMenuItemDialog: boolean;
   setOpenMenuItemDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };

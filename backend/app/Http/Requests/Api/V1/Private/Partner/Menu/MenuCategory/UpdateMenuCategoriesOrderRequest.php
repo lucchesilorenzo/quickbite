@@ -6,6 +6,7 @@ namespace App\Http\Requests\Api\V1\Private\Partner\Menu\MenuCategory;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class UpdateMenuCategoriesOrderRequest extends FormRequest
@@ -26,8 +27,8 @@ class UpdateMenuCategoriesOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            '*.id' => ['required', 'uuid', 'exists:menu_categories,id'],
-            '*.order' => ['required', 'integer'],
+            '*.id' => ['required', 'uuid', Rule::exists('menu_categories', 'id')],
+            '*.order' => ['required', 'integer', 'min:0'],
         ];
     }
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -16,17 +16,26 @@ import MenuEditNavigationSkeletons from "./MenuEditNavigationSkeletons";
 
 import MenuCategoryNavigationSlide from "@/components/menu-category-navigation/MenuCategoryNavigationSlide";
 import ShowMoreMenuCategoriesButton from "@/components/menu-category-navigation/ShowMoreMenuCategoriesButton";
-import { menuDefaults } from "@/features/private/partner/lib/data/defaults/query.defaults";
+import type { MenuNavigationCategory } from "@/types/menu.types";
 
 export default function MenuEditNavigation() {
   const { restaurantData } = useRestaurant();
   const { selectedMenuCategoryId, setSelectedMenuCategoryId } = useMenu();
 
   const {
-    data: menuData = { success: false, message: "", menu: menuDefaults },
+    data: menuData,
     isLoading: isLoadingMenu,
     error: menuError,
-  } = useGetMenu({ restaurantId: restaurantData.restaurant.id });
+  } = useGetMenu({ restaurantId: restaurantData.data.id });
+
+  const menuCategories = menuData?.data;
+
+  const navigationMenuCategories = useMemo<
+    MenuNavigationCategory[] | undefined
+  >(
+    () => menuCategories?.map(({ id, name }) => ({ id, name })),
+    [menuCategories],
+  );
 
   const swiperRef = useRef<SwiperClass>(null);
 
@@ -48,7 +57,7 @@ export default function MenuEditNavigation() {
     const menuCategoryId = searchParams.get("menu_category_id");
 
     if (menuCategoryId) {
-      const menuCategory = menuData.menu.find(
+      const menuCategory = menuCategories?.find(
         (menuCategory) => menuCategory.id === menuCategoryId,
       );
 
@@ -56,7 +65,7 @@ export default function MenuEditNavigation() {
         setSelectedMenuCategoryId(menuCategory.id);
       }
     }
-  }, [searchParams, menuData.menu, setSelectedMenuCategoryId]);
+  }, [searchParams, menuCategories, setSelectedMenuCategoryId]);
 
   if (isLoadingMenu) {
     return <MenuEditNavigationSkeletons />;
@@ -102,7 +111,7 @@ export default function MenuEditNavigation() {
             800: { slidesPerView: 6 },
           }}
         >
-          {menuData.menu.map((menuCategory) => (
+          {navigationMenuCategories?.map((menuCategory) => (
             <SwiperSlide key={menuCategory.id}>
               <MenuCategoryNavigationSlide
                 menuCategory={menuCategory}
@@ -131,9 +140,9 @@ export default function MenuEditNavigation() {
 
       {selectedMenuCategoryId && <AddMenuItemButton />}
 
-      {menuData.menu.length > 0 && (
+      {navigationMenuCategories && navigationMenuCategories.length > 0 && (
         <ShowMoreMenuCategoriesButton
-          menuCategories={menuData.menu}
+          menuCategories={navigationMenuCategories ?? []}
           onSlideClick={handleSlideClick}
         />
       )}

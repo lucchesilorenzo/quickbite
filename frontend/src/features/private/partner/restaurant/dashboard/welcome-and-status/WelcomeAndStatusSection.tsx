@@ -23,7 +23,7 @@ export default function WelcomeAndStatusSection() {
 
       <Stack spacing={2} sx={{ alignItems: { sm: "center" } }}>
         <RestaurantStatusSwitch />
-        {!restaurantData.restaurant.is_approved && <RestaurantApprovalButton />}
+        {!restaurantData.data.is_approved && <RestaurantApprovalButton />}
       </Stack>
     </Stack>
   );

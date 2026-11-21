@@ -15,7 +15,7 @@ export default function InfoTab() {
       <RestaurantLocationDisplay />
 
       <Box sx={{ p: 2 }}>
-        {restaurantData.restaurant.description && <RestaurantDescription />}
+        {restaurantData.data.description && <RestaurantDescription />}
         <RestaurantDeliveryTimes />
         <RestaurantDeliveryFee />
       </Box>

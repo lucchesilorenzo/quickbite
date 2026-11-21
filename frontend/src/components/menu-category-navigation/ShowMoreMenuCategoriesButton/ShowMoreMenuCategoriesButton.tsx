@@ -3,13 +3,12 @@ import { useState } from "react";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { IconButton } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import MenuCategoryNavigationDialog from "@/components/menu-category-navigation/MenuCategoryNavigationDialog";
-import { MenuCategory } from "@/types/menu/menu.types";
+import { MenuNavigationCategory } from "@/types/menu.types";
 
 type ShowMoreMenuCategoriesButtonProps = {
-  menuCategories: MenuCategory[] | PartnerMenu[];
+  menuCategories: MenuNavigationCategory[];
   onSlideClick: (menuCategoryId: string) => void;
 };
 

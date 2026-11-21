@@ -1,11 +1,15 @@
-import {
-  UpdateJobApplicationStatusRequest,
-  UpdateJobApplicationStatusResponse,
-} from "@partner/types/job-applications/job-application.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { getPartnerJobApplications } from "@/api/endpoints/partner-job-applications/partner-job-applications";
+import {
+  UpdateJobApplicationRequest,
+  UpdateJobApplicationStatus200,
+  UpdateJobApplicationStatus409,
+  UpdateJobApplicationStatus500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateJobApplicationStatusOptions = {
   jobApplicationId: string | null;
@@ -22,12 +26,17 @@ export function useUpdateJobApplicationStatus({
   const notifications = useNotifications();
 
   return useMutation<
-    UpdateJobApplicationStatusResponse,
-    Error,
-    UpdateJobApplicationStatusRequest
+    UpdateJobApplicationStatus200,
+    ApiError<UpdateJobApplicationStatus409 | UpdateJobApplicationStatus500>,
+    UpdateJobApplicationRequest
   >({
-    mutationFn: (data) =>
-      updateData(`/partner/job-applications/${jobApplicationId}/status`, data),
+    mutationFn: async (data) => {
+      const response = await getPartnerJobApplications(
+        api,
+      ).updateJobApplicationStatus(jobApplicationId ?? "", data);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-job-applications"],

@@ -6,11 +6,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
+import { RestaurantResource } from "@/api/models";
 import { getRestaurantOpeningTime } from "@/lib/utils/restaurants.utils";
-import { SingleRestaurantDetail } from "@/types/restaurants/restaurant.types";
 
 type RestaurantLocationInfoProps = {
-  restaurant: SingleRestaurantDetail;
+  restaurant: RestaurantResource;
 };
 
 export default function RestaurantLocationInfo({

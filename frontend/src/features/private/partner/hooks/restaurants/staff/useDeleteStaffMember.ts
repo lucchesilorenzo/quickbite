@@ -1,8 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { deleteData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api.types";
+import { getPartnerStaff } from "@/api/endpoints/partner-staff/partner-staff";
+import {
+  DeletePartnerStaffMember200,
+  DeletePartnerStaffMember500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseDeleteStaffMemberOptions = {
   restaurantId: string;
@@ -18,9 +23,19 @@ export function useDeleteStaffMember({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<ApiResponse>({
-    mutationFn: () =>
-      deleteData(`/partner/restaurants/${restaurantId}/staff/${staffId}`),
+  return useMutation<
+    DeletePartnerStaffMember200,
+    ApiError<DeletePartnerStaffMember500>,
+    void
+  >({
+    mutationFn: async () => {
+      const response = await getPartnerStaff(api).deletePartnerStaffMember(
+        restaurantId,
+        staffId ?? "",
+      );
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-staff", restaurantId],

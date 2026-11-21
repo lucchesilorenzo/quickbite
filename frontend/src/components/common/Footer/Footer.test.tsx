@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { mockAuthState } from "@tests/utils/mock-auth-state";
 import { MemoryRouter } from "react-router-dom";
 
 import Footer from "./Footer";
@@ -14,7 +15,8 @@ describe("Footer", () => {
     );
   }
 
-  it("renders footer links correctly", () => {
+  it("renders footer links correctly when user is not logged in", () => {
+    mockAuthState(null);
     renderComponent();
 
     const links = screen.getAllByRole("link");
@@ -33,5 +35,14 @@ describe("Footer", () => {
     expect(
       screen.getByText(new RegExp(`${currentYear} QuickBite`, "i")),
     ).toBeInTheDocument();
+  });
+
+  it("should not render the 'Sign up a restaurant' link when user has customer role", () => {
+    mockAuthState("customer");
+    renderComponent();
+
+    expect(
+      screen.queryByRole("link", { name: /sign up a restaurant/i }),
+    ).not.toBeInTheDocument();
   });
 });

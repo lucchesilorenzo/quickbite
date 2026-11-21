@@ -6,6 +6,7 @@ namespace App\Http\Requests\Api\V1\Private\Partner\JobPost;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GetJobPostsRequest extends FormRequest
 {
@@ -25,9 +26,19 @@ class GetJobPostsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'page_size' => ['required', 'in:25,50,100'],
-            'sort_by' => ['sometimes', 'string'],
-            'filter' => ['sometimes', 'string'],
+            'page_size' => ['required', 'integer', Rule::in([25, 50, 100])],
+            /**
+             * JSON object with the field to sort by and the direction (`asc` or `desc`).
+             *
+             * @example "{\"field\":\"title\",\"sort\":\"asc\"}"
+             */
+            'sort_by' => ['sometimes', 'string', 'json'],
+            /**
+             * JSON object with the field, operator and value used to filter the list.
+             *
+             * @example "{\"field\":\"title\",\"operator\":\"contains\",\"value\":\"manager\"}"
+             */
+            'filter' => ['sometimes', 'string', 'json'],
             'search' => ['sometimes', 'string'],
         ];
     }

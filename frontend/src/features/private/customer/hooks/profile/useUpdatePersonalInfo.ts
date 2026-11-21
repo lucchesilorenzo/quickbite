@@ -1,23 +1,30 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { getCustomerProfile } from "@/api/endpoints/customer-profile/customer-profile";
 import {
+  UpdateCustomerPersonalInfo200,
+  UpdateCustomerPersonalInfo500,
   UpdatePersonalInfoRequest,
-  UpdatePersonalInfoResponse,
-} from "../../types/profile/profile.api.types";
-
-import { updateData } from "@/lib/api-client";
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 export function useUpdatePersonalInfo() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation<
-    UpdatePersonalInfoResponse,
-    Error,
+    UpdateCustomerPersonalInfo200,
+    ApiError<UpdateCustomerPersonalInfo500>,
     UpdatePersonalInfoRequest
   >({
-    mutationFn: (data) => updateData("/customer/profile/personal-info", data),
+    mutationFn: async (data) => {
+      const response =
+        await getCustomerProfile(api).updateCustomerPersonalInfo(data);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       notifications.show(response.message, {

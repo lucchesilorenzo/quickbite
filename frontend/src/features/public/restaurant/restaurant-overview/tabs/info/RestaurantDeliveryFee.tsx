@@ -41,7 +41,7 @@ export default function RestaurantDeliveryFee() {
       </Stack>
 
       <Card variant="outlined" sx={{ bgcolor: grey[100], p: 2 }}>
-        {restaurantData.restaurant.min_amount > 0 && (
+        {restaurantData.data.min_amount > 0 && (
           <Stack
             direction="row"
             sx={{ alignItems: "center", justifyContent: "space-between" }}
@@ -51,7 +51,7 @@ export default function RestaurantDeliveryFee() {
             </Typography>
 
             <Typography variant={isMobile ? "body2" : "body1"}>
-              {formatCurrency(restaurantData.restaurant.min_amount)}
+              {formatCurrency(restaurantData.data.min_amount)}
             </Typography>
           </Stack>
         )}
@@ -65,9 +65,9 @@ export default function RestaurantDeliveryFee() {
           </Typography>
 
           <Typography variant={isMobile ? "body2" : "body1"}>
-            {restaurantData.restaurant.delivery_fee === 0
+            {restaurantData.data.delivery_fee === 0
               ? "Free"
-              : formatCurrency(restaurantData.restaurant.delivery_fee)}
+              : formatCurrency(restaurantData.data.delivery_fee)}
           </Typography>
         </Stack>
       </Card>

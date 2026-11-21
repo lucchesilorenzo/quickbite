@@ -28,7 +28,7 @@ export default function StatsTitle() {
       <MuiLink
         component={Link}
         variant="body2"
-        to={`/partner/restaurants/${restaurantData.restaurant.id}/stats`}
+        to={`/partner/restaurants/${restaurantData.data.id}/stats`}
         underline="always"
         color="inherit"
         sx={{

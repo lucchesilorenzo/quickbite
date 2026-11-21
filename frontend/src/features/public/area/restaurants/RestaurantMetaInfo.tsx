@@ -3,17 +3,19 @@ import { Stack, Typography } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 import { differenceInDays } from "date-fns";
 
-import { RestaurantListItem } from "@/types/restaurants/restaurant.types";
+import { RestaurantResource } from "@/api/models";
 
 type RestaurantMetaInfoProps = {
-  restaurant: RestaurantListItem;
+  restaurant: RestaurantResource;
 };
 
 export default function RestaurantMetaInfo({
   restaurant,
 }: RestaurantMetaInfoProps) {
-  const categories = restaurant.categories.map((c) => c.name).join(", ");
-  const isNew = differenceInDays(new Date(), restaurant.created_at) <= 30;
+  const categories = restaurant.categories?.map((c) => c.name).join(", ");
+  const isNew = restaurant.created_at
+    ? differenceInDays(new Date(), restaurant.created_at) <= 30
+    : false;
 
   return (
     <>

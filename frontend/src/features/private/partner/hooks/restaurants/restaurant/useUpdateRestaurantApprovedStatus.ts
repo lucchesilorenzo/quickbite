@@ -1,8 +1,14 @@
-import { UpdateRestaurantApprovedStatusResponse } from "@partner/types/restaurants/restaurant.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partner-restaurants";
+import {
+  UpdatePartnerRestaurantApprovedStatus200,
+  UpdatePartnerRestaurantApprovedStatus422,
+  UpdatePartnerRestaurantApprovedStatus500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateRestaurantApprovedStatusOptions = {
   restaurantId: string;
@@ -14,12 +20,25 @@ export function useUpdateRestaurantApprovedStatus({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<UpdateRestaurantApprovedStatusResponse, Error, void>({
-    mutationFn: () =>
-      updateData(`/partner/restaurants/${restaurantId}/approved`),
+  return useMutation<
+    UpdatePartnerRestaurantApprovedStatus200,
+    ApiError<
+      | UpdatePartnerRestaurantApprovedStatus422
+      | UpdatePartnerRestaurantApprovedStatus500
+    >,
+    void
+  >({
+    mutationFn: async () => {
+      const response =
+        await getPartnerRestaurants(api).updatePartnerRestaurantApprovedStatus(
+          restaurantId,
+        );
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: ["partner-restaurant", restaurantId],
+        queryKey: ["partner-restaurants", restaurantId],
       });
 
       notifications.show(response.message, {

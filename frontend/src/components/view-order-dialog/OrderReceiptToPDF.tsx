@@ -1,5 +1,3 @@
-import { PartnerOrder } from "@partner/types/orders/order.types";
-import { Order } from "@private/shared/types/order.types";
 import {
   Document,
   Image,
@@ -10,57 +8,13 @@ import {
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
 
+import { OrderResource } from "@/api/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type OrderReceiptToPDFProps = {
-  order: Order | PartnerOrder;
+  order: OrderResource;
   base64Logo?: string;
 };
-
-const styles = StyleSheet.create({
-  page: {
-    padding: 40,
-    fontSize: 12,
-    fontFamily: "Helvetica",
-    lineHeight: 1.5,
-  },
-  logo: {
-    objectFit: "cover",
-    width: 30,
-    height: 30,
-  },
-  headingRow: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    gap: 4,
-    marginBottom: 10,
-  },
-  section: {
-    marginBottom: 20,
-  },
-  subtitle: {
-    fontSize: 14,
-    fontWeight: 700,
-    marginBottom: 4,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  bold: {
-    fontWeight: 700,
-  },
-  itemRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 2,
-  },
-  divider: {
-    marginVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-});
 
 export default function OrderReceiptToPDF({
   order,
@@ -78,11 +32,11 @@ export default function OrderReceiptToPDF({
         <View style={styles.section}>
           <View style={styles.headingRow}>
             {base64Logo && <Image src={base64Logo} style={styles.logo} />}
-            <Text style={styles.subtitle}>{order.restaurant.name}</Text>
+            <Text style={styles.subtitle}>{order.restaurant?.name}</Text>
           </View>
 
-          <Text>Address: {order.restaurant.full_address}</Text>
-          <Text>Email: {order.restaurant.email}</Text>
+          <Text>Address: {order.restaurant?.full_address}</Text>
+          <Text>Email: {order.restaurant?.email}</Text>
         </View>
 
         {/* Order Info */}
@@ -110,7 +64,7 @@ export default function OrderReceiptToPDF({
         <View style={styles.section}>
           <Text style={styles.subtitle}>Your items</Text>
 
-          {order.order_items.map((item) => (
+          {(order.order_items ?? []).map((item) => (
             <View key={item.id} style={styles.itemRow}>
               <Text>
                 {item.quantity} {item.name}
@@ -165,3 +119,48 @@ export default function OrderReceiptToPDF({
     </Document>
   );
 }
+
+const styles = StyleSheet.create({
+  page: {
+    padding: 40,
+    fontSize: 12,
+    fontFamily: "Helvetica",
+    lineHeight: 1.5,
+  },
+  logo: {
+    objectFit: "cover",
+    width: 30,
+    height: 30,
+  },
+  headingRow: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    gap: 4,
+    marginBottom: 10,
+  },
+  section: {
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 14,
+    fontWeight: 700,
+    marginBottom: 4,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  bold: {
+    fontWeight: 700,
+  },
+  itemRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 2,
+  },
+  divider: {
+    marginVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+});

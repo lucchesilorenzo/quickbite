@@ -1,11 +1,15 @@
-import {
-  UpdateOrderStatusRequest,
-  UpdateOrderStatusResponse,
-} from "@partner/types/orders/order.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { updateData } from "@/lib/api-client";
+import { getPartnerOrders } from "@/api/endpoints/partner-orders/partner-orders";
+import {
+  UpdateOrderStatus,
+  UpdatePartnerOrderStatus200,
+  UpdatePartnerOrderStatus409,
+  UpdatePartnerOrderStatus500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseUpdateOrderStatusOptions = {
   orderId: string;
@@ -20,12 +24,18 @@ export function useUpdateOrderStatus({
   const notifications = useNotifications();
 
   return useMutation<
-    UpdateOrderStatusResponse,
-    Error,
-    UpdateOrderStatusRequest
+    UpdatePartnerOrderStatus200,
+    ApiError<UpdatePartnerOrderStatus409 | UpdatePartnerOrderStatus500>,
+    UpdateOrderStatus
   >({
-    mutationFn: (data) =>
-      updateData(`/partner/restaurants/orders/${orderId}/status`, data),
+    mutationFn: async (data) => {
+      const response = await getPartnerOrders(api).updatePartnerOrderStatus(
+        orderId,
+        data,
+      );
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-orders"],

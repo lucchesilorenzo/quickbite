@@ -1,0 +1,23 @@
+import { defineConfig } from "orval";
+
+export default defineConfig({
+  api: {
+    input: {
+      target: "http://localhost:8000/docs/api.json",
+    },
+    output: {
+      mode: "tags-split",
+      target: "src/api/endpoints",
+      schemas: "src/api/models",
+      formatter: "prettier",
+      client: "axios",
+      httpClient: "axios",
+      clean: true,
+      override: {
+        formData: {
+          arrayHandling: "serialize-with-brackets",
+        },
+      },
+    },
+  },
+});

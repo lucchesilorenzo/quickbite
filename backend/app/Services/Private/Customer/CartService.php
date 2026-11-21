@@ -134,7 +134,7 @@ class CartService
                 'cart_total' => $cart->cartItems->sum('item_total'),
             ]);
 
-            return $cart;
+            return $cart->load(['restaurant', 'cartItems.menuItem']);
         });
     }
 

@@ -1,23 +1,31 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
+import { getCustomerCarts } from "@/api/endpoints/customer-carts/customer-carts";
 import {
-  CreateOrUpdateCartRequest,
-  CreateOrUpdateCartResponse,
-} from "../../types/carts/cart.api.types";
-
-import { postData } from "@/lib/api-client";
+  CreateOrUpdateCustomerCart200,
+  CreateOrUpdateCustomerCart201,
+  CreateOrUpdateCustomerCart500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
+import { RestaurantCart } from "@/types/cart.types";
 
 export function useCreateOrUpdateCart() {
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
   return useMutation<
-    CreateOrUpdateCartResponse,
-    Error,
-    CreateOrUpdateCartRequest
+    CreateOrUpdateCustomerCart200 | CreateOrUpdateCustomerCart201,
+    ApiError<CreateOrUpdateCustomerCart500>,
+    RestaurantCart
   >({
-    mutationFn: (data) => postData("/customer/carts", data),
+    mutationFn: async (data) => {
+      const response =
+        await getCustomerCarts(api).createOrUpdateCustomerCart(data);
+
+      return response.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customer-carts"] });
     },

@@ -11,7 +11,7 @@ import Spinner from "@/components/common/Spinner";
 
 export default function PartnerRestaurantsPage() {
   const {
-    data: restaurantsData = { success: false, message: "", restaurants: [] },
+    data: restaurantsData,
     isLoading: isRestaurantsLoading,
     error: restaurantsError,
   } = useGetRestaurants();
@@ -33,7 +33,7 @@ export default function PartnerRestaurantsPage() {
 
       {!isRestaurantsLoading &&
         !restaurantsError &&
-        restaurantsData.restaurants.length === 0 && (
+        restaurantsData?.data.length === 0 && (
           <Typography variant="body1" sx={{ my: 3 }}>
             You don't have any restaurants yet.
           </Typography>
@@ -41,8 +41,9 @@ export default function PartnerRestaurantsPage() {
 
       {!isRestaurantsLoading &&
         !restaurantsError &&
-        restaurantsData.restaurants.length > 0 && (
-          <RestaurantsSelection restaurants={restaurantsData.restaurants} />
+        restaurantsData?.data &&
+        restaurantsData.data.length > 0 && (
+          <RestaurantsSelection restaurants={restaurantsData.data} />
         )}
     </Container>
   );

@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
-import { GetReviewsResponse } from "@/types/reviews/review.api.types";
+import { getPublicReviews } from "@/api/endpoints/public-reviews/public-reviews";
+import { GetReviews200, GetReviews404, GetReviews500 } from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetReviewsOptions = {
   restaurantId: string;
@@ -12,9 +14,14 @@ export function useGetReviews({
   restaurantId,
   page = 1,
 }: UseGetReviewsOptions) {
-  return useQuery<GetReviewsResponse>({
+  return useQuery<GetReviews200, ApiError<GetReviews404 | GetReviews500>>({
     queryKey: ["reviews", restaurantId, page],
-    queryFn: () =>
-      fetchData(`/restaurants/${restaurantId}/reviews?page=${page}`),
+    queryFn: async () => {
+      const response = await getPublicReviews(api).getReviews(restaurantId, {
+        page,
+      });
+
+      return response.data;
+    },
   });
 }

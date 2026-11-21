@@ -10,14 +10,13 @@ import {
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { PartnerMenu } from "@partner/types/menu/menu.types";
 
 import MenuCategoryNavigationItem from "../MenuCategoryNavigationItem";
 
-import { MenuCategory } from "@/types/menu/menu.types";
+import { MenuNavigationCategory } from "@/types/menu.types";
 
 type MenuCategoryNavigationDialogProps = {
-  menuCategories: MenuCategory[] | PartnerMenu[];
+  menuCategories: MenuNavigationCategory[];
   openMenuCategoryNavigationDialog: boolean;
   title?: string;
   setOpenMenuCategoryNavigationDialog: React.Dispatch<

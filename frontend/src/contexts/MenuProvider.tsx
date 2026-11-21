@@ -2,15 +2,15 @@ import { createContext, useContext, useRef, useState } from "react";
 
 import { useRestaurant } from "./RestaurantProvider";
 
+import { GetMenu200 } from "@/api/models";
 import { useGetMenu } from "@/hooks/menu/useGetMenu";
-import { GetMenuResponse } from "@/types/menu/menu.api.types";
 
 type MenuProviderProps = {
   children: React.ReactNode;
 };
 
 type MenuContext = {
-  menuData: GetMenuResponse;
+  menuData?: GetMenu200;
   isLoadingMenu: boolean;
   menuError: Error | null;
   page: number;
@@ -30,11 +30,11 @@ export default function MenuProvider({ children }: MenuProviderProps) {
   const [page, setPage] = useState(1);
 
   const {
-    data: menuData = { success: false, message: "", menu: [] },
+    data: menuData,
     isLoading: isLoadingMenu,
     error: menuError,
   } = useGetMenu({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     page,
   });
 

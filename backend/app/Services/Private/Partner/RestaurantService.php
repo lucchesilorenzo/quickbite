@@ -97,12 +97,12 @@ class RestaurantService
         $oldCoverPath = $restaurant->cover;
 
         try {
-            if ($data['logo'] instanceof UploadedFile) {
+            if (isset($data['logo']) && $data['logo'] instanceof UploadedFile) {
                 $newLogoPath = $data['logo']->store('restaurants/logos', 'public');
                 $data['logo'] = $newLogoPath;
             }
 
-            if ($data['cover'] instanceof UploadedFile) {
+            if (isset($data['cover']) && $data['cover'] instanceof UploadedFile) {
                 $newCoverPath = $data['cover']->store('restaurants/covers', 'public');
                 $data['cover'] = $newCoverPath;
             }

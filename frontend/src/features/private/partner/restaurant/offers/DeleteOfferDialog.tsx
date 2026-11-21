@@ -12,10 +12,10 @@ import {
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteOffer } from "@partner/hooks/restaurants/offers/useDeleteOffer";
 
-import { Offer } from "@/types/offers/offer.types";
+import { OfferResource } from "@/api/models";
 
 type DeleteOfferDialogProps = {
-  offer: Offer;
+  offer: OfferResource;
   openDeleteOfferDialog: boolean;
   setOpenDeleteOfferDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -28,7 +28,7 @@ export default function DeleteOfferDialog({
   const { restaurantData } = useRestaurant();
 
   const { mutate: deleteOffer, isPending: isDeleting } = useDeleteOffer({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     offerId: offer.id,
     setOpenDeleteOfferDialog,
   });

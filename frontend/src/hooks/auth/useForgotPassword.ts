@@ -1,9 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { postData } from "@/lib/api-client";
-import { ApiResponse } from "@/types/api.types";
-import { ForgotPasswordRequest } from "@/types/auth/auth.api.types";
+import { getPublicAuth } from "@/api/endpoints/public-auth/public-auth";
+import {
+  ForgotPassword200,
+  ForgotPassword429,
+  ForgotPasswordRequest,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseForgotPasswordOptions = {
   setOpenForgotPasswordDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,8 +20,16 @@ export function useForgotPassword({
   const queryClient = useQueryClient();
   const notifications = useNotifications();
 
-  return useMutation<ApiResponse, Error, ForgotPasswordRequest>({
-    mutationFn: (data) => postData("/auth/forgot-password", data),
+  return useMutation<
+    ForgotPassword200,
+    ApiError<ForgotPassword429>,
+    ForgotPasswordRequest
+  >({
+    mutationFn: async (data) => {
+      const response = await getPublicAuth(api).forgotPassword(data);
+
+      return response.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       setOpenForgotPasswordDialog(false);

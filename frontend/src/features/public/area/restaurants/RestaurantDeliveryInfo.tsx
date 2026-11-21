@@ -4,11 +4,11 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
+import { RestaurantResource } from "@/api/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
-import { RestaurantListItem } from "@/types/restaurants/restaurant.types";
 
 type RestaurantDeliveryInfoProps = {
-  restaurant: RestaurantListItem;
+  restaurant: RestaurantResource;
 };
 
 export default function RestaurantDeliveryInfo({

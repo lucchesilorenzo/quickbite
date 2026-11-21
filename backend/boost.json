@@ -1,18 +1,20 @@
 {
-    "agents": [
-        "cursor"
-    ],
+    "agents": ["cursor"],
     "cloud": false,
     "guidelines": true,
     "herd_mcp": false,
     "mcp": true,
     "nightwatch_mcp": false,
+    "packages": ["dedoc/scramble"],
     "sail": false,
     "skills": [
+        "infer-conventions",
         "cashier-stripe-development",
         "laravel-best-practices",
+        "testing-best-practices",
         "socialite-development",
-        "pest-testing",
-        "tailwindcss-development"
+        "telescope-debugging",
+        "tailwindcss-development",
+        "scramble-development"
     ]
 }

@@ -2,11 +2,11 @@ import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import MenuItemRow from "./MenuItemRow";
 
+import { MenuCategoryResource } from "@/api/models";
 import { useMenu } from "@/contexts/MenuProvider";
-import { Menu } from "@/types/menu/menu.types";
 
 type MenuCategoryItemProps = {
-  menuCategory: Menu;
+  menuCategory: MenuCategoryResource;
 };
 
 export default function MenuCategoryItem({
@@ -37,7 +37,7 @@ export default function MenuCategoryItem({
           </Typography>
 
           <Typography component="p" variant="body2">
-            {menuCategory.menu_items.length} items
+            {(menuCategory.menu_items ?? []).length} items
           </Typography>
         </Stack>
 
@@ -49,11 +49,11 @@ export default function MenuCategoryItem({
       </Box>
 
       <Stack spacing={isMobile ? -1 : 2}>
-        {menuCategory.menu_items.map((menuItem, index) => (
+        {(menuCategory.menu_items ?? []).map((menuItem, index) => (
           <MenuItemRow
             key={menuItem.id}
             menuItem={menuItem}
-            isLast={index === menuCategory.menu_items.length - 1}
+            isLast={index === (menuCategory.menu_items ?? []).length - 1}
           />
         ))}
       </Stack>

@@ -8,6 +8,7 @@ use App\Models\MenuCategory;
 use App\Models\MenuItem;
 use App\Services\Shared\FileService;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -54,7 +55,7 @@ class MenuItemService
         $oldImagePath = $menuItem->image;
 
         try {
-            if ($data['image'] instanceof UploadedFile) {
+            if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
                 $newImagePath = $data['image']->store('restaurants/menu-items', 'public');
                 $data['image'] = $newImagePath;
             }
@@ -79,16 +80,14 @@ class MenuItemService
         }
     }
 
-    public function updateMenuItemsOrder(array $menuItems): array
+    public function updateMenuItemsOrder(array $menuItems): Collection
     {
-        return DB::transaction(function () use ($menuItems): array {
+        return DB::transaction(function () use ($menuItems): Collection {
             foreach ($menuItems as $menuItem) {
                 $menuItem->save();
             }
 
-            return collect($menuItems)
-                ->pluck('id')
-                ->all();
+            return collect($menuItems);
         });
     }
 

@@ -17,14 +17,14 @@ import MenuItemAddButton from "../components/MenuItemAddButton";
 import MenuItemDialog from "../menu-category-navigation/MenuItemDialog";
 import MenuItemInfoDialog from "../menu-category-navigation/MenuItemInfoDialog";
 
+import { MenuItemResource } from "@/api/models";
 import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency, truncateWords } from "@/lib/utils/formatting.utils";
-import { MenuItem } from "@/types/menu/menu.types";
 
 type MenuItemRowProps = {
-  menuItem: MenuItem;
+  menuItem: MenuItemResource;
   isLast: boolean;
 };
 
@@ -138,7 +138,7 @@ export default function MenuItemRow({ menuItem, isLast }: MenuItemRowProps) {
               )}
 
               {menuItem.is_available &&
-              inCart(restaurantData.restaurant.id, menuItem.id) ? (
+              inCart(restaurantData.data.id, menuItem.id) ? (
                 <MenuItemQuantityInCartBadge
                   type="from-list"
                   menuItem={menuItem}

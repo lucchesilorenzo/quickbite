@@ -1,10 +1,5 @@
-import axios from "axios";
-
-import env from "@/lib/env";
-import {
-  RefreshTokenRequest,
-  RefreshTokenResponse,
-} from "@/types/auth/auth.api.types";
+import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
+import api from "@/lib/api-client";
 
 export async function refreshToken() {
   const refreshToken = localStorage.getItem("refresh_token");
@@ -13,14 +8,9 @@ export async function refreshToken() {
     throw new Error("No refresh token available.");
   }
 
-  const payload: RefreshTokenRequest = {
+  const { data } = await getPrivateAuth(api).refreshToken({
     refresh_token: refreshToken,
-  };
-
-  const { data } = await axios.post<RefreshTokenResponse>(
-    `${env.VITE_BACKEND_URL}/api/v1/auth/refresh`,
-    payload,
-  );
+  });
 
   localStorage.setItem("access_token", data.access_token);
   localStorage.setItem("refresh_token", data.refresh_token);

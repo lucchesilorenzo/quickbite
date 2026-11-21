@@ -1,22 +1,20 @@
-import { CreateJobApplicationResponse } from "@rider/types/job-posts/job-applications/job-application.api.types";
+import { CreateJobApplicationRequest } from "@/api/models";
 import { apiResponse } from "@tests/mocks/data/shared/common";
 
-export function createJobApplicationFormData() {
-  const formData = new FormData();
-
+export function createJobApplicationFormData(): CreateJobApplicationRequest {
   const file = new File(["resume"], "resume.pdf", { type: "application/pdf" });
 
-  formData.append("first_name", "John");
-  formData.append("last_name", "Doe");
-  formData.append("email", "johndoe@gmail.com");
-  formData.append("phone_number", "+39 373 332 3323");
-  formData.append("resume", file);
-  formData.append("declaration_accepted_at", "true");
-
-  return formData;
+  return {
+    first_name: "John",
+    last_name: "Doe",
+    email: "johndoe@gmail.com",
+    phone_number: "+39 373 332 3323",
+    resume: file,
+    declaration_accepted_at: true,
+  };
 }
 
-export const jobApplicationWizardFormResponse: CreateJobApplicationResponse = {
+export const jobApplicationWizardFormResponse = {
   ...apiResponse,
   job_application: {
     id: "019b7bdc-4cd8-7370-947b-3daa3938cc7c",

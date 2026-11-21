@@ -1,11 +1,15 @@
-import {
-  CreateMenuCategoryRequest,
-  CreateMenuCategoryResponse,
-} from "@partner/types/menu/menu.api.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { postData } from "@/lib/api-client";
+import { getPartnerMenuCategories } from "@/api/endpoints/partner-menu-categories/partner-menu-categories";
+import {
+  CreateMenuCategoryRequest,
+  CreatePartnerMenuCategory201,
+  CreatePartnerMenuCategory422,
+  CreatePartnerMenuCategory500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseCreateMenuCategoryOptions = {
   restaurantId: string;
@@ -20,12 +24,17 @@ export function useCreateMenuCategory({
   const notifications = useNotifications();
 
   return useMutation<
-    CreateMenuCategoryResponse,
-    Error,
+    CreatePartnerMenuCategory201,
+    ApiError<CreatePartnerMenuCategory422 | CreatePartnerMenuCategory500>,
     CreateMenuCategoryRequest
   >({
-    mutationFn: (data) =>
-      postData(`/partner/restaurants/${restaurantId}/menu/categories`, data),
+    mutationFn: async (data) => {
+      const response = await getPartnerMenuCategories(
+        api,
+      ).createPartnerMenuCategory(restaurantId, data);
+
+      return response.data;
+    },
     onSuccess: (response) => {
       queryClient.invalidateQueries({
         queryKey: ["partner-menu", restaurantId],

@@ -7,7 +7,7 @@ export default function RestaurantApprovalButton() {
 
   const { mutate: updateRestaurantApprovedStatus, isPending: isUpdating } =
     useUpdateRestaurantApprovedStatus({
-      restaurantId: restaurantData.restaurant.id,
+      restaurantId: restaurantData.data.id,
     });
 
   function handleRestaurantApproval() {

@@ -1,4 +1,4 @@
-import { OrderStatus } from "@private/shared/types/order.types";
+import { OrderStatus } from "@/api/models";
 
 export const statusTransitions: Record<OrderStatus, OrderStatus[]> = {
   pending: ["accepted", "rejected"],

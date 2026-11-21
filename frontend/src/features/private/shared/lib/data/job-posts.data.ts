@@ -1,7 +1,7 @@
-import { EmploymentType } from "@private/shared/types/job-posts/job-post.types";
+import { EmploymentType, JobPostStatus } from "@/api/models";
 
 export const employmentTypes: {
-  value: EmploymentType | string;
+  value: EmploymentType;
   label: string;
 }[] = [
   { value: "full_time", label: "Full-time" },
@@ -9,7 +9,7 @@ export const employmentTypes: {
   { value: "contract", label: "Contract" },
 ];
 
-export const jobPostStatuses: { value: "open" | "closed"; label: string }[] = [
+export const jobPostStatuses: { value: JobPostStatus; label: string }[] = [
   { value: "open", label: "Open" },
   { value: "closed", label: "Closed" },
 ];

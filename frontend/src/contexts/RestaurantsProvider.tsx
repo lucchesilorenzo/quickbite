@@ -10,29 +10,31 @@ import { useSearchParams } from "react-router-dom";
 
 import { useAddress } from "./AddressProvider";
 
-import { useGetRestaurants } from "@/hooks/restaurants/useGetRestaurants";
-import { restaurantsDefaults } from "@/lib/data/defaults/query.defaults";
-import { GetRestaurantsResponse } from "@/types/restaurants/restaurant.api.types";
 import {
-  RestaurantListItem,
-  RestaurantMeta,
-  RestaurantSearchOption,
-} from "@/types/restaurants/restaurant.types";
+  GetRestaurants200,
+  GetRestaurants200StatsMovCounts,
+  GetRestaurants200StatsOfferCounts,
+  GetRestaurantsMov,
+  RestaurantResource,
+  RestaurantSortBy,
+} from "@/api/models";
+import { useGetRestaurants } from "@/hooks/restaurants/useGetRestaurants";
+import { RestaurantSearchOption } from "@/types/restaurants/restaurant.types";
 
 type RestaurantsProviderProps = {
   children: React.ReactNode;
 };
 
 type RestaurantsContext = {
-  restaurantsData: RestaurantListItem[];
+  restaurantsData?: RestaurantResource[];
   isRestaurantsLoading: boolean;
   restaurantsError: Error | null;
   viewMap: boolean;
   isMapViewMobile: boolean;
   selectedOption: RestaurantSearchOption | string | null;
-  movCounts: RestaurantMeta["mov_counts"];
-  offerCounts: RestaurantMeta["offer_counts"];
-  totalRestaurants: number;
+  movCounts?: GetRestaurants200StatsMovCounts;
+  offerCounts?: GetRestaurants200StatsOfferCounts;
+  totalRestaurants?: number;
   isFetchingNextPage: boolean;
   setViewMap: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedOption: React.Dispatch<
@@ -40,9 +42,7 @@ type RestaurantsContext = {
   >;
   fetchNextPage: (
     options?: FetchNextPageOptions,
-  ) => Promise<
-    InfiniteQueryObserverResult<InfiniteData<GetRestaurantsResponse>>
-  >;
+  ) => Promise<InfiniteQueryObserverResult<InfiniteData<GetRestaurants200>>>;
 };
 
 const RestaurantsContext = createContext<RestaurantsContext | null>(null);
@@ -62,12 +62,12 @@ export default function RestaurantsProvider({
   const isMapViewMobile = isMobile && viewMap;
 
   const filters = searchParams.getAll("filter");
-  const sortBy = searchParams.get("sort_by");
-  const mov = searchParams.get("mov");
+  const sortBy = searchParams.get("sort_by") as RestaurantSortBy | null;
+  const mov = searchParams.get("mov") as GetRestaurantsMov | null;
   const search = searchParams.get("q");
 
   const {
-    data: restaurants = restaurantsDefaults,
+    data: restaurants,
     isLoading: isRestaurantsLoading,
     error: restaurantsError,
     fetchNextPage,
@@ -81,12 +81,10 @@ export default function RestaurantsProvider({
     search,
   });
 
-  const restaurantsData = restaurants.pages.flatMap(
-    (page) => page.restaurants.data,
-  );
-  const totalRestaurants = restaurants.pages[0].meta.total;
-  const movCounts = restaurants.pages[0].meta.mov_counts;
-  const offerCounts = restaurants.pages[0].meta.offer_counts;
+  const restaurantsData = restaurants?.pages.flatMap((page) => page.data);
+  const totalRestaurants = restaurants?.pages[0].stats.total;
+  const movCounts = restaurants?.pages[0].stats.mov_counts;
+  const offerCounts = restaurants?.pages[0].stats.offer_counts;
 
   return (
     <RestaurantsContext.Provider

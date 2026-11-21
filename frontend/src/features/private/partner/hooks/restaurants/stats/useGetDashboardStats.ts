@@ -1,7 +1,12 @@
-import { GetDashboardStatsResponse } from "@partner/types/stats/stats.api.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchData } from "@/lib/api-client";
+import { getPartnerStats } from "@/api/endpoints/partner-stats/partner-stats";
+import {
+  GetPartnerDashboardStats200,
+  GetPartnerDashboardStats500,
+} from "@/api/models";
+import api from "@/lib/api-client";
+import { ApiError } from "@/lib/api-error";
 
 type UseGetDashboardStatsOptions = {
   restaurantId: string;
@@ -10,9 +15,16 @@ type UseGetDashboardStatsOptions = {
 export function useGetDashboardStats({
   restaurantId,
 }: UseGetDashboardStatsOptions) {
-  return useQuery<GetDashboardStatsResponse>({
+  return useQuery<
+    GetPartnerDashboardStats200,
+    ApiError<GetPartnerDashboardStats500>
+  >({
     queryKey: ["partner-dashboard-stats", restaurantId],
-    queryFn: () =>
-      fetchData(`/partner/restaurants/${restaurantId}/stats/dashboard`),
+    queryFn: async () => {
+      const response =
+        await getPartnerStats(api).getPartnerDashboardStats(restaurantId);
+
+      return response.data;
+    },
   });
 }

@@ -39,7 +39,7 @@ export default function StaffTable() {
     isLoading: isLoadingStaff,
     error: staffError,
   } = useGetStaffMembers({
-    restaurantId: restaurantData.restaurant.id,
+    restaurantId: restaurantData.data.id,
     page: paginationModel.page + 1,
     pageSize: paginationModel.pageSize,
     sortBy: sortModel,
@@ -101,15 +101,13 @@ export default function StaffTable() {
   ];
 
   const rows: GridRowsProp =
-    staffData?.staff.data.map((rider) => ({
+    staffData?.data.map((rider) => ({
       id: rider.id,
       first_name: rider.first_name,
       last_name: rider.last_name,
     })) || [];
 
-  const staffMember = staffData?.staff.data.find(
-    (s) => s.id === selectedStaffId,
-  );
+  const staffMember = staffData?.data.find((s) => s.id === selectedStaffId);
 
   if (staffError) {
     notifications.show(staffError.message, {
@@ -134,7 +132,7 @@ export default function StaffTable() {
         paginationMode="server"
         sortingMode="server"
         filterMode="server"
-        rowCount={staffData?.staff.total || 0}
+        rowCount={staffData?.meta.total || 0}
         paginationModel={paginationModel}
         sortModel={sortModel}
         filterModel={filterModel}

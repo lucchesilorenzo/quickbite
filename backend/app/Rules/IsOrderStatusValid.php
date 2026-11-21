@@ -14,7 +14,7 @@ use Illuminate\Translation\PotentiallyTranslatedString;
 class IsOrderStatusValid implements ValidationRule
 {
     public function __construct(
-        protected Order $order,
+        protected ?Order $order,
         protected UserRole $role
     ) {}
 
@@ -25,11 +25,15 @@ class IsOrderStatusValid implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if (! $this->order instanceof Order) {
+            return;
+        }
+
         $statusTransitions = $this->role === UserRole::PARTNER
             ? OrderStatus::partnerTransitions()
             : OrderStatus::riderTransitions();
 
-        if (! in_array($value, $statusTransitions[$this->order->status])) {
+        if (! in_array($value, $statusTransitions[$this->order->status->value])) {
             $fail('Status is not valid.');
         }
     }

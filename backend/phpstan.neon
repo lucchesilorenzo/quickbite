@@ -9,6 +9,9 @@ parameters:
   # Level 10 is the highest level
   level: 5
 
+  # Read the casts() method so enum and scalar casts are reflected in model property types.
+  parseModelCastsMethod: true
+
   ignoreErrors:
     - '#Call to an undefined method Laravel\\Socialite\\Contracts\\Provider::stateless\(\)#'
 

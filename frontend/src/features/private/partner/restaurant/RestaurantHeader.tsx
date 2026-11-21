@@ -57,11 +57,11 @@ export default function RestaurantHeader() {
         >
           <Tooltip title="Notifications">
             <Link
-              to={`/partner/restaurants/${restaurantData.restaurant.id}/notifications`}
+              to={`/partner/restaurants/${restaurantData.data.id}/notifications`}
             >
               <IconButton aria-label="notifications">
                 <Badge
-                  badgeContent={notificationsData.unread_count}
+                  badgeContent={notificationsData?.unread_count}
                   color="error"
                   max={20}
                 >
