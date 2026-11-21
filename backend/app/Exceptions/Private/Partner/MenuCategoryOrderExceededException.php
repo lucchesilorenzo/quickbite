@@ -9,9 +9,9 @@ use Exception;
 class MenuCategoryOrderExceededException extends Exception
 {
     public function __construct(
-        string $message = 'You have reached the maximum number of menu categories.',
+        ?string $message = null,
         int $code = 422
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.menu_category_order_exceeded'), $code);
     }
 }

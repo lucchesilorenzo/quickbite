@@ -69,13 +69,13 @@ class JobPostController extends Controller
             return JobPostResource::collection($jobPosts)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job posts retrieved successfully.',
+                    'message' => __('messages.partner.job_post.posts_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get job posts.',
+                'message' => __('messages.partner.job_post.could_not_get_posts'),
             ], 500);
         }
     }
@@ -107,13 +107,13 @@ class JobPostController extends Controller
             return JobPostResource::make($jobPost)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job post retrieved successfully.',
+                    'message' => __('messages.partner.job_post.post_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get job post.',
+                'message' => __('messages.partner.job_post.could_not_get_post'),
             ], 500);
         }
     }
@@ -151,14 +151,14 @@ class JobPostController extends Controller
             return JobPostResource::make($jobPost)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job post created successfully.',
+                    'message' => __('messages.partner.job_post.post_created'),
                 ])
                 ->response()
                 ->setStatusCode(201);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not create job post.',
+                'message' => __('messages.partner.job_post.could_not_create_post'),
             ], 500);
         }
     }
@@ -196,13 +196,13 @@ class JobPostController extends Controller
             return JobPostResource::make($jobPost)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job post updated successfully.',
+                    'message' => __('messages.partner.job_post.post_updated'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update job post.',
+                'message' => __('messages.partner.job_post.could_not_update_post'),
             ], 500);
         }
     }
@@ -237,7 +237,7 @@ class JobPostController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Job post deleted successfully.',
+                'message' => __('messages.partner.job_post.post_deleted'),
             ], 200);
         } catch (JobPostHasApplicationsException $e) {
             return response()->json([
@@ -247,7 +247,7 @@ class JobPostController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not delete job post.',
+                'message' => __('messages.partner.job_post.could_not_delete_post'),
             ], 500);
         }
     }
@@ -286,7 +286,7 @@ class JobPostController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Job posts deleted successfully.',
+                'message' => __('messages.partner.job_post.posts_deleted'),
             ], 200);
         } catch (JobPostHasApplicationsException $e) {
             return response()->json([
@@ -296,7 +296,7 @@ class JobPostController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not delete job posts.',
+                'message' => __('messages.partner.job_post.could_not_delete_posts'),
             ], 500);
         }
     }

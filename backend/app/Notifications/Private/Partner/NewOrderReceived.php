@@ -55,12 +55,12 @@ class NewOrderReceived extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'title' => 'New order received',
-            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: " . Number::currency(
-                $this->order->total,
-                in: 'EUR',
-                locale: 'it-IT'
-            ),
+            'title' => __('messages.notifications.new_order.title'),
+            'description' => __('messages.notifications.new_order.description', [
+                'code' => $this->order->order_code,
+                'customer' => "{$this->order->first_name} {$this->order->last_name}",
+                'total' => Number::currency($this->order->total, in: 'EUR'),
+            ]),
             'meta' => [
                 'order_id' => $this->order->id,
                 'restaurant_id' => $this->order->restaurant_id,
@@ -80,12 +80,12 @@ class NewOrderReceived extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'order_id' => $this->order->id,
-            'title' => 'New order received',
-            'description' => "Order # {$this->order->order_code} from {$this->order->first_name} {$this->order->last_name} - Total: " . Number::currency(
-                $this->order->total,
-                in: 'EUR',
-                locale: 'it-IT'
-            ),
+            'title' => __('messages.notifications.new_order.title'),
+            'description' => __('messages.notifications.new_order.description', [
+                'code' => $this->order->order_code,
+                'customer' => "{$this->order->first_name} {$this->order->last_name}",
+                'total' => Number::currency($this->order->total, in: 'EUR'),
+            ]),
         ]);
     }
 

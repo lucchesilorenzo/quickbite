@@ -9,9 +9,9 @@ use Exception;
 class CustomerHasSocialLoginException extends Exception
 {
     public function __construct(
-        string $message = 'Customer has social login. Please log in with social login or with an existing password.',
+        ?string $message = null,
         int $code = 400
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.customer_has_social_login'), $code);
     }
 }

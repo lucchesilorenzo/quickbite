@@ -63,7 +63,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Customer registered successfully.',
+                'message' => __('messages.customer.auth.registered'),
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 201);
@@ -80,7 +80,7 @@ class AuthController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not register customer.',
+                'message' => __('messages.customer.auth.could_not_register'),
             ], 500);
         }
     }
@@ -125,7 +125,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Customer logged in successfully.',
+                'message' => __('messages.customer.auth.logged_in'),
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
@@ -147,7 +147,7 @@ class AuthController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not login customer.',
+                'message' => __('messages.customer.auth.could_not_login'),
             ], 500);
         }
     }
@@ -179,12 +179,12 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Customer logged out successfully.',
+                'message' => __('messages.customer.auth.logged_out'),
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not logout customer.',
+                'message' => __('messages.customer.auth.could_not_logout'),
             ], 500);
         }
     }

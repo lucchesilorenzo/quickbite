@@ -9,9 +9,9 @@ use Exception;
 class CustomerAlreadyReviewedException extends Exception
 {
     public function __construct(
-        string $message = 'You have already reviewed this order.',
+        ?string $message = null,
         int $code = 409
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.customer_already_reviewed'), $code);
     }
 }

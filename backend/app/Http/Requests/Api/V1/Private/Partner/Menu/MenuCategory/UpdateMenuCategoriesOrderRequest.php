@@ -39,7 +39,7 @@ class UpdateMenuCategoriesOrderRequest extends FormRequest
 
         if (count($orders) !== count(array_unique($orders))) {
             throw ValidationException::withMessages([
-                'order' => 'Duplicate order values were detected.',
+                'order' => __('messages.validation.duplicate_order_values'),
             ]);
         }
     }

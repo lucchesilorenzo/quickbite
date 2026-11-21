@@ -49,13 +49,13 @@ class AuthController extends Controller
             return UserResource::make($user)
                 ->additional([
                     'success' => true,
-                    'message' => 'User retrieved successfully.',
+                    'message' => __('messages.auth.user_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get user.',
+                'message' => __('messages.auth.could_not_get_user'),
             ], 500);
         }
     }
@@ -88,19 +88,19 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Tokens refreshed successfully.',
+                'message' => __('messages.auth.tokens_refreshed'),
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,
-                'message' => 'Invalid refresh token.',
+                'message' => __('messages.auth.invalid_refresh_token'),
             ], 401);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not refresh tokens.',
+                'message' => __('messages.auth.could_not_refresh_tokens'),
             ], 500);
         }
     }
@@ -132,7 +132,7 @@ class AuthController extends Controller
         if (auth()->user()->hasVerifiedEmail()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Email already verified.',
+                'message' => __('messages.auth.email_already_verified'),
             ], 400);
         }
 
@@ -140,7 +140,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Verification link resent.',
+            'message' => __('messages.auth.verification_link_resent'),
         ], 200);
     }
 }

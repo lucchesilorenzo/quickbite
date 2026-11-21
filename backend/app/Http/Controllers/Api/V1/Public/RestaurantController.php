@@ -105,13 +105,13 @@ class RestaurantController extends Controller
                      */
                     'stats' => $data['stats'],
                     'success' => true,
-                    'message' => 'Restaurants retrieved successfully.',
+                    'message' => __('messages.public.restaurant.restaurants_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get restaurants.',
+                'message' => __('messages.public.restaurant.could_not_get_restaurants'),
             ], 500);
         }
     }
@@ -142,18 +142,18 @@ class RestaurantController extends Controller
             return RestaurantResource::make($restaurant)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurant retrieved successfully.',
+                    'message' => __('messages.public.restaurant.restaurant_retrieved'),
                 ])
                 ->response();
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,
-                'message' => 'Restaurant not found.',
+                'message' => __('messages.public.restaurant.not_found'),
             ], 404);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get restaurant.',
+                'message' => __('messages.public.restaurant.could_not_get_restaurant'),
             ], 500);
         }
     }
@@ -180,17 +180,17 @@ class RestaurantController extends Controller
                 'is_asap_available' => $data['is_asap_available'],
                 'delivery_slots' => $data['delivery_slots'],
                 'success' => true,
-                'message' => 'Delivery slots retrieved successfully.',
+                'message' => __('messages.public.restaurant.delivery_slots_retrieved'),
             ], 200);
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,
-                'message' => 'Delivery day not found.',
+                'message' => __('messages.public.restaurant.delivery_day_not_found'),
             ], 404);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get delivery slots.',
+                'message' => __('messages.public.restaurant.could_not_get_delivery_slots'),
             ], 500);
         }
     }
@@ -215,7 +215,7 @@ class RestaurantController extends Controller
             return response()->json([
                 'logo' => $base64Logo,
                 'success' => true,
-                'message' => 'Restaurant logo retrieved successfully.',
+                'message' => __('messages.public.restaurant.logo_retrieved'),
             ], 200);
         } catch (RestaurantLogoNotFoundException $e) {
             return response()->json([
@@ -225,7 +225,7 @@ class RestaurantController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get restaurant logo.',
+                'message' => __('messages.public.restaurant.could_not_get_logo'),
             ], 500);
         }
     }

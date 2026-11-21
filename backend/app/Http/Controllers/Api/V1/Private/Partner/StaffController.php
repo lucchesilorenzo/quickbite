@@ -64,13 +64,13 @@ class StaffController extends Controller
             return UserResource::collection($staff)
                 ->additional([
                     'success' => true,
-                    'message' => 'Staff members retrieved successfully.',
+                    'message' => __('messages.partner.staff.retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get staff members.',
+                'message' => __('messages.partner.staff.could_not_get'),
             ], 500);
         }
     }
@@ -106,12 +106,12 @@ class StaffController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Staff member deleted successfully.',
+                'message' => __('messages.partner.staff.deleted'),
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not delete staff member.',
+                'message' => __('messages.partner.staff.could_not_delete'),
             ], 500);
         }
     }

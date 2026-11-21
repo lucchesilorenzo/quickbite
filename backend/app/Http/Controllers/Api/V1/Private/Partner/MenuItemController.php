@@ -61,14 +61,14 @@ class MenuItemController extends Controller
             return MenuItemResource::make($menuItem)
                 ->additional([
                     'success' => true,
-                    'message' => 'Menu item created successfully.',
+                    'message' => __('messages.partner.menu_item.created'),
                 ])
                 ->response()
                 ->setStatusCode(201);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not create menu item.',
+                'message' => __('messages.partner.menu_item.could_not_create'),
             ], 500);
         }
     }
@@ -105,13 +105,13 @@ class MenuItemController extends Controller
             return MenuItemResource::make($menuItem)
                 ->additional([
                     'success' => true,
-                    'message' => 'Menu item updated successfully.',
+                    'message' => __('messages.partner.menu_item.updated'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update menu item.',
+                'message' => __('messages.partner.menu_item.could_not_update'),
             ], 500);
         }
     }
@@ -159,18 +159,18 @@ class MenuItemController extends Controller
             return MenuItemResource::collection($updatedMenuItems)
                 ->additional([
                     'success' => true,
-                    'message' => 'Menu items order updated successfully.',
+                    'message' => __('messages.partner.menu_item.order_updated'),
                 ])
                 ->response();
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,
-                'message' => 'Menu item not found.',
+                'message' => __('messages.partner.menu_item.not_found'),
             ], 404);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update menu items.',
+                'message' => __('messages.partner.menu_item.could_not_update_order'),
             ], 500);
         }
     }
@@ -201,12 +201,12 @@ class MenuItemController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Menu item deleted successfully.',
+                'message' => __('messages.partner.menu_item.deleted'),
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not delete menu item.',
+                'message' => __('messages.partner.menu_item.could_not_delete'),
             ], 500);
         }
     }

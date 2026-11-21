@@ -54,8 +54,11 @@ class NewReviewReceived extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'title' => 'New review received',
-            'description' => "Review from {$this->review->customer->first_name} {$this->review->customer->last_name} - {$this->review->rating} stars",
+            'title' => __('messages.notifications.new_review.title'),
+            'description' => __('messages.notifications.new_review.description', [
+                'customer' => "{$this->review->customer->first_name} {$this->review->customer->last_name}",
+                'rating' => $this->review->rating,
+            ]),
             'meta' => [
                 'review_id' => $this->review->id,
                 'restaurant_id' => $this->review->restaurant_id,
@@ -73,8 +76,11 @@ class NewReviewReceived extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'review_id' => $this->review->id,
-            'title' => 'New review received',
-            'description' => "Review from {$this->review->customer->first_name} {$this->review->customer->last_name} - {$this->review->rating} stars",
+            'title' => __('messages.notifications.new_review.title'),
+            'description' => __('messages.notifications.new_review.description', [
+                'customer' => "{$this->review->customer->first_name} {$this->review->customer->last_name}",
+                'rating' => $this->review->rating,
+            ]),
         ]);
     }
 

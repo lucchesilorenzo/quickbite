@@ -9,9 +9,9 @@ use Exception;
 class JobPostHasApplicationsException extends Exception
 {
     public function __construct(
-        string $message = 'Cannot delete job post with applications.',
+        ?string $message = null,
         int $code = 400
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.job_post_has_applications'), $code);
     }
 }

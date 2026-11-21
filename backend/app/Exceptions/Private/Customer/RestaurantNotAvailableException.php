@@ -9,9 +9,9 @@ use Exception;
 class RestaurantNotAvailableException extends Exception
 {
     public function __construct(
-        string $message = 'The restaurant is not open or the subtotal is less than the minimum amount.',
+        ?string $message = null,
         int $code = 400
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.restaurant_not_available'), $code);
     }
 }

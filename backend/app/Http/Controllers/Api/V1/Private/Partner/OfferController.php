@@ -62,13 +62,13 @@ class OfferController extends Controller
             return OfferResource::collection($offers)
                 ->additional([
                     'success' => true,
-                    'message' => 'Offers retrieved successfully.',
+                    'message' => __('messages.partner.offer.offers_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get offers.',
+                'message' => __('messages.partner.offer.could_not_get_offers'),
             ], 500);
         }
     }
@@ -110,7 +110,7 @@ class OfferController extends Controller
             return OfferResource::make($offer)
                 ->additional([
                     'success' => true,
-                    'message' => 'Offer created successfully.',
+                    'message' => __('messages.partner.offer.created'),
                 ])
                 ->response()
                 ->setStatusCode(201);
@@ -122,7 +122,7 @@ class OfferController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not create offer.',
+                'message' => __('messages.partner.offer.could_not_create'),
             ], 500);
         }
     }
@@ -161,7 +161,7 @@ class OfferController extends Controller
             return OfferResource::make($offer)
                 ->additional([
                     'success' => true,
-                    'message' => 'Offer updated successfully.',
+                    'message' => __('messages.partner.offer.updated'),
                 ])
                 ->response();
         } catch (OfferAlreadyExistsException $e) {
@@ -172,7 +172,7 @@ class OfferController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update offer.',
+                'message' => __('messages.partner.offer.could_not_update'),
             ], 500);
         }
     }
@@ -203,12 +203,12 @@ class OfferController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Offer deleted successfully.',
+                'message' => __('messages.partner.offer.deleted'),
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not delete offer.',
+                'message' => __('messages.partner.offer.could_not_delete'),
             ], 500);
         }
     }

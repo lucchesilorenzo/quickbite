@@ -28,7 +28,7 @@ class AuthService
                 throw new CustomerHasSocialLoginException;
             }
 
-            throw new InvalidCredentialsException('Email already exists.');
+            throw new InvalidCredentialsException(__('messages.auth.email_already_exists'));
         }
 
         $customer = User::query()->create([

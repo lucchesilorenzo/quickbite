@@ -57,14 +57,14 @@ class NotificationController extends Controller
             return NotificationResource::collection($notificationsData['notifications'])
                 ->additional([
                     'success' => true,
-                    'message' => 'Notifications retrieved successfully.',
+                    'message' => __('messages.partner.notification.retrieved'),
                     'unread_count' => $notificationsData['unread_count'],
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get notifications.',
+                'message' => __('messages.partner.notification.could_not_get'),
             ], 500);
         }
     }
@@ -96,12 +96,12 @@ class NotificationController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Notifications successfully marked as read.',
+                'message' => __('messages.partner.notification.marked_as_read'),
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not mark notifications as read.',
+                'message' => __('messages.partner.notification.could_not_mark_as_read'),
             ], 500);
         }
     }

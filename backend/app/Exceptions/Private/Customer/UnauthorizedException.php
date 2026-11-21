@@ -9,9 +9,9 @@ use Exception;
 class UnauthorizedException extends Exception
 {
     public function __construct(
-        string $message = 'You are not authorized to log in as a customer.',
+        ?string $message = null,
         int $code = 403
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.customer_unauthorized'), $code);
     }
 }

@@ -9,9 +9,9 @@ use Exception;
 class RestaurantLogoNotFoundException extends Exception
 {
     public function __construct(
-        string $message = 'Restaurant logo not found.',
+        ?string $message = null,
         int $code = 404
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.restaurant_logo_not_found'), $code);
     }
 }

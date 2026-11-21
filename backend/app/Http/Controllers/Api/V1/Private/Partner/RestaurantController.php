@@ -55,13 +55,13 @@ class RestaurantController extends Controller
             return RestaurantResource::collection($restaurants)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurants retrieved successfully.',
+                    'message' => __('messages.partner.restaurant.restaurants_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get restaurants.',
+                'message' => __('messages.partner.restaurant.could_not_get_restaurants'),
             ], 500);
         }
     }
@@ -93,13 +93,13 @@ class RestaurantController extends Controller
             return RestaurantResource::make($restaurant)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurant retrieved successfully.',
+                    'message' => __('messages.partner.restaurant.restaurant_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get restaurant.',
+                'message' => __('messages.partner.restaurant.could_not_get_restaurant'),
             ], 500);
         }
     }
@@ -136,13 +136,13 @@ class RestaurantController extends Controller
             return RestaurantResource::make($restaurant)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurant status updated successfully.',
+                    'message' => __('messages.partner.restaurant.status_updated'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update restaurant status.',
+                'message' => __('messages.partner.restaurant.could_not_update_status'),
             ], 500);
         }
     }
@@ -180,7 +180,7 @@ class RestaurantController extends Controller
             return RestaurantResource::make($restaurant)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurant approved status updated successfully.',
+                    'message' => __('messages.partner.restaurant.approved_status_updated'),
                 ])
                 ->response();
         } catch (RestaurantApprovalException $e) {
@@ -191,7 +191,7 @@ class RestaurantController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update restaurant approved status.',
+                'message' => __('messages.partner.restaurant.could_not_update_approved_status'),
             ], 500);
         }
     }
@@ -228,13 +228,13 @@ class RestaurantController extends Controller
             return RestaurantResource::make($restaurant)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurant fees updated successfully.',
+                    'message' => __('messages.partner.restaurant.fees_updated'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update restaurant fees.',
+                'message' => __('messages.partner.restaurant.could_not_update_fees'),
             ], 500);
         }
     }
@@ -271,13 +271,13 @@ class RestaurantController extends Controller
             return RestaurantResource::make($restaurant)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurant delivery times updated successfully.',
+                    'message' => __('messages.partner.restaurant.delivery_times_updated'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update restaurant delivery times.',
+                'message' => __('messages.partner.restaurant.could_not_update_delivery_times'),
             ], 500);
         }
     }
@@ -318,7 +318,7 @@ class RestaurantController extends Controller
             return RestaurantResource::make($restaurant)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurant info updated successfully.',
+                    'message' => __('messages.partner.restaurant.info_updated'),
                 ])
                 ->response();
         } catch (LocationNotFoundException $e) {
@@ -329,7 +329,7 @@ class RestaurantController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update restaurant info.',
+                'message' => __('messages.partner.restaurant.could_not_update_info'),
             ], 500);
         }
     }

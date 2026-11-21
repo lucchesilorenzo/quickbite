@@ -58,7 +58,7 @@ class ReviewController extends Controller
             return ReviewResource::collection($reviewsData['reviews'])
                 ->additional([
                     'success' => true,
-                    'message' => 'Reviews retrieved successfully.',
+                    'message' => __('messages.partner.review.reviews_retrieved'),
                     'avg_rating' => $reviewsData['avg_rating'],
                     'count' => $reviewsData['count'],
                 ])
@@ -66,7 +66,7 @@ class ReviewController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get reviews.',
+                'message' => __('messages.partner.review.could_not_get_reviews'),
             ], 500);
         }
     }

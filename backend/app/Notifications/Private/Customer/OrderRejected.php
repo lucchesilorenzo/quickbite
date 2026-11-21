@@ -37,10 +37,15 @@ class OrderRejected extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Your order has been rejected')
-            ->greeting("Hello {$this->order->first_name} {$this->order->last_name},")
-            ->line("We regret to inform you that your order # {$this->order->order_code} from {$this->order->restaurant->name} has been rejected.")
-            ->line('If you have any questions or wish to place another order, please contact us or try again.')
-            ->line('We apologize for any inconvenience caused and thank you for your understanding.');
+            ->subject(__('messages.notifications.order_rejected.subject'))
+            ->greeting(__('messages.notifications.order_rejected.greeting', [
+                'name' => "{$this->order->first_name} {$this->order->last_name}",
+            ]))
+            ->line(__('messages.notifications.order_rejected.body', [
+                'code' => $this->order->order_code,
+                'restaurant' => $this->order->restaurant->name,
+            ]))
+            ->line(__('messages.notifications.order_rejected.support'))
+            ->line(__('messages.notifications.order_rejected.footer'));
     }
 }

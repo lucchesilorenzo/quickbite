@@ -58,13 +58,13 @@ class JobPostController extends Controller
             return JobPostResource::collection($jobPosts)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job posts retrieved successfully.',
+                    'message' => __('messages.rider.job_post.posts_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get job posts.',
+                'message' => __('messages.rider.job_post.could_not_get_posts'),
             ], 500);
         }
     }
@@ -97,13 +97,13 @@ class JobPostController extends Controller
             return JobPostResource::make($jobPost)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job post retrieved successfully.',
+                    'message' => __('messages.rider.job_post.post_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get job post.',
+                'message' => __('messages.rider.job_post.could_not_get_post'),
             ], 500);
         }
     }

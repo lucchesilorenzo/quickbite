@@ -53,7 +53,7 @@ class StatsController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Dashboard stats retrieved successfully.',
+                'message' => __('messages.partner.stats.dashboard_retrieved'),
                 'earnings_today' => $statsData['earnings_today'],
                 'pending_orders' => $statsData['pending_orders'],
                 'accepted_orders' => $statsData['accepted_orders'],
@@ -62,7 +62,7 @@ class StatsController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get dashboard stats.',
+                'message' => __('messages.partner.stats.could_not_get_dashboard'),
             ], 500);
         }
     }
@@ -104,7 +104,7 @@ class StatsController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'KPI summary retrieved successfully.',
+                'message' => __('messages.partner.stats.kpi_summary_retrieved'),
                 'accepted_orders' => $summaryData['accepted_orders'],
                 'revenue' => $summaryData['revenue'],
                 'rejected_orders' => $summaryData['rejected_orders'],
@@ -113,7 +113,7 @@ class StatsController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get KPI summary.',
+                'message' => __('messages.partner.stats.could_not_get_kpi_summary'),
             ], 500);
         }
     }
@@ -157,14 +157,14 @@ class StatsController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Stats retrieved successfully.',
+                'message' => __('messages.partner.stats.stats_retrieved'),
                 'stats' => $statsData['stats'],
                 'filters' => $statsData['filters'],
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get restaurant stats.',
+                'message' => __('messages.partner.stats.could_not_get_stats'),
             ], 500);
         }
     }

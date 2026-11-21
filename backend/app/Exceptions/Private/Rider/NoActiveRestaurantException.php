@@ -9,9 +9,9 @@ use Exception;
 class NoActiveRestaurantException extends Exception
 {
     public function __construct(
-        string $message = 'There is no active restaurant for the rider.',
+        ?string $message = null,
         int $code = 404
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.no_active_restaurant'), $code);
     }
 }

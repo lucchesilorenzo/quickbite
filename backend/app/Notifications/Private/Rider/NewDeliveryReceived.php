@@ -54,9 +54,15 @@ class NewDeliveryReceived extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'title' => 'New delivery received',
-            'description' => 'Order # ' . $this->order->order_code . ' - Delivery time: ' . Carbon::parse($this->order->delivery_time)
-                ->format('d/m/Y \a\t H:i'),
+            'title' => __('messages.notifications.new_delivery.title'),
+            'description' => __('messages.notifications.new_delivery.description', [
+                'code' => $this->order->order_code,
+                'time' => Carbon::parse($this->order->delivery_time)
+                    ->locale(app()->getLocale())
+                    ->isoFormat('LL')
+                    . ' ' . __('messages.time_at')
+                    . ' ' . Carbon::parse($this->order->delivery_time)->format('H:i'),
+            ]),
             'meta' => [
                 'delivery_id' => $this->delivery->id,
                 'order_id' => $this->order->id,
@@ -77,9 +83,15 @@ class NewDeliveryReceived extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'delivery_id' => $this->delivery->id,
-            'title' => 'New delivery received',
-            'description' => 'Order # ' . $this->order->order_code . ' - Delivery time: ' . Carbon::parse($this->order->delivery_time)
-                ->format('d/m/Y \a\t H:i'),
+            'title' => __('messages.notifications.new_delivery.title'),
+            'description' => __('messages.notifications.new_delivery.description', [
+                'code' => $this->order->order_code,
+                'time' => Carbon::parse($this->order->delivery_time)
+                    ->locale(app()->getLocale())
+                    ->isoFormat('LL')
+                    . ' ' . __('messages.time_at')
+                    . ' ' . Carbon::parse($this->order->delivery_time)->format('H:i'),
+            ]),
         ]);
     }
 

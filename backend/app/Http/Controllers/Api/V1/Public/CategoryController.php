@@ -39,13 +39,13 @@ class CategoryController extends Controller
             return CategoryResource::collection($categories)
                 ->additional([
                     'success' => true,
-                    'message' => 'Categories retrieved successfully.',
+                    'message' => __('messages.public.category.retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get categories.',
+                'message' => __('messages.public.category.could_not_get'),
             ], 500);
         }
     }

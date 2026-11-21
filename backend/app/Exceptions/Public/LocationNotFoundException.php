@@ -9,9 +9,9 @@ use Exception;
 class LocationNotFoundException extends Exception
 {
     public function __construct(
-        string $message = 'Location not found. Please try again.',
+        ?string $message = null,
         int $code = 404
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.location_not_found'), $code);
     }
 }

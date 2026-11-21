@@ -52,15 +52,15 @@ class AuthController extends Controller
         return match ($status) {
             Password::RESET_LINK_SENT => response()->json([
                 'success' => true,
-                'message' => 'If the email exists, a reset link has been sent.',
+                'message' => __('messages.public.auth.reset_link_sent'),
             ], 200),
             Password::RESET_THROTTLED => response()->json([
                 'success' => false,
-                'message' => 'Please wait before requesting another reset email.',
+                'message' => __('messages.public.auth.reset_throttled'),
             ], 429),
             default => response()->json([
                 'success' => true,
-                'message' => 'If the email exists, a reset link has been sent.',
+                'message' => __('messages.public.auth.reset_link_sent'),
             ], 200),
         };
     }
@@ -102,15 +102,15 @@ class AuthController extends Controller
         return match ($status) {
             Password::PASSWORD_RESET => response()->json([
                 'success' => true,
-                'message' => 'Password reset successfully.',
+                'message' => __('messages.public.auth.password_reset'),
             ], 200),
             Password::INVALID_TOKEN => response()->json([
                 'success' => false,
-                'message' => 'Invalid or expired reset token.',
+                'message' => __('messages.public.auth.invalid_reset_token'),
             ], 400),
             default => response()->json([
                 'success' => false,
-                'message' => 'Could not reset password.',
+                'message' => __('messages.public.auth.could_not_reset_password'),
             ], 400),
         };
     }
@@ -141,7 +141,7 @@ class AuthController extends Controller
         $user = User::query()->findOrFail($id);
 
         if (! hash_equals(sha1((string) $user->getEmailForVerification()), $hash)) {
-            abort(403);
+            abort(403, __('messages.auth.invalid_verification_hash'));
         }
 
         if (! $user->hasVerifiedEmail()) {

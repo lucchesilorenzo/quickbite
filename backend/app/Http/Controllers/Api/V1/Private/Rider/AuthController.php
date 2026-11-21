@@ -63,7 +63,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Rider registered successfully.',
+                'message' => __('messages.rider.auth.registered'),
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 201);
@@ -76,13 +76,13 @@ class AuthController extends Controller
             if ($e->getCode() === '23505') {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Email already exists.',
+                    'message' => __('messages.auth.email_already_exists'),
                 ], 409);
             }
 
             return response()->json([
                 'success' => false,
-                'message' => 'Could not register rider.',
+                'message' => __('messages.rider.auth.could_not_register'),
             ], 500);
         }
     }
@@ -115,7 +115,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Rider logged in successfully.',
+                'message' => __('messages.rider.auth.logged_in'),
                 'access_token' => $tokens['access_token'],
                 'refresh_token' => $tokens['refresh_token'],
             ], 200);
@@ -132,7 +132,7 @@ class AuthController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not login rider.',
+                'message' => __('messages.rider.auth.could_not_login'),
             ], 500);
         }
     }
@@ -164,12 +164,12 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Rider logged out successfully.',
+                'message' => __('messages.rider.auth.logged_out'),
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not logout rider.',
+                'message' => __('messages.rider.auth.could_not_logout'),
             ], 500);
         }
     }

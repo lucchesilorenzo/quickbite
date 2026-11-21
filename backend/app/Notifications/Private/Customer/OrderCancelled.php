@@ -37,11 +37,16 @@ class OrderCancelled extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Your order has been cancelled')
-            ->greeting("Hello {$this->order->first_name} {$this->order->last_name},")
-            ->line("We are sorry to inform you that your order # {$this->order->order_code} from {$this->order->restaurant->name} has been cancelled.")
-            ->line('This was due to an issue with the delivery of your order.')
-            ->line('If you have any questions or need further assistance, please contact our support team.')
-            ->line('We apologize for the inconvenience and thank you for your understanding.');
+            ->subject(__('messages.notifications.order_cancelled.subject'))
+            ->greeting(__('messages.notifications.order_cancelled.greeting', [
+                'name' => "{$this->order->first_name} {$this->order->last_name}",
+            ]))
+            ->line(__('messages.notifications.order_cancelled.body', [
+                'code' => $this->order->order_code,
+                'restaurant' => $this->order->restaurant->name,
+            ]))
+            ->line(__('messages.notifications.order_cancelled.reason'))
+            ->line(__('messages.notifications.order_cancelled.support'))
+            ->line(__('messages.notifications.order_cancelled.footer'));
     }
 }

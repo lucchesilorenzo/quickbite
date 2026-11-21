@@ -38,10 +38,19 @@ class OrderDelivered extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("{$this->order->first_name}, your order has been delivered!")
-            ->greeting("Hi {$this->order->first_name} {$this->order->last_name},")
-            ->line("We're happy to let you know that your order # {$this->order->order_code} from {$this->order->restaurant->name} has just been delivered.")
-            ->line('Total paid: ' . Number::currency($this->order->total, in: 'EUR', locale: 'it-IT'))
-            ->line('Thank you for ordering with us! We hope you enjoyed your meal.');
+            ->subject(__('messages.notifications.order_delivered.subject', [
+                'name' => $this->order->first_name,
+            ]))
+            ->greeting(__('messages.notifications.order_delivered.greeting', [
+                'name' => "{$this->order->first_name} {$this->order->last_name}",
+            ]))
+            ->line(__('messages.notifications.order_delivered.body', [
+                'code' => $this->order->order_code,
+                'restaurant' => $this->order->restaurant->name,
+            ]))
+            ->line(__('messages.notifications.order_delivered.total_paid', [
+                'total' => Number::currency($this->order->total, in: 'EUR'),
+            ]))
+            ->line(__('messages.notifications.order_delivered.footer'));
     }
 }

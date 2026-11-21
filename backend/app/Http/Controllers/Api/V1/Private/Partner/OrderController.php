@@ -66,13 +66,13 @@ class OrderController extends Controller
             return OrderResource::collection($orders)
                 ->additional([
                     'success' => true,
-                    'message' => 'Orders retrieved successfully.',
+                    'message' => __('messages.partner.order.orders_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get orders.',
+                'message' => __('messages.partner.order.could_not_get_orders'),
             ], 500);
         }
     }
@@ -113,7 +113,7 @@ class OrderController extends Controller
             return OrderResource::make($order)
                 ->additional([
                     'success' => true,
-                    'message' => 'Order status updated successfully.',
+                    'message' => __('messages.partner.order.status_updated'),
                 ])
                 ->response();
         } catch (NoAvailableRidersException $e) {
@@ -124,7 +124,7 @@ class OrderController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update order status.',
+                'message' => __('messages.partner.order.could_not_update_status'),
             ], 500);
         }
     }

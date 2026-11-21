@@ -54,14 +54,14 @@ class ReviewController extends Controller
             return ReviewResource::make($review)
                 ->additional([
                     'success' => true,
-                    'message' => 'Review created successfully.',
+                    'message' => __('messages.customer.review.review_created'),
                 ])
                 ->response()
                 ->setStatusCode(201);
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,
-                'message' => 'Restaurant not found.',
+                'message' => __('messages.customer.review.restaurant_not_found'),
             ], 404);
         } catch (CustomerAlreadyReviewedException $e) {
             return response()->json([
@@ -71,7 +71,7 @@ class ReviewController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not create review.',
+                'message' => __('messages.customer.review.could_not_create_review'),
             ], 500);
         }
     }

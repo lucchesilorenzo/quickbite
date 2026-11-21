@@ -43,13 +43,13 @@ class ProfileController extends Controller
             return UserResource::make($customer)
                 ->additional([
                     'success' => true,
-                    'message' => 'Personal information updated successfully.',
+                    'message' => __('messages.customer.profile.personal_info_updated'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update personal information.',
+                'message' => __('messages.customer.profile.could_not_update_personal_info'),
             ], 500);
         }
     }
@@ -75,7 +75,7 @@ class ProfileController extends Controller
             return UserResource::make($customer)
                 ->additional([
                     'success' => true,
-                    'message' => 'Address information updated successfully.',
+                    'message' => __('messages.customer.profile.address_info_updated'),
                 ])
                 ->response();
         } catch (LocationNotFoundException $e) {
@@ -86,7 +86,7 @@ class ProfileController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update address information.',
+                'message' => __('messages.customer.profile.could_not_update_address_info'),
             ], 500);
         }
     }

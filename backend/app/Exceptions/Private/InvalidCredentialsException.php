@@ -9,9 +9,9 @@ use Exception;
 class InvalidCredentialsException extends Exception
 {
     public function __construct(
-        string $message = 'Invalid credentials.',
+        ?string $message = null,
         int $code = 401
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.invalid_credentials'), $code);
     }
 }

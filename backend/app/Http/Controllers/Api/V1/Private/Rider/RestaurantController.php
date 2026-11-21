@@ -53,7 +53,7 @@ class RestaurantController extends Controller
             return RestaurantResource::make($restaurant)
                 ->additional([
                     'success' => true,
-                    'message' => 'Restaurant retrieved successfully.',
+                    'message' => __('messages.rider.restaurant.retrieved'),
                 ])
                 ->response();
         } catch (NoActiveRestaurantException $e) {
@@ -64,7 +64,7 @@ class RestaurantController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get restaurant.',
+                'message' => __('messages.rider.restaurant.could_not_get'),
             ], 500);
         }
     }
@@ -103,7 +103,7 @@ class RestaurantController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Restaurant left successfully.',
+                'message' => __('messages.rider.restaurant.left'),
             ], 200);
         } catch (NoActiveRestaurantException $e) {
             return response()->json([
@@ -118,7 +118,7 @@ class RestaurantController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not leave restaurant.',
+                'message' => __('messages.rider.restaurant.could_not_leave'),
             ], 500);
         }
     }

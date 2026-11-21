@@ -68,13 +68,13 @@ class JobApplicationController extends Controller
             return JobApplicationResource::collection($jobApplications)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job applications retrieved successfully.',
+                    'message' => __('messages.partner.job_application.retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get job applications.',
+                'message' => __('messages.partner.job_application.could_not_get'),
             ], 500);
         }
     }
@@ -139,7 +139,7 @@ class JobApplicationController extends Controller
             return JobApplicationResource::make($jobApplication)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job application status updated successfully.',
+                    'message' => __('messages.partner.job_application.status_updated'),
                 ])
                 ->response();
         } catch (AlreadyEmployedException $e) {
@@ -150,7 +150,7 @@ class JobApplicationController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update job application status.',
+                'message' => __('messages.partner.job_application.could_not_update_status'),
             ], 500);
         }
     }

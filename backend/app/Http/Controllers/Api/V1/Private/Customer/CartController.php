@@ -43,13 +43,13 @@ class CartController extends Controller
             return CartResource::collection($carts)
                 ->additional([
                     'success' => true,
-                    'message' => 'Carts retrieved successfully.',
+                    'message' => __('messages.customer.cart.carts_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get carts.',
+                'message' => __('messages.customer.cart.could_not_get_carts'),
             ], 500);
         }
     }
@@ -79,13 +79,13 @@ class CartController extends Controller
             return CartResource::make($cart)
                 ->additional([
                     'success' => true,
-                    'message' => 'Cart retrieved successfully.',
+                    'message' => __('messages.customer.cart.cart_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get cart.',
+                'message' => __('messages.customer.cart.could_not_get_cart'),
             ], 500);
         }
     }
@@ -121,13 +121,13 @@ class CartController extends Controller
             return CartResource::collection($carts)
                 ->additional([
                     'success' => true,
-                    'message' => 'Carts merged successfully.',
+                    'message' => __('messages.customer.cart.carts_merged'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not merge carts.',
+                'message' => __('messages.customer.cart.could_not_merge_carts'),
             ], 500);
         }
     }
@@ -165,7 +165,7 @@ class CartController extends Controller
             if (! $cart instanceof Cart) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Cart has been successfully deleted as it contained no items.',
+                    'message' => __('messages.customer.cart.cart_emptied'),
                 ], 200);
             }
 
@@ -173,7 +173,7 @@ class CartController extends Controller
                 return CartResource::make($cart)
                     ->additional([
                         'success' => true,
-                        'message' => 'Cart updated successfully.',
+                        'message' => __('messages.customer.cart.cart_updated'),
                     ])
                     ->response()
                     ->setStatusCode(200);
@@ -182,14 +182,14 @@ class CartController extends Controller
             return CartResource::make($cart)
                 ->additional([
                     'success' => true,
-                    'message' => 'Cart created successfully.',
+                    'message' => __('messages.customer.cart.cart_created'),
                 ])
                 ->response()
                 ->setStatusCode(201);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not create or update cart.',
+                'message' => __('messages.customer.cart.could_not_create_or_update_cart'),
             ], 500);
         }
     }
@@ -218,12 +218,12 @@ class CartController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Cart deleted successfully.',
+                'message' => __('messages.customer.cart.cart_deleted'),
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not delete cart.',
+                'message' => __('messages.customer.cart.could_not_delete_cart'),
             ], 500);
         }
     }

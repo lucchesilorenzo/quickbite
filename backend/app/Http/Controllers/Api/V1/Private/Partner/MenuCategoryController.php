@@ -66,7 +66,7 @@ class MenuCategoryController extends Controller
             return MenuCategoryResource::make($menuCategory)
                 ->additional([
                     'success' => true,
-                    'message' => 'Menu category created successfully.',
+                    'message' => __('messages.partner.menu_category.created'),
                 ])
                 ->response()
                 ->setStatusCode(201);
@@ -78,7 +78,7 @@ class MenuCategoryController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not create menu category.',
+                'message' => __('messages.partner.menu_category.could_not_create'),
             ], 500);
         }
     }
@@ -126,18 +126,18 @@ class MenuCategoryController extends Controller
             return MenuCategoryResource::collection($updatedMenuCategories)
                 ->additional([
                     'success' => true,
-                    'message' => 'Menu categories order updated successfully.',
+                    'message' => __('messages.partner.menu_category.order_updated'),
                 ])
                 ->response();
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,
-                'message' => 'Menu category not found.',
+                'message' => __('messages.partner.menu_category.not_found'),
             ], 404);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update menu categories.',
+                'message' => __('messages.partner.menu_category.could_not_update_order'),
             ], 500);
         }
     }
@@ -174,13 +174,13 @@ class MenuCategoryController extends Controller
             return MenuCategoryResource::make($menuCategory)
                 ->additional([
                     'success' => true,
-                    'message' => 'Menu category updated successfully.',
+                    'message' => __('messages.partner.menu_category.updated'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update menu category.',
+                'message' => __('messages.partner.menu_category.could_not_update'),
             ], 500);
         }
     }
@@ -211,12 +211,12 @@ class MenuCategoryController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Menu category deleted successfully.',
+                'message' => __('messages.partner.menu_category.deleted'),
             ], 200);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not delete menu category.',
+                'message' => __('messages.partner.menu_category.could_not_delete'),
             ], 500);
         }
     }

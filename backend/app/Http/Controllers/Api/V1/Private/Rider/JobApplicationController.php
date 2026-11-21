@@ -59,14 +59,14 @@ class JobApplicationController extends Controller
             return JobApplicationResource::make($jobApplication)
                 ->additional([
                     'success' => true,
-                    'message' => 'Job application created successfully.',
+                    'message' => __('messages.rider.job_application.created'),
                 ])
                 ->response()
                 ->setStatusCode(201);
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not create job application.',
+                'message' => __('messages.rider.job_application.could_not_create'),
             ], 500);
         }
     }

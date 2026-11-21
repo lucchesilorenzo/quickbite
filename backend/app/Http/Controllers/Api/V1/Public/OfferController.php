@@ -42,13 +42,13 @@ class OfferController extends Controller
             return OfferResource::collection($offers)
                 ->additional([
                     'success' => true,
-                    'message' => 'Offers retrieved successfully.',
+                    'message' => __('messages.public.offer.retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get offers.',
+                'message' => __('messages.public.offer.could_not_get'),
             ], 500);
         }
     }

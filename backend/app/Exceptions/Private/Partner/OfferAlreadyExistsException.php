@@ -9,9 +9,9 @@ use Exception;
 class OfferAlreadyExistsException extends Exception
 {
     public function __construct(
-        string $message = 'An offer with the same discount rate already exists.',
+        ?string $message = null,
         int $code = 422
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.offer_already_exists'), $code);
     }
 }

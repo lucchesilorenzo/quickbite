@@ -9,9 +9,9 @@ use Exception;
 class RestaurantApprovalException extends Exception
 {
     public function __construct(
-        string $message = 'Cannot approve restaurant: some required fields are missing.',
+        ?string $message = null,
         int $code = 422
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message ?? __('messages.exceptions.restaurant_approval'), $code);
     }
 }

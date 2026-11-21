@@ -61,13 +61,13 @@ class DeliveryController extends Controller
             return DeliveryResource::collection($deliveries)
                 ->additional([
                     'success' => true,
-                    'message' => 'Deliveries retrieved successfully.',
+                    'message' => __('messages.rider.delivery.deliveries_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get deliveries.',
+                'message' => __('messages.rider.delivery.could_not_get_deliveries'),
             ], 500);
         }
     }
@@ -101,13 +101,13 @@ class DeliveryController extends Controller
             return DeliveryResource::make($activeDelivery)
                 ->additional([
                     'success' => true,
-                    'message' => 'Active delivery retrieved successfully.',
+                    'message' => __('messages.rider.delivery.active_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get active delivery.',
+                'message' => __('messages.rider.delivery.could_not_get_active'),
             ], 500);
         }
     }
@@ -148,7 +148,7 @@ class DeliveryController extends Controller
             return DeliveryResource::make($delivery)
                 ->additional([
                     'success' => true,
-                    'message' => 'Delivery updated successfully.',
+                    'message' => __('messages.rider.delivery.updated'),
                 ])
                 ->response();
         } catch (InvalidDeliveryStatusException $e) {
@@ -159,7 +159,7 @@ class DeliveryController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update delivery.',
+                'message' => __('messages.rider.delivery.could_not_update'),
             ], 500);
         }
     }

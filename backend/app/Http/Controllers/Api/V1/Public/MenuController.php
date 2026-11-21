@@ -40,13 +40,13 @@ class MenuController extends Controller
             return MenuCategoryResource::collection($menu)
                 ->additional([
                     'success' => true,
-                    'message' => 'Menu retrieved successfully.',
+                    'message' => __('messages.public.menu.retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get menu.',
+                'message' => __('messages.public.menu.could_not_get'),
             ], 500);
         }
     }

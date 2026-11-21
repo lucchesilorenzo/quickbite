@@ -56,7 +56,7 @@ class ProfileController extends Controller
             return UserResource::make($partner)
                 ->additional([
                     'success' => true,
-                    'message' => 'Profile general information updated successfully.',
+                    'message' => __('messages.partner.profile.general_info_updated'),
                 ])
                 ->response();
         } catch (LocationNotFoundException $e) {
@@ -67,7 +67,7 @@ class ProfileController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update profile general information.',
+                'message' => __('messages.partner.profile.could_not_update_general_info'),
             ], 500);
         }
     }
@@ -101,13 +101,13 @@ class ProfileController extends Controller
             return UserResource::make($partner)
                 ->additional([
                     'success' => true,
-                    'message' => 'Profile notification preferences updated successfully.',
+                    'message' => __('messages.partner.profile.notification_preferences_updated'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not update profile notification preferences.',
+                'message' => __('messages.partner.profile.could_not_update_notification_preferences'),
             ], 500);
         }
     }

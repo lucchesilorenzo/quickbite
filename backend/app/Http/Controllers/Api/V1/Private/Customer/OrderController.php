@@ -48,13 +48,13 @@ class OrderController extends Controller
             return OrderResource::collection($orders)
                 ->additional([
                     'success' => true,
-                    'message' => 'Orders retrieved successfully.',
+                    'message' => __('messages.customer.order.orders_retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get orders.',
+                'message' => __('messages.customer.order.could_not_get_orders'),
             ], 500);
         }
     }
@@ -85,7 +85,7 @@ class OrderController extends Controller
             return OrderResource::make($order)
                 ->additional([
                     'success' => true,
-                    'message' => 'Order retrieved successfully.',
+                    'message' => __('messages.customer.order.order_retrieved'),
                 ])
                 ->response();
         } catch (OrderExpiredException $e) {
@@ -96,7 +96,7 @@ class OrderController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get order.',
+                'message' => __('messages.customer.order.could_not_get_order'),
             ], 500);
         }
     }
@@ -126,14 +126,14 @@ class OrderController extends Controller
                 ->additional([
                     'stripe_client_secret' => $result['stripe_client_secret'],
                     'success' => true,
-                    'message' => 'Order created successfully.',
+                    'message' => __('messages.customer.order.order_created'),
                 ])
                 ->response()
                 ->setStatusCode(201);
         } catch (ModelNotFoundException) {
             return response()->json([
                 'success' => false,
-                'message' => 'Restaurant not found.',
+                'message' => __('messages.customer.order.restaurant_not_found'),
             ], 404);
         } catch (LocationNotFoundException $e) {
             return response()->json([
@@ -148,7 +148,7 @@ class OrderController extends Controller
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not create order.',
+                'message' => __('messages.customer.order.could_not_create_order'),
             ], 500);
         }
     }

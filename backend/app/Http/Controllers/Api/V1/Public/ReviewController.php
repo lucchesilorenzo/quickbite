@@ -51,13 +51,13 @@ class ReviewController extends Controller
                     'avg_rating' => $data['avg_rating'],
                     'count' => $data['count'],
                     'success' => true,
-                    'message' => 'Reviews retrieved successfully.',
+                    'message' => __('messages.public.review.retrieved'),
                 ])
                 ->response();
         } catch (Throwable) {
             return response()->json([
                 'success' => false,
-                'message' => 'Could not get reviews.',
+                'message' => __('messages.public.review.could_not_get'),
             ], 500);
         }
     }

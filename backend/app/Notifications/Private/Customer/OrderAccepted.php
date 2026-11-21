@@ -38,10 +38,19 @@ class OrderAccepted extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("{$this->order->first_name}, order accepted")
-            ->greeting("Hello {$this->order->first_name} {$this->order->last_name},")
-            ->line("Your order # {$this->order->order_code} from   {$this->order->restaurant->name} has been accepted.")
-            ->line('Total: ' . Number::currency($this->order->total, in: 'EUR', locale: 'it-IT'))
-            ->line('Thank you for ordering with us!');
+            ->subject(__('messages.notifications.order_accepted.subject', [
+                'name' => $this->order->first_name,
+            ]))
+            ->greeting(__('messages.notifications.order_accepted.greeting', [
+                'name' => "{$this->order->first_name} {$this->order->last_name}",
+            ]))
+            ->line(__('messages.notifications.order_accepted.body', [
+                'code' => $this->order->order_code,
+                'restaurant' => $this->order->restaurant->name,
+            ]))
+            ->line(__('messages.notifications.order_accepted.total', [
+                'total' => Number::currency($this->order->total, in: 'EUR'),
+            ]))
+            ->line(__('messages.notifications.order_accepted.footer'));
     }
 }
