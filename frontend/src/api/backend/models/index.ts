@@ -230,6 +230,7 @@ export * from "./leaveRiderRestaurant200";
 export * from "./leaveRiderRestaurant404";
 export * from "./leaveRiderRestaurant409";
 export * from "./leaveRiderRestaurant500";
+export * from "./locale";
 export * from "./loginCustomer200";
 export * from "./loginCustomer400";
 export * from "./loginCustomer401";
