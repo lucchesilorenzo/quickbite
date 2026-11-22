@@ -17,7 +17,7 @@ import {
   GetRestaurantsMov,
   RestaurantResource,
   RestaurantSortBy,
-} from "@/api/models";
+} from "@/api/backend/models";
 import { useGetRestaurants } from "@/hooks/restaurants/useGetRestaurants";
 import { RestaurantSearchOption } from "@/types/restaurants/restaurant.types";
 

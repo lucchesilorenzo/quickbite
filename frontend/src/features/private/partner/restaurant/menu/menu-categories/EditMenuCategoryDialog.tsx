@@ -10,7 +10,7 @@ import {
 
 import EditMenuCategoryForm from "./EditMenuCategoryForm";
 
-import { PartnerMenuCategoryResource } from "@/api/models";
+import { PartnerMenuCategoryResource } from "@/api/backend/models";
 
 type EditMenuCategoryDialogProps = {
   menuCategory: PartnerMenuCategoryResource;

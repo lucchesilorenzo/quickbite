@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPartnerNotifications } from "@/api/endpoints/partner-notifications/partner-notifications";
+import { getPartnerNotifications } from "@/api/backend/endpoints/partner-notifications/partner-notifications";
 import {
   MarkPartnerNotificationsAsRead200,
   MarkPartnerNotificationsAsRead500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getRiderDeliveries } from "@/api/endpoints/rider-deliveries/rider-deliveries";
+import { getRiderDeliveries } from "@/api/backend/endpoints/rider-deliveries/rider-deliveries";
 import {
   OrderStatus,
   UpdateRiderDeliveryStatus400,
   UpdateRiderDeliveryStatus500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import {
   UpdateDeliveryStatusRequest,
   UpdateRiderDeliveryStatus200,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

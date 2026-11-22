@@ -6,7 +6,7 @@ import { IconButton, Popover, Stack, Typography } from "@mui/material";
 
 import OrderItemsList from "./OrderItemsList";
 
-import { DeliveryResource } from "@/api/models";
+import { DeliveryResource } from "@/api/backend/models";
 
 type OrderItemsDetailsProps = {
   delivery: DeliveryResource;

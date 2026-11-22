@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getCustomerAuth } from "@/api/endpoints/customer-auth/customer-auth";
+import { getCustomerAuth } from "@/api/backend/endpoints/customer-auth/customer-auth";
 import {
   CustomerRegisterRequest,
   RegisterCustomer201,
   RegisterCustomer400,
   RegisterCustomer401,
   RegisterCustomer500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

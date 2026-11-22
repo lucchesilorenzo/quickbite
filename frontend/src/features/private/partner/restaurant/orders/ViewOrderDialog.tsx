@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import ViewOrderFeesAndDiscounts from "@/components/view-order-dialog/ViewOrderFeesAndDiscounts";
 import ViewOrderItemsList from "@/components/view-order-dialog/ViewOrderItemsList";
 import ViewOrderReceipt from "@/components/view-order-dialog/ViewOrderReceipt";

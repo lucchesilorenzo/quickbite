@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getCustomerAuth } from "@/api/endpoints/customer-auth/customer-auth";
-import { LogoutCustomer200, LogoutCustomer500 } from "@/api/models";
+import { getCustomerAuth } from "@/api/backend/endpoints/customer-auth/customer-auth";
+import { LogoutCustomer200, LogoutCustomer500 } from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

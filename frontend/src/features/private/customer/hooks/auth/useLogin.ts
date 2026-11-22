@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getCustomerAuth } from "@/api/endpoints/customer-auth/customer-auth";
+import { getCustomerAuth } from "@/api/backend/endpoints/customer-auth/customer-auth";
 import {
   CustomerLoginRequest,
   LoginCustomer200,
@@ -10,7 +10,7 @@ import {
   LoginCustomer401,
   LoginCustomer403,
   LoginCustomer500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

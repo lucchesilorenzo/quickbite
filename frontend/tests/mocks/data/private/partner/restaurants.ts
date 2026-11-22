@@ -1,4 +1,4 @@
-import { GetPartnerRestaurant200 } from "@/api/models";
+import { GetPartnerRestaurant200 } from "@/api/backend/models";
 import { category } from "../../public/categories";
 import { deliveryDays } from "../../public/delivery-days";
 

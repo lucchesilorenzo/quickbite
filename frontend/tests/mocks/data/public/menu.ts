@@ -1,4 +1,4 @@
-import { MenuCategoryResource, MenuItemResource } from "@/api/models";
+import { MenuCategoryResource, MenuItemResource } from "@/api/backend/models";
 import type { MenuNavigationCategory } from "@/types/menu.types";
 
 export const menuItem: MenuItemResource = {

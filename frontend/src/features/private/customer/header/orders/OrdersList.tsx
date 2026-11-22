@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import OrderItem from "./OrderItem";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import CustomPagination from "@/components/common/CustomPagination";
 
 type OrdersListProps = {

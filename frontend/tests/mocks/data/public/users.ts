@@ -1,4 +1,4 @@
-import { UserResource } from "@/api/models";
+import { UserResource } from "@/api/backend/models";
 
 export const user: UserResource = {
   id: "019a0642-e093-728a-8298-693c85ec0bff",

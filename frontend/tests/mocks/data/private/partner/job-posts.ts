@@ -1,6 +1,9 @@
 import { GridRowId } from "@mui/x-data-grid";
 
-import { GetPartnerJobPost200, GetPartnerJobPosts200 } from "@/api/models";
+import {
+  GetPartnerJobPost200,
+  GetPartnerJobPosts200,
+} from "@/api/backend/models";
 
 export const jobPostResponse: GetPartnerJobPost200 = {
   success: true,

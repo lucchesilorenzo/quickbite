@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPublicCategories } from "@/api/endpoints/public-categories/public-categories";
-import { GetCategories200, GetCategories500 } from "@/api/models";
+import { getPublicCategories } from "@/api/backend/endpoints/public-categories/public-categories";
+import { GetCategories200, GetCategories500 } from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

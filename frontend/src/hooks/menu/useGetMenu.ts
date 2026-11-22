@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPublicMenu } from "@/api/endpoints/public-menu/public-menu";
-import { GetMenu200, GetMenu500 } from "@/api/models";
+import { getPublicMenu } from "@/api/backend/endpoints/public-menu/public-menu";
+import { GetMenu200, GetMenu500 } from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

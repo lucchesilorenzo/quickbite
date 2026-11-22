@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPartnerRestaurants } from "@/api/endpoints/partner-restaurants/partner-restaurants";
-import { GetPartnerRestaurant200, GetPartnerRestaurant500 } from "@/api/models";
+import { getPartnerRestaurants } from "@/api/backend/endpoints/partner-restaurants/partner-restaurants";
+import {
+  GetPartnerRestaurant200,
+  GetPartnerRestaurant500,
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

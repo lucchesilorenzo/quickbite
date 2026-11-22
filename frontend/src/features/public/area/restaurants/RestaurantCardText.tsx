@@ -3,7 +3,7 @@ import { Stack, Typography } from "@mui/material";
 import RestaurantDeliveryInfo from "./RestaurantDeliveryInfo";
 import RestaurantMetaInfo from "./RestaurantMetaInfo";
 
-import { RestaurantResource } from "@/api/models";
+import { RestaurantResource } from "@/api/backend/models";
 
 type RestaurantCardTextProps = {
   restaurant: RestaurantResource;

@@ -1,4 +1,4 @@
-import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
+import { getPrivateAuth } from "@/api/backend/endpoints/private-auth/private-auth";
 import api from "@/lib/api-client";
 
 export async function refreshToken() {

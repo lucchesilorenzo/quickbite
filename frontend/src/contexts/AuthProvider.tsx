@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect } from "react";
 import { useAuthMe } from "@private/shared/hooks/auth/useAuthMe";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { UserResource } from "@/api/models";
+import { UserResource } from "@/api/backend/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 
 type AuthProviderProps = {

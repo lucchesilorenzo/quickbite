@@ -1,7 +1,7 @@
 import { Badge } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { MenuItemResource } from "@/api/models";
+import { MenuItemResource } from "@/api/backend/models";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 

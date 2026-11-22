@@ -8,7 +8,7 @@ import { customRender } from "@tests/utils/custom-render";
 
 import JobPostItem from "./JobPostItem";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 
 vi.mock("@rider/contexts/JobPostsProvider", () => ({

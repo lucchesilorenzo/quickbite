@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
+import { getPrivateAuth } from "@/api/backend/endpoints/private-auth/private-auth";
 import {
   ResendEmailVerification200,
   ResendEmailVerification400,
   ResendEmailVerification500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

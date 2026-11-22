@@ -3,7 +3,7 @@ import { Stack, Typography } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 import { differenceInDays } from "date-fns";
 
-import { RestaurantResource } from "@/api/models";
+import { RestaurantResource } from "@/api/backend/models";
 
 type RestaurantMetaInfoProps = {
   restaurant: RestaurantResource;

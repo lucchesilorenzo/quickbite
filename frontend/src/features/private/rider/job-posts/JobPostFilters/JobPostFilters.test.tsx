@@ -12,7 +12,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import JobPostFilters from "./JobPostFilters";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 import {
   MAX_SALARY,
   MIN_SALARY,

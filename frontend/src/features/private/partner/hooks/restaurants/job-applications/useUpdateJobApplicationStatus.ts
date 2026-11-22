@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPartnerJobApplications } from "@/api/endpoints/partner-job-applications/partner-job-applications";
+import { getPartnerJobApplications } from "@/api/backend/endpoints/partner-job-applications/partner-job-applications";
 import {
   UpdateJobApplicationRequest,
   UpdateJobApplicationStatus200,
   UpdateJobApplicationStatus409,
   UpdateJobApplicationStatus500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

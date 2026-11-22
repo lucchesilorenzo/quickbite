@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 import { useRestaurant } from "./RestaurantProvider";
 
-import { GetOffers200 } from "@/api/models";
+import { GetOffers200 } from "@/api/backend/models";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";
 
 type OffersProviderProps = {

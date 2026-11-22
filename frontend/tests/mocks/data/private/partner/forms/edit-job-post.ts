@@ -1,4 +1,7 @@
-import { UpdateJobPostRequest, UpdatePartnerJobPost200 } from "@/api/models";
+import {
+  UpdateJobPostRequest,
+  UpdatePartnerJobPost200,
+} from "@/api/backend/models";
 import { MIN_SALARY } from "@/features/private/shared/lib/data/job-posts.data";
 
 export const editJobPostForm: UpdateJobPostRequest = {

@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { RestaurantResource } from "@/api/models";
+import { RestaurantResource } from "@/api/backend/models";
 import { getRestaurantOpeningTime } from "@/lib/utils/restaurants.utils";
 
 type RestaurantAvailabilityProps = {

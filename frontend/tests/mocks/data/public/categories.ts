@@ -1,4 +1,4 @@
-import { CategoryResource } from "@/api/models";
+import { CategoryResource } from "@/api/backend/models";
 
 export const category: CategoryResource = {
   id: "0199e1dc-793e-7228-a014-9d989b34081a",

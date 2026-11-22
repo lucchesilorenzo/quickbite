@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getCustomerCarts } from "@/api/endpoints/customer-carts/customer-carts";
+import { getCustomerCarts } from "@/api/backend/endpoints/customer-carts/customer-carts";
 import {
   CreateOrUpdateCustomerCart200,
   CreateOrUpdateCustomerCart201,
   CreateOrUpdateCustomerCart500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 import { RestaurantCart } from "@/types/cart.types";

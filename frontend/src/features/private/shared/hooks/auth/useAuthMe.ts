@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPrivateAuth } from "@/api/endpoints/private-auth/private-auth";
-import { GetAuthenticatedUser200, GetAuthenticatedUser500 } from "@/api/models";
+import { getPrivateAuth } from "@/api/backend/endpoints/private-auth/private-auth";
+import {
+  GetAuthenticatedUser200,
+  GetAuthenticatedUser500,
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

@@ -2,7 +2,7 @@ import { createContext, useContext, useRef, useState } from "react";
 
 import { useRestaurant } from "./RestaurantProvider";
 
-import { GetMenu200 } from "@/api/models";
+import { GetMenu200 } from "@/api/backend/models";
 import { useGetMenu } from "@/hooks/menu/useGetMenu";
 
 type MenuProviderProps = {

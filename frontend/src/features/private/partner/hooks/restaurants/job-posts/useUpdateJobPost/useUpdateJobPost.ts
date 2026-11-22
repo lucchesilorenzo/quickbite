@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
+import { getPartnerJobPosts } from "@/api/backend/endpoints/partner-job-posts/partner-job-posts";
 import {
   UpdateJobPostRequest,
   UpdatePartnerJobPost200,
   UpdatePartnerJobPost500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

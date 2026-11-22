@@ -4,7 +4,7 @@ import { customRender } from "@tests/utils/custom-render";
 
 import JobPostSplitLayout from "./JobPostSplitLayout";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 
 vi.mock("@rider/job-posts/JobPostCountAndSort", () => ({
   default: () => <div data-testid="job-post-count-and-sort" />,

@@ -6,7 +6,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { RestaurantResource } from "@/api/models";
+import { RestaurantResource } from "@/api/backend/models";
 import { getRestaurantOpeningTime } from "@/lib/utils/restaurants.utils";
 
 type RestaurantLocationInfoProps = {

@@ -13,7 +13,7 @@ import { grey } from "@mui/material/colors";
 import MenuItemAddButton from "../components/MenuItemAddButton";
 import MenuItemDialog from "./MenuItemDialog";
 
-import { MenuItemResource } from "@/api/models";
+import { MenuItemResource } from "@/api/backend/models";
 import MenuItemQuantityInCartBadge from "@/components/menu-category-navigation/MenuItemQuantityInCartBadge";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { useRestaurant } from "@/contexts/RestaurantProvider";

@@ -1,4 +1,4 @@
-import { RestaurantResource } from "@/api/models";
+import { RestaurantResource } from "@/api/backend/models";
 import { apiResponse } from "../../shared/common";
 
 export const restaurantWithPivot: RestaurantResource = {

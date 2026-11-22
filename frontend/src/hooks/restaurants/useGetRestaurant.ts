@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPublicRestaurants } from "@/api/endpoints/public-restaurants/public-restaurants";
+import { getPublicRestaurants } from "@/api/backend/endpoints/public-restaurants/public-restaurants";
 import {
   GetRestaurant200,
   GetRestaurant404,
   GetRestaurant500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

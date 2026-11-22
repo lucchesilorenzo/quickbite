@@ -12,7 +12,7 @@ import {
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteMenuItem } from "@partner/hooks/restaurants/menu/items/useDeleteMenuItem";
 
-import { MenuItemResource } from "@/api/models";
+import { MenuItemResource } from "@/api/backend/models";
 
 type DeleteMenuItemDialogProps = {
   menuItem: MenuItemResource;

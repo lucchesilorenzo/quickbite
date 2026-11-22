@@ -8,7 +8,7 @@ import {
 } from "@partner/schemas/menu.schema";
 import { Controller, useForm } from "react-hook-form";
 
-import { PartnerMenuCategoryResource } from "@/api/models";
+import { PartnerMenuCategoryResource } from "@/api/backend/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type EditMenuCategoryFormProps = {

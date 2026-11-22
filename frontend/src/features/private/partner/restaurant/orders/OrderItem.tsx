@@ -14,7 +14,7 @@ import { format } from "date-fns";
 import UpdateOrderStatusButton from "./UpdateOrderStatusButton";
 import ViewOrderDialog from "./ViewOrderDialog";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 

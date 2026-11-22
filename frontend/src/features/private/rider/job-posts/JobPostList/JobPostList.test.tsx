@@ -10,7 +10,7 @@ import { useInView } from "react-intersection-observer";
 
 import JobPostList from "./JobPostList";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 
 vi.mock("@mui/material", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@mui/material")>()),

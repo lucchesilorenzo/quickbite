@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import OrderItem from "./OrderItem";
 
-import { DeliveryResource } from "@/api/models";
+import { DeliveryResource } from "@/api/backend/models";
 
 type OrderItemsListProps = {
   delivery: DeliveryResource;

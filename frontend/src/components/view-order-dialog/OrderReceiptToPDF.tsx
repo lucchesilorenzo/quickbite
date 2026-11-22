@@ -8,7 +8,7 @@ import {
 } from "@react-pdf/renderer";
 import { format } from "date-fns";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type OrderReceiptToPDFProps = {

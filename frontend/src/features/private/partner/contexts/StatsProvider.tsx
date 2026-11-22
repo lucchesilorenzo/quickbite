@@ -15,7 +15,7 @@ import {
   GetPartnerRestaurantStats200,
   Kpi,
   StatRange,
-} from "@/api/models";
+} from "@/api/backend/models";
 import { statRanges } from "@/features/private/partner/lib/data/stats.data";
 
 type StatsProviderProps = {

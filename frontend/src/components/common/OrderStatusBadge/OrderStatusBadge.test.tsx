@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 
 import OrderStatusBadge from "./OrderStatusBadge";
 
-import { OrderStatus } from "@/api/models";
+import { OrderStatus } from "@/api/backend/models";
 import { orderStatuses } from "@/lib/data/orders.data";
 
 describe("OrderStatusBadge", () => {

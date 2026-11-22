@@ -7,7 +7,7 @@ import { Navigate } from "react-router-dom";
 import {
   GetPartnerNotifications200,
   GetPartnerRestaurant200,
-} from "@/api/models";
+} from "@/api/backend/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 

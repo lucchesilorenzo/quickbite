@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 
 import ViewOrderItem from "../ViewOrderItem";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 
 type ViewOrderItemsListProps = {
   order: OrderResource;

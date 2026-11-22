@@ -1,6 +1,6 @@
 import { Chip } from "@mui/material";
 
-import { OrderStatus } from "@/api/models";
+import { OrderStatus } from "@/api/backend/models";
 import { orderStatuses } from "@/lib/data/orders.data";
 
 type OrderStatusBadgeProps = {

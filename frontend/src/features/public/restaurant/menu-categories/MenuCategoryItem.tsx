@@ -2,7 +2,7 @@ import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import MenuItemRow from "./MenuItemRow";
 
-import { MenuCategoryResource } from "@/api/models";
+import { MenuCategoryResource } from "@/api/backend/models";
 import { useMenu } from "@/contexts/MenuProvider";
 
 type MenuCategoryItemProps = {

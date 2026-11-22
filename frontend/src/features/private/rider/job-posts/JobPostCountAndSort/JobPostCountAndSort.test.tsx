@@ -9,7 +9,7 @@ import { customRender } from "@tests/utils/custom-render";
 
 import JobPostCountAndSort from "./JobPostCountAndSort";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 
 const mockHandleApplySort = vi.fn();
 

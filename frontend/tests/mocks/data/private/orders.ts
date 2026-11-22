@@ -1,4 +1,4 @@
-import { OrderItemResource, OrderResource } from "@/api/models";
+import { OrderItemResource, OrderResource } from "@/api/backend/models";
 
 export const orderItem: OrderItemResource = {
   id: "019a30a7-d967-7187-9ba9-76caf801f7cb",

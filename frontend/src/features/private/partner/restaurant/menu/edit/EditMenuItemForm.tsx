@@ -17,7 +17,7 @@ import {
 } from "@partner/schemas/menu.schema";
 import { Controller, useForm } from "react-hook-form";
 
-import { MenuItemResource } from "@/api/models";
+import { MenuItemResource } from "@/api/backend/models";
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import VisuallyHiddenInput from "@/components/common/VisuallyHiddenInput";

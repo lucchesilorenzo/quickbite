@@ -1,4 +1,4 @@
-import { CreateJobApplicationRequest } from "@/api/models";
+import { CreateJobApplicationRequest } from "@/api/backend/models";
 import { apiResponse } from "@tests/mocks/data/shared/common";
 
 export function createJobApplicationFormData(): CreateJobApplicationRequest {

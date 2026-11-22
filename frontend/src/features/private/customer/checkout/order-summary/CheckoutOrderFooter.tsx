@@ -19,7 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import DeliveryFeeDialog from "./DeliveryFeeDialog";
 
-import { CreateOrderRequest } from "@/api/models";
+import { CreateOrderRequest } from "@/api/backend/models";
 import ServiceFeeDialog from "@/components/common/ServiceFeeDialog";
 import { useMultiCart } from "@/contexts/MultiCartProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";

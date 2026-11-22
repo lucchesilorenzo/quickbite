@@ -1,4 +1,4 @@
-import { EmploymentType } from "@/api/models";
+import { EmploymentType } from "@/api/backend/models";
 
 export type EmploymentTypeWithAll = EmploymentType | "all";
 

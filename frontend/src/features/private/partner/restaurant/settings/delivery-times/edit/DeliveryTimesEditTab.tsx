@@ -18,7 +18,7 @@ import {
 import { format } from "date-fns";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
-import { DeliveryDay } from "@/api/models";
+import { DeliveryDay } from "@/api/backend/models";
 import AntSwitch from "@/components/common/AntSwitch";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { capitalize } from "@/lib/utils/formatting.utils";

@@ -1,4 +1,4 @@
-import { DeliveryDayResource } from "@/api/models";
+import { DeliveryDayResource } from "@/api/backend/models";
 
 export const deliveryDays: DeliveryDayResource[] = [
   {

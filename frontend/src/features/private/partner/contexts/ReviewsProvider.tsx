@@ -4,7 +4,7 @@ import { useGetReviews } from "@partner/hooks/restaurants/reviews/useGetReviews"
 
 import { useRestaurant } from "./RestaurantProvider";
 
-import { GetPartnerReviews200 } from "@/api/models";
+import { GetPartnerReviews200 } from "@/api/backend/models";
 import { OrderStatusWithAll } from "@/types/order.types";
 
 type ReviewsProviderProps = {

@@ -1,4 +1,4 @@
-import { CategoryResource } from "@/api/models";
+import { CategoryResource } from "@/api/backend/models";
 
 export type CategoryWithSelected = CategoryResource & {
   selected: boolean;

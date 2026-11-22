@@ -1,4 +1,4 @@
-import { EmploymentType, JobPostStatus } from "@/api/models";
+import { EmploymentType, JobPostStatus } from "@/api/backend/models";
 
 export const employmentTypes: {
   value: EmploymentType;

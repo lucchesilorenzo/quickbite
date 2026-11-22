@@ -17,7 +17,7 @@ import {
 } from "@partner/schemas/restaurant-settings.schema";
 import { Controller, useForm } from "react-hook-form";
 
-import { OfferResource } from "@/api/models";
+import { OfferResource } from "@/api/backend/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { discountRates } from "@/features/private/partner/lib/data/offers.data";
 

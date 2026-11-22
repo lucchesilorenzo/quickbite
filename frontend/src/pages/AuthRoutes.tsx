@@ -11,7 +11,7 @@ import PartnerRegisterPage from "./public/auth/partner/PartnerRegisterPage";
 import RiderLoginPage from "./public/auth/rider/RiderLoginPage";
 import RiderRegisterPage from "./public/auth/rider/RiderRegisterPage";
 
-import { UserRole } from "@/api/models";
+import { UserRole } from "@/api/backend/models";
 import CustomerAuthLayout from "@/layouts/private/customer/CustomerAuthLayout";
 import PartnerAuthLayout from "@/layouts/private/partner/PartnerAuthLayout";
 import RiderAuthLayout from "@/layouts/private/rider/RiderAuthLayout";

@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 
 import MenuItemCard from "./MenuItemCard";
 
-import { MenuItemResource } from "@/api/models";
+import { MenuItemResource } from "@/api/backend/models";
 
 type MenuItemsListProps = {
   menuItems: MenuItemResource[];

@@ -1,4 +1,4 @@
-import { UserResource, UserRole } from "@/api/models";
+import { UserResource, UserRole } from "@/api/backend/models";
 
 export function hasRole(user: UserResource | null | undefined, role: UserRole) {
   return !!user?.roles?.some((r) => r.name === role);

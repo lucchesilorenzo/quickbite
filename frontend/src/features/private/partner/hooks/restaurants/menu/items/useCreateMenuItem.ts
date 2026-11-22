@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPartnerMenuItems } from "@/api/endpoints/partner-menu-items/partner-menu-items";
+import { getPartnerMenuItems } from "@/api/backend/endpoints/partner-menu-items/partner-menu-items";
 import {
   CreateMenuItemRequest,
   CreatePartnerMenuItem201,
   CreatePartnerMenuItem500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

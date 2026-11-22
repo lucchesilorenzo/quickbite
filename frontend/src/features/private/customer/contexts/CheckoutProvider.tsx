@@ -8,7 +8,7 @@ import {
   GetCustomerCart200,
   GetDeliverySlots200,
   GetOffers200,
-} from "@/api/models";
+} from "@/api/backend/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { useAuth } from "@/contexts/AuthProvider";
 import { useGetOffers } from "@/hooks/offers/useGetOffers";

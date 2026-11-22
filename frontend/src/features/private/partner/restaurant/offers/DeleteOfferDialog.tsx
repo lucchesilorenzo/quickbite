@@ -12,7 +12,7 @@ import {
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteOffer } from "@partner/hooks/restaurants/offers/useDeleteOffer";
 
-import { OfferResource } from "@/api/models";
+import { OfferResource } from "@/api/backend/models";
 
 type DeleteOfferDialogProps = {
   offer: OfferResource;

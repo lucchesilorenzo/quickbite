@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 import { useGetNotifications } from "../hooks/notifications/useGetNotifications";
 
-import { GetRiderNotifications200 } from "@/api/models";
+import { GetRiderNotifications200 } from "@/api/backend/models";
 import { useAuth } from "@/contexts/AuthProvider";
 
 type NotificationsProviderProps = {

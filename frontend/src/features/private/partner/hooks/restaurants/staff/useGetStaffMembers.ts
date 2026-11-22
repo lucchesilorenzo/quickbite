@@ -1,12 +1,12 @@
 import { GridFilterModel, GridSortModel } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 
-import { getPartnerStaff } from "@/api/endpoints/partner-staff/partner-staff";
+import { getPartnerStaff } from "@/api/backend/endpoints/partner-staff/partner-staff";
 import {
   GetPartnerStaffMembers200,
   GetPartnerStaffMembers500,
   GetPartnerStaffMembersParams,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

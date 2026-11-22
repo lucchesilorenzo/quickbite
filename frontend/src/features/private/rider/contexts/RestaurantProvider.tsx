@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 
 import { useGetRestaurant } from "../hooks/restaurant/useGetRestaurant";
 
-import { GetRiderRestaurant200 } from "@/api/models";
+import { GetRiderRestaurant200 } from "@/api/backend/models";
 
 type RestaurantProviderProps = {
   children: React.ReactNode;

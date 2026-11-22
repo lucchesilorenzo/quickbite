@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPublicOffers } from "@/api/endpoints/public-offers/public-offers";
-import { GetOffers200, GetOffers500 } from "@/api/models";
+import { getPublicOffers } from "@/api/backend/endpoints/public-offers/public-offers";
+import { GetOffers200, GetOffers500 } from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

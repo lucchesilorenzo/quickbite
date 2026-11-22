@@ -1,6 +1,6 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type ViewOrderFeesAndDiscountsProps = {

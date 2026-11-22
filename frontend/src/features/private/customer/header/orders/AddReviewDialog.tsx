@@ -10,7 +10,7 @@ import {
 
 import AddReviewForm from "./AddReviewForm";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 
 type AddReviewDialogProps = {
   order: OrderResource;

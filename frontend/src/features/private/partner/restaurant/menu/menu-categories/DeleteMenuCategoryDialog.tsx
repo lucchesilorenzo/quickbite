@@ -12,7 +12,7 @@ import {
 import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 import { useDeleteMenuCategory } from "@partner/hooks/restaurants/menu/categories/useDeleteMenuCategory";
 
-import { PartnerMenuCategoryResource } from "@/api/models";
+import { PartnerMenuCategoryResource } from "@/api/backend/models";
 
 type DeleteMenuCategoryDialogProps = {
   menuCategory: PartnerMenuCategoryResource;

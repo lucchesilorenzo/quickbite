@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPartnerMenuCategories } from "@/api/endpoints/partner-menu-categories/partner-menu-categories";
+import { getPartnerMenuCategories } from "@/api/backend/endpoints/partner-menu-categories/partner-menu-categories";
 import {
   UpdateMenuCategoriesOrderRequest,
   UpdatePartnerMenuCategoriesOrder200,
   UpdatePartnerMenuCategoriesOrder404,
   UpdatePartnerMenuCategoriesOrder500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

@@ -1,4 +1,4 @@
-import type { CartResource } from "@/api/models";
+import type { CartResource } from "@/api/backend/models";
 
 export type RestaurantCart = Omit<CartResource, "id"> & {
   id?: string;

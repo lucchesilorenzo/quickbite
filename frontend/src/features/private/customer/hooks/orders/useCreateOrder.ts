@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getCustomerOrders } from "@/api/endpoints/customer-orders/customer-orders";
+import { getCustomerOrders } from "@/api/backend/endpoints/customer-orders/customer-orders";
 import {
   CreateCustomerOrder201,
   CreateCustomerOrder400,
   CreateCustomerOrder404,
   CreateCustomerOrder500,
   CreateOrderRequest,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

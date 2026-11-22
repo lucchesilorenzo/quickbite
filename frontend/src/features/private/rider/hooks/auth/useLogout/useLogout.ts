@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getRiderAuth } from "@/api/endpoints/rider-auth/rider-auth";
-import { LogoutRider200, LogoutRider500 } from "@/api/models";
+import { getRiderAuth } from "@/api/backend/endpoints/rider-auth/rider-auth";
+import { LogoutRider200, LogoutRider500 } from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

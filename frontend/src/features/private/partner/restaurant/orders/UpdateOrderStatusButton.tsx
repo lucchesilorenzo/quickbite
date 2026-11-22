@@ -15,7 +15,7 @@ import { useUpdateOrderStatus } from "@partner/hooks/restaurants/orders/useUpdat
 
 import { statusTransitions } from "../../lib/data/orders.data";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import { getDisabledOrderStatuses } from "@/features/private/partner/lib/utils/orders.utils";
 import { orderStatuses } from "@/lib/data/orders.data";
 

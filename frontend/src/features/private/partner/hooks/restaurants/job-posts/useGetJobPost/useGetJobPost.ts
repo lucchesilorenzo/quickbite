@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPartnerJobPosts } from "@/api/endpoints/partner-job-posts/partner-job-posts";
-import { GetPartnerJobPost200, GetPartnerJobPost500 } from "@/api/models";
+import { getPartnerJobPosts } from "@/api/backend/endpoints/partner-job-posts/partner-job-posts";
+import {
+  GetPartnerJobPost200,
+  GetPartnerJobPost500,
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

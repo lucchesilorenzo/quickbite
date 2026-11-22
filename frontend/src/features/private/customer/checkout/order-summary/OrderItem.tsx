@@ -1,6 +1,6 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
 
-import { CartItemResource } from "@/api/models";
+import { CartItemResource } from "@/api/backend/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type OrderItemProps = {

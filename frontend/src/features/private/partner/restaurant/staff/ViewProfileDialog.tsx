@@ -10,7 +10,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { UserResource } from "@/api/models";
+import { UserResource } from "@/api/backend/models";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 
 type ViewProfileDialogProps = {

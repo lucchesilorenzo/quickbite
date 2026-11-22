@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getRiderProfile } from "@/api/endpoints/rider-profile/rider-profile";
+import { getRiderProfile } from "@/api/backend/endpoints/rider-profile/rider-profile";
 import {
   RiderUpdateProfileNotificationsRequest,
   UpdateRiderProfileNotifications200,
   UpdateRiderProfileNotifications500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

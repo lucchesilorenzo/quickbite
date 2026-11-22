@@ -1,4 +1,8 @@
-import { CreateOrderRequest, OrderStatus, PaymentMethod } from "@/api/models";
+import {
+  CreateOrderRequest,
+  OrderStatus,
+  PaymentMethod,
+} from "@/api/backend/models";
 
 export type OrderStatusWithAll = OrderStatus | "all";
 

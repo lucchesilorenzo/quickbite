@@ -12,7 +12,7 @@ import { grey } from "@mui/material/colors";
 import { useStats } from "@partner/contexts/StatsProvider";
 import { useSearchParams } from "react-router-dom";
 
-import { Kpi } from "@/api/models";
+import { Kpi } from "@/api/backend/models";
 
 type StatsKpiCardProps = {
   card: {

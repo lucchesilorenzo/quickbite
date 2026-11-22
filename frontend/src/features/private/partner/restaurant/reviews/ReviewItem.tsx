@@ -11,7 +11,7 @@ import {
 import { blue } from "@mui/material/colors";
 import { format } from "date-fns";
 
-import { ReviewResource } from "@/api/models";
+import { ReviewResource } from "@/api/backend/models";
 
 type ReviewItemProps = {
   review: ReviewResource;

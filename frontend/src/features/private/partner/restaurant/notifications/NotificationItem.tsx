@@ -3,7 +3,7 @@ import { Alert, AlertTitle, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { formatDistanceToNow } from "date-fns";
 
-import { NotificationResource } from "@/api/models";
+import { NotificationResource } from "@/api/backend/models";
 
 type NotificationItemProps = {
   notification: NotificationResource;

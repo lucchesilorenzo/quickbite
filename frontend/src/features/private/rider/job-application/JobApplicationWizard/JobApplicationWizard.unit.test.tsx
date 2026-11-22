@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useJobApplication } from "../../contexts/JobApplicationProvider";
 import JobApplicationWizard from "./JobApplicationWizard";
 
-import { GetRiderJobPost200 } from "@/api/models";
+import { GetRiderJobPost200 } from "@/api/backend/models";
 
 vi.mock("react-router-dom", async (importOriginal) => ({
   ...(await importOriginal<typeof import("react-router-dom")>()),

@@ -2,7 +2,7 @@ import SellIcon from "@mui/icons-material/Sell";
 import { Box, Stack, Typography } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
-import { RestaurantResource } from "@/api/models";
+import { RestaurantResource } from "@/api/backend/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 type RestaurantCardImageProps = {

@@ -1,12 +1,12 @@
 import { GridFilterModel, GridSortModel } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 
-import { getPartnerJobApplications } from "@/api/endpoints/partner-job-applications/partner-job-applications";
+import { getPartnerJobApplications } from "@/api/backend/endpoints/partner-job-applications/partner-job-applications";
 import {
   GetPartnerJobApplications200,
   GetPartnerJobApplications500,
   GetPartnerJobApplicationsParams,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

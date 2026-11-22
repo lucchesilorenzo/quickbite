@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-import { OfferResource, RestaurantResource } from "@/api/models";
+import { OfferResource, RestaurantResource } from "@/api/backend/models";
 import { Cart, RestaurantCart } from "@/types/cart.types";
 
 export function getRestaurantOpeningTime(restaurant: RestaurantResource) {

@@ -21,7 +21,7 @@ import { orderStatuses, statusTransitions } from "@rider/lib/data/orders.data";
 
 import { useUpdateDeliveryStatus } from "../../hooks/restaurant/deliveries/useUpdateDeliveryStatus";
 
-import { DeliveryResource, OrderStatus } from "@/api/models";
+import { DeliveryResource, OrderStatus } from "@/api/backend/models";
 
 type SplitButtonProps = {
   delivery: DeliveryResource;

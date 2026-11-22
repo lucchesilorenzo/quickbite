@@ -10,7 +10,7 @@ import RestaurantPage from "./public/RestaurantPage";
 import TermsAndConditionsPage from "./public/TermsAndConditionsPage";
 import BecomeARiderPage from "./public/auth/rider/RiderRegisterPage";
 
-import { UserRole } from "@/api/models";
+import { UserRole } from "@/api/backend/models";
 import AppLayout from "@/layouts/public/AppLayout";
 import AreaLayout from "@/layouts/public/AreaLayout";
 import HomeLayout from "@/layouts/public/HomeLayout";

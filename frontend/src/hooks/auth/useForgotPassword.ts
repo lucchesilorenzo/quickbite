@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPublicAuth } from "@/api/endpoints/public-auth/public-auth";
+import { getPublicAuth } from "@/api/backend/endpoints/public-auth/public-auth";
 import {
   ForgotPassword200,
   ForgotPassword429,
   ForgotPasswordRequest,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

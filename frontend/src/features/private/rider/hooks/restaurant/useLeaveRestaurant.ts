@@ -2,13 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getRiderRestaurant } from "@/api/endpoints/rider-restaurant/rider-restaurant";
+import { getRiderRestaurant } from "@/api/backend/endpoints/rider-restaurant/rider-restaurant";
 import {
   LeaveRiderRestaurant200,
   LeaveRiderRestaurant404,
   LeaveRiderRestaurant409,
   LeaveRiderRestaurant500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

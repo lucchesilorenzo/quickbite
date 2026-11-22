@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getPartnerAuth } from "@/api/endpoints/partner-auth/partner-auth";
-import { LogoutPartner200, LogoutPartner500 } from "@/api/models";
+import { getPartnerAuth } from "@/api/backend/endpoints/partner-auth/partner-auth";
+import { LogoutPartner200, LogoutPartner500 } from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

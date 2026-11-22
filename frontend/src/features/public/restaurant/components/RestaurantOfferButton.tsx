@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 
-import { OfferResource } from "@/api/models";
+import { OfferResource } from "@/api/backend/models";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 

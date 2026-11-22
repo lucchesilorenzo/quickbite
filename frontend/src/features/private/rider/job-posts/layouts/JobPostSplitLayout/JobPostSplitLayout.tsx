@@ -3,7 +3,7 @@ import JobPostCountAndSort from "@rider/job-posts/JobPostCountAndSort";
 import JobPostDetails from "@rider/job-posts/JobPostDetails";
 import JobPostList from "@rider/job-posts/JobPostList";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 import Spinner from "@/components/common/Spinner";
 
 type JobPostSplitLayoutProps = {

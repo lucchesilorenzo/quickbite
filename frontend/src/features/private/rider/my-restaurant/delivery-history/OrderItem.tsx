@@ -1,6 +1,6 @@
 import { Box, Divider, Typography } from "@mui/material";
 
-import { OrderItemResource } from "@/api/models";
+import { OrderItemResource } from "@/api/backend/models";
 
 type OrderItemProps = {
   item: OrderItemResource;

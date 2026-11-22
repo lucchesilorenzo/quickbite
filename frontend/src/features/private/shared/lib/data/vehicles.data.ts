@@ -1,7 +1,7 @@
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import MopedIcon from "@mui/icons-material/Moped";
 
-import { VehicleType } from "@/api/models";
+import { VehicleType } from "@/api/backend/models";
 
 type VehicleIcon = typeof DirectionsCarIcon;
 

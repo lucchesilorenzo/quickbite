@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getCustomerCarts } from "@/api/endpoints/customer-carts/customer-carts";
-import { GetCustomerCarts200, GetCustomerCarts500 } from "@/api/models";
+import { getCustomerCarts } from "@/api/backend/endpoints/customer-carts/customer-carts";
+import { GetCustomerCarts200, GetCustomerCarts500 } from "@/api/backend/models";
 import { useAuth } from "@/contexts/AuthProvider";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";

@@ -1,7 +1,7 @@
 import { Box, MenuItem, Stack, TextField, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import { RestaurantSortBy } from "@/api/models";
+import { RestaurantSortBy } from "@/api/backend/models";
 
 const sortOptions = [
   { value: "best-match", label: "Best match" },

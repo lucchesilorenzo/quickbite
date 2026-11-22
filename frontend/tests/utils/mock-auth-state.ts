@@ -1,4 +1,4 @@
-import { UserRole } from "@/api/models";
+import { UserRole } from "@/api/backend/models";
 import { useAuth } from "@/contexts/AuthProvider";
 import { user } from "../mocks/data/public/users";
 

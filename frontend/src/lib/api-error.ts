@@ -3,7 +3,7 @@ import type {
   AuthorizationExceptionResponse,
   ModelNotFoundExceptionResponse,
   ValidationExceptionResponse,
-} from "@/api/models";
+} from "@/api/backend/models";
 
 /**
  * Error payloads returned by the API.

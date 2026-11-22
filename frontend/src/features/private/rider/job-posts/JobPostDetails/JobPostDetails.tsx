@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 import JobPostDescription from "../JobPostDescription";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 import { formatCurrency } from "@/lib/utils/formatting.utils";

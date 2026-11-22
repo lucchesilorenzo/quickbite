@@ -4,12 +4,12 @@ import {
 } from "@partner/types/stats/stats.types";
 import { useQuery } from "@tanstack/react-query";
 
-import { getPartnerStats } from "@/api/endpoints/partner-stats/partner-stats";
+import { getPartnerStats } from "@/api/backend/endpoints/partner-stats/partner-stats";
 import {
   GetPartnerKpiSummary200,
   GetPartnerKpiSummary500,
   GetPartnerKpiSummaryParams,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

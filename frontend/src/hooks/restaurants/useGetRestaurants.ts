@@ -1,12 +1,12 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { getPublicRestaurants } from "@/api/endpoints/public-restaurants/public-restaurants";
+import { getPublicRestaurants } from "@/api/backend/endpoints/public-restaurants/public-restaurants";
 import {
   GetRestaurants200,
   GetRestaurants500,
   GetRestaurantsMov,
   RestaurantSortBy,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

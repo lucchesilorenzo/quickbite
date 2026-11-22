@@ -1,4 +1,7 @@
-import { CreateJobPostRequest, CreatePartnerJobPost201 } from "@/api/models";
+import {
+  CreateJobPostRequest,
+  CreatePartnerJobPost201,
+} from "@/api/backend/models";
 import { MIN_SALARY } from "@/features/private/shared/lib/data/job-posts.data";
 
 export const addJobPostForm: CreateJobPostRequest = {

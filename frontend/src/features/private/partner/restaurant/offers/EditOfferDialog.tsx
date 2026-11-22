@@ -10,7 +10,7 @@ import {
 
 import EditOfferForm from "./EditOfferForm";
 
-import { OfferResource } from "@/api/models";
+import { OfferResource } from "@/api/backend/models";
 
 type EditOfferDialogProps = {
   offer: OfferResource;

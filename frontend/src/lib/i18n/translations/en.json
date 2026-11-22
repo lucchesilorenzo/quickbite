@@ -1,0 +1,42 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "Optional",
+    "required": "Required",
+    "error": "Error",
+    "success": "Success",
+    "loading": "Loading",
+    "notFound": "Resource not found"
+  },
+  "auth": {
+    "login": "Log in",
+    "register": "Sign up",
+    "logout": "Log out",
+    "forgotPassword": "Forgot password",
+    "resetPassword": "Reset password",
+    "verifyEmail": "Verify email",
+    "email": "Email",
+    "password": "Password",
+    "name": "First name",
+    "lastName": "Last name",
+    "confirmPassword": "Confirm password"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "orders": "Orders",
+    "menu": "Menu",
+    "offers": "Offers",
+    "reviews": "Reviews",
+    "notifications": "Notifications",
+    "profile": "Profile"
+  }
+}

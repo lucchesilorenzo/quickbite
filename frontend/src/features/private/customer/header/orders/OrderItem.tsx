@@ -14,7 +14,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import AddReviewDialog from "./AddReviewDialog";
 import ViewOrderDialog from "./ViewOrderDialog";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 import { useAuth } from "@/contexts/AuthProvider";
 import { formatCurrency } from "@/lib/utils/formatting.utils";

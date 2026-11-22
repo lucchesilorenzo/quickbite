@@ -2,7 +2,7 @@ import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import { Card, CardActionArea, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { RestaurantResource } from "@/api/models";
+import { RestaurantResource } from "@/api/backend/models";
 
 type RestaurantCardProps = {
   restaurant: RestaurantResource;

@@ -9,7 +9,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Button, Rating, Stack, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 
 type AddReviewFormProps = {

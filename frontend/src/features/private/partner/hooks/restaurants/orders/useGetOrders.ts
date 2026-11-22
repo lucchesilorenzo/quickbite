@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPartnerOrders } from "@/api/endpoints/partner-orders/partner-orders";
+import { getPartnerOrders } from "@/api/backend/endpoints/partner-orders/partner-orders";
 import {
   GetPartnerOrders200,
   GetPartnerOrders500,
   GetPartnerOrdersParams,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 import { OrderStatusWithAll } from "@/types/order.types";

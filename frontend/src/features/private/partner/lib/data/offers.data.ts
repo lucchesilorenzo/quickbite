@@ -1,4 +1,4 @@
-import { DiscountRate } from "@/api/models";
+import { DiscountRate } from "@/api/backend/models";
 
 export const discountRates: { value: DiscountRate; label: string }[] = [
   { value: "0.05", label: "5%" },

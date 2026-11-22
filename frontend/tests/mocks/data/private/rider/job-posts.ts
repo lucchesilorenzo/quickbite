@@ -1,6 +1,6 @@
-import { GetRiderJobPost200, GetRiderJobPosts200 } from "@/api/models";
+import { GetRiderJobPost200, GetRiderJobPosts200 } from "@/api/backend/models";
 import { JobPostFilters } from "@/features/private/shared/types/job-posts/job-post.types";
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 import {
   MAX_SALARY,
   MIN_SALARY,

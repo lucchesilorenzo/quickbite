@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getCustomerOrders } from "@/api/endpoints/customer-orders/customer-orders";
+import { getCustomerOrders } from "@/api/backend/endpoints/customer-orders/customer-orders";
 import {
   GetCustomerOrder200,
   GetCustomerOrder404,
   GetCustomerOrder409,
   GetCustomerOrder500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

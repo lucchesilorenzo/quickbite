@@ -10,7 +10,7 @@ import { simulateError, simulateInfiniteLoading } from "@tests/utils/msw";
 
 import EditJobPostForm from "./EditJobPostForm";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 import {
   MAX_SALARY,
   MIN_SALARY,

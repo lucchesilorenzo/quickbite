@@ -1,4 +1,4 @@
-import type { MenuItemResource } from "@/api/models";
+import type { MenuItemResource } from "@/api/backend/models";
 
 /**
  * View model used by menu category navigation components.

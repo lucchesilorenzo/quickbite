@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getRiderAuth } from "@/api/endpoints/rider-auth/rider-auth";
+import { getRiderAuth } from "@/api/backend/endpoints/rider-auth/rider-auth";
 import {
   LoginRider200,
   LoginRider401,
   LoginRider403,
   LoginRider500,
   RiderLoginRequest,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

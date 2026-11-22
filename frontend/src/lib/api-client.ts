@@ -6,6 +6,7 @@ import axios, {
 
 import { ApiError, type ApiErrorData } from "./api-error";
 import env from "./env";
+import i18n from "./i18n";
 
 import { refreshToken } from "@/services/auth.service";
 
@@ -21,6 +22,8 @@ api.interceptors.request.use((config) => {
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
+
+  config.headers["Accept-Language"] = i18n.language ?? "en";
 
   return config;
 });
@@ -57,7 +60,6 @@ api.interceptors.response.use(
 
     if (
       error.response?.status === 401 &&
-      error.response?.data?.message === "Unauthenticated." &&
       !originalRequest._retry &&
       !isRefreshRequest
     ) {

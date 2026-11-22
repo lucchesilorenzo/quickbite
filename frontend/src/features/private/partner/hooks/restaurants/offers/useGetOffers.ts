@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPartnerOffers } from "@/api/endpoints/partner-offers/partner-offers";
-import { GetPartnerOffers200, GetPartnerOffers500 } from "@/api/models";
+import { getPartnerOffers } from "@/api/backend/endpoints/partner-offers/partner-offers";
+import { GetPartnerOffers200, GetPartnerOffers500 } from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getPartnerOffers } from "@/api/endpoints/partner-offers/partner-offers";
+import { getPartnerOffers } from "@/api/backend/endpoints/partner-offers/partner-offers";
 import {
   UpdateOfferRequest,
   UpdatePartnerOffer200,
   UpdatePartnerOffer500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

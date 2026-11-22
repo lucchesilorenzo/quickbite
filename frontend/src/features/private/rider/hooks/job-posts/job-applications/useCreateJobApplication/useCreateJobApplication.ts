@@ -2,12 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getRiderJobApplications } from "@/api/endpoints/rider-job-applications/rider-job-applications";
+import { getRiderJobApplications } from "@/api/backend/endpoints/rider-job-applications/rider-job-applications";
 import {
   CreateJobApplicationRequest,
   CreateRiderJobApplication201,
   CreateRiderJobApplication500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

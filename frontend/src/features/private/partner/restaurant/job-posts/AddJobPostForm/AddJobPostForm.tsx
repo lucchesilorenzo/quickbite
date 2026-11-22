@@ -21,7 +21,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import JobPostEditor from "../job-description-editor/JobPostEditor";
 
-import { EmploymentType, VehicleType } from "@/api/models";
+import { EmploymentType, VehicleType } from "@/api/backend/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";

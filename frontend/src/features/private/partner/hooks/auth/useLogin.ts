@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 import { useNavigate } from "react-router-dom";
 
-import { getPartnerAuth } from "@/api/endpoints/partner-auth/partner-auth";
+import { getPartnerAuth } from "@/api/backend/endpoints/partner-auth/partner-auth";
 import {
   LoginPartner200,
   LoginPartner401,
   LoginPartner403,
   LoginPartner500,
   PartnerLoginRequest,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

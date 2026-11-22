@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 
 import JobPostDetails from "./JobPostDetails";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { vehicles } from "@/features/private/shared/lib/data/vehicles.data";
 

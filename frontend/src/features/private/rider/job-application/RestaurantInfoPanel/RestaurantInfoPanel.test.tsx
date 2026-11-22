@@ -5,7 +5,7 @@ import { customRender } from "@tests/utils/custom-render";
 import { useJobApplication } from "../../contexts/JobApplicationProvider";
 import RestaurantInfoPanel from "./RestaurantInfoPanel";
 
-import { GetRiderJobPost200 } from "@/api/models";
+import { GetRiderJobPost200 } from "@/api/backend/models";
 
 vi.mock("../../contexts/JobApplicationProvider", () => ({
   useJobApplication: vi.fn(),

@@ -1,4 +1,4 @@
-import { OrderStatus } from "@/api/models";
+import { OrderStatus } from "@/api/backend/models";
 
 export const orderStatuses: Partial<
   Record<OrderStatus, { value: string; label: string }>

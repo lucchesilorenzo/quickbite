@@ -10,7 +10,7 @@ import {
 
 import EditMenuItemForm from "./EditMenuItemForm";
 
-import { MenuItemResource } from "@/api/models";
+import { MenuItemResource } from "@/api/backend/models";
 
 type EditMenuItemDialogProps = {
   menuItem: MenuItemResource;

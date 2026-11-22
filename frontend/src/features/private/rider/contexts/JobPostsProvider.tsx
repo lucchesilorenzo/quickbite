@@ -16,7 +16,7 @@ import {
   GetRiderJobPosts200,
   JobPostResource,
   RestaurantSortBy,
-} from "@/api/models";
+} from "@/api/backend/models";
 import {
   MAX_SALARY,
   MIN_SALARY,

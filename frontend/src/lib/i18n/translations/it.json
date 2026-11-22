@@ -1,0 +1,42 @@
+{
+  "common": {
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "close": "Chiudi",
+    "back": "Indietro",
+    "next": "Avanti",
+    "continue": "Continua",
+    "confirm": "Conferma",
+    "yes": "Sì",
+    "no": "No",
+    "optional": "Facoltativo",
+    "required": "Obbligatorio",
+    "error": "Errore",
+    "success": "Successo",
+    "loading": "Caricamento in corso",
+    "notFound": "Risorsa non trovata"
+  },
+  "auth": {
+    "login": "Accedi",
+    "register": "Registrati",
+    "logout": "Esci",
+    "forgotPassword": "Password dimenticata",
+    "resetPassword": "Reimposta password",
+    "verifyEmail": "Verifica email",
+    "email": "Email",
+    "password": "Password",
+    "name": "Nome",
+    "lastName": "Cognome",
+    "confirmPassword": "Conferma password"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "orders": "Ordini",
+    "menu": "Menu",
+    "offers": "Offerte",
+    "reviews": "Recensioni",
+    "notifications": "Notifiche",
+    "profile": "Profilo"
+  }
+}

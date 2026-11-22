@@ -26,7 +26,7 @@ import {
   JobPostResource,
   JobPostStatus,
   VehicleType,
-} from "@/api/models";
+} from "@/api/backend/models";
 import FormHelperTextError from "@/components/common/FormHelperTextError";
 import {
   employmentTypes,

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useJobPosts } from "@rider/contexts/JobPostsProvider";
 
-import { JobPostResource } from "@/api/models";
+import { JobPostResource } from "@/api/backend/models";
 import { employmentTypes } from "@/features/private/shared/lib/data/job-posts.data";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 

@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getPublicReviews } from "@/api/endpoints/public-reviews/public-reviews";
-import { GetReviews200, GetReviews404, GetReviews500 } from "@/api/models";
+import { getPublicReviews } from "@/api/backend/endpoints/public-reviews/public-reviews";
+import {
+  GetReviews200,
+  GetReviews404,
+  GetReviews500,
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

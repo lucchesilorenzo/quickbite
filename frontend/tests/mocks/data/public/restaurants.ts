@@ -1,4 +1,4 @@
-import { RestaurantResource } from "@/api/models";
+import { RestaurantResource } from "@/api/backend/models";
 import { category } from "@tests/mocks/data/public/categories";
 import { deliveryDays } from "@tests/mocks/data/public/delivery-days";
 import { apiResponse } from "../shared/common";

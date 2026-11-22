@@ -3,7 +3,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import OrderReceiptToPDF from "../OrderReceiptToPDF";
 
-import { OrderResource } from "@/api/models";
+import { OrderResource } from "@/api/backend/models";
 import { useGetBase64RestaurantLogo } from "@/hooks/restaurants/useGetBase64RestaurantLogo";
 
 type ViewOrderReceiptProps = {

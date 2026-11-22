@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { useGetJobPost } from "../hooks/job-posts/useGetJobPost";
 
-import { GetRiderJobPost200 } from "@/api/models";
+import { GetRiderJobPost200 } from "@/api/backend/models";
 
 type JobApplicationProviderProps = {
   children: React.ReactNode;

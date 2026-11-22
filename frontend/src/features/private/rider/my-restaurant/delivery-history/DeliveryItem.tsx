@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import OrderItemsDetails from "./OrderItemsDetails";
 import SplitButton from "./SplitButton";
 
-import { DeliveryResource } from "@/api/models";
+import { DeliveryResource } from "@/api/backend/models";
 import OrderStatusBadge from "@/components/common/OrderStatusBadge";
 
 type DeliveryItemProps = {

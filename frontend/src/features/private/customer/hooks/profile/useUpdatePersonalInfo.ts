@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNotifications } from "@toolpad/core/useNotifications";
 
-import { getCustomerProfile } from "@/api/endpoints/customer-profile/customer-profile";
+import { getCustomerProfile } from "@/api/backend/endpoints/customer-profile/customer-profile";
 import {
   UpdateCustomerPersonalInfo200,
   UpdateCustomerPersonalInfo500,
   UpdatePersonalInfoRequest,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

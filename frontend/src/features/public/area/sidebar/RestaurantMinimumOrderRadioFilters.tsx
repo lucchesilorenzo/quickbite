@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import { GetRestaurantsMov } from "@/api/models";
+import { GetRestaurantsMov } from "@/api/backend/models";
 import HeadingWithTooltip from "@/components/common/HeadingWithTooltip";
 import { useRestaurants } from "@/contexts/RestaurantsProvider";
 

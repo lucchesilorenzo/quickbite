@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getRiderNotifications } from "@/api/endpoints/rider-notifications/rider-notifications";
+import { getRiderNotifications } from "@/api/backend/endpoints/rider-notifications/rider-notifications";
 import {
   GetRiderNotifications200,
   GetRiderNotifications500,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

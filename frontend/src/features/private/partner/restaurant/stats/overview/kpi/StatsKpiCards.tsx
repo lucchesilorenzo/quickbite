@@ -3,7 +3,7 @@ import { useStats } from "@partner/contexts/StatsProvider";
 
 import StatsKpiCard from "./StatsKpiCard";
 
-import { Kpi } from "@/api/models";
+import { Kpi } from "@/api/backend/models";
 import { formatCurrency } from "@/lib/utils/formatting.utils";
 
 export default function StatsKpiCards() {

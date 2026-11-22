@@ -1,4 +1,4 @@
-import { CartItemResource } from "@/api/models";
+import { CartItemResource } from "@/api/backend/models";
 import { Cart } from "@/types/cart.types";
 import { restaurant } from "@tests/mocks/data/public/restaurants";
 

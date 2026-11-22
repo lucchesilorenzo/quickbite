@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-import { UserRole } from "@/api/models";
+import { UserRole } from "@/api/backend/models";
 import { useAuth } from "@/contexts/AuthProvider";
 import {
   hasRole,

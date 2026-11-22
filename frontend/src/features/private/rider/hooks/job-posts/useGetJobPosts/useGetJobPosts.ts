@@ -1,13 +1,13 @@
 import { EmploymentTypeWithAll } from "@private/shared/types/job-posts/job-post.types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { getRiderJobPosts } from "@/api/endpoints/rider-job-posts/rider-job-posts";
+import { getRiderJobPosts } from "@/api/backend/endpoints/rider-job-posts/rider-job-posts";
 import {
   GetRiderJobPosts200,
   GetRiderJobPosts500,
   GetRiderJobPostsParams,
   GetRiderJobPostsSortBy,
-} from "@/api/models";
+} from "@/api/backend/models";
 import api from "@/lib/api-client";
 import { ApiError } from "@/lib/api-error";
 

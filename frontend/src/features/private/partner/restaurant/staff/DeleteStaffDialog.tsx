@@ -13,7 +13,7 @@ import { useRestaurant } from "@partner/contexts/RestaurantProvider";
 
 import { useDeleteStaffMember } from "../../hooks/restaurants/staff/useDeleteStaffMember";
 
-import { UserResource } from "@/api/models";
+import { UserResource } from "@/api/backend/models";
 
 type DeleteStaffDialogProps = {
   staffMember?: UserResource;

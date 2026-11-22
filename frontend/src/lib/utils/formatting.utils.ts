@@ -1,4 +1,4 @@
-import { UserResource } from "@/api/models";
+import { UserResource } from "@/api/backend/models";
 
 export function generateSlug(text: string) {
   return text

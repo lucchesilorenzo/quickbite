@@ -10,7 +10,7 @@ import {
   CartItemResource,
   MenuItemResource,
   RestaurantResource,
-} from "@/api/models";
+} from "@/api/backend/models";
 import FullPageSpinner from "@/components/common/FullPageSpinner";
 import { isCustomer } from "@/lib/utils/auth.utils";
 import { addRestaurantIdAsKey } from "@/lib/utils/restaurants.utils";

@@ -13,7 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { CartItemResource, MenuItemResource } from "@/api/models";
+import { CartItemResource, MenuItemResource } from "@/api/backend/models";
 import { useRestaurant } from "@/contexts/RestaurantProvider";
 
 type MenuItemInfoDialogProps = {
